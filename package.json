@@ -15,7 +15,7 @@
   },
   "publishConfig": {
     "registry": "http://npmjs.dev:4873/"
-  }
+  },
   "bugs": {
     "url": "https://gitlab.kancelar.seznam.cz/IMA.js/module-analytic/issues"
   },
