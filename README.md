@@ -1,5 +1,9 @@
 # ima.js-module-analytic
 
+If you are looking more details, you should
+follow this link:
+[https://gitlab.kancelar.seznam.cz/IMA.js/module-analytic](https://gitlab.kancelar.seznam.cz/IMA.js/module-analytic).
+
 ## Installation
 
 ```javascript
