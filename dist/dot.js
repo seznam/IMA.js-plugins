@@ -16,11 +16,11 @@ var _abstractJs2 = _interopRequireDefault(_abstractJs);
  * Dot
  *
  * @class Dot
- * @namespace Seznam.Analytic
- * @module Seznam
- * @submodule Seznam.Analytic
+ * @namespace Module.Analytic
+ * @module Module
+ * @submodule Module.Analytic
  *
- * @extends Seznam.Analytic.Abstract
+ * @extends Module.Analytic.Abstract
  */
 
 var Dot = (function (_Abstract) {
@@ -30,13 +30,31 @@ var Dot = (function (_Abstract) {
   * @method constructor
   * @constructor
   * @param {Core.Interface.Window} window
+  * @param {Core.Interface.Dispatcher} dispatcher
+  * @param {Object<string, string>} EVENTS
+  * @param {Object<string, *>} config
   */
 
-	function Dot(window) {
+	function Dot(window, dispatcher, EVENTS, config) {
 		_classCallCheck(this, Dot);
 
-		_Abstract.call(this, window);
+		_Abstract.call(this, window, dispatcher, EVENTS, config);
 	}
+
+	/**
+  * Install analytic script to page.
+  *
+  * @method install
+  * @param {string} [url='//h.imedia.cz/js/dot-small.js']
+  * @param {string} [id='dot']
+  */
+
+	Dot.prototype.install = function install() {
+		var url = arguments.length <= 0 || arguments[0] === undefined ? '//h.imedia.cz/js/dot-small.js' : arguments[0];
+		var id = arguments.length <= 1 || arguments[1] === undefined ? 'DOT' : arguments[1];
+
+		_Abstract.prototype.install.call(this, url, id);
+	};
 
 	/**
   * Returns data-dot-data structure for element from defined params.
@@ -81,12 +99,10 @@ var Dot = (function (_Abstract) {
   */
 
 	Dot.prototype.hit = function hit(data) {
-		if (this._enable) {
-			this._window.getWindow().DOT.hit('event', data);
+		if (this.isEnabled()) {
+			this._window.getWindow().DOT.hit('event', { d: data });
 		} else {
-			this._configurationAnalyst();
 			this._deferHit(data);
-			this._deferAttemptToFlushStorage();
 		}
 	};
 
@@ -112,16 +128,17 @@ var Dot = (function (_Abstract) {
   *
   * @override
   * @protected
-  * @method _setConfiguration
+  * @method _configuration
   */
 
-	Dot.prototype._configurationAnalyst = function _configurationAnalyst() {
-		if (!this._window.isClient() || !this._window.getWindow().DOT || !this._serviceId || this._enable) {
+	Dot.prototype._configuration = function _configuration() {
+		if (!this._window.isClient() || !this._window.getWindow().DOT || !this._config.service || this.isEnabled()) {
 			return;
 		}
 
 		this._enable = true;
-		this._window.getWindow().DOT.cfg({ service: this._serviceId });
+		this._window.getWindow().DOT.cfg(this._config);
+		this._dispatcher.fire(this._EVENTS.LOADED, { type: 'dot' }, true);
 	};
 
 	return Dot;

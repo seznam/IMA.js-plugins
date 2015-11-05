@@ -1,10 +1,10 @@
 /**
- * Abstract analytic class.
+ * Abstract analytic class
  *
  * @class Abstract
- * @namespace Seznam.Analytic
- * @module Seznam
- * @submodule Seznam.Analytic
+ * @namespace Module.Analytic
+ * @module Module
+ * @submodule Module.Analytic
  */
 export default class Abstract {
 
@@ -12,8 +12,11 @@ export default class Abstract {
 	 * @method constructor
 	 * @constructor
 	 * @param {Core.Interface.Window} window
+	 * @param {Core.Interface.Dispatcher} dispatcher
+	 * @param {Object<string, string>} EVENTS
+	 * @param {Object<string, *>} config
 	 */
-	constructor(window) {
+	constructor(window, dispatcher, EVENTS, config) {
 
 		/**
 		 * IMA.js Window
@@ -25,13 +28,31 @@ export default class Abstract {
 		this._window = window;
 
 		/**
-		 * Service id.
+		 * IMA.js Dispatcher
+		 *
+		 * @private
+		 * @property _dispatcher
+		 * @type {Core.Interface.Dispatcher}
+		 */
+		this._dispatcher = dispatcher;
+
+		/**
+		 * Analytic defined EVENTS.
+		 *
+		 * @const
+		 * @property _EVENTS
+		 * @type {Object<string, string>}
+		 */
+		this._EVENTS = EVENTS;
+
+		/**
+		 * Analytic config
 		 *
 		 * @protected
-		 * @property _serviceId
-		 * @type {(string|null)}
+		 * @property _config
+		 * @type {(Object<string, *>)}
 		 */
-		this._serviceId = null;
+		this._config = config;
 
 		/**
 		 * Storage where we store hits for unprepared analytic.
@@ -40,7 +61,7 @@ export default class Abstract {
 		 * @property _storage
 		 * @type {Array<Object<string, *>>}
 		 */
-		this._storage = [];
+		this._storageOfHits = [];
 
 		/**
 		 * If flag has value true then analytic is enable for hit events.
@@ -52,34 +73,106 @@ export default class Abstract {
 		this._enable = false;
 
 		/**
+		 * Timer for trying flush storage.
+		 *
+		 * @private
+		 * @property _timerFlushStorage
+		 */
+		this._timerFlushStorage = null;
+
+		/**
+		 * Timer for trying configuration analytic.
+		 *
+		 * @private
+		 * @property _timerConfiguration
+		 */
+		this._timerConfiguration = null;
+
+		/**
 		 * Defined max storage size.
 		 *
 		 * @const
 		 * @property MAX_STORAGE_SIZE
 		 * @type {number}
 		 */
-		this.MAX_STORAGE_SIZE = 20;
+		this.MAX_STORAGE_SIZE = 25;
 
 		/**
-		 * Defined interval for attempt to flush storage.
+		 * Defined interval for attempt to configuration analytic.
 		 *
 		 * @protected
-		 * @property INTERVAL_FOR_ATTEMPT_FLUSH_STORAGE
+		 * @property INTERVAL_FOR_ATTEMPT_CONFIGURATION
 		 * @type {number}
 		 */
-		this.INTERVAL_FOR_ATTEMPT_FLUSH_STORAGE = 2500;
+		this.INTERVAL_FOR_ATTEMPT_CONFIGURATION = 25;
+
+		/**
+		 * Module prefix id for loading analytic script to page.
+		 *
+		 * @protected
+		 * @property PREFIX_ID
+		 * @type {string}
+		 */
+		this.PREFIX_ID = 'ModuleIMAjsAnalytic';
+
 	}
 
 	/**
 	 * Initialization analytic.
 	 *
 	 * @method init
-	 * @param {string} serviceId
 	 */
-	init(serviceId) {
-		this._serviceId = serviceId;
+	init() {
+		this._configuration();
 
-		this._configurationAnalyst();
+		if (!this.isEnabled() && this._window.isClient()) {
+			this._deferAttemptToConfiguration();
+		}
+	}
+
+	/**
+	 * Load analytic script to page.
+	 *
+	 * @method install
+	 * @param {string} url
+	 * @param {string} id
+	 */
+	install(url, id) {
+		if (this._window.isClient()) {
+			var window = this._window.getWindow();
+			var scriptId = this.PREFIX_ID + id;
+			var script = this._window.getElementById(scriptId);
+
+			if (!script) {
+				script = document.createElement('script');
+				script.setAttribute('id', scriptId);
+
+				script.innerHTML = this.getTemplate(url, id);
+
+				var firstScript = this._window.querySelectorAll('script')[0];
+				firstScript.parentNode.insertBefore(script, firstScript);
+			}
+		}
+	}
+
+	/**
+	 * Returns template for loading script async.
+	 *
+	 * @method getTemplate
+	 * @param {string} url
+	 * @param {string} id
+	 * @return {string}
+	 */
+	getTemplate(url, id) {
+		var template = `(function(win,doc,tag,url,id){` +
+				`var script = doc.createElement(tag);` +
+				`var firstScript = doc.getElementsByTagName(tag)[0];` +
+				`script.async = 1;` +
+				`script.src = url;` +
+				`firstScript.parentNode.insertBefore(script, firstScript);` +
+				`})(window,document,'script','${url}', '${id}')`;
+
+		return template;
 	}
 
 	/**
@@ -123,8 +216,8 @@ export default class Abstract {
 	 * @param {Object<string, *>} data
 	 */
 	_deferHit(data) {
-		if (this._storage.length <= this.MAX_STORAGE_SIZE) {
-			this._storage.push(data);
+		if (this._storageOfHits.length <= this.MAX_STORAGE_SIZE) {
+			this._storageOfHits.push(data);
 		}
 	}
 
@@ -132,10 +225,10 @@ export default class Abstract {
 	 * Configuration DOT analyst
 	 *
 	 * @protected
-	 * @method _setConfiguration
+	 * @method _configuration
 	 */
-	_configurationAnalyst() {
-		throw new Error('The _configurationAnalyst() method is abstract and must be ' +
+	_configuration() {
+		throw new Error('The _configuration() method is abstract and must be ' +
 				'overridden.');
 	}
 
@@ -146,30 +239,30 @@ export default class Abstract {
 	 * @method _flushStorage
 	 */
 	_flushStorage() {
-		for(let data of this._storage) {
+		for(let data of this._storageOfHits) {
 			this.hit(data);
 		}
 
-		this._storage = [];
+		this._storageOfHits = [];
 	}
 
 	/**
-	 * Set new timeout for attempt re-hit data and flush storage.
+	 * Set new timeout for attempt configuration analytic.
 	 *
 	 * @protected
-	 * @method _deferAttemptToFlushStorage
+	 * @method _deferAttemptToConfiguration
 	 */
-	_deferAttemptToFlushStorage() {
-		clearTimeout(this._timer);
+	_deferAttemptToConfiguration() {
+		clearTimeout(this._timerConfiguration);
 
-		this._timer = setTimeout(() => {
-			this._configurationAnalyst();
+		this._timerConfiguration = setTimeout(() => {
+			this._configuration();
 
 			if (this.isEnabled()) {
 				this._flushStorage();
 			} else {
-				this._deferAttemptToFlushStorage();
+				this._deferAttemptToConfiguration();
 			}
-		}, this.INTERVAL_FOR_ATTEMPT_FLUSH_STORAGE);
+		}, this.INTERVAL_FOR_ATTEMPT_CONFIGURATION);
 	}
 }

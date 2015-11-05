@@ -16,11 +16,11 @@ var _abstractJs2 = _interopRequireDefault(_abstractJs);
  * Google
  *
  * @class Google
- * @namespace Seznam.Analytic
- * @module Seznam
- * @submodule Sezna.Analytic
+ * @namespace Module.Analytic
+ * @module Module
+ * @submodule Module.Analytic
  *
- * @extends Seznam.Analytic.Abstract
+ * @extends Module.Analytic.Abstract
  */
 
 var Google = (function (_Abstract) {
@@ -30,13 +30,48 @@ var Google = (function (_Abstract) {
   * @method constructor
   * @constructor
   * @param {Core.Interface.Window} window
+  * @param {Core.Interface.Dispatcher} dispatcher
+  * @param {Object<string, string>} EVENTS
+  * @param {Object<string, *>} config
   */
 
-	function Google(window) {
+	function Google(window, dispatcher, EVENTS, config) {
 		_classCallCheck(this, Google);
 
-		_Abstract.call(this, window);
+		_Abstract.call(this, window, dispatcher, EVENTS, config);
 	}
+
+	/**
+  * Install analytic script to page.
+  *
+  * @method install
+  * @param {string} [url='//www.google-analytics.com/analytics.js']
+  * @param {string} [id='ga']
+  */
+
+	Google.prototype.install = function install() {
+		var url = arguments.length <= 0 || arguments[0] === undefined ? '//www.google-analytics.com/analytics.js' : arguments[0];
+		var id = arguments.length <= 1 || arguments[1] === undefined ? 'ga' : arguments[1];
+
+		_Abstract.prototype.install.call(this, url, id);
+
+		this._window.getWindow().ga('create', this._config.service, 'auto');
+	};
+
+	/**
+  * Returns template for loading script async.
+  *
+  * @method getTemplate
+  * @param {string} url
+  * @param {string} id
+  * @return {string}
+  */
+
+	Google.prototype.getTemplate = function getTemplate(url, id) {
+		var template = '(function(win,doc,tag,url,id){' + 'win[id] = win[id] || function() {' + 'win[id].q = win[id].q || [];' + 'win[id].q.push(arguments);' + '};' + 'win[id].l = 1*new Date();' + 'var script = doc.createElement(tag);' + 'var firstScript = doc.getElementsByTagName(tag)[0];' + 'script.async = 1;' + 'script.src = url;' + 'firstScript.parentNode.insertBefore(script, firstScript);' + ('})(window,document,\'script\',\'' + url + '\', \'' + id + '\')');
+
+		return template;
+	};
 
 	/**
   * Hit event to analytic with defined data. If analytic is not configured then
@@ -48,12 +83,8 @@ var Google = (function (_Abstract) {
   */
 
 	Google.prototype.hit = function hit(data) {
-		if (this._enable) {
+		if (this.isEnabled()) {
 			this._window.getWindow().ga('send', 'event', data.category || 'undefined', data.action || 'undefined', data.label, data.value, data.fields);
-		} else {
-			this._configurationAnalyst();
-			this._deferHit(data);
-			this._deferAttemptToFlushStorage();
 		}
 	};
 
@@ -65,7 +96,7 @@ var Google = (function (_Abstract) {
   */
 
 	Google.prototype.hitPageView = function hitPageView(pageData) {
-		if (this._enable) {
+		if (this.isEnabled()) {
 			this._window.getWindow().ga('set', 'page', pageData.path);
 			this._window.getWindow().ga('send', 'pageview');
 		}
@@ -76,15 +107,16 @@ var Google = (function (_Abstract) {
   *
   * @override
   * @protected
-  * @method _setConfiguration
+  * @method _configuration
   */
 
-	Google.prototype._configurationAnalyst = function _configurationAnalyst() {
-		if (!this._window.isClient() || !this._window.getWindow().ga || typeof this._window.getWindow().ga !== 'function' || this._enable) {
+	Google.prototype._configuration = function _configuration() {
+		if (!this._window.isClient() || !this._window.getWindow().ga || typeof this._window.getWindow().ga !== 'function' || this.isEnabled()) {
 			return;
 		}
 
 		this._enable = true;
+		this._dispatcher.fire(this._EVENTS.LOADED, { type: 'google' }, true);
 	};
 
 	return Google;

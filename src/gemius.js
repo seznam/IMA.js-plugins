@@ -1,16 +1,16 @@
 import Abstract from './abstract.js';
 
 /**
- * Google
+ * Gemius
  *
- * @class Google
+ * @class Gemius
  * @namespace Module.Analytic
- * @module Module
+ * @module Seznma
  * @submodule Module.Analytic
  *
  * @extends Module.Analytic.Abstract
  */
-export default class Google extends Abstract {
+export default class Gemius extends Abstract {
 
 	/**
 	 * @method constructor
@@ -28,13 +28,11 @@ export default class Google extends Abstract {
 	 * Install analytic script to page.
 	 *
 	 * @method install
-	 * @param {string} [url='//www.google-analytics.com/analytics.js']
+	 * @param {string} [url='//gacz.hit.gemius.pl/xgemius.js']
 	 * @param {string} [id='ga']
 	 */
-	install(url = '//www.google-analytics.com/analytics.js', id = 'ga') {
+	install(url = '//gacz.hit.gemius.pl/xgemius.js', id = 'gemius') {
 		super.install(url, id);
-
-		this._window.getWindow().ga('create', this._config.service, 'auto');
 	}
 
 	/**
@@ -47,11 +45,15 @@ export default class Google extends Abstract {
 	 */
 	getTemplate(url, id) {
 		var template = `(function(win,doc,tag,url,id){` +
-				`win[id] = win[id] || function() {` +
-				`win[id].q = win[id].q || [];` +
-				`win[id].q.push(arguments);` +
-				`};` +
-				`win[id].l = 1*new Date();` +
+				`function gemiusPending(name) {` +
+				`win[name] = win[name] || function() {` +
+				`win[name + '_pdata'] = win[name + '_pdata'] || [];` +
+				`win[name + '_pdata'].push(arguments);` +
+				`};}` +
+				`gemiusPending(id + '_hit'); ` +
+				`gemiusPending(id + '_event'); ` +
+				`gemiusPending('pp_' + id + '_hit'); ` +
+				`gemiusPending('pp_' + id + '_event'); ` +
 				`var script = doc.createElement(tag);` +
 				`var firstScript = doc.getElementsByTagName(tag)[0];` +
 				`script.async = 1;` +
@@ -72,7 +74,22 @@ export default class Google extends Abstract {
 	 */
 	hit(data) {
 		if (this.isEnabled()) {
-			this._window.getWindow().ga('send', 'event', data.category || 'undefined', data.action || 'undefined', data.label, data.value, data.fields);
+			var identifier = data.identifier;
+
+			if (identifier) {
+
+				if (data.parameters) {
+					var parameters = Array.isArray(data.parameters) ? data.parameters : [data.parameters];
+
+					this._window.getWindow().pp_gemius_event(identifier, parameters);
+				} else {
+					this._window.getWindow().pp_gemius_hit(identifier);
+				}
+
+			} else {
+				console.warn('App.Service.Analytic:hit accept as argument object with {identifier, parameters=}. Your identifier is undefined.');
+			}
+
 		}
 	}
 
@@ -84,8 +101,15 @@ export default class Google extends Abstract {
 	 */
 	hitPageView(pageData) {
 		if (this.isEnabled()) {
-			this._window.getWindow().ga('set', 'page', pageData.path);
-			this._window.getWindow().ga('send', 'pageview');
+			var routeName = pageData.route.getName();
+			var data = this._config.routes[routeName];
+
+			if (data) {
+				this.hit(data);
+			} else {
+				console.warn(`App.Service.Analytic:hitPageView don't find route name for gemius config routes. Define route name "${routeName}" to your settings.js.`);
+			}
+
 		}
 	}
 
@@ -98,13 +122,15 @@ export default class Google extends Abstract {
 	 */
 	_configuration() {
 		if (!this._window.isClient() ||
-				!this._window.getWindow().ga ||
-				typeof this._window.getWindow().ga !== 'function' ||
+				!this._window.getWindow().pp_gemius_hit ||
+				!this._window.getWindow().pp_gemius_event ||
+				typeof this._window.getWindow().pp_gemius_hit !== 'function' ||
+				typeof this._window.getWindow().pp_gemius_event !== 'function' ||
 				this.isEnabled()) {
 			return;
 		}
 
 		this._enable = true;
-		this._dispatcher.fire(this._EVENTS.LOADED, { type: 'google' }, true);
+		this._dispatcher.fire(this._EVENTS.LOADED, { type: 'gemius' }, true);
 	}
 }

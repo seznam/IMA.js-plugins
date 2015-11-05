@@ -4,11 +4,11 @@ import Abstract from './abstract.js';
  * Dot
  *
  * @class Dot
- * @namespace Seznam.Analytic
- * @module Seznam
- * @submodule Seznam.Analytic
+ * @namespace Module.Analytic
+ * @module Module
+ * @submodule Module.Analytic
  *
- * @extends Seznam.Analytic.Abstract
+ * @extends Module.Analytic.Abstract
  */
 export default class Dot extends Abstract {
 
@@ -16,9 +16,23 @@ export default class Dot extends Abstract {
 	 * @method constructor
 	 * @constructor
 	 * @param {Core.Interface.Window} window
+	 * @param {Core.Interface.Dispatcher} dispatcher
+	 * @param {Object<string, string>} EVENTS
+	 * @param {Object<string, *>} config
 	 */
-	constructor(window) {
-		super(window);
+	constructor(window, dispatcher, EVENTS, config) {
+		super(window, dispatcher, EVENTS, config);
+	}
+
+	/**
+	 * Install analytic script to page.
+	 *
+	 * @method install
+	 * @param {string} [url='//h.imedia.cz/js/dot-small.js']
+	 * @param {string} [id='dot']
+	 */
+	install(url = '//h.imedia.cz/js/dot-small.js', id = 'DOT') {
+		super.install(url, id);
 	}
 
 	/**
@@ -49,12 +63,10 @@ export default class Dot extends Abstract {
 	 * @param {Object<string, *>} data
 	 */
 	hit(data) {
-		if (this._enable) {
-			this._window.getWindow().DOT.hit('event', data);
+		if (this.isEnabled()) {
+			this._window.getWindow().DOT.hit('event', { d: data });
 		} else {
-			this._configurationAnalyst();
 			this._deferHit(data);
-			this._deferAttemptToFlushStorage();
 		}
 	}
 
@@ -79,17 +91,18 @@ export default class Dot extends Abstract {
 	 *
 	 * @override
 	 * @protected
-	 * @method _setConfiguration
+	 * @method _configuration
 	 */
-	_configurationAnalyst() {
+	_configuration() {
 		if (!this._window.isClient() ||
-			!this._window.getWindow().DOT ||
-			!this._serviceId ||
-			this._enable) {
+				!this._window.getWindow().DOT ||
+				!this._config.service ||
+				this.isEnabled()) {
 			return;
 		}
 
 		this._enable = true;
-		this._window.getWindow().DOT.cfg({ service: this._serviceId });
+		this._window.getWindow().DOT.cfg(this._config);
+		this._dispatcher.fire(this._EVENTS.LOADED, { type: 'dot' }, true);
 	}
 }

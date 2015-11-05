@@ -1,6 +1,6 @@
 {
-  "name": "IMA.js-module-analytic",
-  "version": "0.0.4",
+  "name": "ima.js-module-analytic",
+  "version": "0.1.1",
   "description": "Seznam IMA.js module analytic",
   "scripts": {},
   "keywords": [
@@ -14,7 +14,7 @@
     "url": "https://gitlab.kancelar.seznam.cz/IMA.js/module-analytic.git"
   },
   "publishConfig": {
-    "registry": "http://npmjs.dev:4873/"
+    "registry": "http://npmjs.dev/"
   },
   "bugs": {
     "url": "https://gitlab.kancelar.seznam.cz/IMA.js/module-analytic/issues"
