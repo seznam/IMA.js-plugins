@@ -84,6 +84,7 @@ oc.bind('GemiusAnalytic', ns.Module.Analytic.Gemius, ['$Window', '$Dispatcher', 
 ```javascript
 // /app/config/services.js
 
+var $window = oc.get('$Window');
 var $dispatcher = oc.get('$Dispatcher');
 var dotAnalytic = oc.get('DotAnalytic');
 var googleAnalytic = oc.get('GoogleAnalytic');
