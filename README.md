@@ -76,13 +76,16 @@ if ($window.isClient()) {
 
 	//set hitting page view to analytics
 	$dispatcher.listen(ns.Core.Router.EVENTS.AFTER_HANDLE_ROUTE, (pageData) => {
+
 		if (pageData &&
 				pageData.response &&
 				(pageData.response.status >= 200 &&
 				pageData.response.status < 300)) {
-			dot.hitPageView(pageData);
-			ga.hitPageView(pageData);
-			gemius.hitPageView(pageData);
+
+			dotAnalytic.hitPageView(pageData);
+			googleAnalytic.hitPageView(pageData);
+			gemiusAnalytic.hitPageView(pageData);
+
 		} else {
 
 			// hit error to google analytic
