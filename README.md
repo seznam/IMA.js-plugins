@@ -12,9 +12,33 @@ npm install ima.js-module-analytic --save
 
 ```
 
+```javascript
+// /app/vendor.js
+
+var moduleAnalytic = require('ima.js-module-analytic');
+.
+.
+.
+vendorApp.set('ModuleAnalytic', moduleAnalytic);
+
+/*
+Now is ModuleAnalytic available from:
+
+ns.Module.Analytic.Dot
+ns.Module.Analytic.Google
+ns.Module.Analytic.Gemius
+ns.Module.Analytic.EVENTS
+ns.Module.Analytic.Abstract
+
+import { Dot, Google, Gemius, EVENTS, Abstract } from 'module/analytic';
+import { ModuleAnalytic } from 'app/vendor';
+*/
+
+```
+
 
 ```javascript
-//settings.js
+// /app/config/settings.js
 
 prod: {
 	$Http: { ... },
@@ -46,7 +70,7 @@ prod: {
 ```
 
 ```javascript
-//bind.js
+// /app/config/bind.js
 
 oc.constant('DOT_ANALYTIC_CONFIG', config.Module.Analytic.Dot);
 oc.constant('GOOGLE_ANALYTIC_CONFIG', config.Module.Analytic.Google);
@@ -58,7 +82,7 @@ oc.bind('GemiusAnalytic', ns.Module.Analytic.Gemius, ['$Window', '$Dispatcher', 
 ```
 
 ```javascript
-//services.js
+// /app/config/services.js
 
 var $dispatcher = oc.get('$Dispatcher');
 var dotAnalytic = oc.get('DotAnalytic');
