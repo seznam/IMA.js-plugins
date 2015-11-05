@@ -1,6 +1,6 @@
 # ima.js-module-analytic
 
-## Install
+## Installation
 
 ```javascript
 
