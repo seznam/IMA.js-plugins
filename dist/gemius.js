@@ -42,21 +42,6 @@ var Gemius = (function (_Abstract) {
 	}
 
 	/**
-  * Install analytic script to page.
-  *
-  * @method install
-  * @param {string} [url='//gacz.hit.gemius.pl/xgemius.js']
-  * @param {string} [id='ga']
-  */
-
-	Gemius.prototype.install = function install() {
-		var url = arguments.length <= 0 || arguments[0] === undefined ? '//gacz.hit.gemius.pl/xgemius.js' : arguments[0];
-		var id = arguments.length <= 1 || arguments[1] === undefined ? 'gemius' : arguments[1];
-
-		_Abstract.prototype.install.call(this, url, id);
-	};
-
-	/**
   * Returns template for loading script async.
   *
   * @method getTemplate
@@ -117,6 +102,21 @@ var Gemius = (function (_Abstract) {
 				console.warn('App.Service.Analytic:hitPageView don\'t find route name for gemius config routes. Define route name "' + routeName + '" to your settings.js.');
 			}
 		}
+	};
+
+	/**
+  * Install analytic script to page.
+  *
+  * @method _install
+  * @param {string} [url='//gacz.hit.gemius.pl/xgemius.js']
+  * @param {string} [id='ga']
+  */
+
+	Gemius.prototype._install = function _install() {
+		var url = arguments.length <= 0 || arguments[0] === undefined ? '//gacz.hit.gemius.pl/xgemius.js' : arguments[0];
+		var id = arguments.length <= 1 || arguments[1] === undefined ? 'gemius' : arguments[1];
+
+		_Abstract.prototype._install.call(this, url, id);
 	};
 
 	/**

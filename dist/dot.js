@@ -42,21 +42,6 @@ var Dot = (function (_Abstract) {
 	}
 
 	/**
-  * Install analytic script to page.
-  *
-  * @method install
-  * @param {string} [url='//h.imedia.cz/js/dot-small.js']
-  * @param {string} [id='dot']
-  */
-
-	Dot.prototype.install = function install() {
-		var url = arguments.length <= 0 || arguments[0] === undefined ? '//h.imedia.cz/js/dot-small.js' : arguments[0];
-		var id = arguments.length <= 1 || arguments[1] === undefined ? 'DOT' : arguments[1];
-
-		_Abstract.prototype.install.call(this, url, id);
-	};
-
-	/**
   * Returns data-dot-data structure for element from defined params.
   *
   * @method getDotDataForElement
@@ -121,6 +106,21 @@ var Dot = (function (_Abstract) {
 		};
 
 		this.hit(data);
+	};
+
+	/**
+  * Install analytic script to page.
+  *
+  * @method _install
+  * @param {string} [url='//h.imedia.cz/js/dot-small.js']
+  * @param {string} [id='dot']
+  */
+
+	Dot.prototype._install = function _install() {
+		var url = arguments.length <= 0 || arguments[0] === undefined ? '//h.imedia.cz/js/dot-small.js' : arguments[0];
+		var id = arguments.length <= 1 || arguments[1] === undefined ? 'DOT' : arguments[1];
+
+		_Abstract.prototype._install.call(this, url, id);
 	};
 
 	/**

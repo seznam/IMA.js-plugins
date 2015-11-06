@@ -42,23 +42,6 @@ var Google = (function (_Abstract) {
 	}
 
 	/**
-  * Install analytic script to page.
-  *
-  * @method install
-  * @param {string} [url='//www.google-analytics.com/analytics.js']
-  * @param {string} [id='ga']
-  */
-
-	Google.prototype.install = function install() {
-		var url = arguments.length <= 0 || arguments[0] === undefined ? '//www.google-analytics.com/analytics.js' : arguments[0];
-		var id = arguments.length <= 1 || arguments[1] === undefined ? 'ga' : arguments[1];
-
-		_Abstract.prototype.install.call(this, url, id);
-
-		this._window.getWindow().ga('create', this._config.service, 'auto');
-	};
-
-	/**
   * Returns template for loading script async.
   *
   * @method getTemplate
@@ -100,6 +83,23 @@ var Google = (function (_Abstract) {
 			this._window.getWindow().ga('set', 'page', pageData.path);
 			this._window.getWindow().ga('send', 'pageview');
 		}
+	};
+
+	/**
+  * Install analytic script to page.
+  *
+  * @method _install
+  * @param {string} [url='//www.google-analytics.com/analytics.js']
+  * @param {string} [id='ga']
+  */
+
+	Google.prototype._install = function _install() {
+		var url = arguments.length <= 0 || arguments[0] === undefined ? '//www.google-analytics.com/analytics.js' : arguments[0];
+		var id = arguments.length <= 1 || arguments[1] === undefined ? 'ga' : arguments[1];
+
+		_Abstract.prototype._install.call(this, url, id);
+
+		this._window.getWindow().ga('create', this._config.service, 'auto');
 	};
 
 	/**
