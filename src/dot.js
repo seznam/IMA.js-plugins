@@ -25,17 +25,6 @@ export default class Dot extends Abstract {
 	}
 
 	/**
-	 * Install analytic script to page.
-	 *
-	 * @method install
-	 * @param {string} [url='//h.imedia.cz/js/dot-small.js']
-	 * @param {string} [id='dot']
-	 */
-	install(url = '//h.imedia.cz/js/dot-small.js', id = 'DOT') {
-		super.install(url, id);
-	}
-
-	/**
 	 * Returns data-dot-data structure for element from defined params.
 	 *
 	 * @method getDotDataForElement
@@ -84,6 +73,17 @@ export default class Dot extends Abstract {
 		};
 
 		this.hit(data);
+	}
+
+	/**
+	 * Install analytic script to page.
+	 *
+	 * @method _install
+	 * @param {string} [url='//h.imedia.cz/js/dot-small.js']
+	 * @param {string} [id='dot']
+	 */
+	_install(url = '//h.imedia.cz/js/dot-small.js', id = 'DOT') {
+		super._install(url, id);
 	}
 
 	/**

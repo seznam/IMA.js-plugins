@@ -93,12 +93,7 @@ var gemiusAnalytic = oc.get('GemiusAnalytic');
 
 if ($window.isClient()) {
 
-	// insert analytic scripts to page
-	dotAnalytic.install();
-	googleAnalytic.install();
-	gemiusAnalytic.install();
-
-	// initialization analytic
+	// insert analytic scripts to page and initialization analytic
 	dotAnalytic.init();
 	googleAnalytic.init();
 	gemiusAnalytic.init();
@@ -130,3 +125,4 @@ if ($window.isClient()) {
 		}
 	});
 }
+```

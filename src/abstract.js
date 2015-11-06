@@ -123,35 +123,11 @@ export default class Abstract {
 	 * @method init
 	 */
 	init() {
+		this._install();
 		this._configuration();
 
 		if (!this.isEnabled() && this._window.isClient()) {
 			this._deferAttemptToConfiguration();
-		}
-	}
-
-	/**
-	 * Load analytic script to page.
-	 *
-	 * @method install
-	 * @param {string} url
-	 * @param {string} id
-	 */
-	install(url, id) {
-		if (this._window.isClient()) {
-			var window = this._window.getWindow();
-			var scriptId = this.PREFIX_ID + id;
-			var script = this._window.getElementById(scriptId);
-
-			if (!script) {
-				script = document.createElement('script');
-				script.setAttribute('id', scriptId);
-
-				script.innerHTML = this.getTemplate(url, id);
-
-				var firstScript = this._window.querySelectorAll('script')[0];
-				firstScript.parentNode.insertBefore(script, firstScript);
-			}
 		}
 	}
 
@@ -206,6 +182,32 @@ export default class Abstract {
 	hitPageView(pageData) {
 		throw new Error('The hitPageView() method is abstract and must be ' +
 				'overridden.');
+	}
+
+	/**
+	 * Load analytic script to page.
+	 *
+	 * @protected
+	 * @method install
+	 * @param {string} url
+	 * @param {string} id
+	 */
+	_install(url, id) {
+		if (this._window.isClient()) {
+			var window = this._window.getWindow();
+			var scriptId = this.PREFIX_ID + id;
+			var script = this._window.getElementById(scriptId);
+
+			if (!script) {
+				script = document.createElement('script');
+				script.setAttribute('id', scriptId);
+
+				script.innerHTML = this.getTemplate(url, id);
+
+				var firstScript = this._window.querySelectorAll('script')[0];
+				firstScript.parentNode.insertBefore(script, firstScript);
+			}
+		}
 	}
 
 	/**

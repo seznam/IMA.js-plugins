@@ -25,19 +25,6 @@ export default class Google extends Abstract {
 	}
 
 	/**
-	 * Install analytic script to page.
-	 *
-	 * @method install
-	 * @param {string} [url='//www.google-analytics.com/analytics.js']
-	 * @param {string} [id='ga']
-	 */
-	install(url = '//www.google-analytics.com/analytics.js', id = 'ga') {
-		super.install(url, id);
-
-		this._window.getWindow().ga('create', this._config.service, 'auto');
-	}
-
-	/**
 	 * Returns template for loading script async.
 	 *
 	 * @method getTemplate
@@ -87,6 +74,19 @@ export default class Google extends Abstract {
 			this._window.getWindow().ga('set', 'page', pageData.path);
 			this._window.getWindow().ga('send', 'pageview');
 		}
+	}
+
+	/**
+	 * Install analytic script to page.
+	 *
+	 * @method _install
+	 * @param {string} [url='//www.google-analytics.com/analytics.js']
+	 * @param {string} [id='ga']
+	 */
+	_install(url = '//www.google-analytics.com/analytics.js', id = 'ga') {
+		super._install(url, id);
+
+		this._window.getWindow().ga('create', this._config.service, 'auto');
 	}
 
 	/**

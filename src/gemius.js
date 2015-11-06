@@ -25,17 +25,6 @@ export default class Gemius extends Abstract {
 	}
 
 	/**
-	 * Install analytic script to page.
-	 *
-	 * @method install
-	 * @param {string} [url='//gacz.hit.gemius.pl/xgemius.js']
-	 * @param {string} [id='ga']
-	 */
-	install(url = '//gacz.hit.gemius.pl/xgemius.js', id = 'gemius') {
-		super.install(url, id);
-	}
-
-	/**
 	 * Returns template for loading script async.
 	 *
 	 * @method getTemplate
@@ -111,6 +100,17 @@ export default class Gemius extends Abstract {
 			}
 
 		}
+	}
+
+	/**
+	 * Install analytic script to page.
+	 *
+	 * @method _install
+	 * @param {string} [url='//gacz.hit.gemius.pl/xgemius.js']
+	 * @param {string} [id='ga']
+	 */
+	_install(url = '//gacz.hit.gemius.pl/xgemius.js', id = 'gemius') {
+		super._install(url, id);
 	}
 
 	/**
