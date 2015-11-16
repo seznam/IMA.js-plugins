@@ -194,7 +194,6 @@ export default class Abstract {
 	 */
 	_install(url, id) {
 		if (this._window.isClient()) {
-			var window = this._window.getWindow();
 			var scriptId = this.PREFIX_ID + id;
 			var script = this._window.getElementById(scriptId);
 
@@ -241,7 +240,7 @@ export default class Abstract {
 	 * @method _flushStorage
 	 */
 	_flushStorage() {
-		for(let data of this._storageOfHits) {
+		for (let data of this._storageOfHits) {
 			this.hit(data);
 		}
 

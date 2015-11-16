@@ -28,5 +28,3 @@ export var __$IMAModuleRegister__ = (ns) => {
 };
 
 export default { Abstract, Dot, Google, Gemius, EVENTS };
-
-

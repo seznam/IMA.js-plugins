@@ -199,7 +199,6 @@ var Abstract = (function () {
 
 	Abstract.prototype._install = function _install(url, id) {
 		if (this._window.isClient()) {
-			var window = this._window.getWindow();
 			var scriptId = this.PREFIX_ID + id;
 			var script = this._window.getElementById(scriptId);
 

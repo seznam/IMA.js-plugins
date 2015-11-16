@@ -1,42 +1,42 @@
 {
-  "name": "ima.js-module-analytic",
-  "version": "0.1.3",
-  "description": "Seznam IMA.js module analytic",
-  "scripts": {},
-  "keywords": [
+	"name": "ima.js-module-analytic",
+	"version": "0.1.5",
+	"description": "Seznam IMA.js module analytic",
+	"scripts": {},
+	"keywords": [
     "IMA.js",
     "Analytic",
     "Javascript"
   ],
-  "author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
-  "repository": {
-    "type": "git",
-    "url": "https://gitlab.kancelar.seznam.cz/IMA.js/module-analytic.git"
-  },
-  "publishConfig": {
-    "registry": "http://npmjs.dev/"
-  },
-  "bugs": {
-    "url": "https://gitlab.kancelar.seznam.cz/IMA.js/module-analytic/issues"
-  },
-  "license": "MIT",
-  "devDependencies": {
-    "eslint": "^1.2.1",
-    "eslint-plugin-react": "^3.2.3",
-    "event-stream": "^3.3.1",
-    "gulp": "^3.9.0",
-    "gulp-babel": "^5.2.1",
-    "gulp-eslint": "^1.0.0",
-    "gulp-plumber": "^1.0.0",
-    "gulp-sourcemaps": "^1.5.2",
-    "jasmine-core": "^2.3.4",
-    "karma": "^0.13.9",
-    "karma-chrome-launcher": "^0.2.0",
-    "karma-firefox-launcher": "^0.1.6",
-    "karma-jasmine": "^0.3.6",
-    "karma-opera-launcher": "^0.3.0",
-    "karma-phantomjs-launcher": "^0.2.1",
-    "run-sequence": "^1.1.2"
-  },
-  "dependencies": {}
+	"author": "Miroslav Jancarik <miroslav.jancarik@firma.seCheznam.cz>",
+	"repository": {
+		"type": "git",
+		"url": "https://gitlab.kancelar.seznam.cz/IMA.js/module-analytic.git"
+	},
+	"publishConfig": {
+		"registry": "http://npmjs.dev/"
+	},
+	"bugs": {
+		"url": "https://gitlab.kancelar.seznam.cz/IMA.js/module-analytic/issues"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"eslint": "^1.2.1",
+		"eslint-plugin-react": "^3.2.3",
+		"event-stream": "^3.3.1",
+		"gulp": "^3.9.0",
+		"gulp-babel": "^5.2.1",
+		"gulp-eslint": "^1.0.0",
+		"gulp-plumber": "^1.0.0",
+		"gulp-sourcemaps": "^1.5.2",
+		"jasmine-core": "^2.3.4",
+		"karma": "^0.13.9",
+		"karma-chrome-launcher": "^0.2.0",
+		"karma-firefox-launcher": "^0.1.6",
+		"karma-jasmine": "^0.3.6",
+		"karma-opera-launcher": "^0.3.0",
+		"karma-phantomjs-launcher": "^0.2.1",
+		"run-sequence": "^1.1.2"
+	},
+	"dependencies": {}
 }

@@ -67,7 +67,7 @@ var Google = (function (_Abstract) {
 
 	Google.prototype.hit = function hit(data) {
 		if (this.isEnabled()) {
-			this._window.getWindow().ga('send', 'event', data.category || 'undefined', data.action || 'undefined', data.label, data.value, data.fields);
+			this._window.getWindow().ga(data.method || 'send', data.type || 'event', data.category || 'undefined', data.action || 'undefined', data.label, data.value, data.fields);
 		}
 	};
 
