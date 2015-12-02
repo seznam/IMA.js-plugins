@@ -50,7 +50,8 @@ prod: {
 				service: 'seznam-service'
 			},
 			Google: {
-				service: 'UA-XXXXXXX-X'
+				service: 'UA-XXXXXXX-X',
+				settings: {}
 			},
 			Gemius: {
 				routes: {

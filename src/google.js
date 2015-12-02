@@ -72,6 +72,8 @@ export default class Google extends Abstract {
 	hitPageView(pageData) {
 		if (this.isEnabled()) {
 			this._window.getWindow().ga('set', 'page', pageData.path);
+			this._window.getWindow().ga('set', 'location', this._window.getUrl());
+			this._window.getWindow().ga('set', 'title', document.title || '');
 			this._window.getWindow().ga('send', 'pageview');
 		}
 	}
@@ -86,7 +88,7 @@ export default class Google extends Abstract {
 	_install(url = '//www.google-analytics.com/analytics.js', id = 'ga') {
 		super._install(url, id);
 
-		this._window.getWindow().ga('create', this._config.service, 'auto');
+		this._window.getWindow().ga('create', this._config.service, 'auto', this._config.settings);
 	}
 
 	/**
