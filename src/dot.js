@@ -22,6 +22,15 @@ export default class Dot extends Abstract {
 	 */
 	constructor(window, dispatcher, EVENTS, config) {
 		super(window, dispatcher, EVENTS, config);
+
+		/**
+		 * Prefix for router param key, which help with collide name.
+		 *
+		 * @const
+		 * @property ROUTER_PARAM_PREFIX
+		 * @type {string}
+		 */
+		this.ROUTER_PARAM_PREFIX = 'routeParam';
 	}
 
 	/**
@@ -60,7 +69,8 @@ export default class Dot extends Abstract {
 	}
 
 	/**
-	 * Hit page view event to analytic witd defined data.
+	 * Hit page view event to analytic wit
+	 d defined data.
 	 *
 	 * @method hitPageView
 	 * @param {Object<string, *>} pageData
@@ -71,6 +81,12 @@ export default class Dot extends Abstract {
 			page: pageData.route.getName(),
 			params: pageData.params
 		};
+
+		if (pageData.params) {
+			for (let routerParamKey of Object.keys(pageData.params)) {
+				data[this.ROUTE_PARAM_PREFIX + routerParamKey] = pageData.params[routerParamKey];
+			}
+		}
 
 		this.hit(data);
 	}

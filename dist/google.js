@@ -81,6 +81,8 @@ var Google = (function (_Abstract) {
 	Google.prototype.hitPageView = function hitPageView(pageData) {
 		if (this.isEnabled()) {
 			this._window.getWindow().ga('set', 'page', pageData.path);
+			this._window.getWindow().ga('set', 'location', this._window.getUrl());
+			this._window.getWindow().ga('set', 'title', document.title || '');
 			this._window.getWindow().ga('send', 'pageview');
 		}
 	};
@@ -99,7 +101,7 @@ var Google = (function (_Abstract) {
 
 		_Abstract.prototype._install.call(this, url, id);
 
-		this._window.getWindow().ga('create', this._config.service, 'auto');
+		this._window.getWindow().ga('create', this._config.service, 'auto', this._config.settings);
 	};
 
 	/**

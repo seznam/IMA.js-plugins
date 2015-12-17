@@ -39,6 +39,15 @@ var Dot = (function (_Abstract) {
 		_classCallCheck(this, Dot);
 
 		_Abstract.call(this, window, dispatcher, EVENTS, config);
+
+		/**
+   * Prefix for router param key, which help with collide name.
+   *
+   * @const
+   * @property ROUTER_PARAM_PREFIX
+   * @type {string}
+   */
+		this.ROUTER_PARAM_PREFIX = 'routeParam';
 	}
 
 	/**
@@ -92,7 +101,8 @@ var Dot = (function (_Abstract) {
 	};
 
 	/**
-  * Hit page view event to analytic witd defined data.
+  * Hit page view event to analytic wit
+  d defined data.
   *
   * @method hitPageView
   * @param {Object<string, *>} pageData
@@ -104,6 +114,25 @@ var Dot = (function (_Abstract) {
 			page: pageData.route.getName(),
 			params: pageData.params
 		};
+
+		if (pageData.params) {
+			for (var _iterator2 = Object.keys(pageData.params), _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
+				var _ref2;
+
+				if (_isArray2) {
+					if (_i2 >= _iterator2.length) break;
+					_ref2 = _iterator2[_i2++];
+				} else {
+					_i2 = _iterator2.next();
+					if (_i2.done) break;
+					_ref2 = _i2.value;
+				}
+
+				var routerParamKey = _ref2;
+
+				data[this.ROUTE_PARAM_PREFIX + routerParamKey] = pageData.params[routerParamKey];
+			}
+		}
 
 		this.hit(data);
 	};
