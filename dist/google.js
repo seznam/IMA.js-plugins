@@ -1,16 +1,12 @@
 'use strict';
 
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+var _abstract = require('./abstract.js');
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _abstractJs = require('./abstract.js');
-
-var _abstractJs2 = _interopRequireDefault(_abstractJs);
+var _abstract2 = babelHelpers.interopRequireDefault(_abstract);
 
 /**
  * Google
@@ -24,7 +20,7 @@ var _abstractJs2 = _interopRequireDefault(_abstractJs);
  */
 
 var Google = (function (_Abstract) {
-	_inherits(Google, _Abstract);
+	babelHelpers.inherits(Google, _Abstract);
 
 	/**
   * @method constructor
@@ -36,9 +32,8 @@ var Google = (function (_Abstract) {
   */
 
 	function Google(window, dispatcher, EVENTS, config) {
-		_classCallCheck(this, Google);
-
-		_Abstract.call(this, window, dispatcher, EVENTS, config);
+		babelHelpers.classCallCheck(this, Google);
+		return babelHelpers.possibleConstructorReturn(this, _Abstract.call(this, window, dispatcher, EVENTS, config));
 	}
 
 	/**
@@ -122,7 +117,6 @@ var Google = (function (_Abstract) {
 	};
 
 	return Google;
-})(_abstractJs2['default']);
+})(_abstract2.default);
 
-exports['default'] = Google;
-module.exports = exports['default'];
+exports.default = Google;

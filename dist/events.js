@@ -1,9 +1,10 @@
 'use strict';
 
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 var EVENTS = Object.freeze({
 	LOADED: 'module.analytic.loaded'
 });
 
-exports['default'] = EVENTS;
-module.exports = exports['default'];
+exports.default = EVENTS;

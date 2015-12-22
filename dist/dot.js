@@ -1,16 +1,12 @@
 'use strict';
 
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+var _abstract = require('./abstract.js');
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _abstractJs = require('./abstract.js');
-
-var _abstractJs2 = _interopRequireDefault(_abstractJs);
+var _abstract2 = babelHelpers.interopRequireDefault(_abstract);
 
 /**
  * Dot
@@ -24,7 +20,7 @@ var _abstractJs2 = _interopRequireDefault(_abstractJs);
  */
 
 var Dot = (function (_Abstract) {
-	_inherits(Dot, _Abstract);
+	babelHelpers.inherits(Dot, _Abstract);
 
 	/**
   * @method constructor
@@ -36,9 +32,7 @@ var Dot = (function (_Abstract) {
   */
 
 	function Dot(window, dispatcher, EVENTS, config) {
-		_classCallCheck(this, Dot);
-
-		_Abstract.call(this, window, dispatcher, EVENTS, config);
+		babelHelpers.classCallCheck(this, Dot);
 
 		/**
    * Prefix for router param key, which help with collide name.
@@ -47,7 +41,11 @@ var Dot = (function (_Abstract) {
    * @property ROUTER_PARAM_PREFIX
    * @type {string}
    */
-		this.ROUTER_PARAM_PREFIX = 'routeParam';
+
+		var _this = babelHelpers.possibleConstructorReturn(this, _Abstract.call(this, window, dispatcher, EVENTS, config));
+
+		_this.ROUTER_PARAM_PREFIX = 'routeParam';
+		return _this;
 	}
 
 	/**
@@ -171,7 +169,6 @@ var Dot = (function (_Abstract) {
 	};
 
 	return Dot;
-})(_abstractJs2['default']);
+})(_abstract2.default);
 
-exports['default'] = Dot;
-module.exports = exports['default'];
+exports.default = Dot;

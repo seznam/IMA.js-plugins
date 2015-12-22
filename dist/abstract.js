@@ -1,3 +1,8 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 /**
  * Abstract analytic class
  *
@@ -6,11 +11,6 @@
  * @module Module
  * @submodule Module.Analytic
  */
-'use strict';
-
-exports.__esModule = true;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 var Abstract = (function () {
 
@@ -24,7 +24,7 @@ var Abstract = (function () {
   */
 
 	function Abstract(window, dispatcher, EVENTS, config) {
-		_classCallCheck(this, Abstract);
+		babelHelpers.classCallCheck(this, Abstract);
 
 		/**
    * IMA.js Window
@@ -293,5 +293,4 @@ var Abstract = (function () {
 	return Abstract;
 })();
 
-exports['default'] = Abstract;
-module.exports = exports['default'];
+exports.default = Abstract;

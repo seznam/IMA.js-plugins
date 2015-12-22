@@ -1,51 +1,51 @@
 'use strict';
 
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.__$IMAModuleRegister__ = undefined;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+var _abstract = require('./abstract.js');
 
-var _abstractJs = require('./abstract.js');
+var _abstract2 = babelHelpers.interopRequireDefault(_abstract);
 
-var _abstractJs2 = _interopRequireDefault(_abstractJs);
+var _dot = require('./dot.js');
 
-var _dotJs = require('./dot.js');
+var _dot2 = babelHelpers.interopRequireDefault(_dot);
 
-var _dotJs2 = _interopRequireDefault(_dotJs);
+var _google = require('./google.js');
 
-var _googleJs = require('./google.js');
+var _google2 = babelHelpers.interopRequireDefault(_google);
 
-var _googleJs2 = _interopRequireDefault(_googleJs);
+var _gemius = require('./gemius.js');
 
-var _gemiusJs = require('./gemius.js');
+var _gemius2 = babelHelpers.interopRequireDefault(_gemius);
 
-var _gemiusJs2 = _interopRequireDefault(_gemiusJs);
+var _events = require('./events.js');
 
-var _eventsJs = require('./events.js');
+var _events2 = babelHelpers.interopRequireDefault(_events);
 
-var _eventsJs2 = _interopRequireDefault(_eventsJs);
-
-var __$IMAModuleRegister__ = function __$IMAModuleRegister__(ns) {
+var __$IMAModuleRegister__ = exports.__$IMAModuleRegister__ = function __$IMAModuleRegister__(ns) {
 	ns.namespace('Module.Analytic');
 
-	ns.Module.Analytic.Abstract = _abstractJs2['default'];
-	ns.Module.Analytic.Dot = _dotJs2['default'];
-	ns.Module.Analytic.EVENTS = _eventsJs2['default'];
-	ns.Module.Analytic.Google = _googleJs2['default'];
-	ns.Module.Analytic.Gemius = _gemiusJs2['default'];
+	ns.Module.Analytic.Abstract = _abstract2.default;
+	ns.Module.Analytic.Dot = _dot2.default;
+	ns.Module.Analytic.EVENTS = _events2.default;
+	ns.Module.Analytic.Google = _google2.default;
+	ns.Module.Analytic.Gemius = _gemius2.default;
 
 	$IMA.Loader.register('module/analytic', [], function (_export) {
 		return {
 			setters: [],
 			execute: function execute() {
-				_export('Abstract', _abstractJs2['default']);
-				_export('Dot', _dotJs2['default']);
-				_export('EVENTS', _eventsJs2['default']);
-				_export('Google', _googleJs2['default']);
-				_export('Gemius', _gemiusJs2['default']);
+				_export('Abstract', _abstract2.default);
+				_export('Dot', _dot2.default);
+				_export('EVENTS', _events2.default);
+				_export('Google', _google2.default);
+				_export('Gemius', _gemius2.default);
 			}
 		};
 	});
 };
 
-exports.__$IMAModuleRegister__ = __$IMAModuleRegister__;
-exports['default'] = { Abstract: _abstractJs2['default'], Dot: _dotJs2['default'], Google: _googleJs2['default'], Gemius: _gemiusJs2['default'], EVENTS: _eventsJs2['default'] };
+exports.default = { Abstract: _abstract2.default, Dot: _dot2.default, Google: _google2.default, Gemius: _gemius2.default, EVENTS: _events2.default };
