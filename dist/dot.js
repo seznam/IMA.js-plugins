@@ -35,16 +35,16 @@ var Dot = (function (_Abstract) {
 		babelHelpers.classCallCheck(this, Dot);
 
 		/**
-   * Prefix for router param key, which help with collide name.
+   * Prefix for route param key, which help with collide name.
    *
    * @const
-   * @property ROUTER_PARAM_PREFIX
+   * @property ROUTE_PARAM_PREFIX
    * @type {string}
    */
 
 		var _this = babelHelpers.possibleConstructorReturn(this, _Abstract.call(this, window, dispatcher, EVENTS, config));
 
-		_this.ROUTER_PARAM_PREFIX = 'routeParam';
+		_this.ROUTE_PARAM_PREFIX = 'routeParam';
 		return _this;
 	}
 

@@ -24,13 +24,13 @@ export default class Dot extends Abstract {
 		super(window, dispatcher, EVENTS, config);
 
 		/**
-		 * Prefix for router param key, which help with collide name.
+		 * Prefix for route param key, which help with collide name.
 		 *
 		 * @const
-		 * @property ROUTER_PARAM_PREFIX
+		 * @property ROUTE_PARAM_PREFIX
 		 * @type {string}
 		 */
-		this.ROUTER_PARAM_PREFIX = 'routeParam';
+		this.ROUTE_PARAM_PREFIX = 'routeParam';
 	}
 
 	/**
