@@ -1,47 +1,39 @@
-var gulp = require( 'gulp' );
-var sourcemaps = require( 'gulp-sourcemaps' );
-var babel = require( 'gulp-babel' );
-var plumber = require( 'gulp-plumber' );
-var karma = require( 'karma' );
-var eslint = require( 'gulp-eslint' );
-var path = require( 'path' );
+require('babel-core/register.js');
 
-// build client logic app
+var gulp = require('gulp');
+var sourcemaps = require('gulp-sourcemaps');
+var babel = require('gulp-babel');
+var plumber = require('gulp-plumber');
+var eslint = require('gulp-eslint');
+var path = require('path');
+var jasmine = require('gulp-jasmine');
+
+
+
+// build module
 gulp.task('build', function() {
-
 	return (
-		gulp.src( './src/**/*.js' )
-		.pipe( plumber() )
-		.pipe( sourcemaps.init() )
-		.pipe( babel( {
+		gulp.src('./src/**/*.js')
+		.pipe(sourcemaps.init())
+		.pipe(babel({
 			moduleIds: true,
-			presets: [ 'es2015-loose' ],
-			plugins: [ 'transform-es2015-modules-commonjs', 'external-helpers-2' ]
-		} ) )
-		.pipe( plumber.stop() )
-		.pipe( gulp.dest( './dist' ) )
+			presets: ['es2015-loose'],
+			plugins: ['transform-es2015-modules-commonjs', 'external-helpers-2']
+		}))
+		.pipe(gulp.dest('./dist'))
 	);
+});
 
-} );
-
-gulp.task('test', function() {
-
+//run test
+gulp.task('test', () => {
 	return (
-		gulp.src( './src/**/*.js' )
-		.pipe( plumber() )
-		.pipe( sourcemaps.init() )
-		.pipe( babel( {
-			moduleIds: true,
-			presets: [ 'es2015-loose' ],
-			plugins: [ 'transform-es2015-modules-commonjs', 'external-helpers-2' ]
-		} ) )
-		.pipe( plumber.stop() )
-		.pipe( gulp.dest( './dist' ) )
+		gulp.src('./test/*.js')
+			.pipe(jasmine({ includeStackTrace: true }))
 	);
+});
 
-} );
 
 // -------------------------------------PRIVATE HELPER TASKS
-gulp.task( 'watch', function() {
-	gulp.watch( [ './src/**/*.js', './src/*.js' ], [ 'build' ] );
-} );
+gulp.task('dev', function() {
+	gulp.watch(['./src/**/*.js', './src/*.js', './test/*.js'], ['test']);
+});

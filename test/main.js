@@ -1,4 +1,4 @@
-import Main from '../../src/main';
+import Main from '../src/main';
 
 describe('Main', () => {
 	it('should has Abstract analytic class', () => {
