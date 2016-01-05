@@ -109,8 +109,7 @@ var Dot = (function (_Abstract) {
 	Dot.prototype.hitPageView = function hitPageView(pageData) {
 		var data = {
 			action: 'impress',
-			page: pageData.route.getName(),
-			params: pageData.params
+			page: pageData.route.getName()
 		};
 
 		if (pageData.params) {
@@ -126,9 +125,11 @@ var Dot = (function (_Abstract) {
 					_ref2 = _i2.value;
 				}
 
-				var routerParamKey = _ref2;
+				var routeParamKey = _ref2;
 
-				data[this.ROUTE_PARAM_PREFIX + routerParamKey] = pageData.params[routerParamKey];
+				var prefixedRouteParamKey = this.ROUTE_PARAM_PREFIX + routeParamKey[0].toUpperCase() + routeParamKey.slice(1);
+
+				data[prefixedRouteParamKey] = pageData.params[routeParamKey];
 			}
 		}
 

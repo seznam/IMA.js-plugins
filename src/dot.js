@@ -78,13 +78,16 @@ export default class Dot extends Abstract {
 	hitPageView(pageData) {
 		let data = {
 			action: 'impress',
-			page: pageData.route.getName(),
-			params: pageData.params
+			page: pageData.route.getName()
 		};
 
 		if (pageData.params) {
-			for (let routerParamKey of Object.keys(pageData.params)) {
-				data[this.ROUTE_PARAM_PREFIX + routerParamKey] = pageData.params[routerParamKey];
+			for (let routeParamKey of Object.keys(pageData.params)) {
+				let prefixedRouteParamKey = this.ROUTE_PARAM_PREFIX +
+						routeParamKey[0].toUpperCase() +
+						routeParamKey.slice(1);
+
+				data[prefixedRouteParamKey] = pageData.params[routeParamKey];
 			}
 		}
 

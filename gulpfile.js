@@ -8,8 +8,6 @@ var eslint = require('gulp-eslint');
 var path = require('path');
 var jasmine = require('gulp-jasmine');
 
-
-
 // build module
 gulp.task('build', function() {
 	return (
@@ -28,10 +26,9 @@ gulp.task('build', function() {
 gulp.task('test', () => {
 	return (
 		gulp.src('./test/*.js')
-			.pipe(jasmine({ includeStackTrace: true }))
+			.pipe(jasmine())
 	);
 });
-
 
 // -------------------------------------PRIVATE HELPER TASKS
 gulp.task('dev', function() {
