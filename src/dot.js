@@ -69,8 +69,7 @@ export default class Dot extends Abstract {
 	}
 
 	/**
-	 * Hit page view event to analytic wit
-	 d defined data.
+	 * Hit page view event to analytic with defined data.
 	 *
 	 * @method hitPageView
 	 * @param {Object<string, *>} pageData
