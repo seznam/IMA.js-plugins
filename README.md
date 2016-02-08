@@ -1,55 +1,72 @@
-# ima.js-module-skeleton
+# ima.js-module-script-loader
 
 If you are looking more details, you should
 follow this link:
-[https://gitlab.kancelar.seznam.cz/IMA.js/module-skeleton](https://gitlab.kancelar.seznam.cz/IMA.js/module-skeleton).
+[https://gitlab.kancelar.seznam.cz/IMA.js/module-script-loader](https://gitlab.kancelar.seznam.cz/IMA.js/module-script-loader).
 
-## Create module
-
-```javascript
-
-git clone git@gitlab.kancelar.seznam.cz:IMA.js/module-skeleton.git && rm -rf module-skeleton/.git
-cd ..
-mv module-skeleton module-*
-cd module-*
-git init
-git add .
-git commit -m 'init commit'
-git remote add origin git@gitlab.kancelar.seznam.cz:IMA.js/module-*.git
-git remote -v
-git push origin master
-
-```
-
-Then you must change README.md and package.json for your module.
+## Installation
 
 ```javascript
 
-npm install
+npm install ima.js-module-script-loader --save
 
 ```
-
-## Publish module
 
 ```javascript
+// /app/vendor.js
 
-npm publish
+var moduleScriptLoader = require('ima.js-module-script-loader');
+.
+.
+.
+vendorApp.set('ModuleScriptLoader', moduleScriptLoader);
+
+/*
+Now is ModuleScriptLoader available from:
+
+ns.Module.ScriptLoader.Handler
+ns.Module.ScriptLoader.EVENTS
+
+import { Handler, EVENTS } from 'module/scriptloader';
+import { ModuleScriptLoader } from 'app/vendor';
+*/
 
 ```
-
-## Tasks
 
 ```javascript
+// /app/config/bind.js
 
-gulp test | npm test
-gulp dev | npm run dev
-gulp build | npm build
+oc.constant('DOT_ANALYTIC_CONFIG', config.Module.Analytic.Dot);
+oc.constant('GOOGLE_ANALYTIC_CONFIG', config.Module.Analytic.Google);
+oc.constant('GEMIUS_ANALYTIC_CONFIG', config.Module.Analytic.Gemius);
+
+oc.bind('ScriptLoader', ns.Module.ScriptLoader.Handler, ['$Window', '$Dispatcher', ns.Module.ScriptLoader.EVENTS]);
 
 ```
 
-## Documentation
-Run in module directory gulp task for generating documentation with YUIDoc:
+## Usage
+
+```javascript
+// /app/config/services.js
+
+oc
+	.get('ScriptLoader')
+	.load('//www.example.com/script.js')
+	.then((response) => {
+		console.log('Script is loaded.', response.url);
+	})
+	.catch((response) => {
+		console.log('Script is not loaded.', response.url, response.error);
+	});
+
+oc
+	.get('$Dispatcher')
+	.listen(ns.Module.ScriptLoader.EVENTS.LOADED, (response) => {
+		if (response.error) {
+			console.log('Script is not loaded.', response.url);
+		} else {
+			console.log('Script is loaded.', response.url);
+		}
+	});
+
 ```
-gulp doc
-```
-After that you will display module documetation by running ./doc/index.html.
