@@ -99,8 +99,7 @@ var Dot = (function (_Abstract) {
 	};
 
 	/**
-  * Hit page view event to analytic wit
-  d defined data.
+  * Hit page view event to analytic with defined data.
   *
   * @method hitPageView
   * @param {Object<string, *>} pageData
@@ -148,7 +147,7 @@ var Dot = (function (_Abstract) {
 		var url = arguments.length <= 0 || arguments[0] === undefined ? '//h.imedia.cz/js/dot-small.js' : arguments[0];
 		var id = arguments.length <= 1 || arguments[1] === undefined ? 'DOT' : arguments[1];
 
-		_Abstract.prototype._install.call(this, url, id);
+		_Abstract.prototype._install.call(this, this._config.url || url, id);
 	};
 
 	/**
@@ -165,7 +164,7 @@ var Dot = (function (_Abstract) {
 		}
 
 		this._enable = true;
-		this._window.getWindow().DOT.cfg(this._config);
+		this._window.getWindow().DOT.cfg(Object.assign({}, this._config, { url: undefined }));
 		this._dispatcher.fire(this._EVENTS.LOADED, { type: 'dot' }, true);
 	};
 

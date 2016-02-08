@@ -121,7 +121,7 @@ var Abstract = (function () {
    * @property PREFIX_ID
    * @type {string}
    */
-		this.PREFIX_ID = 'ModuleIMAjsAnalytic';
+		this.PREFIX_ID = 'IMAjsModuleAnalytic';
 	}
 
 	/**
