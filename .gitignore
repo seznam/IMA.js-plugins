@@ -1,0 +1,8 @@
+*.swp
+.DS_Store
+.idea
+.sublime-gulp.cache
+node_modules/
+doc/*
+!doc/yuidocTheme
+npm-debug.log

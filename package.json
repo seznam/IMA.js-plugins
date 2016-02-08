@@ -1,0 +1,53 @@
+{
+	"name": "ima.js-module-script-loader",
+	"version": "0.1.0",
+	"description": "Seznam IMA.js module script loader",
+	"main": "index.js",
+	"scripts": {
+		"prepublish": "npm run build && npm run test",
+		"build": "gulp build",
+		"doc": "gulp doc",
+		"test": "gulp test",
+		"dev": "gulp dev"
+	},
+	"keywords": [
+    "IMA.js",
+    "Skeleton",
+    "Module",
+    "Javascript"
+  ],
+	"author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
+	"repository": {
+		"type": "git",
+		"url": "https://gitlab.kancelar.seznam.cz/IMA.js/module-script-loader.git"
+	},
+	"publishConfig": {
+		"registry": "http://npmjs.dev/"
+	},
+	"bugs": {
+		"url": "https://gitlab.kancelar.seznam.cz/IMA.js/module-script-loader/issues"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"babel-core": "^6.4.5",
+		"babel-plugin-external-helpers-2": "^6.3.13",
+		"babel-plugin-transform-es2015-modules-commonjs": "^6.4.5",
+		"babel-polyfill": "^6.3.14",
+		"babel-preset-es2015": "^6.3.13",
+		"babel-preset-es2015-loose": "^7.0.0",
+		"eslint": "^1.10.3",
+		"eslint-plugin-react": "^3.16.1",
+		"gulp": "^3.9.0",
+		"gulp-babel": "^6.1.2",
+		"gulp-change": "^1.0.0",
+		"gulp-eslint": "^1.1.1",
+		"gulp-jasmine": "^2.2.1",
+		"gulp-plumber": "^1.0.1",
+		"gulp-sourcemaps": "^1.6.0",
+		"gulp-yuidoc": "^0.1.2",
+		"jasmine": "^2.4.1",
+		"jasmine-core": "^2.4.1",
+		"run-sequence": "^1.1.5"
+	},
+	"dependencies": {}
+}
