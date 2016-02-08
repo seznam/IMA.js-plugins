@@ -55,7 +55,9 @@ export default class Google extends Abstract {
 	 *
 	 * @override
 	 * @method hit
-	 * @param {Object<string, *>} data
+	 * @param {{method: string=, type: string=, category: string=, action: string=,
+	 *        label: string=, value: number, fields: Object<string, *>}} data
+	 *        The key of data are defined in documentation of google analytic.
 	 */
 	hit(data) {
 		if (this.isEnabled()) {

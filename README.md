@@ -47,7 +47,7 @@ prod: {
 	Module : {
 		Analytic: {
 			Dot: {
-				service: 'seznam-service'
+				service: 'seznam-service',
 			},
 			Google: {
 				service: 'UA-XXXXXXX-X',
@@ -64,6 +64,24 @@ prod: {
 						parameters: 'yyy'
 					}
 				}
+			}
+		}
+	}
+},
+test: {
+	Module: {
+		Analytic: {
+			Dot: {
+				url: '//h.imedia.test/js/dot-small.js'
+			}
+		}
+	}
+},
+dev: {
+	Module: {
+		Analytic: {
+			Dot: {
+				url: '//h.imedia.dev/js/dot-small.js'
 			}
 		}
 	}

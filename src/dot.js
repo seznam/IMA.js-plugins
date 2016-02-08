@@ -101,7 +101,7 @@ export default class Dot extends Abstract {
 	 * @param {string} [id='dot']
 	 */
 	_install(url = '//h.imedia.cz/js/dot-small.js', id = 'DOT') {
-		super._install(url, id);
+		super._install(this._config.url || url, id);
 	}
 
 	/**
@@ -120,7 +120,7 @@ export default class Dot extends Abstract {
 		}
 
 		this._enable = true;
-		this._window.getWindow().DOT.cfg(this._config);
+		this._window.getWindow().DOT.cfg(Object.assign({}, this._config, { url: undefined }));
 		this._dispatcher.fire(this._EVENTS.LOADED, { type: 'dot' }, true);
 	}
 }
