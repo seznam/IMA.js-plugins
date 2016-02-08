@@ -1,6 +1,6 @@
 {
 	"name": "ima.js-module-analytic",
-	"version": "0.1.10",
+	"version": "0.1.11",
 	"description": "Seznam IMA.js module analytic",
 	"main": "index.js",
 	"scripts": {
