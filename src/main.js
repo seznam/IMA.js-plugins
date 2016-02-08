@@ -1,18 +1,21 @@
-//import Abstract from './abstract.js';
+import Handler from './handler.js';
+import EVENTS from './events.js';
 
 export var __$IMAModuleRegister__ = (ns) => {
-	/*ns.namespace('Module.xxx');
+	ns.namespace('Module.ScriptLoader');
 
-	ns.Module.xxx.Abstract = Abstract;
+	ns.Module.ScriptLoader.EVENTS = EVENTS;
+	ns.Module.ScriptLoader.Handler = Handler;
 
-	$IMA.Loader.register('module/xxx', [], (_export) => {
+	$IMA.Loader.register('module/scriptloader', [], (_export) => {
 		return {
 			setters: [],
 			execute: () => {
-				_export('Abstract', Abstract);
+				_export('EVENTS', EVENTS);
+				_export('Handler', Handler);
 			}
 		};
-	});*/
+	});
 };
 
-export default { /*Abstract*/ };
+export default { EVENTS, Handler };
