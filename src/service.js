@@ -120,4 +120,4 @@ export default class Service {
 		reject(data);
 		this._dispatcher.fire(this._EVENTS.LOADED, data, true);
 	}
-};
+}

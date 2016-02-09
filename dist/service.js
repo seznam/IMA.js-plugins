@@ -11,8 +11,7 @@ Object.defineProperty(exports, "__esModule", {
  * @module Module
  * @submodule Module.ScriptLoader
  */
-
-var Service = function () {
+class Service {
 
 	/**
   * @method constructor
@@ -21,10 +20,7 @@ var Service = function () {
   * @param {Core.Interface.Dispatcher} dispatcher
   * @param {Object<string, string>} EVENTS
   */
-
-	function Service(window, dispatcher, EVENTS) {
-		babelHelpers.classCallCheck(this, Service);
-
+	constructor(window, dispatcher, EVENTS) {
 
 		/**
    * IMA.js Window
@@ -71,87 +67,63 @@ var Service = function () {
   * @param {string?} [template=null]
   * @return {Promise<Object<string, *>>}
   */
+	load(url, template = null) {
+		if (!this._window.isClient()) {
+			return Promise.reject({ url, error: new Error(`The script ${ url } can not be loaded on the client side.`) });
+		}
 
-
-	babelHelpers.createClass(Service, [{
-		key: 'load',
-		value: function load(url) {
-			var _this = this;
-
-			var template = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
-
-			if (!this._window.isClient()) {
-				return Promise.reject({ url: url, error: new Error('The script ' + url + ' can not be loaded on the client side.') });
-			}
-
-			if (this._loadedScripts[url]) {
-				return this._loadedScripts[url];
-			}
-
-			this._loadedScripts[url] = new Promise(function (resolve, reject) {
-				var script = document.createElement('script');
-
-				if (template) {
-					script.innerHTML = template;
-					setTimeout(function () {
-						return _this._handleOnLoad(url, resolve);
-					}, 0);
-				} else {
-					script.async = true;
-					script.onload = function (event) {
-						return _this._handleOnLoad(url, resolve);
-					};
-					script.onerror = function (event) {
-						return _this._handleOnError(url, reject);
-					};
-					script.src = url;
-				}
-
-				var firstScript = _this._window.querySelectorAll('script')[0];
-				firstScript.parentNode.insertBefore(script, firstScript);
-			});
-
+		if (this._loadedScripts[url]) {
 			return this._loadedScripts[url];
 		}
 
-		/**
-   * Handle on load event for script. Resolve load promise and fire LOADED events.
-   *
-   * @private
-   * @method _handleOnLoad
-   * @param {string} url
-   * @param {function} resolve
-   */
+		this._loadedScripts[url] = new Promise((resolve, reject) => {
+			let script = document.createElement('script');
 
-	}, {
-		key: '_handleOnLoad',
-		value: function _handleOnLoad(url, resolve) {
-			var data = { url: url };
+			if (template) {
+				script.innerHTML = template;
+				setTimeout(() => this._handleOnLoad(url, resolve), 0);
+			} else {
+				script.async = true;
+				script.onload = event => this._handleOnLoad(url, resolve);
+				script.onerror = event => this._handleOnError(url, reject);
+				script.src = url;
+			}
 
-			resolve(data);
-			this._dispatcher.fire(this._EVENTS.LOADED, data, true);
-		}
+			let firstScript = this._window.querySelectorAll('script')[0];
+			firstScript.parentNode.insertBefore(script, firstScript);
+		});
 
-		/**
-   * Handle on error event for script. Reject load promise and fire LOADED events.
-   *
-   * @private
-   * @method _handleOnError
-   * @param {string} url
-   * @param {function} reject
-   */
+		return this._loadedScripts[url];
+	}
 
-	}, {
-		key: '_handleOnError',
-		value: function _handleOnError(url, reject) {
-			var data = { url: url, error: new Error('The script ' + url + ' was not be loaded.') };
+	/**
+  * Handle on load event for script. Resolve load promise and fire LOADED events.
+  *
+  * @private
+  * @method _handleOnLoad
+  * @param {string} url
+  * @param {function} resolve
+  */
+	_handleOnLoad(url, resolve) {
+		let data = { url };
 
-			reject(data);
-			this._dispatcher.fire(this._EVENTS.LOADED, data, true);
-		}
-	}]);
-	return Service;
-}();
+		resolve(data);
+		this._dispatcher.fire(this._EVENTS.LOADED, data, true);
+	}
 
-exports.default = Service;
+	/**
+  * Handle on error event for script. Reject load promise and fire LOADED events.
+  *
+  * @private
+  * @method _handleOnError
+  * @param {string} url
+  * @param {function} reject
+  */
+	_handleOnError(url, reject) {
+		let data = { url, error: new Error(`The script ${ url } was not be loaded.`) };
+
+		reject(data);
+		this._dispatcher.fire(this._EVENTS.LOADED, data, true);
+	}
+}exports.default = Service;
 ;

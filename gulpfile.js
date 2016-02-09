@@ -16,8 +16,7 @@ gulp.task('build', function() {
 		.pipe(sourcemaps.init())
 		.pipe(babel({
 			moduleIds: true,
-			presets: ['es2015-loose'],
-			plugins: ['transform-es2015-modules-commonjs', 'external-helpers-2']
+			plugins: ['transform-es2015-modules-commonjs']
 		}))
 		.pipe(gulp.dest('./dist'))
 	);

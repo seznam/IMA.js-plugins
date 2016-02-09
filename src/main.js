@@ -13,9 +13,11 @@ export var __$IMAModuleRegister__ = (ns) => {
 			execute: () => {
 				_export('EVENTS', EVENTS);
 				_export('Service', Service);
+				_export('default', { Service, EVENTS });
 			}
 		};
 	});
 };
 
 export default { EVENTS, Service };
+export { EVENTS, Service };
