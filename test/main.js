@@ -5,7 +5,7 @@ describe('Main', () => {
 		expect(typeof Main.EVENTS.LOADED).toEqual('string');
 	});
 
-	it('should has Handler', () => {
-		expect(typeof Main.Handler).toEqual('function');
+	it('should has Service', () => {
+		expect(typeof Main.Service).toEqual('function');
 	});
 });

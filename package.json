@@ -1,6 +1,6 @@
 {
-	"name": "ima.js-module-script-loader",
-	"version": "0.1.1",
+	"name": "ima.js-module-scriptloader",
+	"version": "0.1.0",
 	"description": "Seznam IMA.js module script loader",
 	"main": "index.js",
 	"scripts": {
@@ -19,13 +19,13 @@
 	"author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
 	"repository": {
 		"type": "git",
-		"url": "https://gitlab.kancelar.seznam.cz/IMA.js/module-script-loader.git"
+		"url": "https://gitlab.kancelar.seznam.cz/IMA.js/module-scriptloader.git"
 	},
 	"publishConfig": {
 		"registry": "http://npmjs.dev/"
 	},
 	"bugs": {
-		"url": "https://gitlab.kancelar.seznam.cz/IMA.js/module-script-loader/issues"
+		"url": "https://gitlab.kancelar.seznam.cz/IMA.js/module-scriptloader/issues"
 	},
 	"license": "MIT",
 	"devDependencies": {

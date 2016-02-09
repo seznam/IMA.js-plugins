@@ -1,8 +1,8 @@
-import Handler from '../src/handler';
+import Service from '../src/service';
 import EVENTS from '../src/events';
 
-describe('Handler', () => {
-	let handler = null;
+describe('Service', () => {
+	let service = null;
 	let url = '//example.com/some.js';
 
 	let IMAWindow = {
@@ -13,7 +13,7 @@ describe('Handler', () => {
 	};
 
 	beforeEach(() => {
-		handler = new Handler(IMAWindow, IMADispatcher, EVENTS);
+		service = new Service(IMAWindow, IMADispatcher, EVENTS);
 	});
 
 	describe('load method', () => {
@@ -23,7 +23,7 @@ describe('Handler', () => {
 				.and
 				.returnValue(false);
 
-			handler
+			service
 				.load(url)
 				.catch((value) => {
 					expect(value.url).toEqual(url);
@@ -36,9 +36,9 @@ describe('Handler', () => {
 				.and
 				.returnValue(true);
 
-			handler._loadedScripts[url] = Promise.resolve({ url });
+			service._loadedScripts[url] = Promise.resolve({ url });
 
-			handler
+			service
 				.load(url)
 				.then((value) => {
 					expect(value.url).toEqual(url);

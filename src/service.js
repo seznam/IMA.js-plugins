@@ -1,12 +1,12 @@
 /**
- * Script loader handler class
+ * Script loader service class
  *
- * @class Handler
+ * @class Service
  * @namespace Module.ScriptLoader
  * @module Module
  * @submodule Module.ScriptLoader
  */
-export default class Handler {
+export default class Service {
 
 	/**
 	 * @method constructor
