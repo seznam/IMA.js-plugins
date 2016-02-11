@@ -11,12 +11,22 @@ export default class Abstract {
 	/**
 	 * @method constructor
 	 * @constructor
+	 * @param {Module.ScriptLoader.Handler} scriptLoader
 	 * @param {Core.Interface.Window} window
 	 * @param {Core.Interface.Dispatcher} dispatcher
 	 * @param {Object<string, string>} EVENTS
 	 * @param {Object<string, *>} config
 	 */
-	constructor(window, dispatcher, EVENTS, config) {
+	constructor(scriptLoader, window, dispatcher, EVENTS, config) {
+
+		/**
+		 * Handler from ima.js-module-script-loader.
+		 *
+		 * @protected
+		 * @property _scriptLoader
+		 * @type {Module.ScriptLoader.Handler}
+		 */
+		this._scriptLoader = scriptLoader;
 
 		/**
 		 * IMA.js Window
@@ -55,13 +65,13 @@ export default class Abstract {
 		this._config = config;
 
 		/**
-		 * Storage where we store hits for unprepared analytic.
+		 * Analytic script url.
 		 *
 		 * @protected
-		 * @property _storage
-		 * @type {Array<Object<string, *>>}
+		 * @property _analyticScriptUrl
+		 * @type {string?}
 		 */
-		this._storageOfHits = [];
+		this._analyticScriptUrl = null;
 
 		/**
 		 * If flag has value true then analytic is enable for hit events.
@@ -71,50 +81,6 @@ export default class Abstract {
 		 * @type {boolean}
 		 */
 		this._enable = false;
-
-		/**
-		 * Timer for trying flush storage.
-		 *
-		 * @private
-		 * @property _timerFlushStorage
-		 */
-		this._timerFlushStorage = null;
-
-		/**
-		 * Timer for trying configuration analytic.
-		 *
-		 * @private
-		 * @property _timerConfiguration
-		 */
-		this._timerConfiguration = null;
-
-		/**
-		 * Defined max storage size.
-		 *
-		 * @const
-		 * @property MAX_STORAGE_SIZE
-		 * @type {number}
-		 */
-		this.MAX_STORAGE_SIZE = 25;
-
-		/**
-		 * Defined interval for attempt to configuration analytic.
-		 *
-		 * @protected
-		 * @property INTERVAL_FOR_ATTEMPT_CONFIGURATION
-		 * @type {number}
-		 */
-		this.INTERVAL_FOR_ATTEMPT_CONFIGURATION = 25;
-
-		/**
-		 * Module prefix id for loading analytic script to page.
-		 *
-		 * @protected
-		 * @property PREFIX_ID
-		 * @type {string}
-		 */
-		this.PREFIX_ID = 'IMAjsModuleAnalytic';
-
 	}
 
 	/**
@@ -123,37 +89,37 @@ export default class Abstract {
 	 * @method init
 	 */
 	init() {
-		this._install();
-		this._configuration();
+		if (!this.isEnabled() &&
+				this._window.isClient() &&
+				this._analyticScriptUrl) {
 
-		if (!this.isEnabled() && this._window.isClient()) {
-			this._deferAttemptToConfiguration();
+			this._scriptLoader
+				.load(this._analyticScriptUrl, this.getTemplate())
+				.then(() => {
+					this._configuration();
+				})
+				.catch((errorResponse) => {
+					console.log(errorResponse.url, errorResponse.error);
+				});
 		}
 	}
 
 	/**
-	 * Returns template for loading script async.
+	 * Returns template for loading script.
 	 *
+	 * @abstract
 	 * @method getTemplate
-	 * @param {string} url
-	 * @param {string} id
-	 * @return {string}
+	 * @return {string?}
 	 */
-	getTemplate(url, id) {
-		var template = `(function(win,doc,tag,url,id){` +
-				`var script = doc.createElement(tag);` +
-				`var firstScript = doc.getElementsByTagName(tag)[0];` +
-				`script.async = 1;` +
-				`script.src = url;` +
-				`firstScript.parentNode.insertBefore(script, firstScript);` +
-				`})(window,document,'script','${url}', '${id}')`;
-
-		return template;
+	getTemplate() {
+		throw new Error('The getTemplate() method is abstract and must be ' +
+				'overridden.');
 	}
 
 	/**
 	 * Returns true if analytic is enabled.
 	 *
+	 * @protected
 	 * @method isEnabled
 	 * @return {boolean}
 	 */
@@ -165,6 +131,7 @@ export default class Abstract {
 	 * Hit event to analytic with defined data. If analytic is not configured then
 	 * defer hit to storage.
 	 *
+	 * @abstract
 	 * @method hit
 	 * @param {Object<string, *>} data
 	 */
@@ -176,6 +143,7 @@ export default class Abstract {
 	/**
 	 * Hit page view event to analytic for defined page data.
 	 *
+	 * @abstract
 	 * @method hitPageView
 	 * @param {Object<string, *>} pageData
 	 */
@@ -185,85 +153,14 @@ export default class Abstract {
 	}
 
 	/**
-	 * Load analytic script to page.
+	 * Configuration analytic
 	 *
-	 * @protected
-	 * @method install
-	 * @param {string} url
-	 * @param {string} id
-	 */
-	_install(url, id) {
-		if (this._window.isClient()) {
-			var scriptId = this.PREFIX_ID + id;
-			var script = this._window.getElementById(scriptId);
-
-			if (!script) {
-				script = document.createElement('script');
-				script.setAttribute('id', scriptId);
-
-				script.innerHTML = this.getTemplate(url, id);
-
-				var firstScript = this._window.querySelectorAll('script')[0];
-				firstScript.parentNode.insertBefore(script, firstScript);
-			}
-		}
-	}
-
-	/**
-	 * Defer hit so that save data to storage for re-hit after analytic is configured.
-	 *
-	 * @protected
-	 * @method _deferHit
-	 * @param {Object<string, *>} data
-	 */
-	_deferHit(data) {
-		if (this._storageOfHits.length <= this.MAX_STORAGE_SIZE) {
-			this._storageOfHits.push(data);
-		}
-	}
-
-	/**
-	 * Configuration DOT analyst
-	 *
+	 * @abstract
 	 * @protected
 	 * @method _configuration
 	 */
 	_configuration() {
 		throw new Error('The _configuration() method is abstract and must be ' +
 				'overridden.');
-	}
-
-	/**
-	 * Flush storage and re-hit data to analytic.
-	 *
-	 * @protected
-	 * @method _flushStorage
-	 */
-	_flushStorage() {
-		for (let data of this._storageOfHits) {
-			this.hit(data);
-		}
-
-		this._storageOfHits = [];
-	}
-
-	/**
-	 * Set new timeout for attempt configuration analytic.
-	 *
-	 * @protected
-	 * @method _deferAttemptToConfiguration
-	 */
-	_deferAttemptToConfiguration() {
-		clearTimeout(this._timerConfiguration);
-
-		this._timerConfiguration = setTimeout(() => {
-			this._configuration();
-
-			if (this.isEnabled()) {
-				this._flushStorage();
-			} else {
-				this._deferAttemptToConfiguration();
-			}
-		}, this.INTERVAL_FOR_ATTEMPT_CONFIGURATION);
 	}
 }

@@ -15,24 +15,26 @@ export default class Google extends Abstract {
 	/**
 	 * @method constructor
 	 * @constructor
+	 * @param {Module.ScriptLoader.Handler} scriptLoader
 	 * @param {Core.Interface.Window} window
 	 * @param {Core.Interface.Dispatcher} dispatcher
 	 * @param {Object<string, string>} EVENTS
 	 * @param {Object<string, *>} config
 	 */
-	constructor(window, dispatcher, EVENTS, config) {
-		super(window, dispatcher, EVENTS, config);
+	constructor(scriptLoader, window, dispatcher, EVENTS, config) {
+		super(scriptLoader, window, dispatcher, EVENTS, config);
+
+		this._analyticScriptUrl = '//www.google-analytics.com/analytics.js';
 	}
 
 	/**
 	 * Returns template for loading script async.
 	 *
+	 * @override
 	 * @method getTemplate
-	 * @param {string} url
-	 * @param {string} id
-	 * @return {string}
+	 * @return {string?}
 	 */
-	getTemplate(url, id) {
+	getTemplate() {
 		var template = `(function(win,doc,tag,url,id){` +
 				`win[id] = win[id] || function() {` +
 				`win[id].q = win[id].q || [];` +
@@ -44,7 +46,7 @@ export default class Google extends Abstract {
 				`script.async = 1;` +
 				`script.src = url;` +
 				`firstScript.parentNode.insertBefore(script, firstScript);` +
-				`})(window,document,'script','${url}', '${id}')`;
+				`})(window,document,'script','${this._analyticScriptUrl}', 'ga')`;
 
 		return template;
 	}
@@ -68,6 +70,7 @@ export default class Google extends Abstract {
 	/**
 	 * Hit page view event to analytic witd defined data.
 	 *
+	 * @override
 	 * @method hitPageView
 	 * @param {Object<string, *>} pageData
 	 */
@@ -81,20 +84,7 @@ export default class Google extends Abstract {
 	}
 
 	/**
-	 * Install analytic script to page.
-	 *
-	 * @method _install
-	 * @param {string} [url='//www.google-analytics.com/analytics.js']
-	 * @param {string} [id='ga']
-	 */
-	_install(url = '//www.google-analytics.com/analytics.js', id = 'ga') {
-		super._install(url, id);
-
-		this._window.getWindow().ga('create', this._config.service, 'auto', this._config.settings);
-	}
-
-	/**
-	 * Configuration DOT analyst
+	 * Configuration Google analytic
 	 *
 	 * @override
 	 * @protected
@@ -109,6 +99,7 @@ export default class Google extends Abstract {
 		}
 
 		this._enable = true;
+		this._window.getWindow().ga('create', this._config.service, 'auto', this._config.settings);
 		this._dispatcher.fire(this._EVENTS.LOADED, { type: 'google' }, true);
 	}
 }

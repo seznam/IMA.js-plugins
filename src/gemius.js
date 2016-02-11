@@ -15,24 +15,26 @@ export default class Gemius extends Abstract {
 	/**
 	 * @method constructor
 	 * @constructor
+	 * @param {Module.ScriptLoader.Handler} scriptLoader
 	 * @param {Core.Interface.Window} window
 	 * @param {Core.Interface.Dispatcher} dispatcher
 	 * @param {Object<string, string>} EVENTS
 	 * @param {Object<string, *>} config
 	 */
-	constructor(window, dispatcher, EVENTS, config) {
-		super(window, dispatcher, EVENTS, config);
+	constructor(scriptLoader, window, dispatcher, EVENTS, config) {
+		super(scriptLoader, window, dispatcher, EVENTS, config);
+
+		this._analyticScriptUrl = '//gacz.hit.gemius.pl/xgemius.js';
 	}
 
 	/**
 	 * Returns template for loading script async.
 	 *
+	 * @override
 	 * @method getTemplate
-	 * @param {string} url
-	 * @param {string} id
-	 * @return {string}
+	 * @return {string?}
 	 */
-	getTemplate(url, id) {
+	getTemplate() {
 		var template = `(function(win,doc,tag,url,id){` +
 				`function gemiusPending(name) {` +
 				`win[name] = win[name] || function() {` +
@@ -48,7 +50,7 @@ export default class Gemius extends Abstract {
 				`script.async = 1;` +
 				`script.src = url;` +
 				`firstScript.parentNode.insertBefore(script, firstScript);` +
-				`})(window,document,'script','${url}', '${id}')`;
+				`})(window,document,'script','${this._analyticScriptUrl}', 'gemius')`;
 
 		return template;
 	}
@@ -85,6 +87,7 @@ export default class Gemius extends Abstract {
 	/**
 	 * Hit page view event to analytic witd defined data.
 	 *
+	 * @override
 	 * @method hitPageView
 	 * @param {Object<string, *>} pageData
 	 */
@@ -103,18 +106,7 @@ export default class Gemius extends Abstract {
 	}
 
 	/**
-	 * Install analytic script to page.
-	 *
-	 * @method _install
-	 * @param {string} [url='//gacz.hit.gemius.pl/xgemius.js']
-	 * @param {string} [id='ga']
-	 */
-	_install(url = '//gacz.hit.gemius.pl/xgemius.js', id = 'gemius') {
-		super._install(url, id);
-	}
-
-	/**
-	 * Configuration DOT analyst
+	 * Configuration gemius analytic
 	 *
 	 * @override
 	 * @protected

@@ -6,7 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _abstract = require('./abstract.js');
 
-var _abstract2 = babelHelpers.interopRequireDefault(_abstract);
+var _abstract2 = _interopRequireDefault(_abstract);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Dot
@@ -18,21 +20,37 @@ var _abstract2 = babelHelpers.interopRequireDefault(_abstract);
  *
  * @extends Module.Analytic.Abstract
  */
-
-var Dot = (function (_Abstract) {
-	babelHelpers.inherits(Dot, _Abstract);
+class Dot extends _abstract2.default {
 
 	/**
   * @method constructor
   * @constructor
+  * @param {Module.ScriptLoader.Handler} scriptLoader
   * @param {Core.Interface.Window} window
   * @param {Core.Interface.Dispatcher} dispatcher
   * @param {Object<string, string>} EVENTS
   * @param {Object<string, *>} config
   */
+	constructor(scriptLoader, window, dispatcher, EVENTS, config) {
+		super(scriptLoader, window, dispatcher, EVENTS, config);
 
-	function Dot(window, dispatcher, EVENTS, config) {
-		babelHelpers.classCallCheck(this, Dot);
+		/**
+   * Storage where we store hits for unprepared analytic.
+   *
+   * @protected
+   * @property _storage
+   * @type {Array<Object<string, *>>}
+   */
+		this._storageOfHits = [];
+
+		/**
+   * Defined max storage size.
+   *
+   * @const
+   * @property MAX_STORAGE_SIZE
+   * @type {number}
+   */
+		this.MAX_STORAGE_SIZE = 25;
 
 		/**
    * Prefix for route param key, which help with collide name.
@@ -41,11 +59,18 @@ var Dot = (function (_Abstract) {
    * @property ROUTE_PARAM_PREFIX
    * @type {string}
    */
+		this.ROUTE_PARAM_PREFIX = 'routeParam';
+	}
 
-		var _this = babelHelpers.possibleConstructorReturn(this, _Abstract.call(this, window, dispatcher, EVENTS, config));
-
-		_this.ROUTE_PARAM_PREFIX = 'routeParam';
-		return _this;
+	/**
+  * Returns template for loading script.
+  *
+  * @override
+  * @method getTemplate
+  * @return {string?}
+  */
+	getTemplate() {
+		return null;
 	}
 
 	/**
@@ -55,31 +80,17 @@ var Dot = (function (_Abstract) {
   * @param {Object<string, string|number|boolean>} params
   * @return {string}
   */
-
-	Dot.prototype.getDOTDataForElement = function getDOTDataForElement(params) {
+	getDOTDataForElement(params) {
 		var dotPairs = [];
 
-		for (var _iterator = Object.keys(params), _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-			var _ref;
+		for (let key of Object.keys(params)) {
+			let value = params[key];
 
-			if (_isArray) {
-				if (_i >= _iterator.length) break;
-				_ref = _iterator[_i++];
-			} else {
-				_i = _iterator.next();
-				if (_i.done) break;
-				_ref = _i.value;
-			}
-
-			var key = _ref;
-
-			var value = params[key];
-
-			dotPairs.push('"' + key + '":"' + value + '"');
+			dotPairs.push(`"${ key }":"${ value }"`);
 		}
 
-		return '{' + dotPairs.join(',') + '}';
-	};
+		return `{${ dotPairs.join(',') }}`;
+	}
 
 	/**
   * Hit event to analytic with defined data. If analytic is not configured then
@@ -89,14 +100,13 @@ var Dot = (function (_Abstract) {
   * @method hit
   * @param {Object<string, *>} data
   */
-
-	Dot.prototype.hit = function hit(data) {
+	hit(data) {
 		if (this.isEnabled()) {
 			this._window.getWindow().DOT.hit('event', { d: data });
 		} else {
 			this._deferHit(data);
 		}
-	};
+	}
 
 	/**
   * Hit page view event to analytic with defined data.
@@ -104,51 +114,22 @@ var Dot = (function (_Abstract) {
   * @method hitPageView
   * @param {Object<string, *>} pageData
   */
-
-	Dot.prototype.hitPageView = function hitPageView(pageData) {
-		var data = {
+	hitPageView(pageData) {
+		let data = {
 			action: 'impress',
 			page: pageData.route.getName()
 		};
 
 		if (pageData.params) {
-			for (var _iterator2 = Object.keys(pageData.params), _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
-				var _ref2;
-
-				if (_isArray2) {
-					if (_i2 >= _iterator2.length) break;
-					_ref2 = _iterator2[_i2++];
-				} else {
-					_i2 = _iterator2.next();
-					if (_i2.done) break;
-					_ref2 = _i2.value;
-				}
-
-				var routeParamKey = _ref2;
-
-				var prefixedRouteParamKey = this.ROUTE_PARAM_PREFIX + routeParamKey[0].toUpperCase() + routeParamKey.slice(1);
+			for (let routeParamKey of Object.keys(pageData.params)) {
+				let prefixedRouteParamKey = this.ROUTE_PARAM_PREFIX + routeParamKey[0].toUpperCase() + routeParamKey.slice(1);
 
 				data[prefixedRouteParamKey] = pageData.params[routeParamKey];
 			}
 		}
 
 		this.hit(data);
-	};
-
-	/**
-  * Install analytic script to page.
-  *
-  * @method _install
-  * @param {string} [url='//h.imedia.cz/js/dot-small.js']
-  * @param {string} [id='dot']
-  */
-
-	Dot.prototype._install = function _install() {
-		var url = arguments.length <= 0 || arguments[0] === undefined ? '//h.imedia.cz/js/dot-small.js' : arguments[0];
-		var id = arguments.length <= 1 || arguments[1] === undefined ? 'DOT' : arguments[1];
-
-		_Abstract.prototype._install.call(this, this._config.url || url, id);
-	};
+	}
 
 	/**
   * Configuration DOT analyst
@@ -157,8 +138,7 @@ var Dot = (function (_Abstract) {
   * @protected
   * @method _configuration
   */
-
-	Dot.prototype._configuration = function _configuration() {
+	_configuration() {
 		if (!this._window.isClient() || !this._window.getWindow().DOT || !this._config.service || this.isEnabled()) {
 			return;
 		}
@@ -166,9 +146,34 @@ var Dot = (function (_Abstract) {
 		this._enable = true;
 		this._window.getWindow().DOT.cfg(Object.assign({}, this._config, { url: undefined }));
 		this._dispatcher.fire(this._EVENTS.LOADED, { type: 'dot' }, true);
-	};
+		this._flushStorage();
+	}
 
-	return Dot;
-})(_abstract2.default);
+	/**
+  * Defer hit so that save data to storage for re-hit after analytic is configured.
+  *
+  * @protected
+  * @method _deferHit
+  * @param {Object<string, *>} data
+  */
+	_deferHit(data) {
+		if (this._storageOfHits.length <= this.MAX_STORAGE_SIZE) {
+			this._storageOfHits.push(data);
+		}
+	}
 
+	/**
+  * Flush storage and re-hit data to analytic.
+  *
+  * @protected
+  * @method _flushStorage
+  */
+	_flushStorage() {
+		for (let data of this._storageOfHits) {
+			this.hit(data);
+		}
+
+		this._storageOfHits = [];
+	}
+}
 exports.default = Dot;

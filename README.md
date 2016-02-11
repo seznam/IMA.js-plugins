@@ -95,9 +95,9 @@ oc.constant('DOT_ANALYTIC_CONFIG', config.Module.Analytic.Dot);
 oc.constant('GOOGLE_ANALYTIC_CONFIG', config.Module.Analytic.Google);
 oc.constant('GEMIUS_ANALYTIC_CONFIG', config.Module.Analytic.Gemius);
 
-oc.bind('DotAnalytic', ns.Module.Analytic.Dot, ['$Window', '$Dispatcher', ns.Module.Analytic.EVENTS, 'DOT_ANALYTIC_CONFIG']);
-oc.bind('GoogleAnalytic', ns.Module.Analytic.Google, ['$Window', '$Dispatcher', ns.Module.Analytic.EVENTS, 'GOOGLE_ANALYTIC_CONFIG']);
-oc.bind('GemiusAnalytic', ns.Module.Analytic.Gemius, ['$Window', '$Dispatcher', ns.Module.Analytic.EVENTS, 'GEMIUS_ANALYTIC_CONFIG']);
+oc.bind('DotAnalytic', ns.Module.Analytic.Dot, [ns.Module.ScriptLoader.Handler, '$Window', '$Dispatcher', ns.Module.Analytic.EVENTS, 'DOT_ANALYTIC_CONFIG']);
+oc.bind('GoogleAnalytic', ns.Module.Analytic.Google, [ns.Module.ScriptLoader.Handler, '$Window', '$Dispatcher', ns.Module.Analytic.EVENTS, 'GOOGLE_ANALYTIC_CONFIG']);
+oc.bind('GemiusAnalytic', ns.Module.Analytic.Gemius, [ns.Module.ScriptLoader.Handler, '$Window', '$Dispatcher', ns.Module.Analytic.EVENTS, 'GEMIUS_ANALYTIC_CONFIG']);
 ```
 
 ```javascript

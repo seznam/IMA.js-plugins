@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-var EVENTS = Object.freeze({
+const EVENTS = Object.freeze({
 	LOADED: 'module.analytic.loaded'
 });
 

@@ -15,13 +15,32 @@ export default class Dot extends Abstract {
 	/**
 	 * @method constructor
 	 * @constructor
+	 * @param {Module.ScriptLoader.Handler} scriptLoader
 	 * @param {Core.Interface.Window} window
 	 * @param {Core.Interface.Dispatcher} dispatcher
 	 * @param {Object<string, string>} EVENTS
 	 * @param {Object<string, *>} config
 	 */
-	constructor(window, dispatcher, EVENTS, config) {
-		super(window, dispatcher, EVENTS, config);
+	constructor(scriptLoader, window, dispatcher, EVENTS, config) {
+		super(scriptLoader, window, dispatcher, EVENTS, config);
+
+		/**
+		 * Storage where we store hits for unprepared analytic.
+		 *
+		 * @protected
+		 * @property _storage
+		 * @type {Array<Object<string, *>>}
+		 */
+		this._storageOfHits = [];
+
+		/**
+		 * Defined max storage size.
+		 *
+		 * @const
+		 * @property MAX_STORAGE_SIZE
+		 * @type {number}
+		 */
+		this.MAX_STORAGE_SIZE = 25;
 
 		/**
 		 * Prefix for route param key, which help with collide name.
@@ -31,6 +50,17 @@ export default class Dot extends Abstract {
 		 * @type {string}
 		 */
 		this.ROUTE_PARAM_PREFIX = 'routeParam';
+	}
+
+	/**
+	 * Returns template for loading script.
+	 *
+	 * @override
+	 * @method getTemplate
+	 * @return {string?}
+	 */
+	getTemplate() {
+		return null;
 	}
 
 	/**
@@ -94,17 +124,6 @@ export default class Dot extends Abstract {
 	}
 
 	/**
-	 * Install analytic script to page.
-	 *
-	 * @method _install
-	 * @param {string} [url='//h.imedia.cz/js/dot-small.js']
-	 * @param {string} [id='dot']
-	 */
-	_install(url = '//h.imedia.cz/js/dot-small.js', id = 'DOT') {
-		super._install(this._config.url || url, id);
-	}
-
-	/**
 	 * Configuration DOT analyst
 	 *
 	 * @override
@@ -122,5 +141,33 @@ export default class Dot extends Abstract {
 		this._enable = true;
 		this._window.getWindow().DOT.cfg(Object.assign({}, this._config, { url: undefined }));
 		this._dispatcher.fire(this._EVENTS.LOADED, { type: 'dot' }, true);
+		this._flushStorage();
+	}
+
+	/**
+	 * Defer hit so that save data to storage for re-hit after analytic is configured.
+	 *
+	 * @protected
+	 * @method _deferHit
+	 * @param {Object<string, *>} data
+	 */
+	_deferHit(data) {
+		if (this._storageOfHits.length <= this.MAX_STORAGE_SIZE) {
+			this._storageOfHits.push(data);
+		}
+	}
+
+	/**
+	 * Flush storage and re-hit data to analytic.
+	 *
+	 * @protected
+	 * @method _flushStorage
+	 */
+	_flushStorage() {
+		for (let data of this._storageOfHits) {
+			this.hit(data);
+		}
+
+		this._storageOfHits = [];
 	}
 }
