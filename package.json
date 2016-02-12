@@ -1,6 +1,6 @@
 {
 	"name": "ima.js-module-analytic-google",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Seznam IMA.js module google analytic",
 	"main": "index.js",
 	"scripts": {
@@ -34,7 +34,7 @@
 		"babel-plugin-transform-es2015-modules-commonjs": "^6.5.2",
 		"eslint": "^1.10.3",
 		"eslint-plugin-react": "^3.16.1",
-		"gulp": "^3.9.0",
+		"gulp": "^3.9.1",
 		"gulp-babel": "^6.1.2",
 		"gulp-change": "^1.0.0",
 		"gulp-jasmine": "^2.2.1",
@@ -43,8 +43,8 @@
 		"gulp-yuidoc": "^0.1.2"
 	},
 	"dependencies": {
-		"ima.js-module-analytic": "^0.2.1",
-		"ima.js-module-scriptloader": "^0.1.1"
+		"ima.js-module-analytic": "^0.2.2",
+		"ima.js-module-scriptloader": "^0.1.2"
 	},
 	"browserify": {
 		"transform": [
