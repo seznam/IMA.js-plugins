@@ -33,8 +33,7 @@ import { ModuleAnalyticGoogle } from 'app/vendor';
 ```
 
 You have also installed modules [ima.js-module-analytic](https://gitlab.kancelar.seznam.cz/IMA.js/module-analytic) and
-[ima.js-module-scriptloader](https://gitlab.kancelar.seznam.cz/IMA.js/module-scriptloader](ima.js-module-scriptloader).
-
+[ima.js-module-scriptloader](https://gitlab.kancelar.seznam.cz/IMA.js/module-scriptloader].
 
 ```javascript
 // /app/config/settings.js
