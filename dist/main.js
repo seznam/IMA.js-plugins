@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+exports.Service = exports.EVENTS = exports.__$IMAModuleRegister__ = undefined;
 
 var _service = require('./service.js');
 
@@ -14,23 +15,24 @@ var _events2 = _interopRequireDefault(_events);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/*export var __$IMAModuleRegister__ = (ns) => {
+var __$IMAModuleRegister__ = exports.__$IMAModuleRegister__ = ns => {
 	ns.namespace('Module.ScriptLoader');
 
-	ns.Module.ScriptLoader.EVENTS = EVENTS;
-	ns.Module.ScriptLoader.Service = Service;
+	ns.Module.ScriptLoader.EVENTS = _events2.default;
+	ns.Module.ScriptLoader.Service = _service2.default;
 
-	$IMA.Loader.register('module/scriptloader', [], (_export) => {
+	$IMA.Loader.register('module/scriptloader', [], _export => {
 		return {
 			setters: [],
 			execute: () => {
-				_export('EVENTS', EVENTS);
-				_export('Service', Service);
-				_export('default', { Service, EVENTS });
+				_export('EVENTS', _events2.default);
+				_export('Service', _service2.default);
+				_export('default', { Service: _service2.default, EVENTS: _events2.default });
 			}
 		};
 	});
-};*/
+};
 
 exports.default = { EVENTS: _events2.default, Service: _service2.default };
-/*export { EVENTSService };*/
+exports.EVENTS = _events2.default;
+exports.Service = _service2.default;

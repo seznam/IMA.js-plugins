@@ -1,18 +1,18 @@
 {
 	"name": "ima.js-module-scriptloader",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Seznam IMA.js module script loader",
 	"main": "index.js",
 	"scripts": {
 		"prepublish": "npm run build && npm run test",
 		"build": "gulp build",
 		"doc": "gulp doc",
-		"test": "gulp test --harmony_default_parameters",
-		"dev": "gulp dev --harmony_default_parameters"
+		"test": "gulp test",
+		"dev": "gulp dev"
 	},
 	"keywords": [
 		"IMA.js",
-		"Skeleton",
+		"Script loader",
 		"Module",
 		"Javascript"
 	],

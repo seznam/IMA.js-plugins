@@ -64,10 +64,10 @@ class Service {
   *
   * @method load
   * @param {string} url
-  * @param {string?} [template=null]
+  * @param {string?} [template]
   * @return {Promise<Object<string, *>>}
   */
-	load(url, template = null) {
+	load(url, template) {
 		if (!this._window.isClient()) {
 			return Promise.reject({ url, error: new Error(`The script ${ url } can not be loaded on the client side.`) });
 		}
@@ -125,5 +125,5 @@ class Service {
 		reject(data);
 		this._dispatcher.fire(this._EVENTS.LOADED, data, true);
 	}
-}exports.default = Service;
-;
+}
+exports.default = Service;

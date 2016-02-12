@@ -36,21 +36,16 @@ import { ModuleScriptLoader } from 'app/vendor';
 ```javascript
 // /app/config/bind.js
 
-oc.constant('DOT_ANALYTIC_CONFIG', config.Module.Analytic.Dot);
-oc.constant('GOOGLE_ANALYTIC_CONFIG', config.Module.Analytic.Google);
-oc.constant('GEMIUS_ANALYTIC_CONFIG', config.Module.Analytic.Gemius);
-
-oc.bind('ScriptLoader', ns.Module.ScriptLoader.Service, ['$Window', '$Dispatcher', ns.Module.ScriptLoader.EVENTS]);
+oc.bind('ScriptLoaderService', ns.Module.ScriptLoader.Service, ['$Window', '$Dispatcher', ns.Module.ScriptLoader.EVENTS]);
 
 ```
 
 ## Usage
 
 ```javascript
-// /app/config/services.js
 
 oc
-	.get('ScriptLoader')
+	.get('ScriptLoaderService')
 	.load('//www.example.com/script.js')
 	.then((response) => {
 		console.log('Script is loaded.', response.url);
