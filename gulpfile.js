@@ -1,4 +1,6 @@
-require('babel-core/register.js');
+require('babel-core/register.js')({
+	'plugins': 'transform-es2015-modules-commonjs'
+});
 
 var gulp = require('gulp');
 var sourcemaps = require('gulp-sourcemaps');
