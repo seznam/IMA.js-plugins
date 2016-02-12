@@ -8,4 +8,8 @@ describe('Main', () => {
 	it('should has Service', () => {
 		expect(typeof Main.Service).toEqual('function');
 	});
+
+	it('should has ServiceDependencies', () => {
+		expect(Array.isArray(Main.ServiceDependencies)).toEqual(true);
+	});
 });

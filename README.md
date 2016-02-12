@@ -25,9 +25,10 @@ vendorApp.set('ModuleScriptLoader', moduleScriptLoader);
 Now is ModuleScriptLoader available from:
 
 ns.Module.ScriptLoader.Service
+ns.Module.ScriptLoader.ServiceDependencies
 ns.Module.ScriptLoader.EVENTS
 
-import { Service, EVENTS } from 'module/scriptloader';
+import { Service, EVENTS, ServiceDependencies } from 'module/scriptloader';
 import { ModuleScriptLoader } from 'app/vendor';
 */
 
@@ -36,7 +37,7 @@ import { ModuleScriptLoader } from 'app/vendor';
 ```javascript
 // /app/config/bind.js
 
-oc.bind('ScriptLoaderService', ns.Module.ScriptLoader.Service, ['$Window', '$Dispatcher', ns.Module.ScriptLoader.EVENTS]);
+oc.bind('ScriptLoaderService', ns.Module.ScriptLoader.Service, ns.Module.ScriptLoader.ServiceDependencies);
 
 ```
 
