@@ -1,0 +1,54 @@
+{
+	"name": "ima.js-module-analytic-google",
+	"version": "0.1.1",
+	"description": "Seznam IMA.js module google analytic",
+	"main": "index.js",
+	"scripts": {
+		"prepublish": "npm run build && npm run test",
+		"build": "gulp build",
+		"doc": "gulp doc",
+		"test": "gulp test",
+		"dev": "gulp dev"
+	},
+	"keywords": [
+		"IMA.js",
+		"Analytic",
+		"Google analytic",
+		"Module",
+		"Javascript"
+	],
+	"author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
+	"repository": {
+		"type": "git",
+		"url": "https://gitlab.kancelar.seznam.cz/IMA.js/module-analytic-google.git"
+	},
+	"publishConfig": {
+		"registry": "http://npmjs.dev/"
+	},
+	"bugs": {
+		"url": "https://gitlab.kancelar.seznam.cz/IMA.js/module-analytic-google/issues"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"babel-core": "^6.4.5",
+		"babel-plugin-transform-es2015-modules-commonjs": "^6.4.5",
+		"eslint": "^1.10.3",
+		"eslint-plugin-react": "^3.16.1",
+		"gulp": "^3.9.0",
+		"gulp-babel": "^6.1.2",
+		"gulp-change": "^1.0.0",
+		"gulp-jasmine": "^2.2.1",
+		"gulp-plumber": "^1.0.1",
+		"gulp-sourcemaps": "^1.6.0",
+		"gulp-yuidoc": "^0.1.2"
+	},
+	"dependencies": {
+		"ima.js-module-analytic": "^0.2.1",
+		"ima.js-module-scriptloader": "^0.1.1"
+	},
+	"browserify": {
+		"transform": [
+			"babelify"
+		]
+	}
+}
