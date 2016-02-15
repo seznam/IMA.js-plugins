@@ -72,7 +72,7 @@ export default class Service {
 		}
 
 		this._loadedScripts[url] = new Promise((resolve, reject) => {
-			let script = document.createElement('script');
+			let script = this._createScriptElement();
 
 			if (template) {
 				script.innerHTML = template;
@@ -84,11 +84,34 @@ export default class Service {
 				script.src = url;
 			}
 
-			let firstScript = this._window.querySelectorAll('script')[0];
-			firstScript.parentNode.insertBefore(script, firstScript);
+			this._insertScriptToPage();
 		});
 
 		return this._loadedScripts[url];
+	}
+
+	/**
+	 * Insert defined script tag to page.
+	 *
+	 * @private
+	 * @method _insertScriptToPage
+	 * @param {HTMLScriptElement} script
+	 */
+	_insertScriptToPage(script) {
+		let firstScript = this._window.querySelectorAll('script')[0];
+
+		firstScript.parentNode.insertBefore(script, firstScript);
+	}
+
+	/**
+	 * Create new script element and return it.
+	 *
+	 * @private
+	 * @method _createScriptElement
+	 * @return {HTMLScriptElement}
+	 */
+	_createScriptElement() {
+		return document.createElement('script');
 	}
 
 	/**

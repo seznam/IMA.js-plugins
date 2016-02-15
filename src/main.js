@@ -1,14 +1,16 @@
 import Service from './service.js';
 import EVENTS from './events.js';
 
-var ServiceDependencies = ['$Window', '$Dispatcher', EVENTS];
+var DefaultDependencies = ['$Window', '$Dispatcher', EVENTS];
 
-export var __$IMAModuleRegister__ = (ns) => {
+var __$IMAModuleDependencies__ = [];
+
+var __$IMAModuleRegister__ = (ns) => {
 	ns.namespace('Module.ScriptLoader');
 
 	ns.Module.ScriptLoader.EVENTS = EVENTS;
 	ns.Module.ScriptLoader.Service = Service;
-	ns.Module.ScriptLoader.ServiceDependencies = ServiceDependencies;
+	ns.Module.ScriptLoader.DefaultDependencies = DefaultDependencies;
 
 	$IMA.Loader.register('module/scriptloader', [], (_export) => {
 		return {
@@ -16,12 +18,12 @@ export var __$IMAModuleRegister__ = (ns) => {
 			execute: () => {
 				_export('EVENTS', EVENTS);
 				_export('Service', Service);
-				_export('ServiceDependencies', ServiceDependencies);
-				_export('default', { Service, EVENTS, ServiceDependencies });
+				_export('DefaultDependencies', DefaultDependencies);
+				_export('__$IMAModuleDependencies__', __$IMAModuleDependencies__);
+				_export('__$IMAModuleRegister__', __$IMAModuleRegister__);
 			}
 		};
 	});
 };
 
-export default { EVENTS, Service, ServiceDependencies };
-export { EVENTS, Service, ServiceDependencies };
+export { EVENTS, Service, DefaultDependencies, __$IMAModuleDependencies__, __$IMAModuleRegister__ };

@@ -25,10 +25,10 @@ vendorApp.set('ModuleScriptLoader', moduleScriptLoader);
 Now is ModuleScriptLoader available from:
 
 ns.Module.ScriptLoader.Service
-ns.Module.ScriptLoader.ServiceDependencies
+ns.Module.ScriptLoader.DefaultDependencies
 ns.Module.ScriptLoader.EVENTS
 
-import { Service, EVENTS, ServiceDependencies } from 'module/scriptloader';
+import { Service, EVENTS, DefaultDependencies } from 'module/scriptloader';
 import { ModuleScriptLoader } from 'app/vendor';
 */
 
@@ -37,7 +37,9 @@ import { ModuleScriptLoader } from 'app/vendor';
 ```javascript
 // /app/config/bind.js
 
-oc.bind('ScriptLoaderService', ns.Module.ScriptLoader.Service, ns.Module.ScriptLoader.ServiceDependencies);
+oc.inject(ns.Module.ScriptLoader.Service, ns.Module.ScriptLoader.DefaultDependencies);
+
+//or
 
 ```
 
@@ -46,7 +48,7 @@ oc.bind('ScriptLoaderService', ns.Module.ScriptLoader.Service, ns.Module.ScriptL
 ```javascript
 
 oc
-	.get('ScriptLoaderService')
+	.get(ns.Module.ScriptLoader.Service)
 	.load('//www.example.com/script.js')
 	.then((response) => {
 		console.log('Script is loaded.', response.url);
