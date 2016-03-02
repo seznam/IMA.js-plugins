@@ -14,7 +14,7 @@ var change = require('gulp-change');
 // build module
 gulp.task('build', function() {
 	return (
-		gulp.src('./src/**/*.js')
+		gulp.src('./src/**/!(*Spec).js')
 		.pipe(sourcemaps.init())
 		.pipe(babel({
 			moduleIds: true,
@@ -27,7 +27,7 @@ gulp.task('build', function() {
 //run test
 gulp.task('test', () => {
 	return (
-		gulp.src('./test/*.js')
+		gulp.src('./src/**/*Spec.js')
 			.pipe(jasmine({ includeStackTrace: true }))
 	);
 });
@@ -35,7 +35,7 @@ gulp.task('test', () => {
 
 // -------------------------------------PRIVATE HELPER TASKS
 gulp.task('dev', function() {
-	gulp.watch(['./src/**/*.js', './src/*.js', './test/*.js'], ['test']);
+	gulp.watch(['./src/**/*.js'], ['test']);
 });
 
 gulp.task('doc', function() {

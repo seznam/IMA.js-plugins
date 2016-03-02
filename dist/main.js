@@ -3,36 +3,26 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.Google = exports.__$IMAModuleRegister__ = undefined;
+exports.$registerImaPlugin = exports.defaultDependencies = exports.GoogleAnalytic = undefined;
 
-var _ima = require('ima.js-module-analytic');
+var _imaPluginAnalytic = require('ima-plugin-analytic');
 
-var _ima2 = require('ima.js-module-scriptloader');
+var _imaPluginScriptLoader = require('ima-plugin-script-loader');
 
-var _google = require('./google.js');
+var _GoogleAnalytic = require('./GoogleAnalytic.js');
 
-var _google2 = _interopRequireDefault(_google);
+var _GoogleAnalytic2 = _interopRequireDefault(_GoogleAnalytic);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var __$IMAModuleRegister__ = exports.__$IMAModuleRegister__ = ns => {
-	(0, _ima.__$IMAModuleRegister__)(ns);
-	(0, _ima2.__$IMAModuleRegister__)(ns);
+var defaultDependencies = [_imaPluginScriptLoader.ScriptLoaderPlugin, '$Window', '$Dispatcher', _imaPluginAnalytic.Events, '$Settings.Module.Analytic.Google'];
 
-	ns.namespace('Module.Analytic');
+var $registerImaPlugin = ns => {
+	ns.namespace('ima.plugin.analytic');
 
-	ns.Module.Analytic.Google = _google2.default;
-
-	$IMA.Loader.register('module/analytic/google', ['module/analytic', 'module/scriptloader'], _export => {
-		return {
-			setters: [],
-			execute: () => {
-				_export('Google', _google2.default);
-				_export('default', { Google: _google2.default });
-			}
-		};
-	});
+	ns.ima.plugin.analytic.GoogleAnalytic = _GoogleAnalytic2.default;
 };
 
-exports.default = { Google: _google2.default };
-exports.Google = _google2.default;
+exports.GoogleAnalytic = _GoogleAnalytic2.default;
+exports.defaultDependencies = defaultDependencies;
+exports.$registerImaPlugin = $registerImaPlugin;

@@ -1,4 +1,4 @@
-# ima.js-module-analytic-google
+# ima-plugin-analytic-google
 
 If you are looking more details, you should
 follow this link:
@@ -8,32 +8,29 @@ follow this link:
 
 ```javascript
 
-npm install ima.js-module-analytic-google --save
+npm install ima-plugin-analytic-google --save
 
 ```
 
 ```javascript
-// /app/vendor.js
+// /app/build.js
 
-var moduleAnalyticGoogle = require('ima.js-module-analytic-google');
-.
-.
-.
-vendorApp.set('ModuleAnalyticGoogle', moduleAnalyticGoogle);
+var vendors = {
+	common: [
+		'ima-plugin-analytic-google'
+	]
+};
 
 /*
-Now is ModuleAnalyticGoogle available from:
+Now is google analytic plugin available from:
 
-ns.Module.Analytic.Google
+ns.ima.plugin.analytic.GoogleAnalytic;
+ns.ima.plugin.analytic.defaultDependencies;
 
-import { Google } from 'module/analytic/google';
-import { ModuleAnalyticGoogle } from 'app/vendor';
+import { GoogleAnalytic, defaultDependencies } from 'ima-plugin-analytic-google';
 */
 
 ```
-
-You have also installed modules [ima.js-module-analytic](https://gitlab.kancelar.seznam.cz/IMA.js/module-analytic) and
-[ima.js-module-scriptloader](https://gitlab.kancelar.seznam.cz/IMA.js/module-scriptloader].
 
 ```javascript
 // /app/config/settings.js
@@ -56,9 +53,8 @@ prod: {
 ```javascript
 // /app/config/bind.js
 
-oc.constant('GOOGLE_ANALYTIC_CONFIG', config.Module.Analytic.Google);
+oc.bind('GoogleAnalytic', ns.ima.plugin.analytic.GoogleAnalytic, ns.ima.plugin.analytic.defaultDependencies);
 
-oc.bind('GoogleAnalytic', ns.Module.Analytic.Google, [ns.Module.ScriptLoader.Service, '$Window', '$Dispatcher', ns.Module.Analytic.EVENTS, 'GOOGLE_ANALYTIC_CONFIG']);
 ```
 
 ```javascript
@@ -75,7 +71,7 @@ if ($window.isClient()) {
 	googleAnalytic.init();
 
 	//set hitting page view to analytic
-	$dispatcher.listen(ns.Core.Router.EVENTS.AFTER_HANDLE_ROUTE, (pageData) => {
+	$dispatcher.listen(ns.Core.Router.Events.AFTER_HANDLE_ROUTE, (pageData) => {
 
 		if (pageData &&
 				pageData.response &&

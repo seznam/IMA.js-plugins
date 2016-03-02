@@ -1,25 +1,13 @@
-import { __$IMAModuleRegister__ as ModuleAnalyticRegister } from 'ima.js-module-analytic';
-import { __$IMAModuleRegister__ as ModuleScriptLoaderRegister } from 'ima.js-module-scriptloader';
-import Google from './google.js';
+import { Events } from 'ima-plugin-analytic';
+import { ScriptLoaderPlugin } from 'ima-plugin-script-loader';
+import GoogleAnalytic from './GoogleAnalytic.js';
 
-export var __$IMAModuleRegister__ = (ns) => {
-	ModuleAnalyticRegister(ns);
-	ModuleScriptLoaderRegister(ns);
+var defaultDependencies = [ScriptLoaderPlugin, '$Window', '$Dispatcher', Events, '$Settings.Module.Analytic.Google'];
 
-	ns.namespace('Module.Analytic');
+var $registerImaPlugin = (ns) => {
+	ns.namespace('ima.plugin.analytic');
 
-	ns.Module.Analytic.Google = Google;
-
-	$IMA.Loader.register('module/analytic/google', ['module/analytic', 'module/scriptloader'], (_export) => {
-		return {
-			setters: [],
-			execute: () => {
-				_export('Google', Google);
-				_export('default', { Google });
-			}
-		};
-	});
+	ns.ima.plugin.analytic.GoogleAnalytic = GoogleAnalytic;
 };
 
-export default { Google };
-export { Google };
+export { GoogleAnalytic, defaultDependencies, $registerImaPlugin };
