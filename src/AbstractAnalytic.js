@@ -1,30 +1,30 @@
 /**
  * Abstract analytic class
  *
- * @class Abstract
- * @namespace Module.Analytic
- * @module Module
- * @submodule Module.Analytic
+ * @class AbstractAnalytic
+ * @namespace ima.plugin.analytic
+ * @module ima
+ * @submodule ima.plugin
  */
-export default class Abstract {
+export default class AbstractAnalytic {
 
 	/**
 	 * @method constructor
 	 * @constructor
-	 * @param {Module.ScriptLoader.Handler} scriptLoader
-	 * @param {Core.Interface.Window} window
-	 * @param {Core.Interface.Dispatcher} dispatcher
-	 * @param {Object<string, string>} EVENTS
+	 * @param {ima.plugin.script.loader.ScriptLoaderPlugin} scriptLoader
+	 * @param {ima.window.Window} window
+	 * @param {ima.event.Dispatcher} dispatcher
+	 * @param {Object<string, string>} Events
 	 * @param {Object<string, *>} config
 	 */
-	constructor(scriptLoader, window, dispatcher, EVENTS, config) {
+	constructor(scriptLoader, window, dispatcher, Events, config) {
 
 		/**
-		 * Handler from ima.js-module-script-loader.
+		 * Handler from ima-plugin-script-loader.
 		 *
 		 * @protected
 		 * @property _scriptLoader
-		 * @type {Module.ScriptLoader.Handler}
+		 * @type {ima.plugin.script.loader.ScriptLoaderPlugin}
 		 */
 		this._scriptLoader = scriptLoader;
 
@@ -33,7 +33,7 @@ export default class Abstract {
 		 *
 		 * @protected
 		 * @property _window
-		 * @type {Core.Interface.Window}
+		 * @type {ima.window.Window}
 		 */
 		this._window = window;
 
@@ -42,18 +42,18 @@ export default class Abstract {
 		 *
 		 * @private
 		 * @property _dispatcher
-		 * @type {Core.Interface.Dispatcher}
+		 * @type {ima.event.Dispatcher}
 		 */
 		this._dispatcher = dispatcher;
 
 		/**
-		 * Analytic defined EVENTS.
+		 * Analytic defined Events.
 		 *
 		 * @const
-		 * @property _EVENTS
+		 * @property _Events
 		 * @type {Object<string, string>}
 		 */
-		this._EVENTS = EVENTS;
+		this._Events = Events;
 
 		/**
 		 * Analytic config

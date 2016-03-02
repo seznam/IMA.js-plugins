@@ -3,36 +3,25 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.EVENTS = exports.Abstract = exports.__$IMAModuleRegister__ = undefined;
+exports.$registerImaPlugin = exports.Events = exports.AbstractAnalytic = undefined;
 
-var _abstract = require('./abstract.js');
+var _AbstractAnalytic = require('./AbstractAnalytic.js');
 
-var _abstract2 = _interopRequireDefault(_abstract);
+var _AbstractAnalytic2 = _interopRequireDefault(_AbstractAnalytic);
 
-var _events = require('./events.js');
+var _Events = require('./Events.js');
 
-var _events2 = _interopRequireDefault(_events);
+var _Events2 = _interopRequireDefault(_Events);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var __$IMAModuleRegister__ = exports.__$IMAModuleRegister__ = ns => {
-	ns.namespace('Module.Analytic');
+var $registerImaPlugin = ns => {
+	ns.namespace('ima.plugin.analytic');
 
-	ns.Module.Analytic.Abstract = _abstract2.default;
-	ns.Module.Analytic.EVENTS = _events2.default;
-
-	$IMA.Loader.register('module/analytic', [], _export => {
-		return {
-			setters: [],
-			execute: () => {
-				_export('Abstract', _abstract2.default);
-				_export('EVENTS', _events2.default);
-				_export('defualt', { Abstract: _abstract2.default, EVENTS: _events2.default });
-			}
-		};
-	});
+	ns.ima.plugin.analytic.AbstractAnalytic = _AbstractAnalytic2.default;
+	ns.ima.plugin.analytic.Events = _Events2.default;
 };
 
-exports.default = { Abstract: _abstract2.default, EVENTS: _events2.default };
-exports.Abstract = _abstract2.default;
-exports.EVENTS = _events2.default;
+exports.AbstractAnalytic = _AbstractAnalytic2.default;
+exports.Events = _Events2.default;
+exports.$registerImaPlugin = $registerImaPlugin;

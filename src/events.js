@@ -1,5 +1,5 @@
-const EVENTS = Object.freeze({
-	LOADED: 'module.analytic.loaded'
+const Events = Object.freeze({
+	LOADED: 'ima.plugin.analytic.loaded'
 });
 
-export default EVENTS;
+export default Events;

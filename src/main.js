@@ -1,23 +1,11 @@
-import Abstract from './abstract.js';
-import EVENTS from './events.js';
+import AbstractAnalytic from './AbstractAnalytic.js';
+import Events from './Events.js';
 
-export var __$IMAModuleRegister__ = (ns) => {
-	ns.namespace('Module.Analytic');
+var $registerImaPlugin = (ns) => {
+	ns.namespace('ima.plugin.analytic');
 
-	ns.Module.Analytic.Abstract = Abstract;
-	ns.Module.Analytic.EVENTS = EVENTS;
-
-	$IMA.Loader.register('module/analytic', [], (_export) => {
-		return {
-			setters: [],
-			execute: () => {
-				_export('Abstract', Abstract);
-				_export('EVENTS', EVENTS);
-				_export('defualt', { Abstract, EVENTS });
-			}
-		};
-	});
+	ns.ima.plugin.analytic.AbstractAnalytic = AbstractAnalytic;
+	ns.ima.plugin.analytic.Events = Events;
 };
 
-export default { Abstract, EVENTS };
-export { Abstract, EVENTS };
+export { AbstractAnalytic, Events, $registerImaPlugin };

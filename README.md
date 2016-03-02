@@ -1,4 +1,4 @@
-# ima.js-module-analytic
+# ima-plugin-analytic
 
 If you are looking more details, you should
 follow this link:
@@ -8,27 +8,26 @@ follow this link:
 
 ```javascript
 
-npm install ima.js-module-analytic --save
+npm install ima-plugin-analytic --save
 
 ```
 
 ```javascript
-// /app/vendor.js
+// /app/build.js
 
-var moduleAnalytic = require('ima.js-module-analytic');
-.
-.
-.
-vendorApp.set('ModuleAnalytic', moduleAnalytic);
+var vendors = {
+	common: [
+		'ima-plugin-analytic'
+	]
+};
 
 /*
-Now is ModuleAnalytic available from:
+Now is analytic plugin available from:
 
-ns.Module.Analytic.EVENTS
-ns.Module.Analytic.Abstract
+ns.ima.plugin.analytic.Events
+ns.ima.plugin.analytic.AbstractAnalytic
 
-import { EVENTS, Abstract } from 'module/analytic';
-import { ModuleAnalytic } from 'app/vendor';
+import { Events, AbstractAnalytic } from 'ima-plugin-analytic';
 */
 
 ```

@@ -3,8 +3,8 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-const EVENTS = Object.freeze({
-	LOADED: 'module.analytic.loaded'
+const Events = Object.freeze({
+	LOADED: 'ima.plugin.analytic.loaded'
 });
 
-exports.default = EVENTS;
+exports.default = Events;

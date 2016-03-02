@@ -5,15 +5,12 @@ require('babel-core/register.js')({
 var gulp = require('gulp');
 var sourcemaps = require('gulp-sourcemaps');
 var babel = require('gulp-babel');
-var plumber = require('gulp-plumber');
-var eslint = require('gulp-eslint');
-var path = require('path');
 var jasmine = require('gulp-jasmine');
 
 // build module
 gulp.task('build', function() {
 	return (
-		gulp.src('./src/**/*.js')
+		gulp.src('./src/**/!(*Spec).js')
 		.pipe(sourcemaps.init())
 		.pipe(babel({
 			moduleIds: true,
@@ -26,12 +23,12 @@ gulp.task('build', function() {
 //run test
 gulp.task('test', () => {
 	return (
-		gulp.src('./test/*.js')
+		gulp.src('./src/**/*Spec.js')
 			.pipe(jasmine())
 	);
 });
 
 // -------------------------------------PRIVATE HELPER TASKS
 gulp.task('dev', function() {
-	gulp.watch(['./src/**/*.js', './src/*.js', './test/*.js'], ['test']);
+	gulp.watch(['./src/**/*.js'], ['test']);
 });
