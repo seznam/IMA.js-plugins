@@ -4,30 +4,30 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 /**
- * Script loader service class
+ * Script loader plugin class
  *
- * @class Service
- * @namespace Module.ScriptLoader
- * @module Module
- * @submodule Module.ScriptLoader
+ * @class ScriptLoaderPlugin
+ * @namespace ima.plugin.script.loader
+ * @module ima
+ * @submodule ima.plugin
  */
-class Service {
+class ScriptLoaderPlugin {
 
 	/**
   * @method constructor
   * @constructor
-  * @param {Core.Interface.Window} window
-  * @param {Core.Interface.Dispatcher} dispatcher
-  * @param {Object<string, string>} EVENTS
+  * @param {ima.window.Window} window
+  * @param {ima.event.Dispatcher} dispatcher
+  * @param {Object<string, string>} Events
   */
-	constructor(window, dispatcher, EVENTS) {
+	constructor(window, dispatcher, Events) {
 
 		/**
    * IMA.js Window
    *
    * @private
    * @property _window
-   * @type {Core.Interface.Window}
+   * @type {ima.window.Window}
    */
 		this._window = window;
 
@@ -36,18 +36,18 @@ class Service {
    *
    * @private
    * @property _dispatcher
-   * @type {Core.Interface.Dispatcher}
+   * @type {ima.event.Dispatcher}
    */
 		this._dispatcher = dispatcher;
 
 		/**
-   * ScriptLoader defined EVENTS.
+   * ScriptLoader defined Events.
    *
    * @const
-   * @property _EVENTS
+   * @property _Events
    * @type {Object<string, string>}
    */
-		this._EVENTS = EVENTS;
+		this._Events = Events;
 
 		/**
    * Object of loaded scripts.
@@ -77,7 +77,7 @@ class Service {
 		}
 
 		this._loadedScripts[url] = new Promise((resolve, reject) => {
-			let script = document.createElement('script');
+			let script = this._createScriptElement();
 
 			if (template) {
 				script.innerHTML = template;
@@ -89,11 +89,34 @@ class Service {
 				script.src = url;
 			}
 
-			let firstScript = this._window.querySelectorAll('script')[0];
-			firstScript.parentNode.insertBefore(script, firstScript);
+			this._insertScriptToPage();
 		});
 
 		return this._loadedScripts[url];
+	}
+
+	/**
+  * Insert defined script tag to page.
+  *
+  * @private
+  * @method _insertScriptToPage
+  * @param {HTMLScriptElement} script
+  */
+	_insertScriptToPage(script) {
+		let firstScript = this._window.querySelectorAll('script')[0];
+
+		firstScript.parentNode.insertBefore(script, firstScript);
+	}
+
+	/**
+  * Create new script element and return it.
+  *
+  * @private
+  * @method _createScriptElement
+  * @return {HTMLScriptElement}
+  */
+	_createScriptElement() {
+		return document.createElement('script');
 	}
 
 	/**
@@ -108,7 +131,7 @@ class Service {
 		let data = { url };
 
 		resolve(data);
-		this._dispatcher.fire(this._EVENTS.LOADED, data, true);
+		this._dispatcher.fire(this._Events.LOADED, data, true);
 	}
 
 	/**
@@ -123,7 +146,7 @@ class Service {
 		let data = { url, error: new Error(`The script ${ url } was not be loaded.`) };
 
 		reject(data);
-		this._dispatcher.fire(this._EVENTS.LOADED, data, true);
+		this._dispatcher.fire(this._Events.LOADED, data, true);
 	}
 }
-exports.default = Service;
+exports.default = ScriptLoaderPlugin;

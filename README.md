@@ -1,4 +1,4 @@
-# ima.js-module-scriptloader
+# ima-plugin-script-loader
 
 If you are looking more details, you should
 follow this link:
@@ -8,28 +8,27 @@ follow this link:
 
 ```javascript
 
-npm install ima.js-module-scriptloader --save
+npm install ima-plugin-script-loader --save
 
 ```
 
 ```javascript
-// /app/vendor.js
+// /app/build.js
 
-var moduleScriptLoader = require('ima.js-module-scriptloader');
-.
-.
-.
-vendorApp.set('ModuleScriptLoader', moduleScriptLoader);
+var vendors = {
+	common: [
+		'ima-plugin-script-loader'
+	]
+};
 
 /*
-Now is ModuleScriptLoader available from:
+Now is script loader plugin available from:
 
-ns.Module.ScriptLoader.Service
-ns.Module.ScriptLoader.DefaultDependencies
-ns.Module.ScriptLoader.EVENTS
+ns.ima.plugin.script.loader.ScriptLoaderPlugin
+ns.ima.plugin.script.loader.Events
+ns.ima.plugin.script.loader.defaultDependencies
 
-import { Service, EVENTS, DefaultDependencies } from 'module/scriptloader';
-import { ModuleScriptLoader } from 'app/vendor';
+import { ScriptLoaderPlugin, Events, DefaultDependencies } from 'ima-plugin-script-loader';
 */
 
 ```
@@ -37,9 +36,7 @@ import { ModuleScriptLoader } from 'app/vendor';
 ```javascript
 // /app/config/bind.js
 
-oc.inject(ns.Module.ScriptLoader.Service, ns.Module.ScriptLoader.DefaultDependencies);
-
-//or
+oc.inject(ns.ima.plugin.script.loader.ScriptLoaderPlugin, ns.ima.plugin.script.loader.defaultDependencies);
 
 ```
 
@@ -48,7 +45,7 @@ oc.inject(ns.Module.ScriptLoader.Service, ns.Module.ScriptLoader.DefaultDependen
 ```javascript
 
 oc
-	.get(ns.Module.ScriptLoader.Service)
+	.get(ns.ima.plugin.script.loader.ScriptLoaderPlugin)
 	.load('//www.example.com/script.js')
 	.then((response) => {
 		console.log('Script is loaded.', response.url);
@@ -59,7 +56,7 @@ oc
 
 oc
 	.get('$Dispatcher')
-	.listen(ns.Module.ScriptLoader.EVENTS.LOADED, (response) => {
+	.listen(ns.ima.plugin.script.loader.Events.LOADED, (response) => {
 		if (response.error) {
 			console.log('Script is not loaded.', response.url);
 		} else {

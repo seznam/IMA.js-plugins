@@ -1,7 +1,7 @@
 {
-	"name": "ima.js-module-scriptloader",
-	"version": "0.2.0",
-	"description": "Seznam IMA.js module script loader",
+	"name": "ima-plugin-script-loader",
+	"version": "0.12.0",
+	"description": "Seznam IMA.js plugin for loading script",
 	"main": "index.js",
 	"scripts": {
 		"prepublish": "npm run build && npm run test",
@@ -29,14 +29,14 @@
 	},
 	"license": "MIT",
 	"devDependencies": {
-		"babel-core": "^6.5.2",
-		"babel-plugin-transform-es2015-modules-commonjs": "^6.5.2",
-		"eslint": "^1.10.3",
-		"eslint-plugin-react": "^3.16.1",
+		"babel-core": "^6.6.0",
+		"babel-plugin-transform-es2015-modules-commonjs": "^6.6.3",
+		"eslint": "^2.2.0",
+		"eslint-plugin-react": "^4.1.0",
 		"gulp": "^3.9.1",
 		"gulp-babel": "^6.1.2",
 		"gulp-change": "^1.0.0",
-		"gulp-jasmine": "^2.2.1",
+		"gulp-jasmine": "^2.3.0",
 		"gulp-plumber": "^1.0.1",
 		"gulp-sourcemaps": "^1.6.0",
 		"gulp-yuidoc": "^0.1.2"

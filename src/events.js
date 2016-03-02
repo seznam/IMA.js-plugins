@@ -1,5 +1,5 @@
-const EVENTS = Object.freeze({
-	LOADED: 'module.scriptloader.loaded'
+const Events = Object.freeze({
+	LOADED: 'ima.plugin.script.loader.loaded'
 });
 
-export default EVENTS;
+export default Events;

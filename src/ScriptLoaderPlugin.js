@@ -1,28 +1,28 @@
 /**
- * Script loader service class
+ * Script loader plugin class
  *
- * @class Service
- * @namespace Module.ScriptLoader
- * @module Module
- * @submodule Module.ScriptLoader
+ * @class ScriptLoaderPlugin
+ * @namespace ima.plugin.script.loader
+ * @module ima
+ * @submodule ima.plugin
  */
-export default class Service {
+export default class ScriptLoaderPlugin {
 
 	/**
 	 * @method constructor
 	 * @constructor
-	 * @param {Core.Interface.Window} window
-	 * @param {Core.Interface.Dispatcher} dispatcher
-	 * @param {Object<string, string>} EVENTS
+	 * @param {ima.window.Window} window
+	 * @param {ima.event.Dispatcher} dispatcher
+	 * @param {Object<string, string>} Events
 	 */
-	constructor(window, dispatcher, EVENTS) {
+	constructor(window, dispatcher, Events) {
 
 		/**
 		 * IMA.js Window
 		 *
 		 * @private
 		 * @property _window
-		 * @type {Core.Interface.Window}
+		 * @type {ima.window.Window}
 		 */
 		this._window = window;
 
@@ -31,18 +31,18 @@ export default class Service {
 		 *
 		 * @private
 		 * @property _dispatcher
-		 * @type {Core.Interface.Dispatcher}
+		 * @type {ima.event.Dispatcher}
 		 */
 		this._dispatcher = dispatcher;
 
 		/**
-		 * ScriptLoader defined EVENTS.
+		 * ScriptLoader defined Events.
 		 *
 		 * @const
-		 * @property _EVENTS
+		 * @property _Events
 		 * @type {Object<string, string>}
 		 */
-		this._EVENTS = EVENTS;
+		this._Events = Events;
 
 		/**
 		 * Object of loaded scripts.
@@ -126,7 +126,7 @@ export default class Service {
 		let data = { url };
 
 		resolve(data);
-		this._dispatcher.fire(this._EVENTS.LOADED, data, true);
+		this._dispatcher.fire(this._Events.LOADED, data, true);
 	}
 
 	/**
@@ -141,6 +141,6 @@ export default class Service {
 		let data = { url, error: new Error(`The script ${url} was not be loaded.`) };
 
 		reject(data);
-		this._dispatcher.fire(this._EVENTS.LOADED, data, true);
+		this._dispatcher.fire(this._Events.LOADED, data, true);
 	}
 }

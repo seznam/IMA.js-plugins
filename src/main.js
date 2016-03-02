@@ -1,29 +1,14 @@
-import Service from './service.js';
-import EVENTS from './events.js';
+import ScriptLoaderPlugin from './ScriptLoaderPlugin.js';
+import Events from './Events.js';
 
-var DefaultDependencies = ['$Window', '$Dispatcher', EVENTS];
+var defaultDependencies = ['$Window', '$Dispatcher', Events];
 
-var __$IMAModuleDependencies__ = [];
+var $registerImaPlugin = (ns) => {
+	ns.namespace('ima.plugin.script.loader');
 
-var __$IMAModuleRegister__ = (ns) => {
-	ns.namespace('Module.ScriptLoader');
-
-	ns.Module.ScriptLoader.EVENTS = EVENTS;
-	ns.Module.ScriptLoader.Service = Service;
-	ns.Module.ScriptLoader.DefaultDependencies = DefaultDependencies;
-
-	$IMA.Loader.register('module/scriptloader', [], (_export) => {
-		return {
-			setters: [],
-			execute: () => {
-				_export('EVENTS', EVENTS);
-				_export('Service', Service);
-				_export('DefaultDependencies', DefaultDependencies);
-				_export('__$IMAModuleDependencies__', __$IMAModuleDependencies__);
-				_export('__$IMAModuleRegister__', __$IMAModuleRegister__);
-			}
-		};
-	});
+	ns.ima.plugin.script.loader.Events = Events;
+	ns.ima.plugin.script.loader.ScriptLoaderPlugin = ScriptLoaderPlugin;
+	ns.Module.Script.loader.defaultDependencies = defaultDependencies;
 };
 
-export { EVENTS, Service, DefaultDependencies, __$IMAModuleDependencies__, __$IMAModuleRegister__ };
+export { ScriptLoaderPlugin, Events, defaultDependencies, $registerImaPlugin };

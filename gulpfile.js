@@ -14,7 +14,7 @@ var change = require('gulp-change');
 // build module
 gulp.task('build', function() {
 	return (
-		gulp.src('./src/**/*.js')
+		gulp.src('./src/**/!(*Spec).js')
 		.pipe(sourcemaps.init())
 		.pipe(babel({
 			moduleIds: true,
@@ -27,7 +27,7 @@ gulp.task('build', function() {
 //run test
 gulp.task('test', () => {
 	return (
-		gulp.src('./test/*.js')
+		gulp.src('./src/**/*Spec.js')
 			.pipe(jasmine({ includeStackTrace: true }))
 	);
 });
@@ -35,13 +35,13 @@ gulp.task('test', () => {
 
 // -------------------------------------PRIVATE HELPER TASKS
 gulp.task('dev', function() {
-	gulp.watch(['./src/**/*.js', './src/*.js', './test/*.js'], ['test']);
+	gulp.watch(['./src/**/*.js'], ['test']);
 });
 
 gulp.task('doc', function() {
 	return (
 		gulp
-			.src('./src/**.js')
+			.src('./src/*.js')
 			.pipe(change(function(content) {
 				var oldContent = null;
 
@@ -64,7 +64,7 @@ gulp.task('doc', function() {
 
 documentationPreprocessors = [
 	{
-		pattern: /\/[*][*]((?:a|[^a])*?)(?: |\t)*[*]\s*@(?:override|inheritDoc|abstract)\n((a|[^a])*)[*]\//g,
+		pattern: /\/[*][*]((?:a|[^a])*?)(?: |\t)*[*]\s*@(?:override|inheritdoc|abstract)\n((a|[^a])*)[*]\//g,
 		replace: '/**$1$2*/'
 	},
 	{

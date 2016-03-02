@@ -1,29 +1,29 @@
-import Service from '../src/service';
-import EVENTS from '../src/events';
+import ScriptLoaderPlugin from '../ScriptLoaderPlugin';
+import Events from '../Events';
 
-describe('Service', () => {
-	let service = null;
+describe('ScriptLoaderPlugin', () => {
+	let scriptLoaderPlugin = null;
 	let url = '//example.com/some.js';
 
-	let IMAWindow = {
+	let ImaWindow = {
 		isClient: () => {}
 	};
-	let IMADispatcher = {
+	let ImaDispatcher = {
 		fire: () => {}
 	};
 
 	beforeEach(() => {
-		service = new Service(IMAWindow, IMADispatcher, EVENTS);
+		scriptLoaderPlugin = new ScriptLoaderPlugin(ImaWindow, ImaDispatcher, Events);
 	});
 
 	describe('load method', () => {
 
 		it('should reject promise with error on server side', () => {
-			spyOn(IMAWindow, 'isClient')
+			spyOn(ImaWindow, 'isClient')
 				.and
 				.returnValue(false);
 
-			service
+			scriptLoaderPlugin
 				.load(url)
 				.catch((value) => {
 					expect(value.url).toEqual(url);
@@ -32,13 +32,13 @@ describe('Service', () => {
 		});
 
 		it('should return value from cache', () => {
-			spyOn(IMAWindow, 'isClient')
+			spyOn(ImaWindow, 'isClient')
 				.and
 				.returnValue(true);
 
-			service._loadedScripts[url] = Promise.resolve({ url });
+			scriptLoaderPlugin._loadedScripts[url] = Promise.resolve({ url });
 
-			service
+			scriptLoaderPlugin
 				.load(url)
 				.then((value) => {
 					expect(value.url).toEqual(url);

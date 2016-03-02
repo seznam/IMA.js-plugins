@@ -3,8 +3,8 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-const EVENTS = Object.freeze({
-	LOADED: 'module.scriptloader.loaded'
+const Events = Object.freeze({
+	LOADED: 'ima.plugin.script.loader.loaded'
 });
 
-exports.default = EVENTS;
+exports.default = Events;
