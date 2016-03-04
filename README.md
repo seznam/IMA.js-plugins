@@ -2,7 +2,7 @@
 
 If you are looking more details, you should
 follow this link:
-[https://gitlab.kancelar.seznam.cz/IMA.js/module-scriptloader](https://gitlab.kancelar.seznam.cz/IMA.js/module-scriptloader).
+[https://github.com/seznam/IMA.js-plugin-script-loader](https://github.com/seznam/IMA.js-plugin-script-loader).
 
 ## Installation
 
@@ -28,7 +28,7 @@ ns.ima.plugin.script.loader.ScriptLoaderPlugin
 ns.ima.plugin.script.loader.Events
 ns.ima.plugin.script.loader.defaultDependencies
 
-import { ScriptLoaderPlugin, Events, DefaultDependencies } from 'ima-plugin-script-loader';
+import { ScriptLoaderPlugin, Events, defaultDependencies } from 'ima-plugin-script-loader';
 */
 
 ```

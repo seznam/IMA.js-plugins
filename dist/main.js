@@ -22,7 +22,7 @@ var $registerImaPlugin = ns => {
 
 	ns.ima.plugin.script.loader.Events = _Events2.default;
 	ns.ima.plugin.script.loader.ScriptLoaderPlugin = _ScriptLoaderPlugin2.default;
-	ns.Module.Script.loader.defaultDependencies = defaultDependencies;
+	ns.ima.plugin.script.loader.defaultDependencies = defaultDependencies;
 };
 
 exports.ScriptLoaderPlugin = _ScriptLoaderPlugin2.default;

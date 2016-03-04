@@ -5,10 +5,10 @@
 	"main": "index.js",
 	"scripts": {
 		"prepublish": "npm run build && npm run test",
-		"build": "gulp build",
-		"doc": "gulp doc",
-		"test": "gulp test",
-		"dev": "gulp dev"
+		"build": "node node_modules/gulp/bin/gulp.js build",
+		"doc": "node node_modules/gulp/bin/gulp.js doc",
+		"test": "node node_modules/gulp/bin/gulp.js test",
+		"dev": "node node_modules/gulp/bin/gulp.js dev"
 	},
 	"keywords": [
 		"IMA.js",
@@ -19,18 +19,18 @@
 	"author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
 	"repository": {
 		"type": "git",
-		"url": "https://gitlab.kancelar.seznam.cz/IMA.js/module-scriptloader.git"
+		"url": "https://github.com/seznam/IMA.js-plugin-script-loader.git"
 	},
 	"publishConfig": {
-		"registry": "http://npmjs.dev/"
+		"registry": "http://registry.npmjs.org/"
 	},
 	"bugs": {
-		"url": "https://gitlab.kancelar.seznam.cz/IMA.js/module-scriptloader/issues"
+		"url": "https://github.com/seznam/IMA.js-plugin-script-loader/issues"
 	},
 	"license": "MIT",
 	"devDependencies": {
-		"babel-core": "^6.6.0",
-		"babel-plugin-transform-es2015-modules-commonjs": "^6.6.3",
+		"babel-core": "^6.6.4",
+		"babel-plugin-transform-es2015-modules-commonjs": "^6.6.4",
 		"eslint": "^2.2.0",
 		"eslint-plugin-react": "^4.1.0",
 		"gulp": "^3.9.1",

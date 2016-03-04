@@ -8,7 +8,7 @@ var $registerImaPlugin = (ns) => {
 
 	ns.ima.plugin.script.loader.Events = Events;
 	ns.ima.plugin.script.loader.ScriptLoaderPlugin = ScriptLoaderPlugin;
-	ns.Module.Script.loader.defaultDependencies = defaultDependencies;
+	ns.ima.plugin.script.loader.defaultDependencies = defaultDependencies;
 };
 
 export { ScriptLoaderPlugin, Events, defaultDependencies, $registerImaPlugin };

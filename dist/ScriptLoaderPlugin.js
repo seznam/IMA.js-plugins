@@ -89,7 +89,7 @@ class ScriptLoaderPlugin {
 				script.src = url;
 			}
 
-			this._insertScriptToPage();
+			this._insertScriptToPage(script);
 		});
 
 		return this._loadedScripts[url];
