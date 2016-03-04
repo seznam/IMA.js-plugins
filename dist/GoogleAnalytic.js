@@ -10,7 +10,7 @@ var _imaPluginAnalytic = require('ima-plugin-analytic');
  * Google analytic class
  *
  * @class GoogleAnalytic
- * @namespace ima.plugin.analytic
+ * @namespace ima.plugin.analytic.google
  * @module ima
  * @submodule ima.plugin
  *

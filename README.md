@@ -2,7 +2,7 @@
 
 If you are looking more details, you should
 follow this link:
-[https://gitlab.kancelar.seznam.cz/IMA.js/module-analytic-google](https://gitlab.kancelar.seznam.cz/IMA.js/module-analytic-google).
+[https://github.com/seznam/IMA.js-plugin-analytic-google](https://github.com/seznam/IMA.js-plugin-analytic-google).
 
 ## Installation
 
@@ -24,8 +24,8 @@ var vendors = {
 /*
 Now is google analytic plugin available from:
 
-ns.ima.plugin.analytic.GoogleAnalytic;
-ns.ima.plugin.analytic.defaultDependencies;
+ns.ima.plugin.analytic.google.GoogleAnalytic;
+ns.ima.plugin.analytic.google.defaultDependencies;
 
 import { GoogleAnalytic, defaultDependencies } from 'ima-plugin-analytic-google';
 */
@@ -39,9 +39,9 @@ prod: {
 	$Http: { ... },
 	$Cache: { ... },
 	$Page:{ ... },
-	Module : {
-		Analytic: {
-			Google: {
+	Plugin : {
+		analytic: {
+			google: {
 				service: 'UA-XXXXXXX-X',
 				settings: {}
 			}
@@ -53,7 +53,7 @@ prod: {
 ```javascript
 // /app/config/bind.js
 
-oc.bind('GoogleAnalytic', ns.ima.plugin.analytic.GoogleAnalytic, ns.ima.plugin.analytic.defaultDependencies);
+oc.bind('GoogleAnalytic', ns.ima.plugin.analytic.google.GoogleAnalytic, ns.ima.plugin.analytic.google.defaultDependencies);
 
 ```
 
