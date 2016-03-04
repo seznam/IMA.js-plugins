@@ -17,7 +17,7 @@
 	"author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/seznam/IMA.js-plugin-analytic"
+		"url": "https://github.com/seznam/IMA.js-plugin-analytic.git"
 	},
 	"publishConfig": {
 		"registry": "http://registry.npmjs.org/"
