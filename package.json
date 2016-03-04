@@ -23,12 +23,12 @@
 		"registry": "http://registry.npmjs.org/"
 	},
 	"bugs": {
-		"url": "hhttps://github.com/seznam/IMA.js-plugin-analytic/issues"
+		"url": "https://github.com/seznam/IMA.js-plugin-analytic/issues"
 	},
 	"license": "MIT",
 	"devDependencies": {
-		"babel-core": "^6.6.0",
-		"babel-plugin-transform-es2015-modules-commonjs": "^6.6.3",
+		"babel-core": "^6.6.4",
+		"babel-plugin-transform-es2015-modules-commonjs": "^6.6.4",
 		"eslint": "^2.2.0",
 		"eslint-plugin-react": "^4.1.0",
 		"gulp": "^3.9.1",
