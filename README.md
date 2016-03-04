@@ -2,7 +2,7 @@
 
 If you are looking more details, you should
 follow this link:
-[https://gitlab.kancelar.seznam.cz/IMA.js/module-analytic](https://gitlab.kancelar.seznam.cz/IMA.js/module-analytic).
+[https://github.com/seznam/IMA.js-plugin-analytic](https://github.com/seznam/IMA.js-plugin-analytic).
 
 ## Installation
 
