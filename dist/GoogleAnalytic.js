@@ -34,6 +34,17 @@ class GoogleAnalytic extends _imaPluginAnalytic.AbstractAnalytic {
 	}
 
 	/**
+  * Initialization analytic.
+  *
+  * @method init
+  */
+	init() {
+		super.init();
+
+		this._configuration();
+	}
+
+	/**
   * Returns template for loading script async.
   *
   * @override
