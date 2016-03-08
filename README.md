@@ -1,8 +1,8 @@
 # ima-plugin-script-loader
 
-If you are looking more details, you should
-follow this link:
-[https://github.com/seznam/IMA.js-plugin-script-loader](https://github.com/seznam/IMA.js-plugin-script-loader).
+This is the script loader plugin for the IMA.js application.
+You can find the IMA.js skeleton application at <https://github.com/seznam/IMA.js-skeleton>
+or follow link <https://imajs.io>.
 
 ## Installation
 
@@ -28,7 +28,7 @@ ns.ima.plugin.script.loader.ScriptLoaderPlugin
 ns.ima.plugin.script.loader.Events
 ns.ima.plugin.script.loader.defaultDependencies
 
-import { ScriptLoaderPlugin, Events, defaultDependencies } from 'ima-plugin-script-loader';
+import { ScriptLoaderPlugin, Events, DefaultDependencies } from 'ima-plugin-script-loader';
 */
 
 ```
