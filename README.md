@@ -1,8 +1,8 @@
 # ima-plugin-analytic
 
-If you are looking more details, you should
-follow this link:
-[https://github.com/seznam/IMA.js-plugin-analytic](https://github.com/seznam/IMA.js-plugin-analytic).
+This is the abstract analytic plugin for the IMA.js application. 
+You can find the IMA.js skeleton application at <https://github.com/seznam/IMA.js-skeleton>
+or follow link <https://imajs.io>.
 
 ## Installation
 
