@@ -1,4 +1,5 @@
 {
+  "extends": "eslint:recommended",
   "rules": {
     "brace-style": [1, "1tbs", {"allowSingleLine": false}],
     "camelcase": 1,
@@ -10,8 +11,8 @@
     "eqeqeq": [2, "allow-null"],
     "eol-last": 1,
     "guard-for-in": 0,
-    "indent": [2,"tab", {"SwitchCase": 1}],
-    "key-spacing": 0,
+    "indent": [2, "tab", {"SwitchCase": 1}],
+   "key-spacing": 0,
     "new-cap": [1, {"capIsNew": false, "newIsCap": true}],
     "new-parens": 0,
     "no-bitwise": 0,
@@ -63,21 +64,20 @@
     "no-unreachable": 1,
     "no-use-before-define": [0, "nofunc"],
     "no-warning-comments": [0, {"terms": ["todo", "fixme"]}],
-    "no-extra-parens": [1, "functions"],
-    "quotes": [1, "single", "avoid-escape"],
+    "no-extra-parens": 0,
+    "quotes": [0, "single", "avoid-escape"],
     "quote-props": [0, "as-needed"],
     "radix": 1,
     "semi": [2, "always"],
     "semi-spacing": [1, {"before": false, "after": true}],
-    "space-after-keywords": [1, "always"],
+    "keyword-spacing": [2, {"before": true, "after": true, "overrides": {}}],
     "space-before-blocks": [1, "always"],
     "space-before-function-paren": [1, "never"],
     "space-infix-ops": 1,
-    "object-curly-spacing": [1, "always"],
-    "array-bracket-spacing": [1, "never"],
-    "computed-property-spacing": [1, "never"],
+    "object-curly-spacing": [2, "always"],
+    "computed-property-spacing": [2, "never"],
+    "array-bracket-spacing": [2, "never"],
     "space-in-parens": [1, "never"],
-    "space-return-throw-case": 1,
     "space-unary-ops": [1, {"words": true, "nonwords": false}],
     "use-isnan": 1,
     "valid-typeof": 1,
@@ -88,8 +88,8 @@
     "no-mixed-requires": 1,
     "no-new-require": 1,
     "no-path-concat": 1,
-    "react/jsx-boolean-value": [1, "always"],
-    "react/jsx-quotes": 1,
+    "react/jsx-boolean-value": 0,
+    "jsx-quotes": 1,
     "react/jsx-no-undef": 1,
     "react/jsx-sort-props": 0,
     "react/jsx-sort-prop-types": 0,
@@ -104,40 +104,17 @@
     "react/self-closing-comp": 1,
     "react/wrap-multilines": 1
   },
-  "plugins": [
-    "react"
-  ],
+  "plugins": [],
   "settings": {
-    "ecmascript": 6,
-    "jsx": true
+    "ecmascript": 6
   },
-  "ecmaFeatures": {
-    "arrowFunctions": true,
-    "binaryLiterals": true,
-    "blockBindings": true,
-    "classes": true,
-    "defaultParams": true,
-    "destructuring": true,
-    "forOf": true,
-    "generators": true,
-    "modules": true,
-    "objectLiteralComputedProperties": true,
-    "objectLiteralDuplicateProperties": true,
-    "objectLiteralShorthandMethods": true,
-    "objectLiteralShorthandProperties": true,
-    "octalLiterals": true,
-    "regexUFlag": true,
-    "regexYFlag": true,
-    "restParams": true,
-    "spread": true,
-    "superInFunctions": true,
-    "templateStrings": true,
-    "unicodeCodePointEscapes": true,
-    "globalReturn": true,
-    "jsx": true
+  "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": 6
   },
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "es6": true
   }
 }

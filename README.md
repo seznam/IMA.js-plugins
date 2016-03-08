@@ -1,8 +1,7 @@
 # ima-plugin-analytic-google
 
-If you are looking more details, you should
-follow this link:
-[https://github.com/seznam/IMA.js-plugin-analytic-google](https://github.com/seznam/IMA.js-plugin-analytic-google).
+This is the google analytic plugin for the IMA.js application. You can find the IMA.js skeleton application at <https://github.com/seznam/IMA.js-skeleton>
+or follow link <https://imajs.io>.
 
 ## Installation
 
@@ -17,7 +16,9 @@ npm install ima-plugin-analytic-google --save
 
 var vendors = {
 	common: [
-		'ima-plugin-analytic-google'
+		'ima-plugin-analytic-google',
+		'ima-plugin-analytic',
+		'ima-plugin-script-loader'
 	]
 };
 
@@ -39,7 +40,7 @@ prod: {
 	$Http: { ... },
 	$Cache: { ... },
 	$Page:{ ... },
-	Plugin : {
+	plugin : {
 		analytic: {
 			google: {
 				service: 'UA-XXXXXXX-X',
@@ -53,6 +54,7 @@ prod: {
 ```javascript
 // /app/config/bind.js
 
+oc.inject(ns.ima.plugin.script.loader.ScriptLoaderPlugin, ns.ima.plugin.script.loader.defaultDependencies);
 oc.bind('GoogleAnalytic', ns.ima.plugin.analytic.google.GoogleAnalytic, ns.ima.plugin.analytic.google.defaultDependencies);
 
 ```
@@ -70,7 +72,7 @@ if ($window.isClient()) {
 	// insert analytic script to page and initialization analytic
 	googleAnalytic.init();
 
-	//set hitting page view to analytic
+	//set hit page view to analytic
 	$dispatcher.listen(ns.Core.Router.Events.AFTER_HANDLE_ROUTE, (pageData) => {
 
 		if (pageData &&
@@ -96,3 +98,9 @@ if ($window.isClient()) {
 	});
 }
 ```
+
+## Dependencies
+If you are looking more details, you should
+follow this links:
+[https://github.com/seznam/IMA.js-plugin-analytic](https://github.com/seznam/IMA.js-plugin-analytic),
+[https://github.com/seznam/IMA.js-plugin-script-loader](https://github.com/seznam/IMA.js-plugin-script-loader)
