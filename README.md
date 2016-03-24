@@ -73,7 +73,7 @@ if ($window.isClient()) {
 	googleAnalytic.init();
 
 	//set hit page view to analytic
-	$dispatcher.listen(ns.Core.Router.Events.AFTER_HANDLE_ROUTE, (pageData) => {
+	$dispatcher.listen(ns.ima.router.Events.AFTER_HANDLE_ROUTE, (pageData) => {
 
 		if (pageData &&
 				pageData.response &&
