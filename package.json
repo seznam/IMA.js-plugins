@@ -1,6 +1,6 @@
 {
 	"name": "ima-plugin-analytic",
-	"version": "0.12.0",
+	"version": "0.12.1",
 	"description": "Seznam IMA.js abstract analytic plugin",
 	"main": "index.js",
 	"scripts": {
@@ -27,10 +27,10 @@
 	},
 	"license": "MIT",
 	"devDependencies": {
-		"babel-core": "^6.6.5",
-		"babel-plugin-transform-es2015-modules-commonjs": "^6.6.5",
-		"eslint": "^2.3.0",
-		"eslint-plugin-react": "^4.2.0",
+		"babel-core": "^6.7.4",
+		"babel-plugin-transform-es2015-modules-commonjs": "^6.7.4",
+		"eslint": "^2.5.3",
+		"eslint-plugin-react": "^4.2.3",
 		"gulp": "^3.9.1",
 		"gulp-babel": "^6.1.2",
 		"gulp-jasmine": "^2.3.0",
