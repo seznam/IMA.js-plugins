@@ -1,6 +1,6 @@
 {
 	"name": "ima-plugin-analytic-google",
-	"version": "0.12.2",
+	"version": "0.12.3",
 	"description": "Seznam IMA.js google analytic plugin",
 	"main": "index.js",
 	"scripts": {
@@ -42,7 +42,7 @@
 		"gulp-yuidoc": "^0.1.2"
 	},
 	"dependencies": {
-		"ima-plugin-analytic": "^0.12.1",
+		"ima-plugin-analytic": "^0.12.2",
 		"ima-plugin-script-loader": "^0.12.1"
 	},
 	"browserify": {
