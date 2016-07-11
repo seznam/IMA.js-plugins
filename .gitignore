@@ -4,5 +4,6 @@
 .sublime-gulp.cache
 node_modules/
 doc/*
+dist/
 !doc/yuidocTheme
 npm-debug.log
