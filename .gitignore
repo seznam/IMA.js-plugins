@@ -3,4 +3,5 @@
 .idea
 .sublime-gulp.cache
 node_modules/
+dist/
 npm-debug.log
