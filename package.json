@@ -27,15 +27,14 @@
 	},
 	"license": "MIT",
 	"devDependencies": {
-		"babel-core": "^6.7.4",
-		"babel-plugin-transform-es2015-modules-commonjs": "^6.7.4",
-		"eslint": "^2.5.3",
-		"eslint-plugin-react": "^4.2.3",
+		"babel-core": "^6.10.4",
+		"babel-plugin-transform-es2015-modules-commonjs": "^6.10.3",
+		"eslint": "^3.0.1",
+		"eslint-plugin-react": "^5.2.2",
 		"gulp": "^3.9.1",
 		"gulp-babel": "^6.1.2",
-		"gulp-jasmine": "^2.3.0",
-		"gulp-sourcemaps": "^1.6.0",
-		"gulp-yuidoc": "^0.1.2"
+		"gulp-jasmine": "^2.4.0",
+		"gulp-sourcemaps": "^1.6.0"
 	},
 	"dependencies": {},
 	"browserify": {
