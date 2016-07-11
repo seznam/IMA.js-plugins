@@ -10,10 +10,11 @@
 		"dev": "node node_modules/gulp/bin/gulp.js dev"
 	},
 	"keywords": [
-    "IMA.js",
-    "Analytic",
-    "Javascript"
-  ],
+		"IMA.js",
+		"Analytic",
+		"Plugin",
+		"Javascript"
+	],
 	"author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
 	"repository": {
 		"type": "git",
