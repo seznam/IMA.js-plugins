@@ -43,8 +43,7 @@ prod: {
 	plugin : {
 		analytic: {
 			google: {
-				service: 'UA-XXXXXXX-X',
-				settings: {}
+				service: 'UA-XXXXXXX-X'
 			}
 		}
 	}
@@ -53,9 +52,9 @@ prod: {
 
 ```javascript
 // /app/config/bind.js
+import { GoogleAnalytic } from 'ima-plugin-analytic-google';
 
-oc.inject(ns.ima.plugin.script.loader.ScriptLoaderPlugin, ns.ima.plugin.script.loader.defaultDependencies);
-oc.bind('GoogleAnalytic', ns.ima.plugin.analytic.google.GoogleAnalytic, ns.ima.plugin.analytic.google.defaultDependencies);
+oc.bind('GoogleAnalytic', GoogleAnalytic);
 
 ```
 
