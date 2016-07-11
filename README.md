@@ -28,24 +28,18 @@ ns.ima.plugin.script.loader.ScriptLoaderPlugin
 ns.ima.plugin.script.loader.Events
 ns.ima.plugin.script.loader.defaultDependencies
 
-import { ScriptLoaderPlugin, Events, DefaultDependencies } from 'ima-plugin-script-loader';
+import { ScriptLoaderPlugin, Events, defaultDependencies } from 'ima-plugin-script-loader';
 */
-
-```
-
-```javascript
-// /app/config/bind.js
-
-oc.inject(ns.ima.plugin.script.loader.ScriptLoaderPlugin, ns.ima.plugin.script.loader.defaultDependencies);
 
 ```
 
 ## Usage
 
 ```javascript
+import { ScriptLoaderPlugin } from 'ima-plugin-script-loader';
 
 oc
-	.get(ns.ima.plugin.script.loader.ScriptLoaderPlugin)
+	.get(ScriptLoaderPlugin)
 	.load('//www.example.com/script.js')
 	.then((response) => {
 		console.log('Script is loaded.', response.url);

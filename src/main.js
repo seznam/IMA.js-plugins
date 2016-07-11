@@ -1,9 +1,9 @@
 import ScriptLoaderPlugin from './ScriptLoaderPlugin.js';
 import Events from './Events.js';
 
-var defaultDependencies = ['$Window', '$Dispatcher', Events];
+let defaultDependencies = ['$Window', '$Dispatcher', Events];
 
-var $registerImaPlugin = (ns) => {
+let $registerImaPlugin = (ns) => {
 	ns.namespace('ima.plugin.script.loader');
 
 	ns.ima.plugin.script.loader.Events = Events;
@@ -11,4 +11,14 @@ var $registerImaPlugin = (ns) => {
 	ns.ima.plugin.script.loader.defaultDependencies = defaultDependencies;
 };
 
-export { ScriptLoaderPlugin, Events, defaultDependencies, $registerImaPlugin };
+let initBind = (ns, oc, config) => {
+	oc.inject(ScriptLoaderPlugin, defaultDependencies);
+};
+
+export {
+	ScriptLoaderPlugin,
+	Events,
+	defaultDependencies,
+	$registerImaPlugin,
+	initBind
+};
