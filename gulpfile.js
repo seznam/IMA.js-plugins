@@ -4,7 +4,6 @@ require('babel-core/register.js')({
 
 let del = require('del');
 let gulp = require('gulp');
-let sourcemaps = require('gulp-sourcemaps');
 let babel = require('gulp-babel');
 let jasmine = require('gulp-jasmine');
 
@@ -19,7 +18,6 @@ exports.build = gulp.series(
 function build_js() {
 	return gulp
 		.src('./src/**/!(*Spec).js')
-		.pipe(sourcemaps.init())
 		.pipe(babel({
 			moduleIds: true,
 			plugins: ['transform-es2015-modules-commonjs']
