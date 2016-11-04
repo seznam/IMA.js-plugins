@@ -14,11 +14,14 @@ exports.build = gulp.series(
 	clean,
 	gulp.parallel(
 		copy,
-		buildJs
+		build
 	)
 );
+exports.test = test;
+exports.dev = dev;
+exports.doc = gulp.series(clearDoc, preprocessDoc, generateDoc, cleanUpDoc);
 
-function buildJs() {
+function build() {
 	return gulp
 		.src('./src/**/!(*Spec).js')
 		.pipe(sourcemaps.init())
@@ -35,7 +38,6 @@ function copy() {
 		.pipe(gulp.dest('./dist'));
 }
 
-exports.test = test;
 function test() {
 	return gulp
 		.src('./src/**/*Spec.js')
@@ -45,18 +47,15 @@ function test() {
 		});
 }
 
-exports.dev = dev;
 function dev() {
 	return gulp.watch(['./src/**/*.js'], gulp.series(test));
 }
 
-exports.doc = gulp.series(doc_clear, doc_preprocess, doc_generate, doc_cleanup);
-
-function doc_cleanup() {
+function cleanUpDoc() {
 	return del('./doc-src');
 }
 
-function doc_generate(done) {
+function generateDoc(done) {
 	// Unfortunately, JSDoc invokes the callback for every file. Because of
 	// this, we have to handle the done callback invocation in a little
 	// bit more complicated way
@@ -78,7 +77,7 @@ function doc_generate(done) {
 		}));
 }
 
-function doc_preprocess() {
+function preprocessDoc() {
 	return gulp
 		.src('./src/**/!(*Spec).js')
 		.pipe(change((content) => {
@@ -97,7 +96,7 @@ function doc_preprocess() {
 		.pipe(gulp.dest('./doc-src'));
 }
 
-function doc_clear() {
+function clearDoc() {
 	return del(['./doc-src', './doc']);
 }
 
