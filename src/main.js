@@ -1,11 +1,6 @@
-import AbstractAnalytic from './AbstractAnalytic.js';
-import Events from './Events.js';
+import AbstractAnalytic from './AbstractAnalytic';
+import Events from './events';
 
-var $registerImaPlugin = (ns) => {
-	ns.namespace('ima.plugin.analytic');
-
-	ns.ima.plugin.analytic.AbstractAnalytic = AbstractAnalytic;
-	ns.ima.plugin.analytic.Events = Events;
-};
+let $registerImaPlugin = (ns) => {};
 
 export { AbstractAnalytic, Events, $registerImaPlugin };

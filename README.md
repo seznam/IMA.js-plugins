@@ -1,15 +1,14 @@
 # ima-plugin-analytic
 
 This is the abstract analytic plugin for the IMA.js application. 
-You can find the IMA.js skeleton application at <https://github.com/seznam/IMA.js-skeleton>
-or follow link <https://imajs.io>.
+You can find the IMA.js skeleton application at
+<https://github.com/seznam/IMA.js-skeleton> or visit our site
+[imajs.io](https://imajs.io).
 
 ## Installation
 
-```javascript
-
+```bash
 npm install ima-plugin-analytic --save
-
 ```
 
 ```javascript
@@ -22,12 +21,9 @@ var vendors = {
 };
 
 /*
-Now is analytic plugin available from:
+Now is the analytic plugin available as:
 
-ns.ima.plugin.analytic.Events
-ns.ima.plugin.analytic.AbstractAnalytic
-
-import { Events, AbstractAnalytic } from 'ima-plugin-analytic';
+import { events as AnalyticEvents, AbstractAnalytic } from 'ima-plugin-analytic';
 */
 
 ```
