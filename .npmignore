@@ -1,9 +1,0 @@
-.idea/
-.DS_Store
-dist/__tests__
-doc/
-src/
-.eslintrc
-.gitignore
-gulpfile.js
-karma.conf.js

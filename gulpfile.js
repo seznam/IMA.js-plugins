@@ -11,8 +11,15 @@ let jsdoc = require('gulp-jsdoc3');
 let change = require('gulp-change');
 let path = require('path');
 
-exports.build = gulp.series(clean, build);
-function build() {
+exports.build = gulp.series(
+	clean,
+	gulp.parallel(
+		copy,
+		build_js
+	)
+);
+
+function build_js() {
 	return gulp
 		.src('./src/**/!(*Spec).js')
 		.pipe(sourcemaps.init())
@@ -20,14 +27,20 @@ function build() {
 			moduleIds: true,
 			plugins: ['transform-es2015-modules-commonjs']
 		}))
-		.pipe(gulp.dest('./dist'))
+		.pipe(gulp.dest('./dist'));
+}
+
+function copy() {
+	return gulp
+		.src(['./package.json', 'README.md', 'LICENSE'])
+		.pipe(gulp.dest('./dist'));
 }
 
 exports.test = test;
 function test() {
 	return gulp
 		.src('./src/**/*Spec.js')
-		.pipe(jasmine({ includeStackTrace: true }))
+		.pipe(jasmine({ includeStackTrace: true }));
 }
 
 exports.dev = dev;
