@@ -115,8 +115,6 @@ export default class ScriptLoaderPlugin {
 	 */
 	_handleOnError(url, reject) {
 		let error = new Error(`The ${url} script failed to load.`);
-		error.url = url;
-		error.error = error;
 		let data = {
 			url,
 			error

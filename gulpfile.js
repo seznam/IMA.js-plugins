@@ -9,17 +9,16 @@ let babel = require('gulp-babel');
 let jasmine = require('gulp-jasmine');
 let jsdoc = require('gulp-jsdoc3');
 let change = require('gulp-change');
-let path = require('path');
 
 exports.build = gulp.series(
 	clean,
 	gulp.parallel(
 		copy,
-		build_js
+		buildJs
 	)
 );
 
-function build_js() {
+function buildJs() {
 	return gulp
 		.src('./src/**/!(*Spec).js')
 		.pipe(sourcemaps.init())
@@ -40,12 +39,15 @@ exports.test = test;
 function test() {
 	return gulp
 		.src('./src/**/*Spec.js')
-		.pipe(jasmine({ includeStackTrace: true }));
+		.pipe(jasmine({ includeStackTrace: false }))
+		.on('error', function() {
+			this.emit('end');
+		});
 }
 
 exports.dev = dev;
 function dev() {
-	return gulp.watch(['./src/**/*.js'], test);
+	return gulp.watch(['./src/**/*.js'], gulp.series(test));
 }
 
 exports.doc = gulp.series(doc_clear, doc_preprocess, doc_generate, doc_cleanup);
@@ -92,7 +94,7 @@ function doc_preprocess() {
 
 			return `/** @module */\n${content}`;
 		}))
-		.pipe(gulp.dest('./doc-src'))
+		.pipe(gulp.dest('./doc-src'));
 }
 
 function doc_clear() {

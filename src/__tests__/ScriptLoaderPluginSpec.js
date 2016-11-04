@@ -18,20 +18,20 @@ describe('ScriptLoaderPlugin', () => {
 
 	describe('load method', () => {
 
-		it('should reject promise with error on server side', () => {
+		it('should reject promise with error on server side', (done) => {
 			spyOn(ImaWindow, 'isClient')
 				.and
 				.returnValue(false);
 
 			scriptLoaderPlugin
 				.load(url)
-				.catch((value) => {
-					expect(value.url).toEqual(url);
-					expect(value.error instanceof Error).toEqual(true);
+				.catch((error) => {
+					expect(error instanceof Error).toEqual(true);
+					done();
 				});
 		});
 
-		it('should return value from cache', () => {
+		it('should return value from cache', (done) => {
 			spyOn(ImaWindow, 'isClient')
 				.and
 				.returnValue(true);
@@ -42,6 +42,10 @@ describe('ScriptLoaderPlugin', () => {
 				.load(url)
 				.then((value) => {
 					expect(value.url).toEqual(url);
+					done();
+				})
+				.catch((error) => {
+					done(error);
 				});
 		});
 
