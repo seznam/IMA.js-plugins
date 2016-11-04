@@ -1,7 +1,7 @@
 import ScriptLoaderPlugin from './ScriptLoaderPlugin.js';
-import Events from './Events.js';
+import Events from './events.js';
 
-let defaultDependencies = ['$Window', '$Dispatcher', Events];
+let defaultDependencies = ['$Window', '$Dispatcher'];
 
 let $registerImaPlugin = (ns) => {
 	ns.namespace('ima.plugin.script.loader');
