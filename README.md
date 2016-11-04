@@ -22,13 +22,9 @@ var vendors = {
 };
 
 /*
-Now is script loader plugin available from:
+Now is script loader plugin available as:
 
-ns.ima.plugin.script.loader.ScriptLoaderPlugin
-ns.ima.plugin.script.loader.Events
-ns.ima.plugin.script.loader.defaultDependencies
-
-import { ScriptLoaderPlugin, Events, defaultDependencies } from 'ima-plugin-script-loader';
+import { ScriptLoaderPlugin, events, defaultDependencies } from 'ima-plugin-script-loader';
 */
 
 ```
@@ -36,25 +32,26 @@ import { ScriptLoaderPlugin, Events, defaultDependencies } from 'ima-plugin-scri
 ## Usage
 
 ```javascript
-import { ScriptLoaderPlugin } from 'ima-plugin-script-loader';
+import Dispatcher from 'ima/event/Dispatcher';
+import { ScriptLoaderPlugin, events as ScriptLoaderEvents } from 'ima-plugin-script-loader';
 
 oc
 	.get(ScriptLoaderPlugin)
 	.load('//www.example.com/script.js')
-	.then((response) => {
-		console.log('Script is loaded.', response.url);
+	.then((result) => {
+		console.log('Script is loaded.', result.url);
 	})
-	.catch((response) => {
-		console.log('Script is not loaded.', response.url, response.error);
+	.catch((error) => {
+		console.log('Script failed to load.', error);
 	});
 
 oc
-	.get('$Dispatcher')
-	.listen(ns.ima.plugin.script.loader.Events.LOADED, (response) => {
-		if (response.error) {
-			console.log('Script is not loaded.', response.url);
+	.get(Dispatcher)
+	.listen(ScriptLoaderEvents.LOADED, (result) => {
+		if (result.error) {
+			console.log('Script is not loaded.', result.url);
 		} else {
-			console.log('Script is loaded.', response.url);
+			console.log('Script is loaded.', result.url);
 		}
 	});
 

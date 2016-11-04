@@ -1,27 +1,21 @@
+import Events from './events';
+
 /**
- * Script loader plugin class
- *
- * @class ScriptLoaderPlugin
- * @namespace ima.plugin.script.loader
- * @module ima
- * @submodule ima.plugin
+ * Script loader plugin class.
  */
 export default class ScriptLoaderPlugin {
 
 	/**
-	 * @method constructor
-	 * @constructor
+	 * Initializes the script loader.
+	 *
 	 * @param {ima.window.Window} window
 	 * @param {ima.event.Dispatcher} dispatcher
-	 * @param {Object<string, string>} Events
 	 */
-	constructor(window, dispatcher, Events) {
+	constructor(window, dispatcher) {
 
 		/**
 		 * IMA.js Window
 		 *
-		 * @private
-		 * @property _window
 		 * @type {ima.window.Window}
 		 */
 		this._window = window;
@@ -29,27 +23,14 @@ export default class ScriptLoaderPlugin {
 		/**
 		 * IMA.js Dispatcher
 		 *
-		 * @private
-		 * @property _dispatcher
 		 * @type {ima.event.Dispatcher}
 		 */
 		this._dispatcher = dispatcher;
 
 		/**
-		 * ScriptLoader defined Events.
-		 *
-		 * @const
-		 * @property _Events
-		 * @type {Object<string, string>}
-		 */
-		this._Events = Events;
-
-		/**
 		 * Object of loaded scripts.
 		 *
-		 * @private
-		 * @property _loadedScripts
-		 * @type {Object<string, Promise>}
+		 * @type {Object<string, Promise<{url: string}>>}
 		 */
 		this._loadedScripts = [];
 	}
@@ -57,14 +38,15 @@ export default class ScriptLoaderPlugin {
 	/**
 	 * Load third party script to page.
 	 *
-	 * @method load
 	 * @param {string} url
-	 * @param {string?} [template]
-	 * @return {Promise<Object<string, *>>}
+	 * @param {string=} [template]
+	 * @return {Promise<{url: string}>}
 	 */
 	load(url, template) {
 		if (!this._window.isClient()) {
-			return Promise.reject({ url, error: new Error(`The script ${url} can not be loaded on the client side.`) });
+			return Promise.reject(new Error(
+				`The ${url} script cannot be loaded at the server side.`
+			));
 		}
 
 		if (this._loadedScripts[url]) {
@@ -93,8 +75,6 @@ export default class ScriptLoaderPlugin {
 	/**
 	 * Insert defined script tag to page.
 	 *
-	 * @private
-	 * @method _insertScriptToPage
 	 * @param {HTMLScriptElement} script
 	 */
 	_insertScriptToPage(script) {
@@ -106,8 +86,6 @@ export default class ScriptLoaderPlugin {
 	/**
 	 * Create new script element and return it.
 	 *
-	 * @private
-	 * @method _createScriptElement
 	 * @return {HTMLScriptElement}
 	 */
 	_createScriptElement() {
@@ -115,10 +93,9 @@ export default class ScriptLoaderPlugin {
 	}
 
 	/**
-	 * Handle on load event for script. Resolve load promise and fire LOADED events.
+	 * Handle on load event for script. Resolve load promise and fire LOADED
+	 * events.
 	 *
-	 * @private
-	 * @method _handleOnLoad
 	 * @param {string} url
 	 * @param {function} resolve
 	 */
@@ -126,21 +103,26 @@ export default class ScriptLoaderPlugin {
 		let data = { url };
 
 		resolve(data);
-		this._dispatcher.fire(this._Events.LOADED, data, true);
+		this._dispatcher.fire(Events.LOADED, data, true);
 	}
 
 	/**
-	 * Handle on error event for script. Reject load promise and fire LOADED events.
+	 * Handle on error event for script. Reject load promise and fire LOADED
+	 * events.
 	 *
-	 * @private
-	 * @method _handleOnError
 	 * @param {string} url
-	 * @param {function} reject
+	 * @param {function(Error)} reject
 	 */
 	_handleOnError(url, reject) {
-		let data = { url, error: new Error(`The script ${url} was not be loaded.`) };
+		let error = new Error(`The ${url} script failed to load.`);
+		error.url = url;
+		error.error = error;
+		let data = {
+			url,
+			error
+		};
 
-		reject(data);
-		this._dispatcher.fire(this._Events.LOADED, data, true);
+		reject(error);
+		this._dispatcher.fire(Events.LOADED, data, true);
 	}
 }
