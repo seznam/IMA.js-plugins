@@ -11,11 +11,11 @@ exports.build = gulp.series(
 	clean,
 	gulp.parallel(
 		copy,
-		build_js
+		build
 	)
 );
 
-function build_js() {
+function build() {
 	return gulp
 		.src('./src/**/!(*Spec).js')
 		.pipe(babel({
