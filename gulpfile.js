@@ -39,7 +39,10 @@ exports.test = test;
 function test() {
 	return gulp
 		.src('./src/**/*Spec.js')
-		.pipe(jasmine());
+		.pipe(jasmine())
+		.on('error', function() {
+			this.emit('end');
+		});
 }
 
 exports.dev = dev;
