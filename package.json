@@ -2,9 +2,10 @@
 	"name": "ima-plugin-analytic-google",
 	"version": "0.13.0",
 	"description": "Seznam IMA.js google analytic plugin",
-	"main": "index.js",
+	"main": "main.js",
 	"scripts": {
-		"prepublish": "npm run build && npm run test",
+		"prepublish": "echo '====================================================================================================================================================\nUse \"npm run publish-package\" to publish this package, or \"npm install --ignore-scripts\" to install local dependencies. This will be fixed in npm 4.\n====================================================================================================================================================' && exit 1",
+		"publish-package": "npm run build && npm run test && npm publish dist --ignore-scripts",
 		"build": "node node_modules/gulp/bin/gulp.js build",
 		"doc": "node node_modules/gulp/bin/gulp.js doc",
 		"test": "node node_modules/gulp/bin/gulp.js test",
