@@ -5,19 +5,12 @@ import {
 
 /**
  * Google analytic class
- *
- * @class GoogleAnalytic
- * @namespace ima.plugin.analytic.google
- * @module ima
- * @submodule ima.plugin
- *
- * @extends ima.plugin.analytic.AbstractAnalytic
  */
 export default class GoogleAnalytic extends AbstractAnalytic {
 
 	/**
-	 * @method constructor
-	 * @constructor
+	 * Initializes the Google Analytics plugin.
+	 *
 	 * @param {ima.plugin.script.loader.ScriptLoaderPlugin} scriptLoader
 	 * @param {ima.window.Window} window
 	 * @param {ima.event.Dispatcher} dispatcher
@@ -31,8 +24,6 @@ export default class GoogleAnalytic extends AbstractAnalytic {
 
 	/**
 	 * Initialization analytic.
-	 *
-	 * @method init
 	 */
 	init() {
 		super.init();
@@ -44,8 +35,7 @@ export default class GoogleAnalytic extends AbstractAnalytic {
 	 * Returns template for loading script async.
 	 *
 	 * @override
-	 * @method getTemplate
-	 * @return {string?}
+	 * @return {string}
 	 */
 	getTemplate() {
 		var template = `(function(win,doc,tag,url,id){` +
@@ -69,31 +59,46 @@ export default class GoogleAnalytic extends AbstractAnalytic {
 	 * defer hit to storage.
 	 *
 	 * @override
-	 * @method hit
-	 * @param {{method: string=, type: string=, category: string=, action: string=,
-	 *        label: string=, value: number, fields: Object<string, *>}} data
-	 *        The key of data are defined in documentation of google analytic.
+	 * @param {{
+	 *          method: string=,
+	 *          type: string=,
+	 *          category: string=,
+	 *          action: string=,
+	 *          label: string=,
+	 *          value: number,
+	 *          fields: Object<string, *>
+	 *        }} data The key of data are defined in documentation of google
+	 *        analytic.
 	 */
 	hit(data) {
 		if (this.isEnabled()) {
-			this._window.getWindow().ga(data.method || 'send', data.type || 'event', data.category || 'undefined', data.action || 'undefined', data.label, data.value, data.fields);
+			this._window.getWindow().ga(
+				data.method || 'send',
+				data.type || 'event',
+				data.category || 'undefined',
+				data.action || 'undefined',
+				data.label,
+				data.value,
+				data.fields
+			);
 		}
 	}
 
 	/**
-	 * Hit page view event to analytic witd defined data.
+	 * Hit page view event to analytic with defined data.
 	 *
 	 * @override
-	 * @method hitPageView
 	 * @param {Object<string, *>} pageData
 	 */
 	hitPageView(pageData) {
-		if (this.isEnabled()) {
-			this._window.getWindow().ga('set', 'page', pageData.path);
-			this._window.getWindow().ga('set', 'location', this._window.getUrl());
-			this._window.getWindow().ga('set', 'title', document.title || '');
-			this._window.getWindow().ga('send', 'pageview');
+		if (!this.isEnabled()) {
+			return;
 		}
+
+		this._window.getWindow().ga('set', 'page', pageData.path);
+		this._window.getWindow().ga('set', 'location', this._window.getUrl());
+		this._window.getWindow().ga('set', 'title', document.title || '');
+		this._window.getWindow().ga('send', 'pageview');
 	}
 
 	/**
@@ -101,7 +106,6 @@ export default class GoogleAnalytic extends AbstractAnalytic {
 	 *
 	 * @override
 	 * @protected
-	 * @method _configuration
 	 */
 	_configuration() {
 		if (

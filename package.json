@@ -32,13 +32,15 @@
 	"devDependencies": {
 		"babel-core": "6.17.0",
 		"babel-plugin-transform-es2015-modules-commonjs": "6.18.0",
+		"del": "2.2.2",
+		"docdash": "0.4.0",
 		"eslint": "3.9.1",
 		"eslint-plugin-react": "6.4.1",
 		"gulp": "github:gulpjs/gulp#c120a94",
 		"gulp-babel": "6.1.2",
 		"gulp-change": "1.0.0",
 		"gulp-jasmine": "2.4.2",
-		"gulp-yuidoc": "0.1.2"
+		"gulp-jsdoc3": "1.0.0"
 	},
 	"dependencies": {
 		"ima-plugin-analytic": "0.14.1",

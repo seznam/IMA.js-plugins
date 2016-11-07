@@ -4,12 +4,13 @@ require('babel-core/register.js')({
 	]
 });
 
+let del = require('del');
 let gulp = require('gulp');
 let babel = require('gulp-babel');
-let path = require('path');
-let jasmine = require('gulp-jasmine');
-let yuidoc = require('gulp-yuidoc');
 let change = require('gulp-change');
+let jasmine = require('gulp-jasmine');
+let jsdoc = require('gulp-jsdoc3');
+let path = require('path');
 
 exports.build = build_js;
 function build_js() {
@@ -34,72 +35,67 @@ function dev() {
 	return gulp.watch(['./src/**/*.js'], test);
 }
 
-exports.doc = doc;
-function doc() {
+exports.doc = gulp.series(doc_clear, doc_preprocess, doc_generate, doc_clean);
+
+function doc_clean() {
+	return del('./doc-src');
+}
+
+function doc_generate(done) {
+	// Unfortunately, JSDoc invokes the callback for every file. Because of
+	// this, we have to handle the done callback invocation in a little
+	// bit more complicated way
+	const COMPLETION_TIMEOUT = 1000; // milliseconds
+	let completionTimeout = null;
+
+	gulp.src(['README.md', './doc-src/**/*'], { read: false })
+		.pipe(jsdoc({
+			opts: {
+				destination: './doc',
+				template: './node_modules/docdash/'
+			}
+		}, () => {
+			if (completionTimeout) {
+				clearTimeout(completionTimeout);
+			}
+			completionTimeout = setTimeout(done, COMPLETION_TIMEOUT);
+		}));
+}
+
+function doc_preprocess() {
 	return gulp
-		.src('./src/**.js')
-		.pipe(change(function(content) {
+		.src('./src/**/!(*Spec).js')
+		.pipe(change((content) => {
 			let oldContent = null;
 
 			while (content !== oldContent) {
 				oldContent = content;
-				documentationPreprocessors.forEach((preprocessor) => {
-					content = content.replace(
-						preprocessor.pattern,
-						preprocessor.replace
-					);
-				});
+				for (let preprocessor of documentationPreprocessors) {
+					let { pattern, replace } = preprocessor;
+					content = content.replace(pattern, replace);
+				}
 			}
 
-			return content;
+			return `/** @module */\n${content}`;
 		}))
-		.pipe(yuidoc({}, { 'themedir': path.resolve('./doc/yuidocTheme') }))
-		.pipe(gulp.dest('./doc'));
+		.pipe(gulp.dest('./doc-src'));
+}
+
+function doc_clear() {
+	return del(['./doc-src', './doc']);
 }
 
 documentationPreprocessors = [
 	{
-		pattern: /\/[*][*]((?:a|[^a])*?)(?: |\t)*[*]\s*@(?:override|inheritDoc|abstract)\n((a|[^a])*)[*]\//g,
-		replace: '/**$1$2*/'
-	},
-	{
-		pattern: /\/[*][*]((?:a|[^a])*?)@implements(?: (.*))?\n((a|[^a])*)[*]\//g,
-		replace: '/**$1@extends $2\n$3*/'
-	},
-	{
-		pattern: /\/[*][*]((?:a|[^a])*?)@interface (.*)\n((a|[^a])*)?[*]\//g,
-		replace: '/**$1@class $2\n$3*/'
-	},
-	{
-		pattern: /\/[*][*]((?:a|[^a])*?)@see (.*)\n((a|[^a])*)[*]\//g,
-		replace: '/**$1\n$3*/'
+		pattern: /\/[*][*]((?:a|[^a])*?)@(type|param|return)\s*[{]([^}]*?)([a-zA-Z0-9_., *<>|]+)\[\]([^}]*)[}]((a|[^a])*)[*]\//g,
+		replace: '/**$1@$2 {$3Array<$4>$5}$6*/'
 	},
 	{
 		pattern: /\/[*][*]((?:a|[^a])*?)[{]@code(?:link)? ([^}]*)[}]((a|[^a])*)[*]\//g,
 		replace: '/**$1<code>$2</code>$3*/'
 	},
 	{
-		pattern: /\/[*][*]((?:a|[^a])*?)@(type|param|return)\s*[{]([^}]*)[*]([^}]*)[}]((a|[^a])*)[*]\//g,
-		replace: '/**$1@$2 {$3any$4}$5*/'
-	},
-	{
-		pattern: /\/[*][*]((?:a|[^a])*?)@(type|param|return)\s*[{]([^}]*)<([^}]*)[}]((a|[^a])*)[*]\//g,
-		replace: '/**$1@$2 {$3&lt;$4}$5*/'
-	},
-	{
-		pattern: /\/[*][*]((?:a|[^a])*?)@(type|param|return)\s*[{]([^}]*)>([^}]*)[}]((a|[^a])*)[*]\//g,
-		replace: '/**$1@$2 {$3&gt;$4}$5*/'
-	},
-	{
-		pattern: /\/[*][*]((?:a|[^a])*?)@(type|param|return)\s*[{]([^}]*?)([a-zA-Z0-9_.]+)\[\]([^}]*)[}]((a|[^a])*)[*]\//g,
-		replace: '/**$1@$2 {$3Array<$4>$5}$6*/'
-	},
-	{
-		pattern: /\/[*][*]((?:a|[^a])*?)(?: |\t)*[*]\s*@template\s*.*\n((a|[^a])*)[*]\//g,
-		replace: '/**$1$2*/'
-	},
-	{
-		pattern: /@(type|param|return)\s{([^{}]*){([^{}]*)}([^{}]*)}/g,
-		replace: '@$1 {$2&#123;$3&#125;$4}'
+		pattern: /^\s*export\s+default\s+/gm,
+		replace: ''
 	}
 ];
