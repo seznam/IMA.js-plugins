@@ -1,4 +1,4 @@
-import Events from './events';
+import Events from './Events';
 
 /**
  * Script loader plugin class.

@@ -1,5 +1,5 @@
 import ScriptLoaderPlugin from '../ScriptLoaderPlugin';
-import Events from '../events';
+import Events from '../Events';
 
 describe('ScriptLoaderPlugin', () => {
 	let scriptLoaderPlugin = null;

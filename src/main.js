@@ -1,5 +1,5 @@
-import ScriptLoaderPlugin from './ScriptLoaderPlugin.js';
-import Events from './events.js';
+import ScriptLoaderPlugin from './ScriptLoaderPlugin';
+import Events from './Events';
 
 let defaultDependencies = ['$Window', '$Dispatcher'];
 
