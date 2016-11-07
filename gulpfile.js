@@ -5,7 +5,6 @@ require('babel-core/register.js')({
 });
 
 let gulp = require('gulp');
-let sourcemaps = require('gulp-sourcemaps');
 let babel = require('gulp-babel');
 let path = require('path');
 let jasmine = require('gulp-jasmine');
