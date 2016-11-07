@@ -1,15 +1,14 @@
-import { Events } from 'ima-plugin-analytic';
 import { ScriptLoaderPlugin } from 'ima-plugin-script-loader';
 import GoogleAnalytic from './GoogleAnalytic.js';
 
-let defaultDependencies = [ScriptLoaderPlugin, '$Window', '$Dispatcher', Events, '$Settings.plugin.analytic.google'];
+let defaultDependencies = [
+	ScriptLoaderPlugin,
+	'$Window',
+	'$Dispatcher',
+	'$Settings.plugin.analytic.google'
+];
 
-let $registerImaPlugin = (ns) => {
-	ns.namespace('ima.plugin.analytic.google');
-
-	ns.ima.plugin.analytic.google.GoogleAnalytic = GoogleAnalytic;
-	ns.ima.plugin.analytic.google.defaultDependencies = defaultDependencies;
-};
+let $registerImaPlugin = (ns) => {};
 
 let initBind = (ns, oc, config) => {
 	oc.inject(GoogleAnalytic, defaultDependencies);

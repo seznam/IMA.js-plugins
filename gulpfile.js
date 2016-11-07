@@ -1,5 +1,7 @@
 require('babel-core/register.js')({
-	'plugins': 'transform-es2015-modules-commonjs'
+	'plugins': [
+		require('babel-plugin-transform-es2015-modules-commonjs')
+	]
 });
 
 var gulp = require('gulp');

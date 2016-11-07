@@ -1,4 +1,7 @@
-import { AbstractAnalytic } from 'ima-plugin-analytic';
+import {
+	Events as AnalyticEvents,
+	AbstractAnalytic
+} from 'ima-plugin-analytic';
 
 /**
  * Google analytic class
@@ -18,11 +21,10 @@ export default class GoogleAnalytic extends AbstractAnalytic {
 	 * @param {ima.plugin.script.loader.ScriptLoaderPlugin} scriptLoader
 	 * @param {ima.window.Window} window
 	 * @param {ima.event.Dispatcher} dispatcher
-	 * @param {Object<string, string>} Events
 	 * @param {Object<string, *>} config
 	 */
-	constructor(scriptLoader, window, dispatcher, Events, config) {
-		super(scriptLoader, window, dispatcher, Events, config);
+	constructor(scriptLoader, window, dispatcher, config) {
+		super(scriptLoader, window, dispatcher, config);
 
 		this._analyticScriptUrl = '//www.google-analytics.com/analytics.js';
 	}
@@ -102,15 +104,22 @@ export default class GoogleAnalytic extends AbstractAnalytic {
 	 * @method _configuration
 	 */
 	_configuration() {
-		if (!this._window.isClient() ||
-				!this._window.getWindow().ga ||
-				typeof this._window.getWindow().ga !== 'function' ||
-				this.isEnabled()) {
+		if (
+			!this._window.isClient() ||
+			!this._window.getWindow().ga ||
+			typeof this._window.getWindow().ga !== 'function' ||
+			this.isEnabled()
+		) {
 			return;
 		}
 
 		this._enable = true;
-		this._window.getWindow().ga('create', this._config.service, 'auto', this._config.settings);
-		this._dispatcher.fire(this._Events.LOADED, { type: 'google' }, true);
+		this._window.getWindow().ga(
+			'create',
+			this._config.service,
+			'auto',
+			this._config.settings
+		);
+		this._dispatcher.fire(AnalyticEvents.LOADED, { type: 'google' }, true);
 	}
 }
