@@ -12,7 +12,20 @@ let jasmine = require('gulp-jasmine');
 let jsdoc = require('gulp-jsdoc3');
 let path = require('path');
 
-exports.build = build_js;
+exports.build = gulp.series(
+	clean,
+	gulp.parallel(
+		build_js,
+		copy
+	)
+);
+
+function copy() {
+	return gulp
+		.src(['./README.md', './LICENSE', './package.json'])
+		.pipe(gulp.dest('./dist'));
+}
+
 function build_js() {
 	return gulp
 		.src('./src/**/!(*Spec).js')
@@ -21,6 +34,10 @@ function build_js() {
 			plugins: ['transform-es2015-modules-commonjs']
 		}))
 		.pipe(gulp.dest('./dist'));
+}
+
+function clean() {
+	return del('./dist');
 }
 
 exports.test = test;
