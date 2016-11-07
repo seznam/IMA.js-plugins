@@ -1,5 +1,5 @@
 import AbstractAnalytic from './AbstractAnalytic';
-import Events from './events';
+import Events from './Events';
 
 let $registerImaPlugin = (ns) => {};
 
