@@ -4,65 +4,60 @@ require('babel-core/register.js')({
 	]
 });
 
-var gulp = require('gulp');
-var sourcemaps = require('gulp-sourcemaps');
-var babel = require('gulp-babel');
-var path = require('path');
-var jasmine = require('gulp-jasmine');
-var yuidoc = require('gulp-yuidoc');
-var change = require('gulp-change');
+let gulp = require('gulp');
+let sourcemaps = require('gulp-sourcemaps');
+let babel = require('gulp-babel');
+let path = require('path');
+let jasmine = require('gulp-jasmine');
+let yuidoc = require('gulp-yuidoc');
+let change = require('gulp-change');
 
-
-// build module
-gulp.task('build', function() {
-	return (
-		gulp.src('./src/**/!(*Spec).js')
+exports.build = build_js;
+function build_js() {
+	return gulp
+		.src('./src/**/!(*Spec).js')
 		.pipe(sourcemaps.init())
 		.pipe(babel({
 			moduleIds: true,
 			plugins: ['transform-es2015-modules-commonjs']
 		}))
-		.pipe(gulp.dest('./dist'))
-	);
-});
+		.pipe(gulp.dest('./dist'));
+}
 
-//run test
-gulp.task('test', () => {
-	return (
-		gulp.src('./src/**/*Spec.js')
-			.pipe(jasmine({ includeStackTrace: true }))
-	);
-});
+exports.test = test;
+function test() {
+	return gulp
+		.src('./src/**/*Spec.js')
+		.pipe(jasmine({ includeStackTrace: true }));
+}
 
+exports.dev = dev;
+function dev() {
+	return gulp.watch(['./src/**/*.js'], test);
+}
 
-// -------------------------------------PRIVATE HELPER TASKS
-gulp.task('dev', function() {
-	gulp.watch(['./src/**/*.js'], ['test']);
-});
+exports.doc = doc;
+function doc() {
+	return gulp
+		.src('./src/**.js')
+		.pipe(change(function(content) {
+			let oldContent = null;
 
-gulp.task('doc', function() {
-	return (
-		gulp
-			.src('./src/**.js')
-			.pipe(change(function(content) {
-				var oldContent = null;
+			while (content !== oldContent) {
+				oldContent = content;
+				documentationPreprocessors.forEach((preprocessor) => {
+					content = content.replace(
+						preprocessor.pattern,
+						preprocessor.replace
+					);
+				});
+			}
 
-				while (content !== oldContent) {
-					oldContent = content;
-					documentationPreprocessors.forEach(function(preprocessor) {
-						content = content.replace(
-							preprocessor.pattern,
-							preprocessor.replace
-						);
-					});
-				}
-
-				return content;
-			}))
-			.pipe(yuidoc({}, { 'themedir': path.resolve('./doc/yuidocTheme') }))
-			.pipe(gulp.dest('./doc'))
-	);
-});
+			return content;
+		}))
+		.pipe(yuidoc({}, { 'themedir': path.resolve('./doc/yuidocTheme') }))
+		.pipe(gulp.dest('./doc'));
+}
 
 documentationPreprocessors = [
 	{
