@@ -39,6 +39,7 @@ function copy() {
 }
 
 function test() {
+	global.$Debug = true;
 	return gulp
 		.src('./src/**/*Spec.js')
 		.pipe(jasmine({ includeStackTrace: false }))
