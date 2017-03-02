@@ -1,6 +1,6 @@
 {
 	"name": "ima-plugin-script-loader",
-	"version": "0.14.2",
+	"version": "0.14.3",
 	"description": "Seznam IMA.js plugin for loading script",
 	"main": "main.js",
 	"scripts": {
