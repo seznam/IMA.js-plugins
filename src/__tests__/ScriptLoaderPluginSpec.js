@@ -18,17 +18,14 @@ describe('ScriptLoaderPlugin', () => {
 
 	describe('load method', () => {
 
-		it('should reject promise with error on server side', (done) => {
+		it('should throw an error at server side', () => {
 			spyOn(ImaWindow, 'isClient')
 				.and
 				.returnValue(false);
 
-			scriptLoaderPlugin
-				.load(url)
-				.catch((error) => {
-					expect(error instanceof Error).toEqual(true);
-					done();
-				});
+			expect(() => {
+				scriptLoaderPlugin.load(url);
+			}).toThrow();
 		});
 
 		it('should return value from cache', (done) => {

@@ -1,4 +1,5 @@
 import Events from './Events';
+import ResourceLoader from './ResourceLoader';
 
 /**
  * Script loader plugin class.
@@ -32,7 +33,7 @@ export default class ScriptLoaderPlugin {
 		 *
 		 * @type {Object<string, Promise<{url: string}>>}
 		 */
-		this._loadedScripts = [];
+		this._loadedScripts = {};
 	}
 
 	/**
@@ -43,50 +44,47 @@ export default class ScriptLoaderPlugin {
 	 * @return {Promise<{url: string}>}
 	 */
 	load(url, template) {
-		if (!this._window.isClient()) {
-			return Promise.reject(new Error(
-				`The ${url} script cannot be loaded at the server side.`
-			));
+		if ($Debug) {
+			if (!this._window.isClient()) {
+				throw new Error(
+					`The script loader cannot be used at the server side. ` +
+					`Attempted to load the ${url} script.`
+				);
+			}
 		}
 
 		if (this._loadedScripts[url]) {
 			return this._loadedScripts[url];
 		}
 
-		this._loadedScripts[url] = new Promise((resolve, reject) => {
-			let script = this._createScriptElement();
+		let script = this._createScriptElement();
+		if (template) {
+			script.innerHTML = template;
+		} else {
+			script.async = true;
+			script.onload = (event) => this._handleOnLoad(url);
+			script.onerror = (event) => this._handleOnError(url);
+			script.src = url;
+		}
 
-			if (template) {
-				script.innerHTML = template;
-				setTimeout(() => this._handleOnLoad(url, resolve), 0);
-			} else {
-				script.async = true;
-				script.onload = (event) => this._handleOnLoad(url, resolve);
-				script.onerror = (event) => this._handleOnError(url, reject);
-				script.src = url;
-			}
+		let loader = new ResourceLoader(script, template || url);
+		this._loadedScripts[url] = loader.loadPromise
+			.then(() => this._handleOnLoad(url))
+			.catch(() => this._handleOnError(url));
 
-			this._insertScriptToPage(script);
-		});
+		loader.injectToPage();
+
+		if (template) {
+			setTimeout(() => script.onload(), 0);
+		}
 
 		return this._loadedScripts[url];
 	}
 
 	/**
-	 * Insert defined script tag to page.
+	 * Creates a new script element and returns it.
 	 *
-	 * @param {HTMLScriptElement} script
-	 */
-	_insertScriptToPage(script) {
-		let firstScript = this._window.querySelectorAll('script')[0];
-
-		firstScript.parentNode.insertBefore(script, firstScript);
-	}
-
-	/**
-	 * Create new script element and return it.
-	 *
-	 * @return {HTMLScriptElement}
+	 * @return {HTMLScriptElement} The created script element.
 	 */
 	_createScriptElement() {
 		return document.createElement('script');
@@ -97,13 +95,11 @@ export default class ScriptLoaderPlugin {
 	 * events.
 	 *
 	 * @param {string} url
-	 * @param {function} resolve
+	 * @return {{url: string}}
 	 */
-	_handleOnLoad(url, resolve) {
-		let data = { url };
-
-		resolve(data);
+	_handleOnLoad(url) {
 		this._dispatcher.fire(Events.LOADED, data, true);
+		return data;
 	}
 
 	/**
@@ -111,16 +107,16 @@ export default class ScriptLoaderPlugin {
 	 * events.
 	 *
 	 * @param {string} url
-	 * @param {function(Error)} reject
+	 * @throws Error
 	 */
-	_handleOnError(url, reject) {
+	_handleOnError(url) {
 		let error = new Error(`The ${url} script failed to load.`);
 		let data = {
 			url,
 			error
 		};
 
-		reject(error);
 		this._dispatcher.fire(Events.LOADED, data, true);
+		throw error;
 	}
 }
