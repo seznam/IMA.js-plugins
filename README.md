@@ -7,7 +7,7 @@ or follow link <https://imajs.io>.
 
 ```javascript
 
-npm install ima-plugin-analytic-google --save
+npm install ima-plugin-analytic-google ima-plugin-script-loader --save
 
 ```
 

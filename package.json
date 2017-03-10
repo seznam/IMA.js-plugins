@@ -1,6 +1,6 @@
 {
 	"name": "ima-plugin-analytic-google",
-	"version": "0.14.1",
+	"version": "0.14.2",
 	"description": "Seznam IMA.js google analytic plugin",
 	"main": "main.js",
 	"scripts": {
@@ -41,11 +41,14 @@
 		"gulp-babel": "6.1.2",
 		"gulp-change": "1.0.0",
 		"gulp-jasmine": "2.4.2",
-		"gulp-jsdoc3": "1.0.0"
+		"gulp-jsdoc3": "1.0.0",
+		"ima-plugin-script-loader": "^0.14.3"
 	},
 	"dependencies": {
-		"ima-plugin-analytic": "^0.14.1",
-		"ima-plugin-script-loader": "^0.14.3"
+		"ima-plugin-analytic": "^0.14.2"
+	},
+	"peerDependencies": {
+		"ima-plugin-script-loader": "0.14.x"
 	},
 	"browserify": {
 		"transform": [
