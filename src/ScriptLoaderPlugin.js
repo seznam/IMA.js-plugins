@@ -67,7 +67,7 @@ export default class ScriptLoaderPlugin {
 			script.src = url;
 		}
 
-		let loader = new ResourceLoader(script, template || url);
+		let loader = this._createResourceLoader(script, template || url);
 		this._loadedScripts[url] = loader.loadPromise
 			.then(() => this._handleOnLoad(url))
 			.catch(() => this._handleOnError(url));
@@ -91,6 +91,17 @@ export default class ScriptLoaderPlugin {
 	}
 
 	/**
+	 * Creates a new instance of resource loader.
+	 *
+	 * @param {HTMLScriptElement} script
+	 * @param {string} url
+	 * @return {ResourceLoader} The resource loader.
+	 */
+	_createResourceLoader(script, url) {
+		return new ResourceLoader(script, url);
+	}
+
+	/**
 	 * Handle on load event for script. Resolve load promise and fire LOADED
 	 * events.
 	 *
@@ -98,7 +109,9 @@ export default class ScriptLoaderPlugin {
 	 * @return {{url: string}}
 	 */
 	_handleOnLoad(url) {
+		let data = { url };
 		this._dispatcher.fire(Events.LOADED, data, true);
+
 		return data;
 	}
 

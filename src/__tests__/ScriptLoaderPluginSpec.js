@@ -6,7 +6,7 @@ describe('ScriptLoaderPlugin', () => {
 	let url = '//example.com/some.js';
 
 	let ImaWindow = {
-		isClient: () => {}
+		isClient: () => true
 	};
 	let ImaDispatcher = {
 		fire: () => {}
@@ -29,10 +29,6 @@ describe('ScriptLoaderPlugin', () => {
 		});
 
 		it('should return value from cache', (done) => {
-			spyOn(ImaWindow, 'isClient')
-				.and
-				.returnValue(true);
-
 			scriptLoaderPlugin._loadedScripts[url] = Promise.resolve({ url });
 
 			scriptLoaderPlugin
