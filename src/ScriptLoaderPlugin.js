@@ -6,13 +6,22 @@ import ResourceLoader from './ResourceLoader';
  */
 export default class ScriptLoaderPlugin {
 
+	static get $dependencies() {
+		return [
+			'$Window',
+			'$Dispatcher',
+			ResourceLoader
+		];
+	}
+
 	/**
 	 * Initializes the script loader.
 	 *
 	 * @param {ima.window.Window} window
 	 * @param {ima.event.Dispatcher} dispatcher
+	 * @param {ResourceLoader} resourceLoader
 	 */
-	constructor(window, dispatcher) {
+	constructor(window, dispatcher, resourceLoader) {
 
 		/**
 		 * IMA.js Window
@@ -27,6 +36,13 @@ export default class ScriptLoaderPlugin {
 		 * @type {ima.event.Dispatcher}
 		 */
 		this._dispatcher = dispatcher;
+
+		/**
+		 * General-purpose utility for loading resources.
+		 *
+		 * @type {ResourceLoader}
+		 */
+		this._resourceLoader = resourceLoader;
 
 		/**
 		 * Object of loaded scripts.
@@ -58,22 +74,18 @@ export default class ScriptLoaderPlugin {
 		}
 
 		let script = this._createScriptElement();
+		this._loadedScripts[url] = this._resourceLoader.promisify(script, template || url)
+			.then(() => this._handleOnLoad(url))
+			.catch(() => this._handleOnError(url));
+
 		if (template) {
 			script.innerHTML = template;
 		} else {
 			script.async = true;
-			script.onload = (event) => this._handleOnLoad(url);
-			script.onerror = (event) => this._handleOnError(url);
 			script.src = url;
 		}
 
-		let loader = this._createResourceLoader(script, template || url);
-		this._loadedScripts[url] = loader.loadPromise
-			.then(() => this._handleOnLoad(url))
-			.catch(() => this._handleOnError(url));
-
-		loader.injectToPage();
-
+		this._resourceLoader.injectToPage(script);
 		if (template) {
 			setTimeout(() => script.onload(), 0);
 		}
@@ -88,17 +100,6 @@ export default class ScriptLoaderPlugin {
 	 */
 	_createScriptElement() {
 		return document.createElement('script');
-	}
-
-	/**
-	 * Creates a new instance of resource loader.
-	 *
-	 * @param {HTMLScriptElement} script
-	 * @param {string} url
-	 * @return {ResourceLoader} The resource loader.
-	 */
-	_createResourceLoader(script, url) {
-		return new ResourceLoader(script, url);
 	}
 
 	/**

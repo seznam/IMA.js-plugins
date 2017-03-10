@@ -2,15 +2,21 @@ import ResourceLoader from '../ResourceLoader';
 
 describe('ResourceLoader', () => {
 
-	let appendCalled;
+	let resourceLoader = null;
+	let element = null;
+	let url = '//example.com/js/script.js';
 
 	beforeEach(() => {
-		appendCalled = null;
+		resourceLoader = new ResourceLoader();
+		element = {
+			onload() {},
+			onerror() {},
+			onabort() {}
+		};
+
 		global.document = {
 			head: {
-				appendChild(...args) {
-					appendCalled = args;
-				}
+				appendChild() {}
 			}
 		};
 	});
@@ -19,46 +25,44 @@ describe('ResourceLoader', () => {
 		delete global.document;
 	});
 
-	it('should throw an error when used at the server side', () => {
-		delete global.document;
-		expect(() => {
-			new ResourceLoader({}, 'foo');
-		}).toThrow();
+	describe('injectToPage method', () => {
+
+		it('should throw an error when used at the server side', () => {
+			delete global.document;
+			expect(() => {
+				resourceLoader.injectToPage({});
+			}).toThrow();
+		});
+
+		it('should append the resource element to the document head', () => {
+			spyOn(global.document.head, 'appendChild');
+
+			resourceLoader.injectToPage(element);
+			expect(global.document.head.appendChild).toHaveBeenCalledWith(element);
+		});
+
 	});
 
-	it('should append the resource element to the document head', () => {
-		const element = {
-			mark: Math.random() + Date.now()
-		};
-		const loader = new ResourceLoader(element, 'foo');
-		loader.injectToPage();
-		expect(appendCalled).toEqual([element]);
-	});
+	describe('promisify method', () => {
 
-	it('should resolve the load promise when the resource loads', done => {
-		const element = {};
-		const loader = new ResourceLoader(element, 'foo');
-		expect(typeof element.onload).toBe('function');
-		element.onload();
-		loader.loadPromise.then(done);
-	});
 
-	it('should reject the load promise when resource fails to load', done => {
-		const element = {};
-		const loader = new ResourceLoader(element, 'foo');
-		expect(typeof element.onerror).toBe('function');
-		expect(typeof element.onabort).toBe('undefined');
-		element.onerror();
-		loader.loadPromise.catch(done);
-	});
+		it('should resolve the load promise when the resource loads', done => {
+			resourceLoader.promisify(element, url).then(done);
 
-	it('should allow rejecting the load promise on abort', done => {
-		const element = {};
-		const loader = new ResourceLoader(element, 'foo', true);
-		expect(typeof element.onerror).toBe('function');
-		expect(typeof element.onabort).toBe('function');
-		element.onabort();
-		loader.loadPromise.catch(done);
-	});
+			element.onload();
+		});
 
+		it('should reject the load promise when resource fails to load', done => {
+			resourceLoader.promisify(element, url).catch(done);
+
+			element.onerror();
+		});
+
+		it('should allow rejecting the load promise on abort', done => {
+			resourceLoader.promisify(element, url, true).catch(done);
+
+			element.onabort();
+		});
+
+	});
 });

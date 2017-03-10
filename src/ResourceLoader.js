@@ -5,8 +5,13 @@
  * {@code onabort} callback properties.
  */
 export default class ResourceLoader {
+
+	static get $dependencies() {
+		return [];
+	}
+
 	/**
-	 * Initializes the resource laoder for the provided resource.
+	 * Promisify the resource loading for the provided resource.
 	 *
 	 * @param {HTMLElement} resourceElement An element ready to be inserted
 	 *        into the current document to load the linked resource.
@@ -16,16 +21,8 @@ export default class ResourceLoader {
 	 * @param {boolean=} rejectOnAbort Flag signalling whether to handle
 	 *        aborting of the load process as an error.
 	 */
-	constructor(resourceElement, resourceUri, rejectOnAbort = false) {
-		if ($Debug) {
-			if (typeof document === 'undefined') {
-				throw new Error(
-					'The ResourceLoader must be used only at the client-side'
-				);
-			}
-		}
-
-		this.loadPromise = new Promise((resolve, reject) => {
+	promisify(resourceElement, resourceUri, rejectOnAbort = false) {
+		return new Promise((resolve, reject) => {
 			resourceElement.onload = resolve;
 			resourceElement.onerror = handleError;
 			if (rejectOnAbort) {
@@ -44,15 +41,18 @@ export default class ResourceLoader {
 				}
 			}
 		});
-
-		this._resourceElement = resourceElement;
-
-		if ($Debug) {
-			Object.freeze(this);
-		}
 	}
 
-	injectToPage() {
-		document.head.appendChild(this._resourceElement);
+	injectToPage(resourceElement) {
+		if ($Debug) {
+			if (typeof document === 'undefined') {
+				throw new Error(
+					'The ResourceLoader.injectToPage method must be used ' +
+					'only at the client-side'
+				);
+			}
+		}
+
+		document.head.appendChild(resourceElement);
 	}
 }
