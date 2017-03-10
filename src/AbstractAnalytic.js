@@ -76,8 +76,8 @@ export default class AbstractAnalytic {
 				.then(() => {
 					this._configuration();
 				})
-				.catch((errorResponse) => {
-					console.log(errorResponse.url, errorResponse.error);
+				.catch((error) => {
+					console.error(error);
 				});
 		}
 	}
