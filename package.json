@@ -1,0 +1,55 @@
+{
+	"name": "ima-plugin-self-xss",
+	"version": "0.2.0",
+	"description": "The plugin is trying to mitigate Self-XSS security attack by sending simple message into console",
+	"main": "main.js",
+	"scripts": {
+		"prepublishOnly": "echo '====================================================================================================================================================\nUse \"npm run publish-package\" to publish this package, or \"npm install --ignore-scripts\" to install local dependencies. This will be fixed in npm 4.\n====================================================================================================================================================' && exit 1",
+		"publish-package": "npm run build && npm run test && npm publish dist --ignore-scripts",
+		"build": "node node_modules/gulp/bin/gulp.js build",
+		"test": "node node_modules/gulp/bin/gulp.js test",
+		"dev": "node node_modules/gulp/bin/gulp.js dev"
+	},
+	"keywords": [
+		"IMA",
+		"Self-XSS",
+		"security",
+		"plugin"
+	],
+	"author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/seznam/IMA.js-plugin-self-xss.git"
+	},
+	"publishConfig": {
+		"registry": "http://registry.npmjs.org/"
+	},
+	"bugs": {
+		"url": "https://github.com/seznam/IMA.js-plugin-self-xss/issues"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"babel-core": "6.23.1",
+		"babel-plugin-transform-es2015-modules-commonjs": "6.23.0",
+		"babel-preset-es2015": "6.22.0",
+		"babelify": "7.3.0",
+		"browserify": "14.1.0",
+		"del": "2.2.2",
+		"eslint": "3.17.1",
+		"eslint-plugin-react": "6.10.0",
+		"gulp": "github:gulpjs/gulp#c120a94",
+		"gulp-babel": "6.1.2",
+		"gulp-jasmine": "2.4.2",
+		"jasmine": "2.5.3",
+		"jasmine-core": "2.5.2"
+	},
+	"browserify": {
+		"transform": [
+			"babelify"
+		]
+	},
+	"engines": {
+		"node": ">=6",
+		"npm": ">=4 <6"
+	}
+}
