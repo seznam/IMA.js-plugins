@@ -1,4 +1,4 @@
-# ima-plugin-script-loader
+# ima-plugin-style-loader
 
 This is the plugin for loading 3rd party styles for the IMA.js application.
 You can find the IMA.js skeleton application at <https://github.com/seznam/IMA.js-skeleton>
