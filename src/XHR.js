@@ -90,9 +90,9 @@ export default class XHR {
 	 * @param {Window} window The IMA's Window helper.
 	 * @param {XHRRequestOptions=} defaultOptions The default request options.
 	 */
-	constructor(window, defaultOptions = {}) {
+	constructor(window, defaultOptions = EMPTY_OBJECT) {
 		this._window = window;
-		this._defaultOptions = {};
+		this._defaultOptions = defaultOptions;
 		this._defaultHeaders = {};
 	}
 
