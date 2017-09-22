@@ -4,7 +4,10 @@
 	"description": "Helper plugin simplifying the usage of the XMLHttpRequest API.",
 	"main": "index.js",
 	"scripts": {
-		"test": "node node_modules/gulp/bin/gulp.js test"
+		"prepublishOnly": "echo \".-------------------------------------------------------.\n| Use 'npm run publish-package' to publish this package |\n'-------------------------------------------------------'\" && exit 1",
+		"build": "./node_modules/.bin/gulp",
+		"publish-package": "npm test && npm run build && npm publish --ignore-scripts dist",
+		"test": "./node_modules/.bin/jest"
 	},
 	"repository": {
 		"type": "git",
@@ -32,7 +35,8 @@
 		"eslint": "^4.7.1",
 		"gulp": "github:gulpjs/gulp#6d71a65",
 		"gulp-babel": "^7.0.0",
-		"gulp-sourcemaps": "^2.6.1"
+		"gulp-sourcemaps": "^2.6.1",
+		"jest": "^20.0.4"
 	},
 	"dependencies": {
 		"ima": "^0.14.3"
