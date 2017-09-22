@@ -76,7 +76,7 @@ const EMPTY_OBJECT = {};
  *
  * This class may be used only at the client side.
  */
-export class XHR {
+export default class XHR {
 
 	static get $dependencies() {
 		return [
