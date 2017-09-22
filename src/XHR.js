@@ -100,12 +100,12 @@ export default class XHR {
 	 * Sends a GET request to the specified url.
 	 *
 	 * @param {string} url The URL to which the request should be made.
-	 * @param {*} data The data to send in the request's query string.
-	 * @param {XHRRequestOptions} options The optional request options.
+	 * @param {*=} data The data to send in the request's query string.
+	 * @param {XHRRequestOptions=} options The optional request options.
 	 * @return {Promise<XHRResponse>} A promise that will resolve to the
 	 *         response object.
 	 */
-	get(url, data, options = EMPTY_OBJECT) {
+	get(url, data = EMPTY_OBJECT, options = EMPTY_OBJECT) {
 		return this._prepareAndSendRequest('get', url, data, options);
 	}
 
@@ -114,12 +114,12 @@ export default class XHR {
 	 * request body.
 	 *
 	 * @param {string} url The URL to which the request should be made.
-	 * @param {*} data The data to send send in the request's body.
-	 * @param {XHRRequestOptions} options The optional request options.
+	 * @param {*=} data The data to send send in the request's body.
+	 * @param {XHRRequestOptions=} options The optional request options.
 	 * @return {Promise<XHRResponse>} A promise that will resolve to the
 	 *         response object.
 	 */
-	post(url, data, options = EMPTY_OBJECT) {
+	post(url, data = null, options = EMPTY_OBJECT) {
 		return this._prepareAndSendRequest('post', url, data, options);
 	}
 
@@ -128,12 +128,12 @@ export default class XHR {
 	 * request body.
 	 *
 	 * @param {string} url The URL to which the request should be made.
-	 * @param {*} data The data to send send in the request's body.
-	 * @param {XHRRequestOptions} options The optional request options.
+	 * @param {*=} data The data to send send in the request's body.
+	 * @param {XHRRequestOptions=} options The optional request options.
 	 * @return {Promise<XHRResponse>} A promise that will resolve to the
 	 *         response object.
 	 */
-	put(url, data, options = EMPTY_OBJECT) {
+	put(url, data = null, options = EMPTY_OBJECT) {
 		return this._prepareAndSendRequest('put', url, data, options);
 	}
 
@@ -142,12 +142,12 @@ export default class XHR {
 	 * request body.
 	 *
 	 * @param {string} url The URL to which the request should be made.
-	 * @param {*} data The data to send send in the request's body.
-	 * @param {XHRRequestOptions} options The optional request options.
+	 * @param {*=} data The data to send send in the request's body.
+	 * @param {XHRRequestOptions=} options The optional request options.
 	 * @return {Promise<XHRResponse>} A promise that will resolve to the
 	 *         response object.
 	 */
-	patch(url, data, options = EMPTY_OBJECT) {
+	patch(url, data = null, options = EMPTY_OBJECT) {
 		return this._prepareAndSendRequest('patch', url, data, options);
 	}
 
@@ -156,12 +156,12 @@ export default class XHR {
 	 * request body.
 	 *
 	 * @param {string} url The URL to which the request should be made.
-	 * @param {*} data The data to send send in the request's body.
-	 * @param {XHRRequestOptions} options The optional request options.
+	 * @param {*=} data The data to send send in the request's body.
+	 * @param {XHRRequestOptions=} options The optional request options.
 	 * @return {Promise<XHRResponse>} A promise that will resolve to the
 	 *         response object.
 	 */
-	delete(url, data, options = EMPTY_OBJECT) {
+	delete(url, data = null, options = EMPTY_OBJECT) {
 		return this._prepareAndSendRequest('delete', url, data, options);
 	}
 
