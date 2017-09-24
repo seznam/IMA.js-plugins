@@ -170,6 +170,9 @@ describe('XHR', () => {
 				() => {
 				}
 			);
+
+			it(`should not encode native request body objects of a ${method} request`, () => {
+			});
 		}
 
 		it(`should allow aborting a ${method} request using the observer`, () => {
