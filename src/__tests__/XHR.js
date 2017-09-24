@@ -24,10 +24,48 @@ describe('XHR', () => {
 			expect(() => xhr[method]('http://localhost/')).toThrow();
 		});
 
-		// TODO: requests with and without data
-		// TODO: using options (all options, including the observer)
-		// TODO: default headers
-		// TODO: default options
+		it(`should handle a ${method} request without data`, () => {});
+
+		it(`should handle a ${method} request with data`, () => {});
+
+		it(`should time out a ${method} request after timeout`, () => {});
+
+		it(`should repeat a failed ${method} request the specified number of times`, () => {
+		});
+
+		it(`should send the specified headers in a ${method} request`, () => {
+		});
+
+		it(`should send the cross-origin credentials in a ${method} request`, () => {
+		});
+
+		it(`should allow post-processing the response of a ${method} request`, () => {
+		});
+
+		it(
+			`should call the onstatechange callback of an observer and update the state during a ${method} request`,
+			() => {
+			}
+		);
+
+		if (method !== 'get') {
+			it(
+				`should call the onprogress callback of an observer when a ${method} request's upload progresses`,
+				() => {
+				}
+			);
+		}
+
+		it(`should allow aborting a ${method} request using the observer`, () => {
+		});
+
+		it(`should compose the default headers into a ${method} request`, () => {
+			// without default options
+		});
+
+		it(`should use the default options as fallbacks for the provided options of a ${method} request`, () => {
+			// try with default as well headers
+		});
 	});
 
 	function using(values, func) {
