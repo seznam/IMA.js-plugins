@@ -4,6 +4,10 @@ describe('XHR', () => {
 	const windowMock = {
 		isClient() {
 			return true;
+		},
+
+		getWindow() {
+			return global;
 		}
 	};
 	class Blob {}
@@ -12,10 +16,13 @@ describe('XHR', () => {
 	class URLSearchParams {}
 	class ReadableStream {}
 
+	/**
+	 * @type XHR
+	 */
 	let pluginInstance;
-	let xhrSendCallback = () => Promise.resolve(null);
-	let xhrProgressInterval = 10; // milliseconds
-	let xhrResponseHeaders = [['content-type', 'application/javascript']];
+	let xhrSendCallback;
+	let xhrProgressInterval;
+	let xhrResponseHeaders;
 
 	beforeAll(() => {
 		global.Blob = global.Blob || Blob;
@@ -34,7 +41,7 @@ describe('XHR', () => {
 				this._requestHeaders = [];
 			}
 
-			open(method, url, async, username, password) {
+			open(method, url, async = true, username = null, password = null) {
 				if (async !== true) {
 					throw new Error(`The async flag must be true, but ${async} was provided`);
 				}
@@ -123,6 +130,9 @@ describe('XHR', () => {
 
 	beforeEach(() => {
 		pluginInstance = new XHR(windowMock);
+		xhrSendCallback = () => Promise.resolve(null);
+		xhrProgressInterval = 10; // milliseconds
+		xhrResponseHeaders = [['content-type', 'application/javascript']];
 	});
 
 	using(['get', 'post', 'put', 'patch', 'delete'], (method) => {
@@ -140,9 +150,79 @@ describe('XHR', () => {
 			expect(() => xhr[method]('http://localhost/')).toThrow();
 		});
 
-		it(`should handle a ${method} request without data`, () => {});
+		it(`should handle a ${method} request without data`, async() => {
+			const status = 201;
+			const responseBody = null;
+			const url = 'http://localhost:8080/api/v1/' + Math.random();
+			xhrSendCallback = async(xhr, requestBody) => {
+				expect(xhr._method).toBe(method);
+				expect(xhr._url).toBe(url + (method === 'get' ? '?' : ''));
+				expect(xhr._requestHeaders).toEqual([]);
+				expect(requestBody).toBe(null);
+				xhr.status = status;
+				return responseBody;
+			};
 
-		it(`should handle a ${method} request with data`, () => {});
+			const response = await pluginInstance[method](url);
+			expect(response).toEqual({
+				status,
+				body: responseBody,
+				headers: { 'content-type': 'application/javascript' },
+				params: {
+					method,
+					url,
+					transformedUrl: url,
+					data: method === 'get' ? {} : null,
+					options: { headers: {} }
+				},
+				cached: false
+			});
+		});
+
+		it(`should handle a ${method} request with data`, async() => {
+			const status = 200;
+			const responseBody = {
+				testing: [1, 2, { hello: 'there' }]
+			};
+			const url = 'http://localhost:8080/api/v1/' + Math.random();
+			const requestData = {
+				'&': '=',
+				abc: 123
+			};
+			xhrSendCallback = async(xhr, requestBody) => {
+				expect(xhr._method).toBe(method);
+				expect(xhr._url).toBe(
+					url + (method === 'get' ? '?%26=%3D&abc=123' : '')
+				);
+				expect(xhr._requestHeaders).toEqual([]);
+				expect(requestBody).toEqual(method === 'get' ? null : JSON.stringify(requestData));
+				xhr.status = status;
+				xhrResponseHeaders.push(
+					['x-time', 'now, later'],
+					['should', 'definitely']
+				);
+				return responseBody;
+			};
+
+			const response = await pluginInstance[method](url, requestData);
+			expect(response).toEqual({
+				status,
+				body: responseBody,
+				headers: {
+					'content-type': 'application/javascript',
+					'x-time': 'now, later',
+					should: 'definitely'
+				},
+				params: {
+					method,
+					url,
+					transformedUrl: url,
+					data: requestData,
+					options: { headers: {} }
+				},
+				cached: false
+			});
+		});
 
 		it(`should time out a ${method} request after timeout`, () => {});
 
@@ -185,6 +265,10 @@ describe('XHR', () => {
 		it(`should use the default options as fallbacks for the provided options of a ${method} request`, () => {
 			// try with default as well headers
 		});
+	});
+
+	it('should append the data to the query string for a get request', () => {
+		// use a URL that already has a query string
 	});
 
 	afterAll(() => {
