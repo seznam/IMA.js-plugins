@@ -91,7 +91,7 @@ describe('XHR', () => {
 							this._listeners.progress({ type: 'progress', target: this });
 						}, xhrProgressInterval);
 
-						xhrSendCallback(this, body).then(responseBody => {
+						Promise.resolve(xhrSendCallback(this, body)).then(responseBody => {
 							this.readyState = 3;
 							this._listeners.readystatechange({ type: 'readystatechange', target: this });
 							clearInterval(progressIntervalId);
@@ -267,8 +267,20 @@ describe('XHR', () => {
 		});
 	});
 
-	it('should append the data to the query string for a get request', () => {
+	it('should append the data to the query string for a get request', async() => {
 		// use a URL that already has a query string
+		const url = 'http://localhost:8080/api/v1/resource?id=1';
+		const requestData = {
+			abc: 123
+		};
+
+		xhrSendCallback = (xhr, requestBody) => {
+			expect(xhr._url).toBe(`${url}&abc=123`);
+			expect(requestBody).toBe(null);
+			xhr.status = 200;
+		};
+
+		await pluginInstance.get(url, requestData);
 	});
 
 	afterAll(() => {
