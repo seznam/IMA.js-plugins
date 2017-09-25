@@ -65,7 +65,8 @@ const EMPTY_OBJECT = {};
  *           have been applied. This is the URL to which the request was made.
  * @property {Object<string, (boolean|number|string)>} data The data sent in
  *           the original request.
- * @property {XHRRequestOptions} options The options used to make the request.
+ * @property {XHRRequestOptions} options The complete options used to make the
+ *           request, with the defaults filled in for easier debugging.
  */
 
 /**
