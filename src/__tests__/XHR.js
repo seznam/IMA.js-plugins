@@ -1,3 +1,4 @@
+import StatusCode from 'ima/http/StatusCode.js';
 import XHR from '../XHR.js';
 
 describe('XHR', () => {
@@ -224,18 +225,103 @@ describe('XHR', () => {
 			});
 		});
 
-		it(`should time out a ${method} request after timeout`, () => {});
+		it(`should time out a ${method} request after timeout`, async() => {
+			xhrSendCallback = () => new Promise(() => {});
 
-		it(`should repeat a failed ${method} request the specified number of times`, () => {
+			try {
+				await pluginInstance[method]('http://::1/api', {}, {
+					timeout: 1
+				});
+			} catch (timeoutError) {
+				expect(timeoutError.getParams().status).toBe(StatusCode.TIMEOUT);
+				return;
+			}
+
+			throw new Error('The request should have timed out');
 		});
 
-		it(`should send the specified headers in a ${method} request`, () => {
+		it(`should repeat a failed ${method} request the specified number of times`, async() => {
+			let counter = 0;
+			xhrSendCallback = () => {
+				counter++;
+			};
+
+			try {
+				await pluginInstance[method]('http://::1/api', {}, { repeatRequest: 2 });
+			} catch (requestError) {
+				expect(counter).toBe(3);
+				return;
+			}
+
+			throw new Error('The request should have been rejected');
 		});
 
-		it(`should send the cross-origin credentials in a ${method} request`, () => {
+		it(`should send the specified headers in a ${method} request`, async() => {
+			xhrSendCallback = (xhr) => {
+				expect(xhr._requestHeaders).toEqual([
+					['foo', 'bar'],
+					['some', 'thing']
+				]);
+				xhr.status = 200;
+			};
+
+			await pluginInstance[method]('http://::1/api', {}, {
+				headers: {
+					foo: 'bar',
+					some: 'thing'
+				}
+			});
 		});
 
-		it(`should allow post-processing the response of a ${method} request`, () => {
+		it(`should send the cross-origin credentials in a ${method} request`, async() => {
+			xhrSendCallback = (xhr) => {
+				expect(xhr.withCredentials).toBe(true);
+				xhr.status = 200;
+			};
+
+			await pluginInstance[method]('http://::1/api', {}, {
+				withCredentials: true
+			});
+		});
+
+		it(`should allow post-processing the response of a ${method} request`, async() => {
+			xhrSendCallback = (xhr) => {
+				xhr.status = 200;
+				return [1, 2];
+			};
+
+			const responce = await pluginInstance[method]('http://::1/api', {}, {
+				postProcessor(response) {
+					expect(response).toEqual({
+						status: 200,
+						body: [1, 2],
+						headers: { 'content-type': 'application/javascript' },
+						params: {
+							method,
+							url: 'http://::1/api',
+							transformedUrl: 'http://::1/api',
+							data: {},
+							options: { postProcessor: this.postProcessor, headers: {} }
+						},
+						cached: false
+					});
+					return {
+						status: 201,
+						body: [1, 2, 3],
+						headers: {},
+						params: {},
+						cached: false
+					};
+				}
+			});
+
+			expect(responce).toEqual({
+				status: 201,
+				body: [1, 2, 3],
+				headers: {},
+				params: {},
+				cached: false
+			});
 		});
 
 		it(
