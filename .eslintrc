@@ -92,12 +92,12 @@
   },
   "plugins": [],
   "settings": {
-	"ecmascript": 6,
+	"ecmascript": 2017,
 	"jsx": false
   },
   "parserOptions": {
 	"sourceType": "module",
-	"ecmaVersion": 6,
+	"ecmaVersion": 2017,
 	"ecmaFeatures": {
 	  "jsx": false
 	}
