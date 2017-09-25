@@ -417,12 +417,66 @@ describe('XHR', () => {
 			]);
 		});
 
-		it(`should compose the default headers into a ${method} request`, () => {
-			// without default options
+		it(`should compose the default headers into a ${method} request`, async() => {
+			pluginInstance.setDefaultHeader('x-time', 'now');
+			pluginInstance.setDefaultHeader('now', 'yes');
+
+			xhrSendCallback = (xhr) => {
+				expect(xhr._requestHeaders).toEqual([
+					['x-time', 'now'],
+					['now', 'no'],
+					['other', 'stuff']
+				]);
+				xhr.status = 200;
+			};
+
+			await pluginInstance[method]('http://::1/api', {}, {
+				headers: {
+					now: 'no',
+					other: 'stuff'
+				}
+			});
 		});
 
-		it(`should use the default options as fallbacks for the provided options of a ${method} request`, () => {
-			// try with default as well headers
+		it(`should use the default options as fallbacks for the provided options of a ${method} request`, async() => {
+			const defaultOptions = {
+				timeout: 100,
+				repeatRequest: 2,
+				headers: {
+					foo: 'bar'
+				},
+				withCredentials: true,
+				postProcessor: _ => _
+			};
+			pluginInstance = new XHR(windowMock, defaultOptions);
+			pluginInstance.setDefaultHeader('x-time', 'now');
+
+			xhrSendCallback = (xhr) => {
+				xhr.status = 200;
+			};
+			const observe = () => {};
+			const response = await pluginInstance[method]('http://::1/api', {}, {
+				headers: {
+					other: 'stuff'
+				},
+				observe
+			});
+
+			expect(response.params.options).toEqual(Object.assign(
+				{},
+				defaultOptions,
+				{
+					headers: Object.assign(
+						{},
+						defaultOptions.headers,
+						{
+							'x-time': 'now',
+							other: 'stuff'
+						}
+					),
+					observe
+				}
+			));
 		});
 	});
 
