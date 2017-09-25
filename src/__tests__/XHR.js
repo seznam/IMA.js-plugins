@@ -72,35 +72,42 @@ describe('XHR', () => {
 			}
 
 			abort() {
+				if (!this.readyState) {
+					throw new Error('Cannot abort a request that has not been started');
+				}
+
 				this._aborted = true;
-				this._listeners.abort({ type: 'abort', target: this });
+				clearImmediate(this._nextImmediate);
+				clearInterval(this._progressIntervalId);
+				this._listeners.abort && this._listeners.abort({ type: 'abort', target: this });
 			}
 
 			send(body) {
-				let progressIntervalId;
-				let nextImmediate;
-
-				nextImmediate = setImmediate(() => {
+				this._nextImmediate = setImmediate(() => {
 					this.readyState = 1;
 					this._listeners.readystatechange({ type: 'readystatechange', target: this });
 
-					nextImmediate = setImmediate(() => {
+					this._nextImmediate = setImmediate(() => {
 						this.readyState = 2;
 						this._listeners.readystatechange({ type: 'readystatechange', target: this });
 
-						progressIntervalId = setInterval(() => {
+						this._progressIntervalId = setInterval(() => {
 							this._listeners.progress({ type: 'progress', target: this });
 						}, xhrProgressInterval);
 
 						Promise.resolve(xhrSendCallback(this, body)).then(responseBody => {
+							if (this._aborted) {
+								return;
+							}
+
 							this.readyState = 3;
 							this._listeners.readystatechange({ type: 'readystatechange', target: this });
-							clearInterval(progressIntervalId);
+							clearInterval(this._progressIntervalId);
 							if (this._timeoutId) {
 								clearTimeout(this._timeoutId);
 							}
 
-							nextImmediate = setImmediate(() => {
+							this._nextImmediate = setImmediate(() => {
 								this.response = responseBody;
 								this.readyState = 4;
 								this._listeners.readystatechange({ type: 'readystatechange', target: this });
@@ -114,10 +121,10 @@ describe('XHR', () => {
 
 				if (this.timeout) {
 					this._timeoutId = setTimeout(() => {
-						if (progressIntervalId) {
-							clearInterval(progressIntervalId);
+						if (this._progressIntervalId) {
+							clearInterval(this._progressIntervalId);
 						}
-						clearImmediate(nextImmediate);
+						clearImmediate(this._nextImmediate);
 						this._listeners.timeout({ type: 'timeout', target: this });
 					}, this.timeout);
 				}
@@ -326,22 +333,88 @@ describe('XHR', () => {
 
 		it(
 			`should call the onstatechange callback of an observer and update the state during a ${method} request`,
-			() => {
+			async() => {
+				xhrSendCallback = (xhr) => delay(100).then(() => {
+					xhr.status = 200;
+				});
+				let counter = 0;
+				let lastState = 0;
+
+				await pluginInstance[method]('http://::1/api', {}, {
+					observe(observer) {
+						expect(observer.state).toBe(0);
+						observer.onstatechange = (event) => {
+							expect(event.type).toBe('readystatechange');
+							expect(observer.state).toBeGreaterThan(lastState);
+							expect(observer.state).toBeLessThan(5);
+							lastState = observer.state;
+							counter++;
+						};
+					}
+				});
+
+				expect(counter).toBe(4);
 			}
 		);
 
 		if (method !== 'get') {
 			it(
 				`should call the onprogress callback of an observer when a ${method} request's upload progresses`,
-				() => {
+				async() => {
+					xhrSendCallback = (xhr) => delay(100).then(() => {
+						xhr.status = 200;
+					});
+					let called = false;
+
+					await pluginInstance[method]('http://::1/api', {}, {
+						observe(observer) {
+							observer.onprogress = (event) => {
+								expect(event.type).toBe('progress');
+								expect(observer.state).toBe(2);
+								called = true;
+							};
+						}
+					});
+
+					expect(called).toBe(true);
 				}
 			);
 
-			it(`should not encode native request body objects of a ${method} request`, () => {
+			it(`should not encode native request body objects of a ${method} request`, async() => {
+				const natives = [
+					global.Blob,
+					global.BufferSource,
+					global.FormData,
+					global.URLSearchParams,
+					global.ReadableStream
+				];
+				const nativeBodies = natives.map(Class => new Class());
+
+				for (const nativeBody of nativeBodies) {
+					xhrSendCallback = (xhr, requestBody) => {
+						expect(requestBody).toBe(nativeBody);
+						xhr.status = 200;
+					};
+					await pluginInstance[method]('http://::1/api', nativeBody);
+				}
 			});
 		}
 
-		it(`should allow aborting a ${method} request using the observer`, () => {
+		it(`should allow aborting a ${method} request using the observer`, async() => {
+			xhrSendCallback = (xhr) => {
+				xhr.status = 200;
+			};
+
+			await Promise.race([
+				pluginInstance[method]('http://::1/api', {}, {
+					observe(observer) {
+						observer.abort();
+					}
+				}).then(() => {
+					throw new Error('The request should have been aborted');
+				}),
+				delay(100)
+			]);
 		});
 
 		it(`should compose the default headers into a ${method} request`, () => {
@@ -377,5 +450,9 @@ describe('XHR', () => {
 		for (const value of values) {
 			func.call(this, value);
 		}
+	}
+
+	function delay(delayTime) {
+		return new Promise(resolve => setTimeout(resolve, delayTime));
 	}
 });

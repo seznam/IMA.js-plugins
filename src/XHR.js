@@ -281,7 +281,11 @@ export default class XHR {
 				return xhr.readyState;
 			},
 			abort() {
-				xhr.abort();
+				if (xhr.readyState) {
+					xhr.abort();
+				} else {
+					xhr.shouldAbort = true;
+				}
 			},
 			onstatechange: null,
 			onprogress: null
@@ -325,6 +329,10 @@ export default class XHR {
 			xhr.addEventListener('readystatechange', (event) => {
 				if (observer.onstatechange) {
 					observer.onstatechange(event);
+				}
+				if (xhr.shouldAbort) {
+					xhr.shouldAbort = false;
+					xhr.abort();
 				}
 			});
 			xhr.addEventListener('progress', (event) => {
