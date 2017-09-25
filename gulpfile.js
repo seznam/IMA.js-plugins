@@ -1,6 +1,6 @@
 "use strict";
 
-const { exec } = require('child_process');
+const del = require('del');
 const gulp = require('gulp');
 const babel = require('gulp-babel');
 
@@ -32,7 +32,7 @@ function compile() {
 }
 
 function clean(done) {
-	exec('rm -rf ./dist', done);
+	del('./dist').then(() => done()).catch(done);
 }
 
 exports.default = build;
