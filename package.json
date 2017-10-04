@@ -1,6 +1,6 @@
 {
 	"name": "ima-plugin-select",
-	"version": "0.15.0-rc1",
+	"version": "0.15.1-0",
 	"description": "The plugin selects extra props from page state to your component.",
 	"main": "main.js",
 	"scripts": {
@@ -8,7 +8,9 @@
 		"publish-package": "npm run build && npm run test && npm publish dist --ignore-scripts",
 		"build": "node node_modules/.bin/gulp build",
 		"test": "node_modules/.bin/jest --coverage",
-		"dev": "node_modules/.bin/jest --watch"
+		"dev": "node_modules/.bin/jest --watch",
+		"preversion": "npm test",
+		"postversion": "git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm run publish-package"
 	},
 	"keywords": [
 		"IMA",

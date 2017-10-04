@@ -1,5 +1,5 @@
 TN:
-SF:/Users/slavek/seznam/IMA.js/plugin-xxx/src/main.js
+SF:/Users/slavek/seznam/IMA.js/plugin-select/src/main.js
 FN:1,_interopRequireDefault
 FN:3,$registerImaPlugin
 FNF:2
@@ -19,7 +19,7 @@ BRF:4
 BRH:3
 end_of_record
 TN:
-SF:/Users/slavek/seznam/IMA.js/plugin-xxx/src/select/select.jsx
+SF:/Users/slavek/seznam/IMA.js/plugin-select/src/select/select.jsx
 FN:1,(anonymous_0)
 FN:33,_interopRequireWildcard
 FN:33,_interopRequireDefault
