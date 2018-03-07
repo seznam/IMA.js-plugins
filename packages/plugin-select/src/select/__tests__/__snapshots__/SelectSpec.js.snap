@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`plugin-select: createStateSelector should select extra properties from state 1`] = `
+Object {
+  "height": 60,
+  "width": 90,
+}
+`;
+
+exports[`plugin-select: select should render component 1`] = `
+<h1>
+  text
+</h1>
+`;
+
+exports[`plugin-select: select should render component with extraProps 1`] = `
+<Component
+  height={60}
+  props="props"
+  width={90}
+/>
+`;
