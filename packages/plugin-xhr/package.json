@@ -4,14 +4,14 @@
 	"description": "Helper plugin simplifying the usage of the XMLHttpRequest API.",
 	"main": "index.js",
 	"scripts": {
-		"prepublishOnly": "echo \".-------------------------------------------------------.\n| Use 'npm run publish-package' to publish this package |\n'-------------------------------------------------------'\" && exit 1",
-		"build": "./node_modules/.bin/gulp",
-		"publish-package": "npm test && npm run build && npm publish --ignore-scripts dist",
-		"test": "./node_modules/.bin/jest"
+		"test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+		"lint": "node_modules/.bin/eslint './src/**/*.js' --fix",
+		"doc": "node_modules/.bin/gulp doc",
+		"build": "node_modules/.bin/gulp build"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/seznam/IMA.js-plugin-xhr.git"
+		"url": "git+https://github.com/seznam/IMA.js-plugins.git"
 	},
 	"keywords": [
 		"ima",
@@ -21,26 +21,25 @@
 		"xmlhttprequest"
 	],
 	"author": "Martin Jurča <martin.jurca@firma.seznam.cz>",
+	"contributors": [{
+		"name": "Miroslav Jancarik",
+		"email": "miroslav.jancarik@firma.seznam.cz"
+	}],
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/seznam/IMA.js-plugin-xhr/issues"
+		"url": "https://github.com/seznam/IMA.js-plugins/issues"
 	},
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"homepage": "https://github.com/seznam/IMA.js-plugin-xhr#readme",
+	"homepage": "https://github.com/seznam/IMA.js-plugins#readme",
 	"devDependencies": {
-		"babel-core": "^6.26.0",
-		"babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
-		"del": "^3.0.0",
-		"eslint": "^4.7.1",
-		"gulp": "github:gulpjs/gulp#6d71a65",
-		"gulp-babel": "^7.0.0",
-		"gulp-sourcemaps": "^2.6.1",
-		"jest": "^20.0.4"
+		"eslint": "4.18.2",
+		"gulp": "github:gulpjs/gulp#c120a94",
+		"ima": "^0.14.0",
+		"jest": "^22.1.4"
 	},
-	"dependencies": {
-	},
+	"dependencies": {},
 	"peerDependencies": {
 		"ima": "*"
 	}

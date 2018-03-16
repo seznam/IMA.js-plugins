@@ -2,13 +2,12 @@
 	"name": "ima-plugin-analytic",
 	"version": "0.14.2",
 	"description": "Seznam IMA.js abstract analytic plugin",
-	"main": "main.js",
+	"main": "index.js",
 	"scripts": {
-		"prepublish": "echo '====================================================================================================================================================\nUse \"npm run publish-package\" to publish this package, or \"npm install --ignore-scripts\" to install local dependencies. This will be fixed in npm 4.\n====================================================================================================================================================' && exit 1",
-		"publish-package": "npm run build && npm run test && npm publish dist --ignore-scripts",
-		"build": "node node_modules/gulp/bin/gulp.js build",
-		"test": "node node_modules/gulp/bin/gulp.js test",
-		"dev": "node node_modules/gulp/bin/gulp.js dev"
+		"test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+		"lint": "node_modules/.bin/eslint './src/**/*.js' --fix",
+		"doc": "node_modules/.bin/gulp doc",
+		"build": "node_modules/.bin/gulp build"
 	},
 	"keywords": [
 		"IMA.js",
@@ -19,24 +18,19 @@
 	"author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/seznam/IMA.js-plugin-analytic.git"
+		"url": "https://github.com/seznam/IMA.js-plugins.git"
 	},
 	"publishConfig": {
 		"registry": "http://registry.npmjs.org/"
 	},
 	"bugs": {
-		"url": "https://github.com/seznam/IMA.js-plugin-analytic/issues"
+		"url": "https://github.com/seznam/IMA.js-plugins/issues"
 	},
 	"license": "MIT",
 	"devDependencies": {
-		"babel-core": "6.18.2",
-		"babel-plugin-transform-es2015-modules-commonjs": "6.18.0",
-		"del": "2.2.2",
-		"eslint": "3.9.1",
-		"eslint-plugin-react": "6.5.0",
+		"eslint": "4.18.2",
 		"gulp": "github:gulpjs/gulp#c120a94",
-		"gulp-babel": "6.1.2",
-		"gulp-jasmine": "2.4.2"
+		"jest": "^22.1.4"
 	},
 	"dependencies": {},
 	"browserify": {

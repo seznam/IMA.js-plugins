@@ -1,136 +1,131 @@
 import Events from './Events';
-import ResourceLoader from './ResourceLoader';
+import { ResourceLoader } from 'ima-plugin-resource-loader';
 
 /**
  * Script loader plugin class.
  */
 export default class ScriptLoaderPlugin {
+  static get $dependencies() {
+    return ['$Window', '$Dispatcher', ResourceLoader];
+  }
 
-	static get $dependencies() {
-		return [
-			'$Window',
-			'$Dispatcher',
-			ResourceLoader
-		];
-	}
+  /**
+   * Initializes the script loader.
+   *
+   * @param {ima.window.Window} window
+   * @param {ima.event.Dispatcher} dispatcher
+   * @param {ResourceLoader} resourceLoader
+   */
+  constructor(window, dispatcher, resourceLoader) {
+    /**
+     * IMA.js Window
+     *
+     * @type {ima.window.Window}
+     */
+    this._window = window;
 
-	/**
-	 * Initializes the script loader.
-	 *
-	 * @param {ima.window.Window} window
-	 * @param {ima.event.Dispatcher} dispatcher
-	 * @param {ResourceLoader} resourceLoader
-	 */
-	constructor(window, dispatcher, resourceLoader) {
+    /**
+     * IMA.js Dispatcher
+     *
+     * @type {ima.event.Dispatcher}
+     */
+    this._dispatcher = dispatcher;
 
-		/**
-		 * IMA.js Window
-		 *
-		 * @type {ima.window.Window}
-		 */
-		this._window = window;
+    /**
+     * General-purpose utility for loading resources.
+     *
+     * @type {ResourceLoader}
+     */
+    this._resourceLoader = resourceLoader;
 
-		/**
-		 * IMA.js Dispatcher
-		 *
-		 * @type {ima.event.Dispatcher}
-		 */
-		this._dispatcher = dispatcher;
+    /**
+     * Object of loaded scripts.
+     *
+     * @type {Object<string, Promise<{url: string}>>}
+     */
+    this._loadedScripts = {};
+  }
 
-		/**
-		 * General-purpose utility for loading resources.
-		 *
-		 * @type {ResourceLoader}
-		 */
-		this._resourceLoader = resourceLoader;
+  /**
+   * Load third party script to page.
+   *
+   * @param {string} url
+   * @param {string=} [template]
+   * @return {Promise<{url: string}>}
+   */
+  load(url, template) {
+    if ($Debug) {
+      if (!this._window.isClient()) {
+        throw new Error(
+          `The script loader cannot be used at the server side. ` +
+            `Attempted to load the ${url} script.`
+        );
+      }
+    }
 
-		/**
-		 * Object of loaded scripts.
-		 *
-		 * @type {Object<string, Promise<{url: string}>>}
-		 */
-		this._loadedScripts = {};
-	}
+    if (this._loadedScripts[url]) {
+      return this._loadedScripts[url];
+    }
 
-	/**
-	 * Load third party script to page.
-	 *
-	 * @param {string} url
-	 * @param {string=} [template]
-	 * @return {Promise<{url: string}>}
-	 */
-	load(url, template) {
-		if ($Debug) {
-			if (!this._window.isClient()) {
-				throw new Error(
-					`The script loader cannot be used at the server side. ` +
-					`Attempted to load the ${url} script.`
-				);
-			}
-		}
+    let script = this._createScriptElement();
+    this._loadedScripts[url] = this._resourceLoader
+      .promisify(script, template || url)
+      .then(() => this._handleOnLoad(url))
+      .catch(() => this._handleOnError(url));
 
-		if (this._loadedScripts[url]) {
-			return this._loadedScripts[url];
-		}
+    if (template) {
+      script.innerHTML = template;
+    } else {
+      script.async = true;
+      script.src = url;
+    }
 
-		let script = this._createScriptElement();
-		this._loadedScripts[url] = this._resourceLoader.promisify(script, template || url)
-			.then(() => this._handleOnLoad(url))
-			.catch(() => this._handleOnError(url));
+    this._resourceLoader.injectToPage(script);
+    if (template) {
+      setTimeout(() => script.onload(), 0);
+    }
 
-		if (template) {
-			script.innerHTML = template;
-		} else {
-			script.async = true;
-			script.src = url;
-		}
+    return this._loadedScripts[url];
+  }
 
-		this._resourceLoader.injectToPage(script);
-		if (template) {
-			setTimeout(() => script.onload(), 0);
-		}
+  /**
+   * Creates a new script element and returns it.
+   *
+   * @return {HTMLScriptElement} The created script element.
+   */
+  _createScriptElement() {
+    return document.createElement('script');
+  }
 
-		return this._loadedScripts[url];
-	}
+  /**
+   * Handle on load event for script. Resolve load promise and fire LOADED
+   * events.
+   *
+   * @param {string} url
+   * @return {{url: string}}
+   */
+  _handleOnLoad(url) {
+    let data = { url };
+    this._dispatcher.fire(Events.LOADED, data, true);
 
-	/**
-	 * Creates a new script element and returns it.
-	 *
-	 * @return {HTMLScriptElement} The created script element.
-	 */
-	_createScriptElement() {
-		return document.createElement('script');
-	}
+    return data;
+  }
 
-	/**
-	 * Handle on load event for script. Resolve load promise and fire LOADED
-	 * events.
-	 *
-	 * @param {string} url
-	 * @return {{url: string}}
-	 */
-	_handleOnLoad(url) {
-		let data = { url };
-		this._dispatcher.fire(Events.LOADED, data, true);
+  /**
+   * Handle on error event for script. Reject load promise and fire LOADED
+   * events.
+   *
+   * @param {string} url
+   * @throws Error
+   */
+  _handleOnError(url) {
+    let error = new Error(`The ${url} script failed to load.`);
+    let data = {
+      url,
+      error
+    };
 
-		return data;
-	}
-
-	/**
-	 * Handle on error event for script. Reject load promise and fire LOADED
-	 * events.
-	 *
-	 * @param {string} url
-	 * @throws Error
-	 */
-	_handleOnError(url) {
-		let error = new Error(`The ${url} script failed to load.`);
-		let data = {
-			url,
-			error
-		};
-
-		this._dispatcher.fire(Events.LOADED, data, true);
-		throw error;
-	}
+    this._dispatcher.fire(Events.LOADED, data, true);
+    throw error;
+  }
 }

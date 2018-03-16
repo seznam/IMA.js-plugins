@@ -22,10 +22,10 @@ let vendors = {
 
 let languages = {
 	cs: [
-		'./node_modules/ima-plugin-self-xss/locales/*CS.json'
+		'./node_modules/ima-plugin-self-xss/dist/locales/*CS.json'
 	],
 	en : [
-		'./node_modules/ima-plugin-self-xss/locales/*EN.json'
+		'./node_modules/ima-plugin-self-xss/dist/locales/*EN.json'
 	]
 };
 

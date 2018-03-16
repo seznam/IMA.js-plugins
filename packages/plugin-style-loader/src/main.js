@@ -3,12 +3,6 @@ import Events from './Events';
 
 let defaultDependencies = StyleLoaderPlugin.$dependencies;
 
-let $registerImaPlugin = (ns) => {
-};
+let $registerImaPlugin = () => {};
 
-export {
-	StyleLoaderPlugin,
-	Events,
-	defaultDependencies,
-	$registerImaPlugin
-};
+export { StyleLoaderPlugin, Events, defaultDependencies, $registerImaPlugin };

@@ -4,8 +4,4 @@ const defaultDependencies = XHR.$dependencies;
 
 const $registerImaPlugin = () => {};
 
-export {
-	XHR,
-	defaultDependencies,
-	$registerImaPlugin
-};
+export { XHR, defaultDependencies, $registerImaPlugin };

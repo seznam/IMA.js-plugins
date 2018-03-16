@@ -1,81 +1,63 @@
 import SelfXSS from '../SelfXSS';
+import { toMockedInstance } from 'to-mock';
+import Window from 'ima/window/Window';
+import Dictionary from 'ima/dictionary/Dictionary';
 
 describe('SelfXSS', () => {
+  let selfXSS = null;
 
-	let dummyWindow = {
-		isClient() {
-			return true;
-		},
-		getWindow() {
-			return {
-				console: {
-					log() {}
-				}
-			};
-		}
-	};
+  const window = toMockedInstance(Window, {
+    isClient() {
+      return true;
+    },
+    getWindow() {
+      return { console: 'defined' };
+    }
+  });
+  const dictionary = toMockedInstance(Dictionary);
 
-	let dummyDictionary = {
-		has() {},
-		get() {}
-	};
+  beforeEach(() => {
+    selfXSS = new SelfXSS(window, dictionary);
+    global.$Debug = true;
+  });
 
-	global.$Debug = true;
-	let selfXSS = null;
+  afterEach(() => {
+    delete global.$Debug;
+  });
 
-	beforeEach(() => {
-		selfXSS = new SelfXSS(
-			dummyWindow,
-			dummyDictionary
-		);
-	});
+  describe('init method', () => {
+    it('should do nothing for server side', () => {
+      spyOn(dictionary, 'has');
+      spyOn(window, 'isClient').and.returnValue(false);
 
-	describe('init method', () => {
+      selfXSS.init();
 
-		it('should do nothing for server side', () => {
-			spyOn(dummyDictionary, 'has');
-			spyOn(dummyWindow, 'isClient')
-				.and
-				.returnValue(false);
+      expect(dictionary.has).not.toHaveBeenCalled();
+    });
 
-			selfXSS.init();
+    it('should do nothing for missing console', () => {
+      spyOn(dictionary, 'has');
+      spyOn(window, 'getWindow').and.returnValue({});
 
-			expect(dummyDictionary.has).not.toHaveBeenCalled();
-		});
+      selfXSS.init();
 
-		it('should do nothing for missing console', () => {
-			spyOn(dummyDictionary, 'has');
-			spyOn(dummyWindow, 'getWindow')
-				.and
-				.returnValue({});
+      expect(dictionary.has).not.toHaveBeenCalled();
+    });
 
-			selfXSS.init();
+    it('should throw error for bad configurated dictionary', () => {
+      spyOn(dictionary, 'has').and.returnValue(false);
 
-			expect(dummyDictionary.has).not.toHaveBeenCalled();
-		});
+      expect(() => selfXSS.init()).toThrow();
+    });
 
-		it('should throw error for bad configurated dictionary', () => {
-			spyOn(dummyDictionary, 'has')
-				.and
-				.returnValue(false);
+    it('should log self XSS message to console', () => {
+      spyOn(dictionary, 'has').and.returnValue(true);
+      spyOn(dictionary, 'get').and.returnValue('string');
+      spyOn(console, 'log');
 
-			expect(() => selfXSS.init()).toThrow();
-		});
+      selfXSS.init();
 
-		it('should log self XSS message to console', () => {
-			spyOn(dummyDictionary, 'has')
-				.and
-				.returnValue(true);
-			spyOn(dummyDictionary, 'get')
-				.and
-				.returnValue('string');
-			spyOn(console, 'log');
-
-			selfXSS.init();
-
-			expect(console.log).toHaveBeenCalled();
-		});
-
-	});
-
+      expect(console.log).toHaveBeenCalled(); // eslint-disable-line no-console
+    });
+  });
 });

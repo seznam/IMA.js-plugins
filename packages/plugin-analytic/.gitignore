@@ -3,5 +3,7 @@
 .idea
 .sublime-gulp.cache
 node_modules/
+doc/
+coverage/
 dist/
 npm-debug.log

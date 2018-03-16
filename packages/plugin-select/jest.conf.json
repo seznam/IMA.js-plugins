@@ -1,0 +1,24 @@
+{
+	"bail": true,
+	"verbose": true,
+	"coverageThreshold": {
+		"global": {
+			"functions": 70,
+			"lines": 70,
+			"statements": 70
+		}
+	},
+	"testEnvironment": "node",
+	"setupFiles": [
+		"<rootDir>/jestSetupFile.js"
+	],
+	"modulePaths": [
+		"<rootDir>/"
+	],
+	"transform": {
+		"\\.jsx?": "<rootDir>/../../preprocess.js"
+	},
+	"snapshotSerializers": ["<rootDir>/node_modules/enzyme-to-json/serializer"],
+	"testPathIgnorePatterns": ["__snapshots__", "/node_modules/"],
+	"testRegex": "(/src(/?[^/]*){0,5}/__tests__/).*Spec\\.jsx?$"
+}

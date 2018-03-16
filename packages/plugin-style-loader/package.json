@@ -2,14 +2,12 @@
 	"name": "ima-plugin-style-loader",
 	"version": "0.14.1",
 	"description": "Seznam IMA.js plugin for loading style",
-	"main": "main.js",
+	"main": "index.js",
 	"scripts": {
-		"prepublishOnly": "echo '====================================================================================================================================================\nUse \"npm run publish-package\" to publish this package.\n====================================================================================================================================================' && exit 1",
-		"publish-package": "npm run build && npm run test && npm publish dist --ignore-scripts",
-		"build": "node node_modules/gulp/bin/gulp.js build",
-		"doc": "node node_modules/gulp/bin/gulp.js doc",
-		"test": "node node_modules/gulp/bin/gulp.js test",
-		"dev": "node node_modules/gulp/bin/gulp.js dev"
+		"test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+		"lint": "node_modules/.bin/eslint './src/**/*.js' --fix",
+		"doc": "node_modules/.bin/gulp doc",
+		"build": "node_modules/.bin/gulp build"
 	},
 	"keywords": [
 		"IMA.js",
@@ -18,33 +16,30 @@
 		"Javascript"
 	],
 	"author": "Ondrej Base <ondrej.base@firma.seznam.cz>",
+	"contributors": [{
+		"name": "Miroslav Jancarik",
+		"email": "miroslav.jancarik@firma.seznam.cz"
+	}],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/seznam/IMA.js-plugin-style-loader.git"
+		"url": "https://github.com/seznam/IMA.js-plugins.git"
 	},
 	"publishConfig": {
 		"registry": "http://registry.npmjs.org/"
 	},
 	"bugs": {
-		"url": "https://github.com/seznam/IMA.js-plugin-style-loader/issues"
+		"url": "https://github.com/seznam/IMA.js-plugins/issues"
 	},
 	"license": "MIT",
 	"devDependencies": {
-		"babel-core": "6.17.0",
-		"babel-plugin-transform-es2015-modules-commonjs": "6.18.0",
-		"del": "2.2.2",
-		"docdash": "0.4.0",
-		"eslint": "4.0.0",
-		"eslint-plugin-react": "7.0.1",
+		"eslint": "4.18.2",
 		"gulp": "github:gulpjs/gulp#c120a94",
-		"gulp-babel": "6.1.2",
-		"gulp-change": "1.0.0",
-		"gulp-jasmine": "2.4.2",
-		"gulp-jsdoc3": "1.0.0",
-		"gulp-plumber": "1.1.0",
-		"gulp-sourcemaps": "1.6.0"
+		"ima": "^0.14.0",
+		"jest": "^22.1.4"
 	},
-	"dependencies": {},
+	"dependencies": {
+		"ima-plugin-resource-loader": "^0.14.0"
+	},
 	"engines": {
 		"node": ">=6",
 		"npm": ">=4 <6"
