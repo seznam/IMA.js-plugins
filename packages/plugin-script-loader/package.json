@@ -2,7 +2,7 @@
 	"name": "ima-plugin-script-loader",
 	"version": "0.14.5",
 	"description": "Seznam IMA.js plugin for loading script",
-	"main": "main.js",
+	"main": "index.js",
 	"scripts": {
 		"test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
 		"lint": "node_modules/.bin/eslint './src/**/*.js' --fix",
