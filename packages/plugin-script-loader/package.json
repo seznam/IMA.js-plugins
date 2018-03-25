@@ -1,48 +1,50 @@
 {
-	"name": "ima-plugin-script-loader",
-	"version": "0.14.5",
-	"description": "Seznam IMA.js plugin for loading script",
-	"main": "index.js",
-	"scripts": {
-		"test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
-		"lint": "node_modules/.bin/eslint './src/**/*.js' --fix",
-		"doc": "node_modules/.bin/gulp doc",
-		"build": "node_modules/.bin/gulp build"
-	},
-	"keywords": [
-		"IMA.js",
-		"Script loader",
-		"Module",
-		"Javascript"
-	],
-	"author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/seznam/IMA.js-plugins.git"
-	},
-	"publishConfig": {
-		"registry": "http://registry.npmjs.org/"
-	},
-	"bugs": {
-		"url": "https://github.com/seznam/IMA.js-plugins/issues"
-	},
-	"license": "MIT",
-	"devDependencies": {
-		"eslint": "4.18.2",
-		"gulp": "github:gulpjs/gulp#c120a94",
-		"ima": "^0.14.0",
-		"jest": "^22.1.4"
-	},
-	"dependencies": {
-		"ima-plugin-resource-loader": "^0.14.0"
-	},
-	"engines": {
-		"node": ">=6",
-		"npm": ">=4 <6"
-	},
-	"browserify": {
-		"transform": [
-			"babelify"
-		]
-	}
+    "name": "ima-plugin-script-loader",
+    "version": "0.14.5",
+    "description": "Seznam IMA.js plugin for loading script",
+    "main": "index.js",
+    "scripts": {
+        "test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+        "lint": "node_modules/.bin/eslint './src/**/*.js' --fix",
+        "doc": "node_modules/.bin/gulp doc",
+        "build": "node_modules/.bin/gulp build",
+        "security": "node_modules/.bin/nsp check"
+    },
+    "keywords": [
+        "IMA.js",
+        "Script loader",
+        "Module",
+        "Javascript"
+    ],
+    "author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/seznam/IMA.js-plugins.git"
+    },
+    "publishConfig": {
+        "registry": "http://registry.npmjs.org/"
+    },
+    "bugs": {
+        "url": "https://github.com/seznam/IMA.js-plugins/issues"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "eslint": "4.18.2",
+        "gulp": "github:gulpjs/gulp#c120a94",
+        "ima": "^0.14.0",
+        "jest": "^22.1.4",
+        "nsp": "^3.2.1"
+    },
+    "dependencies": {
+        "ima-plugin-resource-loader": "^0.14.0"
+    },
+    "engines": {
+        "node": ">=6",
+        "npm": ">=4 <6"
+    },
+    "browserify": {
+        "transform": [
+            "babelify"
+        ]
+    }
 }

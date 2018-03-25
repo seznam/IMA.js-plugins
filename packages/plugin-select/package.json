@@ -1,86 +1,88 @@
 {
-	"name": "ima-plugin-select",
-	"version": "0.15.1-2",
-	"description": "The plugin selects extra props from page state to your component.",
-	"main": "index.js",
-	"scripts": {
-		"test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
-		"lint": "node_modules/.bin/eslint './src/**/*.{js,jsx}' --fix",
-		"doc": "node_modules/.bin/gulp doc",
-		"build": "node_modules/.bin/gulp build"
-	},
-	"keywords": [
-		"IMA",
-		"Select",
-		"HOC",
-		"Reselect",
-		"plugin"
-	],
-	"author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/seznam/IMA.js-plugins.git"
-	},
-	"publishConfig": {
-		"registry": "http://registry.npmjs.org/"
-	},
-	"bugs": {
-		"url": "https://github.com/seznam/IMA.js-plugins/issues"
-	},
-	"license": "MIT",
-	"devDependencies": {
-		"eslint": "4.18.2",
-		"gulp": "github:gulpjs/gulp#c120a94",
-		"ima": "^0.14.0",
-		"jest": "^22.1.4",
-		"enzyme": "3.2.0",
-		"enzyme-adapter-react-16": "^1.1.0",
-		"enzyme-to-json": "^3.2.2",
-		"react": "16.2.0",
-		"react-dom": "16.2.0"
-	},
-	"browserify": {
-		"transform": [
-			"babelify"
-		]
-	},
-	"peerDependencies": {
-		"ima": "0.15.x",
-		"react": "15.x"
-	},
-	"engines": {
-		"node": ">=6",
-		"npm": ">=4 <6"
-	},
-	"dependencies": {
-		"hoist-non-react-statics": "^2.3.1",
-		"reselect": "3.0.1"
-	},
-	"jest": {
-		"bail": true,
-		"verbose": false,
-		"testEnvironment": "node",
-		"coverageThreshold": {
-			"global": {
-				"functions": 70,
-				"lines": 70,
-				"statements": 70
-			}
-		},
-		"setupFiles": [
-			"ima/test.js",
-			"ima/polyfill/imaLoader.js",
-			"ima/polyfill/imaRunner.js"
-		],
-		"modulePaths": [
-			"<rootDir>/"
-		],
-		"snapshotSerializers": [
-			"<rootDir>/node_modules/jest-serializer-enzyme"
-		],
-		"transform": {
-			"\\.jsx?": "./preprocess.js"
-		},
-		"testRegex": "(/__tests__/).*Spec\\.jsx?$"
-	}
+    "name": "ima-plugin-select",
+    "version": "0.15.1-2",
+    "description": "The plugin selects extra props from page state to your component.",
+    "main": "index.js",
+    "scripts": {
+        "test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+        "lint": "node_modules/.bin/eslint './src/**/*.{js,jsx}' --fix",
+        "doc": "node_modules/.bin/gulp doc",
+        "build": "node_modules/.bin/gulp build",
+        "security": "node_modules/.bin/nsp check"
+    },
+    "keywords": [
+        "IMA",
+        "Select",
+        "HOC",
+        "Reselect",
+        "plugin"
+    ],
+    "author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/seznam/IMA.js-plugins.git"
+    },
+    "publishConfig": {
+        "registry": "http://registry.npmjs.org/"
+    },
+    "bugs": {
+        "url": "https://github.com/seznam/IMA.js-plugins/issues"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "enzyme": "3.2.0",
+        "enzyme-adapter-react-16": "^1.1.0",
+        "enzyme-to-json": "^3.2.2",
+        "eslint": "4.18.2",
+        "gulp": "github:gulpjs/gulp#c120a94",
+        "ima": "^0.14.0",
+        "jest": "^22.1.4",
+        "nsp": "^3.2.1",
+        "react": "16.2.0",
+        "react-dom": "16.2.0"
+    },
+    "browserify": {
+        "transform": [
+            "babelify"
+        ]
+    },
+    "peerDependencies": {
+        "ima": "0.15.x",
+        "react": "15.x"
+    },
+    "engines": {
+        "node": ">=6",
+        "npm": ">=4 <6"
+    },
+    "dependencies": {
+        "hoist-non-react-statics": "^2.3.1",
+        "reselect": "3.0.1"
+    },
+    "jest": {
+        "bail": true,
+        "verbose": false,
+        "testEnvironment": "node",
+        "coverageThreshold": {
+            "global": {
+                "functions": 70,
+                "lines": 70,
+                "statements": 70
+            }
+        },
+        "setupFiles": [
+            "ima/test.js",
+            "ima/polyfill/imaLoader.js",
+            "ima/polyfill/imaRunner.js"
+        ],
+        "modulePaths": [
+            "<rootDir>/"
+        ],
+        "snapshotSerializers": [
+            "<rootDir>/node_modules/jest-serializer-enzyme"
+        ],
+        "transform": {
+            "\\.jsx?": "./preprocess.js"
+        },
+        "testRegex": "(/__tests__/).*Spec\\.jsx?$"
+    }
 }
