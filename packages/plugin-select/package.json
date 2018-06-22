@@ -30,16 +30,17 @@
     },
     "license": "MIT",
     "devDependencies": {
-        "enzyme": "3.2.0",
+        "enzyme": "3.3.0",
         "enzyme-adapter-react-16": "^1.1.0",
-        "enzyme-to-json": "^3.2.2",
-        "eslint": "4.18.2",
+        "enzyme-to-json": "^3.3.4",
+        "eslint": "4.19.1",
         "gulp": "github:gulpjs/gulp#c120a94",
-        "ima": "^0.14.0",
-        "jest": "^22.1.4",
+        "ima": "^0.15.10",
+        "jest": "^23.1.0",
         "nsp": "^3.2.1",
-        "react": "16.2.0",
-        "react-dom": "16.2.0"
+        "react": "16.4.1",
+        "react-dom": "16.4.1",
+        "to-mock": "^1.2.2"
     },
     "browserify": {
         "transform": [
@@ -52,10 +53,10 @@
     },
     "engines": {
         "node": ">=6",
-        "npm": ">=4 <6"
+        "npm": ">=4"
     },
     "dependencies": {
-        "hoist-non-react-statics": "^2.3.1",
+        "hoist-non-react-statics": "^2.5.5",
         "reselect": "3.0.1"
     },
     "jest": {

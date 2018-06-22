@@ -1,12 +1,11 @@
 import hoistNonReactStatic from 'hoist-non-react-statics';
 import AbstractPureComponent from 'ima/page/AbstractPureComponent';
+import Events from 'ima/page/state/Events';
 import * as helpers from 'ima/page/componentHelpers';
 import React from 'react';
 import { createSelector } from 'reselect';
 
 export default function select(...selectors) {
-  const stateSelector = createStateSelector(...selectors);
-
   return Component => {
     class SelectState extends AbstractPureComponent {
       static get contextTypes() {
@@ -15,12 +14,40 @@ export default function select(...selectors) {
 
       constructor(props, context) {
         super(props, context);
+
+        this.stateSelector = createStateSelector(...selectors);
+        this.state = this._resolveNewState();
+      }
+
+      _resolveNewState() {
+        return this.stateSelector(
+          this.utils.$PageStateManager.getState(),
+          this.context
+        );
+      }
+
+      componentDidMount() {
+        this.utils.$Dispatcher.listen(
+          Events.AFTER_CHANGE_STATE,
+          this.afterChangeState,
+          this
+        );
+      }
+
+      componentWillUnmount() {
+        this.utils.$Dispatcher.unlisten(
+          Events.AFTER_CHANGE_STATE,
+          this.afterChangeState,
+          this
+        );
+      }
+
+      afterChangeState() {
+        this.setState(this._resolveNewState());
       }
 
       render() {
-        let extraProps = stateSelector(this);
-
-        return <Component {...extraProps} {...this.props} />;
+        return <Component {...this.state} {...this.props} />;
       }
     }
 
@@ -31,28 +58,41 @@ export default function select(...selectors) {
 }
 
 export function createStateSelector(...selectors) {
-  return createSelector(
+  const derivedState = createSelector(
     ...selectors.map(selector => {
-      return componentInstance => {
-        if ($Debug) {
-          if (
-            !componentInstance ||
-            !componentInstance.context ||
-            !componentInstance.context.$Utils ||
-            !componentInstance.context.$Utils.$PageStateManager
-          ) {
-            throw new Error(
-              'The $PageStateManager must be added to $Utils in component context. The $Utils are defined in app/config/bind.js.'
-            );
-          }
-        }
-        const state = componentInstance.context.$Utils.$PageStateManager.getState();
-
-        return selector(state, componentInstance.context);
+      return (state, context) => {
+        return selector(state, context);
       };
     }),
     (...rest) => {
       return Object.assign({}, ...rest);
     }
   );
+
+  const passStateOnChange = (() => {
+    let memoizedSelector = null;
+    let selectorFunctions = null;
+    let memoizedState = null;
+
+    return state => {
+      memoizedState = state;
+      if (!selectorFunctions) {
+        selectorFunctions = Object.keys(state).map(key => {
+          return currentState => {
+            return currentState[key] || false;
+          };
+        });
+      }
+
+      if (!memoizedSelector) {
+        memoizedSelector = createSelector(...selectorFunctions, () => {
+          return memoizedState;
+        });
+      }
+
+      return memoizedSelector(state);
+    };
+  })();
+
+  return createSelector(derivedState, passStateOnChange);
 }

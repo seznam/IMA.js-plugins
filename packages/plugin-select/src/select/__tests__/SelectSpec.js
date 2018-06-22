@@ -1,5 +1,8 @@
 import { shallow } from 'enzyme';
+import PageStateManager from 'ima/page/state/PageStateManager';
+import Dispatcher from 'ima/event/Dispatcher';
 import React from 'react';
+import { toMockedInstance } from 'to-mock';
 import select, { createStateSelector } from '../select';
 
 describe('plugin-select:', () => {
@@ -12,15 +15,13 @@ describe('plugin-select:', () => {
   };
   const componentContext = {
     $Utils: {
-      $PageStateManager: {
+      $PageStateManager: toMockedInstance(PageStateManager, {
         getState: () => {
           return appState;
         }
-      }
+      }),
+      $Dispatcher: toMockedInstance(Dispatcher)
     }
-  };
-  const componentInstance = {
-    context: componentContext
   };
   const selectorMethods = [
     state => {
@@ -46,10 +47,20 @@ describe('plugin-select:', () => {
   describe('createStateSelector', () => {
     it('should select extra properties from state', () => {
       let extraProps = createStateSelector(...selectorMethods)(
-        componentInstance
+        appState,
+        componentContext
       );
 
       expect(extraProps).toMatchSnapshot();
+    });
+
+    it('should return same output for same input', () => {
+      let selector = createStateSelector(...selectorMethods);
+
+      let obj1 = selector(appState, componentContext);
+      let obj2 = selector(appState, componentContext);
+
+      expect(obj1 === obj2).toBeTruthy();
     });
 
     it('should trow error for undefined $PageStateManager', () => {
