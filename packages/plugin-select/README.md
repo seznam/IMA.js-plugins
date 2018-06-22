@@ -31,10 +31,12 @@ import select from 'ima-plugin-select';
 ```javascript
 // /app/config/bind.js
 import PageStateManager from 'ima/page/state/PageStateManager';
+import Dispatcher from 'ima/event/Dispatcher';
 
 //COMPONENT Utils
 oc.constant('$Utils', {
 	...
+    $Dispatcher: oc.get(Dispatcher),
 	$PageStateManager: oc.get(PageStateManager)
 	...
 });
