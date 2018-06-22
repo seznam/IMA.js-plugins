@@ -6,7 +6,7 @@
         "doc": "node_modules/.bin/lerna run doc",
         "security": "node_modules/.bin/lerna run security",
         "build": "node_modules/.bin/lerna run build",
-        "postinstall": "node_modules/.bin/lerna bootstrap"
+        "postinstall": "node_modules/.bin/lerna bootstrap && node_modules/.bin/lerna run build"
     },
     "devDependencies": {
         "babel-eslint": "^8.2.1",
