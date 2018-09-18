@@ -51,11 +51,10 @@ export default class StyleLoader {
    *
    * @param {string} url
    * @param {string=} [template]
-   * @param {array} attributes
-   * @param {string=} [template]
+   * @param {Object<string, function|string|number>} [attributes]
    * @return {Promise<{url: string}>}
    */
-  load(url, template, attributes = []) {
+  load(url, template, attributes) {
     if ($Debug) {
       if (!this._window.isClient()) {
         throw new Error(
@@ -82,11 +81,11 @@ export default class StyleLoader {
     } else {
       style.rel = 'stylesheet';
       style.href = url;
+    }
 
-      if (Object.keys(attributes).length > 0) {
-        for (let attribute in attributes) {
-          style[attribute] = attributes[attribute];
-        }
+    if (attributes && Object.keys(attributes).length > 0) {
+      for (let attribute in attributes) {
+        style[attribute] = attributes[attribute];
       }
     }
 
