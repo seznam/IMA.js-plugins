@@ -10,6 +10,7 @@ describe('StyleLoaderPlugin', () => {
   let url = '//example.com/some.css';
   let template = 'some css code';
   let element = null;
+  let attributes = null;
 
   const window = toMockedInstance(Window, {
     isClient() {
@@ -29,6 +30,11 @@ describe('StyleLoaderPlugin', () => {
       onload() {},
       onerror() {},
       onabort() {}
+    };
+    attributes = {
+      media: 'screen',
+      type: 'text/css',
+      onunload() {}
     };
 
     global.$Debug = true;
@@ -63,6 +69,54 @@ describe('StyleLoaderPlugin', () => {
         .catch(error => {
           done(error);
         });
+    });
+
+    it('should append custom attributes to link element, if provided', done => {
+      spyOn(dispatcher, 'fire');
+      spyOn(resourceLoader, 'promisify').and.returnValue(Promise.resolve());
+      spyOn(styleLoaderPlugin._resourceLoader, 'injectToPage');
+
+      styleLoaderPlugin
+        .load(url, '', attributes)
+        .then(() => {
+          expect(dispatcher.fire).toHaveBeenCalledWith(
+            Events.LOADED,
+            { url },
+            true
+          );
+
+          expect(
+            styleLoaderPlugin._resourceLoader.injectToPage
+          ).toHaveBeenCalledWith(Object.assign({}, element, attributes));
+
+          done();
+        })
+        .catch(done);
+    });
+
+    it('should append custom attributes to custom template, if provided', done => {
+      spyOn(dispatcher, 'fire');
+      spyOn(resourceLoader, 'promisify').and.returnValue(Promise.resolve());
+      spyOn(styleLoaderPlugin._resourceLoader, 'injectToPage');
+
+      styleLoaderPlugin
+        .load(url, template, attributes)
+        .then(() => {
+          expect(dispatcher.fire).toHaveBeenCalledWith(
+            Events.LOADED,
+            { url },
+            true
+          );
+
+          expect(
+            styleLoaderPlugin._resourceLoader.injectToPage
+          ).toHaveBeenCalledWith(
+            Object.assign({ innerHTML: template }, element, attributes)
+          );
+
+          done();
+        })
+        .catch(done);
     });
 
     it('the dispatcher fire loaded event for styles loaded by template', done => {
