@@ -9,10 +9,6 @@
     "build": "node_modules/gulp/bin/gulp.js build",
     "test": "node_modules/gulp/bin/gulp.js test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jurca/IMA-plugin-rest-client.git"
-  },
   "keywords": [
     "ima",
     "ima.js",
@@ -21,13 +17,17 @@
   ],
   "author": "Martin Jurča <martin.jurca@firma.seznam.cz>",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jurca/IMA-plugin-rest-client/issues"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git"
   },
   "publishConfig": {
     "registry": "http://registry.npmjs.org/"
   },
-  "homepage": "https://github.com/jurca/IMA-plugin-rest-client#readme",
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/issues"
+  },
+  "homepage": "https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-rest-client#readme",
   "dependencies": {
     "clone": "^2.1.0"
   },
