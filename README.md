@@ -6,14 +6,15 @@
 
 The IMA.js plugins is multi-package repository containing most commonly used plugins on IMA.js application development stack.
 
-- [**plugin-analytic-google**](packages/plugin-analytic-google/README.md)
-- [**plugin-analytic**](packages/plugin-analytic/README.md)
-- [**plugin-resource-loader**](packages/plugin-resource-loader/README.md)
-- [**plugin-script-loader**](packages/plugin-script-loader/README.md)
-- [**plugin-select**](packages/plugin-select/README.md)
-- [**plugin-self-xss**](packages/plugin-self-xss/README.md)
-- [**plugin-style-loader**](packages/plugin-style-loader/README.md)
-- [**plugin-xhr**](packages/plugin-xhr/README.md)
+- [**plugin-analytic-google**](packages/plugin-analytic-google)
+- [**plugin-analytic**](packages/plugin-analytic)
+- [**plugin-resource-loader**](packages/plugin-resource-loder)
+- [**plugin-rest-client**](packages/plugin-rest-client)
+- [**plugin-script-loader**](packages/plugin-script-loader)
+- [**plugin-select**](packages/plugin-select)
+- [**plugin-self-xss**](packages/plugin-self-xss)
+- [**plugin-style-loader**](packages/plugin-style-loader)
+- [**plugin-xhr**](packages/plugin-xhr)
 
 ## IMA.js
 The IMA.js is an application development stack for developing isomorphic applications written in pure JavaScript. You can find the IMA.js skeleton application at https://github.com/seznam/IMA.js-skeleton.
