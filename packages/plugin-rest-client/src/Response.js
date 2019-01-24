@@ -76,6 +76,12 @@ export default class Response {
 		this.cached = responseData.cached;
 
 		/**
+		 * The flag signalling whether this response's data come from shared
+		 * cache.
+		 */
+		this.shared = responseData.shared;
+
+		/**
 		 * The REST API request that was made and resulted in this response.
 		 *
 		 * @type {Request}
