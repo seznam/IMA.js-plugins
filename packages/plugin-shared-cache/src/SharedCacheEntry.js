@@ -34,14 +34,14 @@ export default class SharedCacheEntry {
 
     /**
      * The timestamp of last updated of this cache entry.
-     * 
+     *
      * @type {number}
      */
     this._updated = Date.now();
 
     /**
      * The timestamp of when this cache entry was last accessed.
-     * 
+     *
      * @type {number}
      */
     this._accessed = Number.MIN_SAFE_INTEGER;
@@ -82,7 +82,7 @@ export default class SharedCacheEntry {
   /**
    * Returns timestamp of when this entry
    * was created.
-   * 
+   *
    * @returns {number}
    */
   get created() {
@@ -92,7 +92,7 @@ export default class SharedCacheEntry {
   /**
    * Returns timestamp of when this entry
    * was last updated.
-   * 
+   *
    * @returns {number}
    */
   get lastUpdate() {
@@ -102,7 +102,7 @@ export default class SharedCacheEntry {
   /**
    * Returns timestamp of when this entry
    * was last accessed.
-   * 
+   *
    * @returns {number}
    */
   get lastAccess() {
