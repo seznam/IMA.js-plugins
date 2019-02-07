@@ -1,0 +1,57 @@
+{
+	"name": "ima-plugin-useragent",
+	"version": "0.14.0",
+	"description": "Seznam IMA.js plugin user-agent",
+	"main": "index.js",
+	"scripts": {
+		"test": "node_modules/.bin/jest --config=jest.conf.json",
+		"lint": "node_modules/.bin/eslint './src/**/*.js' --fix",
+		"doc": "node_modules/.bin/gulp doc",
+		"build": "node_modules/.bin/gulp build"
+	},
+	"keywords": [
+		"IMA.js",
+		"Plugin",
+		"User agent",
+		"Javascript"
+	],
+	"author": "Martin Urban <martin.urban@firma.seznam.cz>",
+	"contributors": [{
+		"name": "Miroslav Jancarik",
+		"email": "miroslav.jancarik@firma.seznam.cz"
+	}, {
+		"name": "Martin Jurča",
+		"email": "martin.jurca@firma.seznam.cz"
+	}],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/seznam/IMA.js-plugins.git"
+	},
+	"publishConfig": {
+		"registry": "http://registry.npmjs.org/"
+	},
+	"bugs": {
+		"url": "https://github.com/seznam/IMA.js-plugins/issues"
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"eslint": "^4.17.0",
+		"eslint-config-prettier": "^2.9.0",
+		"eslint-plugin-jasmine": "^2.9.2",
+		"eslint-plugin-jest": "^21.7.0",
+		"eslint-plugin-prettier": "^2.6.0",
+		"gulp": "^4.0.0",
+		"ima-plugin-analytic": "^0.14.2",
+		"ima-plugin-script-loader": "^0.14.3",
+		"jest": "^22.1.4",
+		"prettier": "^1.10.2"
+	},
+	"dependencies": {
+		"platform": "1.3.2"
+	},
+	"browserify": {
+		"transform": [
+			"babelify"
+		]
+	}
+}
