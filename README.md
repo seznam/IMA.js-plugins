@@ -8,11 +8,14 @@ The IMA.js plugins is multi-package repository containing most commonly used plu
 
 - [**plugin-analytic-google**](packages/plugin-analytic-google/README.md)
 - [**plugin-analytic**](packages/plugin-analytic/README.md)
+- [**plugin-less-constants**](packages/plugin-less-constants/README.md)
 - [**plugin-resource-loader**](packages/plugin-resource-loader/README.md)
 - [**plugin-script-loader**](packages/plugin-script-loader/README.md)
 - [**plugin-select**](packages/plugin-select/README.md)
 - [**plugin-self-xss**](packages/plugin-self-xss/README.md)
+- [**plugin-shared-cache**](packages/plugin-shared-cache/README.md)
 - [**plugin-style-loader**](packages/plugin-style-loader/README.md)
+- [**plugin-useragent**](packages/plugin-useragent/README.md)
 - [**plugin-xhr**](packages/plugin-xhr/README.md)
 
 ## IMA.js
