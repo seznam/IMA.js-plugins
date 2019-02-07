@@ -7,8 +7,7 @@
         "test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
         "lint": "node_modules/.bin/eslint './src/**/*.{js,jsx}' --fix",
         "doc": "node_modules/.bin/gulp doc",
-        "build": "node_modules/.bin/gulp build",
-        "security": "node_modules/.bin/nsp check"
+        "build": "node_modules/.bin/gulp build"
     },
     "keywords": [
         "IMA",
@@ -37,7 +36,6 @@
         "gulp": "github:gulpjs/gulp#c120a94",
         "ima": "^0.15.10",
         "jest": "^23.1.0",
-        "nsp": "^3.2.1",
         "react": "16.4.1",
         "react-dom": "16.4.1",
         "to-mock": "^1.2.2"
