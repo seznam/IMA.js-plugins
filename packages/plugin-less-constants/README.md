@@ -54,6 +54,10 @@ Finally, you need to add the `less:constants` task to the tasks executed within
 the `dev` and `build` tasks **before** the `less` task. This is usually done
 by editing the `tasks` object in the `gulpConfig.js` file.
 
+Result of running the `less:constants` task can be seen in
+`app/assets/less/settings.less`. This file contains all variables you've defined
+in your `app/config/layout.js` and it'll be imported later in the `less` task.
+
 ## Usage note
 
 Please note that it is currently not possible to rename the imported unit and
