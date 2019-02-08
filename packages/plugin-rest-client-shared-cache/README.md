@@ -43,7 +43,7 @@ export let init = (ns, oc, config) => {
     // ... other pre-processors working with requests
   ]);
 
-	oc.constant('REST_API_CLIENT_POSTPROCESSORS', [
+  oc.constant('REST_API_CLIENT_POSTPROCESSORS', [
     // ... other post-processors working with data
     oc.get(SharedCachePostProcessor),
     // ... other post-processors that might cache data
