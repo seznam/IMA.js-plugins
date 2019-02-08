@@ -61,7 +61,8 @@ export default class SharedCache {
         options.maxEntries < 1
       ) {
         throw new TypeError(
-          'The maxEntries option has to be either ' + 'a positive integer, or left out'
+          'The maxEntries option has to be either ' +
+            'a positive integer, or left out'
         );
       }
     }
@@ -73,20 +74,17 @@ export default class SharedCache {
       ) {
         throw new TypeError(
           'The gcFactor option has to be either ' +
-          'a float within the range (0, 1) (non-inclusive), ' +
-          'or left out'
+            'a float within the range (0, 1) (non-inclusive), ' +
+            'or left out'
         );
       }
     }
     if (options.hasOwnProperty('ttl')) {
-      if (
-        typeof options.ttl !== 'number' ||
-        options.ttl < 0
-      ) {
+      if (typeof options.ttl !== 'number' || options.ttl < 0) {
         throw new TypeError(
           'The ttl option has to be either ' +
-          'a float and greater or equal to 0 ' +
-          'or left out'
+            'a float and greater or equal to 0 ' +
+            'or left out'
         );
       }
     }
@@ -247,8 +245,11 @@ export default class SharedCache {
    *        does not exist already.
    * @return {SharedCache} The requested shared cache.
    */
-  static getCache(cacheName, cacheOptions = { maxEntries: 64, gcFactor: 0.75, ttl: 0 }) {
-  if (typeof window !== 'undefined') {
+  static getCache(
+    cacheName,
+    cacheOptions = { maxEntries: 64, gcFactor: 0.75, ttl: 0 }
+  ) {
+    if (typeof window !== 'undefined') {
       return new SharedCache(PRIVATE_CONSTRUCTOR_ACCESS, cacheOptions);
     }
 
@@ -279,7 +280,11 @@ export default class SharedCache {
     for (let key in entries) {
       let entry = entries[key];
       let insertAtIndex = entriesToDelete.length ? -1 : 0;
-      for (let index = 0, length = entriesToDelete.length; index < length; index++) {
+      for (
+        let index = 0, length = entriesToDelete.length;
+        index < length;
+        index++
+      ) {
         if (entriesToDelete[index].lastAccess < entry.lastAccess) {
           continue;
         }

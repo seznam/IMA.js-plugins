@@ -78,7 +78,8 @@ describe('SharedCache', () => {
   });
 
   it(
-    'should now garbage-collect the entry that triggered the garbage ' + 'collection',
+    'should now garbage-collect the entry that triggered the garbage ' +
+      'collection',
     () => {
       let cache = SharedCache.getCache(CACHE_NAME, OPTIONS);
       cache.set('abc', 1);
