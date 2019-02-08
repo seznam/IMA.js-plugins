@@ -1,0 +1,55 @@
+{
+  "name": "ima-plugin-rest-client-shared-cache",
+  "version": "0.0.1",
+  "description": "Generic REST API client plugin for the IMA application framework.",
+  "main": "index.js",
+  "scripts": {
+    "prepublishOnly": "echo '====================================================================================================================================================\nUse \"npm run publish-package\" to publish this package.\n====================================================================================================================================================' && exit 1",
+    "publish-package": "npm run build && npm run test && npm publish dist --ignore-scripts",
+    "build": "node_modules/gulp/bin/gulp.js build",
+    "test": "node_modules/gulp/bin/gulp.js test"
+  },
+  "keywords": [
+    "ima",
+    "ima.js",
+    "plugin",
+    "rest"
+  ],
+  "author": "Vojtěch Šimko <vojtech.simko@firma.seznam.cz>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/issues"
+  },
+  "homepage": "https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-rest-client-shared-cache#readme",
+  "dependencies": {
+    "ima-plugin-shared-cache": "^0.3.0"
+  },
+  "peerDependencies": {
+    "ima-plugin-rest-client": "^0.7.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.23.0",
+    "del": "^2.2.2",
+    "eslint": "^3.15.0",
+    "gulp": "github:gulpjs/gulp#3f5aba2",
+    "gulp-babel": "^6.1.2",
+    "gulp-jasmine": "^2.4.2"
+  },
+  "engines": {
+    "node": ">=6",
+    "npm": ">=4 <6"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  }
+}
