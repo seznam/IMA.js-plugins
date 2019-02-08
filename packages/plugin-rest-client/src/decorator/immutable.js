@@ -1,4 +1,3 @@
-
 /**
  * Decorator for settings the static {@code isImmutable} flag on an entity
  * class, which makes all entities of that type immutable.
@@ -10,8 +9,8 @@
  *            ?AbstractEntity=
  *        )} classConstructor The entity class.
  */
-export default (classConstructor) => {
-	Object.defineProperty(classConstructor, 'isImmutable', {
-		value: true
-	});
+export default classConstructor => {
+  Object.defineProperty(classConstructor, 'isImmutable', {
+    value: true
+  });
 };

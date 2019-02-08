@@ -1,4 +1,3 @@
-
 /**
  * Decorator for setting the static {@code dataFieldMapping} property of an
  * entity class, which specifies the automatic mapping of raw entity data to
@@ -22,10 +21,10 @@
  *         ))} Callback that sets the data field mapping on the provided entity
  *         class.
  */
-export default (dataFieldMapping) => {
-	return (classConstructor) => {
-		Object.defineProperty(classConstructor, 'dataFieldMapping', {
-			value: dataFieldMapping
-		});
-	};
+export default dataFieldMapping => {
+  return classConstructor => {
+    Object.defineProperty(classConstructor, 'dataFieldMapping', {
+      value: dataFieldMapping
+    });
+  };
 };
