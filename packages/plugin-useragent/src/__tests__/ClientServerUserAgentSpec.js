@@ -120,9 +120,14 @@ describe('Client/Server implementation of Abstract class', () => {
 
   describe('getPlatform method', () => {
     using(getImplementations(), implementation => {
-      it('should return correct user-agent object on ' + implementation.name, () => {
-        expect(implementation.instance.getPlatform()).toEqual(userAgentObjectImproved);
-      });
+      it(
+        'should return correct user-agent object on ' + implementation.name,
+        () => {
+          expect(implementation.instance.getPlatform()).toEqual(
+            userAgentObjectImproved
+          );
+        }
+      );
     });
 
     var PlatformJSMockUndefined = {
@@ -133,7 +138,9 @@ describe('Client/Server implementation of Abstract class', () => {
         'should return correct user-agent object on undefined values on ' +
           implementation.name,
         () => {
-          expect(implementation.instance.getPlatform()).toEqual(userAgentObjectUnknown);
+          expect(implementation.instance.getPlatform()).toEqual(
+            userAgentObjectUnknown
+          );
         }
       );
     });
@@ -146,7 +153,9 @@ describe('Client/Server implementation of Abstract class', () => {
         'should return correct user-agent object on null values on ' +
           implementation.name,
         () => {
-          expect(implementation.instance.getPlatform()).toEqual(userAgentObjectUnknown);
+          expect(implementation.instance.getPlatform()).toEqual(
+            userAgentObjectUnknown
+          );
         }
       );
     });
@@ -154,9 +163,14 @@ describe('Client/Server implementation of Abstract class', () => {
 
   describe('getUserAgent method', () => {
     using(getImplementations(), implementation => {
-      it('should return correct user-agent string on ' + implementation.name, () => {
-        expect(implementation.instance.getUserAgent()).toEqual(userAgentString);
-      });
+      it(
+        'should return correct user-agent string on ' + implementation.name,
+        () => {
+          expect(implementation.instance.getUserAgent()).toEqual(
+            userAgentString
+          );
+        }
+      );
     });
   });
 
@@ -173,7 +187,9 @@ describe('Client/Server implementation of Abstract class', () => {
   describe('getLayout method', () => {
     using(getImplementations(), implementation => {
       it('should return correct string on ' + implementation.name, () => {
-        expect(implementation.instance.getLayout()).toEqual(userAgentObject.layout);
+        expect(implementation.instance.getLayout()).toEqual(
+          userAgentObject.layout
+        );
       });
     });
   });
@@ -213,7 +229,9 @@ describe('Client/Server implementation of Abstract class', () => {
   describe('getVersion method', () => {
     using(getImplementations(), implementation => {
       it('should return correct string on ' + implementation.name, () => {
-        expect(implementation.instance.getVersion()).toEqual(userAgentObject.version);
+        expect(implementation.instance.getVersion()).toEqual(
+          userAgentObject.version
+        );
       });
     });
   });
@@ -221,7 +239,9 @@ describe('Client/Server implementation of Abstract class', () => {
   describe('getOSFamily method', () => {
     using(getImplementations(), implementation => {
       it('should return correct string on ' + implementation.name, () => {
-        expect(implementation.instance.getOSFamily()).toEqual(userAgentObject.os.family);
+        expect(implementation.instance.getOSFamily()).toEqual(
+          userAgentObject.os.family
+        );
       });
     });
   });

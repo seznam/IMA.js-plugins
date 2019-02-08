@@ -52,7 +52,8 @@ var testedUserAgents = [
       name: 'Firefox',
       prerelease: null,
       product: null,
-      ua: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0',
+      ua:
+        'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:43.0) Gecko/20100101 Firefox/43.0',
       version: '43.0',
       os: {
         architecture: 64,
@@ -62,7 +63,8 @@ var testedUserAgents = [
     }
   },
   {
-    uaString: 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko',
+    uaString:
+      'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko',
     expected: {
       description: 'IE 11.0 32-bit on Windows 7 / Server 2008 R2 64-bit',
       layout: 'Trident',
@@ -70,7 +72,8 @@ var testedUserAgents = [
       name: 'IE',
       prerelease: null,
       product: null,
-      ua: 'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko',
+      ua:
+        'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko',
       version: '11.0',
       os: {
         architecture: 64,
@@ -129,7 +132,8 @@ var testedUserAgents = [
       name: 'IE',
       prerelease: null,
       product: null,
-      ua: 'Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; Touch; rv:11.0) like Gecko',
+      ua:
+        'Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; Touch; rv:11.0) like Gecko',
       version: '11.0',
       os: {
         architecture: 64,
@@ -142,7 +146,8 @@ var testedUserAgents = [
     uaString:
       'Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30',
     expected: {
-      description: 'Android Browser 4.0 (like Safari 5.x) on LG (Android 4.0.3)',
+      description:
+        'Android Browser 4.0 (like Safari 5.x) on LG (Android 4.0.3)',
       layout: 'WebKit',
       manufacturer: 'LG',
       name: 'Android Browser',
@@ -159,7 +164,8 @@ var testedUserAgents = [
     }
   },
   {
-    uaString: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+    uaString:
+      'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
     expected: {
       description: 'Google Browser on Google bot 2.1',
       layout: null,
@@ -167,7 +173,8 @@ var testedUserAgents = [
       name: 'Google Browser',
       prerelease: null,
       product: 'Google bot 2.1',
-      ua: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+      ua:
+        'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
       version: null,
       os: {
         architecture: null,
@@ -177,9 +184,11 @@ var testedUserAgents = [
     }
   },
   {
-    uaString: 'Mozilla/5.0 (compatible; SeznamBot/3.2; +http://fulltext.sblog.cz/)',
+    uaString:
+      'Mozilla/5.0 (compatible; SeznamBot/3.2; +http://fulltext.sblog.cz/)',
     expected: {
-      description: 'Mozilla/5.0 (compatible; SeznamBot/3.2; +http://fulltext.sblog.cz/)',
+      description:
+        'Mozilla/5.0 (compatible; SeznamBot/3.2; +http://fulltext.sblog.cz/)',
       layout: null,
       manufacturer: null,
       name: null,
@@ -195,15 +204,18 @@ var testedUserAgents = [
     }
   },
   {
-    uaString: 'Mozilla/5.0 (PlayStation 4 1.000) AppleWebKit/536.26 (KHTML, like Gecko)',
+    uaString:
+      'Mozilla/5.0 (PlayStation 4 1.000) AppleWebKit/536.26 (KHTML, like Gecko)',
     expected: {
-      description: 'PlayStation Browser (like Safari 6.x) on PlayStation 4 1.000',
+      description:
+        'PlayStation Browser (like Safari 6.x) on PlayStation 4 1.000',
       layout: 'NetFront',
       manufacturer: null,
       name: 'PlayStation Browser',
       prerelease: null,
       product: 'PlayStation 4 1.000',
-      ua: 'Mozilla/5.0 (PlayStation 4 1.000) AppleWebKit/536.26 (KHTML, like Gecko)',
+      ua:
+        'Mozilla/5.0 (PlayStation 4 1.000) AppleWebKit/536.26 (KHTML, like Gecko)',
       version: null,
       os: {
         architecture: null,
@@ -227,32 +239,39 @@ describe('PlatformJS', () => {
   describe('parse method', () => {
     using(testedUserAgents, testValues => {
       it(
-        'should return correct description for UserAgent string: ' + testValues.uaString,
+        'should return correct description for UserAgent string: ' +
+          testValues.uaString,
         () => {
           var result = PlatformJS.parse(testValues.uaString);
           expect(result.description).toEqual(testValues.expected.description);
         }
       );
       it(
-        'should return correct layout for UserAgent string: ' + testValues.uaString,
+        'should return correct layout for UserAgent string: ' +
+          testValues.uaString,
         () => {
           var result = PlatformJS.parse(testValues.uaString);
           expect(result.layout).toEqual(testValues.expected.layout);
         }
       );
       it(
-        'should return correct name for UserAgent string: ' + testValues.uaString,
+        'should return correct name for UserAgent string: ' +
+          testValues.uaString,
         () => {
           var result = PlatformJS.parse(testValues.uaString);
           expect(result.name).toEqual(testValues.expected.name);
         }
       );
-      it('should return correct ua for UserAgent string: ' + testValues.uaString, () => {
-        var result = PlatformJS.parse(testValues.uaString);
-        expect(result.ua).toEqual(testValues.expected.ua);
-      });
       it(
-        'should return correct version for UserAgent string: ' + testValues.uaString,
+        'should return correct ua for UserAgent string: ' + testValues.uaString,
+        () => {
+          var result = PlatformJS.parse(testValues.uaString);
+          expect(result.ua).toEqual(testValues.expected.ua);
+        }
+      );
+      it(
+        'should return correct version for UserAgent string: ' +
+          testValues.uaString,
         () => {
           var result = PlatformJS.parse(testValues.uaString);
           expect(result.version).toEqual(testValues.expected.version);
@@ -263,18 +282,22 @@ describe('PlatformJS', () => {
           testValues.uaString,
         () => {
           var result = PlatformJS.parse(testValues.uaString);
-          expect(result.os.architecture).toEqual(testValues.expected.os.architecture);
+          expect(result.os.architecture).toEqual(
+            testValues.expected.os.architecture
+          );
         }
       );
       it(
-        'should return correct OS family for UserAgent string: ' + testValues.uaString,
+        'should return correct OS family for UserAgent string: ' +
+          testValues.uaString,
         () => {
           var result = PlatformJS.parse(testValues.uaString);
           expect(result.os.family).toEqual(testValues.expected.os.family);
         }
       );
       it(
-        'should return correct OS version for UserAgent string: ' + testValues.uaString,
+        'should return correct OS version for UserAgent string: ' +
+          testValues.uaString,
         () => {
           var result = PlatformJS.parse(testValues.uaString);
           expect(result.os.version).toEqual(testValues.expected.os.version);

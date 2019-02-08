@@ -34,7 +34,9 @@ export default class AbstractUserAgent {
    * @return {string}
    */
   getUserAgent() {
-    throw new Error('The getUserAgent() method is abstract and must be overridden.');
+    throw new Error(
+      'The getUserAgent() method is abstract and must be overridden.'
+    );
   }
 
   /**
