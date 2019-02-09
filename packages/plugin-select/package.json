@@ -1,87 +1,87 @@
 {
-    "name": "ima-plugin-select",
-    "version": "0.15.1-3",
-    "description": "The plugin selects extra props from page state to your component.",
-    "main": "index.js",
-    "scripts": {
-        "test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
-        "lint": "node_modules/.bin/eslint './src/**/*.{js,jsx}' --fix",
-        "doc": "node_modules/.bin/gulp doc",
-        "build": "node_modules/.bin/gulp build"
+  "name": "ima-plugin-select",
+  "version": "0.15.1-3",
+  "description": "The plugin selects extra props from page state to your component.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+    "lint": "node_modules/.bin/eslint './src/**/*.{js,jsx}' --fix",
+    "doc": "node_modules/.bin/gulp doc",
+    "build": "node_modules/.bin/gulp build"
+  },
+  "keywords": [
+    "IMA",
+    "Select",
+    "HOC",
+    "Reselect",
+    "plugin"
+  ],
+  "author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/issues"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "enzyme": "3.8.0",
+    "enzyme-adapter-react-16": "^1.9.1",
+    "enzyme-to-json": "^3.3.5",
+    "eslint": "5.13.0",
+    "gulp": "4.0.0",
+    "ima": "^0.16.0",
+    "jest": "^24.1.0",
+    "react": "16.8.0",
+    "react-dom": "16.8.0",
+    "to-mock": "^1.4.0"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "peerDependencies": {
+    "ima": "0.15.x",
+    "react": "15.x"
+  },
+  "engines": {
+    "node": ">=6",
+    "npm": ">=4"
+  },
+  "dependencies": {
+    "hoist-non-react-statics": "^3.3.0",
+    "reselect": "4.0.0"
+  },
+  "jest": {
+    "bail": true,
+    "verbose": false,
+    "testEnvironment": "node",
+    "coverageThreshold": {
+      "global": {
+        "functions": 70,
+        "lines": 70,
+        "statements": 70
+      }
     },
-    "keywords": [
-        "IMA",
-        "Select",
-        "HOC",
-        "Reselect",
-        "plugin"
+    "setupFiles": [
+      "ima/test.js",
+      "ima/polyfill/imaLoader.js",
+      "ima/polyfill/imaRunner.js"
     ],
-    "author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/seznam/IMA.js-plugins.git"
+    "modulePaths": [
+      "<rootDir>/"
+    ],
+    "snapshotSerializers": [
+      "<rootDir>/node_modules/jest-serializer-enzyme"
+    ],
+    "transform": {
+      "\\.jsx?": "./preprocess.js"
     },
-    "publishConfig": {
-        "registry": "http://registry.npmjs.org/"
-    },
-    "bugs": {
-        "url": "https://github.com/seznam/IMA.js-plugins/issues"
-    },
-    "license": "MIT",
-    "devDependencies": {
-        "enzyme": "3.3.0",
-        "enzyme-adapter-react-16": "^1.1.0",
-        "enzyme-to-json": "^3.3.4",
-        "eslint": "4.19.1",
-        "gulp": "github:gulpjs/gulp#c120a94",
-        "ima": "^0.15.10",
-        "jest": "^23.1.0",
-        "react": "16.4.1",
-        "react-dom": "16.4.1",
-        "to-mock": "^1.2.2"
-    },
-    "browserify": {
-        "transform": [
-            "babelify"
-        ]
-    },
-    "peerDependencies": {
-        "ima": "0.15.x",
-        "react": "15.x"
-    },
-    "engines": {
-        "node": ">=6",
-        "npm": ">=4"
-    },
-    "dependencies": {
-        "hoist-non-react-statics": "^2.5.5",
-        "reselect": "3.0.1"
-    },
-    "jest": {
-        "bail": true,
-        "verbose": false,
-        "testEnvironment": "node",
-        "coverageThreshold": {
-            "global": {
-                "functions": 70,
-                "lines": 70,
-                "statements": 70
-            }
-        },
-        "setupFiles": [
-            "ima/test.js",
-            "ima/polyfill/imaLoader.js",
-            "ima/polyfill/imaRunner.js"
-        ],
-        "modulePaths": [
-            "<rootDir>/"
-        ],
-        "snapshotSerializers": [
-            "<rootDir>/node_modules/jest-serializer-enzyme"
-        ],
-        "transform": {
-            "\\.jsx?": "./preprocess.js"
-        },
-        "testRegex": "(/__tests__/).*Spec\\.jsx?$"
-    }
+    "testRegex": "(/__tests__/).*Spec\\.jsx?$"
+  }
 }
