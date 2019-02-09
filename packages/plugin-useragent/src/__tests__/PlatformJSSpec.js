@@ -6,7 +6,7 @@ var testedUserAgents = [
     uaString:
       'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.85 Safari/537.36',
     expected: {
-      description: 'Chrome 40.0.2214.85 on Windows 7 / Server 2008 R2 64-bit',
+      description: 'Chrome 40.0.2214.85 on Windows Server 2008 R2 / 7 64-bit',
       layout: 'Blink',
       manufacturer: null,
       name: 'Chrome',
@@ -17,7 +17,7 @@ var testedUserAgents = [
       version: '40.0.2214.85',
       os: {
         architecture: 64,
-        family: 'Windows 7 / Server 2008 R2',
+        family: 'Windows Server 2008 R2 / 7',
         version: '7'
       }
     }
@@ -66,7 +66,7 @@ var testedUserAgents = [
     uaString:
       'Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko',
     expected: {
-      description: 'IE 11.0 32-bit on Windows 7 / Server 2008 R2 64-bit',
+      description: 'IE 11.0 32-bit on Windows Server 2008 R2 / 7 64-bit',
       layout: 'Trident',
       manufacturer: null,
       name: 'IE',
@@ -77,7 +77,7 @@ var testedUserAgents = [
       version: '11.0',
       os: {
         architecture: 64,
-        family: 'Windows 7 / Server 2008 R2',
+        family: 'Windows Server 2008 R2 / 7',
         version: '7'
       }
     }
@@ -208,7 +208,7 @@ var testedUserAgents = [
       'Mozilla/5.0 (PlayStation 4 1.000) AppleWebKit/536.26 (KHTML, like Gecko)',
     expected: {
       description:
-        'PlayStation Browser (like Safari 6.x) on PlayStation 4 1.000',
+        'PlayStation Browser (like Safari 6.x) on Sony PlayStation 4',
       layout: 'NetFront',
       manufacturer: null,
       name: 'PlayStation Browser',
