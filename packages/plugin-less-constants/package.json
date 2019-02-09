@@ -1,54 +1,46 @@
 {
-	"name": "ima-plugin-less-constants",
-	"version": "0.6.0",
-	"description": "IMA.js plugin for sharing constants between JavaScript and LESS code.",
-	"main": "tasks/gulpTask.js",
-	"scripts": {
-		"test": "echo \"WARN: no test specified\" && exit 0",
-		"lint": "node_modules/.bin/eslint './**/*.js' --fix",
-		"doc": "echo \"WARN: no doc specified\" && exit 0",
-		"build": "echo \"WARN: no build specified\" && exit 0"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/seznam/IMA.js-plugins.git"
-	},
-	"publishConfig": {
-		"registry": "http://registry.npmjs.org/"
-	},
-	"keywords": [
-		"ima",
-		"ima.js",
-		"plugin",
-		"less"
-	],
-	"author": "Martin Jurča <martin.jurca@firma.seznam.cz>",
-	"contributors": [
-		{
-			"name": "Filip Šátek",
-			"email": "filip.satek@firma.seznam.cz"
-		}
-	],
-	"license": "ISC",
-	"devDependencies": {
-		"eslint": "^4.17.0",
-		"eslint-config-prettier": "^2.9.0",
-		"eslint-plugin-jasmine": "^2.9.2",
-		"eslint-plugin-jest": "^21.7.0",
-		"eslint-plugin-prettier": "^2.6.0",
-		"gulp": "^4.0.0",
-		"ima-plugin-analytic": "^0.14.2",
-		"ima-plugin-script-loader": "^0.14.3",
-		"jest": "^22.1.4",
-		"prettier": "^1.10.2"
-	},
-	"peerDependencies": {
-		"babel-core": "6.x",
-		"babel-plugin-transform-es2015-modules-commonjs": "6.x"
-	},
-	"browserify": {
-		"transform": [
-			"babelify"
-		]
-	}
+  "name": "ima-plugin-less-constants",
+  "version": "0.7.0",
+  "description": "IMA.js plugin for sharing constants between JavaScript and LESS code.",
+  "main": "tasks/gulpTask.js",
+  "scripts": {
+    "test": "echo \"WARN: no test specified\" && exit 0",
+    "lint": "node_modules/.bin/eslint './**/*.js' --fix",
+    "doc": "echo \"WARN: no doc specified\" && exit 0",
+    "build": "echo \"WARN: no build specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
+  "keywords": [
+    "ima",
+    "ima.js",
+    "plugin",
+    "less"
+  ],
+  "author": "Martin Jurča <martin.jurca@firma.seznam.cz>",
+  "contributors": [
+    {
+      "name": "Filip Šátek",
+      "email": "filip.satek@firma.seznam.cz"
+    }
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^5.13.0",
+    "gulp": "^4.0.0"
+  },
+  "peerDependencies": {
+    "babel-core": "6.x",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.x"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  }
 }

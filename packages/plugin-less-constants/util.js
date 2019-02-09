@@ -7,7 +7,9 @@ exports.asUnit = function asUnit(unit, parts, template = '${parts}${unit}') {
     },
 
     toString() {
-      return template.replace('${parts}', parts.join(',')).replace('${unit}', unit);
+      return template
+        .replace('${parts}', parts.join(','))
+        .replace('${unit}', unit);
     }
   };
 };

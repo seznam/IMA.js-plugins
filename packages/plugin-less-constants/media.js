@@ -17,9 +17,17 @@ exports.minAndMaxWidthMedia = function minAndMaxWidthMedia(minWidth, maxWidth) {
 };
 
 exports.maxHeightMedia = function maxHeightMedia(maxHeight) {
-  return asUnit('', [maxHeight.toString()], '~"all and (max-height: ${parts})"');
+  return asUnit(
+    '',
+    [maxHeight.toString()],
+    '~"all and (max-height: ${parts})"'
+  );
 };
 
 exports.minHeightMedia = function minHeightMedia(minHeight) {
-  return asUnit('', [minHeight.toString()], '~"all and (min-height: ${parts})"');
+  return asUnit(
+    '',
+    [minHeight.toString()],
+    '~"all and (min-height: ${parts})"'
+  );
 };
