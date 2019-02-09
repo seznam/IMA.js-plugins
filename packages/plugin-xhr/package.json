@@ -1,48 +1,48 @@
 {
-    "name": "ima-plugin-xhr",
-    "version": "0.15.1",
-    "description": "Helper plugin simplifying the usage of the XMLHttpRequest API.",
-    "main": "index.js",
-    "scripts": {
-        "test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
-        "lint": "node_modules/.bin/eslint './src/**/*.js' --fix",
-        "doc": "node_modules/.bin/gulp doc",
-        "build": "node_modules/.bin/gulp build"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/seznam/IMA.js-plugins.git"
-    },
-    "keywords": [
-        "ima",
-        "ima.js",
-        "plugin",
-        "xhr",
-        "xmlhttprequest"
-    ],
-    "author": "Martin Jurča <martin.jurca@firma.seznam.cz>",
-    "contributors": [
-        {
-            "name": "Miroslav Jancarik",
-            "email": "miroslav.jancarik@firma.seznam.cz"
-        }
-    ],
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/seznam/IMA.js-plugins/issues"
-    },
-    "publishConfig": {
-        "registry": "https://registry.npmjs.org/"
-    },
-    "homepage": "https://github.com/seznam/IMA.js-plugins#readme",
-    "devDependencies": {
-        "eslint": "4.18.2",
-        "gulp": "github:gulpjs/gulp#c120a94",
-        "ima": "^0.14.0",
-        "jest": "^22.1.4"
-    },
-    "dependencies": {},
-    "peerDependencies": {
-        "ima": "*"
+  "name": "ima-plugin-xhr",
+  "version": "0.15.1",
+  "description": "Helper plugin simplifying the usage of the XMLHttpRequest API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+    "lint": "node_modules/.bin/eslint './src/**/*.js' --fix",
+    "doc": "node_modules/.bin/gulp doc",
+    "build": "node_modules/.bin/gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seznam/IMA.js-plugins.git"
+  },
+  "keywords": [
+    "ima",
+    "ima.js",
+    "plugin",
+    "xhr",
+    "xmlhttprequest"
+  ],
+  "author": "Martin Jurča <martin.jurca@firma.seznam.cz>",
+  "contributors": [
+    {
+      "name": "Miroslav Jancarik",
+      "email": "miroslav.jancarik@firma.seznam.cz"
     }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/issues"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "homepage": "https://github.com/seznam/IMA.js-plugins#readme",
+  "devDependencies": {
+    "eslint": "5.13.0",
+    "gulp": "4.0.0",
+    "ima": "^0.16.0",
+    "jest": "^24.1.0"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "ima": "*"
+  }
 }
