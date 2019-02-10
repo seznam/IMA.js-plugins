@@ -6,7 +6,7 @@
     "doc": "node_modules/.bin/lerna run doc",
     "audit": "node_modules/.bin/lerna run audit",
     "build": "node_modules/.bin/lerna run build",
-    "postinstall": "node_modules/.bin/lerna bootstrap && node_modules/.bin/lerna run build"
+    "postinstall": "node_modules/.bin/lerna bootstrap --no-ci && node_modules/.bin/lerna run build"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
