@@ -14,7 +14,7 @@
 		"<rootDir>/"
 	],
 	"transform": {
-		"\\.jsx?": "<rootDir>/preprocess.js"
+		"\\.jsx?": "<rootDir>/../../preprocess.js"
 	},
 	"testPathIgnorePatterns": ["__snapshots__", "/node_modules/"],
 	"testRegex": "(/src(/?[^/]*){0,5}/__tests__/).*Spec\\.jsx?$"

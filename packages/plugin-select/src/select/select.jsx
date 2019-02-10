@@ -85,14 +85,20 @@ export function createStateSelector(...selectors) {
       }
 
       if (!memoizedSelector) {
-        memoizedSelector = createSelector(...selectorFunctions, () => {
-          return memoizedState;
-        });
+        memoizedSelector = createSelector(
+          ...selectorFunctions,
+          () => {
+            return memoizedState;
+          }
+        );
       }
 
       return memoizedSelector(state);
     };
   })();
 
-  return createSelector(derivedState, passStateOnChange);
+  return createSelector(
+    derivedState,
+    passStateOnChange
+  );
 }

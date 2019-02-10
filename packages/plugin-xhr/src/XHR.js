@@ -221,7 +221,9 @@ export default class XHR {
     const body =
       method.toLowerCase() === 'get'
         ? null
-        : this._shouldEncodeRequestBody(data) ? JSON.stringify(data) : data;
+        : this._shouldEncodeRequestBody(data)
+        ? JSON.stringify(data)
+        : data;
 
     return this._sendRequest(
       method,
