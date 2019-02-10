@@ -1,41 +1,41 @@
 {
-    "name": "ima-plugin-analytic",
-    "version": "0.14.2",
-    "description": "Seznam IMA.js abstract analytic plugin",
-    "main": "index.js",
-    "scripts": {
-        "test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
-        "lint": "node_modules/.bin/eslint './src/**/*.js' --fix",
-        "doc": "node_modules/.bin/gulp doc",
-        "build": "node_modules/.bin/gulp build"
-    },
-    "keywords": [
-        "IMA.js",
-        "Analytic",
-        "Plugin",
-        "Javascript"
-    ],
-    "author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/seznam/IMA.js-plugins.git"
-    },
-    "publishConfig": {
-        "registry": "http://registry.npmjs.org/"
-    },
-    "bugs": {
-        "url": "https://github.com/seznam/IMA.js-plugins/issues"
-    },
-    "license": "MIT",
-    "devDependencies": {
-        "eslint": "4.18.2",
-        "gulp": "github:gulpjs/gulp#c120a94",
-        "jest": "^22.1.4"
-    },
-    "dependencies": {},
-    "browserify": {
-        "transform": [
-            "babelify"
-        ]
-    }
+  "name": "ima-plugin-analytic",
+  "version": "0.14.2",
+  "description": "Seznam IMA.js abstract analytic plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+    "lint": "node_modules/.bin/eslint './src/**/*.js' --fix",
+    "doc": "node_modules/.bin/gulp doc",
+    "build": "node_modules/.bin/gulp build"
+  },
+  "keywords": [
+    "IMA.js",
+    "Analytic",
+    "Plugin",
+    "Javascript"
+  ],
+  "author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/issues"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "5.13.0",
+    "gulp": "4.0.0",
+    "jest": "^24.1.0"
+  },
+  "dependencies": {},
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  }
 }
