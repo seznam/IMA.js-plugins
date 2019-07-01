@@ -56,6 +56,22 @@ export default class AbstractAnalytic {
      * @type {boolean}
      */
     this._enable = false;
+
+    /**
+     * Array of callbacks the 
+     * 
+     * @protected
+     * @type {Array<{ callback: Function }>}
+     */
+    this._deferredHits = [];
+
+     /**
+     * The maximum number of deferred hits stored in the pending hits
+     * storage.
+     *
+     * @type {number}
+     */
+    this.MAX_DEFERRED_HITS_SIZE = 30;
   }
 
   /**
@@ -66,30 +82,61 @@ export default class AbstractAnalytic {
   init() {
     if (
       !this.isEnabled() &&
+      this._window.isClient()
+    ) {
+      const clientWindow = this._window.getWindow();
+      this.createGlobalDefinition(clientWindow);
+    }
+  }
+
+  /**
+   * Load analytic script, configure analytic and execute deferred hits.
+   */
+  load() {
+    if (
+      !this.isEnabled() &&
       this._window.isClient() &&
       this._analyticScriptUrl
     ) {
-      this._scriptLoader
-        .load(this._analyticScriptUrl, this.getTemplate())
+      return this._scriptLoader
+        .load(this._analyticScriptUrl)
         .then(() => {
           this._configuration();
+          this._executeDeferredHits();
+
+          return true;
         })
         .catch(error => {
           console.error(error);
         });
     }
+
+    return Promise.resolve(false);
   }
 
   /**
-   * Returns template for loading script.
-   *
+   * Creates global definition for analytics script.
+   * 
    * @abstract
-   * @return {?string}
+   * @param {window} window Global window object on client
+   * @returns {void}
    */
-  getTemplate() {
-    throw new Error(
-      'The getTemplate() method is abstract and must be overridden.'
-    );
+  createGlobalDefinition(window) {}
+
+
+  /**
+   * Executes hit callback or stores it for later execution
+   * if analytic is not enabled yet.
+   * 
+   * @param {Function} callback
+   * @returns {void}
+   */
+  deferHitAfterLoad(callback) {
+    if (this.isEnabled()) {
+      callback();
+    } else if (this._deferredHits.length <= this.MAX_DEFERRED_HITS_SIZE) {
+      this._deferredHits.push({ callback });
+    }
   }
 
   /**
@@ -134,5 +181,19 @@ export default class AbstractAnalytic {
     throw new Error(
       'The _configuration() method is abstract and must be overridden.'
     );
+  }
+
+  /**
+   * Execute stored hits
+   * 
+   * @protected
+   * @returns {void}
+   */
+  _executeDeferredHits() {
+    for (const { callback } of this._deferredHits) {
+      callback();
+    }
+
+    this._deferredHits.length = 0;
   }
 }
