@@ -3,6 +3,8 @@ import {
   AbstractAnalytic
 } from 'ima-plugin-analytic';
 
+const GA_ROOT_VARIABLE = 'ga';
+
 /**
  * Google analytic class
  */
@@ -22,36 +24,15 @@ export default class GoogleAnalytic extends AbstractAnalytic {
   }
 
   /**
-   * Initialization analytic.
+   * @inheritdoc
    */
-  init() {
-    super.init();
+  createGlobalDefinition(window) {
+    window[GA_ROOT_VARIABLE] = window[GA_ROOT_VARIABLE] || function () {
+      window[GA_ROOT_VARIABLE].q = window[GA_ROOT_VARIABLE].q || [];
+      window[GA_ROOT_VARIABLE].q.push(arguments);
+    };
 
-    this._configuration();
-  }
-
-  /**
-   * Returns template for loading script async.
-   *
-   * @override
-   * @return {string}
-   */
-  getTemplate() {
-    var template =
-      `(function(win,doc,tag,url,id){` +
-      `win[id] = win[id] || function() {` +
-      `win[id].q = win[id].q || [];` +
-      `win[id].q.push(arguments);` +
-      `};` +
-      `win[id].l = 1*new Date();` +
-      `var script = doc.createElement(tag);` +
-      `var firstScript = doc.getElementsByTagName(tag)[0];` +
-      `script.async = 1;` +
-      `script.src = url;` +
-      `firstScript.parentNode.insertBefore(script, firstScript);` +
-      `})(window,document,'script','${this._analyticScriptUrl}', 'ga')`;
-
-    return template;
+    window[GA_ROOT_VARIABLE].l = 1 * new Date();
   }
 
   /**
@@ -71,7 +52,7 @@ export default class GoogleAnalytic extends AbstractAnalytic {
    *        analytic.
    */
   hit(data) {
-    if (this.isEnabled()) {
+    this.deferHitAfterLoad(() => {
       this._window
         .getWindow()
         .ga(
@@ -83,7 +64,7 @@ export default class GoogleAnalytic extends AbstractAnalytic {
           data.value,
           data.fields
         );
-    }
+    });
   }
 
   /**
@@ -93,14 +74,14 @@ export default class GoogleAnalytic extends AbstractAnalytic {
    * @param {Object<string, *>} pageData
    */
   hitPageView(pageData) {
-    if (!this.isEnabled()) {
-      return;
-    }
+    this.deferHitAfterLoad(() => {
+      const clientWindow = this._window.getWindow();
 
-    this._window.getWindow().ga('set', 'page', pageData.path);
-    this._window.getWindow().ga('set', 'location', this._window.getUrl());
-    this._window.getWindow().ga('set', 'title', document.title || '');
-    this._window.getWindow().ga('send', 'pageview');
+      clientWindow.ga('set', 'page', pageData.path);
+      clientWindow.ga('set', 'location', this._window.getUrl());
+      clientWindow.ga('set', 'title', document.title || '');
+      clientWindow.ga('send', 'pageview');
+    });
   }
 
   /**
@@ -110,9 +91,10 @@ export default class GoogleAnalytic extends AbstractAnalytic {
    * @protected
    */
   _configuration() {
+    const clientWindow = this._window.getWindow();
+
     if (
-      !this._window.isClient() ||
-      !this._window.getWindow().ga ||
+      !clientWindow.ga ||
       typeof this._window.getWindow().ga !== 'function' ||
       this.isEnabled()
     ) {
@@ -120,9 +102,7 @@ export default class GoogleAnalytic extends AbstractAnalytic {
     }
 
     this._enable = true;
-    this._window
-      .getWindow()
-      .ga('create', this._config.service, 'auto', this._config.settings);
+    clientWindow.ga('create', this._config.service, 'auto', this._config.settings);
     this._dispatcher.fire(AnalyticEvents.LOADED, { type: 'google' }, true);
   }
 }
