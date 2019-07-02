@@ -58,14 +58,14 @@ export default class AbstractAnalytic {
     this._enable = false;
 
     /**
-     * Array of callbacks the 
-     * 
+     * Array of callbacks the
+     *
      * @protected
      * @type {Array<{ callback: Function }>}
      */
     this._deferredHits = [];
 
-     /**
+    /**
      * The maximum number of deferred hits stored in the pending hits
      * storage.
      *
@@ -80,10 +80,7 @@ export default class AbstractAnalytic {
    * @method init
    */
   init() {
-    if (
-      !this.isEnabled() &&
-      this._window.isClient()
-    ) {
+    if (!this.isEnabled() && this._window.isClient()) {
       const clientWindow = this._window.getWindow();
       this.createGlobalDefinition(clientWindow);
     }
@@ -116,18 +113,17 @@ export default class AbstractAnalytic {
 
   /**
    * Creates global definition for analytics script.
-   * 
+   *
    * @abstract
    * @param {window} window Global window object on client
    * @returns {void}
    */
-  createGlobalDefinition(window) {}
-
+  createGlobalDefinition() {}
 
   /**
    * Executes hit callback or stores it for later execution
    * if analytic is not enabled yet.
-   * 
+   *
    * @param {Function} callback
    * @returns {void}
    */
@@ -185,9 +181,9 @@ export default class AbstractAnalytic {
 
   /**
    * Execute stored hits
-   * 
+   *
    * @protected
-   * @returns {void}
+   * @returns {void}
    */
   _executeDeferredHits() {
     for (const { callback } of this._deferredHits) {
