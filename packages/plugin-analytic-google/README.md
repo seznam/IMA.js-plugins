@@ -98,6 +98,21 @@ if ($window.isClient()) {
 }
 ```
 
+## Version 1.0 notice
+
+Since version 1.0 you need to additionally call a `load()` method. The later you call this method the better.
+If you don't have a specific point in your app where you know that the page has finished loading you can call the `load()` method immediatelly after `init()` method
+
+```javascript
+if ($window.isClient()) {
+
+	// insert analytic script to page and initialization analytic
+	googleAnalytic.init();
+	googleAnalytic.load();
+
+	// ...
+```
+
 ## Dependencies
 If you are looking more details, you should
 follow this links:

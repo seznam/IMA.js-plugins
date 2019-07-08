@@ -27,10 +27,12 @@ export default class GoogleAnalytic extends AbstractAnalytic {
    * @inheritdoc
    */
   createGlobalDefinition(window) {
-    window[GA_ROOT_VARIABLE] = window[GA_ROOT_VARIABLE] || function () {
-      window[GA_ROOT_VARIABLE].q = window[GA_ROOT_VARIABLE].q || [];
-      window[GA_ROOT_VARIABLE].q.push(arguments);
-    };
+    window[GA_ROOT_VARIABLE] =
+      window[GA_ROOT_VARIABLE] ||
+      function() {
+        window[GA_ROOT_VARIABLE].q = window[GA_ROOT_VARIABLE].q || [];
+        window[GA_ROOT_VARIABLE].q.push(arguments);
+      };
 
     window[GA_ROOT_VARIABLE].l = 1 * new Date();
   }
@@ -102,7 +104,12 @@ export default class GoogleAnalytic extends AbstractAnalytic {
     }
 
     this._enable = true;
-    clientWindow.ga('create', this._config.service, 'auto', this._config.settings);
+    clientWindow.ga(
+      'create',
+      this._config.service,
+      'auto',
+      this._config.settings
+    );
     this._dispatcher.fire(AnalyticEvents.LOADED, { type: 'google' }, true);
   }
 }
