@@ -30,9 +30,12 @@
   "devDependencies": {
     "eslint": "5.13.0",
     "gulp": "4.0.0",
+    "ima": "^0.16.0",
     "jest": "^24.1.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "ima-plugin-script-loader": "^0.14.0"
+  },
   "browserify": {
     "transform": [
       "babelify"
