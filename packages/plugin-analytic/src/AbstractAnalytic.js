@@ -3,12 +3,20 @@
  */
 export default class AbstractAnalytic {
   /**
+   * @param {string} analyticName
    * @param {ima.plugin.script.loader.ScriptLoaderPlugin} scriptLoader
    * @param {ima.window.Window} window
    * @param {ima.event.Dispatcher} dispatcher
    * @param {Object<string, *>} config
    */
-  constructor(scriptLoader, window, dispatcher, config) {
+  constructor(analyticName, scriptLoader, window, dispatcher, config) {
+
+    /**
+     * @protected
+     * @type {string}
+     */
+    this._analyticName = analyticName;
+
     /**
      * Handler from ima-plugin-script-loader.
      *
@@ -56,22 +64,6 @@ export default class AbstractAnalytic {
      * @type {boolean}
      */
     this._enable = false;
-
-    /**
-     * Array of callbacks the
-     *
-     * @protected
-     * @type {Array<{ callback: Function }>}
-     */
-    this._deferredHits = [];
-
-    /**
-     * The maximum number of deferred hits stored in the pending hits
-     * storage.
-     *
-     * @type {number}
-     */
-    this.MAX_DEFERRED_HITS_SIZE = 30;
   }
 
   /**
@@ -92,14 +84,20 @@ export default class AbstractAnalytic {
   load() {
     if (
       !this.isEnabled() &&
-      this._window.isClient() &&
-      this._analyticScriptUrl
+      this._window.isClient()
     ) {
+      if (!this._analyticScriptUrl) {
+        this._configuration();
+        this._fireLoadedEvent();
+
+        return Promise.resolve(true);
+      }
+
       return this._scriptLoader
         .load(this._analyticScriptUrl)
         .then(() => {
           this._configuration();
-          this._executeDeferredHits();
+          this._fireLoadedEvent();
 
           return true;
         })
@@ -119,21 +117,6 @@ export default class AbstractAnalytic {
    * @returns {void}
    */
   createGlobalDefinition() {}
-
-  /**
-   * Executes hit callback or stores it for later execution
-   * if analytic is not enabled yet.
-   *
-   * @param {Function} callback
-   * @returns {void}
-   */
-  deferHitAfterLoad(callback) {
-    if (this.isEnabled()) {
-      callback();
-    } else if (this._deferredHits.length <= this.MAX_DEFERRED_HITS_SIZE) {
-      this._deferredHits.push({ callback });
-    }
-  }
 
   /**
    * Returns true if analytic is enabled.
@@ -180,16 +163,9 @@ export default class AbstractAnalytic {
   }
 
   /**
-   * Execute stored hits
-   *
    * @protected
-   * @returns {void}
    */
-  _executeDeferredHits() {
-    for (const { callback } of this._deferredHits) {
-      callback();
-    }
-
-    this._deferredHits.length = 0;
+  _fireLoadedEvent() {
+    this._dispatcher.fire(AnalyticEvents.LOADED, { type: this._analyticName }, true);
   }
 }
