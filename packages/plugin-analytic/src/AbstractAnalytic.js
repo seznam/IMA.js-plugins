@@ -1,3 +1,5 @@
+import AnalyticEvents from './Events';
+
 /**
  * Abstract analytic class
  */
@@ -10,7 +12,6 @@ export default class AbstractAnalytic {
    * @param {Object<string, *>} config
    */
   constructor(analyticName, scriptLoader, window, dispatcher, config) {
-
     /**
      * @protected
      * @type {string}
@@ -82,10 +83,7 @@ export default class AbstractAnalytic {
    * Load analytic script, configure analytic and execute deferred hits.
    */
   load() {
-    if (
-      !this.isEnabled() &&
-      this._window.isClient()
-    ) {
+    if (!this.isEnabled() && this._window.isClient()) {
       if (!this._analyticScriptUrl) {
         this._configuration();
         this._fireLoadedEvent();
@@ -166,6 +164,10 @@ export default class AbstractAnalytic {
    * @protected
    */
   _fireLoadedEvent() {
-    this._dispatcher.fire(AnalyticEvents.LOADED, { type: this._analyticName }, true);
+    this._dispatcher.fire(
+      AnalyticEvents.LOADED,
+      { type: this._analyticName },
+      true
+    );
   }
 }

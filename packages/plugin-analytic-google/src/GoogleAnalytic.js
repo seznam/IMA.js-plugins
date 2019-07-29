@@ -88,10 +88,7 @@ export default class GoogleAnalytic extends AbstractAnalytic {
   _configuration() {
     const clientWindow = this._window.getWindow();
 
-    if (
-      !clientWindow.ga ||
-      typeof this._window.getWindow().ga !== 'function'
-    ) {
+    if (!clientWindow.ga || typeof this._window.getWindow().ga !== 'function') {
       return;
     }
 
