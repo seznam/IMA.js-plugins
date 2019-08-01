@@ -1,13 +1,13 @@
-# ima-plugin-analytic-google
+# ima-plugin-analytic-fb-pixel
 
-This is the google analytic plugin for the IMA.js application. You can find the IMA.js skeleton application at <https://github.com/seznam/IMA.js-skeleton>
+This is the Facebook Pixel analytic plugin for the IMA.js application. You can find the IMA.js skeleton application at <https://github.com/seznam/IMA.js-skeleton>
 or follow link <https://imajs.io>.
 
 ## Installation
 
 ```javascript
 
-npm install ima-plugin-analytic-google ima-plugin-script-loader --save
+npm install ima-plugin-analytic-fb-pixel ima-plugin-script-loader --save
 
 ```
 
@@ -16,19 +16,16 @@ npm install ima-plugin-analytic-google ima-plugin-script-loader --save
 
 var vendors = {
 	common: [
-		'ima-plugin-analytic-google',
+		'ima-plugin-analytic-fb-pixel',
 		'ima-plugin-analytic',
 		'ima-plugin-script-loader'
 	]
 };
 
 /*
-Now is google analytic plugin available from:
+Now is FB Pixel analytic plugin available from:
 
-ns.ima.plugin.analytic.google.GoogleAnalytic;
-ns.ima.plugin.analytic.google.defaultDependencies;
-
-import { GoogleAnalytic, defaultDependencies } from 'ima-plugin-analytic-google';
+import { FacebookPixelAnalytic, defaultDependencies } from 'ima-plugin-analytic-fb-pixel';
 */
 
 ```
@@ -42,8 +39,8 @@ prod: {
 	$Page:{ ... },
 	plugin : {
 		analytic: {
-			google: {
-				service: 'UA-XXXXXXX-X'
+			fbPixel: {
+				id: 'XXX'
 			}
 		}
 	}
@@ -52,9 +49,9 @@ prod: {
 
 ```javascript
 // /app/config/bind.js
-import { GoogleAnalytic } from 'ima-plugin-analytic-google';
+import { FacebookPixelAnalytic } from 'ima-plugin-analytic-fb-pixel';
 
-oc.bind('GoogleAnalytic', GoogleAnalytic);
+oc.bind('FacebookPixelAnalytic', FacebookPixelAnalytic);
 
 ```
 
@@ -63,13 +60,13 @@ oc.bind('GoogleAnalytic', GoogleAnalytic);
 
 var $window = oc.get('$Window');
 var $dispatcher = oc.get('$Dispatcher');
-var googleAnalytic = oc.get('GoogleAnalytic');
+var fbPixelAnalytic = oc.get('FacebookPixelAnalytic');
 
 
 if ($window.isClient()) {
 
-	// insert analytic script to page and initialization analytic
-	googleAnalytic.init();
+	// initialize analytic
+	fbPixelAnalytic.init();
 
 	//set hit page view to analytic
 	$dispatcher.listen(ns.ima.router.Events.AFTER_HANDLE_ROUTE, (pageData) => {
@@ -79,20 +76,7 @@ if ($window.isClient()) {
 				(pageData.response.status >= 200 &&
 				pageData.response.status < 300)) {
 
-			googleAnalytic.hitPageView(pageData);
-
-		} else {
-
-			// hit error to google analytic
-			var label = pageData.params.error ? pageData.params.error.toString() : undefined;
-			var value = pageData.response.status ? pageData.response.status : undefined;
-
-			googleAnalytic.hit({
-				category: 'error',
-				action: 'render',
-				label,
-				value
-			});
+			fbPixelAnalytic.hitPageView(pageData);
 		}
 	});
 }
@@ -107,8 +91,8 @@ If you don't have a specific point in your app where you know that the page has 
 if ($window.isClient()) {
 
 	// insert analytic script to page and initialization analytic
-	googleAnalytic.init();
-	googleAnalytic.load();
+	fbPixelAnalytic.init();
+	fbPixelAnalytic.load();
 
 	// ...
 ```
