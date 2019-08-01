@@ -16,8 +16,22 @@ npm install ima-plugin-local-storage --save
 
 var vendors = {
 	common: [
-		'ima-plugin-local-storage'
+        'ima-plugin-local-storage'
 	]
 };
+```
+```javascript
+import { LocalStorage } from 'ima-plugin-local-storage';
 
+oc.bind('LocalStorage', LocalStorage);
+```
+```javascript
+const localStorage = oc.get('LocalStorage');
+
+if ($window.isClient()) {
+	...
+	// initializes local storage
+	LocalStorage.init();
+	...
+}
 ```
