@@ -80,7 +80,7 @@ class LocalStorage extends Storage {
 
     if (item && item.value) {
       if (item.expires && Date.now() >= item.expires) {
-        this.removeItem(key);
+        this.delete(key);
 
         return undefined;
       } else {
@@ -88,7 +88,7 @@ class LocalStorage extends Storage {
       }
     }
 
-    return item;
+    return undefined;
   }
 
   /**
@@ -112,7 +112,7 @@ class LocalStorage extends Storage {
     let opts = Object.assign({}, this._options, options);
 
     if (value === undefined) {
-      this.removeItem(key);
+      this.delete(key);
     } else {
       let item = { value };
       let expires = this._getExpires(opts);

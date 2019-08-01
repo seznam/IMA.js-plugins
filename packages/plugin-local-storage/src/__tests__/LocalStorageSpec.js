@@ -10,7 +10,7 @@ describe('LocalStorageHelper', () => {
   let localStorageMock = {
     setItem() {},
     getItem() {},
-    removeItem() {},
+    delete() {},
     clear() {},
     key(index) {
       let keys = ['a', 'b', 'c', 'd'];
@@ -19,82 +19,82 @@ describe('LocalStorageHelper', () => {
     length: 4
   };
 
-  let localStorageHelper = null;
+  let localStorageInstance = null;
 
   beforeEach(() => {
-    localStorageHelper = new LocalStorage(dummyWindow);
-    localStorageHelper.init();
+    localStorageInstance = new LocalStorage(dummyWindow);
+    localStorageInstance.init();
     global.localStorage = localStorageMock;
   });
 
   describe('set method', () => {
-    it('should call localStorage.setItem method', () => {
-      spyOn(localStorage, 'setItem');
+    it('should call localStorage.set method', () => {
+      spyOn(localStorageInstance, 'set');
 
-      localStorageHelper.set('testName', 'testValue');
+      localStorageInstance.set('testKey', 'testValue');
 
-      expect(localStorage.setItem).toHaveBeenCalled();
+      expect(localStorageInstance.set).toHaveBeenCalled();
     });
 
-    it('should call localStorageHelper.delete method if value is undefined', () => {
-      spyOn(localStorageHelper, 'delete');
+    it('should call localStorage.delete method if value is undefined', () => {
+      spyOn(localStorageInstance, 'delete');
 
-      localStorageHelper.set('testName', undefined);
+      localStorageInstance.set('testName', undefined);
 
-      expect(localStorageHelper.delete).toHaveBeenCalled();
+      expect(localStorageInstance.delete).toHaveBeenCalled();
     });
 
-    it('should return localStorageHelper instance if localStorageHelper wasnt inited yet', () => {
-      localStorageHelper._init = false;
+    it("should return localStorage instance if localStorage wasn't initialized yet", () => {
+      localStorageInstance._initialized = false;
 
-      let result = localStorageHelper.set('testName', 'testValue');
+      let result = localStorageInstance.set('testName', 'testValue');
 
-      expect(result).toEqual(localStorageHelper);
+      expect(result).toEqual(localStorageInstance);
     });
   });
 
   describe('get method', () => {
-    it('should return undefined if localStorageHelper wasnt inited yet', () => {
-      localStorageHelper._init = false;
+    it("should return undefined if localStorage wasn't initialized yet", () => {
+      localStorageInstance._initialized = false;
 
-      let result = localStorageHelper.get('testName');
+      let result = localStorageInstance.get('testName');
 
       expect(result).toEqual(undefined);
     });
 
-    it('should call localStorage.getItem method', () => {
-      spyOn(localStorage, 'getItem');
+    it('should call localStorage.get method', () => {
+      spyOn(localStorageInstance, 'get');
 
-      localStorageHelper.get('testName');
+      localStorageInstance.get('testName');
 
-      expect(localStorage.getItem).toHaveBeenCalled();
+      expect(localStorageInstance.get).toHaveBeenCalled();
     });
 
     it('should return correct value', () => {
       spyOn(localStorage, 'getItem').and.returnValue({ value: 'testValue' });
 
-      let result = localStorageHelper.get('testName');
+      let result = localStorageInstance.get('testName');
 
       expect(result).toEqual('testValue');
     });
 
-    it('should return undefined and call localStorageHelper.delete method if item is expired', () => {
+    it('should return undefined and call localStorage.delete method if item is expired', () => {
       spyOn(localStorage, 'getItem').and.returnValue({
         value: 'testValue',
         expires: Date.now()
       });
-      spyOn(localStorageHelper, 'delete');
+      spyOn(localStorageInstance, 'delete');
 
-      let result = localStorageHelper.get('testName');
+      let result = localStorageInstance.get('testName');
 
       expect(result).toEqual(undefined);
-      expect(localStorageHelper.delete).toHaveBeenCalled();
+      expect(localStorageInstance.delete).toHaveBeenCalled();
     });
 
     it('should return item if item has no value', () => {
-      spyOn(localStorage, 'getItem').and.returnValue({ testKey: 'testValue' });
+      spyOn(localStorageInstance, 'get').and.returnValue({ testKey: 'testValue' });
 
-      let result = localStorageHelper.get('testName');
+      let result = localStorageInstance.get('testName');
 
       expect(result).toEqual({ testKey: 'testValue' });
     });
@@ -102,99 +102,93 @@ describe('LocalStorageHelper', () => {
     it('should return undefined if item is not defined', () => {
       spyOn(localStorage, 'getItem').and.returnValue(null);
 
-      let result = localStorageHelper.get('testName');
+      let result = localStorageInstance.get('testName');
 
       expect(result).toEqual(undefined);
     });
   });
 
   describe('has method', () => {
-    it('should return true if localStorageHelper.get method returns valid result', () => {
-      spyOn(localStorageHelper, 'get').and.returnValue(42);
+    it('should return true if localStorage.get method returns valid result', () => {
+      spyOn(localStorageInstance, 'get').and.returnValue(42);
 
-      let result = localStorageHelper.has('testName');
+      let result = localStorageInstance.has('testName');
 
       expect(result).toEqual(true);
     });
 
-    it('should return false if localStorageHelper.get method returns unvalid result', () => {
-      spyOn(localStorageHelper, 'get').and.returnValue(undefined);
+    it('should return false if localStorage.get method returns unvalid result', () => {
+      spyOn(localStorageInstance, 'get').and.returnValue(undefined);
 
-      let result = localStorageHelper.has('testName');
+      let result = localStorageInstance.has('testName');
 
       expect(result).toEqual(false);
     });
   });
 
   describe('delete method', () => {
-    it('should return localStorageHelper instance if localStorageHelper wasnt inited yet', () => {
-      localStorageHelper._init = false;
+    it("should return localStorage instance if localStorage wasn't initialized yet", () => {
+      localStorageInstance._initialized = false;
 
-      let result = localStorageHelper.delete('testName');
+      let result = localStorageInstance.delete('testName');
 
-      expect(result).toEqual(localStorageHelper);
+      expect(result).toEqual(localStorageInstance);
     });
 
-    it('should return localStorageHelper instance', () => {
-      let result = localStorageHelper.delete('testName');
+    it('should return localStorage instance', () => {
+      localStorageInstance._initialized = false;
 
-      expect(result).toEqual(localStorageHelper);
+      let result = localStorageInstance.delete('testName');
+
+      expect(result).toEqual(localStorageInstance);
     });
 
-    it('should call localStorage.removeItem method', () => {
-      spyOn(localStorage, 'removeItem');
+    it('should call localStorage.delete method', () => {
+      spyOn(localStorageInstance, 'delete');
 
-      localStorageHelper.delete('testName', 'testValue');
+      localStorageInstance.delete('testName', 'testValue');
 
-      expect(localStorage.removeItem).toHaveBeenCalled();
+      expect(localStorageInstance.delete).toHaveBeenCalled();
     });
   });
 
   describe('clear method', () => {
-    it('should return localStorageHelper instance if localStorageHelper wasnt inited yet', () => {
-      localStorageHelper._init = false;
+    it("should return localStorage instance if localStorage wasn't initialized yet", () => {
+      localStorageInstance._initialized = false;
 
-      let result = localStorageHelper.clear('testName');
+      let result = localStorageInstance.clear('testName');
 
-      expect(result).toEqual(localStorageHelper);
+      expect(result).toEqual(localStorageInstance);
     });
 
-    it('should return localStorageHelper instance', () => {
-      let result = localStorageHelper.clear('testName');
+    it('should return localStorage instance', () => {
+      let result = localStorageInstance.clear('testName');
 
-      expect(result).toEqual(localStorageHelper);
+      expect(result).toEqual(localStorageInstance);
     });
 
-    it('should call localStorage.removeItem method', () => {
-      spyOn(localStorage, 'clear');
+    it('should call localStorage.delete method', () => {
+      spyOn(localStorageInstance, 'clear');
 
-      localStorageHelper.clear();
+      localStorageInstance.clear();
 
-      expect(localStorage.clear).toHaveBeenCalled();
+      expect(localStorageInstance.clear).toHaveBeenCalled();
     });
   });
 
   describe('size method', () => {
-    it('should return localStorageHelper instance if localStorageHelper wasnt inited yet', () => {
-      localStorageHelper._inited = false;
+    it("should return localStorage instance if localStorage wasn't initialized yet", () => {
+      localStorageInstance._initialized = false;
 
-      let result = localStorageHelper.size();
+      let result = localStorageInstance.size();
 
-      expect(result).toEqual(localStorageHelper);
+      expect(result).toEqual(localStorageInstance);
     });
 
-    it('should return localStorage.lenght', () => {
-      let result = localStorageHelper.size();
+    it('should return localStorage.length', () => {
+      let result = localStorageInstance.size();
 
       expect(result).toEqual(4);
-    });
-
-    it('should call localStorage.keys method', () => {
-      spyOn(localStorageHelper, 'keys');
-
-      localStorageHelper.size();
-
-      expect(localStorageHelper.keys).toHaveBeenCalled();
     });
   });
 });
