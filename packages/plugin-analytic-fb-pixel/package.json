@@ -1,0 +1,49 @@
+{
+  "name": "ima-plugin-analytic-fb-pixel",
+  "version": "0.14.2",
+  "description": "Seznam IMA.js analytic plugin for Facebook Pixel",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+    "lint": "node_modules/.bin/eslint './src/**/*.js' --fix",
+    "doc": "node_modules/.bin/gulp doc",
+    "build": "node_modules/.bin/gulp build"
+  },
+  "keywords": [
+    "IMA.js",
+    "Analytic",
+    "Facebook",
+    "Facebook Pixel",
+    "Plugin",
+    "Javascript"
+  ],
+  "author": "Vojtěch Šimko <vojtech.simko@firma.seznam.cz>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/issues"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "5.13.0",
+    "gulp": "4.0.0",
+    "ima-plugin-script-loader": "^0.14.3",
+    "jest": "^24.1.0"
+  },
+  "dependencies": {
+    "ima-plugin-analytic": "^0.14.2"
+  },
+  "peerDependencies": {
+    "ima-plugin-script-loader": "0.14.x"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  }
+}
