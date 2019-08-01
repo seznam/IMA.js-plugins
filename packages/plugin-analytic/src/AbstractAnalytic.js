@@ -5,18 +5,12 @@ import AnalyticEvents from './Events';
  */
 export default class AbstractAnalytic {
   /**
-   * @param {string} analyticName
    * @param {ima.plugin.script.loader.ScriptLoaderPlugin} scriptLoader
    * @param {ima.window.Window} window
    * @param {ima.event.Dispatcher} dispatcher
    * @param {Object<string, *>} config
    */
-  constructor(analyticName, scriptLoader, window, dispatcher, config) {
-    /**
-     * @protected
-     * @type {string}
-     */
-    this._analyticName = analyticName;
+  constructor(scriptLoader, window, dispatcher, config) {
 
     /**
      * Handler from ima-plugin-script-loader.
@@ -49,6 +43,12 @@ export default class AbstractAnalytic {
      * @type {(Object<string, *>)}
      */
     this._config = config;
+
+    /**
+     * @protected
+     * @type {string}
+     */
+    this._analyticScriptName = null;
 
     /**
      * Analytic script url.
@@ -166,7 +166,7 @@ export default class AbstractAnalytic {
   _fireLoadedEvent() {
     this._dispatcher.fire(
       AnalyticEvents.LOADED,
-      { type: this._analyticName },
+      { type: this._analyticScriptName },
       true
     );
   }

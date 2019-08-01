@@ -15,8 +15,9 @@ export default class GoogleAnalytic extends AbstractAnalytic {
    * @param {Object<string, *>} config
    */
   constructor(scriptLoader, window, dispatcher, config) {
-    super('google', scriptLoader, window, dispatcher, config);
+    super(scriptLoader, window, dispatcher, config);
 
+    this._analyticScriptName = 'google';
     this._analyticScriptUrl = '//www.google-analytics.com/analytics.js';
   }
 
