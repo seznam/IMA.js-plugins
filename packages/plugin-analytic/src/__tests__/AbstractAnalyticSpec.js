@@ -8,7 +8,7 @@ import { toMockedInstance } from 'to-mock';
 describe('AbstractAnalytic', () => {
   let abstractAnalytic = null;
 
-  const window = toMockedInstance(Window, {
+  const _windowMock = toMockedInstance(Window, {
     isClient() {
       return true;
     }
@@ -22,12 +22,12 @@ describe('AbstractAnalytic', () => {
 
   beforeEach(() => {
     abstractAnalytic = new AbstractAnalytic(
-      'dummy',
       scriptLoader,
-      window,
+      _windowMock,
       dispatcher
     );
 
+    abstractAnalytic._analyticScriptName = 'dummy';
     abstractAnalytic._analyticScriptUrl = 'http://example.net/script.js';
 
     global.$Debug = true;
@@ -44,6 +44,17 @@ describe('AbstractAnalytic', () => {
       abstractAnalytic.init();
       expect(abstractAnalytic.createGlobalDefinition).toHaveBeenCalled();
     });
+
+    it('should fire initialized event.', () => {
+      spyOn(dispatcher, 'fire').and.stub();
+
+      abstractAnalytic.init();
+      expect(dispatcher.fire).toHaveBeenCalledWith(
+        AnalyticEvents.INITIALIZED,
+        { type: 'dummy' },
+        true
+      );
+    });
   });
 
   describe('load() method', () => {
@@ -54,7 +65,7 @@ describe('AbstractAnalytic', () => {
     });
 
     it('should do nothing on server side.', done => {
-      spyOn(window, 'isClient').and.returnValue(false);
+      spyOn(_windowMock, 'isClient').and.returnValue(false);
 
       abstractAnalytic
         .load()
@@ -67,7 +78,7 @@ describe('AbstractAnalytic', () => {
         });
     });
 
-    it('should load analytic script, call configuration method and fire load event.', done => {
+    it('should load analytic script, call configuration method and fire loaded event.', done => {
       abstractAnalytic
         .load()
         .then(() => {

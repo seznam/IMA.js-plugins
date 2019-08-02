@@ -76,6 +76,7 @@ export default class AbstractAnalytic {
     if (!this.isEnabled() && this._window.isClient()) {
       const clientWindow = this._window.getWindow();
       this.createGlobalDefinition(clientWindow);
+      this._fireLifecycleEvent(AnalyticEvents.INITIALIZED);
     }
   }
 
@@ -86,7 +87,7 @@ export default class AbstractAnalytic {
     if (!this.isEnabled() && this._window.isClient()) {
       if (!this._analyticScriptUrl) {
         this._configuration();
-        this._fireLoadedEvent();
+        this._fireLifecycleEvent(AnalyticEvents.LOADED);
 
         return Promise.resolve(true);
       }
@@ -95,7 +96,7 @@ export default class AbstractAnalytic {
         .load(this._analyticScriptUrl)
         .then(() => {
           this._configuration();
-          this._fireLoadedEvent();
+          this._fireLifecycleEvent(AnalyticEvents.LOADED);
 
           return true;
         })
@@ -162,10 +163,11 @@ export default class AbstractAnalytic {
 
   /**
    * @protected
+   * @param {AnalyticEvents.INITIALIZED|AnalyticEvents.LOADED} eventType
    */
-  _fireLoadedEvent() {
+  _fireLifecycleEvent(eventType) {
     this._dispatcher.fire(
-      AnalyticEvents.LOADED,
+      eventType,
       { type: this._analyticScriptName },
       true
     );
