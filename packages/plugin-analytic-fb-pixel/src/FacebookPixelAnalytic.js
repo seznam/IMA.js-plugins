@@ -138,16 +138,16 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
 	/**
 	 * Hits a page view event (optionally with page view data).
 	 *
-	 * @param {object} [data = null] Page view data (containing path etc.).
+	 * @param {object} [viewContentData = null] Page view data (containing path etc.).
 	 * @return {boolean} TRUE when event has been hit; otherwise FALSE.
 	 */
-	hitPageView(data = null) {
+	hitPageView(viewContentData = null) {
 		try {
 			if (!this._fbq) {
 				throw new Error(
 					'Initialize the FacebookPixelHelper instance before calling hitPageView() method.'
 				);
-			} else if (typeof data !== 'object') {
+			} else if (typeof viewContentData !== 'object') {
 				throw new TypeError(
 					'Parameter data of hitPageView() method should be an object.'
 				);
@@ -162,39 +162,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
 
 		if (!hitResult) {
 			return false;
-		}
-
-		if (data) {
-			let viewContentData;
-			let sections = this._getSectionsNames(data);
-
-			try {
-				let articleId = this._getArticleId(data);
-
-				if (!articleId) {
-					// We will make ViewContent hit only when article id is availalable.
-					return true;
-				}
-
-				viewContentData = {
-					content_type: 'product',
-					content_ids: [String(articleId)],
-					value: 0.5,
-					currency: 'CZK'
-				};
-
-				if (data.path) {
-					viewContentData['content_name'] = data.path;
-				}
-				if (sections) {
-					viewContentData['category_name'] = sections;
-				}
-			} catch (error) {
-				this._processError(error);
-
-				return false;
-			}
-
+		} else if (viewContentData) {
 			return this.hit('ViewContent', viewContentData);
 		}
 
@@ -239,31 +207,6 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
 		}
 	}
 
-	_getSectionsNames(data) {
-		if (!data || !data.response || !data.response.pageState) {
-			return null;
-		}
-		let pageState = data.response.pageState;
-		if (!pageState.article || !pageState.article.sections || !pageState.sections) {
-			return null;
-		}
-
-		let allSections = pageState.sections;
-		let articleSections = pageState.article.sections;
-
-		let currentSections = allSections
-			.filter(n => {
-				return (
-					n && n.hasOwnProperty('id') && articleSections.indexOf(n.id) !== -1
-				);
-			})
-			.map(a => {
-				return a.name;
-			});
-
-		return currentSections.length ? currentSections.toArray() : null;
-	}
-
 	/**
 	 * Processes an error.
 	 *
@@ -272,34 +215,6 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
 	_processError(error) {
 		if ($Debug && error) {
 			console.error(error);
-		}
-	}
-
-	/**
-	 * Gets an article id from the page view data.
-	 *
-	 * @param {object} [data] Page view data (containing path etc.).
-	 * @return {?number} An article id or null.
-	 */
-	_getArticleId(data) {
-		if (typeof data !== 'object') {
-			throw new TypeError('A page view data should be an object.');
-		}
-
-		if (!data || !data.params || !data.params.article) {
-			return null;
-		}
-
-		let article = data.params.article;
-		if (typeof article !== 'string') {
-			throw new TypeError('An article property should be a string.');
-		}
-
-		let articleMatches = article.trim().match(/\d+$/);
-		if (articleMatches && articleMatches[0]) {
-			return parseInt(articleMatches[0]);
-		} else {
-			return null;
 		}
 	}
 }
