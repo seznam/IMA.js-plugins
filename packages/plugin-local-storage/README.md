@@ -21,11 +21,15 @@ var vendors = {
 };
 ```
 ```javascript
+// /app/config/bind.js
+
 import { LocalStorage } from 'ima-plugin-local-storage';
 
 oc.bind('LocalStorage', LocalStorage);
 ```
 ```javascript
+// /app/config/service.js
+
 const localStorage = oc.get('LocalStorage');
 
 if ($window.isClient()) {

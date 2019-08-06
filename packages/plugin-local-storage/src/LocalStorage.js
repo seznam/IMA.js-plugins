@@ -49,7 +49,7 @@ class LocalStorage extends Storage {
    */
   init(options = {}) {
     this._options = Object.assign({}, options) || {};
-    this._initialized = true;
+    this._initialized = this.isSupported();
 
     return this;
   }
@@ -121,7 +121,7 @@ class LocalStorage extends Storage {
         item.expires = expires;
       }
 
-      localStorage.setItem(key, JSON.stringify(value));
+      localStorage.setItem(key, JSON.stringify(item));
     }
 
     return this;
@@ -164,7 +164,7 @@ class LocalStorage extends Storage {
     let keys = [];
     let key;
 
-    for (var i = 0; i < localStorage.length; i++) {
+    for (let i = 0; i < localStorage.length; i++) {
       key = localStorage.key(i);
 
       if (this.get(key) !== undefined) {
