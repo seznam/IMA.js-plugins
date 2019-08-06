@@ -1,4 +1,4 @@
-import { AbstractAnalytic } from 'ima-plugin-analytic';
+import { AbstractAnalytic, defaultDependencies } from 'ima-plugin-analytic';
 
 const FB_ROOT_VARIABLE = 'fbq';
 
@@ -8,6 +8,13 @@ const FB_ROOT_VARIABLE = 'fbq';
  * @class
  */
 export default class FacebookPixelAnalytic extends AbstractAnalytic {
+
+	static get $dependencies() {
+		return [
+			...defaultDependencies,
+			'$Settings.plugin.analytic.fbPixel'
+		];
+	}
 
 	/**
 	 * Creates a Facebook Pixel Helper instance.

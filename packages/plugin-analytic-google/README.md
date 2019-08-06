@@ -51,19 +51,12 @@ prod: {
 ```
 
 ```javascript
-// /app/config/bind.js
-import { GoogleAnalytic } from 'ima-plugin-analytic-google';
-
-oc.bind('GoogleAnalytic', GoogleAnalytic);
-
-```
-
-```javascript
 // /app/config/services.js
+import { GoogleAnalytic } from 'ima-plugin-analytic-google';
 
 var $window = oc.get('$Window');
 var $dispatcher = oc.get('$Dispatcher');
-var googleAnalytic = oc.get('GoogleAnalytic');
+var googleAnalytic = oc.get(GoogleAnalytic);
 
 
 if ($window.isClient()) {

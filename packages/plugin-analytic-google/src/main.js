@@ -1,18 +1,8 @@
-import { ScriptLoaderPlugin } from 'ima-plugin-script-loader';
 import GoogleAnalytic from './GoogleAnalytic.js';
 
-let defaultDependencies = [
-  ScriptLoaderPlugin,
-  '$Window',
-  '$Dispatcher',
-  '$Settings.plugin.analytic.google'
-];
+const defaultDependencies = GoogleAnalytic.$dependencies;
 
-let $registerImaPlugin = () => {};
-
-let initBind = (ns, oc) => {
-  oc.inject(GoogleAnalytic, defaultDependencies);
-};
+const $registerImaPlugin = () => {};
 
 let initSettings = () => {
   return {
@@ -37,6 +27,5 @@ export {
   GoogleAnalytic,
   defaultDependencies,
   $registerImaPlugin,
-  initBind,
   initSettings
 };

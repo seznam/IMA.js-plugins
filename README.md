@@ -7,7 +7,7 @@
 The IMA.js plugins is multi-package repository containing most commonly used plugins on IMA.js application development stack.
 
 - [**plugin-analytic**](packages/plugin-analytic)
-- [**plugin-analytic**](packages/plugin-analytic-fb-pixel)
+- [**plugin-analytic-fb-pixel**](packages/plugin-analytic-fb-pixel)
 - [**plugin-analytic-google**](packages/plugin-analytic-google)
 - [**plugin-less-constants**](packages/plugin-less-constants)
 - [**plugin-resource-loader**](packages/plugin-resource-loader)

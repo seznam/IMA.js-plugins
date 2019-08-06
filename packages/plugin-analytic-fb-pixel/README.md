@@ -48,19 +48,12 @@ prod: {
 ```
 
 ```javascript
-// /app/config/bind.js
-import { FacebookPixelAnalytic } from 'ima-plugin-analytic-fb-pixel';
-
-oc.bind('FacebookPixelAnalytic', FacebookPixelAnalytic);
-
-```
-
-```javascript
 // /app/config/services.js
+import { FacebookPixelAnalytic } from 'ima-plugin-analytic-fb-pixel'
 
 var $window = oc.get('$Window');
 var $dispatcher = oc.get('$Dispatcher');
-var fbPixelAnalytic = oc.get('FacebookPixelAnalytic');
+var fbPixelAnalytic = oc.get(FacebookPixelAnalytic);
 
 
 if ($window.isClient()) {

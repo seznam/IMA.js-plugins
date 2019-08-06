@@ -1,20 +1,10 @@
-import { ScriptLoaderPlugin } from 'ima-plugin-script-loader';
 import FacebookPixelAnalytic from './FacebookPixelAnalytic';
 
-let defaultDependencies = [
-  ScriptLoaderPlugin,
-  '$Window',
-  '$Dispatcher',
-  '$Settings.plugin.analytic.fbPixel'
-];
+const defaultDependencies = FacebookPixelAnalytic.$dependencies;
 
-let $registerImaPlugin = () => { };
+const $registerImaPlugin = () => { };
 
-let initBind = (ns, oc) => {
-  oc.inject(FacebookPixelAnalytic, defaultDependencies);
-};
-
-let initSettings = () => {
+const initSettings = () => {
   return {
     prod: {
       plugin: {
@@ -36,6 +26,5 @@ export {
   FacebookPixelAnalytic,
   defaultDependencies,
   $registerImaPlugin,
-  initBind,
   initSettings
 };
