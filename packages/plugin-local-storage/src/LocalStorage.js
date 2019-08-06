@@ -121,7 +121,13 @@ class LocalStorage extends Storage {
         item.expires = expires;
       }
 
-      localStorage.setItem(key, JSON.stringify(item));
+      try {
+        localStorage.setItem(key, JSON.stringify(item));
+      } catch (error) {
+        if ($Debug) {
+          console.warn('Local Storage is not accessible!', error);
+        }
+      }
     }
 
     return this;
