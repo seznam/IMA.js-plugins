@@ -28,7 +28,7 @@ import { events as AnalyticEvents, AbstractAnalytic } from 'ima-plugin-analytic'
 
 ```
 
-## Implementing analytics on v1.0
+## Implementing analytics in v1.0
 
 Since version 1.0 all analytics implement deferred loading of analytic scripts. Initialization was splitted into 2 methods.
 

@@ -1,4 +1,4 @@
-import { AbstractAnalytic } from 'ima-plugin-analytic';
+import { AbstractAnalytic, defaultDependencies } from 'ima-plugin-analytic';
 
 const GA_ROOT_VARIABLE = 'ga';
 
@@ -6,6 +6,14 @@ const GA_ROOT_VARIABLE = 'ga';
  * Google analytic class
  */
 export default class GoogleAnalytic extends AbstractAnalytic {
+
+  static get $dependencies() {
+    return [
+      ...defaultDependencies,
+      '$Settings.plugin.analytic.google'
+    ];
+  }
+
   /**
    * Initializes the Google Analytics plugin.
    *

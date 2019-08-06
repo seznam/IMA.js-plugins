@@ -1,9 +1,15 @@
 import AnalyticEvents from './Events';
+import { ScriptLoaderPlugin } from 'ima-plugin-script-loader';
 
 /**
  * Abstract analytic class
  */
 export default class AbstractAnalytic {
+
+  static get $dependencies() {
+    return [ScriptLoaderPlugin, '$Window', '$Dispatcher'];
+  }
+
   /**
    * @param {ima.plugin.script.loader.ScriptLoaderPlugin} scriptLoader
    * @param {ima.window.Window} window
