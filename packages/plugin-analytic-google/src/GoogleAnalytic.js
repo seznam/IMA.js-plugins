@@ -52,6 +52,10 @@ export default class GoogleAnalytic extends AbstractAnalytic {
    *        analytic.
    */
   hit(data) {
+    if (!this.isEnabled()) {
+      return;
+    }
+
     this._window
       .getWindow()
       .ga(
@@ -72,6 +76,10 @@ export default class GoogleAnalytic extends AbstractAnalytic {
    * @param {Object<string, *>} pageData
    */
   hitPageView(pageData) {
+    if (!this.isEnabled()) {
+      return;
+    }
+    
     const clientWindow = this._window.getWindow();
 
     clientWindow.ga('set', 'page', pageData.path);
