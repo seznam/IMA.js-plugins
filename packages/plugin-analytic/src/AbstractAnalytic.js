@@ -5,7 +5,6 @@ import { ScriptLoaderPlugin } from 'ima-plugin-script-loader';
  * Abstract analytic class
  */
 export default class AbstractAnalytic {
-
   static get $dependencies() {
     return [ScriptLoaderPlugin, '$Window', '$Dispatcher'];
   }
@@ -17,7 +16,6 @@ export default class AbstractAnalytic {
    * @param {Object<string, *>} config
    */
   constructor(scriptLoader, window, dispatcher, config) {
-
     /**
      * Handler from ima-plugin-script-loader.
      *
@@ -172,10 +170,6 @@ export default class AbstractAnalytic {
    * @param {AnalyticEvents.INITIALIZED|AnalyticEvents.LOADED} eventType
    */
   _fireLifecycleEvent(eventType) {
-    this._dispatcher.fire(
-      eventType,
-      { type: this._analyticScriptName },
-      true
-    );
+    this._dispatcher.fire(eventType, { type: this._analyticScriptName }, true);
   }
 }
