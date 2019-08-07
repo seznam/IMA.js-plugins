@@ -2,7 +2,7 @@ import FacebookPixelAnalytic from './FacebookPixelAnalytic';
 
 const defaultDependencies = FacebookPixelAnalytic.$dependencies;
 
-const $registerImaPlugin = () => { };
+const $registerImaPlugin = () => {};
 
 const initSettings = () => {
   return {
