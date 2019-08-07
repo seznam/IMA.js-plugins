@@ -6,12 +6,8 @@ const GA_ROOT_VARIABLE = 'ga';
  * Google analytic class
  */
 export default class GoogleAnalytic extends AbstractAnalytic {
-
   static get $dependencies() {
-    return [
-      ...defaultDependencies,
-      '$Settings.plugin.analytic.google'
-    ];
+    return [...defaultDependencies, '$Settings.plugin.analytic.google'];
   }
 
   /**
@@ -87,7 +83,7 @@ export default class GoogleAnalytic extends AbstractAnalytic {
     if (!this.isEnabled()) {
       return;
     }
-    
+
     const clientWindow = this._window.getWindow();
 
     clientWindow.ga('set', 'page', pageData.path);
