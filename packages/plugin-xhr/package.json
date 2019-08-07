@@ -37,7 +37,7 @@
   "homepage": "https://github.com/seznam/IMA.js-plugins#readme",
   "devDependencies": {
     "eslint": "5.13.0",
-    "gulp": "4.0.0",
+    "gulp": "4.0.2",
     "ima": "^0.16.0",
     "jest": "^24.1.0"
   },
