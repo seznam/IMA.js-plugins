@@ -78,13 +78,22 @@ export default class GoogleAnalytic extends AbstractAnalytic {
    *
    * @override
    * @param {Object<string, *>} pageData
+   * @param {Object<string, string>} customDimensions
    */
-  hitPageView(pageData) {
+  hitPageView(pageData, customDimensions = null) {
     if (!this.isEnabled()) {
       return;
     }
 
     const clientWindow = this._window.getWindow();
+
+    if (customDimensions) {
+      if (typeof customDimensions === 'object') {
+        Object.entries(customDimensions).forEach(([key, value]) => {
+          clientWindow.ga('set', key, value);
+        });
+      }
+    }
 
     clientWindow.ga('set', 'page', pageData.path);
     clientWindow.ga('set', 'location', this._window.getUrl());

@@ -31,6 +31,7 @@
   "devDependencies": {
     "eslint": "5.13.0",
     "gulp": "4.0.2",
+    "ima": "^0.16.0",
     "ima-plugin-script-loader": "^0.14.3",
     "jest": "^24.1.0"
   },
