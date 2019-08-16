@@ -42,7 +42,7 @@ if ($window.isClient()) {
 
 ## Usage
 
-The localStorage class extends [ima storage interface](https://github.com/seznam/IMA.js-core/blob/master/storage/Storage.js). You can easy use common storage methods like [has](https://github.com/seznam/IMA.js-core/blob/master/storage/Storage.js#L28), [get](https://github.com/seznam/IMA.js-core/blob/master/storage/Storage.js#L40), [set](https://github.com/seznam/IMA.js-core/blob/master/storage/Storage.js#L50), [detete] (https://github.com/seznam/IMA.js-core/blob/master/storage/Storage.js#L58), [clear] (https://github.com/seznam/IMA.js-core/blob/master/storage/Storage.js#L65), etc.
+The localStorage class extends [ima storage interface](https://github.com/seznam/IMA.js-core/blob/master/storage/Storage.js). You can easy use common storage methods like [has](https://github.com/seznam/IMA.js-core/blob/master/storage/Storage.js#L28), [get](https://github.com/seznam/IMA.js-core/blob/master/storage/Storage.js#L40), [set](https://github.com/seznam/IMA.js-core/blob/master/storage/Storage.js#L50), [delete](https://github.com/seznam/IMA.js-core/blob/master/storage/Storage.js#L58), [clear](https://github.com/seznam/IMA.js-core/blob/master/storage/Storage.js#L65), etc.
 
 ```javascript
 const exist = localStorage.has('key');
