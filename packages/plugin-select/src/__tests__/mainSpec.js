@@ -15,4 +15,14 @@ describe('plugin', () => {
     expect(plugin.$registerImaPlugin).not.toEqual(null);
     expect(plugin.$registerImaPlugin).not.toEqual(undefined);
   });
+
+  it('should exported setCreatorOfStateSelector', () => {
+    expect(plugin.setCreatorOfStateSelector).not.toEqual(null);
+    expect(plugin.setCreatorOfStateSelector).not.toEqual(undefined);
+  });
+
+  it('should exported createStateSelector', () => {
+    expect(plugin.createStateSelector).not.toEqual(null);
+    expect(plugin.createStateSelector).not.toEqual(undefined);
+  });
 });

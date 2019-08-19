@@ -20,3 +20,11 @@ exports[`plugin-select: select should render component with extraProps 1`] = `
   width={90}
 />
 `;
+
+exports[`plugin-select: select should render component with extraProps and own createStateSelector 1`] = `
+<Component
+  height={60}
+  props="props"
+  width={90}
+/>
+`;

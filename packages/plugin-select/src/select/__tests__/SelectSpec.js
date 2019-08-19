@@ -2,8 +2,13 @@ import { shallow } from 'enzyme';
 import PageStateManager from 'ima/page/state/PageStateManager';
 import Dispatcher from 'ima/event/Dispatcher';
 import React from 'react';
-import { toMockedInstance } from 'to-mock';
-import select, { createStateSelector } from '../select';
+import { toMockedInstance, setGlobalMockMethod } from 'to-mock';
+import select, {
+  createStateSelector,
+  setCreatorOfStateSelector
+} from '../select';
+
+setGlobalMockMethod(jest.fn);
 
 describe('plugin-select:', () => {
   const appState = {
@@ -91,6 +96,47 @@ describe('plugin-select:', () => {
     });
 
     it('should render component with extraProps', () => {
+      let EnhancedComponent = select(...selectorMethods)(Component);
+
+      wrapper = shallow(React.createElement(EnhancedComponent, defaultProps), {
+        context: componentContext
+      });
+
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should add listener to dispatcher after mounting to DOM', () => {
+      let EnhancedComponent = select(...selectorMethods)(Component);
+
+      wrapper = shallow(React.createElement(EnhancedComponent, defaultProps), {
+        context: componentContext
+      });
+
+      wrapper.instance().componentDidMount();
+
+      expect(componentContext.$Utils.$Dispatcher.listen).toHaveBeenCalled();
+    });
+
+    it('should remove listener to dispatcher before unmounting from DOM', () => {
+      let EnhancedComponent = select(...selectorMethods)(Component);
+
+      wrapper = shallow(React.createElement(EnhancedComponent, defaultProps), {
+        context: componentContext
+      });
+
+      wrapper.instance().componentWillUnmount();
+
+      expect(componentContext.$Utils.$Dispatcher.unlisten).toHaveBeenCalled();
+    });
+
+    it('should render component with extraProps and own createStateSelector', () => {
+      setCreatorOfStateSelector((...selectors) => {
+        return (state, context) => {
+          return selectors.reduce((result, selector) => {
+            return Object.assign({}, result, selector(state, context));
+          }, {});
+        };
+      });
       let EnhancedComponent = select(...selectorMethods)(Component);
 
       wrapper = shallow(React.createElement(EnhancedComponent, defaultProps), {

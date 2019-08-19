@@ -5,6 +5,12 @@ import * as helpers from 'ima/page/componentHelpers';
 import React from 'react';
 import { createSelector } from 'reselect';
 
+let creatorOfStateSelector = createStateSelector;
+
+export function setCreatorOfStateSelector(createStateSelector) {
+  creatorOfStateSelector = createStateSelector;
+}
+
 export default function select(...selectors) {
   return Component => {
     class SelectState extends AbstractPureComponent {
@@ -15,7 +21,7 @@ export default function select(...selectors) {
       constructor(props, context) {
         super(props, context);
 
-        this.stateSelector = createStateSelector(...selectors);
+        this.stateSelector = creatorOfStateSelector(...selectors);
         this.state = this._resolveNewState();
       }
 
