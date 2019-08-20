@@ -1,4 +1,4 @@
-const babel = require('babel-core');
+const babel = require('@babel/core');
 
 const fs = require('fs');
 const gulp = require('gulp');
@@ -40,7 +40,7 @@ function getFileConfigOutput(file) {
     .replace(/export\s+(\S+)\s*/, 'exported.$1 = ');
 
   fileConfigContents = babel.transform(fileConfigContents, {
-    plugins: ['transform-es2015-modules-commonjs'],
+    plugins: ['@babel/plugin-transform-modules-commonjs'],
     retainLines: true
   }).code;
 

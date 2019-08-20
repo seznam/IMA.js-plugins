@@ -35,8 +35,8 @@
     "gulp": "^4.0.0"
   },
   "peerDependencies": {
-    "babel-core": "6.x",
-    "babel-plugin-transform-es2015-modules-commonjs": "6.x"
+    "@babel/core": "7.x",
+    "@babel/plugin-transform-modules-commonjs": "7.x"
   },
   "browserify": {
     "transform": [
