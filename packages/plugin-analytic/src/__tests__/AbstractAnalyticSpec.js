@@ -38,14 +38,15 @@ describe('AbstractAnalytic', () => {
   });
 
   describe('init() method', () => {
-    it('should call abstracted `createGlobalDefinition` method.', () => {
-      spyOn(abstractAnalytic, 'createGlobalDefinition').and.stub();
+    it('should call abstracted `_createGlobalDefinition` method.', () => {
+      spyOn(abstractAnalytic, '_createGlobalDefinition').and.stub();
 
       abstractAnalytic.init();
-      expect(abstractAnalytic.createGlobalDefinition).toHaveBeenCalled();
+      expect(abstractAnalytic._createGlobalDefinition).toHaveBeenCalled();
     });
 
     it('should fire initialized event.', () => {
+      spyOn(abstractAnalytic, '_createGlobalDefinition').and.stub();
       spyOn(dispatcher, 'fire').and.stub();
 
       abstractAnalytic.init();
@@ -94,6 +95,20 @@ describe('AbstractAnalytic', () => {
         .catch(error => {
           done(error);
         });
+    });
+
+    it('should load analytic script, call configuration method and fire loaded event only once.', async () => {
+      await abstractAnalytic.load();
+      await abstractAnalytic.load();
+
+      expect(scriptLoader.load.calls.count()).toEqual(1);
+      expect(abstractAnalytic._configuration.calls.count()).toEqual(1);
+      expect(dispatcher.fire).toHaveBeenCalledWith(
+        AnalyticEvents.LOADED,
+        { type: 'dummy' },
+        true
+      );
+      expect(dispatcher.fire.calls.count()).toEqual(1);
     });
   });
 });

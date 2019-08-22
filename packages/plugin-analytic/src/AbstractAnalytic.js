@@ -69,6 +69,14 @@ export default class AbstractAnalytic {
      * @type {boolean}
      */
     this._enable = false;
+
+    /**
+     * If flag has value true then analytic script was loaded.
+     *
+     * @protected
+     * @type {boolean}
+     */
+    this._loaded = false;
   }
 
   /**
@@ -78,8 +86,8 @@ export default class AbstractAnalytic {
    */
   init() {
     if (!this.isEnabled() && this._window.isClient()) {
-      const clientWindow = this._window.getWindow();
-      this.createGlobalDefinition(clientWindow);
+      const window = this._window.getWindow();
+      this._createGlobalDefinition(window);
       this._fireLifecycleEvent(AnalyticEvents.INITIALIZED);
     }
   }
@@ -88,10 +96,13 @@ export default class AbstractAnalytic {
    * Load analytic script, configure analytic and execute deferred hits.
    */
   load() {
-    if (!this.isEnabled() && this._window.isClient()) {
+    if (this._window.isClient()) {
+      if (this._loaded) {
+        return Promise.resolve(true);
+      }
+
       if (!this._analyticScriptUrl) {
-        this._configuration();
-        this._fireLifecycleEvent(AnalyticEvents.LOADED);
+        this._afterLoadCallback();
 
         return Promise.resolve(true);
       }
@@ -99,8 +110,7 @@ export default class AbstractAnalytic {
       return this._scriptLoader
         .load(this._analyticScriptUrl)
         .then(() => {
-          this._configuration();
-          this._fireLifecycleEvent(AnalyticEvents.LOADED);
+          this._afterLoadCallback();
 
           return true;
         })
@@ -111,15 +121,6 @@ export default class AbstractAnalytic {
 
     return Promise.resolve(false);
   }
-
-  /**
-   * Creates global definition for analytics script.
-   *
-   * @abstract
-   * @param {window} window Global window object on client
-   * @returns {void}
-   */
-  createGlobalDefinition() {}
 
   /**
    * Returns true if analytic is enabled.
@@ -154,7 +155,7 @@ export default class AbstractAnalytic {
   }
 
   /**
-   * Configuration analytic
+   * Configuration analytic. The anayltic must be enabled after configuration.
    *
    * @abstract
    * @protected
@@ -163,6 +164,28 @@ export default class AbstractAnalytic {
     throw new Error(
       'The _configuration() method is abstract and must be overridden.'
     );
+  }
+
+  /**
+   * Creates global definition for analytics script.
+   *
+   * @abstract
+   * @protected
+   * @param {Window} window
+   */
+  _createGlobalDefinition() {
+    throw new Error(
+      'The _createGlobalDefinition() method is abstract and must be overridden.'
+    );
+  }
+
+  /**
+   * @protected
+   */
+  _afterLoadCallback() {
+    this._loaded = true;
+    this._configuration();
+    this._fireLifecycleEvent(AnalyticEvents.LOADED);
   }
 
   /**
