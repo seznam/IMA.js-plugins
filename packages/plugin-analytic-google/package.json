@@ -36,7 +36,7 @@
     "jest": "^24.1.0"
   },
   "dependencies": {
-    "ima-plugin-analytic": "^1.0.0"
+    "ima-plugin-analytic": "^2.0.0"
   },
   "peerDependencies": {
     "ima-plugin-script-loader": "0.14.x"

@@ -26,20 +26,6 @@ export default class GoogleAnalytic extends AbstractAnalytic {
   }
 
   /**
-   * @inheritdoc
-   */
-  createGlobalDefinition(window) {
-    window[GA_ROOT_VARIABLE] =
-      window[GA_ROOT_VARIABLE] ||
-      function() {
-        window[GA_ROOT_VARIABLE].q = window[GA_ROOT_VARIABLE].q || [];
-        window[GA_ROOT_VARIABLE].q.push(arguments);
-      };
-
-    window[GA_ROOT_VARIABLE].l = 1 * new Date();
-  }
-
-  /**
    * Hit event to analytic with defined data. If analytic is not configured then
    * defer hit to storage.
    *
@@ -102,15 +88,17 @@ export default class GoogleAnalytic extends AbstractAnalytic {
   }
 
   /**
-   * Configuration Google analytic
-   *
    * @override
-   * @protected
+   * @inheritdoc
    */
   _configuration() {
     const clientWindow = this._window.getWindow();
 
-    if (!clientWindow.ga || typeof this._window.getWindow().ga !== 'function') {
+    if (
+      this.isEnabled() ||
+      !clientWindow.ga ||
+      typeof this._window.getWindow().ga !== 'function'
+    ) {
       return;
     }
 
@@ -121,5 +109,23 @@ export default class GoogleAnalytic extends AbstractAnalytic {
       'auto',
       this._config.settings
     );
+  }
+
+  /**
+   * @override
+   * @inheritdoc
+   */
+  _createGlobalDefinition() {
+    let window = this._window.getWindow();
+    window[GA_ROOT_VARIABLE] =
+      window[GA_ROOT_VARIABLE] ||
+      function() {
+        window[GA_ROOT_VARIABLE].q = window[GA_ROOT_VARIABLE].q || [];
+        window[GA_ROOT_VARIABLE].q.push(arguments);
+      };
+
+    window[GA_ROOT_VARIABLE].l = 1 * new Date();
+
+    this._configuration();
   }
 }
