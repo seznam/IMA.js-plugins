@@ -41,54 +41,6 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
   }
 
   /**
-   * @inheritdoc
-   */
-  createGlobalDefinition(window) {
-    if (window[FB_ROOT_VARIABLE]) {
-      return;
-    }
-
-    const fbAnalytic = (window[FB_ROOT_VARIABLE] = function() {
-      fbAnalytic.callMethod
-        ? fbAnalytic.callMethod.apply(fbAnalytic, arguments)
-        : fbAnalytic.queue.push(arguments);
-    });
-
-    if (!window['_' + FB_ROOT_VARIABLE]) {
-      window['_' + FB_ROOT_VARIABLE] = fbAnalytic;
-    }
-
-    fbAnalytic.push = fbAnalytic;
-    fbAnalytic.loaded = false;
-    fbAnalytic.version = '2.0';
-    fbAnalytic.queue = [];
-
-    this._fbq = fbAnalytic;
-  }
-
-  /**
-   * Configuration Google analytic
-   *
-   * @override
-   * @protected
-   */
-  _configuration() {
-    const clientWindow = this._window.getWindow();
-
-    if (
-      !clientWindow[FB_ROOT_VARIABLE] ||
-      typeof clientWindow[FB_ROOT_VARIABLE] !== 'function'
-    ) {
-      return;
-    }
-
-    this._enable = true;
-
-    this._fbq = window[FB_ROOT_VARIABLE];
-    this._fbq('init', this.getId());
-  }
-
-  /**
    * Gets the identifier for Facebook Pixel.
    *
    * @return {string} The identifier for Facebook Pixel.
@@ -109,6 +61,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
   /**
    * Hits an event.
    *
+   * @override
    * @param {string} eventName Name of the event.
    * @param {object} [eventData=null] Data attached to the event.
    * @return {boolean} TRUE when event has been hit; otherwise FALSE.
@@ -146,6 +99,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
   /**
    * Hits a page view event (optionally with page view data).
    *
+   * @override
    * @param {object} [viewContentData = null] Page view data (containing path etc.).
    * @return {boolean} TRUE when event has been hit; otherwise FALSE.
    */
@@ -213,6 +167,56 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
     } else {
       return this.hit('Search', eventData);
     }
+  }
+
+  /**
+   * @override
+   * @inheritdoc
+   */
+  _configuration() {
+    const clientWindow = this._window.getWindow();
+
+    if (
+      this.isEnabled() ||
+      !clientWindow[FB_ROOT_VARIABLE] ||
+      typeof clientWindow[FB_ROOT_VARIABLE] !== 'function'
+    ) {
+      return;
+    }
+
+    this._enable = true;
+
+    this._fbq = window[FB_ROOT_VARIABLE];
+    this._fbq('init', this.getId());
+  }
+
+  /**
+   * @override
+   * @inheritdoc
+   */
+  _createGlobalDefinition(window) {
+    if (window[FB_ROOT_VARIABLE]) {
+      return;
+    }
+
+    const fbAnalytic = (window[FB_ROOT_VARIABLE] = function() {
+      fbAnalytic.callMethod
+        ? fbAnalytic.callMethod.apply(fbAnalytic, arguments)
+        : fbAnalytic.queue.push(arguments);
+    });
+
+    if (!window['_' + FB_ROOT_VARIABLE]) {
+      window['_' + FB_ROOT_VARIABLE] = fbAnalytic;
+    }
+
+    fbAnalytic.push = fbAnalytic;
+    fbAnalytic.loaded = false;
+    fbAnalytic.version = '2.0';
+    fbAnalytic.queue = [];
+
+    this._fbq = fbAnalytic;
+
+    this._configuration();
   }
 
   /**
