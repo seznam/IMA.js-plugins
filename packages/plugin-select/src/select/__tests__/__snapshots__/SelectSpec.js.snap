@@ -28,3 +28,11 @@ exports[`plugin-select: select should render component with extraProps and own c
   width={90}
 />
 `;
+
+exports[`plugin-select: select should render component with extraProps and own static methods 1`] = `
+<Component
+  height={60}
+  props="props"
+  width={90}
+/>
+`;

@@ -1,4 +1,4 @@
-import hoistNonReactStatic from 'hoist-non-react-statics';
+import hoistNonReactStaticMethod from 'hoist-non-react-statics';
 import AbstractPureComponent from 'ima/page/AbstractPureComponent';
 import Events from 'ima/page/state/Events';
 import * as helpers from 'ima/page/componentHelpers';
@@ -6,9 +6,16 @@ import React from 'react';
 import { createSelector } from 'reselect';
 
 let creatorOfStateSelector = createStateSelector;
+let hoistStaticMethod = hoistNonReactStaticMethod;
 
 export function setCreatorOfStateSelector(createStateSelector) {
   creatorOfStateSelector = createStateSelector;
+}
+
+export const hoistNonReactStatic = hoistNonReactStaticMethod;
+
+export function setHoistStaticMethod(method) {
+  hoistStaticMethod = method;
 }
 
 export default function select(...selectors) {
@@ -57,7 +64,7 @@ export default function select(...selectors) {
       }
     }
 
-    hoistNonReactStatic(SelectState, Component);
+    hoistStaticMethod(SelectState, Component);
 
     return SelectState;
   };

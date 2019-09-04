@@ -1,6 +1,8 @@
 import select, {
+  createStateSelector,
+  hoistNonReactStatic,
   setCreatorOfStateSelector,
-  createStateSelector
+  setHoistStaticMethod
 } from './select/select';
 
 function $registerImaPlugin() {}
@@ -9,7 +11,9 @@ export default select;
 
 export {
   $registerImaPlugin,
+  createStateSelector,
+  hoistNonReactStatic,
   select,
   setCreatorOfStateSelector,
-  createStateSelector
+  setHoistStaticMethod
 };

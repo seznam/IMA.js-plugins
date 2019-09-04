@@ -5,7 +5,9 @@ import React from 'react';
 import { toMockedInstance, setGlobalMockMethod } from 'to-mock';
 import select, {
   createStateSelector,
-  setCreatorOfStateSelector
+  setCreatorOfStateSelector,
+  setHoistStaticMethod,
+  hoistNonReactStatic
 } from '../select';
 
 setGlobalMockMethod(jest.fn);
@@ -82,6 +84,10 @@ describe('plugin-select:', () => {
     };
 
     class Component extends React.PureComponent {
+      static defaultProps() {
+        return defaultProps;
+      }
+
       render() {
         return <h1>text</h1>;
       }
@@ -143,6 +149,31 @@ describe('plugin-select:', () => {
         context: componentContext
       });
 
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render component with extraProps and own static methods', () => {
+      setHoistStaticMethod((TargetComponent, Original) => {
+        const keys = Object.getOwnPropertyNames(Original);
+
+        keys.forEach(key => {
+          if (key === 'defaultProps') {
+            const descriptor = Object.getOwnPropertyDescriptor(Original, key);
+            try {
+              Object.defineProperty(TargetComponent, key, descriptor);
+            } catch (e) {} // eslint-disable-line no-empty
+          }
+        });
+
+        return hoistNonReactStatic(TargetComponent, Original);
+      });
+      let EnhancedComponent = select(...selectorMethods)(Component);
+
+      wrapper = shallow(React.createElement(EnhancedComponent, defaultProps), {
+        context: componentContext
+      });
+
+      expect(typeof EnhancedComponent.defaultProps === 'function').toBeTruthy();
       expect(wrapper).toMatchSnapshot();
     });
   });

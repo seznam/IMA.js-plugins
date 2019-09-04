@@ -35,10 +35,10 @@ import Dispatcher from 'ima/event/Dispatcher';
 
 //COMPONENT Utils
 oc.constant('$Utils', {
-	...
+  ...
     $Dispatcher: oc.get(Dispatcher),
-	$PageStateManager: oc.get(PageStateManager)
-	...
+    $PageStateManager: oc.get(PageStateManager)
+  ...
 });
 
 /*
@@ -82,6 +82,14 @@ const emptySelector = (state, context) => {
 export default select(titleSelect, emptySelector)(Component);
 
 ```
+
+## API
+
+You can use two global methods for overriding default behaviour of select plugin.
+
+The first one is setCreatorOfStateSelector where you can redefine your own selector from module [reselect](https://www.npmjs.com/package/reselect) like [example](https://github.com/seznam/IMA.js-plugins/blob/master/packages/plugin-select/src/select/__tests__/SelectSpec.js#L138).
+
+The second one is setHoistStaticMethod where you can override [hoist-non-react-statics](https://www.npmjs.com/package/hoist-non-react-statics) module like [example](https://github.com/seznam/IMA.js-plugins/blob/master/packages/plugin-select/src/select/__tests__/SelectSpec.js#L155).
 
 ## IMA.js
 

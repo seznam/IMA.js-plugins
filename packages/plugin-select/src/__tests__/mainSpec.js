@@ -25,4 +25,14 @@ describe('plugin', () => {
     expect(plugin.createStateSelector).not.toEqual(null);
     expect(plugin.createStateSelector).not.toEqual(undefined);
   });
+
+  it('should exported setHoistStaticMethod', () => {
+    expect(plugin.setHoistStaticMethod).not.toEqual(null);
+    expect(plugin.setHoistStaticMethod).not.toEqual(undefined);
+  });
+
+  it('should exported hoistNonReactStatic', () => {
+    expect(plugin.hoistNonReactStatic).not.toEqual(null);
+    expect(plugin.hoistNonReactStatic).not.toEqual(undefined);
+  });
 });
