@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Main can export all necessary properties 1`] = `
+Object {
+  "clearImaApp": [Function],
+  "initImaApp": [Function],
+  "setConfig": [Function],
+}
+`;

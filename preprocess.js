@@ -5,7 +5,7 @@ module.exports = {
 		if (filename.endsWith('.js') || filename.endsWith('.jsx')) {
 			return babel.transform(src, {
 				filename,
-				presets: ['@babel/preset-react'],
+				presets: ['@babel/preset-react', 'babel-preset-jest'],
 				plugins: ['@babel/plugin-transform-modules-commonjs'],
 				retainLines: true
 			}).code;
