@@ -17,7 +17,7 @@ function requireFromProject(projectPath) {
 function loadFiles(patterns) {
   return globby.sync(patterns).map(file => {
     try {
-      return require(file);
+      return require(path.resolve(file));
     } catch (e) {
       console.error(
         `Tried to load file at path "${file}", but recieved following error.`

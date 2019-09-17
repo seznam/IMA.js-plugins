@@ -20,6 +20,7 @@ describe('Helpers', () => {
   it('can load files', () => {
     const patterns = 'pattern';
     globby.sync = jest.fn().mockReturnValue(['loadFilesRequire.js']);
+    path.resolve = jest.fn().mockReturnValue('loadFilesRequire.js');
 
     let results = loadFiles(patterns);
 
