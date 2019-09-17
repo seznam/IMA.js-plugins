@@ -28,7 +28,7 @@
     "url": "https://github.com/seznam/IMA.js-plugins.git"
   },
   "publishConfig": {
-    "registry": "http://npm.cns-dev.dev.dszn.cz/"
+    "registry": "http://registry.npmjs.org/"
   },
   "bugs": {
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
