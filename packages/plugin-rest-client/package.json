@@ -34,7 +34,7 @@
   "devDependencies": {
     "eslint": "4.18.2",
     "gulp": "4.0.2",
-    "jest": "^22.1.4"
+    "jest": "^24.9.0"
   },
   "engines": {
     "node": ">=6",
