@@ -1,0 +1,62 @@
+{
+  "name": "ima-plugin-testing-integration",
+  "version": "0.0.1",
+  "description": "IMA.js plugin for integration testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+    "lint": "node_modules/.bin/eslint './src/**/*.js' --fix",
+    "doc": "node_modules/.bin/gulp doc",
+    "build": "node_modules/.bin/gulp build"
+  },
+  "keywords": [
+    "IMA.js",
+    "Testing",
+    "Integration",
+    "Module",
+    "Javascript"
+  ],
+  "author": "Filip Satek <filip.satek@firma.seznam.cz>",
+  "contributors": [
+    {
+      "name": "Miroslav Jancarik",
+      "email": "miroslav.jancarik@firma.seznam.cz"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/issues"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "6.4.0",
+    "gulp": "4.0.2",
+    "ima": "0.16.10",
+    "jest": "24.9.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  },
+  "engines": {
+    "node": ">=6",
+    "npm": ">=4 <6"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "dependencies": {
+    "globby": "^10.0.1",
+    "ima-helpers": "^0.16.1",
+    "jsdom": "^15.1.1"
+  },
+  "peerDependencies": {
+    "ima": "*"
+  }
+}

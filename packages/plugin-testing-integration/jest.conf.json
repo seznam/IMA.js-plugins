@@ -3,22 +3,19 @@
 	"verbose": true,
 	"coverageThreshold": {
 		"global": {
-			"functions": 70,
-			"lines": 70,
-			"statements": 57
+			"functions": 8,
+			"lines": 20,
+			"statements": 20
 		}
 	},
-	"testEnvironment": "jsdom",
-	"setupFiles": [
-		"<rootDir>/jestSetupFile.js"
-	],
+	"testEnvironment": "node",
+	"setupFiles": [],
 	"modulePaths": [
 		"<rootDir>/"
 	],
 	"transform": {
 		"\\.jsx?": "<rootDir>/../../preprocess.js"
 	},
-	"snapshotSerializers": ["<rootDir>/node_modules/enzyme-to-json/serializer"],
 	"testPathIgnorePatterns": ["__snapshots__", "/node_modules/"],
 	"testRegex": "(/src(/?[^/]*){0,5}/__tests__/).*Spec\\.jsx?$"
 }
