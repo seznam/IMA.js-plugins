@@ -5,7 +5,7 @@ let configuration = {
   protocol: 'https:',
   host: 'imajs.io',
   environment: 'test',
-  prebootScript: () => {}
+  prebootScript: () => Promise.resolve()
 };
 
 /**

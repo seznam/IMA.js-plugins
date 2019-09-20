@@ -21,9 +21,9 @@ function clearImaApp(app) {
  * Initializes IMA application with our production-like configuration
  * Reinitializes jsdom with configuration, that will work with our application
  * @param {Object} [bootConfigMethods] Object, that can contain methods for ima boot configuration
- * @returns {Object}
+ * @returns {Promise<Object>}
  */
-function initImaApp(bootConfigMethods = {}) {
+async function initImaApp(bootConfigMethods = {}) {
   const config = getConfig();
   const { js, vendors } = requireFromProject(config.appBuildPath);
   const defaultBootConfigMethods = requireFromProject(
@@ -74,7 +74,6 @@ function initImaApp(bootConfigMethods = {}) {
     global.window.$Debug = global.$Debug;
     global.window.scrollTo = () => {};
     global.window.fetch = require('node-fetch');
-    global.window.fbq = () => {};
     global.sessionStorage = {
       setItem: () => {},
       removeItem: () => {}
@@ -124,7 +123,7 @@ function initImaApp(bootConfigMethods = {}) {
   _initVendorLinker();
   _initJSDom();
 
-  config.prebootScript();
+  await config.prebootScript();
 
   let app = ima.createImaApp();
   let bootConfig = ima.getClientBootConfig({
@@ -133,7 +132,7 @@ function initImaApp(bootConfigMethods = {}) {
     initRoutes: _getBootConfigForMethod('initRoutes'),
     initSettings: _getBootConfigForMethod('initSettings')
   });
-  ima.onLoad();
+  await ima.onLoad();
   ima.bootClientApp(app, bootConfig);
 
   return app;
