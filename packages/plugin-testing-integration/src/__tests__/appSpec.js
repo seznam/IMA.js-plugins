@@ -10,7 +10,7 @@ import * as configuration from '../configuration';
 import { initImaApp, clearImaApp } from '../app';
 
 describe('Integration', () => {
-  it('can init ima app', () => {
+  it('can init ima app', async () => {
     const config = {
       appBuildPath: 'appBuildPath',
       appMainPath: 'appMainPath',
@@ -18,7 +18,7 @@ describe('Integration', () => {
       protocol: 'http:',
       host: 'www.example.com',
       environment: 'environment',
-      prebootScript: jest.fn()
+      prebootScript: jest.fn().mockReturnValue(Promise.resolve())
     };
     let initBindApp = jest.fn();
     let initServicesApp = jest.fn();
@@ -47,10 +47,10 @@ describe('Integration', () => {
 
       return 'bootConfig';
     });
-    ima.onLoad = jest.fn();
+    ima.onLoad = jest.fn().mockReturnValue(Promise.resolve());
     ima.bootClientApp = jest.fn();
 
-    let app = initImaApp();
+    let app = await initImaApp();
 
     expect(app).toEqual('app');
     expect(helpers.loadFiles).toHaveBeenCalledWith(['js']);
