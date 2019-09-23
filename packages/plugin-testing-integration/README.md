@@ -1,4 +1,4 @@
-# ima-plugin-testing-integration
+# @ima/plugin-testing-integration
 
 This is a plugin for integration testing of any IMA.js based application.
 
@@ -6,7 +6,7 @@ This is a plugin for integration testing of any IMA.js based application.
 
 ```javascript
 
-npm install ima-plugin-testing-integration --save-dev
+npm install @ima/plugin-testing-integration --save-dev
 
 ```
 
@@ -63,7 +63,7 @@ Most test runners have option to load the `ima/test.js` file as part of their se
 Depending on your application setup, you may need to update some default configuration values. You can do that by running following code before the tests run or add it as part of your test runner setup as mentioned above.
 
 ```javascript
-import { setConfig } from 'ima-plugin-testing-integration';
+import { setConfig } from '@ima/plugin-testing-integration';
 
 setConfig({
   host: 'imajs.io'
@@ -128,7 +128,7 @@ This script is executed right before the IMA.js boot config is initialized, but 
 This is Jest example of simple integration test, that loads the IMA.js app homepage and mocks all http get requests.
 
 ```javascript
-import { initImaApp, clearImaApp } from 'ima-plugin-testing-integration';
+import { initImaApp, clearImaApp } from '@ima/plugin-testing-integration';
 
 describe('Integration tests', () => {
 	const response = {
