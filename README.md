@@ -10,6 +10,7 @@ The IMA.js plugins is multi-package repository containing most commonly used plu
 - [**plugin-analytic-fb-pixel**](packages/plugin-analytic-fb-pixel)
 - [**plugin-analytic-google**](packages/plugin-analytic-google)
 - [**plugin-less-constants**](packages/plugin-less-constants)
+- [**plugin-logger**](packages/plugin-logger)
 - [**plugin-resource-loader**](packages/plugin-resource-loader)
 - [**plugin-rest-client**](packages/plugin-rest-client)
 - [**plugin-script-loader**](packages/plugin-script-loader)
