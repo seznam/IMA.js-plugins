@@ -1,13 +1,12 @@
-# ima-plugin-analytic-fb-pixel
+# ima-plugin-logger
 
-This is the Facebook Pixel analytic plugin for the IMA.js application. You can find the IMA.js skeleton application at <https://github.com/seznam/IMA.js-skeleton>
-or follow link <https://imajs.io>.
+A logging tool for [IMA.js](https://imajs.io/) framework.
 
 ## Installation
 
 ```javascript
 
-npm install ima-plugin-analytic-fb-pixel ima-plugin-script-loader --save
+npm install ima-plugin-logger --save
 
 ```
 
@@ -15,83 +14,47 @@ npm install ima-plugin-analytic-fb-pixel ima-plugin-script-loader --save
 // /app/build.js
 
 var vendors = {
-	common: [
-		'ima-plugin-analytic-fb-pixel',
-		'ima-plugin-analytic',
-		'ima-plugin-script-loader'
-	]
+    common: [
+		'ima-plugin-logger'
+    ]
 };
 
 /*
-Now is FB Pixel analytic plugin available from:
-
-import { FacebookPixelAnalytic, defaultDependencies } from 'ima-plugin-analytic-fb-pixel';
+import {
+	...
+} from 'ima-plugin-logger';
 */
-
 ```
 
-```javascript
-// /app/config/settings.js
+## Functions
 
-prod: {
-	$Http: { ... },
-	$Cache: { ... },
-	$Page:{ ... },
-	plugin : {
-		analytic: {
-			fbPixel: {
-				id: 'XXX'
-			}
-		}
-	}
-}
-```
+- `configureLogger(option)`: It configures the plugin. The parameter `options`
+  must be an `object` with some plugin's [options](#options) as properties.
+- `beSilent()`: It sets [`silentMode` option](#silentmode) to `true`.
+- `isSilent()`: Returns [`silentMode` option](#silentmode)'s value.
+- `debug(message)`: Outputs a debug message.
+- `error(message)`: Outputs an error message.
+- `info(message)`: Outputs an informational message.
+- `log(message)`: Outputs a message.
+- `warn(message)`: Outputs a warning message.
+- `debugIf(message)`: Outputs a debug message if a condition is met.
+- `errorIf(message)`: Outputs an error message if a condition is met.
+- `infoIf(message)`: Outputs an informational message if a condition is met.
+- `logIf(message)`: Outputs a message if a condition is met.
+- `warnIf(message)`: Outputs a warning message if a condition is met.
+- `throwIf(condition, expression)`: Throws a user-defined exception if a
+  condition is met.
+- `rejectIf(condition, reason)`: Returns a rejected promise if a condition is
+  met.
 
-```javascript
-// /app/config/services.js
-import { FacebookPixelAnalytic } from 'ima-plugin-analytic-fb-pixel'
+The vast majority of these functions can be automatically removed from 
+production bundles if you use [`babel-plugin-ima-logger` plugin](https://github.com/seznam/IMA.js-plugins/tree/master/packages/babel-plugin-ima-logger).
 
-var $window = oc.get('$Window');
-var $dispatcher = oc.get('$Dispatcher');
-var fbPixelAnalytic = oc.get(FacebookPixelAnalytic);
+## Options
 
+### `silentMode`
 
-if ($window.isClient()) {
+`boolean`, defaults to `false`
 
-	// initialize analytic
-	fbPixelAnalytic.init();
-
-	//set hit page view to analytic
-	$dispatcher.listen(ns.ima.router.Events.AFTER_HANDLE_ROUTE, (pageData) => {
-
-		if (pageData &&
-				pageData.response &&
-				(pageData.response.status >= 200 &&
-				pageData.response.status < 300)) {
-
-			fbPixelAnalytic.hitPageView(pageData);
-		}
-	});
-}
-```
-
-## Version 1.0 notice
-
-Since version 1.0 you need to additionally call a `load()` method. The later you call this method the better.
-If you don't have a specific point in your app where you know that the page has finished loading you can call the `load()` method immediatelly after `init()` method
-
-```javascript
-if ($window.isClient()) {
-
-	// insert analytic script to page and initialization analytic
-	fbPixelAnalytic.init();
-	fbPixelAnalytic.load();
-
-	// ...
-```
-
-## Dependencies
-If you are looking more details, you should
-follow this links:
-[https://github.com/seznam/IMA.js-plugin-analytic](https://github.com/seznam/IMA.js-plugin-analytic),
-[https://github.com/seznam/IMA.js-plugin-script-loader](https://github.com/seznam/IMA.js-plugin-script-loader)
+If it's set to `false`, the plugin outputs messages. If it's set to `true`,
+the plugin doesn't output anything.

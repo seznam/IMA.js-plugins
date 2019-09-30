@@ -1,0 +1,613 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`main getPluginObject() should keep error() and isSilent() in the import statement 1`] = `
+"import { error, isSilent } from 'ima-plugin-logger';
+foo();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _imaPluginLogger.debug)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _imaPluginLogger.debug)('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _imaPluginLogger.debugIf)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _imaPluginLogger.debugIf)(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _imaPluginLogger.errorIf)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _imaPluginLogger.errorIf)(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _imaPluginLogger.info)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _imaPluginLogger.info)('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _imaPluginLogger.infoIf)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _imaPluginLogger.infoIf)(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _imaPluginLogger.log)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _imaPluginLogger.log)('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _imaPluginLogger.logIf)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _imaPluginLogger.logIf)(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _imaPluginLogger.rejectIf)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _imaPluginLogger.rejectIf)(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _imaPluginLogger.throwIf)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _imaPluginLogger.throwIf)(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _imaPluginLogger.warn)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _imaPluginLogger.warn)('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _imaPluginLogger.warnIf)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _imaPluginLogger.warnIf)(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _pluginLogger.debug)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _pluginLogger.debug)('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _pluginLogger.debugIf)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _pluginLogger.debugIf)(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _pluginLogger.errorIf)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _pluginLogger.errorIf)(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _pluginLogger.info)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _pluginLogger.info)('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _pluginLogger.infoIf)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _pluginLogger.infoIf)(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _pluginLogger.log)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _pluginLogger.log)('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _pluginLogger.logIf)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _pluginLogger.logIf)(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _pluginLogger.rejectIf)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _pluginLogger.rejectIf)(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _pluginLogger.throwIf)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _pluginLogger.throwIf)(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _pluginLogger.warn)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _pluginLogger.warn)('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove (0, _pluginLogger.warnIf)() because removing is disabled by plugin options 1`] = `
+"foo();
+(0, _pluginLogger.warnIf)(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove debug() because removing is disabled by plugin options 1`] = `
+"foo();
+debug('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove debugIf() because removing is disabled by plugin options 1`] = `
+"foo();
+debugIf(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove error() 1`] = `
+"foo();
+error('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove errorIf() because removing is disabled by plugin options 1`] = `
+"foo();
+errorIf(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove info() because removing is disabled by plugin options 1`] = `
+"foo();
+info('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove infoIf() because removing is disabled by plugin options 1`] = `
+"foo();
+infoIf(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove instance.debug() 1`] = `
+"foo();
+instance.debug('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove instance.debugIf() 1`] = `
+"foo();
+instance.debugIf(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove instance.error() 1`] = `
+"foo();
+instance.error('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove instance.errorIf() 1`] = `
+"foo();
+instance.errorIf(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove instance.info() 1`] = `
+"foo();
+instance.info('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove instance.infoIf() 1`] = `
+"foo();
+instance.infoIf(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove instance.log() 1`] = `
+"foo();
+instance.log('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove instance.logIf() 1`] = `
+"foo();
+instance.logIf(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove instance.rejectIf() 1`] = `
+"foo();
+instance.rejectIf(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove instance.throwIf() 1`] = `
+"foo();
+instance.throwIf(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove instance.warn() 1`] = `
+"foo();
+instance.warn('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove instance.warnIf() 1`] = `
+"foo();
+instance.warnIf(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove log() because removing is disabled by plugin options 1`] = `
+"foo();
+log('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove logIf() because removing is disabled by plugin options 1`] = `
+"foo();
+logIf(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove rejectIf() because removing is disabled by plugin options 1`] = `
+"foo();
+rejectIf(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove the import statement because removing is disabled by plugin options 1`] = `
+"import { throwIf, errorIf } from 'ima-plugin-logger';
+foo();"
+`;
+
+exports[`main getPluginObject() should not remove the import statement for an unknown module 1`] = `
+"import { throwIf, errorIf } from 'bar';
+foo();"
+`;
+
+exports[`main getPluginObject() should not remove throwIf() because removing is disabled by plugin options 1`] = `
+"foo();
+throwIf(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove warn() because removing is disabled by plugin options 1`] = `
+"foo();
+warn('Argument arg must be a string.');
+bar();"
+`;
+
+exports[`main getPluginObject() should not remove warnIf() because removing is disabled by plugin options 1`] = `
+"foo();
+warnIf(!arg || typeof arg !== 'string', new TypeError('Argument arg must be a string.'));
+bar();"
+`;
+
+exports[`main getPluginObject() should remove (0, _imaPluginLogger.debug)() 1`] = `
+"foo();
+bar();"
+`;
+
+exports[`main getPluginObject() should remove (0, _imaPluginLogger.info)() 1`] = `
+"foo();
+bar();"
+`;
+
+exports[`main getPluginObject() should remove (0, _imaPluginLogger.log)() 1`] = `
+"foo();
+bar();"
+`;
+
+exports[`main getPluginObject() should remove (0, _imaPluginLogger.throwIf)() 1`] = `
+"foo();
+bar();"
+`;
+
+exports[`main getPluginObject() should remove (0, _imaPluginLogger.warn)() 1`] = `
+"foo();
+bar();"
+`;
+
+exports[`main getPluginObject() should remove (0, _pluginLogger.debug)() 1`] = `
+"foo();
+bar();"
+`;
+
+exports[`main getPluginObject() should remove (0, _pluginLogger.info)() 1`] = `
+"foo();
+bar();"
+`;
+
+exports[`main getPluginObject() should remove (0, _pluginLogger.log)() 1`] = `
+"foo();
+bar();"
+`;
+
+exports[`main getPluginObject() should remove (0, _pluginLogger.warn)() 1`] = `
+"foo();
+bar();"
+`;
+
+exports[`main getPluginObject() should remove debug() 1`] = `
+"foo();
+bar();"
+`;
+
+exports[`main getPluginObject() should remove info() 1`] = `
+"foo();
+bar();"
+`;
+
+exports[`main getPluginObject() should remove log() 1`] = `
+"foo();
+bar();"
+`;
+
+exports[`main getPluginObject() should remove the whole import statement 1`] = `"foo();"`;
+
+exports[`main getPluginObject() should remove throwIf() 1`] = `
+"foo();
+bar();"
+`;
+
+exports[`main getPluginObject() should remove warn() 1`] = `
+"foo();
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _imaPluginLogger.debugIf)() with 0 1`] = `
+"foo();
+0;
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _imaPluginLogger.debugIf)() with 0 inside if 1`] = `
+"foo();
+
+if (0) {// do something
+}
+
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _imaPluginLogger.errorIf)() with 0 1`] = `
+"foo();
+0;
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _imaPluginLogger.errorIf)() with 0 inside if 1`] = `
+"foo();
+
+if (0) {// do something
+}
+
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _imaPluginLogger.infoIf)() with 0 1`] = `
+"foo();
+0;
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _imaPluginLogger.infoIf)() with 0 inside if 1`] = `
+"foo();
+
+if (0) {// do something
+}
+
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _imaPluginLogger.logIf)() with 0 1`] = `
+"foo();
+0;
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _imaPluginLogger.logIf)() with 0 inside if 1`] = `
+"foo();
+
+if (0) {// do something
+}
+
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _imaPluginLogger.rejectIf)() with 0 inside if 1`] = `
+"function returingPromise() {
+  let rejected;
+
+  if (rejected = 0) {
+    return rejected;
+  }
+
+  return asyncBar();
+}"
+`;
+
+exports[`main getPluginObject() should replace (0, _imaPluginLogger.warnIf)() with 0 1`] = `
+"foo();
+0;
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _imaPluginLogger.warnIf)() with 0 inside if 1`] = `
+"foo();
+
+if (0) {// do something
+}
+
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _pluginLogger.debugIf)() with 0 1`] = `
+"foo();
+0;
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _pluginLogger.debugIf)() with 0 inside if 1`] = `
+"foo();
+
+if (0) {// do something
+}
+
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _pluginLogger.errorIf)() with 0 1`] = `
+"foo();
+0;
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _pluginLogger.errorIf)() with 0 inside if 1`] = `
+"foo();
+
+if (0) {// do something
+}
+
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _pluginLogger.infoIf)() with 0 1`] = `
+"foo();
+0;
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _pluginLogger.infoIf)() with 0 inside if 1`] = `
+"foo();
+
+if (0) {// do something
+}
+
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _pluginLogger.logIf)() with 0 1`] = `
+"foo();
+0;
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _pluginLogger.logIf)() with 0 inside if 1`] = `
+"foo();
+
+if (0) {// do something
+}
+
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _pluginLogger.warnIf)() with 0 1`] = `
+"foo();
+0;
+bar();"
+`;
+
+exports[`main getPluginObject() should replace (0, _pluginLogger.warnIf)() with 0 inside if 1`] = `
+"foo();
+
+if (0) {// do something
+}
+
+bar();"
+`;
+
+exports[`main getPluginObject() should replace debugIf() with 0 1`] = `
+"foo();
+0;
+bar();"
+`;
+
+exports[`main getPluginObject() should replace debugIf() with 0 inside if 1`] = `
+"foo();
+
+if (0) {// do something
+}
+
+bar();"
+`;
+
+exports[`main getPluginObject() should replace errorIf() with 0 1`] = `
+"foo();
+0;
+bar();"
+`;
+
+exports[`main getPluginObject() should replace errorIf() with 0 inside if 1`] = `
+"foo();
+
+if (0) {// do something
+}
+
+bar();"
+`;
+
+exports[`main getPluginObject() should replace infoIf() with 0 1`] = `
+"foo();
+0;
+bar();"
+`;
+
+exports[`main getPluginObject() should replace infoIf() with 0 inside if 1`] = `
+"foo();
+
+if (0) {// do something
+}
+
+bar();"
+`;
+
+exports[`main getPluginObject() should replace logIf() with 0 1`] = `
+"foo();
+0;
+bar();"
+`;
+
+exports[`main getPluginObject() should replace logIf() with 0 inside if 1`] = `
+"foo();
+
+if (0) {// do something
+}
+
+bar();"
+`;
+
+exports[`main getPluginObject() should replace rejectIf() with 0 inside if 1`] = `
+"function returingPromise() {
+  let rejected;
+
+  if (rejected = 0) {
+    return rejected;
+  }
+
+  return asyncBar();
+}"
+`;
+
+exports[`main getPluginObject() should replace warnIf() with 0 1`] = `
+"foo();
+0;
+bar();"
+`;
+
+exports[`main getPluginObject() should replace warnIf() with 0 inside if 1`] = `
+"foo();
+
+if (0) {// do something
+}
+
+bar();"
+`;
