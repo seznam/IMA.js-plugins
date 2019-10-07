@@ -1,5 +1,5 @@
 {
-  "name": "ima-plugin-logger",
+  "name": "@ima/plugin-logger",
   "version": "1.0.0",
   "description": "Seznam IMA.js logger plugin",
   "main": "index.js",
@@ -21,7 +21,8 @@
     "url": "https://github.com/seznam/IMA.js-plugins.git"
   },
   "publishConfig": {
-    "registry": "http://registry.npmjs.org/"
+    "registry": "http://registry.npmjs.org/",
+    "access": "public"
   },
   "bugs": {
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
