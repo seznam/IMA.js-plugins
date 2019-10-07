@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-logger",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Seznam IMA.js logger plugin",
   "main": "index.js",
   "scripts": {
