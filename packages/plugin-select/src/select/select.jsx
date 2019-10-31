@@ -35,7 +35,8 @@ export default function select(...selectors) {
       _resolveNewState() {
         return this.stateSelector(
           this.utils.$PageStateManager.getState(),
-          this.context
+          this.context,
+          this.props
         );
       }
 
@@ -73,8 +74,8 @@ export default function select(...selectors) {
 export function createStateSelector(...selectors) {
   const derivedState = createSelector(
     ...selectors.map(selector => {
-      return (state, context) => {
-        return selector(state, context);
+      return (state, context, props) => {
+        return selector(state, context,  props);
       };
     }),
     (...rest) => {
