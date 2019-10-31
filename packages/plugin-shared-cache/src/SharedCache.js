@@ -54,7 +54,7 @@ export default class SharedCache {
       throw new TypeError('The SharedCache constructor is private');
     }
 
-    if (options.hasOwnProperty('maxEntries')) {
+    if (Object.prototype.hasOwnProperty.call(options, 'maxEntries')) {
       if (
         typeof options.maxEntries !== 'number' ||
         Math.floor(options.maxEntries) !== options.maxEntries ||
@@ -66,7 +66,7 @@ export default class SharedCache {
         );
       }
     }
-    if (options.hasOwnProperty('gcFactor')) {
+    if (Object.prototype.hasOwnProperty.call(options, 'gcFactor')) {
       if (
         typeof options.gcFactor !== 'number' ||
         options.gcFactor <= 0 ||
@@ -79,7 +79,7 @@ export default class SharedCache {
         );
       }
     }
-    if (options.hasOwnProperty('ttl')) {
+    if (Object.prototype.hasOwnProperty.call(options, 'ttl')) {
       if (typeof options.ttl !== 'number' || options.ttl < 0) {
         throw new TypeError(
           'The ttl option has to be either ' +

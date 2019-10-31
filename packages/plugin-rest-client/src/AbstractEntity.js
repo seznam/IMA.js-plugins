@@ -850,7 +850,7 @@ export default class AbstractEntity {
 
     let serializedData = {};
     for (let entityPropertyName of Object.keys(data)) {
-      if (!mappings.hasOwnProperty(entityPropertyName)) {
+      if (!Object.prototype.hasOwnProperty.call(mappings, entityPropertyName)) {
         serializedData[entityPropertyName] = data[entityPropertyName];
         continue;
       }
@@ -906,7 +906,12 @@ export default class AbstractEntity {
 
     let deserializedData = {};
     for (let propertyName of Object.keys(data)) {
-      if (!mappedDataProperties.hasOwnProperty(propertyName)) {
+      if (
+        !Object.prototype.hasOwnProperty.call(
+          mappedDataProperties,
+          propertyName
+        )
+      ) {
         deserializedData[propertyName] = data[propertyName];
         continue;
       }

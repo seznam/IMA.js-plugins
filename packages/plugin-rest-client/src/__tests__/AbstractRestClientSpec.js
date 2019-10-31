@@ -97,15 +97,15 @@ describe('AbstractRestClient', () => {
       }
     };
 
-    let configuratorMock = new class extends Configurator {
+    let configuratorMock = new (class extends Configurator {
       getConfiguration() {
         expect(configuratorCalled).toBe(false);
         configuratorCalled = true;
         return Promise.resolve({ configGenerated: true });
       }
-    }();
+    })();
 
-    let linkGeneratorMock = new class extends LinkGenerator {
+    let linkGeneratorMock = new (class extends LinkGenerator {
       createLink(parentEntity, resource, id, parameters, serverConfig) {
         expect(configuratorCalled).toBe(true);
         expect(linkGeneratorCalled).toBe(false);
@@ -119,9 +119,9 @@ describe('AbstractRestClient', () => {
 
         return 'https+something://foo.bar/baz/xyz';
       }
-    }();
+    })();
 
-    let preProcessorMock1 = new class extends RequestPreProcessor {
+    let preProcessorMock1 = new (class extends RequestPreProcessor {
       process(request) {
         expect(linkGeneratorCalled).toBe(true);
         expect(preProcessor1Called).toBe(false);
@@ -152,9 +152,9 @@ describe('AbstractRestClient', () => {
           })
         );
       }
-    }();
+    })();
 
-    let preProcessorMock2 = new class extends RequestPreProcessor {
+    let preProcessorMock2 = new (class extends RequestPreProcessor {
       process(request) {
         expect(preProcessor1Called).toBe(true);
         expect(preProcessor2Called).toBe(false);
@@ -185,9 +185,9 @@ describe('AbstractRestClient', () => {
           })
         );
       }
-    }();
+    })();
 
-    let postProcessorMock1 = new class extends ResponsePostProcessor {
+    let postProcessorMock1 = new (class extends ResponsePostProcessor {
       process(response) {
         expect(agentCalled).toBe(true);
         expect(postProcessor1Called).toBe(false);
@@ -225,9 +225,9 @@ describe('AbstractRestClient', () => {
           })
         );
       }
-    }();
+    })();
 
-    let postProcessorMock2 = new class extends ResponsePostProcessor {
+    let postProcessorMock2 = new (class extends ResponsePostProcessor {
       process(response) {
         expect(postProcessor1Called).toBe(true);
         expect(postProcessor2Called).toBe(false);
@@ -265,7 +265,7 @@ describe('AbstractRestClient', () => {
           })
         );
       }
-    }();
+    })();
 
     let client = new DummyRestClient(
       agentMock,
@@ -366,7 +366,7 @@ describe('AbstractRestClient', () => {
         }
       };
 
-      let linkGeneratorMock = new class extends LinkGenerator {
+      let linkGeneratorMock = new (class extends LinkGenerator {
         createLink(parentEntity, resource, id, parameters, serverConfig) {
           expect(linkGeneratorCalled).toBe(false);
           linkGeneratorCalled = true;
@@ -379,7 +379,7 @@ describe('AbstractRestClient', () => {
 
           return 'https+something://foo.bar/baz/xyz';
         }
-      }();
+      })();
 
       let client = new DummyRestClient(
         agentMock,
@@ -441,12 +441,12 @@ describe('AbstractRestClient', () => {
   it('should call configurator only once', done => {
     let callCount = 0;
 
-    let configurator = new class extends Configurator {
+    let configurator = new (class extends Configurator {
       getConfiguration() {
         callCount++;
         return Promise.resolve({ configGenerated: true });
       }
-    }();
+    })();
 
     let restClient = new DummyRestClient(
       new DummyHttpAgent(),
@@ -476,7 +476,7 @@ describe('AbstractRestClient', () => {
     let agentCalled = false;
     let postProcessorCalled = false;
 
-    let preProcessor = new class extends RequestPreProcessor {
+    let preProcessor = new (class extends RequestPreProcessor {
       process(request) {
         expect(preProcessorCalled).toBe(false);
         preProcessorCalled = true;
@@ -489,15 +489,15 @@ describe('AbstractRestClient', () => {
           request
         });
       }
-    }();
+    })();
 
-    let agent = new class extends DummyHttpAgent {
+    let agent = new (class extends DummyHttpAgent {
       get() {
         throw new Error('The HTTP agent must not be invoked');
       }
-    }();
+    })();
 
-    let postProcessor = new class extends ResponsePostProcessor {
+    let postProcessor = new (class extends ResponsePostProcessor {
       process(response) {
         expect(preProcessorCalled).toBe(true);
         expect(agentCalled).toBe(false);
@@ -515,7 +515,7 @@ describe('AbstractRestClient', () => {
           })
         );
       }
-    }();
+    })();
 
     let restClient = new DummyRestClient(
       agent,
@@ -545,7 +545,7 @@ describe('AbstractRestClient', () => {
     let agentCalled = false;
     let postProcessorCalled = false;
 
-    let preProcessor = new class extends RequestPreProcessor {
+    let preProcessor = new (class extends RequestPreProcessor {
       process(request) {
         expect(preProcessorCalled).toBe(false);
         preProcessorCalled = true;
@@ -560,15 +560,15 @@ describe('AbstractRestClient', () => {
           })
         );
       }
-    }();
+    })();
 
-    let agent = new class extends DummyHttpAgent {
+    let agent = new (class extends DummyHttpAgent {
       get() {
         throw new Error('The HTTP agent must not be invoked');
       }
-    }();
+    })();
 
-    let postProcessor = new class extends ResponsePostProcessor {
+    let postProcessor = new (class extends ResponsePostProcessor {
       process(response) {
         expect(preProcessorCalled).toBe(true);
         expect(agentCalled).toBe(false);
@@ -586,7 +586,7 @@ describe('AbstractRestClient', () => {
           })
         );
       }
-    }();
+    })();
 
     let restClient = new DummyRestClient(
       agent,
@@ -615,13 +615,13 @@ describe('AbstractRestClient', () => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
-      new class extends DummyHttpAgent {
+      new (class extends DummyHttpAgent {
         get(url, data, options) {
           expect(methodCalled).toBe(false);
           methodCalled = true;
           return super.get(url, data, options);
         }
-      }(),
+      })(),
       null,
       new DummyLinkGenerator(),
       [],
@@ -644,13 +644,13 @@ describe('AbstractRestClient', () => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
-      new class extends DummyHttpAgent {
+      new (class extends DummyHttpAgent {
         get(url, data, options) {
           expect(methodCalled).toBe(false);
           methodCalled = true;
           return super.get(url, data, options);
         }
-      }(),
+      })(),
       null,
       new DummyLinkGenerator(),
       [],
@@ -673,13 +673,13 @@ describe('AbstractRestClient', () => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
-      new class extends DummyHttpAgent {
+      new (class extends DummyHttpAgent {
         patch(url, data, options) {
           expect(methodCalled).toBe(false);
           methodCalled = true;
           return super.patch(url, data, options);
         }
-      }(),
+      })(),
       null,
       new DummyLinkGenerator(),
       [],
@@ -702,13 +702,13 @@ describe('AbstractRestClient', () => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
-      new class extends DummyHttpAgent {
+      new (class extends DummyHttpAgent {
         put(url, data, options) {
           expect(methodCalled).toBe(false);
           methodCalled = true;
           return super.put(url, data, options);
         }
-      }(),
+      })(),
       null,
       new DummyLinkGenerator(),
       [],
@@ -731,13 +731,13 @@ describe('AbstractRestClient', () => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
-      new class extends DummyHttpAgent {
+      new (class extends DummyHttpAgent {
         post(url, data, options) {
           expect(methodCalled).toBe(false);
           methodCalled = true;
           return super.get(url, data, options);
         }
-      }(),
+      })(),
       null,
       new DummyLinkGenerator(),
       [],
@@ -760,13 +760,13 @@ describe('AbstractRestClient', () => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
-      new class extends DummyHttpAgent {
+      new (class extends DummyHttpAgent {
         delete(url, data, options) {
           expect(methodCalled).toBe(false);
           methodCalled = true;
           return super.get(url, data, options);
         }
-      }(),
+      })(),
       null,
       new DummyLinkGenerator(),
       [],
@@ -790,7 +790,7 @@ describe('AbstractRestClient', () => {
       'as resource',
     done => {
       let restClient = new DummyRestClient(
-        new class extends DummyHttpAgent {
+        new (class extends DummyHttpAgent {
           get(url, data, options) {
             expect(url).toBe('http://server.api/this-is-the-resource');
 
@@ -817,7 +817,7 @@ describe('AbstractRestClient', () => {
               cached: false
             });
           }
-        }(),
+        })(),
         null,
         new DummyLinkGenerator(),
         [],
@@ -879,7 +879,7 @@ describe('AbstractRestClient', () => {
       }
 
       let restClient = new DummyRestClient(
-        new class extends DummyHttpAgent {
+        new (class extends DummyHttpAgent {
           get(url, data, options) {
             return Promise.resolve({
               status: 200,
@@ -895,7 +895,7 @@ describe('AbstractRestClient', () => {
               cached: false
             });
           }
-        }(),
+        })(),
         null,
         new DummyLinkGenerator(),
         [],
@@ -954,7 +954,7 @@ describe('AbstractRestClient', () => {
       }
 
       let restClient = new DummyRestClient(
-        new class extends DummyHttpAgent {
+        new (class extends DummyHttpAgent {
           get(url, data, options) {
             return Promise.resolve({
               status: 200,
@@ -973,7 +973,7 @@ describe('AbstractRestClient', () => {
               cached: false
             });
           }
-        }(),
+        })(),
         null,
         new DummyLinkGenerator(),
         [],
