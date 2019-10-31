@@ -75,7 +75,7 @@ export function createStateSelector(...selectors) {
   const derivedState = createSelector(
     ...selectors.map(selector => {
       return (state, context, props) => {
-        return selector(state, context,  props);
+        return selector(state, context, props);
       };
     }),
     (...rest) => {
