@@ -29,16 +29,16 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "enzyme": "3.8.0",
-    "enzyme-adapter-react-16": "^1.9.1",
-    "enzyme-to-json": "^3.3.5",
-    "eslint": "5.13.0",
+    "enzyme": "3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "enzyme-to-json": "^3.4.3",
+    "eslint": "6.6.0",
     "gulp": "4.0.2",
     "ima": "^0.16.0",
-    "jest": "^24.1.0",
-    "react": "16.8.0",
-    "react-dom": "16.8.0",
-    "to-mock": "^1.4.0"
+    "jest": "^24.9.0",
+    "react": "16.11.0",
+    "react-dom": "16.11.0",
+    "to-mock": "^1.5.4"
   },
   "browserify": {
     "transform": [
@@ -46,8 +46,8 @@
     ]
   },
   "peerDependencies": {
-    "ima": "0.15.x",
-    "react": "15.x"
+    "ima": "0.16.x",
+    "react": "16.x"
   },
   "engines": {
     "node": ">=6",

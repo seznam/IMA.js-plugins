@@ -36,10 +36,10 @@
   },
   "homepage": "https://github.com/seznam/IMA.js-plugins#readme",
   "devDependencies": {
-    "eslint": "5.13.0",
+    "eslint": "6.6.0",
     "gulp": "4.0.2",
     "ima": "^0.16.0",
-    "jest": "^24.1.0"
+    "jest": "^24.9.0"
   },
   "dependencies": {},
   "peerDependencies": {
