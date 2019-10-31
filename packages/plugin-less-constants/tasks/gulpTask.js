@@ -49,7 +49,7 @@ function getFileConfigOutput(file) {
   let fileConfig = exported.default;
 
   for (let propertyName in fileConfig) {
-    if (!fileConfig.hasOwnProperty(propertyName)) {
+    if (!Object.prototype.hasOwnProperty.call(fileConfig, propertyName)) {
       continue;
     }
 
