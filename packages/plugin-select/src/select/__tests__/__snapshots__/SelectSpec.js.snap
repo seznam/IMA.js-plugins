@@ -16,6 +16,7 @@ exports[`plugin-select: select should render component 1`] = `
 exports[`plugin-select: select should render component with extraProps 1`] = `
 <Component
   height={60}
+  multiplier={0.5}
   props="props"
   width={90}
 />
@@ -24,6 +25,7 @@ exports[`plugin-select: select should render component with extraProps 1`] = `
 exports[`plugin-select: select should render component with extraProps and own createStateSelector 1`] = `
 <Component
   height={60}
+  multiplier={0.5}
   props="props"
   width={90}
 />
@@ -32,7 +34,17 @@ exports[`plugin-select: select should render component with extraProps and own c
 exports[`plugin-select: select should render component with extraProps and own static methods 1`] = `
 <Component
   height={60}
+  multiplier={0.5}
   props="props"
   width={90}
+/>
+`;
+
+exports[`plugin-select: select should render component with extraProps modifies by ownProps 1`] = `
+<Component
+  height={30}
+  multiplier={0.5}
+  props="props"
+  width={45}
 />
 `;

@@ -43,6 +43,11 @@ describe('plugin-select:', () => {
     }
   ];
 
+  const selectorUsingProps = (state, context, props) => ({
+    width: state.media.width * props.multiplier,
+    height: state.media.height * props.multiplier
+  });
+
   beforeEach(() => {
     global.$Debug = true;
   });
@@ -80,7 +85,8 @@ describe('plugin-select:', () => {
   describe('select', () => {
     let wrapper = null;
     const defaultProps = {
-      props: 'props'
+      props: 'props',
+      multiplier: 0.5
     };
 
     class Component extends React.PureComponent {
@@ -103,6 +109,16 @@ describe('plugin-select:', () => {
 
     it('should render component with extraProps', () => {
       let EnhancedComponent = select(...selectorMethods)(Component);
+
+      wrapper = shallow(React.createElement(EnhancedComponent, defaultProps), {
+        context: componentContext
+      });
+
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render component with extraProps modifies by ownProps', () => {
+      let EnhancedComponent = select(...selectorMethods, selectorUsingProps)(Component);
 
       wrapper = shallow(React.createElement(EnhancedComponent, defaultProps), {
         context: componentContext
