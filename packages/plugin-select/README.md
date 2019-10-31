@@ -68,14 +68,14 @@ class Component extends React.PureComponent {
 	}
 }
 
-const titleSelector = (state, context) => {
+const titleSelector = (state, context, props) => {
 	return {
 		title: state.title
 	};
 }
 
 // Only for example purpose. You can use more selectors.
-const emptySelector = (state, context) => {
+const emptySelector = (state, context, props) => {
 	return {};
 }
 
