@@ -44,7 +44,7 @@ describe('plugin-select:', () => {
   ];
 
   const selectorUsingProps = (state, context, props) => ({
-    width: state.media.width * props.multiplier,
+    width: state.media.width * props.multiplier,
     height: state.media.height * props.multiplier
   });
 
@@ -118,7 +118,9 @@ describe('plugin-select:', () => {
     });
 
     it('should render component with extraProps modifies by ownProps', () => {
-      let EnhancedComponent = select(...selectorMethods, selectorUsingProps)(Component);
+      let EnhancedComponent = select(...selectorMethods, selectorUsingProps)(
+        Component
+      );
 
       wrapper = shallow(React.createElement(EnhancedComponent, defaultProps), {
         context: componentContext
