@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.16.0 - 2019-11-07
+
+### Added
+
+- Added `ref` forwarding – `ref` is passed to the component.
+
 ## 0.15.3 - 2019-11-01
 
 ### Added

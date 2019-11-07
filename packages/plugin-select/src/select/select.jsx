@@ -18,7 +18,7 @@ export function setHoistStaticMethod(method) {
   hoistStaticMethod = method;
 }
 
-export default function select(...selectors) {
+export function select(...selectors) {
   return Component => {
     class SelectState extends AbstractPureComponent {
       static get contextTypes() {
@@ -61,13 +61,27 @@ export default function select(...selectors) {
       }
 
       render() {
-        return <Component {...this.state} {...this.props} />;
+        const { forwardedRef, ...restProps } = this.props;
+        return <Component {...this.state} {...restProps} ref={forwardedRef} />;
       }
     }
 
     hoistStaticMethod(SelectState, Component);
 
     return SelectState;
+  };
+}
+
+export default function forwardedSelect(...selectors) {
+  return Component => {
+    const SelectState = select(...selectors)(Component);
+    const forwardRef = (props, ref) => {
+      return <SelectState {...props} forwardedRef={ref} />;
+    };
+    const name = Component.displayName || Component.name;
+    forwardRef.displayName = `select(${name})`;
+
+    return React.forwardRef(forwardRef);
   };
 }
 

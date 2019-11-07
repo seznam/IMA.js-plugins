@@ -7,6 +7,27 @@ Object {
 }
 `;
 
+exports[`plugin-select: select should forward ref 1`] = `
+<SelectState
+  forwardedRef={
+    Object {
+      "current": null,
+    }
+  }
+  multiplier={0.5}
+  props="props"
+/>
+`;
+
+exports[`plugin-select: select should remove forwardedRef prop (replaces it with ref) 1`] = `
+<Component
+  height={60}
+  multiplier={0.5}
+  props="props"
+  width={90}
+/>
+`;
+
 exports[`plugin-select: select should render component 1`] = `
 <h1>
   text
