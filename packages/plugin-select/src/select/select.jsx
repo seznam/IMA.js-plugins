@@ -61,8 +61,8 @@ export function select(...selectors) {
       }
 
       render() {
-        const { _forwardedRef, ...restProps } = this.props;
-        return <Component {...this.state} ref={_forwardedRef} {...restProps} />;
+        const { forwardedRef, ...restProps } = this.props;
+        return <Component {...this.state} {...restProps} ref={forwardedRef} />;
       }
     }
 
@@ -76,7 +76,7 @@ export default function forwardedSelect(...selectors) {
   return Component => {
     const SelectState = select(...selectors)(Component);
     const forwardRef = (props, ref) => {
-      return <SelectState {...props} _forwardedRef={ref} />;
+      return <SelectState {...props} forwardedRef={ref} />;
     };
     const name = Component.displayName || Component.name;
     forwardRef.displayName = `select(${name})`;

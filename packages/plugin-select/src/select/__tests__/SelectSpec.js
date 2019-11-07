@@ -196,10 +196,10 @@ describe('plugin-select:', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('should remove _forwardedRef prop (replaces it with ref)', () => {
+    it('should remove forwardedRef prop (replaces it with ref)', () => {
       let EnhancedComponent = select(...selectorMethods)(Component);
       let props = Object.assign({}, defaultProps, {
-        _forwardedRef: React.createRef()
+        forwardedRef: React.createRef()
       });
 
       wrapper = shallow(React.createElement(EnhancedComponent, props), {

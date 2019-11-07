@@ -9,7 +9,7 @@ Object {
 
 exports[`plugin-select: select should forward ref 1`] = `
 <SelectState
-  _forwardedRef={
+  forwardedRef={
     Object {
       "current": null,
     }
@@ -19,7 +19,7 @@ exports[`plugin-select: select should forward ref 1`] = `
 />
 `;
 
-exports[`plugin-select: select should remove _forwardedRef prop (replaces it with ref) 1`] = `
+exports[`plugin-select: select should remove forwardedRef prop (replaces it with ref) 1`] = `
 <Component
   height={60}
   multiplier={0.5}
