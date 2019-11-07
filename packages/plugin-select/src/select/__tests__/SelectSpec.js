@@ -3,8 +3,9 @@ import PageStateManager from 'ima/page/state/PageStateManager';
 import Dispatcher from 'ima/event/Dispatcher';
 import React from 'react';
 import { toMockedInstance, setGlobalMockMethod } from 'to-mock';
-import select, {
+import forwardedSelect, {
   createStateSelector,
+  select,
   setCreatorOfStateSelector,
   setHoistStaticMethod,
   hoistNonReactStatic
@@ -192,6 +193,32 @@ describe('plugin-select:', () => {
       });
 
       expect(typeof EnhancedComponent.defaultProps === 'function').toBeTruthy();
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should remove _forwardedRef prop (replaces it with ref)', () => {
+      let EnhancedComponent = select(...selectorMethods)(Component);
+      let props = Object.assign({}, defaultProps, {
+        _forwardedRef: React.createRef()
+      });
+
+      wrapper = shallow(React.createElement(EnhancedComponent, props), {
+        context: componentContext
+      });
+
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should forward ref', () => {
+      let EnhancedComponent = forwardedSelect(...selectorMethods)(Component);
+      let props = Object.assign({}, defaultProps, {
+        ref: React.createRef()
+      });
+
+      wrapper = shallow(React.createElement(EnhancedComponent, props), {
+        context: componentContext
+      });
+
       expect(wrapper).toMatchSnapshot();
     });
   });
