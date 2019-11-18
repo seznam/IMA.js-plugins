@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.16.1 - 2019-11-18
+
+### Fixed
+
+- Fixed syntax for Edge browser.
+
 ## 0.16.0 - 2019-11-07
 
 ### Added
