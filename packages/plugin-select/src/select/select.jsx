@@ -61,7 +61,13 @@ export function select(...selectors) {
       }
 
       render() {
-        const { forwardedRef, ...restProps } = this.props;
+        const { forwardedRef } = this.props;
+        const restProps = Object.assign({}, this.props);
+
+        if (forwardedRef) {
+          delete restProps.forwardedRef;
+        }
+
         return <Component {...this.state} {...restProps} ref={forwardedRef} />;
       }
     }
