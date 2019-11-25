@@ -1,6 +1,4 @@
-import * as ima from 'ima/main';
-import vendorLinker from 'ima/vendorLinker';
-import { vendors as imaVendors } from 'ima/build';
+import * as ima, { vendorLinker, vendors as imaVendors } from '@ima/core';
 import { assignRecursively } from 'ima-helpers';
 import { JSDOM } from 'jsdom';
 import { requireFromProject, loadFiles } from './helpers';

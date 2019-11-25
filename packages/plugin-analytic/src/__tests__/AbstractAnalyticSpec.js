@@ -1,7 +1,6 @@
+import { Window, Dispatcher } from '@ima/core';
 import AbstractAnalytic from '../AbstractAnalytic';
 import AnalyticEvents from '../Events';
-import Window from 'ima/window/Window';
-import Dispatcher from 'ima/event/Dispatcher';
 import { ScriptLoaderPlugin } from 'ima-plugin-script-loader';
 import { toMockedInstance } from 'to-mock';
 

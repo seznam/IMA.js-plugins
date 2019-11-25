@@ -1,10 +1,8 @@
+import * as ima, { vendorLinker, build } from '@ima/core';
 jest.mock('ima/build');
 jest.mock('ima/main');
 jest.mock('ima/vendorLinker');
 
-import * as ima from 'ima/main';
-import vendorLinker from 'ima/vendorLinker';
-import build from 'ima/build';
 import * as helpers from '../helpers';
 import * as configuration from '../configuration';
 import { initImaApp, clearImaApp } from '../app';

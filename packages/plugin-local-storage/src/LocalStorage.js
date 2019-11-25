@@ -1,4 +1,4 @@
-import Storage from 'ima/storage/Storage';
+import { Storage } from '@ima/core';
 
 const TEST_KEY = 'ima-plugin-local-storage';
 

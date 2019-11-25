@@ -1,6 +1,5 @@
+import { PageStateManager, Dispatcher } from '@ima/core';
 import { shallow } from 'enzyme';
-import PageStateManager from 'ima/page/state/PageStateManager';
-import Dispatcher from 'ima/event/Dispatcher';
 import React from 'react';
 import { toMockedInstance, setGlobalMockMethod } from 'to-mock';
 import forwardedSelect, {

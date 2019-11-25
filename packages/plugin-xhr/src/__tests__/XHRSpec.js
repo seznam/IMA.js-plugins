@@ -1,5 +1,4 @@
-import StatusCode from 'ima/http/StatusCode.js';
-import Window from 'ima/window/Window';
+import { StatusCode, Window } from '@ima/core';
 import { toMockedInstance } from 'to-mock';
 import XHR from '../XHR.js';
 

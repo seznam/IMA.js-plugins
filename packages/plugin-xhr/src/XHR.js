@@ -1,6 +1,4 @@
-import GenericError from 'ima/error/GenericError.js';
-import StatusCode from 'ima/http/StatusCode.js';
-import Window from 'ima/window/Window.js';
+import { GenericError, StatusCode, Window } from '@ima/core';
 
 /**
  * Empty object used as a fallback immutable value where an object is expected.
