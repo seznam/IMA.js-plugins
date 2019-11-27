@@ -1,5 +1,5 @@
 import Events from './Events';
-import { ResourceLoader } from 'ima-plugin-resource-loader';
+import { ResourceLoader } from '@ima/plugin-resource-loader';
 
 /**
  * Style loader plugin class.

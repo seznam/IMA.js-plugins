@@ -1,4 +1,4 @@
-import { AbstractAnalytic, defaultDependencies } from 'ima-plugin-analytic';
+import { AbstractAnalytic, defaultDependencies } from '@ima/plugin-analytic';
 
 const GA_ROOT_VARIABLE = 'ga';
 

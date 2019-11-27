@@ -1,5 +1,5 @@
 import AnalyticEvents from './Events';
-import { ScriptLoaderPlugin } from 'ima-plugin-script-loader';
+import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
 
 /**
  * Abstract analytic class
@@ -17,7 +17,7 @@ export default class AbstractAnalytic {
    */
   constructor(scriptLoader, window, dispatcher, config) {
     /**
-     * Handler from ima-plugin-script-loader.
+     * Handler from @ima/plugin-script-loader.
      *
      * @protected
      * @type {ima.plugin.script.loader.ScriptLoaderPlugin}

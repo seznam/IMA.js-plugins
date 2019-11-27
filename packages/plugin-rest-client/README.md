@@ -1,4 +1,4 @@
-# ima-plugin-rest-client
+# @ima/plugin-rest-client
 
 Generic REST API client plugin for the IMA application framework. You may find
 the IMA application skeleton at
@@ -9,7 +9,7 @@ the IMA application skeleton at
 You may install the IMA REST client plugin using the following command:
 
 ```
-npm install ima-plugin-rest-client --save
+npm install @ima/plugin-rest-client --save
 ```
 
 ## Usage
@@ -22,14 +22,14 @@ In order to use the plugin directly in an IMA.js application, add the following
 items to the `vendor.common` array in the `app/build.js` configuration file:
 
 ```javascript
-'ima-plugin-rest-client/AbstractEntity',
-'ima-plugin-rest-client/AbstractRestClient',
-'ima-plugin-rest-client/Configurator',
-'ima-plugin-rest-client/LinkGenerator',
-'ima-plugin-rest-client/Request',
-'ima-plugin-rest-client/RequestPreProcessor',
-'ima-plugin-rest-client/Response',
-'ima-plugin-rest-client/ResponsePostProcessor'
+'@ima/plugin-rest-client/AbstractEntity',
+'@ima/plugin-rest-client/AbstractRestClient',
+'@ima/plugin-rest-client/Configurator',
+'@ima/plugin-rest-client/LinkGenerator',
+'@ima/plugin-rest-client/Request',
+'@ima/plugin-rest-client/RequestPreProcessor',
+'@ima/plugin-rest-client/Response',
+'@ima/plugin-rest-client/ResponsePostProcessor'
 ```
 
 For information about implementing a custom REST API client based on this
@@ -70,7 +70,7 @@ configuration, nor manipulating the requests or responses.
 First step is creating a no-op configurator:
 
 ```javascript
-import Configurator from 'ima-plugin-rest-client/Configurator';
+import Configurator from '@ima/plugin-rest-client/Configurator';
 
 export default class NoopConfigurator extends Configurator {
   getConfiguration() {
@@ -82,7 +82,7 @@ export default class NoopConfigurator extends Configurator {
 Next we'll need a simple link generator:
 
 ```javascript
-import LinkGenerator from 'ima-plugin-rest-client/LinkGenerator';
+import LinkGenerator from '@ima/plugin-rest-client/LinkGenerator';
 
 export default class SimpleLinkGenerator extends LinkGenerator {
   constructor(baseUrl) {
@@ -113,7 +113,7 @@ export default class SimpleLinkGenerator extends LinkGenerator {
 All that remains is wiring everything up:
 
 ```javascript
-import AbstractRestClient from 'ima-plugin-rest-client/AbstractRestClient';
+import AbstractRestClient from '@ima/plugin-rest-client/AbstractRestClient';
 import NoopConfigurator from './NoopConfigurator';
 import SimpleLinkGenerator from './SimpleLinkGenerator';
 

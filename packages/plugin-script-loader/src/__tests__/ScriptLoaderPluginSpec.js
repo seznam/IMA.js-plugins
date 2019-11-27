@@ -1,7 +1,7 @@
 import { Window, Dispatcher } from '@ima/core';
 import ScriptLoaderPlugin from '../ScriptLoaderPlugin';
 import Events from '../Events';
-import { ResourceLoader } from 'ima-plugin-resource-loader';
+import { ResourceLoader } from '@ima/plugin-resource-loader';
 import { toMockedInstance } from 'to-mock';
 
 describe('ScriptLoaderPlugin', () => {

@@ -1,5 +1,5 @@
 {
-  "name": "ima-plugin-style-loader",
+  "name": "@ima/plugin-style-loader",
   "version": "0.14.3",
   "description": "Seznam IMA.js plugin for loading style",
   "main": "index.js",
@@ -40,7 +40,7 @@
     "jest": "^24.9.0"
   },
   "dependencies": {
-    "ima-plugin-resource-loader": "^0.14.0"
+    "@ima/plugin-resource-loader": "^0.14.0"
   },
   "engines": {
     "node": ">=6",

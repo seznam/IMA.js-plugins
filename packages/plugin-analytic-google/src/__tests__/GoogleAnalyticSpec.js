@@ -1,7 +1,7 @@
 import { Dispatcher, Window } from '@ima/core';
 import GoogleAnalytic from '../GoogleAnalytic';
 import { toMockedInstance } from 'to-mock';
-import { ScriptLoaderPlugin } from 'ima-plugin-script-loader';
+import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
 
 const settings = {
   service: 'UA-XXXXXXX-X',

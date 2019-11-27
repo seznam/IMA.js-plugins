@@ -1,4 +1,4 @@
-# ima-plugin-logger
+# @ima/plugin-logger
 
 A logging tool for [IMA.js](https://imajs.io/) framework.
 
@@ -6,7 +6,7 @@ A logging tool for [IMA.js](https://imajs.io/) framework.
 
 ```javascript
 
-npm install ima-plugin-logger --save
+npm install @ima/plugin-logger --save
 
 ```
 
@@ -15,14 +15,14 @@ npm install ima-plugin-logger --save
 
 var vendors = {
     common: [
-		'ima-plugin-logger'
+		'@ima/plugin-logger'
     ]
 };
 
 /*
 import {
 	...
-} from 'ima-plugin-logger';
+} from '@ima/plugin-logger';
 */
 ```
 

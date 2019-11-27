@@ -7,15 +7,15 @@ IMA.js plugin for sharing constants between JavaScript and LESS code.
 First install the plugin using npm:
 
 ```bash
-npm install --save-dev ima-plugin-less-constants
+npm install --save-dev @ima/plugin-less-constants
 ```
 
 Next you need to create your layout configuration file `app/config/layout.js`:
 
 ```javascript
-import { string, number } from 'ima-plugin-less-constants/constants';
-import { px, em, rem, percent, hex, rgba } from 'ima-plugin-less-constants/units';
-import { maxWidthMedia, minWidthMedia, minAndMaxWidthMedia, maxHeightMedia, minHeightMedia } from 'ima-plugin-less-constants/media';
+import { string, number } from '@ima/plugin-less-constants/constants';
+import { px, em, rem, percent, hex, rgba } from '@ima/plugin-less-constants/units';
+import { maxWidthMedia, minWidthMedia, minAndMaxWidthMedia, maxHeightMedia, minHeightMedia } from '@ima/plugin-less-constants/media';
 
 export default {
 	// example configuration
@@ -37,17 +37,17 @@ After that, you need to add the plugin to the bundled application plugins by
 adding the following lines to the `vendors.common` array in the `app/build.js`:
 
 ```javascript
-'ima-plugin-less-constants/media',
-'ima-plugin-less-constants/constants',
-'ima-plugin-less-constants/units',
-'ima-plugin-less-constants/util'
+'@ima/plugin-less-constants/media',
+'@ima/plugin-less-constants/constants',
+'@ima/plugin-less-constants/units',
+'@ima/plugin-less-constants/util'
 ```
 
 Now you can register the gulp task with the gulp task loader in your project's
 `gulpfile.js` by adding the following path to the task paths array:
 
 ```javascript
-'./node_modules/ima-plugin-less-constants/tasks'
+'./node_modules/@ima/plugin-less-constants/tasks'
 ```
 
 Finally, you need to add the `less:constants` task to the tasks executed within

@@ -1,4 +1,4 @@
-# ima-plugin-local-storage
+# @ima/plugin-local-storage
 
 This is the local-storage plugin for the IMA.js application. 
 You can find the IMA.js skeleton application at
@@ -8,7 +8,7 @@ You can find the IMA.js skeleton application at
 ## Installation
 
 ```bash
-npm install ima-plugin-local-storage --save
+npm install @ima/plugin-local-storage --save
 ```
 
 ```javascript
@@ -16,14 +16,14 @@ npm install ima-plugin-local-storage --save
 
 var vendors = {
 	common: [
-        'ima-plugin-local-storage'
+        '@ima/plugin-local-storage'
 	]
 };
 ```
 ```javascript
 // /app/config/bind.js
 
-import { LocalStorage } from 'ima-plugin-local-storage';
+import { LocalStorage } from '@ima/plugin-local-storage';
 
 oc.bind('LocalStorage', LocalStorage);
 ```

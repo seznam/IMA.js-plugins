@@ -1,4 +1,4 @@
-# ima-plugin-analytic-google
+# @ima/plugin-analytic-google
 
 This is the google analytic plugin for the IMA.js application. You can find the IMA.js skeleton application at <https://github.com/seznam/IMA.js-skeleton>
 or follow link <https://imajs.io>.
@@ -7,7 +7,7 @@ or follow link <https://imajs.io>.
 
 ```javascript
 
-npm install ima-plugin-analytic-google ima-plugin-script-loader --save
+npm install @ima/plugin-analytic-google @ima/plugin-script-loader --save
 
 ```
 
@@ -16,9 +16,9 @@ npm install ima-plugin-analytic-google ima-plugin-script-loader --save
 
 var vendors = {
 	common: [
-		'ima-plugin-analytic-google',
-		'ima-plugin-analytic',
-		'ima-plugin-script-loader'
+		'@ima/plugin-analytic-google',
+		'@ima/plugin-analytic',
+		'@ima/plugin-script-loader'
 	]
 };
 
@@ -28,7 +28,7 @@ Now is google analytic plugin available from:
 ns.ima.plugin.analytic.google.GoogleAnalytic;
 ns.ima.plugin.analytic.google.defaultDependencies;
 
-import { GoogleAnalytic, defaultDependencies } from 'ima-plugin-analytic-google';
+import { GoogleAnalytic, defaultDependencies } from '@ima/plugin-analytic-google';
 */
 
 ```
@@ -52,7 +52,7 @@ prod: {
 
 ```javascript
 // /app/config/services.js
-import { GoogleAnalytic } from 'ima-plugin-analytic-google';
+import { GoogleAnalytic } from '@ima/plugin-analytic-google';
 
 var $window = oc.get('$Window');
 var $dispatcher = oc.get('$Dispatcher');

@@ -1,4 +1,4 @@
-# ima-plugin-xhr
+# @ima/plugin-xhr
 
 [![Build Status](https://travis-ci.org/seznam/IMA.js-plugin-xhr.svg?branch=master)](https://travis-ci.org/seznam/IMA.js-plugin-xhr)
 [![npm](http://img.shields.io/npm/v/ima-plugin-xhr.svg)](https://www.npmjs.com/package/ima-plugin-xhr)
@@ -15,7 +15,7 @@ You can find the IMA.js skeleton application at
 ## Installation
 
 ```
-npm install ima-plugin-xhr --save
+npm install @ima/plugin-xhr --save
 ```
 
 ```javascript
@@ -23,20 +23,20 @@ npm install ima-plugin-xhr --save
 
 var vendors = {
 	common: [
-		'ima-plugin-xhr'
+		'@ima/plugin-xhr'
 	]
 };
 
 /*
 The XHR plugin is now available like this:
 
-import { XHR, defaultDependencies } from 'ima-plugin-xhr';
+import { XHR, defaultDependencies } from '@ima/plugin-xhr';
 */
 ```
 
 ```javascript
 // /app/config/bind.js
-import { XHR, defaultDependencies } from 'ima-plugin-xhr';
+import { XHR, defaultDependencies } from '@ima/plugin-xhr';
 
 oc.inject(XHR, defaultDependencies);
 ```

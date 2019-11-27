@@ -1,7 +1,7 @@
 # babel-plugin-ima-logger
 
 [babel-plugin-ima-logger](https://github.com/seznam/IMA.js-plugins/tree/master/packages/babel-plugin-ima-logger) removes call expressions and function names in import statements of
-[ima-plugin-logger](https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-logger) plugin
+[@ima/plugin-logger](https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-logger) plugin
 when used in production or when the plugin's [`remove` option](#remove) is set to `true`.
 
 ## Installation
@@ -15,7 +15,7 @@ npm install babel-plugin-ima-logger --save-dev
 ```javascript
 // gulpConfig.js
 
-var gulpConfig = require('../ima-gulp-tasks/gulpConfig.js');
+var gulpConfig = require('../@ima/gulp-tasks/gulpConfig.js');
 
 gulpConfig.babelConfig.esVendor.plugins.push('ima-logger');
 gulpConfig.babelConfig.vendor.plugins.push('ima-logger');
@@ -47,7 +47,7 @@ The following call expressions will be replaced by `0`:
 - `rejectIf(...)`,
 - `warnIf(...)`
 
-### Removes function names from import statements of ima-plugin-logger
+### Removes function names from import statements of @ima/plugin-logger
 
 The following function names will be removed from the import statements:
 - `debug`
@@ -62,7 +62,7 @@ The following function names will be removed from the import statements:
 - `warn`
 - `warnIf`
 
-Empty import statements of ima-plugin-logger will be removed completely.
+Empty import statements of @ima/plugin-logger will be removed completely.
 
 ## Options
 
