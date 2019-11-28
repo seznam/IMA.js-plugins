@@ -9,6 +9,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Removed
 - **BREAKING CHANGE!** IMA.js v16 and lower is no longer supported, you need to upgrade to IMA.js v17+
 
-## 0.1.0 - 2019-09-23
+## 0.1.0 - 2019-11-28
 ### Added
 - Initialized @ima/plugin-testing-integration, see README.md for more info

@@ -32,7 +32,7 @@
     "clone": "^2.1.2"
   },
   "devDependencies": {
-    "eslint": "6.6.0",
+    "eslint": "6.7.1",
     "gulp": "4.0.2",
     "jest": "^24.9.0"
   },
