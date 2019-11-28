@@ -1,5 +1,5 @@
 {
-  "name": "ima-plugin-style-loader",
+  "name": "@ima/plugin-style-loader",
   "version": "0.14.3",
   "description": "Seznam IMA.js plugin for loading style",
   "main": "index.js",
@@ -34,13 +34,15 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "eslint": "6.6.0",
+    "eslint": "6.7.1",
     "gulp": "4.0.2",
-    "ima": "^0.16.11",
-    "jest": "^24.9.0"
+    "@ima/core": "^17.0.0-rc.6",
+    "jest": "^24.9.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   },
   "dependencies": {
-    "ima-plugin-resource-loader": "^0.14.0"
+    "@ima/plugin-resource-loader": "^0.14.0"
   },
   "engines": {
     "node": ">=6",

@@ -1,6 +1,6 @@
 import * as logger from '../main';
 
-describe('ima-plugin-logger', () => {
+describe('@ima/plugin-logger', () => {
   const ERROR = new Error('foo');
   const MESSAGES = ['foo', ERROR, 1, { bar: 1 }, true, null];
   const TRUTHY_CONDITION = 1 !== 2;

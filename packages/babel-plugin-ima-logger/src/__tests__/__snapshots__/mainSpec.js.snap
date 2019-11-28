@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`main getPluginObject() should keep error() and isSilent() in the import statement 1`] = `
-"import { error, isSilent } from 'ima-plugin-logger';
+"import { error, isSilent } from '@ima/plugin-logger';
 foo();"
 `;
 
@@ -264,7 +264,7 @@ bar();"
 `;
 
 exports[`main getPluginObject() should not remove the import statement because removing is disabled by plugin options 1`] = `
-"import { throwIf, errorIf } from 'ima-plugin-logger';
+"import { throwIf, errorIf } from '@ima/plugin-logger';
 foo();"
 `;
 

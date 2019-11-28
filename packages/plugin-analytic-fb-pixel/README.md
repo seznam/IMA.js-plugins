@@ -1,13 +1,12 @@
-# ima-plugin-analytic-fb-pixel
+# @ima/plugin-analytic-fb-pixel
 
-This is the Facebook Pixel analytic plugin for the IMA.js application. You can find the IMA.js skeleton application at <https://github.com/seznam/IMA.js-skeleton>
-or follow link <https://imajs.io>.
+This is the Facebook Pixel analytic plugin for the IMA.js application. You can visit our site <https://imajs.io>.
 
 ## Installation
 
 ```javascript
 
-npm install ima-plugin-analytic-fb-pixel ima-plugin-script-loader --save
+npm install @ima/plugin-analytic-fb-pixel @ima/plugin-script-loader --save
 
 ```
 
@@ -16,16 +15,16 @@ npm install ima-plugin-analytic-fb-pixel ima-plugin-script-loader --save
 
 var vendors = {
 	common: [
-		'ima-plugin-analytic-fb-pixel',
-		'ima-plugin-analytic',
-		'ima-plugin-script-loader'
+		'@ima/plugin-analytic-fb-pixel',
+		'@ima/plugin-analytic',
+		'@ima/plugin-script-loader'
 	]
 };
 
 /*
 Now is FB Pixel analytic plugin available from:
 
-import { FacebookPixelAnalytic, defaultDependencies } from 'ima-plugin-analytic-fb-pixel';
+import { FacebookPixelAnalytic, defaultDependencies } from '@ima/plugin-analytic-fb-pixel';
 */
 
 ```
@@ -49,7 +48,7 @@ prod: {
 
 ```javascript
 // /app/config/services.js
-import { FacebookPixelAnalytic } from 'ima-plugin-analytic-fb-pixel'
+import { FacebookPixelAnalytic } from '@ima/plugin-analytic-fb-pixel'
 
 var $window = oc.get('$Window');
 var $dispatcher = oc.get('$Dispatcher');

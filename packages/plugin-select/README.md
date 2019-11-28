@@ -1,4 +1,4 @@
-# ima-plugin-select
+# @ima/plugin-select
 
 The [IMA](https://imajs.io) plugin selects extra props from page state to your component.
 It uses [HOC](https://reactjs.org/docs/higher-order-components.html) at the background.
@@ -8,7 +8,7 @@ It can be very useful for example some analytical data.
 
 ```javascript
 
-npm install ima-plugin-select --save
+npm install @ima/plugin-select --save
 
 ```
 
@@ -17,14 +17,14 @@ npm install ima-plugin-select --save
 
 let vendors = {
     common: [
-        'ima-plugin-select'
+        '@ima/plugin-select'
     ]
 };
 
 /*
 The select plugin is now available.
 
-import select from 'ima-plugin-select';
+import select from '@ima/plugin-select';
 */
 ```
 
@@ -50,7 +50,7 @@ The select plugin use $PageStateManager for selecting extra props to your compon
 
 ```javascript
 // /app/component/Component.js
-import select from 'ima-plugin-select';
+import select from '@ima/plugin-select';
 
 // Your page state
 //{

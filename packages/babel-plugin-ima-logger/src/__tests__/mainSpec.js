@@ -243,7 +243,7 @@ describe('main', () => {
 					logIf,
 					infoIf,
 					warnIf
-				} from 'ima-plugin-logger';
+				} from '@ima/plugin-logger';
 				foo();`,
         TRANSFORM_OPTIONS
       );
@@ -267,7 +267,7 @@ describe('main', () => {
 					logIf,
 					infoIf,
 					warnIf
-				} from 'ima-plugin-logger';
+				} from '@ima/plugin-logger';
 				foo();`,
         TRANSFORM_OPTIONS
       );
@@ -287,7 +287,7 @@ describe('main', () => {
 
     it('should not remove the import statement because removing is disabled by plugin options', () => {
       const { code } = transform(
-        `import { throwIf, errorIf } from 'ima-plugin-logger';
+        `import { throwIf, errorIf } from '@ima/plugin-logger';
 				foo();`,
         TRANSFORM_OPTIONS_DISABLED_REMOVING
       );

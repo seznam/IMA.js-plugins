@@ -3,7 +3,7 @@
 	"verbose": true,
 	"coverageThreshold": {
 		"global": {
-			"functions": 70,
+			"functions": 62,
 			"lines": 70,
 			"statements": 57
 		}

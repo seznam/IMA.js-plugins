@@ -1,5 +1,5 @@
 {
-  "name": "ima-plugin-self-xss",
+  "name": "@ima/plugin-self-xss",
   "version": "0.2.1",
   "description": "The plugin is trying to mitigate Self-XSS security attack by sending simple message into console",
   "main": "index.js",
@@ -28,10 +28,12 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "eslint": "6.6.0",
+    "eslint": "6.7.1",
     "gulp": "4.0.2",
-    "ima": "^0.16.11",
-    "jest": "^24.9.0"
+    "@ima/core": "^17.0.0-rc.6",
+    "jest": "^24.9.0",
+    "react": "16.12.0",
+    "react-dom": "16.12.0"
   },
   "browserify": {
     "transform": [

@@ -59,7 +59,7 @@ class BabelLoggerPlugin {
 
           const { value } = path.node.source || {};
 
-          if (value && value === 'ima-plugin-logger') {
+          if (value && value === '@ima/plugin-logger') {
             path
               .get('specifiers')
               .filter(specifier => {

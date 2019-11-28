@@ -1,5 +1,5 @@
 {
-  "name": "ima-plugin-analytic-google",
+  "name": "@ima/plugin-analytic-google",
   "version": "2.0.0",
   "description": "Seznam IMA.js google analytic plugin",
   "main": "index.js",
@@ -29,17 +29,19 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "eslint": "6.6.0",
+    "eslint": "6.7.1",
     "gulp": "4.0.2",
-    "ima": "^0.16.11",
-    "ima-plugin-script-loader": "^0.14.3",
-    "jest": "^24.9.0"
+    "@ima/core": "^17.0.0-rc.6",
+    "@ima/plugin-script-loader": "^0.14.3",
+    "jest": "^24.9.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   },
   "dependencies": {
-    "ima-plugin-analytic": "^2.0.0"
+    "@ima/plugin-analytic": "^2.0.0"
   },
   "peerDependencies": {
-    "ima-plugin-script-loader": "0.14.x"
+    "@ima/plugin-script-loader": "0.14.x"
   },
   "browserify": {
     "transform": [

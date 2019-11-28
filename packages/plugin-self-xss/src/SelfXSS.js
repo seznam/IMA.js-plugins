@@ -7,11 +7,11 @@ export default class SelfXSS {
   }
 
   static get DICTIONARY_TITLE_KEY() {
-    return 'ima-plugin-self-xss.title';
+    return '@ima/plugin-self-xss.title';
   }
 
   static get DICTIONARY_PHASE_KEY() {
-    return 'ima-plugin-self-xss.phase';
+    return '@ima/plugin-self-xss.phase';
   }
 
   /**
@@ -49,7 +49,7 @@ export default class SelfXSS {
         throw new Error(
           `The dictionary hasn't keys: ${SelfXSS.DICTIONARY_TITLE_KEY} or ` +
             `${SelfXSS.DICTIONARY_PHASE_KEY}. You must add ` +
-            `"./node_modules/ima-plugin-self-xss/locales/*{language}.json" ` +
+            `"./node_modules/@ima/plugin-self-xss/locales/*{language}.json" ` +
             `path to languages in your app/build.js file.`
         );
       }

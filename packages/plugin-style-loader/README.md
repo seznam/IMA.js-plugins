@@ -1,14 +1,13 @@
-# ima-plugin-style-loader
+# @ima/plugin-style-loader
 
 This is the plugin for loading 3rd party styles for the IMA.js application.
-You can find the IMA.js skeleton application at <https://github.com/seznam/IMA.js-skeleton>
-or follow link <https://imajs.io>.
+You can visit our site <https://imajs.io>.
 
 ## Installation
 
 ```javascript
 
-npm install ima-plugin-style-loader --save
+npm install @ima/plugin-style-loader --save
 
 ```
 
@@ -17,14 +16,14 @@ npm install ima-plugin-style-loader --save
 
 var vendors = {
 	common: [
-		'ima-plugin-style-loader'
+		'@ima/plugin-style-loader'
 	]
 };
 
 /*
 Now is script loader plugin available as:
 
-import { StyleLoaderPlugin, events, defaultDependencies } from 'ima-plugin-style-loader';
+import { StyleLoaderPlugin, events, defaultDependencies } from '@ima/plugin-style-loader';
 */
 
 ```
@@ -33,7 +32,7 @@ import { StyleLoaderPlugin, events, defaultDependencies } from 'ima-plugin-style
 
 ```javascript
 import Dispatcher from 'ima/event/Dispatcher';
-import { StyleLoaderPlugin, events as StyleLoaderEvents } from 'ima-plugin-style-loader';
+import { StyleLoaderPlugin, events as StyleLoaderEvents } from '@ima/plugin-style-loader';
 
 oc
 	.get(StyleLoaderPlugin)

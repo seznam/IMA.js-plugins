@@ -1,10 +1,8 @@
-jest.mock('ima/build');
-jest.mock('ima/main');
-jest.mock('ima/vendorLinker');
+jest.mock('@ima/core/build');
+jest.mock('@ima/core');
 
-import * as ima from 'ima/main';
-import vendorLinker from 'ima/vendorLinker';
-import build from 'ima/build';
+import * as ima from '@ima/core';
+import * as build from '@ima/core/build';
 import * as helpers from '../helpers';
 import * as configuration from '../configuration';
 import { initImaApp, clearImaApp } from '../app';
@@ -72,11 +70,11 @@ describe('Integration', () => {
 
   it('can clear ima app', () => {
     let app = { oc: { clear: jest.fn() } };
-    vendorLinker.clear = jest.fn();
+    ima.vendorLinker.clear = jest.fn();
 
     clearImaApp(app);
 
-    expect(vendorLinker.clear).toHaveBeenCalled();
+    expect(ima.vendorLinker.clear).toHaveBeenCalled();
     expect(app.oc.clear).toHaveBeenCalled();
   });
 });

@@ -1,10 +1,10 @@
-# ima-plugin-useragent
+# @ima/plugin-useragent
 
 ## Installation
 
 ```javascript
 
-npm install ima-plugin-useragent --save
+npm install @ima/plugin-useragent --save
 
 ```
 
@@ -13,7 +13,7 @@ npm install ima-plugin-useragent --save
 
 var vendors = {
     common: [
-        'ima-plugin-useragent'
+        '@ima/plugin-useragent'
     ]
 };
 
@@ -25,14 +25,14 @@ ns.ima.plugin.userAgent.ClientUserAgent;
 ns.ima.plugin.userAgent.ServerUserAgent;
 ns.ima.plugin.userAgent.UserAgent;
 
-import { PlatformJS, ClientUserAgent, ServerUserAgent, UserAgent } from 'ima-plugin-useragent';
+import { PlatformJS, ClientUserAgent, ServerUserAgent, UserAgent } from '@ima/plugin-useragent';
 */
 
 ```
 
 ```javascript
 // /app/config/bind.js
-import { UserAgent } from 'ima-plugin-useragent';
+import { UserAgent } from '@ima/plugin-useragent';
 
 oc.bind('UserAgent', UserAgent);
 

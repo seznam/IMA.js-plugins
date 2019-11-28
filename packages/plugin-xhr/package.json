@@ -1,5 +1,5 @@
 {
-  "name": "ima-plugin-xhr",
+  "name": "@ima/plugin-xhr",
   "version": "0.15.1",
   "description": "Helper plugin simplifying the usage of the XMLHttpRequest API.",
   "main": "index.js",
@@ -36,13 +36,15 @@
   },
   "homepage": "https://github.com/seznam/IMA.js-plugins#readme",
   "devDependencies": {
-    "eslint": "6.6.0",
+    "eslint": "6.7.1",
     "gulp": "4.0.2",
-    "ima": "^0.16.0",
-    "jest": "^24.9.0"
+    "@ima/core": "^17.0.0-rc.6",
+    "jest": "^24.9.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   },
   "dependencies": {},
   "peerDependencies": {
-    "ima": "*"
+    "@ima/core": "*"
   }
 }

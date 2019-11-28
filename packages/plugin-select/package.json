@@ -1,5 +1,5 @@
 {
-  "name": "ima-plugin-select",
+  "name": "@ima/plugin-select",
   "version": "0.16.1",
   "description": "The plugin selects extra props from page state to your component.",
   "main": "index.js",
@@ -32,12 +32,12 @@
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "enzyme-to-json": "^3.4.3",
-    "eslint": "6.6.0",
+    "eslint": "6.7.1",
     "gulp": "4.0.2",
-    "ima": "^0.16.0",
+    "@ima/core": "^17.0.0-rc.6",
     "jest": "^24.9.0",
     "react": "16.11.0",
-    "react-dom": "16.11.0",
+    "react-dom": "16.12.0",
     "to-mock": "^1.5.4"
   },
   "browserify": {
@@ -46,7 +46,7 @@
     ]
   },
   "peerDependencies": {
-    "ima": "0.16.x",
+    "@ima/core": "17.x",
     "react": "16.x"
   },
   "engines": {
@@ -54,7 +54,7 @@
     "npm": ">=4"
   },
   "dependencies": {
-    "hoist-non-react-statics": "^3.3.0",
+    "hoist-non-react-statics": "^3.3.1",
     "reselect": "4.0.0"
   }
 }

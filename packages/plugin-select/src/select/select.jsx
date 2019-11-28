@@ -1,7 +1,5 @@
+import { AbstractPureComponent, Events, PageContext } from '@ima/core';
 import hoistNonReactStaticMethod from 'hoist-non-react-statics';
-import AbstractPureComponent from 'ima/page/AbstractPureComponent';
-import Events from 'ima/page/state/Events';
-import * as helpers from 'ima/page/componentHelpers';
 import React from 'react';
 import { createSelector } from 'reselect';
 
@@ -21,8 +19,8 @@ export function setHoistStaticMethod(method) {
 export function select(...selectors) {
   return Component => {
     class SelectState extends AbstractPureComponent {
-      static get contextTypes() {
-        return helpers.getContextTypes(this);
+      static get contextType() {
+        return PageContext;
       }
 
       constructor(props, context) {
@@ -119,20 +117,14 @@ export function createStateSelector(...selectors) {
       }
 
       if (!memoizedSelector) {
-        memoizedSelector = createSelector(
-          ...selectorFunctions,
-          () => {
-            return memoizedState;
-          }
-        );
+        memoizedSelector = createSelector(...selectorFunctions, () => {
+          return memoizedState;
+        });
       }
 
       return memoizedSelector(state);
     };
   })();
 
-  return createSelector(
-    derivedState,
-    passStateOnChange
-  );
+  return createSelector(derivedState, passStateOnChange);
 }

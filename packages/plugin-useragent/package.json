@@ -1,5 +1,5 @@
 {
-  "name": "ima-plugin-useragent",
+  "name": "@ima/plugin-useragent",
   "version": "0.15.0",
   "description": "Seznam IMA.js plugin user-agent",
   "main": "index.js",
@@ -38,7 +38,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^6.6.0",
+    "eslint": "^6.7.1",
     "gulp": "^4.0.2",
     "jest": "^24.9.0"
   },

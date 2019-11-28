@@ -1,8 +1,7 @@
+import { Window, Dispatcher } from '@ima/core';
 import Events from '../Events';
 import StyleLoaderPlugin from '../StyleLoaderPlugin';
-import Window from 'ima/window/Window';
-import Dispatcher from 'ima/event/Dispatcher';
-import { ResourceLoader } from 'ima-plugin-resource-loader';
+import { ResourceLoader } from '@ima/plugin-resource-loader';
 import { toMockedInstance } from 'to-mock';
 
 describe('StyleLoaderPlugin', () => {
