@@ -8,9 +8,7 @@ Helper plugin simplifying the usage of the XMLHttpRequest API. This plugin is
 meant to be used only at the client side and only where the fetch API is
 insufficient at the moment.
 
-You can find the IMA.js skeleton application at
-<https://github.com/seznam/IMA.js-skeleton> or follow this link:
-<https://imajs.io>.
+You can visit our site <https://imajs.io>.
 
 ## Installation
 

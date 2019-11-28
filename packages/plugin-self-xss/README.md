@@ -54,4 +54,3 @@ selfXSS.init();
 
 The [IMA.js](https://imajs.io) is an application development stack for developing
 isomorphic applications written in pure JavaScript.
-You can find the [IMA.js](https://imajs.io) skeleton application at <https://github.com/seznam/IMA.js-skeleton>.

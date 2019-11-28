@@ -34,7 +34,7 @@
     "enzyme-to-json": "^3.4.3",
     "eslint": "6.6.0",
     "gulp": "4.0.2",
-    "ima": "^0.16.0",
+    "@ima/core": "^17.0.0-rc.6",
     "jest": "^24.9.0",
     "react": "16.11.0",
     "react-dom": "16.11.0",
@@ -46,7 +46,7 @@
     ]
   },
   "peerDependencies": {
-    "ima": "0.16.x",
+    "@ima/core": "17.x",
     "react": "16.x"
   },
   "engines": {
