@@ -15,7 +15,7 @@ npm install babel-plugin-ima-logger --save-dev
 ```javascript
 // gulpConfig.js
 
-var gulpConfig = require('../@ima/gulp-tasks/gulpConfig.js');
+var gulpConfig = require('@ima/gulp-tasks/gulpConfig.js');
 
 gulpConfig.babelConfig.esVendor.plugins.push('ima-logger');
 gulpConfig.babelConfig.vendor.plugins.push('ima-logger');

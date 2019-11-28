@@ -41,22 +41,22 @@ Overrides default configuration. See [config section](#config) for more info.
 
 ## Setup
 
-Before the test run, you need to load `ima/test.js` file from IMA.js-core. You can simply import it at the beginning of the test file.
+Before the test run, you need to load `@ima/core/test.js` file from IMA.js-core. You can simply import it at the beginning of the test file.
 
 ```javascript
-require('ima/test.js');
+require('@ima/core/test.js');
 
 describe('Integration', () => {
 	// your tests ...
 });
 ```
 
-Most test runners have option to load the `ima/test.js` file as part of their setup. For example jest allows you to specify `setupFiles`.
+Most test runners have option to load the `@ima/core/test.js` file as part of their setup. For example jest allows you to specify `setupFiles`.
 
 ```json
 {
 	"testEnvironment": "node",
-	"setupFiles": ["ima/test.js"]
+	"setupFiles": ["@ima/core/test.js"]
 }
 ```
 

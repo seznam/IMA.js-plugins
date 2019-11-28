@@ -3,10 +3,10 @@ import {
   getClientBootConfig,
   onLoad,
   bootClientApp,
-  vendorLinker,
-  vendors as imaVendors
+  vendorLinker
 } from '@ima/core';
-import { assignRecursively } from 'ima-helpers';
+import { vendors as imaVendors } from '@ima/core/build';
+import { assignRecursively } from '@ima/helpers';
 import { JSDOM } from 'jsdom';
 import { requireFromProject, loadFiles } from './helpers';
 import { getConfig } from './configuration';
