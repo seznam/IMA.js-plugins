@@ -1,8 +1,7 @@
 # @ima/plugin-script-loader
 
 This is the plugin for loading 3rd party scripts for the IMA.js application.
-You can find the IMA.js skeleton application at <https://github.com/seznam/IMA.js-skeleton>
-or follow link <https://imajs.io>.
+You can visit our site <https://imajs.io>.
 
 ## Installation
 

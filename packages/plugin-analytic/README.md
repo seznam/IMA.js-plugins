@@ -1,9 +1,7 @@
 # @ima/plugin-analytic
 
 This is the abstract analytic plugin for the IMA.js application.
-You can find the IMA.js skeleton application at
-<https://github.com/seznam/IMA.js-skeleton> or visit our site
-[imajs.io](https://imajs.io).
+You can visit our site [imajs.io](https://imajs.io).
 
 ## Installation
 

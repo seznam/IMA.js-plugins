@@ -28,7 +28,7 @@
     "gulp-jsdoc3": "^2.0.0",
     "gulp-remember": "^1.0.1",
     "gulp-rename": "^1.4.0",
-    "@ima/gulp-task-loader": "^0.16.0",
+    "@ima/gulp-task-loader": "^17.0.0-rc.5",
     "jest": "^24.9.0",
     "lerna": "^3.18.3",
     "prettier": "^1.18.2",

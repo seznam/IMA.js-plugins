@@ -1,7 +1,6 @@
 # @ima/plugin-analytic-google
 
-This is the google analytic plugin for the IMA.js application. You can find the IMA.js skeleton application at <https://github.com/seznam/IMA.js-skeleton>
-or follow link <https://imajs.io>.
+This is the google analytic plugin for the IMA.js application. You can visit our site <https://imajs.io>.
 
 ## Installation
 

@@ -1,4 +1,4 @@
-import * as ima, { vendorLinker, vendors as imaVendors } from '@ima/core';
+import { createImaApp, getClientBootConfig, onLoad, bootClientApp, vendorLinker, vendors as imaVendors } from '@ima/core';
 import { assignRecursively } from 'ima-helpers';
 import { JSDOM } from 'jsdom';
 import { requireFromProject, loadFiles } from './helpers';
@@ -123,15 +123,15 @@ async function initImaApp(bootConfigMethods = {}) {
 
   await config.prebootScript();
 
-  let app = ima.createImaApp();
-  let bootConfig = ima.getClientBootConfig({
+  let app = createImaApp();
+  let bootConfig = getClientBootConfig({
     initServicesApp: _getBootConfigForMethod('initServicesApp'),
     initBindApp: _getBootConfigForMethod('initBindApp'),
     initRoutes: _getBootConfigForMethod('initRoutes'),
     initSettings: _getBootConfigForMethod('initSettings')
   });
-  await ima.onLoad();
-  ima.bootClientApp(app, bootConfig);
+  await onLoad();
+  bootClientApp(app, bootConfig);
 
   return app;
 }

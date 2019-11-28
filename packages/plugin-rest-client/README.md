@@ -1,8 +1,7 @@
 # @ima/plugin-rest-client
 
-Generic REST API client plugin for the IMA application framework. You may find
-the IMA application skeleton at
-[https://github.com/seznam/IMA.js-skeleton](https://github.com/seznam/IMA.js-skeleton).
+Generic REST API client plugin for the IMA application framework.
+You can visit our site <https://imajs.io>.
 
 ## Installation
 
