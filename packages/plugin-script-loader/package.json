@@ -30,8 +30,10 @@
   "devDependencies": {
     "eslint": "6.6.0",
     "gulp": "4.0.2",
-    "ima": "^0.16.11",
-    "jest": "^24.9.0"
+    "@ima/core": "^17.0.0-rc.6",
+    "jest": "^24.9.0",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
   },
   "dependencies": {
     "@ima/plugin-resource-loader": "^0.14.0"

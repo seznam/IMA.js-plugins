@@ -1,4 +1,11 @@
-import { createImaApp, getClientBootConfig, onLoad, bootClientApp, vendorLinker, vendors as imaVendors } from '@ima/core';
+import {
+  createImaApp,
+  getClientBootConfig,
+  onLoad,
+  bootClientApp,
+  vendorLinker,
+  vendors as imaVendors
+} from '@ima/core';
 import { assignRecursively } from 'ima-helpers';
 import { JSDOM } from 'jsdom';
 import { requireFromProject, loadFiles } from './helpers';

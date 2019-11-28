@@ -31,9 +31,11 @@
   "devDependencies": {
     "eslint": "6.6.0",
     "gulp": "4.0.2",
-    "ima": "^0.16.11",
+    "@ima/core": "^17.0.0-rc.6",
     "@ima/plugin-script-loader": "^0.14.3",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
   },
   "dependencies": {
     "@ima/plugin-analytic": "^2.0.0"
