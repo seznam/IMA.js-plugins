@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-less-constants",
-  "version": "0.8.0",
+  "version": "1.0.0",
   "description": "IMA.js plugin for sharing constants between JavaScript and LESS code.",
   "main": "tasks/gulpTask.js",
   "scripts": {
