@@ -37,7 +37,7 @@
     "react-dom": "^16.12.0"
   },
   "dependencies": {
-    "@ima/plugin-script-loader": "^0.14.5"
+    "@ima/plugin-script-loader": "^1.0.0"
   },
   "browserify": {
     "transform": [

@@ -43,7 +43,7 @@
     "react-dom": "^16.12.0"
   },
   "dependencies": {
-    "@ima/plugin-resource-loader": "^0.14.0"
+    "@ima/plugin-resource-loader": "^1.0.0"
   },
   "engines": {
     "node": ">=6",
