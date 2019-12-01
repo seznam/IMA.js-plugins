@@ -1,0 +1,10 @@
+*.swp
+.DS_Store
+.idea
+.sublime-gulp.cache
+node_modules/
+doc/
+coverage/
+dist/
+npm-debug.log
+package-lock.json

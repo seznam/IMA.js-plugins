@@ -1,0 +1,56 @@
+{
+  "name": "@ima/plugin-websocket",
+  "version": "0.0.1",
+  "description": "Simple WebSocket server and client for IMA.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/jest --coverage --config=jest.conf.json",
+    "lint": "node_modules/.bin/eslint './src/**/*.js' --fix --config ../../.eslintrc.js",
+    "doc": "node_modules/.bin/gulp doc",
+    "build": "node_modules/.bin/gulp build"
+  },
+  "keywords": [
+    "websocket",
+    "IMA.js"
+  ],
+  "author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
+  "contributors": [
+    "Jiri Fencl <jiri.fencl@firma.seznam.cz>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/"
+  },
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/issues"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@ima/core": "^17.0.0-rc.6",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-jasmine": "^2.10.1",
+    "eslint-plugin-jest": "^22.13.6",
+    "eslint-plugin-prettier": "^3.1.0",
+    "gulp": "^4.0.2",
+    "jest": "^24.8.0",
+    "prettier": "^1.18.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "to-mock": "^1.5.4"
+  },
+  "dependencies": {
+    "ws": "^7.1.2"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "engines": {
+    "npm": ">=4 <6"
+  }
+}
