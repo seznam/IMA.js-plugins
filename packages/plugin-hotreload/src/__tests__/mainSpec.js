@@ -6,10 +6,10 @@ describe('plugin', () => {
     expect(plugin).not.toEqual(undefined);
   });
 
-  it('should exported WebSocket', () => {
-    expect(plugin.WebSocket).not.toEqual(null);
-    expect(plugin.WebSocket).not.toEqual(undefined);
-    expect(typeof plugin.WebSocket).toEqual('function');
+  it('should exported initServices', () => {
+    expect(plugin.initServices).not.toEqual(null);
+    expect(plugin.initServices).not.toEqual(undefined);
+    expect(typeof plugin.initServices).toEqual('function');
   });
 
   it('should exported $registerImaPlugin', () => {
