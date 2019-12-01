@@ -4,8 +4,8 @@
   "description": "Simple WebSocket server and client for IMA.js",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/jest --coverage --config=jest.conf.json",
-    "lint": "node_modules/.bin/eslint './src/**/*.js' --fix --config ../../.eslintrc.js",
+    "test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+    "lint": "node_modules/.bin/eslint './src/**/*.{js,jsx}' --fix",
     "doc": "node_modules/.bin/gulp doc",
     "build": "node_modules/.bin/gulp build"
   },

@@ -9,7 +9,7 @@ describe('WebSocket', () => {
 
   describe('for server side', () => {
     beforeEach(() => {
-      window = toMockedInstance(window, {
+      window = toMockedInstance(Window, {
         isClient: () => false
       });
       webSocket = new WebSocket(window, config);
