@@ -22,6 +22,7 @@ The IMA.js plugins is multi-package repository containing most commonly used plu
 - [**plugin-local-storage**](packages/plugin-local-storage)
 - [**plugin-testing-integration**](packages/plugin-testing-integration)
 - [**plugin-websocket**](packages/plugin-websocket)
+- [**plugin-hot-reload**](packages/plugin-hot-reload)
 
 ## IMA.js
 The IMA.js is an application development stack for developing isomorphic applications written in pure JavaScript. You can find the IMA.js skeleton application at https://github.com/seznam/ima.
