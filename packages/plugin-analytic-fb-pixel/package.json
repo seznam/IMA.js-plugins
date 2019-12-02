@@ -4,10 +4,10 @@
   "description": "Seznam IMA.js analytic plugin for Facebook Pixel",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
-    "lint": "node_modules/.bin/eslint './src/**/*.js' --fix",
-    "doc": "node_modules/.bin/gulp doc",
-    "build": "node_modules/.bin/gulp build"
+    "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+    "lint": "../../node_modules/.bin/eslint './src/**/*.js' --fix",
+    "doc": "../../node_modules/.bin/gulp doc",
+    "build": "../../node_modules/.bin/gulp build"
   },
   "keywords": [
     "IMA.js",
@@ -31,10 +31,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "eslint": "6.7.1",
-    "gulp": "4.0.2",
-    "@ima/plugin-script-loader": "1.0.0",
-    "jest": "^24.9.0"
+    "@ima/plugin-script-loader": "1.0.0"
   },
   "dependencies": {
     "@ima/plugin-analytic": "^3.0.0"

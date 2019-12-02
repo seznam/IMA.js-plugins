@@ -5,7 +5,7 @@
   "main": "tasks/gulpTask.js",
   "scripts": {
     "test": "echo \"WARN: no test specified\" && exit 0",
-    "lint": "node_modules/.bin/eslint './**/*.js' --fix",
+    "lint": "../../node_modules/.bin/eslint './**/*.js' --fix",
     "doc": "echo \"WARN: no doc specified\" && exit 0",
     "build": "echo \"WARN: no build specified\" && exit 0"
   },
@@ -32,8 +32,6 @@
   ],
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^6.7.1",
-    "gulp": "^4.0.2"
   },
   "peerDependencies": {
     "@babel/core": "7.x",

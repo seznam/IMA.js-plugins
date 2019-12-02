@@ -4,10 +4,10 @@
   "description": "Helper plugin simplifying the usage of the XMLHttpRequest API.",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
-    "lint": "node_modules/.bin/eslint './src/**/*.js' --fix",
-    "doc": "node_modules/.bin/gulp doc",
-    "build": "node_modules/.bin/gulp build"
+    "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+    "lint": "../../node_modules/.bin/eslint './src/**/*.js' --fix",
+    "doc": "../../node_modules/.bin/gulp doc",
+    "build": "../../node_modules/.bin/gulp build"
   },
   "repository": {
     "type": "git",
@@ -37,10 +37,7 @@
   },
   "homepage": "https://github.com/seznam/IMA.js-plugins#readme",
   "devDependencies": {
-    "eslint": "6.7.1",
-    "gulp": "4.0.2",
     "@ima/core": "^17.0.0-rc.6",
-    "jest": "^24.9.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   },
