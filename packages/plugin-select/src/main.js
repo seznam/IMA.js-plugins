@@ -1,4 +1,5 @@
-import select, {
+import forwardedSelect, {
+  select,
   createStateSelector,
   hoistNonReactStatic,
   setCreatorOfStateSelector,
@@ -7,7 +8,7 @@ import select, {
 
 function $registerImaPlugin() {}
 
-export default select;
+export default forwardedSelect;
 
 export {
   $registerImaPlugin,

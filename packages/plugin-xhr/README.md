@@ -1,8 +1,8 @@
 # @ima/plugin-xhr
 
-[![Build Status](https://travis-ci.org/seznam/IMA.js-plugin-xhr.svg?branch=master)](https://travis-ci.org/seznam/IMA.js-plugin-xhr)
-[![npm](http://img.shields.io/npm/v/ima-plugin-xhr.svg)](https://www.npmjs.com/package/ima-plugin-xhr)
-[![License](https://img.shields.io/npm/l/ima-plugin-xhr.svg)](LICENSE)
+[![Build Status](https://travis-ci.org/seznam/IMA.js-plugins.svg?branch=master)](https://travis-ci.org/seznam/IMA.js-plugin-xhr)
+[![npm](http://img.shields.io/npm/v/@ima/plugin-xhr.svg)](https://www.npmjs.com/package/ima-plugin-xhr)
+[![License](https://img.shields.io/npm/l/@ima/plugin-xhr.svg)](LICENSE)
 
 Helper plugin simplifying the usage of the XMLHttpRequest API. This plugin is
 meant to be used only at the client side and only where the fetch API is

@@ -52,6 +52,7 @@ prod: {
 ```javascript
 // /app/config/services.js
 import { GoogleAnalytic } from '@ima/plugin-analytic-google';
+import { RouterEvents } from '@ima/core';
 
 var $window = oc.get('$Window');
 var $dispatcher = oc.get('$Dispatcher');
@@ -64,7 +65,7 @@ if ($window.isClient()) {
 	googleAnalytic.init();
 
 	//set hit page view to analytic
-	$dispatcher.listen(ns.ima.router.Events.AFTER_HANDLE_ROUTE, (pageData) => {
+	$dispatcher.listen(RouterEvents.AFTER_HANDLE_ROUTE, (pageData) => {
 
 		if (pageData &&
 				pageData.response &&
@@ -108,5 +109,5 @@ if ($window.isClient()) {
 ## Dependencies
 If you are looking more details, you should
 follow this links:
-[https://github.com/seznam/IMA.js-plugin-analytic](https://github.com/seznam/IMA.js-plugin-analytic),
-[https://github.com/seznam/IMA.js-plugin-script-loader](https://github.com/seznam/IMA.js-plugin-script-loader)
+[https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-analytic](https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-analytic,
+[https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-script-loader](https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-script-loader)

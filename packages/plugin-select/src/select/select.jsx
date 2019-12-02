@@ -1,4 +1,4 @@
-import { AbstractPureComponent, Events, PageContext } from '@ima/core';
+import { AbstractPureComponent, StateEvents, PageContext } from '@ima/core';
 import hoistNonReactStaticMethod from 'hoist-non-react-statics';
 import React from 'react';
 import { createSelector } from 'reselect';
@@ -40,7 +40,7 @@ export function select(...selectors) {
 
       componentDidMount() {
         this.utils.$Dispatcher.listen(
-          Events.AFTER_CHANGE_STATE,
+          StateEvents.AFTER_CHANGE_STATE,
           this.afterChangeState,
           this
         );
@@ -48,7 +48,7 @@ export function select(...selectors) {
 
       componentWillUnmount() {
         this.utils.$Dispatcher.unlisten(
-          Events.AFTER_CHANGE_STATE,
+          StateEvents.AFTER_CHANGE_STATE,
           this.afterChangeState,
           this
         );

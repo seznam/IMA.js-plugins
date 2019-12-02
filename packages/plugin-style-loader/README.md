@@ -31,7 +31,7 @@ import { StyleLoaderPlugin, events, defaultDependencies } from '@ima/plugin-styl
 ## Usage
 
 ```javascript
-import Dispatcher from 'ima/event/Dispatcher';
+import { Dispatcher } from '@ima/core';
 import { StyleLoaderPlugin, events as StyleLoaderEvents } from '@ima/plugin-style-loader';
 
 oc
