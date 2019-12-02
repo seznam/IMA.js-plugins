@@ -4,10 +4,10 @@
   "description": "The plugin selects extra props from page state to your component.",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
-    "lint": "node_modules/.bin/eslint './src/**/*.{js,jsx}' --fix",
-    "doc": "node_modules/.bin/gulp doc",
-    "build": "node_modules/.bin/gulp build"
+    "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+    "lint": "../../node_modules/.bin/eslint './src/**/*.{js,jsx}' --fix",
+    "doc": "../../node_modules/.bin/gulp doc",
+    "build": "../../node_modules/.bin/gulp build"
   },
   "keywords": [
     "IMA",
@@ -32,10 +32,7 @@
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "enzyme-to-json": "^3.4.3",
-    "eslint": "6.7.1",
-    "gulp": "4.0.2",
     "@ima/core": "^17.0.0-rc.6",
-    "jest": "^24.9.0",
     "react": "16.11.0",
     "react-dom": "16.12.0",
     "to-mock": "^1.5.4"
