@@ -80,7 +80,7 @@ export default class WebSocket {
   }
 
   _connect() {
-    this._socket = new WebSocket(this._config.url);
+    this._socket = Reflect.construct(window.WebSocket, [this._config.url]);
 
     this._socket.onmessage = event => {
       try {
