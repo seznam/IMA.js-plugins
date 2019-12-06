@@ -29,9 +29,7 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "7.7.4",
-    "@ima/gulp-task-loader": "^1.16.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "@ima/gulp-task-loader": "^1.16.0"
   },
   "browserify": {
     "transform": [
