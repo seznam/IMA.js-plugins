@@ -1,0 +1,44 @@
+{
+  "name": "@ima/plugin-shared-cache",
+  "version": "0.3.0",
+  "description": "A utility for creating caches that are shared between requests by all IMA.js application instances within the same node.js process.",
+  "main": "index.js",
+  "scripts": {
+    "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+    "lint": "../../node_modules/.bin/eslint './src/**/*.js' --fix",
+    "doc": "../../node_modules/.bin/gulp doc",
+    "build": "../../node_modules/.bin/gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/",
+    "access": "public"
+  },
+  "keywords": [
+    "ima",
+    "ima.js",
+    "plugin",
+    "cache",
+    "shared"
+  ],
+  "author": "Martin Jurča <martin.jurca@firma.seznam.cz>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "clone": "^2.1.2"
+  },
+  "devDependencies": {
+    "@ima/gulp-task-loader": "^17.0.1"
+  },
+  "engines": {
+    "node": ">=6",
+    "npm": ">=4 <6"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  }
+}
