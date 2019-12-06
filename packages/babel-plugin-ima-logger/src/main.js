@@ -7,7 +7,7 @@ const DEFAULT_ENVIRONMENT = 'dev';
 
 /**
  * BabelLoggerPlugin class removes functions of
- * {@link external:@usa/plugin-logger} when used in production or when the
+ * {@link external:@ima/plugin-logger} when used in production or when the
  * plugin's `remove` option is set to `true`.
  */
 class BabelLoggerPlugin {

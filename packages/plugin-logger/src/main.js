@@ -39,7 +39,7 @@ function configureLogger(config) {
  * Activates the silent mode. It's useful for unit testing.
  *
  * @example
- * import * as logger from '@usa/plugin-logger';
+ * import * as logger from '@ima/plugin-logger';
  *
  * describe('some class with the logger', () => {
  *   // Shortcut for configureLogger({ silentMode: true });
