@@ -2,7 +2,7 @@
   "name": "@ima/plugin-rest-client",
   "version": "1.0.1",
   "description": "Generic REST API client plugin for the IMA application framework.",
-  "main": "AbstractRestClient.js",
+  "main": "index.js",
   "scripts": {
     "test": "../../node_modules/.bin/jest --config=jest.conf.json",
     "lint": "../../node_modules/.bin/eslint './src/**/*.js' --fix",
