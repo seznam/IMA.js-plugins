@@ -21,14 +21,7 @@ In order to use the plugin directly in an IMA.js application, add the following
 items to the `vendor.common` array in the `app/build.js` configuration file:
 
 ```javascript
-'@ima/plugin-rest-client/AbstractEntity',
-'@ima/plugin-rest-client/AbstractRestClient',
-'@ima/plugin-rest-client/Configurator',
-'@ima/plugin-rest-client/LinkGenerator',
-'@ima/plugin-rest-client/Request',
-'@ima/plugin-rest-client/RequestPreProcessor',
-'@ima/plugin-rest-client/Response',
-'@ima/plugin-rest-client/ResponsePostProcessor'
+'@ima/plugin-rest-client'
 ```
 
 For information about implementing a custom REST API client based on this
@@ -69,7 +62,7 @@ configuration, nor manipulating the requests or responses.
 First step is creating a no-op configurator:
 
 ```javascript
-import Configurator from '@ima/plugin-rest-client/Configurator';
+import { Configurator } from '@ima/plugin-rest-client';
 
 export default class NoopConfigurator extends Configurator {
   getConfiguration() {
@@ -81,7 +74,7 @@ export default class NoopConfigurator extends Configurator {
 Next we'll need a simple link generator:
 
 ```javascript
-import LinkGenerator from '@ima/plugin-rest-client/LinkGenerator';
+import { LinkGenerator } from '@ima/plugin-rest-client';
 
 export default class SimpleLinkGenerator extends LinkGenerator {
   constructor(baseUrl) {
@@ -112,7 +105,7 @@ export default class SimpleLinkGenerator extends LinkGenerator {
 All that remains is wiring everything up:
 
 ```javascript
-import AbstractRestClient from '@ima/plugin-rest-client/AbstractRestClient';
+import { AbstractRestClient } from '@ima/plugin-rest-client';
 import NoopConfigurator from './NoopConfigurator';
 import SimpleLinkGenerator from './SimpleLinkGenerator';
 
@@ -127,4 +120,14 @@ export default class SimpleRestClient extends AbstractRestClient {
     );
   }
 }
+```
+
+## Changes in version 1.0.x
+In version 1.0.2 we changed how we handle exports in this npm package. To import components of rest-client in your application
+use named imports from `@ima/plugin-rest-client`, rather than identifying each class by it's full path.
+
+Also don't forget to change your build.js configuration to just: 
+
+```javascript
+'@ima/plugin-rest-client'
 ```
