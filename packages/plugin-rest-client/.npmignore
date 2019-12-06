@@ -1,0 +1,5 @@
+src/
+gulpfile.js
+CHANGELOG.md
+jest.conf.json
+jestSetup.js
