@@ -14,6 +14,7 @@ The IMA.js plugins is multi-package repository containing most commonly used plu
 - [**plugin-resource-loader**](packages/plugin-resource-loader)
 - [**plugin-rest-client**](packages/plugin-rest-client)
 - [**plugin-script-loader**](packages/plugin-script-loader)
+- [**plugin-shared-cache**](packages/plugin-shared-cache)
 - [**plugin-select**](packages/plugin-select)
 - [**plugin-self-xss**](packages/plugin-self-xss)
 - [**plugin-style-loader**](packages/plugin-style-loader)
