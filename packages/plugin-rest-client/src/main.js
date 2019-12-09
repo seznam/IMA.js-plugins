@@ -9,6 +9,7 @@ import RequestPreProcessor from './RequestPreProcessor';
 import Response from './Response';
 import ResponsePostProcessor from './ResponsePostProcessor';
 import RestClient from './RestClient';
+import { deepFreeze } from './utils';
 
 let $registerImaPlugin = () => {};
 
@@ -26,5 +27,6 @@ export {
   Response,
   ResponsePostProcessor,
   RestClient,
+  deepFreeze,
   $registerImaPlugin
 };
