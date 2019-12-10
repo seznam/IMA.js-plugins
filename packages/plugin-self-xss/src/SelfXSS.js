@@ -7,11 +7,11 @@ export default class SelfXSS {
   }
 
   static get DICTIONARY_TITLE_KEY() {
-    return '@ima/plugin-self-xss.title';
+    return 'ima-plugin-self-xss.title';
   }
 
   static get DICTIONARY_PHASE_KEY() {
-    return '@ima/plugin-self-xss.phase';
+    return 'ima-plugin-self-xss.phase';
   }
 
   /**
