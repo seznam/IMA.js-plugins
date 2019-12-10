@@ -1,5 +1,13 @@
+.idea/
+.vscode/
+.history/
 src/
+doc/
+coverage/
+.gitignore
 gulpfile.js
-CHANGELOG.md
 jest.conf.json
-jestSetup.js
+preprocess.js
+npm-debug.log
+README.md
+LICENSE.md
