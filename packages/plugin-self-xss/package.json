@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-self-xss",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The plugin is trying to mitigate Self-XSS security attack by sending simple message into console",
   "main": "index.js",
   "scripts": {
