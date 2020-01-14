@@ -11,13 +11,22 @@ import { JSDOM } from 'jsdom';
 import { requireFromProject, loadFiles } from './helpers';
 import { getConfig } from './configuration';
 
+const setIntervalNative = setInterval;
+const setTimeoutNative = setTimeout;
+const setImmediateNative = setImmediate;
+
 let projectDependenciesLoaded = false;
+let timers = [];
 
 /**
  * Clears IMA Application instance from environment
  * @param {Object} app Object from initImaApp method
  */
 function clearImaApp(app) {
+  global.setInterval = setIntervalNative;
+  global.setTimeout = setTimeoutNative;
+  global.setImmediate = setImmediateNative;
+  timers.forEach(({ clear }) => clear());
   vendorLinker.clear();
   app.oc.clear();
 }
@@ -100,6 +109,24 @@ async function initImaApp(bootConfigMethods = {}) {
     global.CustomEvent = global.window.CustomEvent;
   }
 
+  function _installTimerWrappers() {
+    global.setInterval = (...args) => {
+      let timer = setIntervalNative(...args);
+
+      timers.push({ timer, clear: () => clearInterval(timer) });
+    };
+    global.setTimeout = (...args) => {
+      let timer = setTimeoutNative(...args);
+
+      timers.push({ timer, clear: () => clearTimeout(timer) });
+    };
+    global.setImmediate = (...args) => {
+      let timer = setImmediateNative(...args);
+
+      timers.push({ timer, clear: () => clearImmediate(timer) });
+    };
+  }
+
   /**
    * @param {string} method
    * @returns {Function} Function merging bootConfigMethods from param
@@ -125,6 +152,7 @@ async function initImaApp(bootConfigMethods = {}) {
     projectDependenciesLoaded = true;
   }
 
+  _installTimerWrappers();
   _initVendorLinker();
   _initJSDom();
 
