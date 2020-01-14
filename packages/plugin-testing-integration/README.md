@@ -31,7 +31,7 @@ Initializes IMA.js application into JSDOM. You can extend default boot config me
 Params:
 - `object` app IMA.js application instance
 
-Clears IMA.js application from JSDOM.
+Clears IMA.js application from JSDOM with all unfinished timer functions.
 
 ### setConfig
 Params:
