@@ -1,6 +1,6 @@
 module.exports = {
   prompt: ({ prompter }) => {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       prompter
         .prompt([
           {

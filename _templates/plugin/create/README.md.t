@@ -1,14 +1,10 @@
 ---
 to: packages/<%= h.changeCase.paramCase(name) %>/README.md
 ---
-<%
-  pluginName = h.changeCase.paramCase(name)
-%>
+<% pluginName = h.changeCase.paramCase(name) -%>
 # @ima/<%= pluginName %>
 
-The [IMA](https://imajs.io) plugin selects extra props from page state to your component.
-It uses [HOC](https://reactjs.org/docs/higher-order-components.html) at the background.
-It can be very useful for example some analytical data.
+# @TODO: Add plugin description
 
 ## Installation
 

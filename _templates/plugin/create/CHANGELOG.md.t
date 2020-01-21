@@ -1,8 +1,8 @@
 ---
 to: packages/<%= h.changeCase.paramCase(name) %>/CHANGELOG.md
 ---
-<% pluginName = h.changeCase.paramCase(name) %>
-<% if (!locals.version){ locals.version = '0.0.1'} %>
+<% pluginName = h.changeCase.paramCase(name) -%>
+<% if (!locals.version){ locals.version = '0.0.1'} -%>
 # Changelog
 All notable changes to this project will be documented in this file.
 

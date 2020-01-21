@@ -13,4 +13,3 @@ coverage/
 dist/
 npm-debug.log
 package-lock.json
-

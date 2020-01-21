@@ -1,8 +1,8 @@
 ---
 to: packages/<%= h.changeCase.paramCase(name) %>/package.json
 ---
-<% pluginName = h.changeCase.paramCase(name) %>
-<% if (!locals.version){ locals.version = '0.0.1'} %>
+<% pluginName = h.changeCase.paramCase(name) -%>
+<% if (!locals.version){ locals.version = '0.0.1'} -%>
 {
   "name": "@ima/<%= pluginName %>",
   "version": "<%= locals.version %>",
@@ -52,7 +52,5 @@ to: packages/<%= h.changeCase.paramCase(name) %>/package.json
   "engines": {
     "node": ">=6",
     "npm": ">=4"
-  },
-  "dependencies": {
   }
 }
