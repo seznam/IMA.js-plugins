@@ -33,13 +33,13 @@ The new plugin can be initialized using hygen template tool
 npm install -g hygen
 ```
 
-to create new plugin use:
+to create new plugin use local or global hygen:
 
 ```bash
-hygen plugin create
+npx hygen plugin create
 ```
 
-follow the prompt and fill proper data to setup plugin properties
+follow the prompt and fill proper data to setup plugin properties.
 
 ## IMA.js
 The IMA.js is an application development stack for developing isomorphic applications written in pure JavaScript. You can find the IMA.js skeleton application at https://github.com/seznam/ima.
