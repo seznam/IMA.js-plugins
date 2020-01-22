@@ -1,0 +1,56 @@
+---
+to: packages/<%= h.changeCase.paramCase(name) %>/package.json
+---
+<% pluginName = h.changeCase.paramCase(name) -%>
+<% if (!locals.version){ locals.version = '0.0.1'} -%>
+{
+  "name": "@ima/<%= pluginName %>",
+  "version": "<%= locals.version %>",
+  "description": "<%= h.changeCase.sentenceCase(description) %>",
+  "main": "index.js",
+  "scripts": {
+    "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+    "lint": "../../node_modules/.bin/eslint './src/**/*.{js,jsx}' --fix",
+    "doc": "../../node_modules/.bin/gulp doc",
+    "build": "../../node_modules/.bin/gulp build"
+  },
+  "keywords": [
+    "IMA.js",
+    "plugin"
+  ],
+  "author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/",
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/issues"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "enzyme": "3.11.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "enzyme-to-json": "^3.4.3",
+    "@ima/core": "^17.4.0",
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
+    "to-mock": "^1.5.4"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "peerDependencies": {
+    "@ima/core": "17.x",
+    "react": "16.x"
+  },
+  "engines": {
+    "node": ">=6",
+    "npm": ">=4"
+  }
+}

@@ -25,5 +25,13 @@ The IMA.js plugins is multi-package repository containing most commonly used plu
 - [**plugin-websocket**](packages/plugin-websocket)
 - [**plugin-hot-reload**](packages/plugin-hot-reload)
 
+## Create new plugin from hygen template
+
+```bash
+npx hygen plugin create
+```
+
+follow the prompt and fill proper data to setup plugin properties.
+
 ## IMA.js
 The IMA.js is an application development stack for developing isomorphic applications written in pure JavaScript. You can find the IMA.js skeleton application at https://github.com/seznam/ima.
