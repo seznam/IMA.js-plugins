@@ -27,14 +27,6 @@ The IMA.js plugins is multi-package repository containing most commonly used plu
 
 ## Create new plugin from hygen template
 
-The new plugin can be initialized using hygen template tool
-
-```bash
-npm install -g hygen
-```
-
-to create new plugin use local or global hygen:
-
 ```bash
 npx hygen plugin create
 ```
