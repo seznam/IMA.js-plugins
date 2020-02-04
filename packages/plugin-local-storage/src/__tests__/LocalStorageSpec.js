@@ -70,6 +70,30 @@ describe('LocalStorageHelper', () => {
       expect(result).toEqual('testValue');
     });
 
+    it('should return correct value boolean', () => {
+      spyOn(localStorage, 'getItem').and.returnValue({ value: false });
+
+      let result = localStorageInstance.get('testName');
+
+      expect(result).toEqual(false);
+    });
+
+    it('should return correct value for undefined', () => {
+      spyOn(localStorage, 'getItem').and.returnValue({ value: undefined });
+
+      let result = localStorageInstance.get('testName');
+
+      expect(result).toEqual(undefined);
+    });
+
+    it('should return correct value for null', () => {
+      spyOn(localStorage, 'getItem').and.returnValue({ value: null });
+
+      let result = localStorageInstance.get('testName');
+
+      expect(result).toEqual(null);
+    });
+
     it('should return undefined and call localStorageInstance.delete method if item is expired', () => {
       spyOn(localStorage, 'getItem').and.returnValue({
         value: 'testValue',

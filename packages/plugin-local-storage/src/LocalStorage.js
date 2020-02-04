@@ -78,7 +78,7 @@ class LocalStorage extends Storage {
       item = rawItem;
     }
 
-    if (item && item.value) {
+    if (item && Object.prototype.hasOwnProperty.call(item, 'value')) {
       if (item.expires && Date.now() >= item.expires) {
         this.delete(key);
 
