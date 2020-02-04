@@ -58,7 +58,7 @@ class LocalStorage extends Storage {
    * @inheritDoc
    */
   has(key) {
-    return !!this.get(key);
+    return this.get(key) !== undefined;
   }
 
   /**
