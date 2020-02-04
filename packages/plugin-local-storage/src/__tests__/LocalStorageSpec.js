@@ -43,6 +43,22 @@ describe('LocalStorageHelper', () => {
 
       expect(result).toEqual(false);
     });
+
+    it('should return true for boolean value', () => {
+      spyOn(localStorageInstance, 'get').and.returnValue(false);
+
+      let result = localStorageInstance.has('testName');
+
+      expect(result).toEqual(true);
+    });
+
+    it('should return true for null', () => {
+      spyOn(localStorageInstance, 'get').and.returnValue(null);
+
+      let result = localStorageInstance.has('testName');
+
+      expect(result).toEqual(true);
+    });
   });
 
   describe('get method', () => {
