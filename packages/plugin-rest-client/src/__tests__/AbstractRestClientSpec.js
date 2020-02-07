@@ -840,11 +840,11 @@ describe('AbstractRestClient', () => {
           expect(response.request.resource).toBe(Entity);
           expect(response.body instanceof Array).toBeTruthy();
           expect(response.body).toEqual([
-            new Entity(restClient, {
+            new Entity({
               id: 1,
               stuff: 'yes'
             }),
-            new Entity(restClient, {
+            new Entity({
               id: 2,
               stuff: 'no'
             })
@@ -902,7 +902,7 @@ describe('AbstractRestClient', () => {
         []
       );
 
-      let parent = new Entity(restClient, {
+      let parent = new Entity({
         id: 'nope'
       });
 
@@ -912,7 +912,7 @@ describe('AbstractRestClient', () => {
           expect(response.request.resource).toBe(Entity);
           expect(response.body instanceof Entity).toBeTruthy();
           expect(response.body).toMatchObject(
-            new Entity(restClient, {
+            new Entity({
               id: 1,
               stuff: 'yes'
             })
@@ -985,7 +985,7 @@ describe('AbstractRestClient', () => {
         .then(response => {
           expect(response instanceof Entity).toBeTruthy();
           expect(response).toEqual(
-            new Entity(restClient, {
+            new Entity({
               id: 1,
               stuff: 'yes'
             })

@@ -380,9 +380,9 @@ export default class AbstractEntity {
   static asDataFieldMapper(dataFieldName = null) {
     let entityClass = this;
     return AbstractDataFieldMapper.makeMapper(
-        dataFieldName,
-        (data, parentEntity) => new entityClass(data, parentEntity),
-        entity => entity.$serialize()
+      dataFieldName,
+      (data, parentEntity) => new entityClass(data, parentEntity),
+      entity => entity.$serialize()
     );
   }
 
@@ -527,7 +527,10 @@ export default class AbstractEntity {
       let rawValue = data[propertyName];
       let mapper = mappings[entityPropertyName];
       if (mapper instanceof Object) {
-        deserializedData[entityPropertyName] = mapper.deserialize(rawValue, this);
+        deserializedData[entityPropertyName] = mapper.deserialize(
+          rawValue,
+          this
+        );
       } else {
         deserializedData[entityPropertyName] = rawValue;
       }
