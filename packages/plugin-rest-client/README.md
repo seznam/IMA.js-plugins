@@ -51,6 +51,8 @@ The Abstract REST client can be configured using the following:
 * `AbstractEntity` - base class for typed approach of identifying REST
   resources. The class also provides various helper method for easier
   manipulation of entities in the REST API.
+ 
+It also provides AbstractResource which helps streamline the process of calling REST API methods on certain resource.
 
 ## Implementing a minimal working REST API client
 
@@ -121,6 +123,20 @@ export default class SimpleRestClient extends AbstractRestClient {
   }
 }
 ```
+### Using `AbstractResource`
+`AbstractResource` provides a way to work with Entities and REST API client more easily. First you need to define your Entities as usual and then in your resource class extend base `AbstractResource` while overriding the `static get entityClass()` getter.
+```javascript
+import { AbstractResource } from '@ima/plugin-rest-client'; 
+import { ArticleEntity } from './Entities/ArticleEntity'; 
+
+class ArticleResource extends AbstractResource {  
+
+    static get entityClass() {
+        return ArticleEntity;
+    }
+
+}
+```
 
 ## Changes in version 1.0.x
 In version 1.0.2 we changed how we handle exports in this npm package. To import components of rest-client in your application
@@ -131,3 +147,7 @@ Also don't forget to change your build.js configuration to just:
 ```javascript
 '@ima/plugin-rest-client'
 ```
+
+## Changes in version 2.x
+Addition of `AbstractResource` which now contains all rest API call methods that has been extracted from the `AbstractEntity`. 
+This has removed dependency on REST API client on the Entity side but also removed all static REST API method calls from the Entity class which has to be handled through defining the resource/service (see above on how to use AbstractResource). Additionally all `AbstractEntity` instance REST API methods have been removed completely.

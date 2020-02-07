@@ -15,7 +15,7 @@ const PRIVATE = Object.freeze({
  * The base class for creating REST API service classes, used to group REST API methods
  * specified by the REST API client implementation on the given AbstractEntity Class.
  */
-export default class AbstractService {
+export default class AbstractResource {
 	static get $dependencies() {
 		return [RestClient];
 	}
@@ -99,7 +99,7 @@ export default class AbstractService {
 
 	/**
 	 * Retrieves the specified entities from the REST API resource
-	 * identified by the {@link AbstractService.entityClass}.
+	 * identified by the {@link AbstractResource.entityClass}.
 	 *
 	 * @param {Object<string, (number|string|(number|string)[])>=} parameters
 	 *        The additional parameters to send to the server with the request
@@ -131,7 +131,7 @@ export default class AbstractService {
 
 	/**
 	 * Retrieves the specified entity or entities from the REST API resource
-	 * identified by the {@link AbstractService.entityClass}.
+	 * identified by the {@link AbstractResource.entityClass}.
 	 *
 	 * @param {(number|string|(number|string)[])} id The ID(s) identifying the
 	 *        entity or group of entities to retrieve.
@@ -166,7 +166,7 @@ export default class AbstractService {
 
 	/**
 	 * Creates a new entity in the REST API resource identifying by this
-	 * {@link AbstractService.entityClass} class using the provided data.
+	 * {@link AbstractResource.entityClass} class using the provided data.
 	 *
 	 * @param {Object<string, *>} data The entity data. The data should be
 	 *        compatible with this entity's structure so that they can be
@@ -211,7 +211,7 @@ export default class AbstractService {
 
 	/**
 	 * Deletes the specified entity or entities from the REST API resource
-	 * identified by this {@link AbstractService.entityClass} class.
+	 * identified by this {@link AbstractResource.entityClass} class.
 	 *
 	 * @param {(number|string|(number|string)[])} id The ID(s) identifying the
 	 *        entity or group of entities to retrieve.

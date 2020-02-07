@@ -1,5 +1,6 @@
 import AbstractDataFieldMapper from './AbstractDataFieldMapper';
 import AbstractEntity from './AbstractEntity';
+import AbstractResource from './AbstractResource';
 import AbstractRestClient from './AbstractRestClient';
 import Configurator from './Configurator';
 import HttpMethod from './HttpMethod';
@@ -18,6 +19,7 @@ export default AbstractRestClient;
 export {
   AbstractDataFieldMapper,
   AbstractEntity,
+  AbstractResource,
   AbstractRestClient,
   Configurator,
   HttpMethod,

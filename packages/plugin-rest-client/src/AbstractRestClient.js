@@ -430,10 +430,10 @@ export default class AbstractRestClient extends RestClient {
 
     if (body instanceof Array) {
       body = body.map(
-        entityData => new resource(this, entityData, parentEntity)
+        entityData => new resource(entityData, parentEntity)
       );
     } else if (body) {
-      body = new resource(this, body, parentEntity);
+      body = new resource(body, parentEntity);
     } else {
       body = null;
     }
