@@ -379,22 +379,6 @@ describe('AbstractEntity', () => {
       testStaticProperty(AbstractEntity, 'isImmutable', false, false, true);
     });
 
-    it('should be possible to configure idParameterName exactly once', () => {
-      testStaticProperty(
-        AbstractEntity,
-        'dataFieldMapping',
-        {},
-        false,
-        'itemId'
-      );
-    });
-
-    it('should be possible to configure embeds exactly once', () => {
-      testStaticProperty(AbstractEntity, 'isImmutable', false, false, {
-        id: '_id'
-      });
-    });
-
     it(
       'should have all its private symbol properties marked as ' +
         'non-enumerable',
