@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.0.0 - 2020-02-07
+### Changed
+- **BREAKING CHANGE!** - `AbstractEntity` has not dependency on REST API client. All REST API method calls from the `AbstractEntity` was removed.
+### Added
+- Added `AbstractResource` which now contains all rest API call methods that has been extracted from the `AbstractEntity`
+
 ## 1.0.5 - 2019-12-10
 ### Fixed
 - Fixed package build
