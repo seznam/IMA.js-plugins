@@ -1,6 +1,6 @@
 import AbstractDataFieldMapper from '../AbstractDataFieldMapper';
 import AbstractEntity from '../AbstractEntity';
-import AbstractRestClient from '../AbstractRestClient';
+import { testStaticProperty } from './RestClientTestUtils';
 
 describe('AbstractEntity', () => {
   class Entity extends AbstractEntity {
@@ -17,98 +17,19 @@ describe('AbstractEntity', () => {
     }
   }
 
-  let restResult;
-  let calledClientMethods;
-  let parametersToPass;
-  let passedParameters;
-  let restClient;
-  let restClientCallbacks;
+  it('should support a parent entity', () => {
+    let parentEntity = new Entity({ id: 1 });
+    let entity = new Entity({ id: 2 }, parentEntity);
 
-  class RestClient extends AbstractRestClient {
-    list(resource, parameters = {}) {
-      calledClientMethods.list = true;
-      passedParameters = parameters;
-      return Promise.resolve(restResult);
-    }
-
-    get(resource, id, parameters = {}) {
-      calledClientMethods.get = true;
-      passedParameters = parameters;
-      return Promise.resolve(restResult);
-    }
-
-    patch(resource, id, data, parameters = {}) {
-      calledClientMethods.patch = true;
-      passedParameters = parameters;
-
-      if (restClientCallbacks.patch) {
-        restClientCallbacks.patch(data);
-      }
-      return Promise.resolve(restResult);
-    }
-
-    replace(resource, id, data, parameters = {}) {
-      calledClientMethods.replace = true;
-      passedParameters = parameters;
-
-      if (restClientCallbacks.replace) {
-        restClientCallbacks.replace(data);
-      }
-      return Promise.resolve(restResult);
-    }
-
-    create(resource, data, parameters = {}) {
-      calledClientMethods.create = true;
-      passedParameters = parameters;
-
-      if (restClientCallbacks.create) {
-        restClientCallbacks.create(data);
-      }
-      return Promise.resolve(restResult);
-    }
-
-    delete(resource, id, parameters = {}) {
-      calledClientMethods.delete = true;
-      passedParameters = parameters;
-
-      return Promise.resolve(restResult);
-    }
-  }
-
-  beforeEach(() => {
-    restResult = null;
-    calledClientMethods = {
-      list: false,
-      get: false,
-      patch: false,
-      replace: false,
-      create: false,
-      delete: false
-    };
-    restClientCallbacks = {
-      create: null,
-      patch: null,
-      replace: null
-    };
-    restClient = new RestClient(null, null, null, [], []);
-    parametersToPass = { key: 'value' };
-    passedParameters = undefined;
-  });
-
-  it('should reject invalid rest client constructor argument', () => {
-    expect(() => {
-      new Entity(null, {});
-    }).toThrowError(TypeError);
-
-    new Entity(restClient, {});
+    expect(entity.$parentEntity).toBe(parentEntity);
   });
 
   it('should assign data to its instance', () => {
-    let template = new Entity(restClient, {});
+    let template = new Entity({});
     template.id = 12;
     template.test = true;
     expect(
-      new Entity(restClient, {
+      new Entity({
         id: 12,
         test: true
       })
@@ -118,187 +39,20 @@ describe('AbstractEntity', () => {
   it('should keep reference to its parent entity', () => {
     expect(
       new Entity(
-        restClient,
         {},
-        new Entity(restClient, {
+        new Entity({
           id: 'yup'
         })
       ).$parentEntity
     ).toEqual(
-      new Entity(restClient, {
+      new Entity({
         id: 'yup'
       })
     );
   });
 
-  it('should keep reference to the REST API client', () => {
-    expect(new Entity(restClient, {}).$restClient).toBe(restClient);
-  });
-
-  it('should allow listing of entities', done => {
-    restResult = 123;
-    return Entity.list(restClient, parametersToPass)
-      .then(response => {
-        expect(response).toBe(restResult);
-        expect(calledClientMethods.list).toBeTruthy();
-        expect(passedParameters).toEqual(parametersToPass);
-        done();
-      })
-      .catch(error => {
-        fail(error.stack);
-        done();
-      });
-  });
-
-  it('should allow retrieving a single entity', done => {
-    restResult = 234;
-    return Entity.get(restClient, 1, parametersToPass)
-      .then(response => {
-        expect(response).toBe(restResult);
-        expect(calledClientMethods.get).toBeTruthy();
-        expect(passedParameters).toEqual(parametersToPass);
-        done();
-      })
-      .catch(error => {
-        fail(error.stack);
-        done();
-      });
-  });
-
-  it('should allow creating new entities', done => {
-    restResult = 345;
-    return Entity.create(restClient, {}, parametersToPass)
-      .then(response => {
-        expect(response).toBe(restResult);
-        expect(calledClientMethods.create).toBeTruthy();
-        expect(passedParameters).toEqual(parametersToPass);
-
-        calledClientMethods.create = false;
-        restResult = 456;
-        parametersToPass = Object.assign({}, parametersToPass);
-        let entity = new Entity(restClient, {});
-        return entity.create(parametersToPass);
-      })
-      .then(response => {
-        expect(response).toBe(restResult);
-        expect(calledClientMethods.create).toBeTruthy();
-        expect(passedParameters).toEqual(parametersToPass);
-
-        done();
-      })
-      .catch(error => {
-        fail(error.stack);
-        done();
-      });
-  });
-
-  it('should allow deleting entities', done => {
-    restResult = 567;
-    return Entity.delete(restClient, 1, parametersToPass)
-      .then(response => {
-        expect(response).toBe(restResult);
-        expect(calledClientMethods.delete).toBeTruthy();
-        expect(passedParameters).toEqual(parametersToPass);
-
-        calledClientMethods.delete = false;
-        restResult = 678;
-        parametersToPass = Object.assign({}, parametersToPass);
-        let entity = new Entity(restClient, { id: 1 });
-        return entity.delete(parametersToPass);
-      })
-      .then(response => {
-        expect(response).toBe(restResult);
-        expect(calledClientMethods.delete).toBeTruthy();
-        expect(passedParameters).toEqual(parametersToPass);
-
-        done();
-      })
-      .catch(error => {
-        fail(error.stack);
-        done();
-      });
-  });
-
-  it('should allow listing of sub-resource entities', done => {
-    restResult = 789;
-    let entity = new Entity(restClient, {});
-    entity
-      .list(Entity, parametersToPass)
-      .then(response => {
-        expect(response).toBe(restResult);
-        expect(calledClientMethods.list).toBeTruthy();
-        expect(passedParameters).toEqual(parametersToPass);
-
-        done();
-      })
-      .catch(error => {
-        fail(error.stack);
-        done();
-      });
-  });
-
-  it('should allow fetching of single entities', done => {
-    restResult = 890;
-    let entity = new Entity(restClient, {});
-    entity
-      .get(Entity, 1, parametersToPass)
-      .then(response => {
-        expect(response).toBe(restResult);
-        expect(calledClientMethods.get).toBeTruthy();
-        expect(passedParameters).toEqual(parametersToPass);
-
-        done();
-      })
-      .catch(error => {
-        fail(error.stack);
-        done();
-      });
-  });
-
-  it('should allow patching entities', done => {
-    restResult = 901;
-    let entity = new Entity(restClient, { id: 1 });
-    entity
-      .patch({ id: 2, test: 'yay' }, parametersToPass)
-      .then(response => {
-        expect(response).toBe(restResult);
-        expect(calledClientMethods.patch).toBeTruthy();
-        expect(passedParameters).toEqual(parametersToPass);
-
-        expect(entity).toEqual(
-          new Entity(restClient, {
-            id: 2,
-            test: 'yay'
-          })
-        );
-
-        done();
-      })
-      .catch(error => {
-        fail(error.stack);
-        done();
-      });
-  });
-
-  it('should allow replacing entities', done => {
-    restResult = 12;
-    let entity = new Entity(restClient, {});
-    entity
-      .replace(parametersToPass)
-      .then(response => {
-        expect(response).toBe(restResult);
-        expect(calledClientMethods.replace).toBeTruthy();
-        expect(passedParameters).toEqual(parametersToPass);
-
-        done();
-      })
-      .catch(error => {
-        fail(error.stack);
-        done();
-      });
-  });
-
   describe('serialization', () => {
+    // eslint-disable-next-line no-unused-vars
     let serializeCalled = false;
 
     class TransformingEntity extends Entity {
@@ -324,128 +78,13 @@ describe('AbstractEntity', () => {
     });
 
     it('should deserialize entity data upon creation', () => {
-      let entity = new TransformingEntity(restClient, {
+      let entity = new TransformingEntity({
         test: 'tested',
         serialized: true
       });
       expect(Object.assign({}, entity)).toEqual({
         test: 'tested',
         dynamic: true
-      });
-    });
-
-    it(
-      'should create entities from deserialized data when using static ' +
-        'create()',
-      done => {
-        restClientCallbacks.create = data => {
-          expect(data).toEqual({
-            test: 'testing',
-            serialized: true
-          });
-        };
-        restResult = new TransformingEntity(restClient, {
-          test: 'testing',
-          serialized: true
-        });
-        TransformingEntity.create(restClient, {
-          test: 'testing',
-          dynamic: true
-        }).then(entity => {
-          expect(serializeCalled).toBeTruthy();
-          expect(Object.assign({}, entity)).toEqual({
-            test: 'testing',
-            dynamic: true
-          });
-          done();
-        });
-      }
-    );
-
-    it('should use deserialized entity data in the patch method', done => {
-      let entity = new TransformingEntity(restClient, {
-        test: 'testing',
-        testing: 'test',
-        serialized: true
-      });
-      let patchCalled = false;
-      restClientCallbacks.patch = data => {
-        patchCalled = true;
-        expect(data).toEqual({
-          test: 'tested',
-          test2: 1,
-          serialized: true
-        });
-      };
-      entity
-        .patch({
-          test: 'tested',
-          test2: 1,
-          onlyDynamic: true
-        })
-        .then(() => {
-          expect(patchCalled).toBeTruthy();
-          expect(Object.assign({}, entity)).toEqual({
-            test: 'tested',
-            testing: 'test',
-            dynamic: true,
-            onlyDynamic: true,
-            test2: 1
-          });
-          done();
-        });
-    });
-
-    it('should use deserialized entity data in the replace method', done => {
-      let entity = new TransformingEntity(restClient, {
-        test: 'testing',
-        testing: 'test',
-        serialized: true
-      });
-      let replaceCalled = false;
-      restClientCallbacks.replace = data => {
-        replaceCalled = true;
-        expect(data).toEqual({
-          test: 'tested',
-          testing: 'test',
-          serialized: true
-        });
-      };
-      entity.test = 'tested';
-      entity.replace().then(() => {
-        expect(replaceCalled).toBeTruthy();
-        expect(Object.assign({}, entity)).toEqual({
-          test: 'tested',
-          testing: 'test',
-          dynamic: true
-        });
-        done();
-      });
-    });
-
-    it('should use deserialized entity data in the dynamic create method', done => {
-      let entity = new TransformingEntity(restClient, {
-        test: 'testing',
-        testing: 'test',
-        serialized: true
-      });
-      let createCalled = false;
-      restClientCallbacks.create = data => {
-        createCalled = true;
-        expect(data).toEqual({
-          test: 'testing',
-          testing: 'test',
-          serialized: true
-        });
-      };
-      entity.create().then(() => {
-        expect(createCalled).toBeTruthy();
-        expect(Object.assign({}, entity)).toEqual({
-          test: 'testing',
-          testing: 'test',
-          dynamic: true
-        });
-        done();
       });
     });
 
@@ -459,7 +98,7 @@ describe('AbstractEntity', () => {
         }
       }
 
-      let entity = new DeclarativelyMappedEntity(restClient, {
+      let entity = new DeclarativelyMappedEntity({
         id: 1, // not mapped
         some_field: 'and here is the value',
         another: 'that is not renamed'
@@ -515,7 +154,7 @@ describe('AbstractEntity', () => {
         }
       }
 
-      let entity = new MappingEntity(restClient, {
+      let entity = new MappingEntity({
         _id: 123,
         foo: 'a',
         bar: 'b'
@@ -561,7 +200,7 @@ describe('AbstractEntity', () => {
         }
       }
 
-      let entity = new MappingEntity(restClient, {
+      let entity = new MappingEntity({
         _id: 123,
         foo: 'a',
         bar: 'b'
@@ -591,19 +230,19 @@ describe('AbstractEntity', () => {
         }
       }
 
-      let entity = new User(restClient, {
+      let entity = new User({
         id: 1,
         _session: { id: 'ABC' },
         otherSession: { id: 'DEF' },
         anotherSession: { id: 'GHI' }
       });
-      let templateEntity = new User(restClient, {});
+      let templateEntity = new User({});
       templateEntity.id = 1;
-      templateEntity.session = new Session(restClient, { id: 'ABC' });
-      templateEntity.otherSession = new Session(restClient, {
+      templateEntity.session = new Session({ id: 'ABC' });
+      templateEntity.otherSession = new Session({
         id: 'DEF'
       });
-      templateEntity.anotherSession = new Session(restClient, {
+      templateEntity.anotherSession = new Session({
         id: 'GHI'
       });
       expect(entity).toMatchObject(templateEntity);
@@ -630,7 +269,7 @@ describe('AbstractEntity', () => {
     it('should be mutable by default', () => {
       class Entity extends AbstractEntity {}
 
-      let entity = new Entity(restClient, { id: 1 });
+      let entity = new Entity({ id: 1 });
       entity.id = 2;
       entity.foo = 'bar';
       Object.defineProperty(entity, 'id', {
@@ -639,7 +278,7 @@ describe('AbstractEntity', () => {
     });
 
     it('should be deeply immutable if marked as such', () => {
-      let entity = new ImmutableEntity(restClient, {
+      let entity = new ImmutableEntity({
         id: 1,
         foo: {
           bar: {
@@ -654,7 +293,6 @@ describe('AbstractEntity', () => {
 
     it('should be able to clone an entity', () => {
       let entity = new ImmutableEntity(
-        restClient,
         {
           id: 1,
           text: 'is a text',
@@ -662,17 +300,17 @@ describe('AbstractEntity', () => {
           regexp: /a/
         },
         new ImmutableEntity(
-          restClient,
           {
             id: 'xy',
             isParent: true
           },
-          new ImmutableEntity(restClient, {
+          new ImmutableEntity({
             id: 'grand-parent',
             isGrandParent: true
           })
         )
       );
+
       let clone = entity.clone();
       expect(clone).not.toBe(entity);
       expect(clone).toEqual(entity);
@@ -690,7 +328,7 @@ describe('AbstractEntity', () => {
     });
 
     it('should enable creating modified clones of the entity', () => {
-      let entity = new ImmutableEntity(restClient, {
+      let entity = new ImmutableEntity({
         id: 1,
         foo: 'bar'
       });
@@ -704,106 +342,53 @@ describe('AbstractEntity', () => {
         baz: '000'
       });
     });
-
-    it('should be compatible with the patch() method', done => {
-      class ImmutableMockEntity extends Entity {
-        static get isImmutable() {
-          return true;
-        }
-      }
-
-      let entity = new ImmutableMockEntity(restClient, {
-        id: 1,
-        foo: 'bar'
-      });
-      restResult = {
-        id: 1,
-        foo: 'baz'
-      };
-      entity
-        .patch({ foo: 'baz' })
-        .then(patchedEntity => {
-          expect(entity.foo).toBe('bar');
-          expect(patchedEntity.foo).toBe('baz');
-          done();
-        })
-        .catch(error => {
-          fail(error);
-          done();
-        });
-      expect(entity.foo).toBe('bar');
-    });
   });
 
   describe('static properties', () => {
     it('should be possible to configure resourceName exactly once', () => {
-      testStaticProperty('resourceName', null, true, 'fooBar');
+      testStaticProperty(AbstractEntity, 'resourceName', null, true, 'fooBar');
     });
 
     it('should be possible to configure idFieldName exactly once', () => {
-      testStaticProperty('idFieldName', null, true, 'id');
+      testStaticProperty(AbstractEntity, 'idFieldName', null, true, 'id');
     });
 
     it('should be possible to configure inlineResponseBody exactly once', () => {
-      testStaticProperty('inlineResponseBody', false, false, true);
+      testStaticProperty(
+        AbstractEntity,
+        'inlineResponseBody',
+        false,
+        false,
+        true
+      );
     });
 
     it('should be possible to configure propTypes exactly once', () => {
-      testStaticProperty('propTypes', {}, false, { id: 'integer:>0' });
+      testStaticProperty(AbstractEntity, 'propTypes', {}, false, {
+        id: 'integer:>0'
+      });
     });
 
     it('should be possible to configure dataFieldMapping exactly once', () => {
-      testStaticProperty('dataFieldMapping', {}, false, { id: '_id' });
+      testStaticProperty(AbstractEntity, 'dataFieldMapping', {}, false, {
+        id: '_id'
+      });
     });
 
     it('should be possible to configure isImmutable exactly once', () => {
-      testStaticProperty('isImmutable', false, false, true);
+      testStaticProperty(AbstractEntity, 'isImmutable', false, false, true);
     });
 
     it(
       'should have all its private symbol properties marked as ' +
         'non-enumerable',
       () => {
-        let entity = new Entity(restClient, {});
+        let entity = new Entity({});
         for (let symbol of Object.getOwnPropertySymbols(entity)) {
           let descriptor = Object.getOwnPropertyDescriptor(entity, symbol);
           expect(descriptor.enumerable).toBe(false);
         }
       }
     );
-
-    function testStaticProperty(
-      propertyName,
-      defaultValue,
-      throwsError,
-      testingValue
-    ) {
-      class Entity1 extends AbstractEntity {}
-      class Entity2 extends AbstractEntity {}
-
-      if (throwsError) {
-        expect(() => {
-          return Entity1[propertyName];
-        }).toThrow();
-      } else {
-        expect(Entity1[propertyName]).toEqual(defaultValue);
-      }
-
-      Entity2[propertyName] = testingValue;
-      expect(Entity2[propertyName]).toBe(testingValue);
-
-      // The property must not be affected on other entity classes
-      if (throwsError) {
-        expect(() => {
-          return Entity1[propertyName];
-        }).toThrow();
-      } else {
-        expect(Entity1[propertyName]).toEqual(defaultValue);
-      }
-
-      expect(() => {
-        Entity2[propertyName] = testingValue;
-      }).toThrow();
-    }
   });
 });
