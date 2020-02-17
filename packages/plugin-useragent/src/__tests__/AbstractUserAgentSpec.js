@@ -79,12 +79,13 @@ describe('AbstractUserAgent', () => {
       spyOn(abstractUserAgent, 'getUserAgent').and.returnValue(
         testValues.uaString
       );
+
+      abstractUserAgent.init();
     });
 
     it(
       'should return correct name for UserAgent string: ' + testValues.uaString,
       () => {
-        abstractUserAgent.init();
         var result = abstractUserAgent.getName();
 
         expect(result).toEqual(testValues.expected.name);
@@ -94,7 +95,6 @@ describe('AbstractUserAgent', () => {
       'should return correct version for UserAgent string: ' +
         testValues.uaString,
       () => {
-        abstractUserAgent.init();
         var result = abstractUserAgent.getVersion();
 
         expect(result).toEqual(testValues.expected.version);
