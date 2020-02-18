@@ -168,5 +168,21 @@ export default class AbstractUserAgent {
       uaObject.os && uaObject.os.family ? uaObject.os.family : 'unknown';
     this._uaObject.os.version =
       uaObject.os && uaObject.os.version ? uaObject.os.version : 'unknown';
+
+    // parsing of SznProhlizec/sBrowser/Seznam browser
+    if (typeof uaObject.ua === 'string') {
+      const sznProhlizecRegExp = /SznProhlizec\/\S+/;
+      const match = uaObject.ua.match(sznProhlizecRegExp);
+
+      if (match && match[0]) {
+        const SznProhlizecUserAgentParts = match[0].split('/');
+        const SznProhlizecVersion = parseFloat(SznProhlizecUserAgentParts[1]);
+
+        this._uaObject.name = SznProhlizecUserAgentParts[0];
+        this._uaObject.version = SznProhlizecVersion
+          ? SznProhlizecVersion.toString()
+          : 'unknown';
+      }
+    }
   }
 }
