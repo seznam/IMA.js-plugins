@@ -114,16 +114,22 @@ async function initImaApp(bootConfigMethods = {}) {
       let timer = setIntervalNative(...args);
 
       timers.push({ timer, clear: () => clearInterval(timer) });
+
+      return timer;
     };
     global.setTimeout = (...args) => {
       let timer = setTimeoutNative(...args);
 
       timers.push({ timer, clear: () => clearTimeout(timer) });
+
+      return timer;
     };
     global.setImmediate = (...args) => {
       let timer = setImmediateNative(...args);
 
       timers.push({ timer, clear: () => clearImmediate(timer) });
+
+      return timer;
     };
   }
 
