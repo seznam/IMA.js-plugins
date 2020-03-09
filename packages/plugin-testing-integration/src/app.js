@@ -85,7 +85,7 @@ async function initImaApp(bootConfigMethods = {}) {
     function copyProps(src, target) {
       Object.defineProperties(target, {
         ...Object.getOwnPropertyDescriptors(src),
-        ...Object.getOwnPropertyDescriptors(target),
+        ...Object.getOwnPropertyDescriptors(target)
       });
     }
 
