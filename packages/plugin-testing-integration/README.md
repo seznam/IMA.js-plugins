@@ -39,6 +39,12 @@ Params:
 
 Overrides default configuration. See [config section](#config) for more info.
 
+### getConfig
+Returns:
+- `object` Plugin configuration object
+
+This method can be used to extend `prebootScript`, instead of just overriding it.
+
 ## Setup
 
 Before the test run, you need to load `@ima/core/test.js` file from IMA.js-core. You can simply import it at the beginning of the test file.

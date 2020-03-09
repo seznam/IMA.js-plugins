@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 1.1.0 - 2020-03-10
+### Fixed
+- Navigation using click event in jsdom will properly be handled by IMA router
+- All window properties are propageted to global scope (resolves problem with missing classes, or methods like btoa, File, ...)
+- Implemented deduplication when initializing vendor linker (as is in native IMA.js application)
+
+### Added
+- Exposed `getConfig` function, which returns current configuration object. This can be used to extend `prebootScript`, instaed of just overriding it.
+
 ## 1.0.3 - 2020-02-28
 ### Fixed
 - Resolved bug with broken native clear timer methods
