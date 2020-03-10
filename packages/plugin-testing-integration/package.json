@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-testing-integration",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "IMA.js plugin for integration testing",
   "main": "index.js",
   "scripts": {
