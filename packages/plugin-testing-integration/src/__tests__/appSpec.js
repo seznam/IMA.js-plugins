@@ -9,6 +9,18 @@ import { initImaApp, clearImaApp } from '../app';
 
 describe('Integration', () => {
   it('can init ima app', async () => {
+    const router = {
+      listen: jest.fn()
+    };
+    const app = {
+      oc: {
+        get: jest.fn(key => {
+          if (key === '$Router') {
+            return router;
+          }
+        })
+      }
+    };
     const config = {
       appBuildPath: 'appBuildPath',
       appMainPath: 'appMainPath',
@@ -39,7 +51,7 @@ describe('Integration', () => {
       .mockReturnValueOnce({ getInitialAppConfigFunctions });
     helpers.loadFiles = jest.fn();
     configuration.getConfig = jest.fn().mockReturnValue(config);
-    ima.createImaApp = jest.fn().mockReturnValue('app');
+    ima.createImaApp = jest.fn().mockReturnValue(app);
     ima.getClientBootConfig = jest.fn(bootConfig => {
       Object.values(bootConfig).forEach(method => method('ns', 'oc', 'config'));
 
@@ -48,9 +60,9 @@ describe('Integration', () => {
     ima.onLoad = jest.fn().mockReturnValue(Promise.resolve());
     ima.bootClientApp = jest.fn();
 
-    let app = await initImaApp();
+    let application = await initImaApp();
 
-    expect(app).toEqual('app');
+    expect(application).toEqual(app);
     expect(helpers.loadFiles).toHaveBeenCalledWith(['js']);
     expect(config.prebootScript).toHaveBeenCalled();
     expect(ima.createImaApp).toHaveBeenCalled();
@@ -65,7 +77,9 @@ describe('Integration', () => {
     expect(initRoutes).toHaveBeenCalledWith('ns', 'oc', 'config');
     expect(initSettings).toHaveBeenCalledWith('ns', 'oc', 'config');
     expect(ima.onLoad).toHaveBeenCalled();
-    expect(ima.bootClientApp).toHaveBeenCalledWith('app', 'bootConfig');
+    expect(ima.bootClientApp).toHaveBeenCalledWith(app, 'bootConfig');
+    expect(app.oc.get).toHaveBeenCalledWith('$Router');
+    expect(router.listen).toHaveBeenCalled();
   });
 
   it('can clear ima app', () => {

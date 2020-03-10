@@ -3,6 +3,7 @@
 exports[`Main can export all necessary properties 1`] = `
 Object {
   "clearImaApp": [Function],
+  "getConfig": [Function],
   "initImaApp": [Function],
   "setConfig": [Function],
 }

@@ -48,6 +48,8 @@ async function initImaApp(bootConfigMethods = {}) {
    * Initializes all common, client and server vendors
    */
   function _initVendorLinker() {
+    const initializedVendors = [];
+
     []
       .concat(
         vendors.common,
@@ -58,13 +60,21 @@ async function initImaApp(bootConfigMethods = {}) {
         imaVendors.client
       )
       .forEach(vendor => {
-        if (typeof vendor === 'object') {
-          let key = Object.keys(vendor)[0];
+        let key = vendor;
+        let value = vendor;
 
-          vendorLinker.set(key, require(vendor[key]));
-        } else {
-          vendorLinker.set(vendor, require(vendor));
+        if (typeof vendor === 'object') {
+          key = Object.keys(vendor)[0];
+          value = vendor[key];
         }
+
+        if (initializedVendors.includes(key)) {
+          return;
+        }
+
+        initializedVendors.push(key);
+
+        vendorLinker.set(key, require(value));
       });
   }
 
@@ -72,6 +82,13 @@ async function initImaApp(bootConfigMethods = {}) {
    * Initializes JSDOM environment for the application run
    */
   function _initJSDom() {
+    function copyProps(src, target) {
+      Object.defineProperties(target, {
+        ...Object.getOwnPropertyDescriptors(src),
+        ...Object.getOwnPropertyDescriptors(target)
+      });
+    }
+
     const jsdom = new JSDOM(
       `<!doctype html><html id="main-html"><body><div id="${config.masterElementId}"></div></body></html>`
     );
@@ -82,16 +99,13 @@ async function initImaApp(bootConfigMethods = {}) {
     global.navigator = {
       userAgent: 'node.js'
     };
+    copyProps(window, global);
     global.jsdom = jsdom;
     global.$IMA = global.$IMA || {};
     global.window.$IMA = global.$IMA;
     global.window.$Debug = global.$Debug;
     global.window.scrollTo = () => {};
     global.window.fetch = require('node-fetch');
-    global.sessionStorage = {
-      setItem: () => {},
-      removeItem: () => {}
-    };
 
     // To skip protocol/host not same as server's error (ima/main.js)
     jsdom.reconfigure({
@@ -102,11 +116,6 @@ async function initImaApp(bootConfigMethods = {}) {
     global.$IMA.$Host = config.host;
     global.$IMA.$Env = config.environment;
     global.$IMA.$App = {};
-
-    // To skip Image is not defined error
-    global.Image = global.window.Image;
-    // To skip CustomEvent is not defined error
-    global.CustomEvent = global.window.CustomEvent;
   }
 
   function _installTimerWrappers() {
@@ -173,6 +182,9 @@ async function initImaApp(bootConfigMethods = {}) {
   });
   await onLoad();
   bootClientApp(app, bootConfig);
+
+  // To use ima route handler in jsdom
+  app.oc.get('$Router').listen();
 
   return app;
 }
