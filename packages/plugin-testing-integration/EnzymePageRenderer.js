@@ -1,4 +1,9 @@
-const { ClientPageRenderer, PageRenderer, PageRendererFactory, Window } = require('@ima/core');
+const {
+  ClientPageRenderer,
+  PageRenderer,
+  PageRendererFactory,
+  Window
+} = require('@ima/core');
 const { mount } = require('enzyme');
 const ReactDOM = require('react-dom');
 
@@ -59,7 +64,7 @@ class EnzymeReactDOM {
 }
 
 class EnzymePageRenderer extends ClientPageRenderer {
-  static initTestRenderer(ns, oc, config) {
+  static initTestRenderer(ns, oc) {
     oc.provide(PageRenderer, EnzymePageRenderer, [
       PageRendererFactory,
       '$Helper',
@@ -69,7 +74,7 @@ class EnzymePageRenderer extends ClientPageRenderer {
       Window
     ]);
 
-    return { wrapper: () => oc.get(PageRenderer).__wrapper() }
+    return { wrapper: () => oc.get(PageRenderer).__wrapper() };
   }
 
   constructor(...args) {

@@ -5,6 +5,7 @@ import * as ima from '@ima/core';
 import * as build from '@ima/core/build';
 import * as helpers from '../helpers';
 import * as configuration from '../configuration';
+import * as bootConfigExtensions from '../bootConfigExtensions';
 import { initImaApp, clearImaApp } from '../app';
 
 describe('Integration', () => {
@@ -29,6 +30,13 @@ describe('Integration', () => {
       host: 'www.example.com',
       environment: 'environment',
       prebootScript: jest.fn().mockReturnValue(Promise.resolve())
+    };
+    let configExtensions = {
+      initSettings: jest.fn(),
+      initBindApp: jest.fn(),
+      initServicesApp: jest.fn(),
+      initRoutes: jest.fn(),
+      getAppExtension: jest.fn()
     };
     let initBindApp = jest.fn();
     let initServicesApp = jest.fn();
@@ -59,6 +67,9 @@ describe('Integration', () => {
     });
     ima.onLoad = jest.fn().mockReturnValue(Promise.resolve());
     ima.bootClientApp = jest.fn();
+    bootConfigExtensions.getBootConfigExtensions = jest
+      .fn()
+      .mockReturnValue(configExtensions);
 
     let application = await initImaApp();
 
@@ -76,6 +87,27 @@ describe('Integration', () => {
     expect(initBindApp).toHaveBeenCalledWith('ns', 'oc', 'config');
     expect(initRoutes).toHaveBeenCalledWith('ns', 'oc', 'config');
     expect(initSettings).toHaveBeenCalledWith('ns', 'oc', 'config');
+    expect(configExtensions.initServicesApp).toHaveBeenCalledWith(
+      'ns',
+      'oc',
+      'config'
+    );
+    expect(configExtensions.initBindApp).toHaveBeenCalledWith(
+      'ns',
+      'oc',
+      'config'
+    );
+    expect(configExtensions.initRoutes).toHaveBeenCalledWith(
+      'ns',
+      'oc',
+      'config'
+    );
+    expect(configExtensions.initSettings).toHaveBeenCalledWith(
+      'ns',
+      'oc',
+      'config'
+    );
+    expect(configExtensions.getAppExtension).toHaveBeenCalledWith(app);
     expect(ima.onLoad).toHaveBeenCalled();
     expect(ima.bootClientApp).toHaveBeenCalledWith(app, 'bootConfig');
     expect(app.oc.get).toHaveBeenCalledWith('$Router');
