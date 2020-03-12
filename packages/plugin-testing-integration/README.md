@@ -136,19 +136,19 @@ This allows you to use custom PageRenderer. The TestPageRenderer has to define s
 
 By defining this method, you can extend default bootConfigMethod `initSettings`. This method recieves namespace, Object Container and application config as arguments.
 
-### initSettings
-`<Function>`
-
-`Default: () => {}`
-
-By defining this method, you can extend default bootConfigMethod `initSettings`. This method recieves namespace, Object Container and application config as arguments.
-
 ### initBindApp
 `<Function>`
 
 `Default: () => {}`
 
 By defining this method, you can extend default bootConfigMethod `initBindApp`. This method recieves namespace, Object Container and application config as arguments.
+
+### initServicesApp
+`<Function>`
+
+`Default: () => {}`
+
+By defining this method, you can extend default bootConfigMethod `initServicesApp`. This method recieves namespace, Object Container and application config as arguments.
 
 ### initRoutes
 `<Function>`
