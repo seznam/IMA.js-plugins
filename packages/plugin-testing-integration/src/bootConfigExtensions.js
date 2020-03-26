@@ -10,7 +10,7 @@ export function getBootConfigExtensions() {
     },
     initBindApp: (...args) => {
       if (TestPageRenderer) {
-        results.push(TestPageRenderer.initTestRenderer(...args));
+        results.push(TestPageRenderer.initTestPageRenderer(...args));
       }
 
       return config.initBindApp(...args);

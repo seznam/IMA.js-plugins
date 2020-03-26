@@ -127,7 +127,7 @@ IMA.js environment, that should be used.
 
 `Default: null`
 
-This allows you to use custom PageRenderer. The TestPageRenderer has to define static method `initTestRenderer(ns, oc, config)`, which should provide the PageRenderer into the Object Container (oc).
+This allows you to use custom PageRenderer. The TestPageRenderer has to define static method `initTestPageRenderer(ns, oc, config)`, which should provide the PageRenderer into the Object Container (oc).
 
 ### initSettings
 `<Function>`

@@ -64,7 +64,7 @@ class EnzymeReactDOM {
 }
 
 class EnzymePageRenderer extends ClientPageRenderer {
-  static initTestRenderer(ns, oc) {
+  static initTestPageRenderer(ns, oc) {
     oc.provide(PageRenderer, EnzymePageRenderer, [
       PageRendererFactory,
       '$Helper',

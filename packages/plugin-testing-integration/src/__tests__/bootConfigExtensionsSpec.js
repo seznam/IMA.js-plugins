@@ -33,7 +33,7 @@ describe('BootConfigExtensions', () => {
 
     it('it can initialize bind app with TestPageRenderer', () => {
       const TestPageRenderer = {
-        initTestRenderer: jest.fn()
+        initTestPageRenderer: jest.fn()
       };
       const config = {
         initBindApp: jest.fn().mockReturnValue('initBindApp'),
@@ -44,7 +44,7 @@ describe('BootConfigExtensions', () => {
       let results = getBootConfigExtensions().initBindApp('ns', 'oc', 'config');
 
       expect(results).toEqual('initBindApp');
-      expect(TestPageRenderer.initTestRenderer).toHaveBeenCalledWith(
+      expect(TestPageRenderer.initTestPageRenderer).toHaveBeenCalledWith(
         'ns',
         'oc',
         'config'
