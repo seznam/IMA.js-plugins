@@ -5,6 +5,12 @@ let configuration = {
   protocol: 'https:',
   host: 'imajs.io',
   environment: 'test',
+  TestPageRenderer: null,
+  initSettings: () => {},
+  initBindApp: () => {},
+  initServicesApp: () => {},
+  initRoutes: () => {},
+  extendAppObject: () => {},
   prebootScript: () => Promise.resolve()
 };
 

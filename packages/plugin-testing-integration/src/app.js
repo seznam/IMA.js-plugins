@@ -10,6 +10,7 @@ import { assignRecursively } from '@ima/helpers';
 import { JSDOM } from 'jsdom';
 import { requireFromProject, loadFiles } from './helpers';
 import { getConfig } from './configuration';
+import { getBootConfigExtensions } from './bootConfigExtensions';
 
 const setIntervalNative = setInterval;
 const setTimeoutNative = setTimeout;
@@ -43,6 +44,7 @@ async function initImaApp(bootConfigMethods = {}) {
   const defaultBootConfigMethods = requireFromProject(
     config.appMainPath
   ).getInitialAppConfigFunctions();
+  const bootConfigExtensions = getBootConfigExtensions();
 
   /**
    * Initializes all common, client and server vendors
@@ -151,6 +153,7 @@ async function initImaApp(bootConfigMethods = {}) {
     return (...args) => {
       const results = [];
       results.push(defaultBootConfigMethods[method](...args) || {});
+      results.push(bootConfigExtensions[method](...args) || {});
 
       if (typeof bootConfigMethods[method] === 'function') {
         results.push(bootConfigMethods[method](...args) || {});
@@ -175,10 +178,10 @@ async function initImaApp(bootConfigMethods = {}) {
 
   let app = createImaApp();
   let bootConfig = getClientBootConfig({
-    initServicesApp: _getBootConfigForMethod('initServicesApp'),
+    initSettings: _getBootConfigForMethod('initSettings'),
     initBindApp: _getBootConfigForMethod('initBindApp'),
-    initRoutes: _getBootConfigForMethod('initRoutes'),
-    initSettings: _getBootConfigForMethod('initSettings')
+    initServicesApp: _getBootConfigForMethod('initServicesApp'),
+    initRoutes: _getBootConfigForMethod('initRoutes')
   });
   await onLoad();
   bootClientApp(app, bootConfig);
@@ -186,7 +189,7 @@ async function initImaApp(bootConfigMethods = {}) {
   // To use ima route handler in jsdom
   app.oc.get('$Router').listen();
 
-  return app;
+  return Object.assign({}, app, bootConfigExtensions.getAppExtension(app));
 }
 
 export { initImaApp, clearImaApp };

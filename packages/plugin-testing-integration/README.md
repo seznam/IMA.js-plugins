@@ -17,10 +17,10 @@ Following methods are exposed by this plugin.
 ### initImaApp
 Params:
 - `object` bootConfigMethods
-  - `Function` initServicesApp
-  - `Function` initBindApp
-  - `Function` initRoutes
   - `Function` initSettings
+  - `Function` initBindApp
+  - `Function` initServicesApp
+  - `Function` initRoutes
 
 Returns:
 - `Promise<object>` IMA.js application instance
@@ -122,6 +122,50 @@ Host used for the jsdom navigation and IMA application. If you do some service m
 
 IMA.js environment, that should be used.
 
+### TestPageRenderer
+`<Class>`
+
+`Default: null`
+
+This allows you to use custom PageRenderer. The TestPageRenderer has to define static method `initTestPageRenderer(ns, oc, config)`, which should provide the PageRenderer into the Object Container (oc).
+
+### initSettings
+`<Function>`
+
+`Default: () => {}`
+
+By defining this method, you can extend default bootConfigMethod `initSettings`. This method recieves namespace, Object Container and application config as arguments.
+
+### initBindApp
+`<Function>`
+
+`Default: () => {}`
+
+By defining this method, you can extend default bootConfigMethod `initBindApp`. This method recieves namespace, Object Container and application config as arguments.
+
+### initServicesApp
+`<Function>`
+
+`Default: () => {}`
+
+By defining this method, you can extend default bootConfigMethod `initServicesApp`. This method recieves namespace, Object Container and application config as arguments.
+
+### initRoutes
+`<Function>`
+
+`Default: () => {}`
+
+By defining this method, you can extend default bootConfigMethod `initRoutes`. This method recieves namespace, Object Container and application config as arguments.
+
+### extendAppObject
+`Function`
+
+`Default: () => {}`
+
+By defining this method, you can extend the app object (return value of initImaApp) with some custom values. This method recieves the app object as an argument and should return an object with new values. These values will be available as part of app object returned from `initImaApp` calls in your tests.
+
+This can be useful to make frequently used functions available directly from the app object.
+
 ### prebootScript
 `<Function>`
 
@@ -141,7 +185,6 @@ describe('Integration tests', () => {
 		// Response mock
 	};
 	let app;
-	let router;
 	let http;
 
 	beforeEach(async () => {
@@ -155,34 +198,83 @@ describe('Integration tests', () => {
 				http.get = jest.fn().mockReturnValue(
 					Promise.resolve(response)
 				);
-			},
-			initRoutes: (ns, oc) => {
-				// Expose router so we can use it for navigation
-				// You can expose any object from Object Container
-				router = oc.get('$Router');
 			}
 		});
+
+		// Load some specific application page
+		await app.oc.get('$Router').route('/');
 	});
 
 	afterEach(() => {
 		clearImaApp(app);
 	});
 
-	it('can load homepage', done => {
-		router
-			.route('/')
-			.then(response => {
-				expect(response.status).toEqual(200);
-				// Check that a http get method has been called
-				expect(http.get).toHaveBeenCalled();
-				// You can use document, or window to
-				// make some validation of dom content
-				expect(document.title).toEqual('IMA.js-core');
-				done();
-			})
-			.catch(error => {
-				done(error);
-			});
+	it('can load homepage', () => {
+		// Check that a http get method has been called
+		expect(http.get).toHaveBeenCalled();
+		// You can use document, or window to
+		// make some validation of dom content
+		expect(document.title).toEqual('IMA.js-core');
+	});
+});
+```
+
+## Usage with Enzyme
+
+You can boost the integration tests by using [Enzyme mount](https://enzymejs.github.io/enzyme/docs/api/mount.html) method to render the IMA.js application.
+
+*Note, that Enzyme PageRenderer extends default IMA PageRenderer. If you choose to override PageRenderer in your tests, it may cause some unexpected behavior.*
+
+## API
+
+EnzymePageRenderer extends the app object returned by initImaApp method with following values.
+
+### wrapper
+Returns:
+- `enzyme.ReactWrapper|enzyme.ReactWrapper[]` Return value of enzyme.mount()
+
+Function returning Enzyme ReactWrapper, or array of Enzyme ReactWrappers (in case, that there are multiple ReactDOM.render and ReactDOM.hydrate calls inside PageRenderer, but this should not happen in current setup).
+
+### Setup
+
+```javascript
+const { setConfig } = require('@ima/plugin-testing-integration');
+const EnzymePageRenderer = require('@ima/plugin-testing-integration/EnzymePageRenderer');
+
+setConfig({
+    TestPageRenderer: EnzymePageRenderer
+});
+```
+
+### Usage
+
+```javascript
+describe('Home page', () => {
+	let app;
+
+	beforeEach(async () => {
+		app = await initImaApp();
+
+		// Load some specific application page
+		await app.oc.get('$Router').route('/');
+	});
+
+	afterEach(() => {
+		clearImaApp(app);
+	});
+
+	it('can update input value', () => {
+		const value = 'Input edited by enzyme';
+		// Get the Enzyme ReactWrapper
+		const wrapper = app.wrapper();
+		// Find some input on the page using Enzyme find method
+		const input = wrapper.find('input').at(0);
+
+		// Simulate value change using Enzyme simulate method
+		input.simulate('change', { target: { value } });
+
+		// Check, that component props are updated
+		expect(input.props.value).toEqual(value);
 	});
 });
 ```
