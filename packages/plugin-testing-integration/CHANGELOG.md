@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 1.2.0 - 2020-03-30
+### Added
+- Config option `TestPageRenderer` to specify IMA Page Renderer used for the test run
+- Config option `initSettings` to extend the boot config method for all tests
+- Config option `initBindApp` to extend the boot config method for all tests
+- Config option `initServicesApp` to extend the boot config method for all tests
+- Config option `initRoutes` to extend the boot config method for all tests
+- Config option `extendAppObject` to extend return value of `initImaApp` with custom values
+- Implemented `EnzymePageRenderer` (to be used with `TestPageRenderer` config option), which can override default IMA Page Renderer and use Enzyme methods to render the page into the jsdom. This allows you to use Enzyme mount wrapper methods to test functionality. The wrapper is exposed via `app.wrapper()`.
+
 ## 1.1.1 - 2020-03-16
 ### Fixed
 - Update dependencies
