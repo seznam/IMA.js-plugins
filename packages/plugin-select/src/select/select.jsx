@@ -1,4 +1,9 @@
-import { AbstractPureComponent, StateEvents, PageContext } from '@ima/core';
+import {
+  AbstractPureComponent,
+  StateEvents,
+  PageContext,
+  getUtils
+} from '@ima/core';
 import hoistNonReactStaticMethod from 'hoist-non-react-statics';
 import React from 'react';
 import { createSelector } from 'reselect';
@@ -17,24 +22,32 @@ export function setHoistStaticMethod(method) {
 }
 
 export function select(...selectors) {
+  const stateSelector = creatorOfStateSelector(...selectors);
+
   return Component => {
+    const componentName = Component.displayName || Component.name;
+
+    const WithContext = props => (
+      <PageContext.Consumer>
+        {context => <SelectState {...props} context={context} />}
+      </PageContext.Consumer>
+    );
+
+    WithContext.displayName = `withContext(${componentName})`;
+
     class SelectState extends AbstractPureComponent {
-      static get contextType() {
-        return PageContext;
+      static getDerivedStateFromProps(props) {
+        return SelectState.resolveNewState(props);
       }
 
-      constructor(props, context) {
-        super(props, context);
+      static resolveNewState(props) {
+        const { context, ...restProps } = props;
+        const utils = getUtils(restProps, context);
 
-        this.stateSelector = creatorOfStateSelector(...selectors);
-        this.state = this._resolveNewState();
-      }
-
-      _resolveNewState() {
-        return this.stateSelector(
-          this.utils.$PageStateManager.getState(),
-          this.context,
-          this.props
+        return stateSelector(
+          utils.$PageStateManager.getState(),
+          context,
+          restProps
         );
       }
 
@@ -55,7 +68,7 @@ export function select(...selectors) {
       }
 
       afterChangeState() {
-        this.setState(this._resolveNewState());
+        this.setState(SelectState.resolveNewState(this.props));
       }
 
       render() {
@@ -70,9 +83,9 @@ export function select(...selectors) {
       }
     }
 
-    hoistStaticMethod(SelectState, Component);
+    hoistStaticMethod(WithContext, Component);
 
-    return SelectState;
+    return WithContext;
   };
 }
 
@@ -117,14 +130,20 @@ export function createStateSelector(...selectors) {
       }
 
       if (!memoizedSelector) {
-        memoizedSelector = createSelector(...selectorFunctions, () => {
-          return memoizedState;
-        });
+        memoizedSelector = createSelector(
+          ...selectorFunctions,
+          () => {
+            return memoizedState;
+          }
+        );
       }
 
       return memoizedSelector(state);
     };
   })();
 
-  return createSelector(derivedState, passStateOnChange);
+  return createSelector(
+    derivedState,
+    passStateOnChange
+  );
 }
