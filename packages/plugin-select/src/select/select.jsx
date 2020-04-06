@@ -5,7 +5,7 @@ import {
   getUtils
 } from '@ima/core';
 import hoistNonReactStaticMethod from 'hoist-non-react-statics';
-import React from 'react';
+import React, { useContext } from 'react';
 import { createSelector } from 'reselect';
 
 let creatorOfStateSelector = createStateSelector;
@@ -27,11 +27,11 @@ export function select(...selectors) {
   return Component => {
     const componentName = Component.displayName || Component.name;
 
-    const WithContext = props => (
-      <PageContext.Consumer>
-        {context => <SelectState {...props} context={context} />}
-      </PageContext.Consumer>
-    );
+    const WithContext = props => {
+      const context = useContext(PageContext);
+
+      return <SelectState {...props} context={context} />;
+    };
 
     WithContext.displayName = `withContext(${componentName})`;
 
