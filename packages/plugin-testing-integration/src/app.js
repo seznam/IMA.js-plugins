@@ -172,7 +172,7 @@ async function initImaApp(bootConfigMethods = {}) {
     defaultBootConfigMethods = requireFromProject(
       config.appMainPath
     ).getInitialAppConfigFunctions();
-    
+
     loadFiles(js);
     projectDependenciesLoaded = true;
   }
