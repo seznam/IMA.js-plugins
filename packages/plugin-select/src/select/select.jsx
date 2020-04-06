@@ -22,9 +22,8 @@ export function setHoistStaticMethod(method) {
 }
 
 export function select(...selectors) {
-  const stateSelector = creatorOfStateSelector(...selectors);
-
   return Component => {
+    const stateSelector = creatorOfStateSelector(...selectors);
     const componentName = Component.displayName || Component.name;
 
     const WithContext = props => {
