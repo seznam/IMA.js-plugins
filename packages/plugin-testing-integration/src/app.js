@@ -163,6 +163,8 @@ async function initImaApp(bootConfigMethods = {}) {
     };
   }
 
+  _initJSDom();
+
   // Load javascript files into namespace
   // just once, to avoid conflicts
   if (!projectDependenciesLoaded) {
@@ -172,7 +174,6 @@ async function initImaApp(bootConfigMethods = {}) {
 
   _installTimerWrappers();
   _initVendorLinker();
-  _initJSDom();
 
   await config.prebootScript();
 
