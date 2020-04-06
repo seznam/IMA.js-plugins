@@ -51,6 +51,12 @@ export function select(...selectors) {
         );
       }
 
+      constructor(props, context) {
+        super(props, context);
+
+        this.state = SelectState.resolveNewState(props);
+      }
+
       componentDidMount() {
         this.utils.$Dispatcher.listen(
           StateEvents.AFTER_CHANGE_STATE,

@@ -8,7 +8,7 @@ Object {
 `;
 
 exports[`plugin-select: select should forward ref 1`] = `
-<SelectState
+<withContext(Component)
   forwardedRef={
     Object {
       "current": null,
@@ -19,15 +19,6 @@ exports[`plugin-select: select should forward ref 1`] = `
 />
 `;
 
-exports[`plugin-select: select should remove forwardedRef prop (replaces it with ref) 1`] = `
-<Component
-  height={60}
-  multiplier={0.5}
-  props="props"
-  width={90}
-/>
-`;
-
 exports[`plugin-select: select should render component 1`] = `
 <h1>
   text
@@ -35,37 +26,173 @@ exports[`plugin-select: select should render component 1`] = `
 `;
 
 exports[`plugin-select: select should render component with extraProps 1`] = `
-<Component
-  height={60}
+<withContext(Component)
   multiplier={0.5}
   props="props"
-  width={90}
-/>
+>
+  <SelectState
+    context={
+      Object {
+        "$Utils": Object {
+          "$Dispatcher": Mock {},
+          "$PageStateManager": Mock {
+            "getState": [Function],
+          },
+        },
+      }
+    }
+    multiplier={0.5}
+    props="props"
+  >
+    <Component
+      context={
+        Object {
+          "$Utils": Object {
+            "$Dispatcher": Mock {},
+            "$PageStateManager": Mock {
+              "getState": [Function],
+            },
+          },
+        }
+      }
+      height={60}
+      multiplier={0.5}
+      props="props"
+      width={90}
+    >
+      <h1>
+        text
+      </h1>
+    </Component>
+  </SelectState>
+</withContext(Component)>
 `;
 
 exports[`plugin-select: select should render component with extraProps and own createStateSelector 1`] = `
-<Component
-  height={60}
+<withContext(Component)
   multiplier={0.5}
   props="props"
-  width={90}
-/>
+>
+  <SelectState
+    context={
+      Object {
+        "$Utils": Object {
+          "$Dispatcher": Mock {},
+          "$PageStateManager": Mock {
+            "getState": [Function],
+          },
+        },
+      }
+    }
+    multiplier={0.5}
+    props="props"
+  >
+    <Component
+      context={
+        Object {
+          "$Utils": Object {
+            "$Dispatcher": Mock {},
+            "$PageStateManager": Mock {
+              "getState": [Function],
+            },
+          },
+        }
+      }
+      height={60}
+      multiplier={0.5}
+      props="props"
+      width={90}
+    >
+      <h1>
+        text
+      </h1>
+    </Component>
+  </SelectState>
+</withContext(Component)>
 `;
 
 exports[`plugin-select: select should render component with extraProps and own static methods 1`] = `
-<Component
-  height={60}
+<withContext(Component)
   multiplier={0.5}
   props="props"
-  width={90}
-/>
+>
+  <SelectState
+    context={
+      Object {
+        "$Utils": Object {
+          "$Dispatcher": Mock {},
+          "$PageStateManager": Mock {
+            "getState": [Function],
+          },
+        },
+      }
+    }
+    multiplier={0.5}
+    props="props"
+  >
+    <Component
+      context={
+        Object {
+          "$Utils": Object {
+            "$Dispatcher": Mock {},
+            "$PageStateManager": Mock {
+              "getState": [Function],
+            },
+          },
+        }
+      }
+      height={60}
+      multiplier={0.5}
+      props="props"
+      width={90}
+    >
+      <h1>
+        text
+      </h1>
+    </Component>
+  </SelectState>
+</withContext(Component)>
 `;
 
 exports[`plugin-select: select should render component with extraProps modifies by ownProps 1`] = `
-<Component
-  height={30}
+<withContext(Component)
   multiplier={0.5}
   props="props"
-  width={45}
-/>
+>
+  <SelectState
+    context={
+      Object {
+        "$Utils": Object {
+          "$Dispatcher": Mock {},
+          "$PageStateManager": Mock {
+            "getState": [Function],
+          },
+        },
+      }
+    }
+    multiplier={0.5}
+    props="props"
+  >
+    <Component
+      context={
+        Object {
+          "$Utils": Object {
+            "$Dispatcher": Mock {},
+            "$PageStateManager": Mock {
+              "getState": [Function],
+            },
+          },
+        }
+      }
+      height={30}
+      multiplier={0.5}
+      props="props"
+      width={45}
+    >
+      <h1>
+        text
+      </h1>
+    </Component>
+  </SelectState>
+</withContext(Component)>
 `;
