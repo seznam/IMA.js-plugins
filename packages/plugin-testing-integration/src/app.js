@@ -40,9 +40,9 @@ function clearImaApp(app) {
  */
 async function initImaApp(bootConfigMethods = {}) {
   const config = getConfig();
+  const bootConfigExtensions = getBootConfigExtensions();
   let vendors = null;
   let defaultBootConfigMethods = null;
-  const bootConfigExtensions = getBootConfigExtensions();
 
   /**
    * Initializes all common, client and server vendors
@@ -163,16 +163,18 @@ async function initImaApp(bootConfigMethods = {}) {
 
   _initJSDom();
 
+  // Require project files after jsdom is initialized
+  // to prevent errors with missing document/window
+  const { js, ...build } = requireFromProject(config.appBuildPath);
+
+  vendors = build.vendors;
+  defaultBootConfigMethods = requireFromProject(
+    config.appMainPath
+  ).getInitialAppConfigFunctions();
+
   // Load javascript files into namespace
   // just once, to avoid conflicts
   if (!projectDependenciesLoaded) {
-    const { js, ...build } = requireFromProject(config.appBuildPath);
-
-    vendors = build.vendors;
-    defaultBootConfigMethods = requireFromProject(
-      config.appMainPath
-    ).getInitialAppConfigFunctions();
-
     loadFiles(js);
     projectDependenciesLoaded = true;
   }
