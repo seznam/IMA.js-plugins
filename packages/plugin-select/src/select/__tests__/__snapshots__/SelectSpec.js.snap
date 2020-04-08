@@ -31,7 +31,7 @@ exports[`plugin-select: select should render component with extraProps 1`] = `
   props="props"
 >
   <SelectState
-    context={
+    $context={
       Object {
         "$Utils": Object {
           "$Dispatcher": Mock {},
@@ -45,7 +45,7 @@ exports[`plugin-select: select should render component with extraProps 1`] = `
     props="props"
   >
     <Component
-      context={
+      $context={
         Object {
           "$Utils": Object {
             "$Dispatcher": Mock {},
@@ -74,7 +74,7 @@ exports[`plugin-select: select should render component with extraProps and own c
   props="props"
 >
   <SelectState
-    context={
+    $context={
       Object {
         "$Utils": Object {
           "$Dispatcher": Mock {},
@@ -88,7 +88,7 @@ exports[`plugin-select: select should render component with extraProps and own c
     props="props"
   >
     <Component
-      context={
+      $context={
         Object {
           "$Utils": Object {
             "$Dispatcher": Mock {},
@@ -117,7 +117,7 @@ exports[`plugin-select: select should render component with extraProps and own s
   props="props"
 >
   <SelectState
-    context={
+    $context={
       Object {
         "$Utils": Object {
           "$Dispatcher": Mock {},
@@ -131,7 +131,7 @@ exports[`plugin-select: select should render component with extraProps and own s
     props="props"
   >
     <Component
-      context={
+      $context={
         Object {
           "$Utils": Object {
             "$Dispatcher": Mock {},
@@ -160,7 +160,7 @@ exports[`plugin-select: select should render component with extraProps modifies 
   props="props"
 >
   <SelectState
-    context={
+    $context={
       Object {
         "$Utils": Object {
           "$Dispatcher": Mock {},
@@ -174,7 +174,7 @@ exports[`plugin-select: select should render component with extraProps modifies 
     props="props"
   >
     <Component
-      context={
+      $context={
         Object {
           "$Utils": Object {
             "$Dispatcher": Mock {},

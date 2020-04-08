@@ -29,7 +29,7 @@ export function select(...selectors) {
     const WithContext = props => {
       const context = useContext(PageContext);
 
-      return <SelectState {...props} context={context} />;
+      return <SelectState {...props} $context={context} />;
     };
 
     WithContext.displayName = `withContext(${componentName})`;
@@ -40,12 +40,12 @@ export function select(...selectors) {
       }
 
       static resolveNewState(props) {
-        const { context, ...restProps } = props;
-        const utils = getUtils(restProps, context);
+        const { $context, ...restProps } = props;
+        const utils = getUtils(restProps, $context);
 
         return stateSelector(
           utils.$PageStateManager.getState(),
-          context,
+          $context,
           restProps
         );
       }
