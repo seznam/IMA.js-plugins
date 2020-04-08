@@ -30,10 +30,10 @@ describe('AbstractRestClient', () => {
           url,
           transformedUrl: url,
           data,
-          headers: options.headers
+          headers: options.headers,
         },
         headers: {},
-        cached: false
+        cached: false,
       });
     }
 
@@ -54,7 +54,7 @@ describe('AbstractRestClient', () => {
     }
   }
 
-  it('should follow the correct call chain', done => {
+  it('should follow the correct call chain', (done) => {
     let configuratorCalled = false;
     let linkGeneratorCalled = false;
     let preProcessor1Called = false;
@@ -74,9 +74,9 @@ describe('AbstractRestClient', () => {
         expect(data).toEqual({});
         expect(options).toEqual({
           headers: {
-            'Custom-Header': 'stuff'
+            'Custom-Header': 'stuff',
           },
-          withCredentials: true
+          withCredentials: true,
         });
 
         return Promise.resolve({
@@ -87,14 +87,14 @@ describe('AbstractRestClient', () => {
             url,
             transformedUrl: url,
             data,
-            headers: options.headers
+            headers: options.headers,
           },
           headers: {
-            'Other-Header': 'other stuff'
+            'Other-Header': 'other stuff',
           },
-          cached: false
+          cached: false,
         });
-      }
+      },
     };
 
     let configuratorMock = new (class extends Configurator {
@@ -129,7 +129,7 @@ describe('AbstractRestClient', () => {
 
         expect(request.parentEntity).toEqual({
           stuff: 'yeah',
-          someId: 321
+          someId: 321,
         });
         expect(request.resource).toBe('foo');
         expect(request.parameters).toEqual({ bar: 'baz', two: 2 });
@@ -137,18 +137,18 @@ describe('AbstractRestClient', () => {
         expect(request.url).toBe('https+something://foo.bar/baz/xyz');
         expect(request.data).toBeNull();
         expect(request.headers).toEqual({
-          'Custom-Header': 'stuff'
+          'Custom-Header': 'stuff',
         });
         expect(request.options).toEqual({
-          withCredentials: true
+          withCredentials: true,
         });
         expect(request.serverConfiguration).toEqual({
-          configGenerated: true
+          configGenerated: true,
         });
 
         return new Request(
           Object.assign({}, request, {
-            url: 'http://foo.bar/baz?id=nope'
+            url: 'http://foo.bar/baz?id=nope',
           })
         );
       }
@@ -162,7 +162,7 @@ describe('AbstractRestClient', () => {
 
         expect(request.parentEntity).toEqual({
           stuff: 'yeah',
-          someId: 321
+          someId: 321,
         });
         expect(request.resource).toBe('foo');
         expect(request.parameters).toEqual({ bar: 'baz', two: 2 });
@@ -170,18 +170,18 @@ describe('AbstractRestClient', () => {
         expect(request.url).toBe('http://foo.bar/baz?id=nope');
         expect(request.data).toBeNull();
         expect(request.headers).toEqual({
-          'Custom-Header': 'stuff'
+          'Custom-Header': 'stuff',
         });
         expect(request.options).toEqual({
-          withCredentials: true
+          withCredentials: true,
         });
         expect(request.serverConfiguration).toEqual({
-          configGenerated: true
+          configGenerated: true,
         });
 
         return new Request(
           Object.assign({}, request, {
-            url: 'http://foo.bar/baz?id=yup'
+            url: 'http://foo.bar/baz?id=yup',
           })
         );
       }
@@ -195,14 +195,14 @@ describe('AbstractRestClient', () => {
 
         expect(response.status).toBe(206);
         expect(response.headers).toEqual({
-          'Other-Header': 'other stuff'
+          'Other-Header': 'other stuff',
         });
         expect(response.body).toEqual({ stuff: 3.141592653598 });
         expect(response.cached).toBe(false);
         let request = response.request;
         expect(request.parentEntity).toEqual({
           stuff: 'yeah',
-          someId: 321
+          someId: 321,
         });
         expect(request.resource).toBe('foo');
         expect(request.parameters).toEqual({ bar: 'baz', two: 2 });
@@ -210,18 +210,18 @@ describe('AbstractRestClient', () => {
         expect(request.url).toBe('http://foo.bar/baz?id=yup');
         expect(request.data).toBeNull();
         expect(request.headers).toEqual({
-          'Custom-Header': 'stuff'
+          'Custom-Header': 'stuff',
         });
         expect(request.options).toEqual({
-          withCredentials: true
+          withCredentials: true,
         });
         expect(request.serverConfiguration).toEqual({
-          configGenerated: true
+          configGenerated: true,
         });
 
         return new Response(
           Object.assign({}, response, {
-            status: 200
+            status: 200,
           })
         );
       }
@@ -235,14 +235,14 @@ describe('AbstractRestClient', () => {
 
         expect(response.status).toBe(200);
         expect(response.headers).toEqual({
-          'Other-Header': 'other stuff'
+          'Other-Header': 'other stuff',
         });
         expect(response.body).toEqual({ stuff: 3.141592653598 });
         expect(response.cached).toBe(false);
         let request = response.request;
         expect(request.parentEntity).toEqual({
           stuff: 'yeah',
-          someId: 321
+          someId: 321,
         });
         expect(request.resource).toBe('foo');
         expect(request.parameters).toEqual({ bar: 'baz', two: 2 });
@@ -250,18 +250,18 @@ describe('AbstractRestClient', () => {
         expect(request.url).toBe('http://foo.bar/baz?id=yup');
         expect(request.data).toBeNull();
         expect(request.headers).toEqual({
-          'Custom-Header': 'stuff'
+          'Custom-Header': 'stuff',
         });
         expect(request.options).toEqual({
-          withCredentials: true
+          withCredentials: true,
         });
         expect(request.serverConfiguration).toEqual({
-          configGenerated: true
+          configGenerated: true,
         });
 
         return new Response(
           Object.assign({}, response, {
-            status: 203
+            status: 203,
           })
         );
       }
@@ -282,25 +282,25 @@ describe('AbstractRestClient', () => {
         { bar: 'baz', two: 2 },
         {
           headers: {
-            'Custom-Header': 'stuff'
+            'Custom-Header': 'stuff',
           },
-          withCredentials: true
+          withCredentials: true,
         },
         { stuff: 'yeah', someId: 321 }
       )
-      .then(response => {
+      .then((response) => {
         expect(postProcessor2Called).toBe(true);
 
         expect(response.status).toBe(203);
         expect(response.headers).toEqual({
-          'Other-Header': 'other stuff'
+          'Other-Header': 'other stuff',
         });
         expect(response.body).toEqual({ stuff: 3.141592653598 });
         expect(response.cached).toBe(false);
         let request = response.request;
         expect(request.parentEntity).toEqual({
           stuff: 'yeah',
-          someId: 321
+          someId: 321,
         });
         expect(request.resource).toBe('foo');
         expect(request.parameters).toEqual({ bar: 'baz', two: 2 });
@@ -308,18 +308,18 @@ describe('AbstractRestClient', () => {
         expect(request.url).toBe('http://foo.bar/baz?id=yup');
         expect(request.data).toBeNull();
         expect(request.headers).toEqual({
-          'Custom-Header': 'stuff'
+          'Custom-Header': 'stuff',
         });
         expect(request.options).toEqual({
-          withCredentials: true
+          withCredentials: true,
         });
         expect(request.serverConfiguration).toEqual({
-          configGenerated: true
+          configGenerated: true,
         });
 
         done();
       })
-      .catch(error => {
+      .catch((error) => {
         fail(error.stack);
         done();
       });
@@ -328,7 +328,7 @@ describe('AbstractRestClient', () => {
   it(
     'should follow the correct call chain when no configurator, ' +
       'pre-processors, or post-processors are set',
-    done => {
+    (done) => {
       let linkGeneratorCalled = false;
       let agentCalled = false;
 
@@ -343,9 +343,9 @@ describe('AbstractRestClient', () => {
           expect(data).toEqual({});
           expect(options).toEqual({
             headers: {
-              'Custom-Header': 'stuff'
+              'Custom-Header': 'stuff',
             },
-            withCredentials: true
+            withCredentials: true,
           });
 
           return Promise.resolve({
@@ -356,14 +356,14 @@ describe('AbstractRestClient', () => {
               url,
               transformedUrl: url,
               data,
-              headers: options.headers
+              headers: options.headers,
             },
             headers: {
-              'Other-Header': 'other stuff'
+              'Other-Header': 'other stuff',
             },
-            cached: false
+            cached: false,
           });
-        }
+        },
       };
 
       let linkGeneratorMock = new (class extends LinkGenerator {
@@ -396,25 +396,25 @@ describe('AbstractRestClient', () => {
           { bar: 'baz', two: 2 },
           {
             headers: {
-              'Custom-Header': 'stuff'
+              'Custom-Header': 'stuff',
             },
-            withCredentials: true
+            withCredentials: true,
           },
           { stuff: 'yeah', someId: 321 }
         )
-        .then(response => {
+        .then((response) => {
           expect(agentCalled).toBe(true);
 
           expect(response.status).toBe(200);
           expect(response.headers).toEqual({
-            'Other-Header': 'other stuff'
+            'Other-Header': 'other stuff',
           });
           expect(response.body).toEqual({ stuff: 'yup' });
           expect(response.cached).toBe(false);
           let request = response.request;
           expect(request.parentEntity).toEqual({
             stuff: 'yeah',
-            someId: 321
+            someId: 321,
           });
           expect(request.resource).toBe('foo');
           expect(request.parameters).toEqual({ bar: 'baz', two: 2 });
@@ -422,23 +422,23 @@ describe('AbstractRestClient', () => {
           expect(request.url).toBe('https+something://foo.bar/baz/xyz');
           expect(request.data).toBeNull();
           expect(request.headers).toEqual({
-            'Custom-Header': 'stuff'
+            'Custom-Header': 'stuff',
           });
           expect(request.options).toEqual({
-            withCredentials: true
+            withCredentials: true,
           });
           expect(request.serverConfiguration).toBeNull();
 
           done();
         })
-        .catch(error => {
+        .catch((error) => {
           fail(error.stack);
           done();
         });
     }
   );
 
-  it('should call configurator only once', done => {
+  it('should call configurator only once', (done) => {
     let callCount = 0;
 
     let configurator = new (class extends Configurator {
@@ -465,13 +465,13 @@ describe('AbstractRestClient', () => {
         expect(callCount).toBe(1);
         done();
       })
-      .catch(error => {
+      .catch((error) => {
         fail(error.stack);
         done();
       });
   });
 
-  it('should allow preProcessors to generate a response', done => {
+  it('should allow preProcessors to generate a response', (done) => {
     let preProcessorCalled = false;
     let agentCalled = false;
     let postProcessorCalled = false;
@@ -486,7 +486,7 @@ describe('AbstractRestClient', () => {
           headers: {},
           body: null,
           cached: false,
-          request
+          request,
         });
       }
     })();
@@ -511,7 +511,7 @@ describe('AbstractRestClient', () => {
 
         return new Response(
           Object.assign({}, response, {
-            status: 204
+            status: 204,
           })
         );
       }
@@ -527,20 +527,20 @@ describe('AbstractRestClient', () => {
 
     return restClient
       .get('foo', 1)
-      .then(response => {
+      .then((response) => {
         expect(postProcessorCalled).toBe(true);
         expect(agentCalled).toBe(false);
         expect(response.status).toBe(204);
 
         done();
       })
-      .catch(error => {
+      .catch((error) => {
         fail(error.stack);
         done();
       });
   });
 
-  it('should allow preProcessors to generate a promise of a response', done => {
+  it('should allow preProcessors to generate a promise of a response', (done) => {
     let preProcessorCalled = false;
     let agentCalled = false;
     let postProcessorCalled = false;
@@ -556,7 +556,7 @@ describe('AbstractRestClient', () => {
             headers: {},
             body: null,
             cached: false,
-            request
+            request,
           })
         );
       }
@@ -582,7 +582,7 @@ describe('AbstractRestClient', () => {
 
         return new Response(
           Object.assign({}, response, {
-            status: 204
+            status: 204,
           })
         );
       }
@@ -598,20 +598,20 @@ describe('AbstractRestClient', () => {
 
     return restClient
       .get('foo', 1)
-      .then(response => {
+      .then((response) => {
         expect(postProcessorCalled).toBe(true);
         expect(agentCalled).toBe(false);
         expect(response.status).toBe(204);
 
         done();
       })
-      .catch(error => {
+      .catch((error) => {
         fail(error.stack);
         done();
       });
   });
 
-  it('should execute a GET request when list() is called', done => {
+  it('should execute a GET request when list() is called', (done) => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
@@ -634,13 +634,13 @@ describe('AbstractRestClient', () => {
         expect(methodCalled).toBe(true);
         done();
       })
-      .catch(error => {
+      .catch((error) => {
         fail(error.stack);
         done();
       });
   });
 
-  it('should execute a GET request when get() is called', done => {
+  it('should execute a GET request when get() is called', (done) => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
@@ -663,13 +663,13 @@ describe('AbstractRestClient', () => {
         expect(methodCalled).toBe(true);
         done();
       })
-      .catch(error => {
+      .catch((error) => {
         fail(error.stack);
         done();
       });
   });
 
-  it('should execute a PATCH request when patch() is called', done => {
+  it('should execute a PATCH request when patch() is called', (done) => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
@@ -692,13 +692,13 @@ describe('AbstractRestClient', () => {
         expect(methodCalled).toBe(true);
         done();
       })
-      .catch(error => {
+      .catch((error) => {
         fail(error.stack);
         done();
       });
   });
 
-  it('should execute a PUT request when replace() is called', done => {
+  it('should execute a PUT request when replace() is called', (done) => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
@@ -721,13 +721,13 @@ describe('AbstractRestClient', () => {
         expect(methodCalled).toBe(true);
         done();
       })
-      .catch(error => {
+      .catch((error) => {
         fail(error.stack);
         done();
       });
   });
 
-  it('should execute a POST request when create() is called', done => {
+  it('should execute a POST request when create() is called', (done) => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
@@ -750,13 +750,13 @@ describe('AbstractRestClient', () => {
         expect(methodCalled).toBe(true);
         done();
       })
-      .catch(error => {
+      .catch((error) => {
         fail(error.stack);
         done();
       });
   });
 
-  it('should execute a DELETE request when delete() is called', done => {
+  it('should execute a DELETE request when delete() is called', (done) => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
@@ -779,7 +779,7 @@ describe('AbstractRestClient', () => {
         expect(methodCalled).toBe(true);
         done();
       })
-      .catch(error => {
+      .catch((error) => {
         fail(error.stack);
         done();
       });
@@ -788,7 +788,7 @@ describe('AbstractRestClient', () => {
   it(
     'should allow classes extending the AbstractEntity class to be used ' +
       'as resource',
-    done => {
+    (done) => {
       let restClient = new DummyRestClient(
         new (class extends DummyHttpAgent {
           get(url, data, options) {
@@ -799,22 +799,22 @@ describe('AbstractRestClient', () => {
               body: [
                 {
                   id: 1,
-                  stuff: 'yes'
+                  stuff: 'yes',
                 },
                 {
                   id: 2,
-                  stuff: 'no'
-                }
+                  stuff: 'no',
+                },
               ],
               params: {
                 method: 'GET',
                 url,
                 transformedUrl: url,
                 data,
-                headers: options.headers
+                headers: options.headers,
               },
               headers: {},
-              cached: false
+              cached: false,
             });
           }
         })(),
@@ -836,23 +836,23 @@ describe('AbstractRestClient', () => {
 
       return restClient
         .list(Entity)
-        .then(response => {
+        .then((response) => {
           expect(response.request.resource).toBe(Entity);
           expect(response.body instanceof Array).toBeTruthy();
           expect(response.body).toEqual([
             new Entity({
               id: 1,
-              stuff: 'yes'
+              stuff: 'yes',
             }),
             new Entity({
               id: 2,
-              stuff: 'no'
-            })
+              stuff: 'no',
+            }),
           ]);
 
           done();
         })
-        .catch(error => {
+        .catch((error) => {
           fail(error.stack);
           done();
         });
@@ -862,10 +862,10 @@ describe('AbstractRestClient', () => {
   it(
     'should handle single-entity response and empty response when using ' +
       'a class as resource',
-    done => {
+    (done) => {
       let responseBody = {
         id: 1,
-        stuff: 'yes'
+        stuff: 'yes',
       };
 
       class Entity extends AbstractEntity {
@@ -889,10 +889,10 @@ describe('AbstractRestClient', () => {
                 url,
                 transformedUrl: url,
                 data,
-                headers: options.headers
+                headers: options.headers,
               },
               headers: {},
-              cached: false
+              cached: false,
             });
           }
         })(),
@@ -903,18 +903,18 @@ describe('AbstractRestClient', () => {
       );
 
       let parent = new Entity({
-        id: 'nope'
+        id: 'nope',
       });
 
       return restClient
         .list(Entity, {}, {}, parent)
-        .then(response => {
+        .then((response) => {
           expect(response.request.resource).toBe(Entity);
           expect(response.body instanceof Entity).toBeTruthy();
           expect(response.body).toMatchObject(
             new Entity({
               id: 1,
-              stuff: 'yes'
+              stuff: 'yes',
             })
           );
           expect(response.body.$parentEntity).toBe(parent);
@@ -923,12 +923,12 @@ describe('AbstractRestClient', () => {
 
           return restClient.list(Entity);
         })
-        .then(response => {
+        .then((response) => {
           expect(response.body).toBeNull();
 
           done();
         })
-        .catch(error => {
+        .catch((error) => {
           fail(error.stack);
           done();
         });
@@ -938,7 +938,7 @@ describe('AbstractRestClient', () => {
   it(
     'should inline the response body if the inlineResponseBody flag is ' +
       'set',
-    done => {
+    (done) => {
       class Entity extends AbstractEntity {
         static get resourceName() {
           return 'this-is-the-resource';
@@ -960,17 +960,17 @@ describe('AbstractRestClient', () => {
               status: 200,
               body: {
                 id: 1,
-                stuff: 'yes'
+                stuff: 'yes',
               },
               params: {
                 method: 'GET',
                 url,
                 transformedUrl: url,
                 data,
-                headers: options.headers
+                headers: options.headers,
               },
               headers: {},
-              cached: false
+              cached: false,
             });
           }
         })(),
@@ -982,18 +982,18 @@ describe('AbstractRestClient', () => {
 
       return restClient
         .list(Entity)
-        .then(response => {
+        .then((response) => {
           expect(response instanceof Entity).toBeTruthy();
           expect(response).toEqual(
             new Entity({
               id: 1,
-              stuff: 'yes'
+              stuff: 'yes',
             })
           );
 
           done();
         })
-        .catch(error => {
+        .catch((error) => {
           fail(error.stack);
           done();
         });

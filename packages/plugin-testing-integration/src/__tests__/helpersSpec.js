@@ -7,7 +7,7 @@ import { requireFromProject, loadFiles } from '../helpers';
 
 jest.mock('projectPath', () => 'projectPath', { virtual: true });
 jest.mock('loadFilesRequire.js', () => 'loadFilesRequire.js', {
-  virtual: true
+  virtual: true,
 });
 
 describe('Helpers', () => {

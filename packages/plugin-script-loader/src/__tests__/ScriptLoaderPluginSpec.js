@@ -14,7 +14,7 @@ describe('ScriptLoaderPlugin', () => {
   const window = toMockedInstance(Window, {
     isClient() {
       return true;
-    }
+    },
   });
   const dispatcher = toMockedInstance(Dispatcher);
   const resourceLoader = toMockedInstance(ResourceLoader);
@@ -28,7 +28,7 @@ describe('ScriptLoaderPlugin', () => {
     element = {
       onload() {},
       onerror() {},
-      onabort() {}
+      onabort() {},
     };
 
     global.$Debug = true;
@@ -53,21 +53,21 @@ describe('ScriptLoaderPlugin', () => {
       }).toThrow();
     });
 
-    it('should return value from cache', done => {
+    it('should return value from cache', (done) => {
       scriptLoaderPlugin._loadedScripts[url] = Promise.resolve({ url });
 
       scriptLoaderPlugin
         .load(url)
-        .then(value => {
+        .then((value) => {
           expect(value.url).toEqual(url);
           done();
         })
-        .catch(error => {
+        .catch((error) => {
           done(error);
         });
     });
 
-    it('the dispatcher fire loaded event for scripts loaded by template', done => {
+    it('the dispatcher fire loaded event for scripts loaded by template', (done) => {
       spyOn(dispatcher, 'fire');
       spyOn(resourceLoader, 'promisify').and.returnValue(Promise.resolve());
 
@@ -84,7 +84,7 @@ describe('ScriptLoaderPlugin', () => {
         .catch(done);
     });
 
-    it('the dispatcher fire loaded event for scripts loaded by url', done => {
+    it('the dispatcher fire loaded event for scripts loaded by url', (done) => {
       spyOn(dispatcher, 'fire');
       spyOn(resourceLoader, 'promisify').and.returnValue(Promise.resolve());
 
@@ -101,13 +101,13 @@ describe('ScriptLoaderPlugin', () => {
         .catch(done);
     });
 
-    it('the dispatcher fire loaded event with errors', done => {
+    it('the dispatcher fire loaded event with errors', (done) => {
       spyOn(dispatcher, 'fire');
       spyOn(resourceLoader, 'promisify').and.returnValue(
         Promise.reject(new Error('message'))
       );
 
-      scriptLoaderPlugin.load(url).catch(error => {
+      scriptLoaderPlugin.load(url).catch((error) => {
         expect(dispatcher.fire).toHaveBeenCalledWith(
           Events.LOADED,
           { url, error },

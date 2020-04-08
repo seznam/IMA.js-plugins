@@ -12,10 +12,10 @@
  *         ))} Callback that sets the descriptor of the types of the entity's
  *         data-holding properties.
  */
-export default propTypes => {
-  return classConstructor => {
+export default (propTypes) => {
+  return (classConstructor) => {
     Object.defineProperty(classConstructor, 'propTypes', {
-      value: propTypes
+      value: propTypes,
     });
   };
 };

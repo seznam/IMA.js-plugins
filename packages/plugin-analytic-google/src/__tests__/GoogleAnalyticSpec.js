@@ -5,11 +5,11 @@ import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
 
 const settings = {
   service: 'UA-XXXXXXX-X',
-  settings: {}
+  settings: {},
 };
 
 const mockGa = {
-  ga() {}
+  ga() {},
 };
 
 describe('GoogleAnalytic', () => {
@@ -18,7 +18,7 @@ describe('GoogleAnalytic', () => {
   const window = toMockedInstance(Window, {
     getWindow() {
       return mockGa;
-    }
+    },
   });
   let googleAnalytic = null;
 
@@ -38,7 +38,7 @@ describe('GoogleAnalytic', () => {
 
       const customDimensions = {
         dimension1: 'value1',
-        dimension2: 'value2'
+        dimension2: 'value2',
       };
 
       global.document = {};

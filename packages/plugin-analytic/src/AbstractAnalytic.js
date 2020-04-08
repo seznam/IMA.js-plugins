@@ -114,7 +114,7 @@ export default class AbstractAnalytic {
 
           return true;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error(error);
         });
     }

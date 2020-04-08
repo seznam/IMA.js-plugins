@@ -119,7 +119,7 @@ export default class GoogleAnalytic extends AbstractAnalytic {
     let window = this._window.getWindow();
     window[GA_ROOT_VARIABLE] =
       window[GA_ROOT_VARIABLE] ||
-      function() {
+      function () {
         window[GA_ROOT_VARIABLE].q = window[GA_ROOT_VARIABLE].q || [];
         window[GA_ROOT_VARIABLE].q.push(arguments);
       };

@@ -1,5 +1,5 @@
 Object.defineProperty(exports, '__esModule', {
-  value: true
+  value: true,
 });
 
 /**
@@ -14,7 +14,7 @@ Object.defineProperty(exports, '__esModule', {
  * @type {module:main~Configuration}
  */
 let _config = {
-  silentMode: false
+  silentMode: false,
 };
 
 /**
@@ -257,7 +257,7 @@ function rejectIf(condition, reason) {
   return null;
 }
 
-let $registerImaPlugin = ns => {
+let $registerImaPlugin = (ns) => {
   ns.namespace('plugin.logger');
 };
 

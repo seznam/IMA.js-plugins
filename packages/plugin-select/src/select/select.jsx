@@ -2,7 +2,7 @@ import {
   AbstractPureComponent,
   StateEvents,
   PageContext,
-  getUtils
+  getUtils,
 } from '@ima/core';
 import hoistNonReactStaticMethod from 'hoist-non-react-statics';
 import React, { useContext } from 'react';
@@ -22,11 +22,11 @@ export function setHoistStaticMethod(method) {
 }
 
 export function select(...selectors) {
-  return Component => {
+  return (Component) => {
     const stateSelector = creatorOfStateSelector(...selectors);
     const componentName = Component.displayName || Component.name;
 
-    const WithContext = props => {
+    const WithContext = (props) => {
       const context = useContext(PageContext);
 
       return <SelectState {...props} $context={context} />;
@@ -95,7 +95,7 @@ export function select(...selectors) {
 }
 
 export default function forwardedSelect(...selectors) {
-  return Component => {
+  return (Component) => {
     const SelectState = select(...selectors)(Component);
     const forwardRef = (props, ref) => {
       return <SelectState {...props} forwardedRef={ref} />;
@@ -109,7 +109,7 @@ export default function forwardedSelect(...selectors) {
 
 export function createStateSelector(...selectors) {
   const derivedState = createSelector(
-    ...selectors.map(selector => {
+    ...selectors.map((selector) => {
       return (state, context, props) => {
         return selector(state, context, props);
       };
@@ -124,31 +124,25 @@ export function createStateSelector(...selectors) {
     let selectorFunctions = null;
     let memoizedState = null;
 
-    return state => {
+    return (state) => {
       memoizedState = state;
       if (!selectorFunctions) {
-        selectorFunctions = Object.keys(state).map(key => {
-          return currentState => {
+        selectorFunctions = Object.keys(state).map((key) => {
+          return (currentState) => {
             return currentState[key] || false;
           };
         });
       }
 
       if (!memoizedSelector) {
-        memoizedSelector = createSelector(
-          ...selectorFunctions,
-          () => {
-            return memoizedState;
-          }
-        );
+        memoizedSelector = createSelector(...selectorFunctions, () => {
+          return memoizedState;
+        });
       }
 
       return memoizedSelector(state);
     };
   })();
 
-  return createSelector(
-    derivedState,
-    passStateOnChange
-  );
+  return createSelector(derivedState, passStateOnChange);
 }

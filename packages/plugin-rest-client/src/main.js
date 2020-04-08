@@ -30,5 +30,5 @@ export {
   ResponsePostProcessor,
   RestClient,
   deepFreeze,
-  $registerImaPlugin
+  $registerImaPlugin,
 };

@@ -9,8 +9,8 @@
  *            ?AbstractEntity=
  *        )} classConstructor The entity class.
  */
-export default classConstructor => {
+export default (classConstructor) => {
   Object.defineProperty(classConstructor, 'isImmutable', {
-    value: true
+    value: true,
   });
 };

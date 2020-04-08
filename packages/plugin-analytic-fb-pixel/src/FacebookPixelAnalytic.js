@@ -199,7 +199,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
       return;
     }
 
-    const fbAnalytic = (window[FB_ROOT_VARIABLE] = function() {
+    const fbAnalytic = (window[FB_ROOT_VARIABLE] = function () {
       fbAnalytic.callMethod
         ? fbAnalytic.callMethod.apply(fbAnalytic, arguments)
         : fbAnalytic.queue.push(arguments);

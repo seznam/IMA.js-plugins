@@ -4,10 +4,10 @@ import pluginFunction, { plugin } from '../main';
 describe('main', () => {
   const PLUGIN_OPTIONS = { remove: true };
   const TRANSFORM_OPTIONS = {
-    plugins: [[pluginFunction, PLUGIN_OPTIONS]]
+    plugins: [[pluginFunction, PLUGIN_OPTIONS]],
   };
   const TRANSFORM_OPTIONS_DISABLED_REMOVING = {
-    plugins: [[pluginFunction, { remove: false }]]
+    plugins: [[pluginFunction, { remove: false }]],
   };
 
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe('main', () => {
   });
 
   describe('getPluginObject()', () => {
-    ['throwIf', '(0, _imaPluginLogger.throwIf)'].forEach(func => {
+    ['throwIf', '(0, _imaPluginLogger.throwIf)'].forEach((func) => {
       it(`should remove ${func}()`, () => {
         const { code } = transform(
           `foo();
@@ -42,8 +42,8 @@ describe('main', () => {
       '(0, _pluginLogger.debug)',
       '(0, _pluginLogger.info)',
       '(0, _pluginLogger.log)',
-      '(0, _pluginLogger.warn)'
-    ].forEach(func => {
+      '(0, _pluginLogger.warn)',
+    ].forEach((func) => {
       it(`should remove ${func}()`, () => {
         const { code } = transform(
           `foo();
@@ -70,8 +70,8 @@ describe('main', () => {
       '(0, _pluginLogger.errorIf)',
       '(0, _pluginLogger.logIf)',
       '(0, _pluginLogger.infoIf)',
-      '(0, _pluginLogger.warnIf)'
-    ].forEach(func => {
+      '(0, _pluginLogger.warnIf)',
+    ].forEach((func) => {
       it(`should replace ${func}() with 0`, () => {
         const { code } = transform(
           `foo();
@@ -101,7 +101,7 @@ describe('main', () => {
       });
     });
 
-    ['rejectIf', '(0, _imaPluginLogger.rejectIf)'].forEach(func => {
+    ['rejectIf', '(0, _imaPluginLogger.rejectIf)'].forEach((func) => {
       it(`should replace ${func}() with 0 inside if`, () => {
         const { code } = transform(
           `function returingPromise() {
@@ -141,8 +141,8 @@ describe('main', () => {
       '(0, _pluginLogger.errorIf)',
       '(0, _pluginLogger.logIf)',
       '(0, _pluginLogger.infoIf)',
-      '(0, _pluginLogger.warnIf)'
-    ].forEach(func => {
+      '(0, _pluginLogger.warnIf)',
+    ].forEach((func) => {
       it(`should not remove ${func}() because removing is disabled by plugin options`, () => {
         const { code } = transform(
           `foo();
@@ -170,8 +170,8 @@ describe('main', () => {
       '(0, _pluginLogger.debug)',
       '(0, _pluginLogger.info)',
       '(0, _pluginLogger.log)',
-      '(0, _pluginLogger.warn)'
-    ].forEach(func => {
+      '(0, _pluginLogger.warn)',
+    ].forEach((func) => {
       it(`should not remove ${func}() because removing is disabled by plugin options`, () => {
         const { code } = transform(
           `foo();
@@ -190,8 +190,8 @@ describe('main', () => {
       'errorIf',
       'logIf',
       'infoIf',
-      'warnIf'
-    ].forEach(method => {
+      'warnIf',
+    ].forEach((method) => {
       it(`should not remove instance.${method}()`, () => {
         const { code } = transform(
           `foo();
@@ -207,7 +207,7 @@ describe('main', () => {
       });
     });
 
-    ['debug', 'error', 'info', 'log', 'warn'].forEach(method => {
+    ['debug', 'error', 'info', 'log', 'warn'].forEach((method) => {
       it(`should not remove instance.${method}()`, () => {
         const { code } = transform(
           `foo();

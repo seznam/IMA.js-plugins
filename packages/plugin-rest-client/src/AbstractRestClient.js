@@ -249,7 +249,7 @@ export default class AbstractRestClient extends RestClient {
     return Promise.resolve()
       .then(() => {
         if (this._configurator && !this._serverConfigurationFetched) {
-          return this._configurator.getConfiguration().then(config => {
+          return this._configurator.getConfiguration().then((config) => {
             this._serverConfiguration = config;
             this._serverConfigurationFetched = true;
           });
@@ -344,7 +344,7 @@ export default class AbstractRestClient extends RestClient {
       data,
       headers,
       options,
-      serverConfiguration: this._serverConfiguration
+      serverConfiguration: this._serverConfiguration,
     });
   }
 
@@ -382,7 +382,7 @@ export default class AbstractRestClient extends RestClient {
       responsePromise = this._executeRequestUsingHttpAgent(request);
     }
 
-    return responsePromise.then(response => {
+    return responsePromise.then((response) => {
       for (let postProcessor of this._postProcessors) {
         response = postProcessor.process(response);
       }
@@ -429,7 +429,7 @@ export default class AbstractRestClient extends RestClient {
     }
 
     if (body instanceof Array) {
-      body = body.map(entityData => new resource(entityData, parentEntity));
+      body = body.map((entityData) => new resource(entityData, parentEntity));
     } else if (body) {
       body = new resource(body, parentEntity);
     } else {
@@ -438,7 +438,7 @@ export default class AbstractRestClient extends RestClient {
 
     return new Response(
       Object.assign({}, response, {
-        body
+        body,
       })
     );
   }
@@ -478,13 +478,13 @@ export default class AbstractRestClient extends RestClient {
       request.url,
       request.data || {},
       Object.assign({}, request.options, { headers: request.headers })
-    ).then(agentResponse => {
+    ).then((agentResponse) => {
       return new Response({
         status: agentResponse.status,
         headers: agentResponse.headers,
         body: agentResponse.body,
         cached: agentResponse.cached,
-        request: request
+        request: request,
       });
     });
   }

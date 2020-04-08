@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 const PRIVATE = {
   dataFieldName: Symbol('dataFieldName'),
-  dataFieldNameConfigured: Symbol('dataFieldNameConfigured')
+  dataFieldNameConfigured: Symbol('dataFieldNameConfigured'),
 };
 if ($Debug) {
   Object.freeze(PRIVATE);

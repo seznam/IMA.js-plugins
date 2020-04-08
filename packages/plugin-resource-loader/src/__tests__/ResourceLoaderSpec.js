@@ -10,14 +10,14 @@ describe('ResourceLoader', () => {
     element = {
       onload() {},
       onerror() {},
-      onabort() {}
+      onabort() {},
     };
 
     global.$Debug = true;
     global.document = {
       head: {
-        appendChild() {}
-      }
+        appendChild() {},
+      },
     };
   });
 
@@ -43,19 +43,19 @@ describe('ResourceLoader', () => {
   });
 
   describe('promisify method', () => {
-    it('should resolve the load promise when the resource loads', done => {
+    it('should resolve the load promise when the resource loads', (done) => {
       resourceLoader.promisify(element, url).then(done);
 
       element.onload();
     });
 
-    it('should reject the load promise when resource fails to load', done => {
+    it('should reject the load promise when resource fails to load', (done) => {
       resourceLoader.promisify(element, url).catch(() => done());
 
       element.onerror();
     });
 
-    it('should allow rejecting the load promise on abort', done => {
+    it('should allow rejecting the load promise on abort', (done) => {
       resourceLoader.promisify(element, url, true).catch(() => done());
 
       element.onabort();

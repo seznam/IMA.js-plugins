@@ -8,7 +8,7 @@ import RestClient from './RestClient';
 const PRIVATE = Object.freeze({
   restClient: Symbol('restClient'),
   entityClass: Symbol('entityClass'),
-  entityClassConfigured: Symbol('entityClassConfigured')
+  entityClassConfigured: Symbol('entityClassConfigured'),
 });
 
 /**
@@ -42,7 +42,7 @@ export default class AbstractResource {
      */
     this[PRIVATE.restClient] = restClient;
     Object.defineProperty(this, PRIVATE.restClient, {
-      enumerable: false
+      enumerable: false,
     });
   }
 
@@ -92,7 +92,7 @@ export default class AbstractResource {
 
     this[PRIVATE.entityClass] = entityClass;
     Object.defineProperty(this, PRIVATE.entityClass, {
-      enumerable: false
+      enumerable: false,
     });
     this[PRIVATE.entityClassConfigured] = true;
   }
@@ -196,7 +196,7 @@ export default class AbstractResource {
     // and properly create a new entity instance later in the REST API client.
     let fakeEntity = Reflect.construct(this.constructor.entityClass, [
       data,
-      parentEntity
+      parentEntity,
     ]);
     let serializedData = fakeEntity.$serialize();
 
@@ -280,7 +280,7 @@ export default class AbstractResource {
 
     return this[PRIVATE.restClient]
       .patch(resource, id, entity.$serialize(data), parameters, options)
-      .then(response => {
+      .then((response) => {
         if (!resource.isImmutable) {
           Object.assign(this, data);
         }

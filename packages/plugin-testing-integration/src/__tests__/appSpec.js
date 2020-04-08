@@ -11,16 +11,16 @@ import { initImaApp, clearImaApp } from '../app';
 describe('Integration', () => {
   it('can init ima app', async () => {
     const router = {
-      listen: jest.fn()
+      listen: jest.fn(),
     };
     const app = {
       oc: {
-        get: jest.fn(key => {
+        get: jest.fn((key) => {
           if (key === '$Router') {
             return router;
           }
-        })
-      }
+        }),
+      },
     };
     const config = {
       appBuildPath: 'appBuildPath',
@@ -29,14 +29,14 @@ describe('Integration', () => {
       protocol: 'http:',
       host: 'www.example.com',
       environment: 'environment',
-      prebootScript: jest.fn().mockReturnValue(Promise.resolve())
+      prebootScript: jest.fn().mockReturnValue(Promise.resolve()),
     };
     let configExtensions = {
       initSettings: jest.fn(),
       initBindApp: jest.fn(),
       initServicesApp: jest.fn(),
       initRoutes: jest.fn(),
-      getAppExtension: jest.fn()
+      getAppExtension: jest.fn(),
     };
     let initBindApp = jest.fn();
     let initServicesApp = jest.fn();
@@ -46,12 +46,12 @@ describe('Integration', () => {
       initBindApp,
       initServicesApp,
       initRoutes,
-      initSettings
+      initSettings,
     });
     build.vendors = {
       common: [],
       client: [],
-      server: []
+      server: [],
     };
     helpers.requireFromProject = jest
       .fn()
@@ -60,8 +60,10 @@ describe('Integration', () => {
     helpers.loadFiles = jest.fn();
     configuration.getConfig = jest.fn().mockReturnValue(config);
     ima.createImaApp = jest.fn().mockReturnValue(app);
-    ima.getClientBootConfig = jest.fn(bootConfig => {
-      Object.values(bootConfig).forEach(method => method('ns', 'oc', 'config'));
+    ima.getClientBootConfig = jest.fn((bootConfig) => {
+      Object.values(bootConfig).forEach((method) =>
+        method('ns', 'oc', 'config')
+      );
 
       return 'bootConfig';
     });
@@ -81,7 +83,7 @@ describe('Integration', () => {
       initServicesApp: jasmine.any(Function),
       initBindApp: jasmine.any(Function),
       initRoutes: jasmine.any(Function),
-      initSettings: jasmine.any(Function)
+      initSettings: jasmine.any(Function),
     });
     expect(initServicesApp).toHaveBeenCalledWith('ns', 'oc', 'config');
     expect(initBindApp).toHaveBeenCalledWith('ns', 'oc', 'config');

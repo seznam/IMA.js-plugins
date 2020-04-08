@@ -10,13 +10,13 @@ describe('AbstractAnalytic', () => {
   const _windowMock = toMockedInstance(Window, {
     isClient() {
       return true;
-    }
+    },
   });
   const dispatcher = toMockedInstance(Dispatcher);
   const scriptLoader = toMockedInstance(ScriptLoaderPlugin, {
     load() {
       return Promise.resolve(null);
-    }
+    },
   });
 
   beforeEach(() => {
@@ -64,7 +64,7 @@ describe('AbstractAnalytic', () => {
       spyOn(dispatcher, 'fire').and.stub();
     });
 
-    it('should do nothing on server side.', done => {
+    it('should do nothing on server side.', (done) => {
       spyOn(_windowMock, 'isClient').and.returnValue(false);
 
       abstractAnalytic
@@ -73,12 +73,12 @@ describe('AbstractAnalytic', () => {
           expect(scriptLoader.load).not.toHaveBeenCalled();
           done();
         })
-        .catch(error => {
+        .catch((error) => {
           done(error);
         });
     });
 
-    it('should load analytic script, call configuration method and fire loaded event.', done => {
+    it('should load analytic script, call configuration method and fire loaded event.', (done) => {
       abstractAnalytic
         .load()
         .then(() => {
@@ -91,7 +91,7 @@ describe('AbstractAnalytic', () => {
           );
           done();
         })
-        .catch(error => {
+        .catch((error) => {
           done(error);
         });
     });
