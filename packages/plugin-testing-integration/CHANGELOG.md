@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 1.2.4 - 2020-04-15
+### Fixed
+- Fixed url propagation into jsdom when using `router.route()` to navigate to  aspecific application route
+
 ## 1.2.3 - 2020-04-07
 ### Fixed
 - Fixed integration tests for projects using multiple initImaApp calls in single test file

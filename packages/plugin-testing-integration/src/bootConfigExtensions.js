@@ -1,4 +1,5 @@
 import { getConfig } from './configuration';
+import initBindApp from './extensions/bind';
 
 export function getBootConfigExtensions() {
   const { TestPageRenderer, ...config } = getConfig();
@@ -12,6 +13,8 @@ export function getBootConfigExtensions() {
       if (TestPageRenderer) {
         results.push(TestPageRenderer.initTestPageRenderer(...args));
       }
+
+      initBindApp(...args);
 
       return config.initBindApp(...args);
     },
