@@ -5,15 +5,14 @@ describe('Bind', () => {
     const baseUrl = 'https://www.example.com';
     const path = '/my/test/path';
     const route = jest.fn();
-    const router = {
+    const $Router = {
       route,
-      getBaseUrl: jest.fn().mockReturnValue(baseUrl),
-      _pageManager: {
-        _managedPage: {}
-      }
+      getBaseUrl: jest.fn().mockReturnValue(baseUrl)
     };
+    const $PageManager = { _managedPage: {} };
+    const objects = { $Router, $PageManager };
     const oc = {
-      get: jest.fn(() => router)
+      get: jest.fn(key => objects[key])
     };
     global.jsdom = {
       reconfigure: jest.fn()
@@ -21,10 +20,10 @@ describe('Bind', () => {
 
     initBindApp(undefined, oc);
 
-    router.route(path);
+    $Router.route(path);
 
     expect(jsdom.reconfigure).toHaveBeenCalledWith({ url: baseUrl + path });
-    expect(router.route).not.toEqual(route);
+    expect($Router.route).not.toEqual(route);
     expect(route).toHaveBeenCalled();
 
     delete global.jsdom;
