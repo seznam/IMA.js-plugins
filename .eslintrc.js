@@ -46,6 +46,7 @@ module.exports = {
 	},
 	'globals': {
 		'$Debug': true,
-		'$IMA': true
+		'$IMA': true,
+		'jsdom': true
 	}
 };

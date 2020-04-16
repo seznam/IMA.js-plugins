@@ -1,5 +1,8 @@
+jest.mock('../extensions/bind.js', () => jest.fn());
+
 import * as configuration from '../configuration';
 import { getBootConfigExtensions } from '../bootConfigExtensions';
+import initBindApp from '../extensions/bind';
 
 describe('BootConfigExtensions', () => {
   describe('getBootConfigExtensions', () => {
@@ -28,6 +31,7 @@ describe('BootConfigExtensions', () => {
       let results = getBootConfigExtensions().initBindApp('ns', 'oc', 'config');
 
       expect(results).toEqual('initBindApp');
+      expect(initBindApp).toHaveBeenCalledWith('ns', 'oc', 'config');
       expect(config.initBindApp).toHaveBeenCalledWith('ns', 'oc', 'config');
     });
 
