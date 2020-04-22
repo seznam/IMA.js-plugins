@@ -17,9 +17,14 @@ class EnzymeReactDOM {
   }
 
   render(element, container, callback = () => {}) {
-    let wrapper = mount(element, { attachTo: container });
+    const wrapper = mount(element, { attachTo: container });
+    const instance = this._findInstanceByContainer(container);
 
-    this._instances.push({ container, wrapper });
+    if (instance) {
+      instance.wrapper = wrapper;
+    } else {
+      this._instances.push({ container, wrapper });
+    }
 
     callback();
 
@@ -27,9 +32,14 @@ class EnzymeReactDOM {
   }
 
   hydrate(element, container, callback = () => {}) {
-    let wrapper = mount(element, { hydrateIn: container });
+    const wrapper = mount(element, { hydrateIn: container });
+    const instance = this._findInstanceByContainer(container);
 
-    this._instances.push({ container, wrapper });
+    if (instance) {
+      instance.wrapper = wrapper;
+    } else {
+      this._instances.push({ container, wrapper });
+    }
 
     callback();
 
@@ -60,6 +70,12 @@ class EnzymeReactDOM {
 
   createPortal(...args) {
     return ReactDOM.createPortal(...args);
+  }
+
+  _findInstanceByContainer(container) {
+    return this._instances.find(
+      instance => instance.container === container
+    );
   }
 }
 
