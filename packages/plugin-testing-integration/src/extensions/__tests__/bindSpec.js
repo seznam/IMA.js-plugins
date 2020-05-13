@@ -7,15 +7,15 @@ describe('Bind', () => {
     const route = jest.fn();
     const $Router = {
       route,
-      getBaseUrl: jest.fn().mockReturnValue(baseUrl)
+      getBaseUrl: jest.fn().mockReturnValue(baseUrl),
     };
     const $PageManager = { _managedPage: {} };
     const objects = { $Router, $PageManager };
     const oc = {
-      get: jest.fn(key => objects[key])
+      get: jest.fn((key) => objects[key]),
     };
     global.jsdom = {
-      reconfigure: jest.fn()
+      reconfigure: jest.fn(),
     };
 
     initBindApp(undefined, oc);

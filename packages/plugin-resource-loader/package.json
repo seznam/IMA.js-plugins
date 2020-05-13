@@ -32,7 +32,7 @@
   "dependencies": {},
   "engines": {
     "node": ">=6",
-    "npm": ">=4 <6"
+    "npm": ">=4 <7"
   },
   "browserify": {
     "transform": [

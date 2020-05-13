@@ -15,7 +15,7 @@ function requireFromProject(projectPath) {
  * @param {string[]} patterns Glob patterns
  */
 function loadFiles(patterns) {
-  return globby.sync(patterns).map(file => {
+  return globby.sync(patterns).map((file) => {
     try {
       return requireFromProject(file);
     } catch (e) {

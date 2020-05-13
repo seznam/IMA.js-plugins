@@ -11,7 +11,7 @@ export default (ns, oc) => {
     // already have correct url set in address bar.
     if (isFirstNavigation) {
       jsdom.reconfigure({
-        url: router.getBaseUrl() + path
+        url: router.getBaseUrl() + path,
       });
     }
 
