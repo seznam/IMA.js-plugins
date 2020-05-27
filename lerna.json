@@ -4,6 +4,11 @@
     "packages/*"
   ],
   "command": {
+    "publish": {
+      "message": "chore(release): publish",
+      "conventionalCommits": true,
+      "preid": "rc"
+    },
     "bootstrap": {
       "npmClientArgs": ["--no-package-lock"]
     }

@@ -1,17 +1,22 @@
 {
   "version": "1.0.0",
   "scripts": {
-    "test": "node_modules/.bin/lerna run test",
-    "lint": "node_modules/.bin/lerna run lint && node_modules/.bin/eslint './gulp/**/*.{js,jsx}' --fix",
-    "doc": "node_modules/.bin/lerna run doc",
-    "audit": "node_modules/.bin/lerna run audit",
-    "build": "node_modules/.bin/lerna run build",
-    "postinstall": "node_modules/.bin/lerna bootstrap --no-ci && node_modules/.bin/lerna run build"
+    "test": "lerna run test",
+    "lint": "lerna run lint && node_modules/.bin/eslint './gulp/**/*.{js,jsx}' --fix",
+    "doc": "lerna run doc",
+    "audit": "lerna run audit",
+    "build": "lerna run build",
+    "postinstall": "node_modules/.bin/lerna bootstrap --no-ci && node_modules/.bin/lerna run build",
+    "release": "lerna version --force-publish",
+    "release:publish": "lerna publish from-git --yes"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/plugin-transform-modules-commonjs": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@ima/gulp-task-loader": "^17.4.0",
     "babel-eslint": "^10.1.0",
     "babel-preset-jest": "^25.2.6",
     "del": "^5.1.0",
@@ -28,11 +33,21 @@
     "gulp-jsdoc3": "^3.0.0",
     "gulp-remember": "^1.0.1",
     "gulp-rename": "^2.0.0",
-    "@ima/gulp-task-loader": "^17.4.0",
+    "husky": "^4.2.5",
     "jest": "^25.2.7",
     "lerna": "^3.20.2",
     "prettier": "^2.0.4",
     "to-mock": "^1.6.2"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "bash -c \"if [[ `git rev-parse --abbrev-ref HEAD` =~ ^(master)$ ]] ; then commitlint -E HUSKY_GIT_PARAMS ; fi\""
+    }
   },
   "dependencies": {}
 }
