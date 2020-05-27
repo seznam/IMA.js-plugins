@@ -7,7 +7,6 @@ notifications:
 
 install:
   - npm install
-  - npx lerna bootstrap
 
 jobs:
   include:

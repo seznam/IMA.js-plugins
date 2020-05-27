@@ -1,14 +1,14 @@
 {
   "version": "1.0.0",
   "scripts": {
+    "commit": "git-cz",
     "test": "lerna run test",
     "lint": "lerna run lint && node_modules/.bin/eslint './gulp/**/*.{js,jsx}' --fix",
     "doc": "lerna run doc",
     "audit": "lerna run audit",
-    "postinstall": "lerna bootstrap --no-ci && lerna run build",
+    "postinstall": "lerna bootstrap --no-ci",
     "release": "lerna version",
-    "release:publish": "lerna publish from-git --yes",
-    "commit": "git-cz"
+    "release:publish": "lerna publish from-git --yes"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
