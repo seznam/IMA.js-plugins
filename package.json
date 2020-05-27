@@ -5,10 +5,10 @@
     "lint": "lerna run lint && node_modules/.bin/eslint './gulp/**/*.{js,jsx}' --fix",
     "doc": "lerna run doc",
     "audit": "lerna run audit",
-    "build": "lerna run build",
-    "postinstall": "node_modules/.bin/lerna bootstrap --no-ci && node_modules/.bin/lerna run build",
-    "release": "lerna version --force-publish",
-    "release:publish": "lerna publish from-git --yes"
+    "postinstall": "lerna bootstrap --no-ci && lerna run build",
+    "release": "lerna version",
+    "release:publish": "lerna publish from-git --yes",
+    "commit": "git-cz"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -19,6 +19,7 @@
     "@ima/gulp-task-loader": "^17.4.0",
     "babel-eslint": "^10.1.0",
     "babel-preset-jest": "^25.2.6",
+    "cz-conventional-changelog": "^3.2.0",
     "del": "^5.1.0",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.10.1",
@@ -26,6 +27,7 @@
     "eslint-plugin-jest": "23.8.2",
     "eslint-plugin-prettier": "3.1.2",
     "eslint-plugin-react": "7.19.0",
+    "git-cz": "^4.6.0",
     "gulp": "4.0.2",
     "gulp-babel": "8.0.0",
     "gulp-cached": "^1.1.1",
@@ -49,5 +51,10 @@
       "commit-msg": "bash -c \"if [[ `git rev-parse --abbrev-ref HEAD` =~ ^(master)$ ]] ; then commitlint -E HUSKY_GIT_PARAMS ; fi\""
     }
   },
-  "dependencies": {}
+  "dependencies": {},
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }

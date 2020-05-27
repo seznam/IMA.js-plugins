@@ -7,7 +7,7 @@
     "test": "echo \"WARN: no test specified\" && exit 0",
     "lint": "../../node_modules/.bin/eslint './**/*.js' --fix",
     "doc": "echo \"WARN: no doc specified\" && exit 0",
-    "build": "echo \"WARN: no build specified\" && exit 0"
+    "prepare": "echo \"WARN: no build specified\" && exit 0"
   },
   "repository": {
     "type": "git",
