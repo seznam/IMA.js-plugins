@@ -36,11 +36,7 @@
     "access": "public"
   },
   "homepage": "https://github.com/seznam/IMA.js-plugins#readme",
-  "devDependencies": {
-    "@ima/core": "^17.0.0-rc.6",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
-  },
+  "devDependencies": {},
   "dependencies": {},
   "peerDependencies": {
     "@ima/core": "*"

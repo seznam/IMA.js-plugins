@@ -27,9 +27,7 @@
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
   "license": "MIT",
-  "devDependencies": {
-    "@babel/core": "7.7.4"
-  },
+  "devDependencies": {},
   "browserify": {
     "transform": [
       "babelify"

@@ -29,9 +29,7 @@
   "dependencies": {
     "clone": "^2.1.2"
   },
-  "devDependencies": {
-    "@ima/gulp-task-loader": "^17.0.1"
-  },
+  "devDependencies": {},
   "engines": {
     "node": ">=6",
     "npm": ">=4 <7"
