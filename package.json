@@ -16,9 +16,13 @@
     "@babel/preset-react": "^7.9.4",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
-    "@ima/gulp-task-loader": "^17.4.0",
     "@ima/core": "^17.6.0",
+    "@ima/gulp-task-loader": "^17.4.0",
     "@ima/plugin-script-loader": "1.0.0",
+    "@rollup/plugin-babel": "^5.0.2",
+    "@rollup/plugin-json": "^4.0.3",
+    "@rollup/plugin-node-resolve": "^8.0.0",
+    "@rollup/plugin-replace": "^2.3.2",
     "babel-eslint": "^10.1.0",
     "babel-preset-jest": "^25.2.6",
     "cz-conventional-changelog": "^3.2.0",
@@ -46,6 +50,8 @@
     "prettier": "^2.0.4",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "rollup": "^2.11.2",
+    "rollup-plugin-peer-deps-external": "^2.2.2",
     "to-mock": "^1.6.2"
   },
   "commitlint": {
