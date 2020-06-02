@@ -8,7 +8,6 @@ module.exports = {
         statements: 70
     },
     testEnvironment: "node",
-    setupFiles: [],
     transform: {
 		"\\.jsx?": "<rootDir>/../../preprocess.js"
     }

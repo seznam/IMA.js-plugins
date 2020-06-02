@@ -5,5 +5,7 @@ module.exports = {
     modulePaths: [
 		"<rootDir>/"
     ],
-    testPathIgnorePatterns: ["__snapshots__", "/node_modules/"]
+    transform: {
+		"\\.jsx?": "<rootDir>/preprocess.js"
+    }
 };

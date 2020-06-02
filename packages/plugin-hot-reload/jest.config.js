@@ -7,7 +7,6 @@ module.exports = {
         lines: 20,
         statements: 30
     },
-    setupFiles: [],
     transform: {
 		"\\.jsx?": "<rootDir>/../../preprocess.js"
 	},

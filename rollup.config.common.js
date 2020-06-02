@@ -1,19 +1,30 @@
 import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import babel from '@rollup/plugin-babel';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import path from 'path'
+
+const onwarn = warning => {
+  // Silence circular dependency warning for moment package
+  if (
+    warning.code === 'CIRCULAR_DEPENDENCY'
+    && !warning.importer.indexOf(path.normalize('node_modules/moment/src/lib/'))
+  ) {
+    return
+  }
+
+  console.warn(`(!) ${warning.message}`)
+}
 
 export default {
-  cache: false,
-  // external: [
-  //   'react',
-  //   'react-dom',
-  //   '@ima/core',
-  // ],
+  cache: true,
   input: 'src/main.js',
+  onwarn,
   output: {
     file: 'dist/main.js',
-    format: 'cjs'
+    format: 'cjs',
+    exports: 'named'
   },
   treeshake: false,
   plugins: [
@@ -21,6 +32,7 @@ export default {
       extensions: ['.mjs', '.js', '.jsx', '.json'],
     }),
     babel({
+      babelHelpers: 'bundled',
       moduleIds: true,
       presets: ['@babel/preset-react'],
     }),
@@ -30,5 +42,6 @@ export default {
       namedExports: true, // Default: true
     }),
     peerDepsExternal(),
+    commonjs()
   ],
 }
