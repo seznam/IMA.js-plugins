@@ -1,5 +1,5 @@
-import resolve from '@rollup-plugin-node-resolve';
-import json from '@rollup-plugin-json';
+import resolve from '@rollup/plugin-node-resolve';
+import json from '@rollup/plugin-json';
 import babel from '@rollup/plugin-babel';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 
