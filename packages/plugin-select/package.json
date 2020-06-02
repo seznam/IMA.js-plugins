@@ -4,7 +4,7 @@
   "description": "The plugin selects extra props from page state to your component.",
   "main": "index.js",
   "scripts": {
-    "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+    "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "lint": "../../node_modules/.bin/eslint './src/**/*.{js,jsx}' --fix",
     "doc": "../../node_modules/.bin/gulp doc",
     "prepare": "../../node_modules/.bin/rollup -c"

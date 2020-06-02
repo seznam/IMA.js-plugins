@@ -4,7 +4,7 @@
   "description": "The plugin is trying to mitigate Self-XSS security attack by sending simple message into console",
   "main": "index.js",
   "scripts": {
-    "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+    "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "lint": "../../node_modules/.bin/eslint './src/**/*.js' --fix",
     "doc": "../../node_modules/.bin/gulp doc",
     "prepare": "../../node_modules/.bin/rollup -c"
