@@ -6,9 +6,5 @@ module.exports = {
         functions: 5,
         lines: 5,
         statements: 5
-    },
-    testEnvironment: "node",
-    transform: {
-		"\\.jsx?": "<rootDir>/../../preprocess.js"
     }
 };

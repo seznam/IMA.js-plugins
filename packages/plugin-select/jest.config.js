@@ -9,8 +9,5 @@ module.exports = {
     },
     testEnvironment: "jsdom",
     setupFiles: ["<rootDir>/jestSetupFile.js"],
-    transform: {
-		"\\.jsx?": "<rootDir>/../../preprocess.js"
-    },
-    snapshotSerializers: ["<rootDir>/node_modules/enzyme-to-json/serializer"]
+    snapshotSerializers: ["<rootDir>/../../node_modules/enzyme-to-json/serializer"]
 };

@@ -28,6 +28,7 @@ export default {
   plugins: [
     resolve({
       extensions: ['.mjs', '.js', '.jsx', '.json'],
+      preferBuiltins: false
     }),
     babel({
       babelHelpers: 'bundled',

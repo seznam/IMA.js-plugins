@@ -7,9 +7,5 @@ module.exports = {
         lines: 20,
         statements: 20
     },
-    testEnvironment: "node",
-    setupFiles: ["<rootDir>/jestSetup.js"],
-    transform: {
-		"\\.jsx?": "<rootDir>/../../preprocess.js"
-	},
+    setupFiles: ["<rootDir>/jestSetup.js"]
 };
