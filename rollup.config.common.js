@@ -24,11 +24,11 @@ export default {
     format: 'cjs',
     exports: 'named'
   },
-  treeshake: false,
+  treeshake: true,
   plugins: [
     resolve({
       extensions: ['.mjs', '.js', '.jsx', '.json'],
-      preferBuiltins: false
+      preferBuiltins: true
     }),
     babel({
       babelHelpers: 'bundled',
