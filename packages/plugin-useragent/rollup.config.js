@@ -4,6 +4,9 @@ export default Object.assign(
   {},
   common,
   {
+    external: [
+      'platform'
+    ],
     output: {
       file: 'dist/main.js',
       format: 'cjs',

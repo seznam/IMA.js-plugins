@@ -6,7 +6,10 @@ export default Object.assign(
   {
     external: [
       '@ima/core',
-      '@ima/helpers'
+      '@ima/helpers',
+      'jsdom',
+      'globby',
+      'path'
     ],
     output: {
       file: 'dist/main.js',
