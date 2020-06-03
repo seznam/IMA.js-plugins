@@ -4,7 +4,6 @@ export default Object.assign(
   {},
   common,
   {
-    external: ['@ima/core'],
     output: {
       file: 'dist/main.js',
       format: 'cjs',

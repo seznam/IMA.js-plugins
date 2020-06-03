@@ -4,9 +4,6 @@ export default Object.assign(
   {},
   common,
   {
-    external: [
-      'clone'
-    ],
     output: {
       file: 'dist/main.js',
       format: 'cjs',

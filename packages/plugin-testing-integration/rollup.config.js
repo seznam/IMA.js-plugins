@@ -5,11 +5,9 @@ export default Object.assign(
   common,
   {
     external: [
-      '@ima/core',
-      '@ima/helpers',
-      'jsdom',
-      'globby',
-      'path'
+      'canvas',
+      'bufferutil',
+      'utf-8-validate'
     ],
     output: {
       file: 'dist/main.js',
