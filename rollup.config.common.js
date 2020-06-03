@@ -3,13 +3,11 @@ import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import babel from '@rollup/plugin-babel';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import path from 'path'
 
 const onwarn = warning => {
   // Silence circular dependency warning for moment package
   if (
     warning.code === 'CIRCULAR_DEPENDENCY'
-    && !warning.importer.indexOf(path.normalize('node_modules/moment/src/lib/'))
   ) {
     return
   }
