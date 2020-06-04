@@ -9,10 +9,10 @@ to: packages/<%= h.changeCase.paramCase(name) %>/package.json
   "description": "<%= h.changeCase.sentenceCase(description) %>",
   "main": "index.js",
   "scripts": {
-    "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.conf.json",
+    "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "lint": "../../node_modules/.bin/eslint './src/**/*.{js,jsx}' --fix",
     "doc": "../../node_modules/.bin/gulp doc",
-    "build": "../../node_modules/.bin/gulp build"
+    "prepare": "../../node_modules/.bin/rollup -c"
   },
   "keywords": [
     "IMA.js",
