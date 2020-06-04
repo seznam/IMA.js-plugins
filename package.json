@@ -52,7 +52,6 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "rollup": "^2.11.2",
-    "rollup-plugin-auto-external": "^2.0.0",
     "rollup-plugin-peer-deps-external": "^2.2.2",
     "to-mock": "^1.6.2"
   },

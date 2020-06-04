@@ -3,7 +3,6 @@ import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import babel from '@rollup/plugin-babel';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import autoExternal from 'rollup-plugin-auto-external';
 
 const onwarn = warning => {
   // Silence circular dependency warning for moment package
@@ -27,6 +26,9 @@ export default {
   },
   treeshake: true,
   plugins: [
+    peerDepsExternal({
+      includeDependencies: true
+    }),
     resolve({
       extensions: ['.mjs', '.js', '.jsx', '.json'],
       preferBuiltins: true
@@ -41,8 +43,6 @@ export default {
       compact: true, // Default: false
       namedExports: true, // Default: true
     }),
-    peerDepsExternal(),
-    commonjs(),
-    autoExternal()
+    commonjs()
   ],
 }

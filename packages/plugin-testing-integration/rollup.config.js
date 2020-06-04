@@ -5,9 +5,7 @@ export default Object.assign(
   common,
   {
     external: [
-      'canvas',
-      'bufferutil',
-      'utf-8-validate'
+      'path'
     ],
     output: {
       file: 'dist/main.js',
