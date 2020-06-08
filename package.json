@@ -8,7 +8,7 @@
     "audit": "lerna run audit",
     "postinstall": "lerna bootstrap --no-ci",
     "release": "lerna version",
-    "release:publish": "lerna publish from-git --yes"
+    "release:publish": "lerna publish from-package --yes"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
