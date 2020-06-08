@@ -1,12 +1,26 @@
 language: node_js
 node_js:
   - "14"
+
 notifications:
   email: false
+
 install:
   - npm install
-script:
-  - npm test
-  - npm run audit
-  - npm run doc
-  - npm run lint
+
+jobs:
+  include:
+    - name: "Unit Tests"
+      script: npm test
+    - name: "Audit"
+      script: npm audit || echo \"audit found some vulnerabilities.\"
+    - name: "Docs"
+      script: npm run doc
+    - name: "Lint"
+      script: npm run lint
+    - if: tag =~ ^v # Run only for tags
+      stage: "deploy"
+      script:
+        - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
+        - npm run release:publish
+      skip_cleanup: true

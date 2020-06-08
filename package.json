@@ -1,38 +1,74 @@
 {
   "version": "1.0.0",
   "scripts": {
-    "test": "node_modules/.bin/lerna run test",
-    "lint": "node_modules/.bin/lerna run lint && node_modules/.bin/eslint './gulp/**/*.{js,jsx}' --fix",
-    "doc": "node_modules/.bin/lerna run doc",
-    "audit": "node_modules/.bin/lerna run audit",
-    "build": "node_modules/.bin/lerna run build",
-    "postinstall": "node_modules/.bin/lerna bootstrap --no-ci && node_modules/.bin/lerna run build"
+    "commit": "git-cz",
+    "test": "jest --coverage --no-watchman --config=jest.config.js",
+    "lint": "lerna run lint && node_modules/.bin/eslint './gulp/**/*.{js,jsx}' --fix",
+    "doc": "lerna run doc",
+    "audit": "lerna run audit",
+    "postinstall": "lerna bootstrap --no-ci",
+    "release": "lerna version",
+    "release:publish": "lerna publish from-git --yes"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/plugin-transform-modules-commonjs": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@ima/core": "^17.6.0",
+    "@ima/gulp-task-loader": "^17.4.0",
+    "@ima/plugin-script-loader": "1.0.0",
+    "@rollup/plugin-babel": "^5.0.2",
+    "@rollup/plugin-commonjs": "^12.0.0",
+    "@rollup/plugin-json": "^4.0.3",
+    "@rollup/plugin-node-resolve": "^8.0.0",
+    "@rollup/plugin-replace": "^2.3.2",
     "babel-eslint": "^10.1.0",
     "babel-preset-jest": "^25.2.6",
+    "cz-conventional-changelog": "^3.2.0",
     "del": "^5.1.0",
+    "enzyme": "3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "enzyme-to-json": "^3.4.3",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.10.1",
-    "eslint-plugin-jasmine": "4.1.0",
-    "eslint-plugin-jest": "23.8.2",
-    "eslint-plugin-prettier": "3.1.2",
+    "eslint-plugin-jasmine": "^4.1.0",
+    "eslint-plugin-jest": "^23.8.2",
+    "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "7.19.0",
-    "gulp": "4.0.2",
+    "git-cz": "^4.6.0",
+    "gulp": "^4.0.2",
     "gulp-babel": "8.0.0",
     "gulp-cached": "^1.1.1",
     "gulp-change": "^1.0.2",
     "gulp-jsdoc3": "^3.0.0",
     "gulp-remember": "^1.0.1",
     "gulp-rename": "^2.0.0",
-    "@ima/gulp-task-loader": "^17.4.0",
+    "husky": "^4.2.5",
     "jest": "^25.2.7",
     "lerna": "^3.20.2",
     "prettier": "^2.0.4",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "rollup": "^2.11.2",
+    "rollup-plugin-peer-deps-external": "^2.2.2",
     "to-mock": "^1.6.2"
   },
-  "dependencies": {}
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "bash -c \"if [[ `git rev-parse --abbrev-ref HEAD` =~ ^(master)$ ]] ; then commitlint -E HUSKY_GIT_PARAMS ; fi\""
+    }
+  },
+  "dependencies": {},
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }

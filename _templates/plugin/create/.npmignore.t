@@ -9,7 +9,7 @@ doc/
 coverage/
 .gitignore
 gulpfile.js
-jest.conf.json
+jest.config.js
 preprocess.js
 jestSetupFile.js
 npm-debug.log
