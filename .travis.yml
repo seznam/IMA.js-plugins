@@ -18,7 +18,7 @@ jobs:
       script: npm run doc
     - name: "Lint"
       script: npm run lint
-    - if: tag =~ ^v # Run only for tags
+    - if: branch = master
       stage: "deploy"
       script:
         - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
