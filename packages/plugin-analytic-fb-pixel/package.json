@@ -4,6 +4,7 @@
   "description": "Seznam IMA.js analytic plugin for Facebook Pixel",
   "main": "index.js",
   "scripts": {
+    "build": "echo \"Release process is supported only via lerna command. See README.md for more info.\"; exit 1",
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "lint": "../../node_modules/.bin/eslint './src/**/*.js' --fix",
     "doc": "../../node_modules/.bin/gulp doc",

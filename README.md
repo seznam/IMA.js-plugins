@@ -4,6 +4,11 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/seznam/IMA.js-plugins/badge.svg)](https://snyk.io/test/github/seznam/IMA.js-plugins)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
+For release new version of packages use lerna instead of usac. For example you can use following scripts:
+
+`"release": "lerna version"`  
+`"release:publish": "lerna publish from-git --yes"`
+
 The IMA.js plugins is multi-package repository containing most commonly used plugins on IMA.js application development stack.
 
 - [**plugin-analytic**](packages/plugin-analytic)
