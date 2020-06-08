@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-select",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "The plugin selects extra props from page state to your component.",
   "main": "index.js",
   "scripts": {
@@ -30,7 +30,6 @@
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
   "license": "MIT",
-  "devDependencies": {},
   "browserify": {
     "transform": [
       "babelify"

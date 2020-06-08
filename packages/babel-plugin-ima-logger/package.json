@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-ima-logger",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "The babel pluging that removes @ima/plugin-logger from source code at compilation time.",
   "main": "index.js",
   "scripts": {
@@ -28,7 +28,6 @@
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
   "license": "MIT",
-  "devDependencies": {},
   "browserify": {
     "transform": [
       "babelify"

@@ -1,3 +1,19 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [2.0.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-testing-integration@1.2.5...@ima/plugin-testing-integration@2.0.0) (2020-06-08)
+
+
+### Features
+
+* 🎸  Unified build and release process via rollup and lerna ([df277ce](https://github.com/seznam/IMA.js-plugins/commit/df277ce5bae0cacc9c5b4d6957bdc786ac9cf571))
+
+
+
+
+
 # Changelog
 
 All notable changes to this project will be documented in this file.

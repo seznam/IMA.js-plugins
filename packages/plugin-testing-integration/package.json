@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-testing-integration",
-  "version": "1.2.5",
+  "version": "2.0.0",
   "description": "IMA.js plugin for integration testing",
   "main": "index.js",
   "scripts": {
@@ -36,7 +36,6 @@
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
   "license": "MIT",
-  "devDependencies": {},
   "engines": {
     "node": ">=6",
     "npm": ">=4 <7"

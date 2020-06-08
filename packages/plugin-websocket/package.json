@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-websocket",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "Simple WebSocket server and client for IMA.js",
   "main": "index.js",
   "scripts": {
@@ -30,7 +30,6 @@
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
   "license": "MIT",
-  "devDependencies": {},
   "dependencies": {
     "ws": "^7.2.0"
   },

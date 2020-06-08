@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-rest-client",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Generic REST API client plugin for the IMA application framework.",
   "main": "index.js",
   "scripts": {
@@ -33,7 +33,6 @@
   "dependencies": {
     "clone": "^2.1.2"
   },
-  "devDependencies": {},
   "engines": {
     "node": ">=6",
     "npm": ">=4 <7"

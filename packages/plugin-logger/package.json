@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-logger",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Seznam IMA.js logger plugin",
   "main": "index.js",
   "scripts": {
@@ -29,7 +29,6 @@
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
   "license": "MIT",
-  "devDependencies": {},
   "browserify": {
     "transform": [
       "babelify"

@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-analytic-fb-pixel",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Seznam IMA.js analytic plugin for Facebook Pixel",
   "main": "index.js",
   "scripts": {
@@ -31,9 +31,8 @@
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
   "license": "MIT",
-  "devDependencies": {},
   "dependencies": {
-    "@ima/plugin-analytic": "^3.0.0"
+    "@ima/plugin-analytic": "^4.0.0"
   },
   "peerDependencies": {
     "@ima/plugin-script-loader": "1.x"

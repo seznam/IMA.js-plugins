@@ -1,3 +1,19 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [5.0.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-analytic-fb-pixel@4.0.0...@ima/plugin-analytic-fb-pixel@5.0.0) (2020-06-08)
+
+
+### Features
+
+* 🎸  Unified build and release process via rollup and lerna ([df277ce](https://github.com/seznam/IMA.js-plugins/commit/df277ce5bae0cacc9c5b4d6957bdc786ac9cf571))
+
+
+
+
+
 # Changelog
 
 All notable changes to this project will be documented in this file.

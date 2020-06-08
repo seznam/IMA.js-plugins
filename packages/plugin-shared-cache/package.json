@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-shared-cache",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "A utility for creating caches that are shared between requests by all IMA.js application instances within the same node.js process.",
   "main": "index.js",
   "scripts": {
@@ -30,7 +30,6 @@
   "dependencies": {
     "clone": "^2.1.2"
   },
-  "devDependencies": {},
   "engines": {
     "node": ">=6",
     "npm": ">=4 <7"

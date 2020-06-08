@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-useragent",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Seznam IMA.js plugin user-agent",
   "main": "index.js",
   "scripts": {
@@ -39,7 +39,6 @@
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
   "license": "MIT",
-  "devDependencies": {},
   "dependencies": {
     "platform": "1.3.5"
   },

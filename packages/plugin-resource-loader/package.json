@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-resource-loader",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Seznam IMA.js plugin for loading web resources",
   "main": "index.js",
   "scripts": {
@@ -29,8 +29,6 @@
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
   "license": "MIT",
-  "devDependencies": {},
-  "dependencies": {},
   "engines": {
     "node": ">=6",
     "npm": ">=4 <7"

@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-less-constants",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "IMA.js plugin for sharing constants between JavaScript and LESS code.",
   "main": "tasks/gulpTask.js",
   "scripts": {
@@ -32,8 +32,6 @@
     }
   ],
   "license": "ISC",
-  "devDependencies": {
-  },
   "peerDependencies": {
     "@babel/core": "7.x",
     "@babel/plugin-transform-modules-commonjs": "7.x"

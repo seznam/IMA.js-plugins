@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-hot-reload",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "The ima hot reload plugin",
   "main": "index.js",
   "scripts": {
@@ -32,7 +32,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@ima/plugin-websocket": "^0.1.0"
+    "@ima/plugin-websocket": "^1.0.0"
   },
   "peerDependencies": {
     "@ima/core": "17.x",

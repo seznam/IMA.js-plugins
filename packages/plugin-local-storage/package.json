@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-local-storage",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Seznam IMA.js local-storage plugin",
   "main": "index.js",
   "scripts": {
@@ -30,7 +30,6 @@
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
   "license": "MIT",
-  "devDependencies": {},
   "peerDependencies": {
     "@ima/core": "17.x"
   },
