@@ -14,5 +14,9 @@
       "npmClientArgs": ["--no-package-lock"]
     }
   },
+  "ignoreChanges": [
+    "**/__tests__/**",
+    "**/*.md"
+  ],
   "version": "independent"
 }
