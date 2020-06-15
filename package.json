@@ -3,10 +3,13 @@
   "scripts": {
     "commit": "git-cz",
     "test": "jest --coverage --no-watchman --config=jest.config.js",
-    "lint": "lerna run lint && node_modules/.bin/eslint './gulp/**/*.{js,jsx}' --fix",
+    "lint:cmd": "eslint -c ./.eslintrc.js --ignore-path ./.gitignore",
+    "lint": "npm run lint:cmd -- './**/*.{js,jsx}'",
+    "lint:fix": "npm run lint -- --fix",
     "doc": "lerna run doc",
     "audit": "lerna run audit",
     "postinstall": "lerna bootstrap --no-ci",
+    "precommit": "lint-staged",
     "release": "lerna version",
     "release:publish": "lerna publish from-package --yes"
   },
@@ -48,6 +51,7 @@
     "husky": "^4.2.5",
     "jest": "^25.2.7",
     "lerna": "^3.20.2",
+    "lint-staged": "^10.2.10",
     "prettier": "^2.0.4",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
@@ -65,7 +69,9 @@
       "commit-msg": "bash -c \"if [[ `git rev-parse --abbrev-ref HEAD` =~ ^(master)$ ]] ; then commitlint -E HUSKY_GIT_PARAMS ; fi\""
     }
   },
-  "dependencies": {},
+  "lint-staged": {
+    "**/*.{js,jsx}": "npm run lint:cmd"
+  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"

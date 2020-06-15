@@ -3,7 +3,7 @@ import {
   PageManager,
   PageRenderer,
   Dispatcher,
-  EventBus
+  EventBus,
 } from '@ima/core';
 import { WebSocket } from '@ima/plugin-websocket';
 import Command from './Command';
@@ -91,7 +91,7 @@ export default class ReloadJSCommand extends Command {
 
     const [appMain, ima] = await Promise.all([
       $IMA.Loader.import('app/main'),
-      $IMA.Loader.import('@ima/core')
+      $IMA.Loader.import('@ima/core'),
     ]);
 
     let app = ima.createImaApp();
@@ -107,7 +107,7 @@ export default class ReloadJSCommand extends Command {
     let currentRouteOptions = Object.assign({}, currentRoute.getOptions(), {
       onlyUpdate: false,
       autoScroll: false,
-      allowSPA: false
+      allowSPA: false,
     });
 
     router.listen();
@@ -115,10 +115,10 @@ export default class ReloadJSCommand extends Command {
     try {
       return pageManager
         .manage(currentRoute, currentRouteOptions, currentRouteInfo.params)
-        .catch(error => {
+        .catch((error) => {
           return router.handleError({ error });
         })
-        .catch(error => {
+        .catch((error) => {
           if (typeof $IMA.fatalErrorHandler === 'function') {
             $IMA.fatalErrorHandler(error);
           } else {

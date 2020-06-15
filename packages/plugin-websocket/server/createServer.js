@@ -3,7 +3,7 @@
 var WebSocket = require('ws');
 
 const DEFAULT_OPTIONS = {
-  port: 5888
+  port: 5888,
 };
 
 function createServer(options = {}) {

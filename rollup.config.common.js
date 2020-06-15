@@ -4,34 +4,22 @@ import json from '@rollup/plugin-json';
 import babel from '@rollup/plugin-babel';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 
-const onwarn = warning => {
-  // Silence circular dependency warning for moment package
-  if (
-    warning.code === 'CIRCULAR_DEPENDENCY'
-  ) {
-    return
-  }
-
-  console.warn(`(!) ${warning.message}`)
-}
-
 export default {
   cache: true,
   input: 'src/main.js',
-  onwarn,
   output: {
     file: 'dist/main.js',
     format: 'cjs',
-    exports: 'named'
+    exports: 'named',
   },
   treeshake: true,
   plugins: [
     peerDepsExternal({
-      includeDependencies: true
+      includeDependencies: true,
     }),
     resolve({
       extensions: ['.mjs', '.js', '.jsx', '.json'],
-      preferBuiltins: true
+      preferBuiltins: true,
     }),
     babel({
       babelHelpers: 'bundled',
@@ -43,6 +31,6 @@ export default {
       compact: true, // Default: false
       namedExports: true, // Default: true
     }),
-    commonjs()
+    commonjs(),
   ],
-}
+};
