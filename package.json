@@ -3,10 +3,13 @@
   "scripts": {
     "commit": "git-cz",
     "test": "jest --coverage --no-watchman --config=jest.config.js",
-    "lint": "lerna run lint && node_modules/.bin/eslint './gulp/**/*.{js,jsx}' --fix",
+    "lint:cmd": "eslint -c ./.eslintrc.js --ignore-path ./.gitignore",
+    "lint": "npm run lint:cmd -- './**/*.{js,jsx}'",
+    "lint:fix": "npm run lint -- --fix",
     "doc": "lerna run doc",
     "audit": "lerna run audit",
     "postinstall": "lerna bootstrap --no-ci",
+    "precommit": "lint-staged",
     "release": "lerna version",
     "release:publish": "lerna publish from-package --yes"
   },
@@ -54,6 +57,9 @@
     "rollup": "^2.11.2",
     "rollup-plugin-peer-deps-external": "^2.2.2",
     "to-mock": "^1.6.2"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx}": "npm run lint:cmd"
   },
   "commitlint": {
     "extends": [

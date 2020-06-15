@@ -3,6 +3,7 @@
 .history/
 .vscode/
 node_modules/
+dist/
 coverage/
 package-lock.json
 lerna-debug.log
