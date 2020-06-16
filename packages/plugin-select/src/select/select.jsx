@@ -40,7 +40,10 @@ export function select(...selectors) {
       }
 
       static resolveNewState(props) {
-        const { $context, ...restProps } = props;
+        let restProps = Object.assign({}, props);
+        delete restProps['$context'];
+
+        const { $context } = props;
         const utils = getUtils(restProps, $context);
 
         return stateSelector(
