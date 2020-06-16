@@ -15,7 +15,7 @@
 export default (propTypes) => {
   return (classConstructor) => {
     Object.defineProperty(classConstructor, 'propTypes', {
-      value: propTypes,
+      value: propTypes
     });
   };
 };

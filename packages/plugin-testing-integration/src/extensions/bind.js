@@ -10,8 +10,9 @@ export default (ns, oc) => {
     // navigation to simulate browser behavior, where you
     // already have correct url set in address bar.
     if (isFirstNavigation) {
+      /* eslint-disable-next-line no-undef */
       jsdom.reconfigure({
-        url: router.getBaseUrl() + path,
+        url: router.getBaseUrl() + path
       });
     }
 

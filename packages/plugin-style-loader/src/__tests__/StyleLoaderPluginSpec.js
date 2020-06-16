@@ -14,7 +14,7 @@ describe('StyleLoaderPlugin', () => {
   const window = toMockedInstance(Window, {
     isClient() {
       return true;
-    },
+    }
   });
   const dispatcher = toMockedInstance(Dispatcher);
   const resourceLoader = toMockedInstance(ResourceLoader);
@@ -28,12 +28,12 @@ describe('StyleLoaderPlugin', () => {
     element = {
       onload() {},
       onerror() {},
-      onabort() {},
+      onabort() {}
     };
     attributes = {
       media: 'screen',
       type: 'text/css',
-      onunload() {},
+      onunload() {}
     };
 
     global.$Debug = true;

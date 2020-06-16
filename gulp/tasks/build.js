@@ -17,14 +17,14 @@ exports.default = () => {
       .src([
         './src/**/*.{js,jsx}',
         '!./src/**/__tests__{,/**/*}',
-        './src/**/__tests__/*Suite.js',
+        './src/**/__tests__/*Suite.js'
       ])
       .pipe(cache('compile'))
       .pipe(
         babel({
           moduleIds: true,
           presets: ['@babel/preset-react'],
-          plugins: ['@babel/plugin-transform-modules-commonjs'],
+          plugins: ['@babel/plugin-transform-modules-commonjs']
         })
       )
       .pipe(remember('compile'))
@@ -43,6 +43,6 @@ exports.default = () => {
   }
 
   return {
-    build: gulp.series(clean, compile, copy),
+    build: gulp.series(clean, compile, copy)
   };
 };

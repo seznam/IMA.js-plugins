@@ -8,8 +8,8 @@ let gulpConfig = {
     setTimeout(() => process.exit());
   },
   shared: {
-    browserifyInstance: null,
-  },
+    browserifyInstance: null
+  }
 };
 
 if (gulpConfig.onTerminate) {

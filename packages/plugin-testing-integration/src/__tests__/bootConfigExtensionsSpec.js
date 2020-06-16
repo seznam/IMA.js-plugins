@@ -8,7 +8,7 @@ describe('BootConfigExtensions', () => {
   describe('getBootConfigExtensions', () => {
     it('it can initialize settings', () => {
       const config = {
-        initSettings: jest.fn().mockReturnValue('initSettings'),
+        initSettings: jest.fn().mockReturnValue('initSettings')
       };
       configuration.getConfig = jest.fn().mockReturnValue(config);
 
@@ -24,7 +24,7 @@ describe('BootConfigExtensions', () => {
 
     it('it can initialize bind app', () => {
       const config = {
-        initBindApp: jest.fn().mockReturnValue('initBindApp'),
+        initBindApp: jest.fn().mockReturnValue('initBindApp')
       };
       configuration.getConfig = jest.fn().mockReturnValue(config);
 
@@ -37,11 +37,11 @@ describe('BootConfigExtensions', () => {
 
     it('it can initialize bind app with TestPageRenderer', () => {
       const TestPageRenderer = {
-        initTestPageRenderer: jest.fn(),
+        initTestPageRenderer: jest.fn()
       };
       const config = {
         initBindApp: jest.fn().mockReturnValue('initBindApp'),
-        TestPageRenderer,
+        TestPageRenderer
       };
       configuration.getConfig = jest.fn().mockReturnValue(config);
 
@@ -58,7 +58,7 @@ describe('BootConfigExtensions', () => {
 
     it('it can initialize services app', () => {
       const config = {
-        initServicesApp: jest.fn().mockReturnValue('initServicesApp'),
+        initServicesApp: jest.fn().mockReturnValue('initServicesApp')
       };
       configuration.getConfig = jest.fn().mockReturnValue(config);
 
@@ -74,7 +74,7 @@ describe('BootConfigExtensions', () => {
 
     it('it can initialize routes', () => {
       const config = {
-        initRoutes: jest.fn().mockReturnValue('initRoutes'),
+        initRoutes: jest.fn().mockReturnValue('initRoutes')
       };
       configuration.getConfig = jest.fn().mockReturnValue(config);
 
@@ -87,7 +87,7 @@ describe('BootConfigExtensions', () => {
     it('it can get app extension', () => {
       const extension = { a: 'b' };
       const config = {
-        extendAppObject: jest.fn().mockReturnValue(extension),
+        extendAppObject: jest.fn().mockReturnValue(extension)
       };
       configuration.getConfig = jest.fn().mockReturnValue(config);
 

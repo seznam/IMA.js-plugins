@@ -7,21 +7,22 @@ describe('Bind', () => {
     const route = jest.fn();
     const $Router = {
       route,
-      getBaseUrl: jest.fn().mockReturnValue(baseUrl),
+      getBaseUrl: jest.fn().mockReturnValue(baseUrl)
     };
     const $PageManager = { _managedPage: {} };
     const objects = { $Router, $PageManager };
     const oc = {
-      get: jest.fn((key) => objects[key]),
+      get: jest.fn((key) => objects[key])
     };
     global.jsdom = {
-      reconfigure: jest.fn(),
+      reconfigure: jest.fn()
     };
 
     initBindApp(undefined, oc);
 
     $Router.route(path);
 
+    /* eslint-disable-next-line no-undef */
     expect(jsdom.reconfigure).toHaveBeenCalledWith({ url: baseUrl + path });
     expect($Router.route).not.toEqual(route);
     expect(route).toHaveBeenCalled();

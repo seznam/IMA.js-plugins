@@ -4,10 +4,10 @@ import pluginFunction, { plugin } from '../main';
 describe('main', () => {
   const PLUGIN_OPTIONS = { remove: true };
   const TRANSFORM_OPTIONS = {
-    plugins: [[pluginFunction, PLUGIN_OPTIONS]],
+    plugins: [[pluginFunction, PLUGIN_OPTIONS]]
   };
   const TRANSFORM_OPTIONS_DISABLED_REMOVING = {
-    plugins: [[pluginFunction, { remove: false }]],
+    plugins: [[pluginFunction, { remove: false }]]
   };
 
   beforeEach(() => {
@@ -42,7 +42,7 @@ describe('main', () => {
       '(0, _pluginLogger.debug)',
       '(0, _pluginLogger.info)',
       '(0, _pluginLogger.log)',
-      '(0, _pluginLogger.warn)',
+      '(0, _pluginLogger.warn)'
     ].forEach((func) => {
       it(`should remove ${func}()`, () => {
         const { code } = transform(
@@ -70,7 +70,7 @@ describe('main', () => {
       '(0, _pluginLogger.errorIf)',
       '(0, _pluginLogger.logIf)',
       '(0, _pluginLogger.infoIf)',
-      '(0, _pluginLogger.warnIf)',
+      '(0, _pluginLogger.warnIf)'
     ].forEach((func) => {
       it(`should replace ${func}() with 0`, () => {
         const { code } = transform(
@@ -141,7 +141,7 @@ describe('main', () => {
       '(0, _pluginLogger.errorIf)',
       '(0, _pluginLogger.logIf)',
       '(0, _pluginLogger.infoIf)',
-      '(0, _pluginLogger.warnIf)',
+      '(0, _pluginLogger.warnIf)'
     ].forEach((func) => {
       it(`should not remove ${func}() because removing is disabled by plugin options`, () => {
         const { code } = transform(
@@ -170,7 +170,7 @@ describe('main', () => {
       '(0, _pluginLogger.debug)',
       '(0, _pluginLogger.info)',
       '(0, _pluginLogger.log)',
-      '(0, _pluginLogger.warn)',
+      '(0, _pluginLogger.warn)'
     ].forEach((func) => {
       it(`should not remove ${func}() because removing is disabled by plugin options`, () => {
         const { code } = transform(
@@ -190,7 +190,7 @@ describe('main', () => {
       'errorIf',
       'logIf',
       'infoIf',
-      'warnIf',
+      'warnIf'
     ].forEach((method) => {
       it(`should not remove instance.${method}()`, () => {
         const { code } = transform(

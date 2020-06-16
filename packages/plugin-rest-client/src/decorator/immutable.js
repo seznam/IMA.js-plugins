@@ -11,6 +11,6 @@
  */
 export default (classConstructor) => {
   Object.defineProperty(classConstructor, 'isImmutable', {
-    value: true,
+    value: true
   });
 };

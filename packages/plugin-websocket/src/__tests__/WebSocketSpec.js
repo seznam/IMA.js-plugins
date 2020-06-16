@@ -10,7 +10,7 @@ describe('WebSocket', () => {
   describe('for server side', () => {
     beforeEach(() => {
       window = toMockedInstance(Window, {
-        isClient: () => false,
+        isClient: () => false
       });
       webSocket = new WebSocket(window, config);
     });
@@ -27,7 +27,7 @@ describe('WebSocket', () => {
   describe('for client side', () => {
     beforeEach(() => {
       window = toMockedInstance(window, {
-        isClient: () => true,
+        isClient: () => true
       });
       webSocket = new WebSocket(window, config);
     });

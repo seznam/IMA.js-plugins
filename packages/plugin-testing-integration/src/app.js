@@ -3,7 +3,7 @@ import {
   getClientBootConfig,
   onLoad,
   bootClientApp,
-  vendorLinker,
+  vendorLinker
 } from '@ima/core';
 import { vendors as imaVendors } from '@ima/core/build';
 import { assignRecursively } from '@ima/helpers';
@@ -85,7 +85,7 @@ async function initImaApp(bootConfigMethods = {}) {
     function copyProps(src, target) {
       Object.defineProperties(target, {
         ...Object.getOwnPropertyDescriptors(src),
-        ...Object.getOwnPropertyDescriptors(target),
+        ...Object.getOwnPropertyDescriptors(target)
       });
     }
 
@@ -97,7 +97,7 @@ async function initImaApp(bootConfigMethods = {}) {
     global.window = window;
     global.document = window.document;
     global.navigator = {
-      userAgent: 'node.js',
+      userAgent: 'node.js'
     };
     copyProps(window, global);
     global.jsdom = jsdom;
@@ -109,7 +109,7 @@ async function initImaApp(bootConfigMethods = {}) {
 
     // To skip protocol/host not same as server's error (ima/main.js)
     jsdom.reconfigure({
-      url: `${config.protocol}//${config.host}/`,
+      url: `${config.protocol}//${config.host}/`
     });
 
     global.$IMA.$Protocol = config.protocol;
@@ -189,7 +189,7 @@ async function initImaApp(bootConfigMethods = {}) {
     initSettings: _getBootConfigForMethod('initSettings'),
     initBindApp: _getBootConfigForMethod('initBindApp'),
     initServicesApp: _getBootConfigForMethod('initServicesApp'),
-    initRoutes: _getBootConfigForMethod('initRoutes'),
+    initRoutes: _getBootConfigForMethod('initRoutes')
   });
   await onLoad();
   bootClientApp(app, bootConfig);

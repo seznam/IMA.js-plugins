@@ -31,7 +31,7 @@ describe('AbstractEntity', () => {
     expect(
       new Entity({
         id: 12,
-        test: true,
+        test: true
       })
     ).toEqual(template);
   });
@@ -41,12 +41,12 @@ describe('AbstractEntity', () => {
       new Entity(
         {},
         new Entity({
-          id: 'yup',
+          id: 'yup'
         })
       ).$parentEntity
     ).toEqual(
       new Entity({
-        id: 'yup',
+        id: 'yup'
       })
     );
   });
@@ -80,11 +80,11 @@ describe('AbstractEntity', () => {
     it('should deserialize entity data upon creation', () => {
       let entity = new TransformingEntity({
         test: 'tested',
-        serialized: true,
+        serialized: true
       });
       expect(Object.assign({}, entity)).toEqual({
         test: 'tested',
-        dynamic: true,
+        dynamic: true
       });
     });
 
@@ -93,7 +93,7 @@ describe('AbstractEntity', () => {
         static get dataFieldMapping() {
           return {
             someField: 'some_field',
-            another: 'another',
+            another: 'another'
           };
         }
       }
@@ -101,19 +101,19 @@ describe('AbstractEntity', () => {
       let entity = new DeclarativelyMappedEntity({
         id: 1, // not mapped
         some_field: 'and here is the value',
-        another: 'that is not renamed',
+        another: 'that is not renamed'
       });
       let entityProperties = Object.assign({}, entity);
       expect(entityProperties).toEqual({
         id: 1,
         someField: 'and here is the value',
-        another: 'that is not renamed',
+        another: 'that is not renamed'
       });
 
       expect(entity.$serialize()).toEqual({
         id: 1,
         some_field: 'and here is the value',
-        another: 'that is not renamed',
+        another: 'that is not renamed'
       });
     });
 
@@ -130,7 +130,7 @@ describe('AbstractEntity', () => {
               deserialize(value, processedEntity) {
                 expect(processedEntity instanceof MappingEntity).toBe(true);
                 return -value;
-              },
+              }
             },
             foo: {
               dataFieldName: null,
@@ -139,7 +139,7 @@ describe('AbstractEntity', () => {
               },
               deserialize(value) {
                 return value;
-              },
+              }
             },
             bar: {
               dataFieldName: 'bar',
@@ -148,8 +148,8 @@ describe('AbstractEntity', () => {
               },
               deserialize(value) {
                 return value;
-              },
-            },
+              }
+            }
           };
         }
       }
@@ -157,17 +157,17 @@ describe('AbstractEntity', () => {
       let entity = new MappingEntity({
         _id: 123,
         foo: 'a',
-        bar: 'b',
+        bar: 'b'
       });
       expect(Object.assign({}, entity)).toEqual({
         id: -123,
         foo: 'a',
-        bar: 'b',
+        bar: 'b'
       });
       expect(entity.$serialize()).toEqual({
         _id: 123,
         foo: 'a',
-        bar: 'b',
+        bar: 'b'
       });
     });
 
@@ -195,7 +195,7 @@ describe('AbstractEntity', () => {
               'bar',
               (value) => value,
               (value) => value
-            ),
+            )
           };
         }
       }
@@ -203,17 +203,17 @@ describe('AbstractEntity', () => {
       let entity = new MappingEntity({
         _id: 123,
         foo: 'a',
-        bar: 'b',
+        bar: 'b'
       });
       expect(Object.assign({}, entity)).toEqual({
         id: -123,
         foo: 'a',
-        bar: 'b',
+        bar: 'b'
       });
       expect(entity.$serialize()).toEqual({
         _id: 123,
         foo: 'a',
-        bar: 'b',
+        bar: 'b'
       });
     });
 
@@ -225,7 +225,7 @@ describe('AbstractEntity', () => {
           return {
             session: Session.asDataFieldMapper('_session'),
             otherSession: Session.asDataFieldMapper('otherSession'),
-            anotherSession: Session.asDataFieldMapper(),
+            anotherSession: Session.asDataFieldMapper()
           };
         }
       }
@@ -234,16 +234,16 @@ describe('AbstractEntity', () => {
         id: 1,
         _session: { id: 'ABC' },
         otherSession: { id: 'DEF' },
-        anotherSession: { id: 'GHI' },
+        anotherSession: { id: 'GHI' }
       });
       let templateEntity = new User({});
       templateEntity.id = 1;
       templateEntity.session = new Session({ id: 'ABC' });
       templateEntity.otherSession = new Session({
-        id: 'DEF',
+        id: 'DEF'
       });
       templateEntity.anotherSession = new Session({
-        id: 'GHI',
+        id: 'GHI'
       });
       expect(entity).toMatchObject(templateEntity);
       expect(entity.session.$parentEntity).toBe(entity);
@@ -254,7 +254,7 @@ describe('AbstractEntity', () => {
         id: 1,
         _session: { id: 'ABC' },
         otherSession: { id: 'DEF' },
-        anotherSession: { id: 'GHI' },
+        anotherSession: { id: 'GHI' }
       });
     });
   });
@@ -273,7 +273,7 @@ describe('AbstractEntity', () => {
       entity.id = 2;
       entity.foo = 'bar';
       Object.defineProperty(entity, 'id', {
-        enumerable: false,
+        enumerable: false
       });
     });
 
@@ -282,9 +282,9 @@ describe('AbstractEntity', () => {
         id: 1,
         foo: {
           bar: {
-            baz: 2,
-          },
-        },
+            baz: 2
+          }
+        }
       });
       expect(Object.isFrozen(entity)).toBe(true);
       expect(Object.isFrozen(entity.foo)).toBe(true);
@@ -297,16 +297,16 @@ describe('AbstractEntity', () => {
           id: 1,
           text: 'is a text',
           created: new Date(),
-          regexp: /a/,
+          regexp: /a/
         },
         new ImmutableEntity(
           {
             id: 'xy',
-            isParent: true,
+            isParent: true
           },
           new ImmutableEntity({
             id: 'grand-parent',
-            isGrandParent: true,
+            isGrandParent: true
           })
         )
       );
@@ -330,16 +330,16 @@ describe('AbstractEntity', () => {
     it('should enable creating modified clones of the entity', () => {
       let entity = new ImmutableEntity({
         id: 1,
-        foo: 'bar',
+        foo: 'bar'
       });
       let patchedEntity = entity.cloneAndPatch({
         id: 2,
-        baz: '000',
+        baz: '000'
       });
       expect(patchedEntity.$serialize()).toEqual({
         id: 2,
         foo: 'bar',
-        baz: '000',
+        baz: '000'
       });
     });
   });
@@ -365,13 +365,13 @@ describe('AbstractEntity', () => {
 
     it('should be possible to configure propTypes exactly once', () => {
       testStaticProperty(AbstractEntity, 'propTypes', {}, false, {
-        id: 'integer:>0',
+        id: 'integer:>0'
       });
     });
 
     it('should be possible to configure dataFieldMapping exactly once', () => {
       testStaticProperty(AbstractEntity, 'dataFieldMapping', {}, false, {
-        id: '_id',
+        id: '_id'
       });
     });
 

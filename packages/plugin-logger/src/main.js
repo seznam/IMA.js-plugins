@@ -1,5 +1,5 @@
 Object.defineProperty(exports, '__esModule', {
-  value: true,
+  value: true
 });
 
 /**
@@ -14,7 +14,7 @@ Object.defineProperty(exports, '__esModule', {
  * @type {module:main~Configuration}
  */
 let _config = {
-  silentMode: false,
+  silentMode: false
 };
 
 /**

@@ -116,7 +116,7 @@ describe('AbstractResource', () => {
       spyOn(restClient, 'create').and.callThrough();
       const data = {
         id: 1,
-        foo: 'bar',
+        foo: 'bar'
       };
 
       resource

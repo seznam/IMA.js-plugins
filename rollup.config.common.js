@@ -10,27 +10,27 @@ export default {
   output: {
     file: 'dist/main.js',
     format: 'cjs',
-    exports: 'named',
+    exports: 'named'
   },
   treeshake: true,
   plugins: [
     peerDepsExternal({
-      includeDependencies: true,
+      includeDependencies: true
     }),
     resolve({
       extensions: ['.mjs', '.js', '.jsx', '.json'],
-      preferBuiltins: true,
+      preferBuiltins: true
     }),
     babel({
       babelHelpers: 'bundled',
       moduleIds: true,
-      presets: ['@babel/preset-react'],
+      presets: ['@babel/preset-react']
     }),
     json({
       preferConst: true, // Default: false
       compact: true, // Default: false
-      namedExports: true, // Default: true
+      namedExports: true // Default: true
     }),
-    commonjs(),
-  ],
+    commonjs()
+  ]
 };

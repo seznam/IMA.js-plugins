@@ -10,6 +10,6 @@ exports.asUnit = function asUnit(unit, parts, template = '${parts}${unit}') {
       return template
         .replace('${parts}', parts.join(','))
         .replace('${unit}', unit);
-    },
+    }
   };
 };

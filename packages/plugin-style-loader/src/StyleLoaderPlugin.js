@@ -134,7 +134,7 @@ export default class StyleLoader {
     let error = new Error(`The ${url} style failed to load.`);
     let data = {
       url,
-      error,
+      error
     };
 
     this._dispatcher.fire(Events.LOADED, data, true);

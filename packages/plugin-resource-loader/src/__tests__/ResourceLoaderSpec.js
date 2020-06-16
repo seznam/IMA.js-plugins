@@ -10,14 +10,14 @@ describe('ResourceLoader', () => {
     element = {
       onload() {},
       onerror() {},
-      onabort() {},
+      onabort() {}
     };
 
     global.$Debug = true;
     global.document = {
       head: {
-        appendChild() {},
-      },
+        appendChild() {}
+      }
     };
   });
 

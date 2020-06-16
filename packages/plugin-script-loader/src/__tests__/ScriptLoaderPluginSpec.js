@@ -14,7 +14,7 @@ describe('ScriptLoaderPlugin', () => {
   const window = toMockedInstance(Window, {
     isClient() {
       return true;
-    },
+    }
   });
   const dispatcher = toMockedInstance(Dispatcher);
   const resourceLoader = toMockedInstance(ResourceLoader);
@@ -28,7 +28,7 @@ describe('ScriptLoaderPlugin', () => {
     element = {
       onload() {},
       onerror() {},
-      onabort() {},
+      onabort() {}
     };
 
     global.$Debug = true;

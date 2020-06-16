@@ -24,7 +24,7 @@
 export default (dataFieldMapping) => {
   return (classConstructor) => {
     Object.defineProperty(classConstructor, 'dataFieldMapping', {
-      value: dataFieldMapping,
+      value: dataFieldMapping
     });
   };
 };

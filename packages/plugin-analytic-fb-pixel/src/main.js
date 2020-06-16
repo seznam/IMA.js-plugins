@@ -10,15 +10,15 @@ const initSettings = () => {
       plugin: {
         analytic: {
           fbPixel: {
-            id: null,
-          },
-        },
-      },
+            id: null
+          }
+        }
+      }
     },
 
     test: {},
 
-    dev: {},
+    dev: {}
   };
 };
 
@@ -26,5 +26,5 @@ export {
   FacebookPixelAnalytic,
   defaultDependencies,
   $registerImaPlugin,
-  initSettings,
+  initSettings
 };

@@ -5,6 +5,6 @@ module.exports = {
   testEnvironment: 'jsdom',
   setupFiles: ['<rootDir>/jestSetupFile.js'],
   snapshotSerializers: [
-    '<rootDir>/../../node_modules/enzyme-to-json/serializer',
-  ],
+    '<rootDir>/../../node_modules/enzyme-to-json/serializer'
+  ]
 };

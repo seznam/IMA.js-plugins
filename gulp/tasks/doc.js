@@ -24,16 +24,16 @@ exports.default = () => {
       .src(
         ['./README.md', './doc-src/**/*.{js,jsx}', '!./doc-src/**/*Spec.js'],
         {
-          read: false,
+          read: false
         }
       )
       .pipe(
         jsdoc(
           {
             opts: {
-              destination: './doc',
+              destination: './doc'
             },
-            plugins: ['plugins/markdown'],
+            plugins: ['plugins/markdown']
           },
           () => {
             if (completionTimeout) {
@@ -74,19 +74,19 @@ exports.default = () => {
   documentationPreprocessors = [
     {
       pattern: /\/[*][*]((?:a|[^a])*?)@(type|param|return)\s*[{]([^}]*?)([a-zA-Z0-9_., *<>|]+)\[\]([^}]*)[}]((a|[^a])*)[*]\//g,
-      replace: '/**$1@$2 {$3Array<$4>$5}$6*/',
+      replace: '/**$1@$2 {$3Array<$4>$5}$6*/'
     },
     {
       pattern: /\/[*][*]((?:a|[^a])*?)[{]@code(?:link)? ([^}]*)[}]((a|[^a])*)[*]\//g,
-      replace: '/**$1<code>$2</code>$3*/',
+      replace: '/**$1<code>$2</code>$3*/'
     },
     {
       pattern: /^\s*export\s+default\s+/gm,
-      replace: '',
-    },
+      replace: ''
+    }
   ];
 
   return {
-    doc: gulp.series(docClear, docPreprocess, docGenerate, docClean),
+    doc: gulp.series(docClear, docPreprocess, docGenerate, docClean)
   };
 };

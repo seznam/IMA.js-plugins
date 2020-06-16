@@ -4,6 +4,6 @@ export default Object.assign({}, common, {
   output: {
     file: 'dist/main.js',
     format: 'cjs',
-    exports: 'named',
-  },
+    exports: 'named'
+  }
 });

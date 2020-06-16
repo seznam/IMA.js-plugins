@@ -10,13 +10,13 @@ describe('AbstractAnalytic', () => {
   const _windowMock = toMockedInstance(Window, {
     isClient() {
       return true;
-    },
+    }
   });
   const dispatcher = toMockedInstance(Dispatcher);
   const scriptLoader = toMockedInstance(ScriptLoaderPlugin, {
     load() {
       return Promise.resolve(null);
-    },
+    }
   });
 
   beforeEach(() => {

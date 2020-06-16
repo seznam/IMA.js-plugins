@@ -4,7 +4,7 @@ describe('LocalStorageHelper', () => {
   let dummyWindow = {
     isClient() {
       return true;
-    },
+    }
   };
 
   let localStorageMock = {
@@ -16,7 +16,7 @@ describe('LocalStorageHelper', () => {
       return this._keys[index];
     },
     length: 4,
-    _keys: ['a', 'b', 'c', 'd'],
+    _keys: ['a', 'b', 'c', 'd']
   };
 
   let localStorageInstance = null;
@@ -113,7 +113,7 @@ describe('LocalStorageHelper', () => {
     it('should return undefined and call localStorageInstance.delete method if item is expired', () => {
       spyOn(localStorage, 'getItem').and.returnValue({
         value: 'testValue',
-        expires: Date.now(),
+        expires: Date.now()
       });
       spyOn(localStorageInstance, 'delete');
 
@@ -125,7 +125,7 @@ describe('LocalStorageHelper', () => {
 
     it('should return item if item has no value', () => {
       spyOn(localStorageInstance, 'get').and.returnValue({
-        testKey: 'testValue',
+        testKey: 'testValue'
       });
 
       let result = localStorageInstance.get('testName');
@@ -182,7 +182,7 @@ describe('LocalStorageHelper', () => {
       localStorageInstance.set('testKey', 'testValue');
 
       expect(localStorageInstance._getExpires).toHaveBeenCalledWith({
-        expires: 10,
+        expires: 10
       });
       expect(localStorage.setItem).toHaveBeenCalledWith(
         'testKey',
@@ -198,7 +198,7 @@ describe('LocalStorageHelper', () => {
       localStorageInstance.set('testKey', 'testValue', { expires: 5 });
 
       expect(localStorageInstance._getExpires).toHaveBeenCalledWith({
-        expires: 5,
+        expires: 5
       });
       expect(localStorage.setItem).toHaveBeenCalledWith(
         'testKey',
@@ -298,7 +298,7 @@ describe('LocalStorageHelper', () => {
 
   describe('isSupported method', () => {
     let jsonMock = {
-      stringify() {},
+      stringify() {}
     };
 
     beforeEach(() => {

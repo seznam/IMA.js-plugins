@@ -2,7 +2,7 @@ import {
   AbstractPureComponent,
   StateEvents,
   PageContext,
-  getUtils,
+  getUtils
 } from '@ima/core';
 import hoistNonReactStaticMethod from 'hoist-non-react-statics';
 import React, { useContext } from 'react';

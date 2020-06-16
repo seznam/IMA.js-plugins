@@ -344,7 +344,7 @@ export default class AbstractRestClient extends RestClient {
       data,
       headers,
       options,
-      serverConfiguration: this._serverConfiguration,
+      serverConfiguration: this._serverConfiguration
     });
   }
 
@@ -438,7 +438,7 @@ export default class AbstractRestClient extends RestClient {
 
     return new Response(
       Object.assign({}, response, {
-        body,
+        body
       })
     );
   }
@@ -484,7 +484,7 @@ export default class AbstractRestClient extends RestClient {
         headers: agentResponse.headers,
         body: agentResponse.body,
         cached: agentResponse.cached,
-        request: request,
+        request: request
       });
     });
   }

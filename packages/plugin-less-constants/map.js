@@ -14,6 +14,6 @@ exports.lessMap = function lessMap(object) {
       return Object.keys(object)
         .map((key) => `\t${key}: ${object[key]};\n`)
         .join('');
-    },
+    }
   };
 };

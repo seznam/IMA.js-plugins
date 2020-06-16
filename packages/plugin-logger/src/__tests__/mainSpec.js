@@ -15,7 +15,7 @@ describe('@ima/plugin-logger', () => {
   describe('enable/disable a silentMode', () => {
     beforeEach(() => {
       logger.configureLogger({
-        silentMode: false,
+        silentMode: false
       });
     });
 
@@ -70,7 +70,7 @@ describe('@ima/plugin-logger', () => {
     logIf: 'log',
     infoIf: 'info',
     warnIf: 'warn',
-    errorIf: 'error',
+    errorIf: 'error'
   }).forEach(([method, calledMethod]) => {
     describe(`${method}()`, () => {
       beforeEach(() => {

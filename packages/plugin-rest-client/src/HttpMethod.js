@@ -35,7 +35,7 @@ const HttpMethod = {
    *
    * @type {string}
    */
-  DELETE: 'DELETE',
+  DELETE: 'DELETE'
 };
 
 if ($Debug) {
