@@ -54,7 +54,7 @@ describe('AbstractRestClient', () => {
     }
   }
 
-  it('should follow the correct call chain', (done) => {
+  it('should follow the correct call chain', done => {
     let configuratorCalled = false;
     let linkGeneratorCalled = false;
     let preProcessor1Called = false;
@@ -288,7 +288,7 @@ describe('AbstractRestClient', () => {
         },
         { stuff: 'yeah', someId: 321 }
       )
-      .then((response) => {
+      .then(response => {
         expect(postProcessor2Called).toBe(true);
 
         expect(response.status).toBe(203);
@@ -319,7 +319,7 @@ describe('AbstractRestClient', () => {
 
         done();
       })
-      .catch((error) => {
+      .catch(error => {
         fail(error.stack);
         done();
       });
@@ -328,7 +328,7 @@ describe('AbstractRestClient', () => {
   it(
     'should follow the correct call chain when no configurator, ' +
       'pre-processors, or post-processors are set',
-    (done) => {
+    done => {
       let linkGeneratorCalled = false;
       let agentCalled = false;
 
@@ -402,7 +402,7 @@ describe('AbstractRestClient', () => {
           },
           { stuff: 'yeah', someId: 321 }
         )
-        .then((response) => {
+        .then(response => {
           expect(agentCalled).toBe(true);
 
           expect(response.status).toBe(200);
@@ -431,14 +431,14 @@ describe('AbstractRestClient', () => {
 
           done();
         })
-        .catch((error) => {
+        .catch(error => {
           fail(error.stack);
           done();
         });
     }
   );
 
-  it('should call configurator only once', (done) => {
+  it('should call configurator only once', done => {
     let callCount = 0;
 
     let configurator = new (class extends Configurator {
@@ -465,13 +465,13 @@ describe('AbstractRestClient', () => {
         expect(callCount).toBe(1);
         done();
       })
-      .catch((error) => {
+      .catch(error => {
         fail(error.stack);
         done();
       });
   });
 
-  it('should allow preProcessors to generate a response', (done) => {
+  it('should allow preProcessors to generate a response', done => {
     let preProcessorCalled = false;
     let agentCalled = false;
     let postProcessorCalled = false;
@@ -527,20 +527,20 @@ describe('AbstractRestClient', () => {
 
     return restClient
       .get('foo', 1)
-      .then((response) => {
+      .then(response => {
         expect(postProcessorCalled).toBe(true);
         expect(agentCalled).toBe(false);
         expect(response.status).toBe(204);
 
         done();
       })
-      .catch((error) => {
+      .catch(error => {
         fail(error.stack);
         done();
       });
   });
 
-  it('should allow preProcessors to generate a promise of a response', (done) => {
+  it('should allow preProcessors to generate a promise of a response', done => {
     let preProcessorCalled = false;
     let agentCalled = false;
     let postProcessorCalled = false;
@@ -598,20 +598,20 @@ describe('AbstractRestClient', () => {
 
     return restClient
       .get('foo', 1)
-      .then((response) => {
+      .then(response => {
         expect(postProcessorCalled).toBe(true);
         expect(agentCalled).toBe(false);
         expect(response.status).toBe(204);
 
         done();
       })
-      .catch((error) => {
+      .catch(error => {
         fail(error.stack);
         done();
       });
   });
 
-  it('should execute a GET request when list() is called', (done) => {
+  it('should execute a GET request when list() is called', done => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
@@ -634,13 +634,13 @@ describe('AbstractRestClient', () => {
         expect(methodCalled).toBe(true);
         done();
       })
-      .catch((error) => {
+      .catch(error => {
         fail(error.stack);
         done();
       });
   });
 
-  it('should execute a GET request when get() is called', (done) => {
+  it('should execute a GET request when get() is called', done => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
@@ -663,13 +663,13 @@ describe('AbstractRestClient', () => {
         expect(methodCalled).toBe(true);
         done();
       })
-      .catch((error) => {
+      .catch(error => {
         fail(error.stack);
         done();
       });
   });
 
-  it('should execute a PATCH request when patch() is called', (done) => {
+  it('should execute a PATCH request when patch() is called', done => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
@@ -692,13 +692,13 @@ describe('AbstractRestClient', () => {
         expect(methodCalled).toBe(true);
         done();
       })
-      .catch((error) => {
+      .catch(error => {
         fail(error.stack);
         done();
       });
   });
 
-  it('should execute a PUT request when replace() is called', (done) => {
+  it('should execute a PUT request when replace() is called', done => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
@@ -721,13 +721,13 @@ describe('AbstractRestClient', () => {
         expect(methodCalled).toBe(true);
         done();
       })
-      .catch((error) => {
+      .catch(error => {
         fail(error.stack);
         done();
       });
   });
 
-  it('should execute a POST request when create() is called', (done) => {
+  it('should execute a POST request when create() is called', done => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
@@ -750,13 +750,13 @@ describe('AbstractRestClient', () => {
         expect(methodCalled).toBe(true);
         done();
       })
-      .catch((error) => {
+      .catch(error => {
         fail(error.stack);
         done();
       });
   });
 
-  it('should execute a DELETE request when delete() is called', (done) => {
+  it('should execute a DELETE request when delete() is called', done => {
     let methodCalled = false;
 
     let restClient = new DummyRestClient(
@@ -779,7 +779,7 @@ describe('AbstractRestClient', () => {
         expect(methodCalled).toBe(true);
         done();
       })
-      .catch((error) => {
+      .catch(error => {
         fail(error.stack);
         done();
       });
@@ -788,7 +788,7 @@ describe('AbstractRestClient', () => {
   it(
     'should allow classes extending the AbstractEntity class to be used ' +
       'as resource',
-    (done) => {
+    done => {
       let restClient = new DummyRestClient(
         new (class extends DummyHttpAgent {
           get(url, data, options) {
@@ -836,7 +836,7 @@ describe('AbstractRestClient', () => {
 
       return restClient
         .list(Entity)
-        .then((response) => {
+        .then(response => {
           expect(response.request.resource).toBe(Entity);
           expect(response.body instanceof Array).toBeTruthy();
           expect(response.body).toEqual([
@@ -852,7 +852,7 @@ describe('AbstractRestClient', () => {
 
           done();
         })
-        .catch((error) => {
+        .catch(error => {
           fail(error.stack);
           done();
         });
@@ -862,7 +862,7 @@ describe('AbstractRestClient', () => {
   it(
     'should handle single-entity response and empty response when using ' +
       'a class as resource',
-    (done) => {
+    done => {
       let responseBody = {
         id: 1,
         stuff: 'yes'
@@ -908,7 +908,7 @@ describe('AbstractRestClient', () => {
 
       return restClient
         .list(Entity, {}, {}, parent)
-        .then((response) => {
+        .then(response => {
           expect(response.request.resource).toBe(Entity);
           expect(response.body instanceof Entity).toBeTruthy();
           expect(response.body).toMatchObject(
@@ -923,12 +923,12 @@ describe('AbstractRestClient', () => {
 
           return restClient.list(Entity);
         })
-        .then((response) => {
+        .then(response => {
           expect(response.body).toBeNull();
 
           done();
         })
-        .catch((error) => {
+        .catch(error => {
           fail(error.stack);
           done();
         });
@@ -938,7 +938,7 @@ describe('AbstractRestClient', () => {
   it(
     'should inline the response body if the inlineResponseBody flag is ' +
       'set',
-    (done) => {
+    done => {
       class Entity extends AbstractEntity {
         static get resourceName() {
           return 'this-is-the-resource';
@@ -982,7 +982,7 @@ describe('AbstractRestClient', () => {
 
       return restClient
         .list(Entity)
-        .then((response) => {
+        .then(response => {
           expect(response instanceof Entity).toBeTruthy();
           expect(response).toEqual(
             new Entity({
@@ -993,7 +993,7 @@ describe('AbstractRestClient', () => {
 
           done();
         })
-        .catch((error) => {
+        .catch(error => {
           fail(error.stack);
           done();
         });

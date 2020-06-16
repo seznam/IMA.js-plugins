@@ -21,8 +21,8 @@
  *         ))} Callback that sets the data field mapping on the provided entity
  *         class.
  */
-export default (dataFieldMapping) => {
-  return (classConstructor) => {
+export default dataFieldMapping => {
+  return classConstructor => {
     Object.defineProperty(classConstructor, 'dataFieldMapping', {
       value: dataFieldMapping
     });

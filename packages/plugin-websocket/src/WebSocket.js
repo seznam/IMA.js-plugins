@@ -76,13 +76,13 @@ export default class WebSocket {
    * @param  {*} data
    */
   _notify(data) {
-    this._observers.forEach((observer) => observer(data));
+    this._observers.forEach(observer => observer(data));
   }
 
   _connect() {
     this._socket = Reflect.construct(window.WebSocket, [this._config.url]);
 
-    this._socket.onmessage = (event) => {
+    this._socket.onmessage = event => {
       try {
         let data = JSON.parse(event.data);
 
@@ -98,7 +98,7 @@ export default class WebSocket {
       }
     };
 
-    this._socket.onerror = (error) => {
+    this._socket.onerror = error => {
       console.error(error); // eslint-disable-line no-console
     };
   }

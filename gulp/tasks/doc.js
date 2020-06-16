@@ -49,7 +49,7 @@ exports.default = () => {
     return gulp
       .src('./src/**/*.{js,jsx}')
       .pipe(
-        change((content) => {
+        change(content => {
           let oldContent = null;
 
           while (content !== oldContent) {
@@ -63,7 +63,7 @@ exports.default = () => {
           return `${content}`;
         })
       )
-      .pipe(rename((file) => (file.extname = '.js')))
+      .pipe(rename(file => (file.extname = '.js')))
       .pipe(gulp.dest('./doc-src'));
   }
 

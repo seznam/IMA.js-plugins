@@ -38,7 +38,7 @@ class EnzymeReactDOM {
 
   unmountComponentAtNode(container) {
     const instanceIndex = this._instances.findIndex(
-      (instance) => instance.container === container
+      instance => instance.container === container
     );
 
     if (!~instanceIndex) {

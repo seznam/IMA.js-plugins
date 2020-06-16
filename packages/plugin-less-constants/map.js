@@ -12,7 +12,7 @@ exports.lessMap = function lessMap(object) {
 
     toString() {
       return Object.keys(object)
-        .map((key) => `\t${key}: ${object[key]};\n`)
+        .map(key => `\t${key}: ${object[key]};\n`)
         .join('');
     }
   };

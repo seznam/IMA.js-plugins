@@ -13,8 +13,8 @@
  *         ))} Callback that sets the name of the field containing the entity's
  *         ID.
  */
-export default (idParameterName) => {
-  return (classConstructor) => {
+export default idParameterName => {
+  return classConstructor => {
     Object.defineProperty(classConstructor, 'idFieldName', {
       value: idParameterName
     });

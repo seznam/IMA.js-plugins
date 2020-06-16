@@ -229,7 +229,7 @@ export default class XHR {
       body,
       completeOptions,
       requestParams
-    ).catch((requestError) => {
+    ).catch(requestError => {
       if (completeOptions.repeatRequest > 0) {
         return this._prepareAndSendRequest(
           method,
@@ -313,7 +313,7 @@ export default class XHR {
    */
   _sendXHRRequest(xhr, body, observer, options, requestParams) {
     return new Promise((resolve, reject) => {
-      xhr.addEventListener('readystatechange', (event) => {
+      xhr.addEventListener('readystatechange', event => {
         if (observer.onstatechange) {
           observer.onstatechange(event);
         }
@@ -322,7 +322,7 @@ export default class XHR {
           xhr.abort();
         }
       });
-      xhr.addEventListener('progress', (event) => {
+      xhr.addEventListener('progress', event => {
         if (observer.onprogress) {
           observer.onprogress(event);
         }
@@ -339,14 +339,14 @@ export default class XHR {
           reject(new GenericError('The request failed.', { xhr }));
         }
       });
-      xhr.addEventListener('error', (event) => {
+      xhr.addEventListener('error', event => {
         reject(
           new GenericError('The request failed.', {
             cause: event
           })
         );
       });
-      xhr.addEventListener('timeout', (event) => {
+      xhr.addEventListener('timeout', event => {
         reject(
           new GenericError('The request timed out.', {
             cause: event
@@ -355,7 +355,7 @@ export default class XHR {
       });
 
       xhr.send(body);
-    }).catch((requestError) => {
+    }).catch(requestError => {
       throw this._composeRequestError(requestError, requestParams);
     });
   }
@@ -441,7 +441,7 @@ export default class XHR {
     // It would be great if we had native support for URLSearchParams, but
     // IE does not support them
     return Object.keys(query)
-      .map((key) => [key, query[key]].map(encodeURIComponent).join('='))
+      .map(key => [key, query[key]].map(encodeURIComponent).join('='))
       .join('&');
   }
 

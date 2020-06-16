@@ -15,7 +15,7 @@ describe('Integration', () => {
     };
     const app = {
       oc: {
-        get: jest.fn((key) => {
+        get: jest.fn(key => {
           if (key === '$Router') {
             return router;
           }
@@ -60,10 +60,8 @@ describe('Integration', () => {
     helpers.loadFiles = jest.fn();
     configuration.getConfig = jest.fn().mockReturnValue(config);
     ima.createImaApp = jest.fn().mockReturnValue(app);
-    ima.getClientBootConfig = jest.fn((bootConfig) => {
-      Object.values(bootConfig).forEach((method) =>
-        method('ns', 'oc', 'config')
-      );
+    ima.getClientBootConfig = jest.fn(bootConfig => {
+      Object.values(bootConfig).forEach(method => method('ns', 'oc', 'config'));
 
       return 'bootConfig';
     });

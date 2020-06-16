@@ -280,7 +280,7 @@ export default class AbstractResource {
 
     return this[PRIVATE.restClient]
       .patch(resource, id, entity.$serialize(data), parameters, options)
-      .then((response) => {
+      .then(response => {
         if (!resource.isImmutable) {
           Object.assign(this, data);
         }

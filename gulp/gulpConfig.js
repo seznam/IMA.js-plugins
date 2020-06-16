@@ -1,7 +1,7 @@
 let gulpConfig = {
   terminateListeners: [],
   onTerminate() {
-    gulpConfig.terminateListeners.forEach((listener) => {
+    gulpConfig.terminateListeners.forEach(listener => {
       listener();
     });
 

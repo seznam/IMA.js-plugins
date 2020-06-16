@@ -90,7 +90,7 @@ describe('Client/Server implementation of Abstract class', () => {
     };
 
     var $RequestMock = {
-      getHeader: (key) => {
+      getHeader: key => {
         if (key === 'User-Agent') {
           return userAgentString;
         } else {
@@ -119,7 +119,7 @@ describe('Client/Server implementation of Abstract class', () => {
   }
 
   describe('getPlatform method', () => {
-    using(getImplementations(), (implementation) => {
+    using(getImplementations(), implementation => {
       it(
         'should return correct user-agent object on ' + implementation.name,
         () => {
@@ -133,7 +133,7 @@ describe('Client/Server implementation of Abstract class', () => {
     var PlatformJSMockUndefined = {
       parse: () => userAgentObjectUndefined
     };
-    using(getImplementations(PlatformJSMockUndefined), (implementation) => {
+    using(getImplementations(PlatformJSMockUndefined), implementation => {
       it(
         'should return correct user-agent object on undefined values on ' +
           implementation.name,
@@ -148,7 +148,7 @@ describe('Client/Server implementation of Abstract class', () => {
     var PlatformJSMockNull = {
       parse: () => userAgentObjectNull
     };
-    using(getImplementations(PlatformJSMockNull), (implementation) => {
+    using(getImplementations(PlatformJSMockNull), implementation => {
       it(
         'should return correct user-agent object on null values on ' +
           implementation.name,
@@ -162,7 +162,7 @@ describe('Client/Server implementation of Abstract class', () => {
   });
 
   describe('getUserAgent method', () => {
-    using(getImplementations(), (implementation) => {
+    using(getImplementations(), implementation => {
       it(
         'should return correct user-agent string on ' + implementation.name,
         () => {
@@ -175,7 +175,7 @@ describe('Client/Server implementation of Abstract class', () => {
   });
 
   describe('getDescription method', () => {
-    using(getImplementations(), (implementation) => {
+    using(getImplementations(), implementation => {
       it('should return correct string on ' + implementation.name, () => {
         expect(implementation.instance.getDescription()).toEqual(
           userAgentObject.description
@@ -185,7 +185,7 @@ describe('Client/Server implementation of Abstract class', () => {
   });
 
   describe('getLayout method', () => {
-    using(getImplementations(), (implementation) => {
+    using(getImplementations(), implementation => {
       it('should return correct string on ' + implementation.name, () => {
         expect(implementation.instance.getLayout()).toEqual(
           userAgentObject.layout
@@ -195,7 +195,7 @@ describe('Client/Server implementation of Abstract class', () => {
   });
 
   describe('getManufacturer method', () => {
-    using(getImplementations(), (implementation) => {
+    using(getImplementations(), implementation => {
       it('should return correct string on ' + implementation.name, () => {
         expect(implementation.instance.getManufacturer()).toEqual('unknown');
       });
@@ -203,7 +203,7 @@ describe('Client/Server implementation of Abstract class', () => {
   });
 
   describe('getName method', () => {
-    using(getImplementations(), (implementation) => {
+    using(getImplementations(), implementation => {
       it('should return correct string on ' + implementation.name, () => {
         expect(implementation.instance.getName()).toEqual(userAgentObject.name);
       });
@@ -211,7 +211,7 @@ describe('Client/Server implementation of Abstract class', () => {
   });
 
   describe('getPrerelease method', () => {
-    using(getImplementations(), (implementation) => {
+    using(getImplementations(), implementation => {
       it('should return correct string on ' + implementation.name, () => {
         expect(implementation.instance.getPrerelease()).toEqual('unknown');
       });
@@ -219,7 +219,7 @@ describe('Client/Server implementation of Abstract class', () => {
   });
 
   describe('getProduct method', () => {
-    using(getImplementations(), (implementation) => {
+    using(getImplementations(), implementation => {
       it('should return correct string on ' + implementation.name, () => {
         expect(implementation.instance.getProduct()).toEqual('unknown');
       });
@@ -227,7 +227,7 @@ describe('Client/Server implementation of Abstract class', () => {
   });
 
   describe('getVersion method', () => {
-    using(getImplementations(), (implementation) => {
+    using(getImplementations(), implementation => {
       it('should return correct string on ' + implementation.name, () => {
         expect(implementation.instance.getVersion()).toEqual(
           userAgentObject.version
@@ -237,7 +237,7 @@ describe('Client/Server implementation of Abstract class', () => {
   });
 
   describe('getOSFamily method', () => {
-    using(getImplementations(), (implementation) => {
+    using(getImplementations(), implementation => {
       it('should return correct string on ' + implementation.name, () => {
         expect(implementation.instance.getOSFamily()).toEqual(
           userAgentObject.os.family
@@ -247,7 +247,7 @@ describe('Client/Server implementation of Abstract class', () => {
   });
 
   describe('getOSArchitecture method', () => {
-    using(getImplementations(), (implementation) => {
+    using(getImplementations(), implementation => {
       it('should return correct string on ' + implementation.name, () => {
         expect(implementation.instance.getOSArchitecture()).toEqual(
           userAgentObject.os.architecture
@@ -257,7 +257,7 @@ describe('Client/Server implementation of Abstract class', () => {
   });
 
   describe('getOSVersion method', () => {
-    using(getImplementations(), (implementation) => {
+    using(getImplementations(), implementation => {
       it('should return correct string on ' + implementation.name, () => {
         expect(implementation.instance.getOSVersion()).toEqual(
           userAgentObject.os.version

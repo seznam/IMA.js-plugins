@@ -24,7 +24,7 @@ export function getBootConfigExtensions() {
     initRoutes: (...args) => {
       return config.initRoutes(...args);
     },
-    getAppExtension: (app) => {
+    getAppExtension: app => {
       return Object.assign({}, ...results, config.extendAppObject(app));
     }
   };

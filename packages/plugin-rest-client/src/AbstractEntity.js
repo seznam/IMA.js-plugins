@@ -382,7 +382,7 @@ export default class AbstractEntity {
     return AbstractDataFieldMapper.makeMapper(
       dataFieldName,
       (data, parentEntity) => new entityClass(data, parentEntity),
-      (entity) => entity.$serialize()
+      entity => entity.$serialize()
     );
   }
 

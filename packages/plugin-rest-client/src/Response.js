@@ -40,7 +40,7 @@ export default class Response {
 
     let bodyData;
     if (responseData.body instanceof Array) {
-      bodyData = responseData.body.map((element) => {
+      bodyData = responseData.body.map(element => {
         if (element instanceof AbstractEntity) {
           return element;
         } else {

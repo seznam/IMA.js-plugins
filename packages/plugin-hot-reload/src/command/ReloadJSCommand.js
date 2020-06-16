@@ -115,10 +115,10 @@ export default class ReloadJSCommand extends Command {
     try {
       return pageManager
         .manage(currentRoute, currentRouteOptions, currentRouteInfo.params)
-        .catch((error) => {
+        .catch(error => {
           return router.handleError({ error });
         })
-        .catch((error) => {
+        .catch(error => {
           if (typeof $IMA.fatalErrorHandler === 'function') {
             $IMA.fatalErrorHandler(error);
           } else {

@@ -237,7 +237,7 @@ describe('PlatformJS', () => {
   });
 
   describe('parse method', () => {
-    using(testedUserAgents, (testValues) => {
+    using(testedUserAgents, testValues => {
       it(
         'should return correct description for UserAgent string: ' +
           testValues.uaString,

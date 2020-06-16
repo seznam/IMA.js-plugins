@@ -66,7 +66,7 @@ describe('AbstractResource', () => {
   });
 
   describe('list', () => {
-    it('should call restClient.list method', (done) => {
+    it('should call restClient.list method', done => {
       spyOn(restClient, 'list').and.callThrough();
 
       resource
@@ -80,7 +80,7 @@ describe('AbstractResource', () => {
           );
           done();
         })
-        .catch((error) => {
+        .catch(error => {
           fail(error.stack);
           done();
         });
@@ -88,7 +88,7 @@ describe('AbstractResource', () => {
   });
 
   describe('get', () => {
-    it('should call restClient.get method', (done) => {
+    it('should call restClient.get method', done => {
       spyOn(restClient, 'get').and.callThrough();
       const id = 24;
 
@@ -104,7 +104,7 @@ describe('AbstractResource', () => {
           );
           done();
         })
-        .catch((error) => {
+        .catch(error => {
           fail(error.stack);
           done();
         });
@@ -112,7 +112,7 @@ describe('AbstractResource', () => {
   });
 
   describe('create', () => {
-    it('should call restClient.create method with data', (done) => {
+    it('should call restClient.create method with data', done => {
       spyOn(restClient, 'create').and.callThrough();
       const data = {
         id: 1,
@@ -131,7 +131,7 @@ describe('AbstractResource', () => {
           );
           done();
         })
-        .catch((error) => {
+        .catch(error => {
           fail(error.stack);
           done();
         });
@@ -139,7 +139,7 @@ describe('AbstractResource', () => {
   });
 
   describe('delete', () => {
-    it('should call restClient.delete method', (done) => {
+    it('should call restClient.delete method', done => {
       spyOn(restClient, 'delete').and.callThrough();
       const id = 24;
 
@@ -155,7 +155,7 @@ describe('AbstractResource', () => {
           );
           done();
         })
-        .catch((error) => {
+        .catch(error => {
           fail(error.stack);
           done();
         });
@@ -163,7 +163,7 @@ describe('AbstractResource', () => {
   });
 
   describe('patch', () => {
-    it("should call restClient.patch method with entity's serialized data", (done) => {
+    it("should call restClient.patch method with entity's serialized data", done => {
       spyOn(restClient, 'patch').and.callThrough();
 
       const data = { id: 1, foo: 'bar' };
@@ -182,7 +182,7 @@ describe('AbstractResource', () => {
           );
           done();
         })
-        .catch((error) => {
+        .catch(error => {
           fail(error.stack);
           done();
         });

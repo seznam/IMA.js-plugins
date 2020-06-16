@@ -59,7 +59,7 @@ async function initImaApp(bootConfigMethods = {}) {
         imaVendors.server,
         imaVendors.client
       )
-      .forEach((vendor) => {
+      .forEach(vendor => {
         let key = vendor;
         let value = vendor;
 

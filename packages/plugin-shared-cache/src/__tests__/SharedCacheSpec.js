@@ -66,7 +66,7 @@ describe('SharedCache', () => {
       cache.has('jkl'),
       cache.has('mno')
     ]
-      .map((present) => (present ? 1 : 0))
+      .map(present => (present ? 1 : 0))
       .reduce((p1, p2) => p1 + p2, 0);
     expect(numOfEntries).toBe(4);
 

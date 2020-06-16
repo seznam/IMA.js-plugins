@@ -114,7 +114,7 @@ describe('XHR', () => {
             }, xhrProgressInterval);
 
             Promise.resolve(xhrSendCallback(this, body))
-              .then((responseBody) => {
+              .then(responseBody => {
                 if (this._aborted) {
                   return;
                 }
@@ -139,7 +139,7 @@ describe('XHR', () => {
                   this._listeners.load({ type: 'load', target: this });
                 });
               })
-              .catch((error) => {
+              .catch(error => {
                 this._listeners.error({ type: 'error', target: this, error });
               });
           });
@@ -158,8 +158,7 @@ describe('XHR', () => {
 
       getAllResponseHeaders() {
         return (
-          xhrResponseHeaders.map((pair) => pair.join(': ')).join('\r\n') +
-          '\r\n'
+          xhrResponseHeaders.map(pair => pair.join(': ')).join('\r\n') + '\r\n'
         );
       }
     };
@@ -172,7 +171,7 @@ describe('XHR', () => {
     xhrResponseHeaders = [['content-type', 'application/javascript']];
   });
 
-  using(['get', 'post', 'put', 'patch', 'delete'], (method) => {
+  using(['get', 'post', 'put', 'patch', 'delete'], method => {
     it('should throw an error at the server side', () => {
       const serverSideWindowMock = {
         isClient() {
@@ -303,7 +302,7 @@ describe('XHR', () => {
     });
 
     it(`should send the specified headers in a ${method} request`, async () => {
-      xhrSendCallback = (xhr) => {
+      xhrSendCallback = xhr => {
         expect(xhr._requestHeaders).toEqual([
           ['foo', 'bar'],
           ['some', 'thing']
@@ -324,7 +323,7 @@ describe('XHR', () => {
     });
 
     it(`should send the cross-origin credentials in a ${method} request`, async () => {
-      xhrSendCallback = (xhr) => {
+      xhrSendCallback = xhr => {
         expect(xhr.withCredentials).toBe(true);
         xhr.status = 200;
       };
@@ -339,7 +338,7 @@ describe('XHR', () => {
     });
 
     it(`should allow post-processing the response of a ${method} request`, async () => {
-      xhrSendCallback = (xhr) => {
+      xhrSendCallback = xhr => {
         xhr.status = 200;
         return [1, 2];
       };
@@ -383,7 +382,7 @@ describe('XHR', () => {
     });
 
     it(`should call the onstatechange callback of an observer and update the state during a ${method} request`, async () => {
-      xhrSendCallback = (xhr) =>
+      xhrSendCallback = xhr =>
         delay(100).then(() => {
           xhr.status = 200;
         });
@@ -396,7 +395,7 @@ describe('XHR', () => {
         {
           observe(observer) {
             expect(observer.state).toBe(0);
-            observer.onstatechange = (event) => {
+            observer.onstatechange = event => {
               expect(event.type).toBe('readystatechange');
               expect(observer.state).toBeGreaterThan(lastState);
               expect(observer.state).toBeLessThan(5);
@@ -412,7 +411,7 @@ describe('XHR', () => {
 
     if (method !== 'get') {
       it(`should call the onprogress callback of an observer when a ${method} request's upload progresses`, async () => {
-        xhrSendCallback = (xhr) =>
+        xhrSendCallback = xhr =>
           delay(100).then(() => {
             xhr.status = 200;
           });
@@ -423,7 +422,7 @@ describe('XHR', () => {
           {},
           {
             observe(observer) {
-              observer.onprogress = (event) => {
+              observer.onprogress = event => {
                 expect(event.type).toBe('progress');
                 expect(observer.state).toBe(2);
                 called = true;
@@ -443,7 +442,7 @@ describe('XHR', () => {
           global.URLSearchParams,
           global.ReadableStream
         ];
-        const nativeBodies = natives.map((Class) => new Class());
+        const nativeBodies = natives.map(Class => new Class());
 
         for (const nativeBody of nativeBodies) {
           xhrSendCallback = (xhr, requestBody) => {
@@ -459,7 +458,7 @@ describe('XHR', () => {
       pluginInstance.setDefaultHeader('x-time', 'now');
       pluginInstance.setDefaultHeader('now', 'yes');
 
-      xhrSendCallback = (xhr) => {
+      xhrSendCallback = xhr => {
         expect(xhr._requestHeaders).toEqual([
           ['x-time', 'now'],
           ['now', 'no'],
@@ -488,12 +487,12 @@ describe('XHR', () => {
           foo: 'bar'
         },
         withCredentials: true,
-        postProcessor: (_) => _
+        postProcessor: _ => _
       };
       pluginInstance = new XHR(windowMock, defaultOptions);
       pluginInstance.setDefaultHeader('x-time', 'now');
 
-      xhrSendCallback = (xhr) => {
+      xhrSendCallback = xhr => {
         xhr.status = 200;
       };
       const observe = () => {};
@@ -547,6 +546,6 @@ describe('XHR', () => {
   }
 
   function delay(delayTime) {
-    return new Promise((resolve) => setTimeout(resolve, delayTime));
+    return new Promise(resolve => setTimeout(resolve, delayTime));
   }
 });

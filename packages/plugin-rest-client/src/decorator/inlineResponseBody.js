@@ -11,7 +11,7 @@
  *            ?AbstractEntity=
  *        )} classConstructor The entity class.
  */
-export default (classConstructor) => {
+export default classConstructor => {
   Object.defineProperty(classConstructor, 'inlineResponseBody', {
     value: true
   });

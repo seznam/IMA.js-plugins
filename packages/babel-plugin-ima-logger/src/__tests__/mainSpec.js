@@ -15,7 +15,7 @@ describe('main', () => {
   });
 
   describe('getPluginObject()', () => {
-    ['throwIf', '(0, _imaPluginLogger.throwIf)'].forEach((func) => {
+    ['throwIf', '(0, _imaPluginLogger.throwIf)'].forEach(func => {
       it(`should remove ${func}()`, () => {
         const { code } = transform(
           `foo();
@@ -43,7 +43,7 @@ describe('main', () => {
       '(0, _pluginLogger.info)',
       '(0, _pluginLogger.log)',
       '(0, _pluginLogger.warn)'
-    ].forEach((func) => {
+    ].forEach(func => {
       it(`should remove ${func}()`, () => {
         const { code } = transform(
           `foo();
@@ -71,7 +71,7 @@ describe('main', () => {
       '(0, _pluginLogger.logIf)',
       '(0, _pluginLogger.infoIf)',
       '(0, _pluginLogger.warnIf)'
-    ].forEach((func) => {
+    ].forEach(func => {
       it(`should replace ${func}() with 0`, () => {
         const { code } = transform(
           `foo();
@@ -101,7 +101,7 @@ describe('main', () => {
       });
     });
 
-    ['rejectIf', '(0, _imaPluginLogger.rejectIf)'].forEach((func) => {
+    ['rejectIf', '(0, _imaPluginLogger.rejectIf)'].forEach(func => {
       it(`should replace ${func}() with 0 inside if`, () => {
         const { code } = transform(
           `function returingPromise() {
@@ -142,7 +142,7 @@ describe('main', () => {
       '(0, _pluginLogger.logIf)',
       '(0, _pluginLogger.infoIf)',
       '(0, _pluginLogger.warnIf)'
-    ].forEach((func) => {
+    ].forEach(func => {
       it(`should not remove ${func}() because removing is disabled by plugin options`, () => {
         const { code } = transform(
           `foo();
@@ -171,7 +171,7 @@ describe('main', () => {
       '(0, _pluginLogger.info)',
       '(0, _pluginLogger.log)',
       '(0, _pluginLogger.warn)'
-    ].forEach((func) => {
+    ].forEach(func => {
       it(`should not remove ${func}() because removing is disabled by plugin options`, () => {
         const { code } = transform(
           `foo();
@@ -191,7 +191,7 @@ describe('main', () => {
       'logIf',
       'infoIf',
       'warnIf'
-    ].forEach((method) => {
+    ].forEach(method => {
       it(`should not remove instance.${method}()`, () => {
         const { code } = transform(
           `foo();
@@ -207,7 +207,7 @@ describe('main', () => {
       });
     });
 
-    ['debug', 'error', 'info', 'log', 'warn'].forEach((method) => {
+    ['debug', 'error', 'info', 'log', 'warn'].forEach(method => {
       it(`should not remove instance.${method}()`, () => {
         const { code } = transform(
           `foo();

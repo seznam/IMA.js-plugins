@@ -12,8 +12,8 @@
  *         ))} Callback that sets the resource name on the class provided to
  *         it.
  */
-export default (resourceName) => {
-  return (classConstructor) => {
+export default resourceName => {
+  return classConstructor => {
     Object.defineProperty(classConstructor, 'resourceName', {
       value: resourceName
     });

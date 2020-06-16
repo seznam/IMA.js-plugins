@@ -69,9 +69,7 @@ function process(property, value, prefix) {
   if (value instanceof Object && !value.__propertyDeclaration) {
     return (
       Object.keys(value)
-        .map((subProperty) =>
-          process(subProperty, value[subProperty], subPrefix)
-        )
+        .map(subProperty => process(subProperty, value[subProperty], subPrefix))
         .join('') + '\n'
     ); // add extra empty line after a group of properties
   }

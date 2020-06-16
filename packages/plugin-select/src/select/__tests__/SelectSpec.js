@@ -31,12 +31,12 @@ describe('plugin-select:', () => {
     }
   };
   const selectorMethods = [
-    (state) => {
+    state => {
       return {
         width: state.media.width
       };
     },
-    (state) => {
+    state => {
       return {
         height: state.media.height
       };
@@ -184,7 +184,7 @@ describe('plugin-select:', () => {
       setHoistStaticMethod((TargetComponent, Original) => {
         const keys = Object.getOwnPropertyNames(Original);
 
-        keys.forEach((key) => {
+        keys.forEach(key => {
           if (key === 'defaultProps') {
             const descriptor = Object.getOwnPropertyDescriptor(Original, key);
             try {

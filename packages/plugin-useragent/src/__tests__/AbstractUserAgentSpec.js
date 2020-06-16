@@ -70,7 +70,7 @@ var testedUserAgents = [
 ];
 
 describe('AbstractUserAgent', () => {
-  using(testedUserAgents, (testValues) => {
+  using(testedUserAgents, testValues => {
     let abstractUserAgent = null;
 
     beforeEach(() => {

@@ -257,7 +257,7 @@ function rejectIf(condition, reason) {
   return null;
 }
 
-let $registerImaPlugin = (ns) => {
+let $registerImaPlugin = ns => {
   ns.namespace('plugin.logger');
 };
 

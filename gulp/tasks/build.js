@@ -29,7 +29,7 @@ exports.default = () => {
       )
       .pipe(remember('compile'))
       .pipe(
-        rename((path) => {
+        rename(path => {
           path.extname = '.js';
         })
       )

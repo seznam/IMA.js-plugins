@@ -45,15 +45,15 @@ export default class HotReloadService {
 
   init() {
     if (this._window.isClient()) {
-      this._socket.subscribe((data) => this._onMessage(data));
+      this._socket.subscribe(data => this._onMessage(data));
 
       this._actions.push({
         regexp: new RegExp('static/js/'),
-        command: (data) => this._reloadJSCommand.execute(data.payload)
+        command: data => this._reloadJSCommand.execute(data.payload)
       });
       this._actions.push({
         regexp: new RegExp('static/css/'),
-        command: (data) => this._reloadCSSCommand.execute(data.payload)
+        command: data => this._reloadCSSCommand.execute(data.payload)
       });
     }
   }

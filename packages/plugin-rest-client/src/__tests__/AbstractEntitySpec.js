@@ -188,13 +188,13 @@ describe('AbstractEntity', () => {
             ),
             foo: AbstractDataFieldMapper.makeMapper(
               null,
-              (value) => value,
-              (value) => value
+              value => value,
+              value => value
             ),
             bar: AbstractDataFieldMapper.makeMapper(
               'bar',
-              (value) => value,
-              (value) => value
+              value => value,
+              value => value
             )
           };
         }
