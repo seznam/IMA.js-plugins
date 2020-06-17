@@ -74,6 +74,7 @@ describe('AbstractEntity', () => {
     }
 
     beforeEach(() => {
+      // eslint-disable-next-line no-unused-vars
       serializeCalled = false;
     });
 
