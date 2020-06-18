@@ -52,12 +52,8 @@ describe('AbstractEntity', () => {
   });
 
   describe('serialization', () => {
-    // eslint-disable-next-line no-unused-vars
-    let serializeCalled = false;
-
     class TransformingEntity extends Entity {
       $serialize(data = this) {
-        serializeCalled = true;
         let serialized = super.$serialize(data);
         serialized.serialized = true;
         delete serialized.dynamic;
@@ -72,11 +68,6 @@ describe('AbstractEntity', () => {
         return clone;
       }
     }
-
-    beforeEach(() => {
-      // eslint-disable-next-line no-unused-vars
-      serializeCalled = false;
-    });
 
     it('should deserialize entity data upon creation', () => {
       let entity = new TransformingEntity({
