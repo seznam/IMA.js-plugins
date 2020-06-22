@@ -9,7 +9,7 @@ describe('XHR', () => {
     },
     getWindow() {
       return global;
-    },
+    }
   });
   class Blob {}
   class BufferSource {}
@@ -66,7 +66,7 @@ describe('XHR', () => {
             'load',
             'abort',
             'timeout',
-            'error',
+            'error'
           ].includes(type)
         ) {
           throw new Error(`Unsupported event type: ${type}`);
@@ -99,14 +99,14 @@ describe('XHR', () => {
           this.readyState = 1;
           this._listeners.readystatechange({
             type: 'readystatechange',
-            target: this,
+            target: this
           });
 
           this._nextImmediate = setImmediate(() => {
             this.readyState = 2;
             this._listeners.readystatechange({
               type: 'readystatechange',
-              target: this,
+              target: this
             });
 
             this._progressIntervalId = setInterval(() => {
@@ -114,7 +114,7 @@ describe('XHR', () => {
             }, xhrProgressInterval);
 
             Promise.resolve(xhrSendCallback(this, body))
-              .then((responseBody) => {
+              .then(responseBody => {
                 if (this._aborted) {
                   return;
                 }
@@ -122,7 +122,7 @@ describe('XHR', () => {
                 this.readyState = 3;
                 this._listeners.readystatechange({
                   type: 'readystatechange',
-                  target: this,
+                  target: this
                 });
                 clearInterval(this._progressIntervalId);
                 if (this._timeoutId) {
@@ -134,12 +134,12 @@ describe('XHR', () => {
                   this.readyState = 4;
                   this._listeners.readystatechange({
                     type: 'readystatechange',
-                    target: this,
+                    target: this
                   });
                   this._listeners.load({ type: 'load', target: this });
                 });
               })
-              .catch((error) => {
+              .catch(error => {
                 this._listeners.error({ type: 'error', target: this, error });
               });
           });
@@ -158,8 +158,7 @@ describe('XHR', () => {
 
       getAllResponseHeaders() {
         return (
-          xhrResponseHeaders.map((pair) => pair.join(': ')).join('\r\n') +
-          '\r\n'
+          xhrResponseHeaders.map(pair => pair.join(': ')).join('\r\n') + '\r\n'
         );
       }
     };
@@ -172,7 +171,7 @@ describe('XHR', () => {
     xhrResponseHeaders = [['content-type', 'application/javascript']];
   });
 
-  using(['get', 'post', 'put', 'patch', 'delete'], (method) => {
+  using(['get', 'post', 'put', 'patch', 'delete'], method => {
     it('should throw an error at the server side', () => {
       const serverSideWindowMock = {
         isClient() {
@@ -181,7 +180,7 @@ describe('XHR', () => {
 
         getWindow() {
           return global;
-        },
+        }
       };
       const xhr = new XHR(serverSideWindowMock);
       expect(() => xhr[method]('http://localhost/')).toThrow();
@@ -210,21 +209,21 @@ describe('XHR', () => {
           url,
           transformedUrl: url,
           data: method === 'get' ? {} : null,
-          options: { headers: {} },
+          options: { headers: {} }
         },
-        cached: false,
+        cached: false
       });
     });
 
     it(`should handle a ${method} request with data`, async () => {
       const status = 200;
       const responseBody = {
-        testing: [1, 2, { hello: 'there' }],
+        testing: [1, 2, { hello: 'there' }]
       };
       const url = 'http://localhost:8080/api/v1/' + Math.random();
       const requestData = {
         '&': '=',
-        abc: 123,
+        abc: 123
       };
       xhrSendCallback = async (xhr, requestBody) => {
         expect(xhr._method).toBe(method);
@@ -250,16 +249,16 @@ describe('XHR', () => {
         headers: {
           'content-type': 'application/javascript',
           'x-time': 'now, later',
-          should: 'definitely',
+          should: 'definitely'
         },
         params: {
           method,
           url,
           transformedUrl: url,
           data: requestData,
-          options: { headers: {} },
+          options: { headers: {} }
         },
-        cached: false,
+        cached: false
       });
     });
 
@@ -271,7 +270,7 @@ describe('XHR', () => {
           'http://::1/api',
           {},
           {
-            timeout: 1,
+            timeout: 1
           }
         );
       } catch (timeoutError) {
@@ -303,10 +302,10 @@ describe('XHR', () => {
     });
 
     it(`should send the specified headers in a ${method} request`, async () => {
-      xhrSendCallback = (xhr) => {
+      xhrSendCallback = xhr => {
         expect(xhr._requestHeaders).toEqual([
           ['foo', 'bar'],
-          ['some', 'thing'],
+          ['some', 'thing']
         ]);
         xhr.status = 200;
       };
@@ -317,14 +316,14 @@ describe('XHR', () => {
         {
           headers: {
             foo: 'bar',
-            some: 'thing',
-          },
+            some: 'thing'
+          }
         }
       );
     });
 
     it(`should send the cross-origin credentials in a ${method} request`, async () => {
-      xhrSendCallback = (xhr) => {
+      xhrSendCallback = xhr => {
         expect(xhr.withCredentials).toBe(true);
         xhr.status = 200;
       };
@@ -333,13 +332,13 @@ describe('XHR', () => {
         'http://::1/api',
         {},
         {
-          withCredentials: true,
+          withCredentials: true
         }
       );
     });
 
     it(`should allow post-processing the response of a ${method} request`, async () => {
-      xhrSendCallback = (xhr) => {
+      xhrSendCallback = xhr => {
         xhr.status = 200;
         return [1, 2];
       };
@@ -358,18 +357,18 @@ describe('XHR', () => {
                 url: 'http://::1/api',
                 transformedUrl: 'http://::1/api',
                 data: {},
-                options: { postProcessor: this.postProcessor, headers: {} },
+                options: { postProcessor: this.postProcessor, headers: {} }
               },
-              cached: false,
+              cached: false
             });
             return {
               status: 201,
               body: [1, 2, 3],
               headers: {},
               params: {},
-              cached: false,
+              cached: false
             };
-          },
+          }
         }
       );
 
@@ -378,12 +377,12 @@ describe('XHR', () => {
         body: [1, 2, 3],
         headers: {},
         params: {},
-        cached: false,
+        cached: false
       });
     });
 
     it(`should call the onstatechange callback of an observer and update the state during a ${method} request`, async () => {
-      xhrSendCallback = (xhr) =>
+      xhrSendCallback = xhr =>
         delay(100).then(() => {
           xhr.status = 200;
         });
@@ -396,14 +395,14 @@ describe('XHR', () => {
         {
           observe(observer) {
             expect(observer.state).toBe(0);
-            observer.onstatechange = (event) => {
+            observer.onstatechange = event => {
               expect(event.type).toBe('readystatechange');
               expect(observer.state).toBeGreaterThan(lastState);
               expect(observer.state).toBeLessThan(5);
               lastState = observer.state;
               counter++;
             };
-          },
+          }
         }
       );
 
@@ -412,7 +411,7 @@ describe('XHR', () => {
 
     if (method !== 'get') {
       it(`should call the onprogress callback of an observer when a ${method} request's upload progresses`, async () => {
-        xhrSendCallback = (xhr) =>
+        xhrSendCallback = xhr =>
           delay(100).then(() => {
             xhr.status = 200;
           });
@@ -423,12 +422,12 @@ describe('XHR', () => {
           {},
           {
             observe(observer) {
-              observer.onprogress = (event) => {
+              observer.onprogress = event => {
                 expect(event.type).toBe('progress');
                 expect(observer.state).toBe(2);
                 called = true;
               };
-            },
+            }
           }
         );
 
@@ -441,9 +440,9 @@ describe('XHR', () => {
           global.BufferSource,
           global.FormData,
           global.URLSearchParams,
-          global.ReadableStream,
+          global.ReadableStream
         ];
-        const nativeBodies = natives.map((Class) => new Class());
+        const nativeBodies = natives.map(Class => new Class());
 
         for (const nativeBody of nativeBodies) {
           xhrSendCallback = (xhr, requestBody) => {
@@ -459,11 +458,11 @@ describe('XHR', () => {
       pluginInstance.setDefaultHeader('x-time', 'now');
       pluginInstance.setDefaultHeader('now', 'yes');
 
-      xhrSendCallback = (xhr) => {
+      xhrSendCallback = xhr => {
         expect(xhr._requestHeaders).toEqual([
           ['x-time', 'now'],
           ['now', 'no'],
-          ['other', 'stuff'],
+          ['other', 'stuff']
         ]);
         xhr.status = 200;
       };
@@ -474,8 +473,8 @@ describe('XHR', () => {
         {
           headers: {
             now: 'no',
-            other: 'stuff',
-          },
+            other: 'stuff'
+          }
         }
       );
     });
@@ -485,15 +484,15 @@ describe('XHR', () => {
         timeout: 100,
         repeatRequest: 2,
         headers: {
-          foo: 'bar',
+          foo: 'bar'
         },
         withCredentials: true,
-        postProcessor: (_) => _,
+        postProcessor: _ => _
       };
       pluginInstance = new XHR(windowMock, defaultOptions);
       pluginInstance.setDefaultHeader('x-time', 'now');
 
-      xhrSendCallback = (xhr) => {
+      xhrSendCallback = xhr => {
         xhr.status = 200;
       };
       const observe = () => {};
@@ -502,9 +501,9 @@ describe('XHR', () => {
         {},
         {
           headers: {
-            other: 'stuff',
+            other: 'stuff'
           },
-          observe,
+          observe
         }
       );
 
@@ -512,9 +511,9 @@ describe('XHR', () => {
         Object.assign({}, defaultOptions, {
           headers: Object.assign({}, defaultOptions.headers, {
             'x-time': 'now',
-            other: 'stuff',
+            other: 'stuff'
           }),
-          observe,
+          observe
         })
       );
     });
@@ -524,7 +523,7 @@ describe('XHR', () => {
     // use a URL that already has a query string
     const url = 'http://localhost:8080/api/v1/resource?id=1';
     const requestData = {
-      abc: 123,
+      abc: 123
     };
 
     xhrSendCallback = (xhr, requestBody) => {
@@ -547,6 +546,6 @@ describe('XHR', () => {
   }
 
   function delay(delayTime) {
-    return new Promise((resolve) => setTimeout(resolve, delayTime));
+    return new Promise(resolve => setTimeout(resolve, delayTime));
   }
 });

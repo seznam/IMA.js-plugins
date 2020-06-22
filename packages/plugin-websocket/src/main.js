@@ -8,10 +8,10 @@ const initSettings = () => {
       plugin: {
         websocket: {
           url: 'ws://localhost:5888',
-          debug: false,
-        },
-      },
-    },
+          debug: false
+        }
+      }
+    }
   };
 };
 

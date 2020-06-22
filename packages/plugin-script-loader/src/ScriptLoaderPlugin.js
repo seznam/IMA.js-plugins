@@ -122,7 +122,7 @@ export default class ScriptLoaderPlugin {
     let error = new Error(`The ${url} script failed to load.`);
     let data = {
       url,
-      error,
+      error
     };
 
     this._dispatcher.fire(Events.LOADED, data, true);

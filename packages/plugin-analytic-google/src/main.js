@@ -11,15 +11,15 @@ let initSettings = () => {
         analytic: {
           google: {
             service: 'UA-XXXXXXX-X',
-            settings: {},
-          },
-        },
-      },
+            settings: {}
+          }
+        }
+      }
     },
 
     test: {},
 
-    dev: {},
+    dev: {}
   };
 };
 
@@ -27,5 +27,5 @@ export {
   GoogleAnalytic,
   defaultDependencies,
   $registerImaPlugin,
-  initSettings,
+  initSettings
 };

@@ -3,7 +3,7 @@ import forwardedSelect, {
   createStateSelector,
   hoistNonReactStatic,
   setCreatorOfStateSelector,
-  setHoistStaticMethod,
+  setHoistStaticMethod
 } from './select/select';
 
 function $registerImaPlugin() {}
@@ -16,5 +16,5 @@ export {
   hoistNonReactStatic,
   select,
   setCreatorOfStateSelector,
-  setHoistStaticMethod,
+  setHoistStaticMethod
 };

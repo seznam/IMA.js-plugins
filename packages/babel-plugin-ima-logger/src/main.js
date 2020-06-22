@@ -62,7 +62,7 @@ class BabelLoggerPlugin {
           if (value && value === '@ima/plugin-logger') {
             path
               .get('specifiers')
-              .filter((specifier) => {
+              .filter(specifier => {
                 const { type, imported } = specifier.node || {};
 
                 return (
@@ -79,18 +79,18 @@ class BabelLoggerPlugin {
                     'errorIf',
                     'logIf',
                     'infoIf',
-                    'warnIf',
+                    'warnIf'
                   ].indexOf(imported.name) >= 0
                 );
               })
-              .forEach((specifier) => specifier.remove());
+              .forEach(specifier => specifier.remove());
 
             if (!path.node.specifiers.length) {
               path.remove();
             }
           }
-        },
-      },
+        }
+      }
     };
   }
 

@@ -15,7 +15,7 @@ describe('@ima/plugin-logger', () => {
   describe('enable/disable a silentMode', () => {
     beforeEach(() => {
       logger.configureLogger({
-        silentMode: false,
+        silentMode: false
       });
     });
 
@@ -46,7 +46,7 @@ describe('@ima/plugin-logger', () => {
     });
   });
 
-  ['log', 'info', 'warn', 'error', 'debug'].forEach((method) => {
+  ['log', 'info', 'warn', 'error', 'debug'].forEach(method => {
     describe(`${method}()`, () => {
       beforeEach(() => {
         spyOn(console, method);
@@ -70,7 +70,7 @@ describe('@ima/plugin-logger', () => {
     logIf: 'log',
     infoIf: 'info',
     warnIf: 'warn',
-    errorIf: 'error',
+    errorIf: 'error'
   }).forEach(([method, calledMethod]) => {
     describe(`${method}()`, () => {
       beforeEach(() => {
@@ -106,7 +106,7 @@ describe('@ima/plugin-logger', () => {
   });
 
   describe('rejectIf()', () => {
-    it('should return a rejected promise', async (done) => {
+    it('should return a rejected promise', async done => {
       try {
         await logger.rejectIf(TRUTHY_CONDITION, ERROR);
         done.fail();

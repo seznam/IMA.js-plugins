@@ -23,7 +23,7 @@ const PRIVATE = {
 
   // private fields
   restClient: Symbol('restClient'),
-  parentEntity: Symbol('parentEntity'),
+  parentEntity: Symbol('parentEntity')
 };
 if ($Debug) {
   Object.freeze(PRIVATE);
@@ -55,7 +55,7 @@ export default class AbstractEntity {
      */
     this[PRIVATE.parentEntity] = parentEntity;
     Object.defineProperty(this, PRIVATE.parentEntity, {
-      enumerable: false,
+      enumerable: false
     });
 
     let entityData = this.$deserialize(data);
@@ -382,7 +382,7 @@ export default class AbstractEntity {
     return AbstractDataFieldMapper.makeMapper(
       dataFieldName,
       (data, parentEntity) => new entityClass(data, parentEntity),
-      (entity) => entity.$serialize()
+      entity => entity.$serialize()
     );
   }
 

@@ -20,7 +20,7 @@ function lessConstants(done) {
   }
 
   fs.writeFileSync('./app/assets/less/settings.less', output, {
-    encoding: 'utf-8',
+    encoding: 'utf-8'
   });
 
   done();
@@ -41,7 +41,7 @@ function getFileConfigOutput(file) {
 
   fileConfigContents = babel.transform(fileConfigContents, {
     plugins: ['@babel/plugin-transform-modules-commonjs'],
-    retainLines: true,
+    retainLines: true
   }).code;
 
   let exported = {};
@@ -69,9 +69,7 @@ function process(property, value, prefix) {
   if (value instanceof Object && !value.__propertyDeclaration) {
     return (
       Object.keys(value)
-        .map((subProperty) =>
-          process(subProperty, value[subProperty], subPrefix)
-        )
+        .map(subProperty => process(subProperty, value[subProperty], subPrefix))
         .join('') + '\n'
     ); // add extra empty line after a group of properties
   }

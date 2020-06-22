@@ -4,7 +4,7 @@ describe('SharedCache', () => {
   const CACHE_NAME = 'testing cache';
   const OPTIONS = Object.freeze({
     maxEntries: 4,
-    gcFactor: 0.75,
+    gcFactor: 0.75
   });
 
   it(
@@ -64,9 +64,9 @@ describe('SharedCache', () => {
       cache.has('def'),
       cache.has('ghi'),
       cache.has('jkl'),
-      cache.has('mno'),
+      cache.has('mno')
     ]
-      .map((present) => (present ? 1 : 0))
+      .map(present => (present ? 1 : 0))
       .reduce((p1, p2) => p1 + p2, 0);
     expect(numOfEntries).toBe(4);
 

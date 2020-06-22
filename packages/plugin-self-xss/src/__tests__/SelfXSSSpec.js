@@ -11,7 +11,7 @@ describe('SelfXSS', () => {
     },
     getWindow() {
       return { console: 'defined' };
-    },
+    }
   });
   const dictionary = toMockedInstance(Dictionary);
 

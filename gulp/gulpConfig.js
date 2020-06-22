@@ -1,15 +1,15 @@
 let gulpConfig = {
   terminateListeners: [],
   onTerminate() {
-    gulpConfig.terminateListeners.forEach((listener) => {
+    gulpConfig.terminateListeners.forEach(listener => {
       listener();
     });
 
     setTimeout(() => process.exit());
   },
   shared: {
-    browserifyInstance: null,
-  },
+    browserifyInstance: null
+  }
 };
 
 if (gulpConfig.onTerminate) {

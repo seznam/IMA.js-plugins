@@ -24,5 +24,5 @@ export {
   PlatformJS,
   $registerImaPlugin,
   initBind,
-  initServices,
+  initServices
 };

@@ -18,9 +18,9 @@ var testedUserAgents = [
       os: {
         architecture: 64,
         family: 'Windows Server 2008 R2 / 7',
-        version: '7',
-      },
-    },
+        version: '7'
+      }
+    }
   },
   {
     uaString:
@@ -38,9 +38,9 @@ var testedUserAgents = [
       os: {
         architecture: 32,
         family: 'OS X',
-        version: '10.11.2',
-      },
-    },
+        version: '10.11.2'
+      }
+    }
   },
   {
     uaString:
@@ -58,9 +58,9 @@ var testedUserAgents = [
       os: {
         architecture: 64,
         family: 'Ubuntu',
-        version: null,
-      },
-    },
+        version: null
+      }
+    }
   },
   {
     uaString:
@@ -78,9 +78,9 @@ var testedUserAgents = [
       os: {
         architecture: 64,
         family: 'Windows Server 2008 R2 / 7',
-        version: '7',
-      },
-    },
+        version: '7'
+      }
+    }
   },
   {
     uaString:
@@ -98,9 +98,9 @@ var testedUserAgents = [
       os: {
         architecture: 32,
         family: 'iOS',
-        version: '9.2',
-      },
-    },
+        version: '9.2'
+      }
+    }
   },
   {
     uaString:
@@ -118,9 +118,9 @@ var testedUserAgents = [
       os: {
         architecture: 64,
         family: 'Windows',
-        version: '10',
-      },
-    },
+        version: '10'
+      }
+    }
   },
   {
     uaString:
@@ -138,9 +138,9 @@ var testedUserAgents = [
       os: {
         architecture: 64,
         family: 'Windows',
-        version: '8.1',
-      },
-    },
+        version: '8.1'
+      }
+    }
   },
   {
     uaString:
@@ -159,9 +159,9 @@ var testedUserAgents = [
       os: {
         architecture: 32,
         family: 'Android',
-        version: '4.0.3',
-      },
-    },
+        version: '4.0.3'
+      }
+    }
   },
   {
     uaString:
@@ -179,9 +179,9 @@ var testedUserAgents = [
       os: {
         architecture: null,
         family: null,
-        version: null,
-      },
-    },
+        version: null
+      }
+    }
   },
   {
     uaString:
@@ -199,9 +199,9 @@ var testedUserAgents = [
       os: {
         architecture: null,
         family: null,
-        version: null,
-      },
-    },
+        version: null
+      }
+    }
   },
   {
     uaString:
@@ -220,10 +220,10 @@ var testedUserAgents = [
       os: {
         architecture: null,
         family: null,
-        version: null,
-      },
-    },
-  },
+        version: null
+      }
+    }
+  }
 ];
 
 describe('PlatformJS', () => {
@@ -237,7 +237,7 @@ describe('PlatformJS', () => {
   });
 
   describe('parse method', () => {
-    using(testedUserAgents, (testValues) => {
+    using(testedUserAgents, testValues => {
       it(
         'should return correct description for UserAgent string: ' +
           testValues.uaString,

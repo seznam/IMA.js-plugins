@@ -5,7 +5,7 @@ describe('LinkGenerator', () => {
     let parameters = {
       someString: 'This is some string... {}./$-_#<>',
       number: 1234.12,
-      'another[]}^>*-&=()`~@': 'hello there',
+      'another[]}^>*-&=()`~@': 'hello there'
     };
     let expected1 =
       'someString=This%20is%20some%20string...%20%7B%7D.' +
@@ -21,7 +21,7 @@ describe('LinkGenerator', () => {
       'another[]}^>*-&=()`~@=hello there';
     let encoded1 = LinkGenerator.encodeQuery(parameters);
     let encoded2 = LinkGenerator.encodeQuery(parameters, ';', ':');
-    let encoded3 = LinkGenerator.encodeQuery(parameters, '&', '=', (a) => a);
+    let encoded3 = LinkGenerator.encodeQuery(parameters, '&', '=', a => a);
 
     expect(encoded1).toBe(expected1);
     expect(encoded2).toBe(expected2);

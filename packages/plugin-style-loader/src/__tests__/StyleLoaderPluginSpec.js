@@ -14,7 +14,7 @@ describe('StyleLoaderPlugin', () => {
   const window = toMockedInstance(Window, {
     isClient() {
       return true;
-    },
+    }
   });
   const dispatcher = toMockedInstance(Dispatcher);
   const resourceLoader = toMockedInstance(ResourceLoader);
@@ -28,12 +28,12 @@ describe('StyleLoaderPlugin', () => {
     element = {
       onload() {},
       onerror() {},
-      onabort() {},
+      onabort() {}
     };
     attributes = {
       media: 'screen',
       type: 'text/css',
-      onunload() {},
+      onunload() {}
     };
 
     global.$Debug = true;
@@ -56,21 +56,21 @@ describe('StyleLoaderPlugin', () => {
       }).toThrow();
     });
 
-    it('should return value from cache', (done) => {
+    it('should return value from cache', done => {
       styleLoaderPlugin._loadedStyles[url] = Promise.resolve({ url });
 
       styleLoaderPlugin
         .load(url)
-        .then((value) => {
+        .then(value => {
           expect(value.url).toEqual(url);
           done();
         })
-        .catch((error) => {
+        .catch(error => {
           done(error);
         });
     });
 
-    it('should append custom attributes to link element, if provided', (done) => {
+    it('should append custom attributes to link element, if provided', done => {
       spyOn(dispatcher, 'fire');
       spyOn(resourceLoader, 'promisify').and.returnValue(Promise.resolve());
       spyOn(styleLoaderPlugin._resourceLoader, 'injectToPage');
@@ -93,7 +93,7 @@ describe('StyleLoaderPlugin', () => {
         .catch(done);
     });
 
-    it('should append custom attributes to custom template, if provided', (done) => {
+    it('should append custom attributes to custom template, if provided', done => {
       spyOn(dispatcher, 'fire');
       spyOn(resourceLoader, 'promisify').and.returnValue(Promise.resolve());
       spyOn(styleLoaderPlugin._resourceLoader, 'injectToPage');
@@ -118,7 +118,7 @@ describe('StyleLoaderPlugin', () => {
         .catch(done);
     });
 
-    it('the dispatcher fire loaded event for styles loaded by template', (done) => {
+    it('the dispatcher fire loaded event for styles loaded by template', done => {
       spyOn(dispatcher, 'fire');
       spyOn(resourceLoader, 'promisify').and.returnValue(Promise.resolve());
 
@@ -135,7 +135,7 @@ describe('StyleLoaderPlugin', () => {
         .catch(done);
     });
 
-    it('the dispatcher fire loaded event for styles loaded by url', (done) => {
+    it('the dispatcher fire loaded event for styles loaded by url', done => {
       spyOn(dispatcher, 'fire');
       spyOn(resourceLoader, 'promisify').and.returnValue(Promise.resolve());
 
@@ -152,13 +152,13 @@ describe('StyleLoaderPlugin', () => {
         .catch(done);
     });
 
-    it('the dispatcher fire loaded event with errors', (done) => {
+    it('the dispatcher fire loaded event with errors', done => {
       spyOn(dispatcher, 'fire');
       spyOn(resourceLoader, 'promisify').and.returnValue(
         Promise.reject(new Error('message'))
       );
 
-      styleLoaderPlugin.load(url).catch((error) => {
+      styleLoaderPlugin.load(url).catch(error => {
         expect(dispatcher.fire).toHaveBeenCalledWith(
           Events.LOADED,
           { url, error },

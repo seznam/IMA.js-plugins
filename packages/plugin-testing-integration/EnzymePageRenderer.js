@@ -2,7 +2,7 @@ const {
   ClientPageRenderer,
   PageRenderer,
   PageRendererFactory,
-  Window,
+  Window
 } = require('@ima/core');
 const { mount } = require('enzyme');
 const ReactDOM = require('react-dom');
@@ -38,7 +38,7 @@ class EnzymeReactDOM {
 
   unmountComponentAtNode(container) {
     const instanceIndex = this._instances.findIndex(
-      (instance) => instance.container === container
+      instance => instance.container === container
     );
 
     if (!~instanceIndex) {
@@ -71,7 +71,7 @@ class EnzymePageRenderer extends ClientPageRenderer {
       '$ReactDOM',
       '$Dispatcher',
       '$Settings',
-      Window,
+      Window
     ]);
 
     return { wrapper: () => oc.get(PageRenderer).__wrapper() };
