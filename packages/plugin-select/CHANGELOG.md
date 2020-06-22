@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-select@2.0.0...@ima/plugin-select@2.0.1) (2020-06-22)
+
+
+### Bug Fixes
+
+* 🐛 edge doesn't support rest operator fo object ([c80ce8c](https://github.com/seznam/IMA.js-plugins/commit/c80ce8cf78e3cc4984b6f178c14b3718e4a0591e))
+
+
+
+
+
 # [2.0.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-select@1.1.1...@ima/plugin-select@2.0.0) (2020-06-08)
 
 

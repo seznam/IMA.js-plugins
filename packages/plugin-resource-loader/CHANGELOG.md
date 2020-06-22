@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-resource-loader@2.0.0...@ima/plugin-resource-loader@2.0.1) (2020-06-22)
+
+**Note:** Version bump only for package @ima/plugin-resource-loader
+
+
+
+
+
 # [2.0.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-resource-loader@1.0.1...@ima/plugin-resource-loader@2.0.0) (2020-06-08)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-useragent",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Seznam IMA.js plugin user-agent",
   "main": "index.js",
   "scripts": {
