@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.2](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-testing-integration@2.0.1...@ima/plugin-testing-integration@2.0.2) (2020-06-30)
+
+
+### Bug Fixes
+
+* 🐛 Disable treeshake since it is removing key code part ([3f73685](https://github.com/seznam/IMA.js-plugins/commit/3f736859a46882fd741d4c66abfe73a2b7ecb76e))
+
+
+
+
+
 ## [2.0.1](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-testing-integration@2.0.0...@ima/plugin-testing-integration@2.0.1) (2020-06-22)
 
 **Note:** Version bump only for package @ima/plugin-testing-integration
