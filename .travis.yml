@@ -12,8 +12,8 @@ jobs:
   include:
     - name: "Unit Tests"
       script: npm test
-    - name: "Audit"
-      script: npm audit || echo \"audit found some vulnerabilities.\"
+    # - name: "Audit"
+    #   script: npm audit || echo \"audit found some vulnerabilities.\"
     - name: "Docs"
       script: npm run doc
     - name: "Lint"
