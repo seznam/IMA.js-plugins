@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.2](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-self-xss@2.0.1...@ima/plugin-self-xss@2.0.2) (2020-07-07)
+
+
+### Bug Fixes
+
+* 🐛  build bundle to contain all required files ([3734f31](https://github.com/seznam/IMA.js-plugins/commit/3734f31f02ca5e81d0f8f0ad8b46d0f6560f3c4e))
+
+
+
+
+
 ## [2.0.1](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-self-xss@2.0.0...@ima/plugin-self-xss@2.0.1) (2020-06-22)
 
 **Note:** Version bump only for package @ima/plugin-self-xss
