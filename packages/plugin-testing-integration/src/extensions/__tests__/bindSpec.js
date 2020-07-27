@@ -1,7 +1,7 @@
 import initBindApp from '../bind';
 
 describe('Bind', () => {
-  it('can override router.route method to propagate route navigation to jsdom', async () => {
+  it('can override router.route method to propagate route navigation to jsdom', () => {
     const baseUrl = 'https://www.example.com';
     const routeSpy = jest.fn();
     class Router {
