@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.3](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-testing-integration@2.0.2...@ima/plugin-testing-integration@2.0.3) (2020-07-27)
+
+
+### Bug Fixes
+
+* 🐛  router.route is now overridable via application ([#39](https://github.com/seznam/IMA.js-plugins/issues/39)) ([8f73cc0](https://github.com/seznam/IMA.js-plugins/commit/8f73cc0629b65c8a5627e01278debf15224313bd))
+
+
+
+
+
 ## [2.0.2](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-testing-integration@2.0.1...@ima/plugin-testing-integration@2.0.2) (2020-06-30)
 
 
