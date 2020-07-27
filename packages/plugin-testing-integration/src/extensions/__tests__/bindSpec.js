@@ -1,14 +1,20 @@
 import initBindApp from '../bind';
 
 describe('Bind', () => {
-  it('can override router.route method to propagate route navigation to jsdom', () => {
+  it('can override router.route method to propagate route navigation to jsdom', async () => {
     const baseUrl = 'https://www.example.com';
+    const routeSpy = jest.fn();
+    class Router {
+      getBaseUrl() {
+        return baseUrl;
+      }
+
+      route(...args) {
+        return routeSpy(...args);
+      }
+    }
     const path = '/my/test/path';
-    const route = jest.fn();
-    const $Router = {
-      route,
-      getBaseUrl: jest.fn().mockReturnValue(baseUrl)
-    };
+    const $Router = new Router();
     const $PageManager = { _managedPage: {} };
     const objects = { $Router, $PageManager };
     const oc = {
@@ -24,8 +30,7 @@ describe('Bind', () => {
 
     /* eslint-disable-next-line no-undef */
     expect(jsdom.reconfigure).toHaveBeenCalledWith({ url: baseUrl + path });
-    expect($Router.route).not.toEqual(route);
-    expect(route).toHaveBeenCalled();
+    expect(routeSpy).toHaveBeenCalledWith(path);
 
     delete global.jsdom;
   });
