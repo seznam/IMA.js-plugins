@@ -47,7 +47,8 @@
   "dependencies": {
     "@ima/helpers": "^17.4.0",
     "globby": "^11.0.0",
-    "jsdom": "^16.2.1"
+    "jsdom": "^16.2.1",
+    "to-aop": "^0.3.5"
   },
   "peerDependencies": {
     "@ima/core": "*"
