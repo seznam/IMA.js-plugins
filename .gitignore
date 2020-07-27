@@ -2,8 +2,9 @@
 .idea/
 .history/
 .vscode/
-node_modules/
-dist/
-coverage/
-package-lock.json
+**/node_modules/
+**/dist/
+**/doc/
+**/coverage/
+**/package-lock.json
 lerna-debug.log

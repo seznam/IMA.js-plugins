@@ -1,21 +1,26 @@
+import { aop, hookName, createHook } from 'to-aop';
+
 export default (ns, oc) => {
-  const pageManager = oc.get('$PageManager');
-  const router = oc.get('$Router');
-  const nativeRoute = router.route.bind(router);
+  const Router = oc.get('$Router').constructor;
+  const routeHook = createHook(
+    hookName.beforeMethod,
+    'route',
+    ({ args, context }) => {
+      const pageManager = oc.get('$PageManager');
+      const isFirstNavigation = !pageManager._managedPage.controller;
+      const path = args[0];
 
-  router.route = (path, ...args) => {
-    const isFirstNavigation = !pageManager._managedPage.controller;
-
-    // We have to set correct url in jsdom for first application
-    // navigation to simulate browser behavior, where you
-    // already have correct url set in address bar.
-    if (isFirstNavigation) {
-      /* eslint-disable-next-line no-undef */
-      jsdom.reconfigure({
-        url: router.getBaseUrl() + path
-      });
+      // We have to set correct url in jsdom for first application
+      // navigation to simulate browser behavior, where you
+      // already have correct url set in address bar.
+      if (isFirstNavigation) {
+        /* eslint-disable-next-line no-undef */
+        jsdom.reconfigure({
+          url: context.getBaseUrl() + path
+        });
+      }
     }
+  );
 
-    return nativeRoute(path, ...args);
-  };
+  aop(Router, routeHook);
 };
