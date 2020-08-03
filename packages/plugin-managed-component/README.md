@@ -1,7 +1,7 @@
-# ima-plugin-managed-component
+# @ima/plugin-managed-component
 
 The `AbstractMangedComponent` is an extension of the
-[IMA](https://github.com/seznam/IMA.js-skeleton)'s `AbstractComponent`,
+[IMA](https://github.com/seznam/ima)'s `AbstractComponent`,
 providing API for easier registration of DOM, event bus, dispatcher, timeout
 and interval listeners, which are **automatically** bound to the component's
 instance (`this`) and are automatically deregistered from the
@@ -18,7 +18,7 @@ automatically bound to `this`, as is the case with components created by the
 Install the plugin as an npm module:
 
 ```
-npm install --save ima-plugin-managed-component
+npm install --save @ima/plugin-managed-component
 ```
 
 Next you need to add the plugin to your vendors. Open the `app/build.js` file
@@ -26,14 +26,23 @@ of your IMA application, and add the following element to the `vendors.common`
 array:
 
 ```javascript
-'ima-plugin-managed-component'
+'@ima/plugin-managed-component'
 ```
+
+```javascript
+// /app/build.js
+
+var vendors = {
+	common: [
+		'@ima/plugin-managed-component'
+	]
+};
 
 With that the build process is configured and you may start using this plugin
 (you may need to restart your `dev` process):
 
 ```javascript
-import AbstractManagedComponent from 'ima-plugin-managed-component';
+import AbstractManagedComponent from '@ima/plugin-managed-component';
 
 export default class MyReactComponent extends AbstractManagedComponent {
   constructor(props, context) {
