@@ -378,7 +378,6 @@ export default class AbstractManagedComponent extends AbstractComponent {
 
     const intervalId = setInterval(() => {
       callback.call(this);
-      //this[PRIVATE.activeIntervals].delete(callback);
     }, period);
 
     this[PRIVATE.activeIntervals].set(callback, intervalId);
