@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-managed-component",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Base class for React components (for IMA.js applications) with automatically managed DOM, event bus, dispatcher, timeout and interval listeners.",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,6 @@
     "url": "https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-managed-component/issues"
   },
   "homepage": "https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-managed-component#readme",
-  "devDependencies": {},
   "peerDependencies": {
     "@ima/core": "17.x",
     "react-dom": "^16.13.1"
