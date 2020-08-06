@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-halson-rest-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "HAL+JSON REST API client for IMA applications.",
   "main": "index.js",
   "scripts": {
