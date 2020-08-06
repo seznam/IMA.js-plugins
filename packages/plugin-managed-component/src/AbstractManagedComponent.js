@@ -60,7 +60,8 @@ export default class AbstractManagedComponent extends AbstractComponent {
       this.componentWillUnmount !==
       AbstractManagedComponent.prototype.componentWillUnmount
     ) {
-      let currentComponentWillUnmount = this.componentWillUnmount;
+      const currentComponentWillUnmount = this.componentWillUnmount;
+
       this.componentWillUnmount = () => {
         currentComponentWillUnmount.call(this);
         // Possible repeated calls to our implementation of the
@@ -70,7 +71,8 @@ export default class AbstractManagedComponent extends AbstractComponent {
     }
 
     if (IS_AT_CLIENT_SIDE) {
-      let currentRender = this.render;
+      const currentRender = this.render;
+
       this.render = () =>
         this[PRIVATE.bindUiEventListeners](currentRender.call(this));
     }
@@ -150,7 +152,7 @@ export default class AbstractManagedComponent extends AbstractComponent {
       eventTarget = ReactDOM.findDOMNode(eventTarget); // eslint-disable-line react/no-find-dom-node
     }
 
-    let realListener = this[PRIVATE.registerListener](
+    const realListener = this[PRIVATE.registerListener](
       this[PRIVATE.domListeners],
       eventTarget,
       eventName,
@@ -178,7 +180,7 @@ export default class AbstractManagedComponent extends AbstractComponent {
       eventTarget = ReactDOM.findDOMNode(eventTarget); // eslint-disable-line react/no-find-dom-node
     }
 
-    let realListener = this[PRIVATE.deregisterListener](
+    const realListener = this[PRIVATE.deregisterListener](
       this[PRIVATE.domListeners],
       eventTarget,
       eventName,
@@ -210,7 +212,7 @@ export default class AbstractManagedComponent extends AbstractComponent {
    *        register.
    */
   listen(eventTarget, eventName, listener) {
-    let realListener = this[PRIVATE.registerListener](
+    const realListener = this[PRIVATE.registerListener](
       this[PRIVATE.eventBusListeners],
       eventTarget,
       eventName,
@@ -234,7 +236,7 @@ export default class AbstractManagedComponent extends AbstractComponent {
    *        register.
    */
   unlisten(eventTarget, eventName, listener) {
-    let realListener = this[PRIVATE.deregisterListener](
+    const realListener = this[PRIVATE.deregisterListener](
       this[PRIVATE.eventBusListeners],
       eventTarget,
       eventName,
@@ -264,7 +266,8 @@ export default class AbstractManagedComponent extends AbstractComponent {
     if (!this[PRIVATE.dispatcherListeners].has(eventName)) {
       this[PRIVATE.dispatcherListeners].set(eventName, new Set());
     }
-    let listeners = this[PRIVATE.dispatcherListeners].get(eventName);
+
+    const listeners = this[PRIVATE.dispatcherListeners].get(eventName);
 
     this.utils.$Dispatcher.listen(eventName, listener, this);
 
@@ -284,7 +287,8 @@ export default class AbstractManagedComponent extends AbstractComponent {
     if (!this[PRIVATE.dispatcherListeners].has(eventName)) {
       return;
     }
-    let listeners = this[PRIVATE.dispatcherListeners].get(eventName);
+
+    const listeners = this[PRIVATE.dispatcherListeners].get(eventName);
     if (!listeners.has(listener)) {
       return;
     }
@@ -292,7 +296,7 @@ export default class AbstractManagedComponent extends AbstractComponent {
     this.utils.$Dispatcher.unlisten(eventName, listener, this);
 
     listeners.delete(listener);
-    if (!listeners.size()) {
+    if (!listeners.size) {
       this[PRIVATE.dispatcherListeners].delete(eventName);
     }
   }
@@ -322,10 +326,11 @@ export default class AbstractManagedComponent extends AbstractComponent {
       );
     }
 
-    let timeoutId = setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       callback.call(this);
       this[PRIVATE.pendingTimeouts].delete(callback);
     }, delay);
+
     this[PRIVATE.pendingTimeouts].set(callback, timeoutId);
   }
 
@@ -343,6 +348,7 @@ export default class AbstractManagedComponent extends AbstractComponent {
     }
 
     clearTimeout(this[PRIVATE.pendingTimeouts].get(callback));
+
     this[PRIVATE.pendingTimeouts].delete(callback);
   }
 
@@ -370,10 +376,11 @@ export default class AbstractManagedComponent extends AbstractComponent {
       );
     }
 
-    let intervalId = setInterval(() => {
+    const intervalId = setInterval(() => {
       callback.call(this);
-      this[PRIVATE.activeIntervals].delete(callback);
+      //this[PRIVATE.activeIntervals].delete(callback);
     }, period);
+
     this[PRIVATE.activeIntervals].set(callback, intervalId);
   }
 
@@ -390,6 +397,7 @@ export default class AbstractManagedComponent extends AbstractComponent {
     }
 
     clearInterval(this[PRIVATE.activeIntervals].get(callback));
+
     this[PRIVATE.activeIntervals].delete(callback);
   }
 
@@ -401,36 +409,47 @@ export default class AbstractManagedComponent extends AbstractComponent {
    * @override
    */
   componentWillUnmount() {
-    let eventBusListeners = this[PRIVATE.eventBusListeners];
-    for (let eventTarget of eventBusListeners.keys()) {
-      let eventListeners = eventBusListeners.get(eventTarget);
-      for (let eventName of eventListeners.keys()) {
-        let realListeners = eventListeners.get(eventName).values();
-        for (let realListener of realListeners) {
+    const eventBusListeners = this[PRIVATE.eventBusListeners];
+
+    for (const eventTarget of eventBusListeners.keys()) {
+      const eventListeners = eventBusListeners.get(eventTarget);
+
+      for (const eventName of eventListeners.keys()) {
+        const realListeners = eventListeners.get(eventName).values();
+
+        for (const realListener of realListeners) {
           super.unlisten(eventTarget, eventName, realListener);
         }
       }
     }
-    let domListeners = this[PRIVATE.domListeners];
-    for (let eventTarget of domListeners.keys()) {
-      let eventListeners = domListeners.get(eventTarget);
-      for (let eventName of eventListeners.keys()) {
-        let realListeners = eventListeners.get(eventName).values();
-        for (let realListener of realListeners) {
+
+    const domListeners = this[PRIVATE.domListeners];
+
+    for (const eventTarget of domListeners.keys()) {
+      const eventListeners = domListeners.get(eventTarget);
+
+      for (const eventName of eventListeners.keys()) {
+        const realListeners = eventListeners.get(eventName).values();
+
+        for (const realListener of realListeners) {
           eventTarget.removeEventListener(eventName, realListener);
         }
       }
     }
-    let dispatcherListeners = this[PRIVATE.dispatcherListeners];
-    for (let eventName of dispatcherListeners.keys()) {
-      for (let listener of dispatcherListeners.get(eventName)) {
+
+    const dispatcherListeners = this[PRIVATE.dispatcherListeners];
+
+    for (const eventName of dispatcherListeners.keys()) {
+      for (const listener of dispatcherListeners.get(eventName)) {
         this.utils.$Dispatcher.unlisten(eventName, listener, this);
       }
     }
-    for (let timeoutId of this[PRIVATE.pendingTimeouts].values()) {
+
+    for (const timeoutId of this[PRIVATE.pendingTimeouts].values()) {
       clearTimeout(timeoutId);
     }
-    for (let intervalId of this[PRIVATE.activeIntervals].values()) {
+
+    for (const intervalId of this[PRIVATE.activeIntervals].values()) {
       clearInterval(intervalId);
     }
 
@@ -477,16 +496,21 @@ export default class AbstractManagedComponent extends AbstractComponent {
     if (!listenerStorage.has(eventTarget)) {
       listenerStorage.set(eventTarget, new Map());
     }
-    let eventListeners = listenerStorage.get(eventTarget);
+
+    const eventListeners = listenerStorage.get(eventTarget);
+
     if (!eventListeners.has(eventName)) {
       eventListeners.set(eventName, new Map());
     }
-    let listeners = eventListeners.get(eventName);
+
+    const listeners = eventListeners.get(eventName);
+
     if (listeners.has(listener)) {
       return null; // already listening for the event
     }
 
-    let realListener = listener.bind(this);
+    const realListener = listener.bind(this);
+
     listeners.set(listener, realListener);
 
     return realListener;
@@ -525,21 +549,28 @@ export default class AbstractManagedComponent extends AbstractComponent {
     if (!listenerStorage.has(eventTarget)) {
       return null;
     }
-    let eventListeners = listenerStorage.get(eventTarget);
+
+    const eventListeners = listenerStorage.get(eventTarget);
+
     if (!eventListeners.has(eventName)) {
       return null;
     }
-    let listeners = eventListeners.get(eventName);
+
+    const listeners = eventListeners.get(eventName);
+
     if (!listeners.has(listener)) {
       return null;
     }
-    let realListener = listeners.get(listener);
+
+    const realListener = listeners.get(listener);
 
     listeners.delete(listener);
-    if (!listeners.size()) {
+
+    if (!listeners.size) {
       eventListeners.delete(eventName);
     }
-    if (!eventListeners.size()) {
+
+    if (!eventListeners.size) {
       listenerStorage.delete(eventTarget);
     }
 
@@ -569,6 +600,7 @@ export default class AbstractManagedComponent extends AbstractComponent {
 
     let clone;
     let props;
+
     if (Object.isFrozen(reactElement)) {
       clone = Object.assign({}, reactElement);
       Object.defineProperty(clone, '_self', {
@@ -581,6 +613,7 @@ export default class AbstractManagedComponent extends AbstractComponent {
         configurable: false,
         value: reactElement._source
       });
+
       props = clone.props && Object.assign({}, clone.props);
     } else {
       clone = reactElement;
@@ -588,7 +621,7 @@ export default class AbstractManagedComponent extends AbstractComponent {
     }
 
     if (props) {
-      for (let propertyName of Object.keys(props)) {
+      for (const propertyName of Object.keys(props)) {
         if (
           !propertyName.startsWith('on') ||
           typeof props[propertyName] !== 'function'
@@ -596,14 +629,16 @@ export default class AbstractManagedComponent extends AbstractComponent {
           continue;
         }
 
-        let callback = props[propertyName];
+        const callback = props[propertyName];
         let boundCallback;
+
         if (this[PRIVATE.boundListeners].has(callback)) {
           boundCallback = this[PRIVATE.boundListeners].get(callback);
         } else {
           boundCallback = callback.bind(this);
           this[PRIVATE.boundListeners].set(callback, boundCallback);
         }
+
         props[propertyName] = boundCallback;
       }
 
@@ -620,12 +655,14 @@ export default class AbstractManagedComponent extends AbstractComponent {
 
     if (typeof clone.ref === 'function') {
       let boundCallback;
+
       if (this[PRIVATE.boundListeners].has(clone.ref)) {
         boundCallback = this[PRIVATE.boundListeners].get(clone.ref);
       } else {
         boundCallback = clone.ref.bind(this);
         this[PRIVATE.boundListeners].set(clone.ref, boundCallback);
       }
+
       clone.ref = boundCallback;
     }
 
