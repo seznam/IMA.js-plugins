@@ -1,0 +1,48 @@
+{
+  "name": "@ima/plugin-managed-component",
+  "version": "1.0.1",
+  "description": "Base class for React components (for IMA.js applications) with automatically managed DOM, event bus, dispatcher, timeout and interval listeners.",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo \"Release process is supported only via lerna command. See README.md for more info.\"; exit 1",
+    "test": "../../node_modules/.bin/jest --config=jest.config.js",
+    "doc": "../../node_modules/.bin/gulp doc",
+    "prepare": "../../node_modules/.bin/rollup -c"
+  },
+  "keywords": [
+    "ima",
+    "ima.js",
+    "plugin",
+    "react",
+    "component",
+    "automanagement"
+  ],
+  "author": "Martin Jurča <mjurca@centrum.cz>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/",
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-managed-component/issues"
+  },
+  "homepage": "https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-managed-component#readme",
+  "devDependencies": {},
+  "peerDependencies": {
+    "@ima/core": "17.x",
+    "react-dom": "^16.13.1"
+  },
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  }
+}
