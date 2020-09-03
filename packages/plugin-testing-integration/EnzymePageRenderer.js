@@ -17,7 +17,9 @@ class EnzymeReactDOM {
   }
 
   render(element, container, callback = () => {}) {
-    let wrapper = mount(element, { attachTo: container });
+    this.unmountComponentAtNode(container);
+
+    const wrapper = mount(element, { attachTo: container });
 
     this._instances.push({ container, wrapper });
 
@@ -27,7 +29,9 @@ class EnzymeReactDOM {
   }
 
   hydrate(element, container, callback = () => {}) {
-    let wrapper = mount(element, { hydrateIn: container });
+    this._dropInstanceAtNode(container);
+
+    const wrapper = mount(element, { hydrateIn: container });
 
     this._instances.push({ container, wrapper });
 
@@ -37,18 +41,13 @@ class EnzymeReactDOM {
   }
 
   unmountComponentAtNode(container) {
-    const instanceIndex = this._instances.findIndex(
-      instance => instance.container === container
-    );
+    const instance = this._dropInstanceAtNode(container);
 
-    if (!~instanceIndex) {
+    if (!instance) {
       return false;
     }
 
-    const { wrapper } = this._instances[instanceIndex];
-
-    this._instances.splice(instanceIndex, 1);
-    wrapper.detach();
+    instance.wrapper.detach();
 
     return true;
   }
@@ -60,6 +59,26 @@ class EnzymeReactDOM {
 
   createPortal(...args) {
     return ReactDOM.createPortal(...args);
+  }
+
+  _dropInstanceAtNode(container) {
+    const instanceIndex = this._getInstanceContainerIndex(container);
+
+    if (!~instanceIndex) {
+      return null;
+    }
+
+    const instance = this._instances[instanceIndex];
+
+    this._instances.splice(instanceIndex, 1);
+
+    return instance;
+  }
+
+  _getInstanceContainerIndex(container) {
+    return this._instances.findIndex(
+      instance => instance.container === container
+    );
   }
 }
 
