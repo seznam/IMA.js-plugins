@@ -40,6 +40,15 @@ describe('plugin-select:', () => {
       return {
         height: state.media.height
       };
+    },
+    state => {
+      if (!state.dynamic) {
+        return undefined;
+      }
+
+      return {
+        dynamic: state.dynamic
+      };
     }
   ];
 
@@ -73,6 +82,32 @@ describe('plugin-select:', () => {
       let obj2 = selector(appState, componentContext);
 
       expect(obj1 === obj2).toBeTruthy();
+    });
+
+    it('should return same output for cloned input with same values', () => {
+      let selector = createStateSelector(...selectorMethods);
+
+      let obj1 = selector(appState, componentContext);
+      let obj2 = selector({ ...appState }, componentContext);
+
+      expect(obj1 === obj2).toBeTruthy();
+    });
+
+    it('should return same output for dynamic changing state selector keys with same values', () => {
+      let selector = createStateSelector(...selectorMethods);
+
+      let obj1 = selector(appState, componentContext);
+      let obj2 = selector({ ...appState, dynamic: 1 }, componentContext);
+      let obj3 = selector({ ...appState, dynamic: 1 }, componentContext);
+      let obj4 = selector(appState, componentContext);
+
+      expect(obj1 === obj2).toBeFalsy();
+      expect(obj2 === obj3).toBeTruthy();
+      expect(obj1 === obj4).toBeFalsy();
+      expect(obj1).toMatchSnapshot();
+      expect(obj2).toMatchSnapshot();
+      expect(obj3).toMatchSnapshot();
+      expect(obj4).toMatchSnapshot();
     });
 
     it('should trow error for undefined $PageStateManager', () => {

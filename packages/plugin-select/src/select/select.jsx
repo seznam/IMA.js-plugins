@@ -128,7 +128,15 @@ export function createStateSelector(...selectors) {
     let memoizedState = null;
 
     return state => {
+      if (
+        Object.keys(state || {}).length !==
+        Object.keys(memoizedState || {}).length
+      ) {
+        memoizedSelector = null;
+        selectorFunctions = null;
+      }
       memoizedState = state;
+
       if (!selectorFunctions) {
         selectorFunctions = Object.keys(state).map(key => {
           return currentState => {

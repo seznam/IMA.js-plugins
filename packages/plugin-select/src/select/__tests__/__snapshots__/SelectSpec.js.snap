@@ -1,5 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`plugin-select: createStateSelector should return same output for dynamic changing state selector keys with same values 1`] = `
+Object {
+  "height": 60,
+  "width": 90,
+}
+`;
+
+exports[`plugin-select: createStateSelector should return same output for dynamic changing state selector keys with same values 2`] = `
+Object {
+  "dynamic": 1,
+  "height": 60,
+  "width": 90,
+}
+`;
+
+exports[`plugin-select: createStateSelector should return same output for dynamic changing state selector keys with same values 3`] = `
+Object {
+  "dynamic": 1,
+  "height": 60,
+  "width": 90,
+}
+`;
+
+exports[`plugin-select: createStateSelector should return same output for dynamic changing state selector keys with same values 4`] = `
+Object {
+  "height": 60,
+  "width": 90,
+}
+`;
+
 exports[`plugin-select: createStateSelector should select extra properties from state 1`] = `
 Object {
   "height": 60,
