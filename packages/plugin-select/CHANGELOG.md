@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.2](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-select@2.0.1...@ima/plugin-select@2.0.2) (2020-10-01)
+
+
+### Bug Fixes
+
+* 🐛 clear memoized selector for different state keys ([b38c44f](https://github.com/seznam/IMA.js-plugins/commit/b38c44f116704a15ddc391aab06403da79c77fa9))
+
+
+
+
+
 ## [2.0.1](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-select@2.0.0...@ima/plugin-select@2.0.1) (2020-06-22)
 
 
