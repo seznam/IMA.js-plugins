@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.4](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-testing-integration@2.0.3...@ima/plugin-testing-integration@2.0.4) (2020-10-05)
+
+
+### Bug Fixes
+
+* 🐛 if render/hydrate in same container drop old wrapper ([#41](https://github.com/seznam/IMA.js-plugins/issues/41)) ([c7e3f9a](https://github.com/seznam/IMA.js-plugins/commit/c7e3f9a450834ddc2c87dde14dfc2f9f33fec1f8))
+
+
+
+
+
 ## [2.0.3](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-testing-integration@2.0.2...@ima/plugin-testing-integration@2.0.3) (2020-07-27)
 
 
