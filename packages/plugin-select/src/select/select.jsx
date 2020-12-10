@@ -21,6 +21,26 @@ export function setHoistStaticMethod(method) {
   hoistStaticMethod = method;
 }
 
+export function chainHOC(
+  Original,
+  generators = [],
+  staticHoistingFunction = hoistNonReactStaticMethod
+) {
+  const TargetComponent = generators.reduce((PrevComponent, generator) => {
+    if (typeof generator === 'function') {
+      return generator(PrevComponent);
+    } else if (
+      typeof generator.method === 'function' &&
+      Array.isArray(generator.params)
+    ) {
+      return generator.method(PrevComponent, ...generator.params);
+    }
+    return PrevComponent;
+  }, Original);
+
+  return staticHoistingFunction(TargetComponent, Original);
+}
+
 export function select(...selectors) {
   return Component => {
     const stateSelector = creatorOfStateSelector(...selectors);
