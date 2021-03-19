@@ -48,6 +48,7 @@
     "@ima/helpers": "^17.4.0",
     "globby": "^11.0.0",
     "jsdom": "^16.2.1",
+    "messageformat": "^2.3.0",
     "to-aop": "^0.3.5"
   },
   "peerDependencies": {
