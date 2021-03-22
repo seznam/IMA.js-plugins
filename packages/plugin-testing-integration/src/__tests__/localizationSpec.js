@@ -1,6 +1,7 @@
 import { generateDictionary } from '../localization';
-// import globby from 'globby';
-// import { requireFromProject } from './helpers';
+import mockGlobby from 'globby';
+import { requireFromProject as mockRequireFromProject } from '../helpers';
+
 const mockDictFiles = {
   'thisComponentCS.json': {
     keyOne: 'foo',
@@ -13,11 +14,8 @@ const mockDictFiles = {
 };
 
 jest.mock('globby', () => ({
-  sync: jest.fn(() => ['thisComponentCS.json', 'that_componentCS.JSON'])
+  sync: jest.fn(() => Object.keys(mockDictFiles))
 }));
-
-const mockGlobby = require('globby');
-const { requireFromProject: mockRequireFromProject } = require('../helpers');
 
 jest.mock('../helpers', () => ({
   requireFromProject: jest.fn(filename => {
