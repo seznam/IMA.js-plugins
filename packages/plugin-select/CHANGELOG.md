@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.3](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-select@2.0.2...@ima/plugin-select@2.0.3) (2021-03-22)
+
+**Note:** Version bump only for package @ima/plugin-select
+
+
+
+
+
 ## [2.0.2](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-select@2.0.1...@ima/plugin-select@2.0.2) (2020-10-01)
 
 

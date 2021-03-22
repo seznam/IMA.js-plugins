@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.5](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-testing-integration@2.0.4...@ima/plugin-testing-integration@2.0.5) (2021-03-22)
+
+
+### Bug Fixes
+
+* 🐛 Enable testing localized code ([#44](https://github.com/seznam/IMA.js-plugins/issues/44)) ([e0afbc8](https://github.com/seznam/IMA.js-plugins/commit/e0afbc8c74c29626a4ee89ac063881b021cfe8f9))
+
+
+
+
+
 ## [2.0.4](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-testing-integration@2.0.3...@ima/plugin-testing-integration@2.0.4) (2020-10-05)
 
 
