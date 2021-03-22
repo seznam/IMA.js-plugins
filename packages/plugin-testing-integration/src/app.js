@@ -201,7 +201,7 @@ async function initImaApp(bootConfigMethods = {}) {
 
   vendors = build.vendors;
 
-  global.$IMA.i18n = _generateDictionary(build.languages);
+  global.$IMA.i18n = _generateDictionary(build.languages, config.locale);
 
   defaultBootConfigMethods = requireFromProject(
     config.appMainPath

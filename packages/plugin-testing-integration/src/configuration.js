@@ -5,6 +5,7 @@ let configuration = {
   protocol: 'https:',
   host: 'imajs.io',
   environment: 'test',
+  locale: 'en',
   TestPageRenderer: null,
   initSettings: () => {},
   initBindApp: () => {},
