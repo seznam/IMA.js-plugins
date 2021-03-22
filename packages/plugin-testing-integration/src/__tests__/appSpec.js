@@ -4,6 +4,7 @@ jest.mock('@ima/core');
 import * as ima from '@ima/core';
 import * as build from '@ima/core/build';
 import * as helpers from '../helpers';
+import * as localization from '../localization';
 import * as configuration from '../configuration';
 import * as bootConfigExtensions from '../bootConfigExtensions';
 import { initImaApp, clearImaApp } from '../app';
@@ -29,6 +30,7 @@ describe('Integration', () => {
       protocol: 'http:',
       host: 'www.example.com',
       environment: 'environment',
+      locale: 'fr',
       prebootScript: jest.fn().mockReturnValue(Promise.resolve())
     };
     let configExtensions = {
@@ -53,11 +55,20 @@ describe('Integration', () => {
       client: [],
       server: []
     };
+    let languages = {
+      en: [],
+      fr: []
+    };
     helpers.requireFromProject = jest
       .fn()
-      .mockReturnValueOnce({ js: ['js'], vendors: {} })
+      .mockReturnValueOnce({
+        js: ['js'],
+        vendors: {},
+        languages
+      })
       .mockReturnValueOnce({ getInitialAppConfigFunctions });
     helpers.loadFiles = jest.fn();
+    localization.generateDictionary = jest.fn();
     configuration.getConfig = jest.fn().mockReturnValue(config);
     ima.createImaApp = jest.fn().mockReturnValue(app);
     ima.getClientBootConfig = jest.fn(bootConfig => {
@@ -75,6 +86,10 @@ describe('Integration', () => {
 
     expect(application).toEqual(app);
     expect(helpers.loadFiles).toHaveBeenCalledWith(['js']);
+    expect(localization.generateDictionary).toHaveBeenCalledWith(
+      languages,
+      'fr'
+    );
     expect(config.prebootScript).toHaveBeenCalled();
     expect(ima.createImaApp).toHaveBeenCalled();
     expect(ima.getClientBootConfig).toHaveBeenCalledWith({

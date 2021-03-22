@@ -11,6 +11,7 @@ import { JSDOM } from 'jsdom';
 import { requireFromProject, loadFiles } from './helpers';
 import { getConfig } from './configuration';
 import { getBootConfigExtensions } from './bootConfigExtensions';
+import { generateDictionary } from './localization';
 
 const setIntervalNative = setInterval;
 const setTimeoutNative = setTimeout;
@@ -168,6 +169,9 @@ async function initImaApp(bootConfigMethods = {}) {
   const { js, ...build } = requireFromProject(config.appBuildPath);
 
   vendors = build.vendors;
+
+  global.$IMA.i18n = generateDictionary(build.languages, config.locale);
+
   defaultBootConfigMethods = requireFromProject(
     config.appMainPath
   ).getInitialAppConfigFunctions();

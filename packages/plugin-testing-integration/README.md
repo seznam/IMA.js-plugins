@@ -122,6 +122,13 @@ Host used for the jsdom navigation and IMA application. If you do some service m
 
 IMA.js environment, that should be used.
 
+### locale
+`<string>`
+
+`Default: 'en'`
+
+What locale to use when generating the localization dictionary.
+
 ### TestPageRenderer
 `<Class>`
 
