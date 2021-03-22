@@ -4,7 +4,9 @@ import path from 'path';
 import { requireFromProject } from './helpers';
 
 function generateDictionary(languages, locale = 'en') {
-  // FIXME allow setting locale through config
+  if (!languages) {
+    return {};
+  }
   const mf = new MessageFormat(locale);
   const dictionaries = {};
   const langFileGlobs = languages[locale];
