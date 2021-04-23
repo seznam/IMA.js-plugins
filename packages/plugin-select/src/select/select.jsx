@@ -87,7 +87,7 @@ export function select(...selectors) {
           delete restProps.forwardedRef;
         }
 
-        return <Component {...this.state} {...restProps} ref={forwardedRef} />;
+        return <Component {...restProps} {...this.state} ref={forwardedRef} />;
       }
     }
 
