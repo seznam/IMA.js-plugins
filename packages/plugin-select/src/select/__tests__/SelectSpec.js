@@ -57,6 +57,11 @@ describe('plugin-select:', () => {
     height: state.media.height * props.multiplier
   });
 
+  const selectorReplaceProps = (state, context, props) => ({
+    multiplier: props.multiplier * props.multiplier,
+    settings: Object.assign({}, props.settings, { newSettingsProp: true })
+  });
+
   beforeEach(() => {
     global.$Debug = true;
   });
@@ -121,7 +126,10 @@ describe('plugin-select:', () => {
     let wrapper = null;
     const defaultProps = {
       props: 'props',
-      multiplier: 0.5
+      multiplier: 0.5,
+      settings: {
+        color: 'red'
+      }
     };
 
     class Component extends React.PureComponent {
@@ -163,6 +171,20 @@ describe('plugin-select:', () => {
       let EnhancedComponent = select(
         ...selectorMethods,
         selectorUsingProps
+      )(Component);
+
+      wrapper = mount(React.createElement(EnhancedComponent, defaultProps), {
+        context: componentContext,
+        wrappingComponent: MockContextProvider
+      });
+
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render component with extraProps replaced by ownProps', () => {
+      let EnhancedComponent = select(
+        ...selectorMethods,
+        selectorReplaceProps
       )(Component);
 
       wrapper = mount(React.createElement(EnhancedComponent, defaultProps), {
