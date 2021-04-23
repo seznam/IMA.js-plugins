@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-select@2.0.3...@ima/plugin-select@3.0.0) (2021-04-23)
+
+
+### Features
+
+* 🎸 Select can replace props instead of only addition ([#45](https://github.com/seznam/IMA.js-plugins/issues/45)) ([7853aa6](https://github.com/seznam/IMA.js-plugins/commit/7853aa6f247ca3bca0858317ac9fc0ea505fed41))
+
+
+### BREAKING CHANGES
+
+* 🧨 Select can replace props instead of only addition
+
+Co-authored-by: Zdeněk Laštůvka <zdenek.lastuvka@firma.seznam.cz>
+
+
+
+
+
 ## [2.0.3](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-select@2.0.2...@ima/plugin-select@2.0.3) (2021-03-22)
 
 **Note:** Version bump only for package @ima/plugin-select
