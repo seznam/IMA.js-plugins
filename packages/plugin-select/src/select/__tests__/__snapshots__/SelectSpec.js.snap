@@ -70,17 +70,8 @@ exports[`plugin-select: select should render component with extraProps 1`] = `
     }
   }
 >
-  <SelectState
-    $context={
-      Object {
-        "$Utils": Object {
-          "$Dispatcher": Mock {},
-          "$PageStateManager": Mock {
-            "getState": [Function],
-          },
-        },
-      }
-    }
+  <Component
+    height={60}
     multiplier={0.5}
     props="props"
     settings={
@@ -88,33 +79,12 @@ exports[`plugin-select: select should render component with extraProps 1`] = `
         "color": "red",
       }
     }
+    width={90}
   >
-    <Component
-      $context={
-        Object {
-          "$Utils": Object {
-            "$Dispatcher": Mock {},
-            "$PageStateManager": Mock {
-              "getState": [Function],
-            },
-          },
-        }
-      }
-      height={60}
-      multiplier={0.5}
-      props="props"
-      settings={
-        Object {
-          "color": "red",
-        }
-      }
-      width={90}
-    >
-      <h1>
-        text
-      </h1>
-    </Component>
-  </SelectState>
+    <h1>
+      text
+    </h1>
+  </Component>
 </withContext(Component)>
 `;
 
@@ -128,17 +98,8 @@ exports[`plugin-select: select should render component with extraProps and own c
     }
   }
 >
-  <SelectState
-    $context={
-      Object {
-        "$Utils": Object {
-          "$Dispatcher": Mock {},
-          "$PageStateManager": Mock {
-            "getState": [Function],
-          },
-        },
-      }
-    }
+  <Component
+    height={60}
     multiplier={0.5}
     props="props"
     settings={
@@ -146,33 +107,12 @@ exports[`plugin-select: select should render component with extraProps and own c
         "color": "red",
       }
     }
+    width={90}
   >
-    <Component
-      $context={
-        Object {
-          "$Utils": Object {
-            "$Dispatcher": Mock {},
-            "$PageStateManager": Mock {
-              "getState": [Function],
-            },
-          },
-        }
-      }
-      height={60}
-      multiplier={0.5}
-      props="props"
-      settings={
-        Object {
-          "color": "red",
-        }
-      }
-      width={90}
-    >
-      <h1>
-        text
-      </h1>
-    </Component>
-  </SelectState>
+    <h1>
+      text
+    </h1>
+  </Component>
 </withContext(Component)>
 `;
 
@@ -186,17 +126,8 @@ exports[`plugin-select: select should render component with extraProps and own s
     }
   }
 >
-  <SelectState
-    $context={
-      Object {
-        "$Utils": Object {
-          "$Dispatcher": Mock {},
-          "$PageStateManager": Mock {
-            "getState": [Function],
-          },
-        },
-      }
-    }
+  <Component
+    height={60}
     multiplier={0.5}
     props="props"
     settings={
@@ -204,33 +135,12 @@ exports[`plugin-select: select should render component with extraProps and own s
         "color": "red",
       }
     }
+    width={90}
   >
-    <Component
-      $context={
-        Object {
-          "$Utils": Object {
-            "$Dispatcher": Mock {},
-            "$PageStateManager": Mock {
-              "getState": [Function],
-            },
-          },
-        }
-      }
-      height={60}
-      multiplier={0.5}
-      props="props"
-      settings={
-        Object {
-          "color": "red",
-        }
-      }
-      width={90}
-    >
-      <h1>
-        text
-      </h1>
-    </Component>
-  </SelectState>
+    <h1>
+      text
+    </h1>
+  </Component>
 </withContext(Component)>
 `;
 
@@ -244,17 +154,8 @@ exports[`plugin-select: select should render component with extraProps modifies 
     }
   }
 >
-  <SelectState
-    $context={
-      Object {
-        "$Utils": Object {
-          "$Dispatcher": Mock {},
-          "$PageStateManager": Mock {
-            "getState": [Function],
-          },
-        },
-      }
-    }
+  <Component
+    height={30}
     multiplier={0.5}
     props="props"
     settings={
@@ -262,33 +163,12 @@ exports[`plugin-select: select should render component with extraProps modifies 
         "color": "red",
       }
     }
+    width={45}
   >
-    <Component
-      $context={
-        Object {
-          "$Utils": Object {
-            "$Dispatcher": Mock {},
-            "$PageStateManager": Mock {
-              "getState": [Function],
-            },
-          },
-        }
-      }
-      height={30}
-      multiplier={0.5}
-      props="props"
-      settings={
-        Object {
-          "color": "red",
-        }
-      }
-      width={45}
-    >
-      <h1>
-        text
-      </h1>
-    </Component>
-  </SelectState>
+    <h1>
+      text
+    </h1>
+  </Component>
 </withContext(Component)>
 `;
 
@@ -302,51 +182,21 @@ exports[`plugin-select: select should render component with extraProps replaced 
     }
   }
 >
-  <SelectState
-    $context={
-      Object {
-        "$Utils": Object {
-          "$Dispatcher": Mock {},
-          "$PageStateManager": Mock {
-            "getState": [Function],
-          },
-        },
-      }
-    }
-    multiplier={0.5}
+  <Component
+    height={60}
+    multiplier={0.25}
     props="props"
     settings={
       Object {
         "color": "red",
+        "newSettingsProp": true,
       }
     }
+    width={90}
   >
-    <Component
-      $context={
-        Object {
-          "$Utils": Object {
-            "$Dispatcher": Mock {},
-            "$PageStateManager": Mock {
-              "getState": [Function],
-            },
-          },
-        }
-      }
-      height={60}
-      multiplier={0.25}
-      props="props"
-      settings={
-        Object {
-          "color": "red",
-          "newSettingsProp": true,
-        }
-      }
-      width={90}
-    >
-      <h1>
-        text
-      </h1>
-    </Component>
-  </SelectState>
+    <h1>
+      text
+    </h1>
+  </Component>
 </withContext(Component)>
 `;

@@ -1,5 +1,6 @@
 import forwardedSelect, {
   select,
+  useSelect,
   createStateSelector,
   hoistNonReactStatic,
   setCreatorOfStateSelector,
@@ -15,6 +16,7 @@ export {
   createStateSelector,
   hoistNonReactStatic,
   select,
+  useSelect,
   setCreatorOfStateSelector,
   setHoistStaticMethod
 };

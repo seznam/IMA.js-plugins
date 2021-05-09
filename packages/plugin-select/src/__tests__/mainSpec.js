@@ -11,6 +11,11 @@ describe('plugin', () => {
     expect(plugin.select).not.toEqual(undefined);
   });
 
+  it('should exported usuSelect', () => {
+    expect(plugin.useSelect).not.toEqual(null);
+    expect(plugin.useSelect).not.toEqual(undefined);
+  });
+
   it('should exported $registerImaPlugin', () => {
     expect(plugin.$registerImaPlugin).not.toEqual(null);
     expect(plugin.$registerImaPlugin).not.toEqual(undefined);

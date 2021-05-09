@@ -1,15 +1,13 @@
 # @ima/plugin-select
 
 The [IMA](https://imajs.io) plugin selects extra props from page state to your component.
-It uses [HOC](https://reactjs.org/docs/higher-order-components.html) at the background.
+It uses [HOC](https://reactjs.org/docs/higher-order-components.html) at the background for Class component or [hook](https://reactjs.org/docs/hooks-intro.html) for Function component.
 It can be very useful for example some analytical data.
 
 ## Installation
 
-```javascript
-
+```bash
 npm install @ima/plugin-select --save
-
 ```
 
 ```javascript
@@ -47,6 +45,31 @@ The select plugin use $PageStateManager for selecting extra props to your compon
 ```
 
 ## Usage
+
+You can use `select` HOC or `useSelect` hook for Function component. Example below shows `useSelect` hook.
+
+```javascript
+import { useSelect } from '@ima/plugin-select';
+
+const titleSelector = (state, context, props) => {
+	return {
+		title: state.title
+	};
+}
+
+// Only for example purpose. You can use more selectors.
+const emptySelector = (state, context, props) => {
+	return {};
+}
+
+function Component(props) {
+  const [state] = useSelect(props, titleSelector, emptySelector);
+
+  return <h1>{state.title}</h1>;
+}
+```
+
+You can use HOC `select` for Class component. Example below shows `select` HOC.
 
 ```javascript
 // /app/component/Component.js

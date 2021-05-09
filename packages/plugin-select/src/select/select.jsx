@@ -1,11 +1,6 @@
-import {
-  AbstractPureComponent,
-  StateEvents,
-  PageContext,
-  getUtils
-} from '@ima/core';
+import { StateEvents, PageContext } from '@ima/core';
 import hoistNonReactStaticMethod from 'hoist-non-react-statics';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { createSelector } from 'reselect';
 
 let creatorOfStateSelector = createStateSelector;
@@ -23,78 +18,58 @@ export function setHoistStaticMethod(method) {
 
 export function select(...selectors) {
   return Component => {
-    const stateSelector = creatorOfStateSelector(...selectors);
-    const componentName = Component.displayName || Component.name;
-
     const WithContext = props => {
-      const context = useContext(PageContext);
+      const [state] = useSelect(props, ...selectors);
 
-      return <SelectState {...props} $context={context} />;
+      const { forwardedRef } = props;
+      const restProps = Object.assign({}, props);
+
+      if (forwardedRef) {
+        delete restProps.forwardedRef;
+      }
+
+      return <Component {...restProps} {...state} ref={forwardedRef} />;
     };
 
+    const componentName = Component.displayName || Component.name;
     WithContext.displayName = `withContext(${componentName})`;
-
-    class SelectState extends AbstractPureComponent {
-      static getDerivedStateFromProps(props) {
-        return SelectState.resolveNewState(props);
-      }
-
-      static resolveNewState(props) {
-        let restProps = Object.assign({}, props);
-        delete restProps['$context'];
-
-        const { $context } = props;
-        const utils = getUtils(restProps, $context);
-
-        return stateSelector(
-          utils.$PageStateManager.getState(),
-          $context,
-          restProps
-        );
-      }
-
-      constructor(props, context) {
-        super(props, context);
-
-        this.state = SelectState.resolveNewState(props);
-      }
-
-      componentDidMount() {
-        this.utils.$Dispatcher.listen(
-          StateEvents.AFTER_CHANGE_STATE,
-          this.afterChangeState,
-          this
-        );
-      }
-
-      componentWillUnmount() {
-        this.utils.$Dispatcher.unlisten(
-          StateEvents.AFTER_CHANGE_STATE,
-          this.afterChangeState,
-          this
-        );
-      }
-
-      afterChangeState() {
-        this.setState(SelectState.resolveNewState(this.props));
-      }
-
-      render() {
-        const { forwardedRef } = this.props;
-        const restProps = Object.assign({}, this.props);
-
-        if (forwardedRef) {
-          delete restProps.forwardedRef;
-        }
-
-        return <Component {...restProps} {...this.state} ref={forwardedRef} />;
-      }
-    }
-
     hoistStaticMethod(WithContext, Component);
 
     return WithContext;
   };
+}
+
+export function useSelect(props, ...selectors) {
+  const context = useContext(PageContext);
+
+  const stateSelector = useRef(creatorOfStateSelector(...selectors));
+  const resolveNewState = useRef(() => {
+    return stateSelector.current(
+      context.$Utils.$PageStateManager.getState(),
+      context,
+      props
+    );
+  });
+
+  const [state, setState] = useState(resolveNewState.current());
+
+  const afterChangeState = useRef(() => setState(resolveNewState.current()));
+
+  useEffect(() => {
+    context.$Utils.$Dispatcher.listen(
+      StateEvents.AFTER_CHANGE_STATE,
+      afterChangeState.current
+    );
+
+    return function () {
+      context.$Utils.$Dispatcher.unlisten(
+        StateEvents.AFTER_CHANGE_STATE,
+        afterChangeState.current
+      );
+    };
+  }, []);
+
+  return [state];
 }
 
 export default function forwardedSelect(...selectors) {
