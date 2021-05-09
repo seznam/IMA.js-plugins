@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-select",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "The plugin selects extra props from page state to your component.",
   "main": "index.js",
   "scripts": {

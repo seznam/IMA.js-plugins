@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-select@3.0.0...@ima/plugin-select@3.1.0) (2021-05-09)
+
+
+### Features
+
+* 🎸 add useSelect hook ([3e6247a](https://github.com/seznam/IMA.js-plugins/commit/3e6247a0a57f0481a76f0bdc3497f9f40385d79b))
+
+
+
+
+
 # [3.0.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-select@2.0.3...@ima/plugin-select@3.0.0) (2021-04-23)
 
 
