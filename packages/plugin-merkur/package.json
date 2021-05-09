@@ -1,0 +1,42 @@
+{
+  "name": "@ima/plugin-merkur",
+  "version": "1.0.2",
+  "description": "The Plugin merkur",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo \"Release process is supported only via lerna command. See README.md for more info.\"; exit 1",
+    "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
+    "doc": "../../node_modules/.bin/gulp doc",
+    "prepare": "../../node_modules/.bin/rollup -c"
+  },
+  "keywords": [
+    "ima",
+    "IMA",
+    "plugin"
+  ],
+  "author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org/",
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/issues"
+  },
+  "license": "MIT",
+  "devDependencies": {},
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "peerDependencies": {
+    "@ima/core": "^17.x"
+  },
+  "engines": {
+    "npm": ">=4 <7"
+  }
+}

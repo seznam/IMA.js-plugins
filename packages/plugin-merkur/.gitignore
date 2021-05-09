@@ -1,0 +1,11 @@
+.idea/
+.vscode
+.history/
+.DS_Store
+node_modules/
+doc/
+coverage/
+dist/
+package-lock.json
+example/public/*.js
+example/public/*.css

@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MerkurResource clase should add default options to widget API 1`] = `
+Object {
+  "cache": true,
+  "method": "get",
+  "ttl": 60000,
+}
+`;
+
+exports[`MerkurResource clase should remove containerSelector from data 1`] = `Object {}`;
+
+exports[`MerkurResource clase should return response from widget API with containerSelector 1`] = `
+Object {
+  "assets": Array [
+    Object {
+      "name": "polyfill.js",
+      "source": Object {
+        "es5": "http://localhost:4444/static/es5/polyfill.31c5090d8c961e43fade.js",
+      },
+      "test": "return window.fetch",
+      "type": "script",
+    },
+    Object {
+      "attr": Object {
+        "async": true,
+        "custom-attribute": "foo",
+      },
+      "name": "widget.js",
+      "source": Object {
+        "es5": "http://localhost:4444/static/es5/widget.31c5090d8c961e43fade.js",
+        "es9": "http://localhost:4444/static/es9/widget.6961af42bfa3596bb147.js",
+      },
+      "type": "script",
+    },
+    Object {
+      "name": "widget.css",
+      "source": "http://localhost:4444/static/es9/widget.814e0cb568c7ddc0725d.css",
+      "type": "stylesheet",
+    },
+  ],
+  "html": "<div></div>",
+  "name": "my-widget",
+  "props": Object {
+    "containerSelector": ".some-class",
+  },
+  "state": Object {
+    "counter": 0,
+  },
+  "version": "0.0.1",
+}
+`;
