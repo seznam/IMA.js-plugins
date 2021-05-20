@@ -41,11 +41,12 @@ export function select(...selectors) {
 
 export function useSelect(props, ...selectors) {
   const context = useContext(PageContext);
+  const utils = context.$Utils || props.$Utils;
 
   const stateSelector = useRef(creatorOfStateSelector(...selectors));
   const resolveNewState = useRef(() => {
     return stateSelector.current(
-      context.$Utils.$PageStateManager.getState(),
+      utils.$PageStateManager.getState(),
       context,
       props
     );
@@ -56,13 +57,13 @@ export function useSelect(props, ...selectors) {
   const afterChangeState = useRef(() => setState(resolveNewState.current()));
 
   useEffect(() => {
-    context.$Utils.$Dispatcher.listen(
+    utils.$Dispatcher.listen(
       StateEvents.AFTER_CHANGE_STATE,
       afterChangeState.current
     );
 
     return function () {
-      context.$Utils.$Dispatcher.unlisten(
+      utils.$Dispatcher.unlisten(
         StateEvents.AFTER_CHANGE_STATE,
         afterChangeState.current
       );
