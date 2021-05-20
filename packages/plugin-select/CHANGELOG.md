@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.1](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-select@3.1.0...@ima/plugin-select@3.1.1) (2021-05-20)
+
+
+### Bug Fixes
+
+* 🐛 backward compatibility with passing props $Utils ([858ad5f](https://github.com/seznam/IMA.js-plugins/commit/858ad5f37c5f89d82d41cacffddc7c96ec14efbb))
+
+
+
+
+
 # [3.1.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-select@3.0.0...@ima/plugin-select@3.1.0) (2021-05-09)
 
 
