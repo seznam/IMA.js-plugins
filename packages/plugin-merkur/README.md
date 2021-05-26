@@ -32,21 +32,24 @@ class HomeController extends AbstractController {
 
   constructor(merkurResource) {
     this._merkurResource = merkurResource;
-
-    this._widgetClassName = 'widget__container';
   }
 
   load() {
     const data = {
-      containerSelector: `.${this._widgetClassName}`,
+      containerSelector: '.widget__container',
+      // When using merkur slots
+      slots: {
+        headline: {
+          containerSelector: '.widget__headline-slot'
+        }
+      }
     };
 
     const merkurWidget = this._merkurResource
       .get('http://localhost:4444/widget', data)
       .then((response) => {
         return {
-          widgetProperties: response.body,
-          widgetClassName: this._widgetClassName
+          widgetProperties: response.body
         };
       });
 

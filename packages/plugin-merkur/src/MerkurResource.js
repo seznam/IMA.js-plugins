@@ -23,7 +23,7 @@ export default class MerkurResource {
   }
 
   /**
-   * Make API call to defined url and returns respone from server.
+   * Make API call to defined url and returns response from server.
    *
    * @param {string} url
    * @param {Object<string, *>} data
@@ -38,16 +38,32 @@ export default class MerkurResource {
     }
 
     let cloneData = Object.assign({}, data);
-    const { containerSelector } = cloneData;
+    const { containerSelector, slots = {} } = cloneData;
+
     delete cloneData.containerSelector;
+    delete cloneData.slots;
 
     options = this._addDefaultRequestOptions(options);
     const response = await this._http[options.method](url, cloneData, options);
 
     this._removeHTMLFromCache(url, cloneData, options);
 
-    if (response && response.props) {
-      response.props.containerSelector = containerSelector;
+    if (response) {
+      response.containerSelector = containerSelector;
+
+      // Deprecated, left for backwards compatibility
+      if (response.props) {
+        response.props.containerSelector = containerSelector;
+      }
+
+      if (Object.keys(slots).length > 0 && response.slots) {
+        Object.keys(slots).forEach(slotName => {
+          if (response.slots[slotName]) {
+            response.slots[slotName].containerSelector =
+              slots[slotName].containerSelector;
+          }
+        });
+      }
     }
 
     return response;
