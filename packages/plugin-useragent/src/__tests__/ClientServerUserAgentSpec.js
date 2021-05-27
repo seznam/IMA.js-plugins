@@ -13,8 +13,7 @@ describe('Client/Server implementation of Abstract class', () => {
     name: 'Chrome',
     prerelease: null,
     product: null,
-    ua:
-      'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.85 Safari/537.36',
+    ua: 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.85 Safari/537.36',
     version: '40.0.2214.85',
     os: {
       architecture: 64,
@@ -30,8 +29,7 @@ describe('Client/Server implementation of Abstract class', () => {
     name: 'Chrome',
     prerelease: 'unknown',
     product: 'unknown',
-    ua:
-      'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.85 Safari/537.36',
+    ua: 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.85 Safari/537.36',
     version: '40.0.2214.85',
     os: {
       architecture: 64,
