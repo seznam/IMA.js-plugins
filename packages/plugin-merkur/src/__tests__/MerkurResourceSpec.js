@@ -15,7 +15,7 @@ describe('MerkurResource clase', () => {
   };
   let options = {};
 
-  let response = {
+  let body = {
     name: 'my-widget',
     version: '0.0.1',
     props: {},
@@ -27,8 +27,7 @@ describe('MerkurResource clase', () => {
         name: 'polyfill.js',
         type: 'script',
         source: {
-          es5:
-            'http://localhost:4444/static/es5/polyfill.31c5090d8c961e43fade.js'
+          es5: 'http://localhost:4444/static/es5/polyfill.31c5090d8c961e43fade.js'
         },
         test: 'return window.fetch'
       },
@@ -36,8 +35,7 @@ describe('MerkurResource clase', () => {
         name: 'widget.js',
         type: 'script',
         source: {
-          es9:
-            'http://localhost:4444/static/es9/widget.6961af42bfa3596bb147.js',
+          es9: 'http://localhost:4444/static/es9/widget.6961af42bfa3596bb147.js',
           es5: 'http://localhost:4444/static/es5/widget.31c5090d8c961e43fade.js'
         },
         attr: {
@@ -58,7 +56,7 @@ describe('MerkurResource clase', () => {
   beforeEach(() => {
     http = toMockedInstance(HttpAgent, {
       get() {
-        return response;
+        return { body, headers: {}, params: data, status: 200, cached: true };
       }
     });
     cache = toMockedInstance(Cache);
@@ -74,7 +72,7 @@ describe('MerkurResource clase', () => {
   it('should return response from widget API with containerSelector', async () => {
     let response = await merkurResource.get(url, data, options);
 
-    expect(response).toMatchSnapshot();
+    expect(response.body).toMatchSnapshot();
   });
 
   it('should add default options to widget API', async () => {
