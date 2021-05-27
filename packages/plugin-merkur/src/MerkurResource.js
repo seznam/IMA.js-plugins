@@ -48,18 +48,18 @@ export default class MerkurResource {
 
     this._removeHTMLFromCache(url, cloneData, options);
 
-    if (response) {
-      response.containerSelector = containerSelector;
+    if (response && response.body) {
+      response.body.containerSelector = containerSelector;
 
       // Deprecated, left for backwards compatibility
-      if (response.props) {
-        response.props.containerSelector = containerSelector;
+      if (response.body.props) {
+        response.body.props.containerSelector = containerSelector;
       }
 
-      if (Object.keys(slots).length > 0 && response.slots) {
+      if (Object.keys(slots).length > 0 && response.body.slots) {
         Object.keys(slots).forEach(slotName => {
-          if (response.slots[slotName]) {
-            response.slots[slotName].containerSelector =
+          if (response.body.slots[slotName]) {
+            response.body.slots[slotName].containerSelector =
               slots[slotName].containerSelector;
           }
         });

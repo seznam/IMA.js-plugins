@@ -14,7 +14,7 @@ describe('MerkurResource class', () => {
   };
   let options = {};
 
-  let response = {
+  let body = {
     name: 'my-widget',
     version: '0.0.1',
     props: {},
@@ -56,7 +56,7 @@ describe('MerkurResource class', () => {
     beforeEach(() => {
       http = toMockedInstance(HttpAgent, {
         get() {
-          return response;
+          return { body, headers: {}, params: data, status: 200, cached: true };
         }
       });
 
@@ -78,9 +78,9 @@ describe('MerkurResource class', () => {
     it('should return response from widget API with containerSelector set to both props and widget', async () => {
       let response = await merkurResource.get(url, data, options);
 
-      expect(response).toMatchSnapshot();
-      expect(response.containerSelector).toBe('.some-class');
-      expect(response.props.containerSelector).toBe('.some-class');
+      expect(response.body).toMatchSnapshot();
+      expect(response.body.containerSelector).toBe('.some-class');
+      expect(response.body.props.containerSelector).toBe('.some-class');
     });
 
     it('should add default options to widget API', async () => {
@@ -122,13 +122,19 @@ describe('MerkurResource class', () => {
       http = toMockedInstance(HttpAgent, {
         get() {
           return {
-            ...response,
-            slots: {
-              headline: {
-                name: 'headline',
-                html: '<div></div>'
+            body: {
+              ...body,
+              slots: {
+                headline: {
+                  name: 'headline',
+                  html: '<div></div>'
+                }
               }
-            }
+            },
+            headers: {},
+            params: data,
+            status: 200,
+            cached: true
           };
         }
       });
@@ -156,13 +162,15 @@ describe('MerkurResource class', () => {
       let resource = await merkurResource.get(url, slotData, options);
 
       expect(resource).toMatchSnapshot();
-      expect(resource.slots.headline.containerSelector).toBe('.headline');
+      expect(resource.body.slots.headline.containerSelector).toBe('.headline');
     });
 
     it('should not do anything when slots are not used', async () => {
       let resource = await merkurResource.get(url, data, options);
 
-      expect(resource.slots.headline.containerSelector).not.toBe('.headline');
+      expect(resource.body.slots.headline.containerSelector).not.toBe(
+        '.headline'
+      );
     });
   });
 });
