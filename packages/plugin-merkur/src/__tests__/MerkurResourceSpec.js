@@ -15,7 +15,7 @@ describe('MerkurResource clase', () => {
   };
   let options = {};
 
-  let response = {
+  let body = {
     name: 'my-widget',
     version: '0.0.1',
     props: {},
@@ -58,7 +58,7 @@ describe('MerkurResource clase', () => {
   beforeEach(() => {
     http = toMockedInstance(HttpAgent, {
       get() {
-        return response;
+        return { body, headers: {}, params: data, status: 200, cached: true };
       }
     });
     cache = toMockedInstance(Cache);
@@ -74,7 +74,7 @@ describe('MerkurResource clase', () => {
   it('should return response from widget API with containerSelector', async () => {
     let response = await merkurResource.get(url, data, options);
 
-    expect(response).toMatchSnapshot();
+    expect(response.body).toMatchSnapshot();
   });
 
   it('should add default options to widget API', async () => {

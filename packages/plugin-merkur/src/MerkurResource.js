@@ -46,8 +46,8 @@ export default class MerkurResource {
 
     this._removeHTMLFromCache(url, cloneData, options);
 
-    if (response && response.props) {
-      response.props.containerSelector = containerSelector;
+    if (response && response.body && response.body.props) {
+      response.body.props.containerSelector = containerSelector;
     }
 
     return response;
