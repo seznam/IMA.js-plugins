@@ -4,10 +4,9 @@ import { toMockedInstance, setGlobalMockMethod } from 'to-mock';
 
 setGlobalMockMethod(jest.fn);
 
-describe('MerkurResource clase', () => {
+describe('MerkurResource class', () => {
   let merkurResource = null;
   let http = null;
-  let cache = null;
 
   let url = 'http://example.com/widget';
   let data = {
@@ -53,41 +52,125 @@ describe('MerkurResource clase', () => {
     html: '<div></div>'
   };
 
-  beforeEach(() => {
-    http = toMockedInstance(HttpAgent, {
-      get() {
-        return { body, headers: {}, params: data, status: 200, cached: true };
-      }
+  describe('default usage', () => {
+    beforeEach(() => {
+      http = toMockedInstance(HttpAgent, {
+        get() {
+          return { body, headers: {}, params: data, status: 200, cached: true };
+        }
+      });
+
+      merkurResource = new MerkurResource(http, toMockedInstance(Cache));
     });
-    cache = toMockedInstance(Cache);
-    merkurResource = new MerkurResource(http, cache);
+
+    it('should throw error for undefined data', async () => {
+      await expect(merkurResource.get()).rejects.toThrow(
+        "Cannot read property 'containerSelector' of undefined"
+      );
+    });
+
+    it('should throw error for undefined containerSelector', async () => {
+      await expect(merkurResource.get(url, {})).rejects.toThrow(
+        'The containerSelector property must be set in data argument.'
+      );
+    });
+
+    it('should return response from widget API with containerSelector set to both props and widget', async () => {
+      let response = await merkurResource.get(url, data, options);
+
+      expect(response.body).toMatchSnapshot();
+      expect(response.body.containerSelector).toBe('.some-class');
+      expect(response.body.props.containerSelector).toBe('.some-class');
+    });
+
+    it('should add default options to widget API', async () => {
+      http.get = jest.fn();
+
+      await merkurResource.get(url, data, options);
+
+      expect(http.get).toHaveBeenCalledWith(
+        'http://example.com/widget',
+        {},
+        { cache: true, method: 'get', ttl: 60000 }
+      );
+    });
+
+    it('should remove containerSelector from data', async () => {
+      http.get = jest.fn();
+
+      await merkurResource.get(url, data, options);
+
+      expect(http.get).toHaveBeenCalledWith(
+        'http://example.com/widget',
+        {},
+        { cache: true, method: 'get', ttl: 60000 }
+      );
+    });
   });
 
-  it('should throw error for not defined containerSelector', async () => {
-    await expect(merkurResource.get()).rejects.toThrow(
-      "Cannot read property 'containerSelector' of undefined"
-    );
-  });
+  describe('slot usage', () => {
+    let slotData = {
+      ...data,
+      slots: {
+        headline: {
+          containerSelector: '.headline'
+        }
+      }
+    };
 
-  it('should return response from widget API with containerSelector', async () => {
-    let response = await merkurResource.get(url, data, options);
+    beforeEach(() => {
+      http = toMockedInstance(HttpAgent, {
+        get() {
+          return {
+            body: {
+              ...body,
+              slots: {
+                headline: {
+                  name: 'headline',
+                  html: '<div></div>'
+                }
+              }
+            },
+            headers: {},
+            params: data,
+            status: 200,
+            cached: true
+          };
+        }
+      });
 
-    expect(response.body).toMatchSnapshot();
-  });
+      merkurResource = new MerkurResource(http, toMockedInstance(Cache));
+    });
 
-  it('should add default options to widget API', async () => {
-    http.get = jest.fn();
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
 
-    await merkurResource.get(url, data, options);
+    it('should remove slots from request data', async () => {
+      http.get = jest.fn();
 
-    expect(http.get.mock.calls[0][2]).toMatchSnapshot();
-  });
+      await merkurResource.get(url, slotData, options);
 
-  it('should remove containerSelector from data', async () => {
-    http.get = jest.fn();
+      expect(http.get).toHaveBeenCalledWith(
+        'http://example.com/widget',
+        {},
+        { cache: true, method: 'get', ttl: 60000 }
+      );
+    });
 
-    await merkurResource.get(url, data, options);
+    it('should append container selectors to defined slots', async () => {
+      let resource = await merkurResource.get(url, slotData, options);
 
-    expect(http.get.mock.calls[0][1]).toMatchSnapshot();
+      expect(resource).toMatchSnapshot();
+      expect(resource.body.slots.headline.containerSelector).toBe('.headline');
+    });
+
+    it('should not do anything when slots are not used', async () => {
+      let resource = await merkurResource.get(url, data, options);
+
+      expect(resource.body.slots.headline.containerSelector).not.toBe(
+        '.headline'
+      );
+    });
   });
 });
