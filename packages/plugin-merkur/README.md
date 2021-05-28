@@ -45,17 +45,13 @@ class HomeController extends AbstractController {
       }
     };
 
-    const merkurWidget = this._merkurResource
+    const widgetProperties = this._merkurResource
       .get('http://localhost:4444/widget', data)
-      .then((response) => {
-        return {
-          widgetProperties: response.body
-        };
-      });
+      .then((response) => response.body);
 
 
     return {
-      merkurWidget
+      widgetProperties
     }
   }
 }
@@ -66,9 +62,11 @@ import { MerkurComponent } from '@merkur/integration-react';
 
 class HomeView extends React.Component {
   render() {
+    const { widgetProperties } = this.props;
+    
     return (
       <div>
-        <MerkurComponent {...this.props.merkurWidget}>
+        <MerkurComponent widgetProperties={widgetProperties}>
           <div>Loading phrase</div>
         </MerkurComponent>
       </div>
