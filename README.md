@@ -28,6 +28,7 @@ The IMA.js plugins is multi-package repository containing most commonly used plu
 - [**plugin-testing-integration**](packages/plugin-testing-integration)
 - [**plugin-websocket**](packages/plugin-websocket)
 - [**plugin-hot-reload**](packages/plugin-hot-reload)
+- [**plugin-merkur**](packages/plugin-merkur)
 
 ## Create new plugin from hygen template
 
