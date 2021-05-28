@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-merkur@2.0.1...@ima/plugin-merkur@2.1.0) (2021-05-28)
+
+
+### Features
+
+* support for merkur slots ([dcadae6](https://github.com/seznam/IMA.js-plugins/commit/dcadae625c7952fe5ef31b17608f8c278bc84f1b))
+
+
+
+
+
 ## [2.0.1](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-merkur@2.0.0...@ima/plugin-merkur@2.0.1) (2021-05-27)
 
 
