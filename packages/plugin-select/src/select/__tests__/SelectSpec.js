@@ -64,6 +64,8 @@ describe('plugin-select:', () => {
 
   beforeEach(() => {
     global.$Debug = true;
+
+    setCreatorOfStateSelector(createStateSelector);
   });
 
   afterEach(() => {
@@ -233,6 +235,19 @@ describe('plugin-select:', () => {
         context: componentContext,
         wrappingComponent: MockContextProvider
       });
+
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render component with changed props', () => {
+      let EnhancedComponent = select(selectorUsingProps)(Component);
+
+      wrapper = mount(React.createElement(EnhancedComponent, defaultProps), {
+        context: componentContext,
+        wrappingComponent: MockContextProvider
+      });
+
+      wrapper.setProps({ multiplier: 3 });
 
       expect(wrapper).toMatchSnapshot();
     });

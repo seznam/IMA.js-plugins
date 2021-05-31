@@ -43,18 +43,27 @@ export function useSelect(props, ...selectors) {
   const context = useContext(PageContext);
   const utils = context.$Utils || props.$Utils;
 
+  const currentProps = React.useRef(props);
+  currentProps.current = props;
+
   const stateSelector = useRef(creatorOfStateSelector(...selectors));
   const resolveNewState = useRef(() => {
     return stateSelector.current(
       utils.$PageStateManager.getState(),
       context,
-      props
+      currentProps.current
     );
   });
 
   const [state, setState] = useState(resolveNewState.current());
 
-  const afterChangeState = useRef(() => setState(resolveNewState.current()));
+  const afterChangeState = useRef(() => {
+    const newState = resolveNewState.current();
+
+    if (newState !== state) {
+      setState(newState);
+    }
+  });
 
   useEffect(() => {
     utils.$Dispatcher.listen(
@@ -70,7 +79,7 @@ export function useSelect(props, ...selectors) {
     };
   }, []);
 
-  return [state];
+  return [resolveNewState.current()];
 }
 
 export default function forwardedSelect(...selectors) {

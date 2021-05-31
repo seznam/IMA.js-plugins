@@ -60,6 +60,34 @@ exports[`plugin-select: select should render component 1`] = `
 </h1>
 `;
 
+exports[`plugin-select: select should render component with changed props 1`] = `
+<withContext(Component)
+  multiplier={3}
+  props="props"
+  settings={
+    Object {
+      "color": "red",
+    }
+  }
+>
+  <Component
+    height={180}
+    multiplier={3}
+    props="props"
+    settings={
+      Object {
+        "color": "red",
+      }
+    }
+    width={270}
+  >
+    <h1>
+      text
+    </h1>
+  </Component>
+</withContext(Component)>
+`;
+
 exports[`plugin-select: select should render component with extraProps 1`] = `
 <withContext(Component)
   multiplier={0.5}
