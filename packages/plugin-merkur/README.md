@@ -58,7 +58,7 @@ class HomeController extends AbstractController {
 
 // /app/page/home/HomeView
 import React from 'react';
-import { MerkurComponent } from '@merkur/integration-react';
+import { MerkurWidget } from '@merkur/integration-react';
 
 class HomeView extends React.Component {
   render() {
@@ -66,9 +66,9 @@ class HomeView extends React.Component {
     
     return (
       <div>
-        <MerkurComponent widgetProperties={widgetProperties}>
+        <MerkurWidget widgetProperties={widgetProperties}>
           <div>Loading phrase</div>
-        </MerkurComponent>
+        </MerkurWidget>
       </div>
     );
   }
