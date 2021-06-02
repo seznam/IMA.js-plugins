@@ -28,16 +28,20 @@ import select from '@ima/plugin-select';
 
 ```javascript
 // /app/config/bind.js
+import { ComponentUtils, PageStateManager, Dispatcher } from '@ima/core';
 import PageStateManager from 'ima/page/state/PageStateManager';
 import Dispatcher from 'ima/event/Dispatcher';
 
-//COMPONENT Utils
-oc.constant('$Utils', {
-  ...
-    $Dispatcher: oc.get(Dispatcher),
-    $PageStateManager: oc.get(PageStateManager)
-  ...
-});
+export default (ns, oc, settings) => { 
+	...
+	const componentUtils = oc.get(ComponentUtils);
+
+	ComponentUtils.register({
+    $PageStateManager: PageStateManager,
+    $Dispatcher: Dispatcher
+  });
+
+} 
 
 /*
 The select plugin use $PageStateManager for selecting extra props to your component.
