@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.2](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-select@3.1.1...@ima/plugin-select@3.1.2) (2021-06-02)
+
+
+### Bug Fixes
+
+* 🐛 resolve new selected state after new props is passed ([#48](https://github.com/seznam/IMA.js-plugins/issues/48)) ([53fc087](https://github.com/seznam/IMA.js-plugins/commit/53fc087e64aba904d28add03a5851e9ab31ba79b))
+
+
+
+
+
 ## [3.1.1](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-select@3.1.0...@ima/plugin-select@3.1.1) (2021-05-20)
 
 
