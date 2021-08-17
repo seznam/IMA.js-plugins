@@ -8,11 +8,13 @@
     "lint:fix": "npm run lint -- --fix",
     "doc": "lerna run doc",
     "audit": "lerna run audit",
-    "postinstall": "lerna bootstrap --no-ci",
     "precommit": "lint-staged",
     "release": "lerna version",
     "release:publish": "lerna publish from-package --yes"
   },
+  "workspaces": [
+    "./packages/*" 
+  ],
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/plugin-transform-modules-commonjs": "^7.10.4",
@@ -52,8 +54,8 @@
     "lerna": "^3.22.1",
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "rollup": "^2.23.0",
     "rollup-plugin-copy": "^3.3.0",
     "rollup-plugin-peer-deps-external": "^2.2.3",

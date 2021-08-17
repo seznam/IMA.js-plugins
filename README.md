@@ -5,6 +5,16 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/seznam/IMA.js-plugins/badge.svg)](https://snyk.io/test/github/seznam/IMA.js-plugins)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
+
+---
+**NOTE**
+
+npm6 users: the root postinstall npm script has been removed and have to be executed manually by `npx lerna bootstrap` after `npm install`
+npm7 users may notice shorter output from `npm install`, package dependecies are optimized using npm workspaces
+---
+
+## Release
+
 For release new version of packages use lerna. Use following script:
 
 `npm run release`

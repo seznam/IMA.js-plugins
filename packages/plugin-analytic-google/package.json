@@ -34,7 +34,7 @@
     "@ima/plugin-script-loader": "^2.0.1"
   },
   "peerDependencies": {
-    "@ima/plugin-script-loader": "1.x"
+    "@ima/plugin-script-loader": ">= 1.0.0"
   },
   "browserify": {
     "transform": [
