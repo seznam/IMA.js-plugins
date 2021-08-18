@@ -31,12 +31,6 @@ export default class MerkurResource {
    * @return {Promise<Response>} response
    */
   async get(url, data, options = {}) {
-    if (!data.containerSelector) {
-      throw new Error(
-        'The containerSelector property must be set in data argument.'
-      );
-    }
-
     let cloneData = Object.assign({}, data);
     const { containerSelector, slots = {} } = cloneData;
 
