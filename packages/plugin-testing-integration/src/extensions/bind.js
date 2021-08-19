@@ -1,4 +1,4 @@
-import { aop, hookName, createHook } from 'to-aop';
+import { aop, hookName, createHook } from '../aop';
 
 export default (ns, oc) => {
   const Router = oc.get('$Router').constructor;

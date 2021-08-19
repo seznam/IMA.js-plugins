@@ -49,7 +49,7 @@
     "globby": "^11.0.0",
     "jsdom": "^16.2.1",
     "messageformat": "^2.3.0",
-    "to-aop": "^0.3.5"
+    "to-aop": "^0.5.3"
   },
   "peerDependencies": {
     "@ima/core": "*"
