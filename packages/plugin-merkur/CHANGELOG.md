@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-merkur@2.1.0...@ima/plugin-merkur@2.1.1) (2021-08-19)
+
+
+### Bug Fixes
+
+* removed error check for containerSelector property ([dae1d90](https://github.com/seznam/IMA.js-plugins/commit/dae1d9086cbddee877e9455187bbdc8277edcf83))
+
+
+
+
+
 # [2.1.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-merkur@2.0.1...@ima/plugin-merkur@2.1.0) (2021-05-28)
 
 
