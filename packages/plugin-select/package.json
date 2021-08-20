@@ -35,12 +35,12 @@
     ]
   },
   "peerDependencies": {
-    "@ima/core": "17.x",
-    "react": "16.x"
+    "@ima/core": ">= 17.0.0",
+    "react": ">= 16.0.0"
   },
   "engines": {
     "node": ">=6",
-    "npm": ">=4 <7"
+    "npm": ">=4 <8"
   },
   "dependencies": {
     "hoist-non-react-statics": "^3.3.2",

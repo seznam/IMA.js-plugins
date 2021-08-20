@@ -30,7 +30,7 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@ima/core": "17.x"
+    "@ima/core": ">= 17.0.0"
   },
   "browserify": {
     "transform": [

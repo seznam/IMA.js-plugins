@@ -42,7 +42,7 @@ oc.bind('UserAgent', UserAgent);
 
 ```javascript
 // /app/config/bind.js
-oc.bind('Foo', ns.App.Foo, ['UserAgent');
+oc.bind('Foo', ns.App.Foo, ['UserAgent']);
 
 ```
 
