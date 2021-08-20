@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.6](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-testing-integration@2.0.5...@ima/plugin-testing-integration@2.0.6) (2021-08-20)
+
+
+### Bug Fixes
+
+* 🐛 clearImaApp now clears aop hooks properly ([#51](https://github.com/seznam/IMA.js-plugins/issues/51)) ([f238622](https://github.com/seznam/IMA.js-plugins/commit/f238622f6deb721c434bc97c4da31b6136ebd9e5))
+
+
+
+
+
 ## [2.0.5](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-testing-integration@2.0.4...@ima/plugin-testing-integration@2.0.5) (2021-03-22)
 
 
