@@ -63,18 +63,6 @@ describe('MerkurResource class', () => {
       merkurResource = new MerkurResource(http, toMockedInstance(Cache));
     });
 
-    it('should throw error for undefined data', async () => {
-      await expect(merkurResource.get()).rejects.toThrow(
-        "Cannot read property 'containerSelector' of undefined"
-      );
-    });
-
-    it('should throw error for undefined containerSelector', async () => {
-      await expect(merkurResource.get(url, {})).rejects.toThrow(
-        'The containerSelector property must be set in data argument.'
-      );
-    });
-
     it('should return response from widget API with containerSelector set to both props and widget', async () => {
       let response = await merkurResource.get(url, data, options);
 
