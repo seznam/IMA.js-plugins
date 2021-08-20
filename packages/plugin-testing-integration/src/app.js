@@ -8,6 +8,7 @@ import {
 import { vendors as imaVendors } from '@ima/core/build';
 import { assignRecursively } from '@ima/helpers';
 import { JSDOM } from 'jsdom';
+import { unAopAll } from './aop';
 import { requireFromProject, loadFiles } from './helpers';
 import { getConfig } from './configuration';
 import { getBootConfigExtensions } from './bootConfigExtensions';
@@ -29,6 +30,7 @@ function clearImaApp(app) {
   global.setTimeout = setTimeoutNative;
   global.setImmediate = setImmediateNative;
   timers.forEach(({ clear }) => clear());
+  unAopAll();
   vendorLinker.clear();
   app.oc.clear();
 }
