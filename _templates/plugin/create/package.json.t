@@ -7,11 +7,22 @@ to: packages/<%= h.changeCase.paramCase(name) %>/package.json
   "name": "@ima/<%= pluginName %>",
   "version": "<%= locals.version %>",
   "description": "<%= h.changeCase.sentenceCase(description) %>",
-  "main": "index.js",
+  "main": "dist/main",
+  "module": "dist/main",
+  "exports": {
+      "import": "./dist/main.mjs",
+      "require": "./dist/main.cjs"
+  },
+  "browser": {
+    "./dist/main.js": "./dist/main.es5.js",
+    "./dist/main.cjs": "./dist/main.es5.js",
+    "./dist/main.mjs": "./dist/main.mjs"
+  },
   "scripts": {
     "build": "echo \"Release process is supported only via lerna command. See README.md for more info.\"; exit 1",
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "lint": "../../node_modules/.bin/eslint './src/**/*.{js,jsx}' --fix",
+    "test:es:version": "../../node_modules/.bin/es-check es5 ./dist/index.es5.js && ../../node_modules/.bin/es-check --module es9 ./dist/index.mjs",
     "doc": "../../node_modules/.bin/gulp doc",
     "prepare": "../../node_modules/.bin/rollup -c"
   },

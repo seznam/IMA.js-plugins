@@ -1,9 +1,9 @@
-import common from '../../rollup.config.common';
+import {
+  createRollupESConfig,
+  createRollupES5Config
+} from '../../createRollupConfig';
 
-export default Object.assign({}, common, {
-  output: {
-    file: 'dist/main.js',
-    format: 'cjs',
-    exports: 'named'
-  }
-});
+let esConfig = createRollupESConfig();
+let es5Config = createRollupES5Config();
+
+export default [esConfig, es5Config];

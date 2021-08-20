@@ -3,6 +3,7 @@
   "scripts": {
     "commit": "git-cz",
     "test": "jest --coverage --no-watchman --config=jest.config.js",
+    "test:es:version": "lerna run test:es:version",
     "lint:cmd": "eslint -c ./.eslintrc.js --ignore-path ./.gitignore",
     "lint": "npm run lint:cmd -- './**/*.{js,jsx}'",
     "lint:fix": "npm run lint -- --fix",
@@ -18,6 +19,8 @@
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/plugin-transform-modules-commonjs": "^7.10.4",
+    "@babel/plugin-transform-runtime": "7.15.0",
+    "@babel/preset-env": "7.15.0",
     "@babel/preset-react": "^7.10.4",
     "@commitlint/cli": "^9.1.1",
     "@commitlint/config-conventional": "^9.1.1",
@@ -35,6 +38,7 @@
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.5.0",
+    "es-check": "6.0.0",
     "eslint": "^7.6.0",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-jasmine": "^4.1.1",
@@ -59,6 +63,7 @@
     "rollup": "^2.23.0",
     "rollup-plugin-copy": "^3.3.0",
     "rollup-plugin-peer-deps-external": "^2.2.3",
+    "rollup-plugin-terser": "7.0.2",
     "to-mock": "^1.6.2"
   },
   "commitlint": {

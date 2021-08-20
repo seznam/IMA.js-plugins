@@ -2,7 +2,25 @@
   "name": "@ima/plugin-less-constants",
   "version": "2.0.2",
   "description": "IMA.js plugin for sharing constants between JavaScript and LESS code.",
-  "main": "tasks/gulpTask.js",
+  "main": "tasks/gulpTask",
+  "module": "tasks/gulpTask",
+  "exports": {
+    ".": {
+      "import": "./tasks/gulpTask.js",
+      "require": "./tasks/gulpTask.js"
+    },
+    "./tasks/gulpTask.js": "./tasks/gulpTask.js",
+    "./constants": "./constants.js",
+    "./constants.js": "./constants.js",
+    "./map": "./map.js",
+    "./map.js": "./map.js",
+    "./media": "./media.js",
+    "./media.js": "./media.js",
+    "./units": "./units.js",
+    "./units.js": "./units.js",
+    "./util": "./util.js",
+    "./util.js": "./util.js"
+  },
   "scripts": {
     "build": "echo \"Release process is supported only via lerna command. See README.md for more info.\"; exit 1",
     "test": "echo \"WARN: no test specified\" && exit 0",

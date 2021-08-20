@@ -1,23 +1,28 @@
-import common from '../../rollup.config.common';
 import copy from 'rollup-plugin-copy';
 
-export default Object.assign({}, common, {
-  output: {
-    file: 'dist/main.js',
-    format: 'cjs',
-    exports: 'named'
-  },
-  plugins: [
-    copy({
-      targets: [
-        {
-          src: [
-            'src/locales/ima-plugin-self-xssCS.json',
-            'src/locales/ima-plugin-self-xssEN.json'
-          ],
-          dest: 'dist/locales'
-        }
-      ]
-    })
-  ]
-});
+import {
+  createRollupESConfig,
+  createRollupES5Config
+} from '../../createRollupConfig';
+
+let esConfig = createRollupESConfig();
+let es5Config = createRollupES5Config();
+
+let extendedPlugins = [
+  copy({
+    targets: [
+      {
+        src: [
+          'src/locales/ima-plugin-self-xssCS.json',
+          'src/locales/ima-plugin-self-xssEN.json'
+        ],
+        dest: 'dist/locales'
+      }
+    ]
+  })
+];
+
+esConfig.plugins.push(...extendedPlugins);
+es5Config.plugins.push(...extendedPlugins);
+
+export default [esConfig, es5Config];

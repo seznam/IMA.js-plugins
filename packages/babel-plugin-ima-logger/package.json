@@ -2,10 +2,21 @@
   "name": "babel-plugin-ima-logger",
   "version": "3.0.1",
   "description": "The babel pluging that removes @ima/plugin-logger from source code at compilation time.",
-  "main": "index.js",
+  "main": "dist/main",
+  "module": "dist/main",
+  "exports": {
+      "import": "./dist/main.mjs",
+      "require": "./dist/main.cjs"
+  },
+  "browser": {
+    "./dist/main.js": "./dist/main.es5.js",
+    "./dist/main.cjs": "./dist/main.es5.js",
+    "./dist/main.mjs": "./dist/main.mjs"
+  },
   "scripts": {
     "build": "echo \"Release process is supported only via lerna command. See README.md for more info.\"; exit 1",
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
+    "test:es:version": "../../node_modules/.bin/es-check es5 ./dist/main.es5.js && ../../node_modules/.bin/es-check --module es9 ./dist/main.mjs",
     "doc": "../../node_modules/.bin/gulp doc",
     "prepare": "../../node_modules/.bin/rollup -c"
   },
