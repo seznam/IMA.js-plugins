@@ -31,6 +31,8 @@ class HomeController extends AbstractController {
   }
 
   constructor(merkurResource) {
+    super();
+  
     this._merkurResource = merkurResource;
   }
 
