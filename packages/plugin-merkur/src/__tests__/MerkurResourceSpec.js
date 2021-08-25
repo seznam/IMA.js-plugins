@@ -173,4 +173,69 @@ describe('MerkurResource class', () => {
       );
     });
   });
+
+  describe('_removeHTMLFromCache()', () => {
+    let slotData = {
+      ...data,
+      slots: {
+        headline: {
+          containerSelector: '.headline'
+        }
+      }
+    };
+
+    beforeEach(() => {
+      merkurResource = new MerkurResource(
+        toMockedInstance(HttpAgent, {
+          getCacheKey() {
+            return 'cacheKey';
+          }
+        }),
+        toMockedInstance(Cache, {
+          has() {
+            return true;
+          },
+          set: jest.fn()
+        })
+      );
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
+
+    it('should clear html cache', () => {
+      merkurResource._cache.get = jest.fn(() => ({ body: { ...body } }));
+      merkurResource._removeHTMLFromCache('', '', '');
+
+      let bodyWithoutHtml = { ...body };
+      delete bodyWithoutHtml.html;
+
+      expect(merkurResource._cache.set).toHaveBeenCalledWith(
+        'cacheKey',
+        { body: bodyWithoutHtml },
+        undefined
+      );
+    });
+
+    it('should clear html cache for slots', () => {
+      let bodyWithSlots = {
+        ...body,
+        ...slotData
+      };
+
+      merkurResource._cache.get = jest.fn(() => ({ body: bodyWithSlots }));
+      merkurResource._removeHTMLFromCache('', '', '');
+
+      let bodyWithSlotsWithoutHtml = { ...body, ...slotData };
+      delete bodyWithSlotsWithoutHtml.html;
+      delete bodyWithSlotsWithoutHtml.slots.headline.html;
+
+      expect(merkurResource._cache.set).toHaveBeenCalledWith(
+        'cacheKey',
+        { body: bodyWithSlotsWithoutHtml },
+        undefined
+      );
+    });
+  });
 });

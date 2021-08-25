@@ -89,7 +89,18 @@ export default class MerkurResource {
       let cacheValue = this._cache.get(cacheKey);
 
       if ('html' in cacheValue.body) {
-        delete cacheValue.body['html'];
+        delete cacheValue.body.html;
+
+        if (
+          'slots' in cacheValue.body &&
+          Array.isArray(cacheValue.body.slots)
+        ) {
+          cacheValue.body.slots.forEach(slot => {
+            if ('html' in slot) {
+              delete slot.html;
+            }
+          });
+        }
 
         this._cache.set(cacheKey, cacheValue, options.ttl);
       }
