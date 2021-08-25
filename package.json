@@ -13,7 +13,7 @@
     "release:publish": "lerna publish from-package --yes"
   },
   "workspaces": [
-    "./packages/*"
+    "./packages/*" 
   ],
   "devDependencies": {
     "@babel/core": "^7.11.1",

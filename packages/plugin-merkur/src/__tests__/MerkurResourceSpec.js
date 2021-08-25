@@ -63,18 +63,6 @@ describe('MerkurResource class', () => {
       merkurResource = new MerkurResource(http, toMockedInstance(Cache));
     });
 
-    it('should throw error for undefined data', async () => {
-      await expect(merkurResource.get()).rejects.toThrow(
-        "Cannot read property 'containerSelector' of undefined"
-      );
-    });
-
-    it('should throw error for undefined containerSelector', async () => {
-      await expect(merkurResource.get(url, {})).rejects.toThrow(
-        'The containerSelector property must be set in data argument.'
-      );
-    });
-
     it('should return response from widget API with containerSelector set to both props and widget', async () => {
       let response = await merkurResource.get(url, data, options);
 
@@ -170,71 +158,6 @@ describe('MerkurResource class', () => {
 
       expect(resource.body.slots.headline.containerSelector).not.toBe(
         '.headline'
-      );
-    });
-  });
-
-  describe('_removeHTMLFromCache()', () => {
-    let slotData = {
-      ...data,
-      slots: {
-        headline: {
-          containerSelector: '.headline'
-        }
-      }
-    };
-
-    beforeEach(() => {
-      merkurResource = new MerkurResource(
-        toMockedInstance(HttpAgent, {
-          getCacheKey() {
-            return 'cacheKey';
-          }
-        }),
-        toMockedInstance(Cache, {
-          has() {
-            return true;
-          },
-          set: jest.fn()
-        })
-      );
-    });
-
-    afterEach(() => {
-      jest.clearAllMocks();
-    });
-
-    it('should clear html cache', () => {
-      merkurResource._cache.get = jest.fn(() => ({ body: { ...body } }));
-      merkurResource._removeHTMLFromCache('', '', '');
-
-      let bodyWithoutHtml = { ...body };
-      delete bodyWithoutHtml.html;
-
-      expect(merkurResource._cache.set).toHaveBeenCalledWith(
-        'cacheKey',
-        { body: bodyWithoutHtml },
-        undefined
-      );
-    });
-
-    it('should clear html cache for slots', () => {
-      let bodyWithSlots = {
-        ...body,
-        ...slotData
-      };
-
-      merkurResource._cache.get = jest.fn(() => ({ body: bodyWithSlots }));
-      merkurResource._removeHTMLFromCache('', '', '');
-
-      let bodyWithSlotsWithoutHtml = { ...body, ...slotData };
-      delete bodyWithSlotsWithoutHtml.html;
-      delete bodyWithSlotsWithoutHtml.slots.headline.html;
-
-      expect(merkurResource._cache.set).toHaveBeenCalledWith(
-        'cacheKey',
-        { body: bodyWithSlotsWithoutHtml },
-        undefined
       );
     });
   });
