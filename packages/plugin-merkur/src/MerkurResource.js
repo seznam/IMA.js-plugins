@@ -91,11 +91,8 @@ export default class MerkurResource {
       if ('html' in cacheValue.body) {
         delete cacheValue.body.html;
 
-        if (
-          'slots' in cacheValue.body &&
-          Array.isArray(cacheValue.body.slots)
-        ) {
-          cacheValue.body.slots.forEach(slot => {
+        if ('slots' in cacheValue.body) {
+          Object.values(cacheValue.body.slots).forEach(slot => {
             if ('html' in slot) {
               delete slot.html;
             }

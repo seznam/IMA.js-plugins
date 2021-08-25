@@ -175,14 +175,18 @@ describe('MerkurResource class', () => {
   });
 
   describe('_removeHTMLFromCache()', () => {
-    let slotData = {
-      ...data,
-      slots: {
-        headline: {
-          containerSelector: '.headline'
+    let slotData;
+
+    beforeEach(() => {
+      slotData = {
+        slots: {
+          headline: {
+            containerSelector: '.headline',
+            html: '<html></html>'
+          }
         }
-      }
-    };
+      };
+    });
 
     beforeEach(() => {
       merkurResource = new MerkurResource(
@@ -219,15 +223,30 @@ describe('MerkurResource class', () => {
     });
 
     it('should clear html cache for slots', () => {
-      let bodyWithSlots = {
-        ...body,
-        ...slotData
-      };
+      merkurResource._cache.get = jest.fn(() => ({
+        body: {
+          ...body,
+          slots: {
+            ...slotData.slots,
+            headline: {
+              ...slotData.slots.headline
+            }
+          }
+        }
+      }));
 
-      merkurResource._cache.get = jest.fn(() => ({ body: bodyWithSlots }));
       merkurResource._removeHTMLFromCache('', '', '');
 
-      let bodyWithSlotsWithoutHtml = { ...body, ...slotData };
+      let bodyWithSlotsWithoutHtml = {
+        ...body,
+        slots: {
+          ...slotData.slots,
+          headline: {
+            ...slotData.slots.headline
+          }
+        }
+      };
+
       delete bodyWithSlotsWithoutHtml.html;
       delete bodyWithSlotsWithoutHtml.slots.headline.html;
 
