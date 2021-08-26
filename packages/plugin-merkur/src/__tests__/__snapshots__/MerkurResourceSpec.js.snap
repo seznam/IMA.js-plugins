@@ -42,7 +42,7 @@ Object {
 }
 `;
 
-exports[`MerkurResource class slot usage should append container selectors to defined slots 1`] = `
+exports[`MerkurResource class slot usage should append container selectors to defined slot 1`] = `
 Object {
   "body": Object {
     "assets": Array [
@@ -78,7 +78,7 @@ Object {
     "props": Object {
       "containerSelector": ".some-class",
     },
-    "slots": Object {
+    "slot": Object {
       "headline": Object {
         "containerSelector": ".headline",
         "html": "<div></div>",
