@@ -111,7 +111,7 @@ describe('MerkurResource class', () => {
   describe('slot usage', () => {
     let slotData = {
       ...data,
-      slots: {
+      slot: {
         headline: {
           containerSelector: '.headline'
         }
@@ -124,7 +124,7 @@ describe('MerkurResource class', () => {
           return {
             body: {
               ...body,
-              slots: {
+              slot: {
                 headline: {
                   name: 'headline',
                   html: '<div></div>'
@@ -146,7 +146,7 @@ describe('MerkurResource class', () => {
       jest.clearAllMocks();
     });
 
-    it('should remove slots from request data', async () => {
+    it('should remove slot from request data', async () => {
       http.get = jest.fn();
 
       await merkurResource.get(url, slotData, options);
@@ -158,17 +158,17 @@ describe('MerkurResource class', () => {
       );
     });
 
-    it('should append container selectors to defined slots', async () => {
+    it('should append container selectors to defined slot', async () => {
       let resource = await merkurResource.get(url, slotData, options);
 
       expect(resource).toMatchSnapshot();
-      expect(resource.body.slots.headline.containerSelector).toBe('.headline');
+      expect(resource.body.slot.headline.containerSelector).toBe('.headline');
     });
 
-    it('should not do anything when slots are not used', async () => {
+    it('should not do anything when slot are not used', async () => {
       let resource = await merkurResource.get(url, data, options);
 
-      expect(resource.body.slots.headline.containerSelector).not.toBe(
+      expect(resource.body.slot.headline.containerSelector).not.toBe(
         '.headline'
       );
     });
@@ -179,7 +179,7 @@ describe('MerkurResource class', () => {
 
     beforeEach(() => {
       slotData = {
-        slots: {
+        slot: {
           headline: {
             containerSelector: '.headline',
             html: '<html></html>'
@@ -222,14 +222,14 @@ describe('MerkurResource class', () => {
       );
     });
 
-    it('should clear html cache for slots', () => {
+    it('should clear html cache for slot', () => {
       merkurResource._cache.get = jest.fn(() => ({
         body: {
           ...body,
-          slots: {
-            ...slotData.slots,
+          slot: {
+            ...slotData.slot,
             headline: {
-              ...slotData.slots.headline
+              ...slotData.slot.headline
             }
           }
         }
@@ -237,22 +237,22 @@ describe('MerkurResource class', () => {
 
       merkurResource._removeHTMLFromCache('', '', '');
 
-      let bodyWithSlotsWithoutHtml = {
+      let bodyWithslotWithoutHtml = {
         ...body,
-        slots: {
-          ...slotData.slots,
+        slot: {
+          ...slotData.slot,
           headline: {
-            ...slotData.slots.headline
+            ...slotData.slot.headline
           }
         }
       };
 
-      delete bodyWithSlotsWithoutHtml.html;
-      delete bodyWithSlotsWithoutHtml.slots.headline.html;
+      delete bodyWithslotWithoutHtml.html;
+      delete bodyWithslotWithoutHtml.slot.headline.html;
 
       expect(merkurResource._cache.set).toHaveBeenCalledWith(
         'cacheKey',
-        { body: bodyWithSlotsWithoutHtml },
+        { body: bodyWithslotWithoutHtml },
         undefined
       );
     });
