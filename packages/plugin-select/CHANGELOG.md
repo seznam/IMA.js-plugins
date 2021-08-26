@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-select@3.1.2...@ima/plugin-select@3.2.0) (2021-08-26)
+
+
+### Features
+
+* 🎸 add node16 and npm7 support ([#49](https://github.com/seznam/IMA.js-plugins/issues/49)) ([16fcc0e](https://github.com/seznam/IMA.js-plugins/commit/16fcc0eab73da5651171d110100e5a5ec9cbdcf1))
+
+
+
+
+
 ## [3.1.2](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-select@3.1.1...@ima/plugin-select@3.1.2) (2021-06-02)
 
 

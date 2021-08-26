@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-halson-rest-client@1.0.3...@ima/plugin-halson-rest-client@1.1.0) (2021-08-26)
+
+
+### Features
+
+* 🎸 add node16 and npm7 support ([#49](https://github.com/seznam/IMA.js-plugins/issues/49)) ([16fcc0e](https://github.com/seznam/IMA.js-plugins/commit/16fcc0eab73da5651171d110100e5a5ec9cbdcf1))
+
+
+
+
+
 ## [1.0.3](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-halson-rest-client@1.0.2...@ima/plugin-halson-rest-client@1.0.3) (2021-03-22)
 
 **Note:** Version bump only for package @ima/plugin-halson-rest-client
