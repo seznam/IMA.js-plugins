@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-merkur@2.2.0...@ima/plugin-merkur@3.0.0) (2021-08-27)
+
+
+### Bug Fixes
+
+* 🐛 Fixed slot cache deletion ([af25840](https://github.com/seznam/IMA.js-plugins/commit/af25840a21f952a0730ebebe581fb3a759d0cf11))
+
+
+### BREAKING CHANGES
+
+* 🧨 Renamed slots in data param in get method to slot
+
+
+
+
+
 # [2.2.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-merkur@2.1.1...@ima/plugin-merkur@2.2.0) (2021-08-26)
 
 
