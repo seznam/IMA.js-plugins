@@ -32,15 +32,15 @@ class HomeController extends AbstractController {
 
   constructor(merkurResource) {
     super();
-  
+
     this._merkurResource = merkurResource;
   }
 
   load() {
     const data = {
       containerSelector: '.widget__container',
-      // When using merkur slots
-      slots: {
+      // When using merkur slot
+      slot: {
         headline: {
           containerSelector: '.widget__headline-slot'
         }
@@ -65,7 +65,7 @@ import { MerkurWidget } from '@merkur/integration-react';
 class HomeView extends React.Component {
   render() {
     const { widgetProperties } = this.props;
-    
+
     return (
       <div>
         <MerkurWidget widgetProperties={widgetProperties}>

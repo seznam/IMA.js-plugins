@@ -38,10 +38,10 @@ export default class MerkurResource {
     }
 
     let cloneData = Object.assign({}, data);
-    const { containerSelector, slots = {} } = cloneData;
+    const { containerSelector, slot = {} } = cloneData;
 
     delete cloneData.containerSelector;
-    delete cloneData.slots;
+    delete cloneData.slot;
 
     options = this._addDefaultRequestOptions(options);
     const response = await this._http[options.method](url, cloneData, options);
@@ -56,11 +56,11 @@ export default class MerkurResource {
         response.body.props.containerSelector = containerSelector;
       }
 
-      if (Object.keys(slots).length > 0 && response.body.slots) {
-        Object.keys(slots).forEach(slotName => {
-          if (response.body.slots[slotName]) {
-            response.body.slots[slotName].containerSelector =
-              slots[slotName].containerSelector;
+      if (Object.keys(slot).length > 0 && response.body.slot) {
+        Object.keys(slot).forEach(slotName => {
+          if (response.body.slot[slotName]) {
+            response.body.slot[slotName].containerSelector =
+              slot[slotName].containerSelector;
           }
         });
       }
@@ -91,11 +91,8 @@ export default class MerkurResource {
       if ('html' in cacheValue.body) {
         delete cacheValue.body.html;
 
-        if (
-          'slots' in cacheValue.body &&
-          Array.isArray(cacheValue.body.slots)
-        ) {
-          cacheValue.body.slots.forEach(slot => {
+        if ('slot' in cacheValue.body) {
+          Object.values(cacheValue.body.slot).forEach(slot => {
             if ('html' in slot) {
               delete slot.html;
             }
