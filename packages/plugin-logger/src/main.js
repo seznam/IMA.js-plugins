@@ -1,7 +1,3 @@
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
 /**
  * A configuration.
  * @typedef {Object} Configuration
@@ -261,19 +257,21 @@ let $registerImaPlugin = ns => {
   ns.namespace('plugin.logger');
 };
 
-exports.$registerImaPlugin = $registerImaPlugin;
-exports.configureLogger = configureLogger;
-exports.beSilent = beSilent;
-exports.isSilent = isSilent;
-exports.log = log;
-exports.info = info;
-exports.warn = warn;
-exports.error = error;
-exports.debug = debug;
-exports.logIf = logIf;
-exports.infoIf = infoIf;
-exports.warnIf = warnIf;
-exports.errorIf = errorIf;
-exports.debugIf = debugIf;
-exports.throwIf = throwIf;
-exports.rejectIf = rejectIf;
+export {
+  $registerImaPlugin,
+  configureLogger,
+  beSilent,
+  isSilent,
+  log,
+  info,
+  warn,
+  error,
+  debug,
+  logIf,
+  infoIf,
+  warnIf,
+  errorIf,
+  debugIf,
+  throwIf,
+  rejectIf
+};
