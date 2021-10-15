@@ -65,7 +65,7 @@ describe('MerkurResource class', () => {
 
     it('should throw error for undefined data', async () => {
       await expect(merkurResource.get()).rejects.toThrow(
-        "Cannot read property 'containerSelector' of undefined"
+        "Cannot read properties of undefined (reading 'containerSelector')"
       );
     });
 

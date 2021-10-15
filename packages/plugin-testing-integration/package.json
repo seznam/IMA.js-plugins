@@ -37,7 +37,7 @@
   "license": "MIT",
   "engines": {
     "node": ">=6",
-    "npm": ">=4 <8"
+    "npm": ">=4 <9"
   },
   "browserify": {
     "transform": [

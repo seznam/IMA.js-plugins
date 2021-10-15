@@ -1,6 +1,7 @@
 {
   "version": "1.0.0",
   "scripts": {
+    "postinstall": "if ! $CI; then lerna run prepare; fi",
     "commit": "git-cz",
     "test": "jest --coverage --no-watchman --config=jest.config.js",
     "lint:cmd": "eslint -c ./.eslintrc.js --ignore-path ./.gitignore",
