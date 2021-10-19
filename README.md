@@ -9,8 +9,9 @@
 ---
 **NOTE**
 
-npm6 users: the root postinstall npm script has been removed and have to be executed manually by `npx lerna bootstrap` after `npm install`
-npm7 users may notice shorter output from `npm install`, package dependecies are optimized using npm workspaces
+The root postinstall `lerna bootstrap` has been replaced for non-CI cases by `lerna run prepare`. This should cover all use-cases in both `npm <= 6` and `npm >= 7` versions.
+
+In `npm >= 7` there  is [npm workspace bug](https://github.com/npm/cli/issues/3840): the build of all monorepo packages (included in `lerna bootstrap` command) should be run by root `npm install` but it does not accept the per-package `prepare` scripts yet.
 ---
 
 ## Release
