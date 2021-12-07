@@ -23,7 +23,7 @@ var vendors = {
 /*
 Now is script loader plugin available as:
 
-import { ScriptLoaderPlugin, events, defaultDependencies } from '@ima/plugin-script-loader';
+import { ScriptLoaderPlugin, Events, defaultDependencies } from '@ima/plugin-script-loader';
 */
 
 ```
@@ -32,7 +32,7 @@ import { ScriptLoaderPlugin, events, defaultDependencies } from '@ima/plugin-scr
 
 ```javascript
 import Dispatcher from 'ima/event/Dispatcher';
-import { ScriptLoaderPlugin, events as ScriptLoaderEvents } from '@ima/plugin-script-loader';
+import { ScriptLoaderPlugin, Events as ScriptLoaderEvents } from '@ima/plugin-script-loader';
 
 oc
 	.get(ScriptLoaderPlugin)
