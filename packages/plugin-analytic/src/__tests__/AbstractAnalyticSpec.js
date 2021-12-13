@@ -37,6 +37,24 @@ describe('AbstractAnalytic', () => {
   });
 
   describe('init() method', () => {
+    it('should not call abstracted `_applyPurposeConsents` method, when no purposeConsents is in initConfig argument', () => {
+      spyOn(abstractAnalytic, '_applyPurposeConsents').and.stub();
+      spyOn(abstractAnalytic, '_createGlobalDefinition').and.stub();
+      const initConfig = {};
+
+      abstractAnalytic.init(initConfig);
+      expect(abstractAnalytic._applyPurposeConsents).not.toHaveBeenCalled();
+    });
+    it('should call abstracted `_applyPurposeConsents` method.', () => {
+      spyOn(abstractAnalytic, '_applyPurposeConsents').and.stub();
+      spyOn(abstractAnalytic, '_createGlobalDefinition').and.stub();
+      const initConfig = { purposeConsents: { 1: true } };
+
+      abstractAnalytic.init(initConfig);
+      expect(abstractAnalytic._applyPurposeConsents).toHaveBeenCalledWith(
+        initConfig.purposeConsents
+      );
+    });
     it('should call abstracted `_createGlobalDefinition` method.', () => {
       spyOn(abstractAnalytic, '_createGlobalDefinition').and.stub();
 
