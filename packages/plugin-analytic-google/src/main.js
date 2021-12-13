@@ -1,3 +1,5 @@
+import uid from 'easy-uid';
+
 import GoogleAnalytic from './GoogleAnalytic.js';
 
 const defaultDependencies = GoogleAnalytic.$dependencies;
@@ -11,7 +13,15 @@ let initSettings = () => {
         analytic: {
           google: {
             service: 'UA-XXXXXXX-X',
-            settings: {}
+            settings: {
+              clientId: uid(),
+              storage: 'none'
+            },
+            settingsSetter: {
+              allowAdFeatures: false,
+              anonymizeIp: true,
+              allowAdPersonalizationSignals: false
+            }
           }
         }
       }
