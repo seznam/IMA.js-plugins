@@ -83,10 +83,16 @@ export default class AbstractAnalytic {
    * Initialization analytic.
    *
    * @method init
+   * @param {Object<string, *>} initConfig
+   * @param {Object<string, *>} initConfig.purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
    */
-  init() {
+  init(initConfig) {
     if (!this.isEnabled() && this._window.isClient()) {
       const window = this._window.getWindow();
+
+      if (initConfig && initConfig.purposeConsents) {
+        this._applyPurposeConsents(initConfig.purposeConsents);
+      }
       this._createGlobalDefinition(window);
       this._fireLifecycleEvent(AnalyticEvents.INITIALIZED);
     }
@@ -120,6 +126,18 @@ export default class AbstractAnalytic {
     }
 
     return Promise.resolve(false);
+  }
+
+  /**
+   * Applies Purpose Consents to respect GDPR, see https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework
+   *
+   * @abstract
+   * @param {Object<string, *>} purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
+   */
+  _applyPurposeConsents() {
+    throw new Error(
+      'The applyPurposeConsents() method is abstract and must be overridden.'
+    );
   }
 
   /**
