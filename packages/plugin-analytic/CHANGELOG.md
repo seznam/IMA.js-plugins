@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.1.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-analytic@4.0.2...@ima/plugin-analytic@4.1.0) (2021-12-13)
+
+
+### Features
+
+* 🎸 you can pass purposeConsents into init method (GDPR) ([#59](https://github.com/seznam/IMA.js-plugins/issues/59)) ([d5e5193](https://github.com/seznam/IMA.js-plugins/commit/d5e5193405186a4856e398e53677ff62cb81cd3a))
+
+
+
+
+
 ## [4.0.2](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-analytic@4.0.1...@ima/plugin-analytic@4.0.2) (2021-08-26)
 
 **Note:** Version bump only for package @ima/plugin-analytic

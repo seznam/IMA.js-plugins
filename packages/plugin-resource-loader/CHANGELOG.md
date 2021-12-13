@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-resource-loader@2.1.0...@ima/plugin-resource-loader@2.2.0) (2021-12-13)
+
+
+### Features
+
+* 🎸 add npm 8 support ([#57](https://github.com/seznam/IMA.js-plugins/issues/57)) ([e671a3f](https://github.com/seznam/IMA.js-plugins/commit/e671a3fb8d87c39c2da43339782fdca4bf78375d))
+
+
+
+
+
 # [2.1.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-resource-loader@2.0.1...@ima/plugin-resource-loader@2.1.0) (2021-08-26)
 
 

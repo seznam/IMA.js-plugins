@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-analytic-google@4.1.0...@ima/plugin-analytic-google@5.0.0) (2021-12-13)
+
+
+### Features
+
+* 🎸 respects GDPR - purpose 1 ([#58](https://github.com/seznam/IMA.js-plugins/issues/58)) ([d792e91](https://github.com/seznam/IMA.js-plugins/commit/d792e91323184aa18d734131955c1ea8787afab2))
+
+
+### BREAKING CHANGES
+
+* 🧨 tracking is disabled by default, use purposeConsents in initConfig
+object to set users consents
+
+
+
+
+
 # [4.1.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-analytic-google@4.0.2...@ima/plugin-analytic-google@4.1.0) (2021-08-26)
 
 
