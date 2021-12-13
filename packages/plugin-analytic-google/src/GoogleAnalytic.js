@@ -73,18 +73,34 @@ export default class GoogleAnalytic extends AbstractAnalytic {
 
     const clientWindow = this._window.getWindow();
 
-    if (customDimensions) {
-      if (typeof customDimensions === 'object') {
-        Object.entries(customDimensions).forEach(([key, value]) => {
-          clientWindow.ga('set', key, value);
-        });
-      }
+    if (customDimensions && typeof customDimensions === 'object') {
+      this._setSetter(customDimensions);
     }
 
-    clientWindow.ga('set', 'page', pageData.path);
-    clientWindow.ga('set', 'location', this._window.getUrl());
-    clientWindow.ga('set', 'title', document.title || '');
+    this._setSetter({
+      page: pageData.path,
+      location: this._window.getUrl(),
+      title: document.title || ''
+    });
+
     clientWindow.ga('send', 'pageview');
+  }
+
+  /**
+   * @override
+   * @inheritdoc
+   */
+  _applyPurposeConsents(purposeConsents) {
+    if (purposeConsents && typeof purposeConsents === 'object') {
+      if (purposeConsents['1']) {
+        delete this._config.settings['clientId'];
+        delete this._config.settings['storage'];
+      }
+      // TODO: respect other purposes
+      // delete this._config.settingsSetter['allowAdFeatures'];
+      // delete this._config.settingsSetter['anonymizeIp'];
+      // delete this._config.settingsSetter['allowAdPersonalizationSignals'];
+    }
   }
 
   /**
@@ -97,7 +113,7 @@ export default class GoogleAnalytic extends AbstractAnalytic {
     if (
       this.isEnabled() ||
       !clientWindow.ga ||
-      typeof this._window.getWindow().ga !== 'function'
+      typeof clientWindow.ga !== 'function'
     ) {
       return;
     }
@@ -109,6 +125,18 @@ export default class GoogleAnalytic extends AbstractAnalytic {
       'auto',
       this._config.settings
     );
+
+    this._setSetter(this._config.settingsSetter);
+  }
+
+  _setSetter(settings) {
+    const clientWindow = this._window.getWindow();
+
+    if (settings && typeof settings === 'object') {
+      Object.entries(settings).forEach(([key, value]) => {
+        clientWindow.ga('set', key, value);
+      });
+    }
   }
 
   /**
@@ -116,7 +144,8 @@ export default class GoogleAnalytic extends AbstractAnalytic {
    * @inheritdoc
    */
   _createGlobalDefinition() {
-    let window = this._window.getWindow();
+    const window = this._window.getWindow();
+
     window[GA_ROOT_VARIABLE] =
       window[GA_ROOT_VARIABLE] ||
       function () {
