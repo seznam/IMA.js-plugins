@@ -77,13 +77,17 @@ export default class GoogleAnalytic extends AbstractAnalytic {
       this._setSetter(customDimensions);
     }
 
-    this._setSetter({
+    this._setSetter(this._getPageViewData(pageData));
+
+    clientWindow.ga('send', 'pageview');
+  }
+
+  _getPageViewData(pageData) {
+    return {
       page: pageData.path,
       location: this._window.getUrl(),
       title: document.title || ''
-    });
-
-    clientWindow.ga('send', 'pageview');
+    };
   }
 
   /**
