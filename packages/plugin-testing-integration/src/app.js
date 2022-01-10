@@ -14,9 +14,9 @@ import { getConfig } from './configuration';
 import { getBootConfigExtensions } from './bootConfigExtensions';
 import { generateDictionary } from './localization';
 
-const setIntervalNative = setInterval;
-const setTimeoutNative = setTimeout;
-const setImmediateNative = setImmediate;
+const setIntervalNative = global.setInterval;
+const setTimeoutNative = global.setTimeout;
+const setImmediateNative = global.setImmediate;
 
 let projectDependenciesLoaded = false;
 let timers = [];
@@ -125,21 +125,21 @@ async function initImaApp(bootConfigMethods = {}) {
     global.setInterval = (...args) => {
       let timer = setIntervalNative(...args);
 
-      timers.push({ timer, clear: () => clearInterval(timer) });
+      timers.push({ timer, clear: () => global.clearInterval(timer) });
 
       return timer;
     };
     global.setTimeout = (...args) => {
       let timer = setTimeoutNative(...args);
 
-      timers.push({ timer, clear: () => clearTimeout(timer) });
+      timers.push({ timer, clear: () => global.clearTimeout(timer) });
 
       return timer;
     };
     global.setImmediate = (...args) => {
       let timer = setImmediateNative(...args);
 
-      timers.push({ timer, clear: () => clearImmediate(timer) });
+      timers.push({ timer, clear: () => global.clearImmediate(timer) });
 
       return timer;
     };
