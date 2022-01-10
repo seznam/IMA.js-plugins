@@ -1,14 +1,14 @@
-import { useComponent } from './component';
-import { useComponentUtils } from './componentUtils';
-import { useCssClasses } from './cssClasses';
-import { useDispatcher } from './dispatcher';
-import { useLink } from './link';
-import { useLocalize } from './localize';
-import { useOnce } from './once';
-import { usePageContext } from './pageContext';
-import { useSettings } from './settings';
-import { useSSR } from './ssr';
-import { useWindowEvent } from './windowEvent';
+import { useComponent } from './hooks/component';
+import { useComponentUtils } from './hooks/componentUtils';
+import { useCssClasses } from './hooks/cssClasses';
+import { useDispatcher } from './hooks/dispatcher';
+import { useLink } from './hooks/link';
+import { useLocalize } from './hooks/localize';
+import { useOnce } from './hooks/once';
+import { usePageContext } from './hooks/pageContext';
+import { useSettings } from './hooks/settings';
+import { useSSR } from './hooks/ssr';
+import { useWindowEvent } from './hooks/windowEvent';
 
 export {
   useComponent,

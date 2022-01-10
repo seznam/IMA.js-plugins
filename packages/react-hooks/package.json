@@ -30,11 +30,6 @@
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
   "license": "MIT",
-  "dependencies": {
-    "@ima/plugin-analytic": "^4.1.0",
-    "@ima/plugin-script-loader": "^2.2.0",
-    "easy-uid": "^1.0.2"
-  },
   "peerDependencies": {
     "@ima/core": ">=17.x",
     "react": ">=16.x"
