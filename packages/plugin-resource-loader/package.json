@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-resource-loader",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Seznam IMA.js plugin for loading web resources",
   "main": "index.js",
   "scripts": {

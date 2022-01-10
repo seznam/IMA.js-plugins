@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-script-loader",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Seznam IMA.js plugin for loading script",
   "main": "index.js",
   "scripts": {
@@ -29,7 +29,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@ima/plugin-resource-loader": "^2.2.0"
+    "@ima/plugin-resource-loader": "^2.2.1"
   },
   "engines": {
     "node": ">=6",

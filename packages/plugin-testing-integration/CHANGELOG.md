@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.2.1](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-testing-integration@2.2.0...@ima/plugin-testing-integration@2.2.1) (2022-01-10)
+
+
+### Bug Fixes
+
+* 🐛 dont crash if setImmediate is not defined globally ([356f5d6](https://github.com/seznam/IMA.js-plugins/commit/356f5d6a71a64dacff92bab0502d417080f1ae69))
+
+
+
+
+
 # [2.2.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-testing-integration@2.1.0...@ima/plugin-testing-integration@2.2.0) (2021-12-13)
 
 
