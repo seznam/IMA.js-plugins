@@ -13,5 +13,3 @@ jest.config.js
 preprocess.js
 jestSetupFile.js
 npm-debug.log
-README.md
-LICENSE.md

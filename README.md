@@ -25,12 +25,14 @@ The IMA.js plugins is multi-package repository containing most commonly used plu
 - [**plugin-analytic**](packages/plugin-analytic)
 - [**plugin-analytic-fb-pixel**](packages/plugin-analytic-fb-pixel)
 - [**plugin-analytic-google**](packages/plugin-analytic-google)
+- [**plugin-halson-rest-client**](packages/plugin-halson-rest-client)
 - [**plugin-less-constants**](packages/plugin-less-constants)
 - [**plugin-logger**](packages/plugin-logger)
 - [**plugin-resource-loader**](packages/plugin-resource-loader)
 - [**plugin-rest-client**](packages/plugin-rest-client)
 - [**plugin-script-loader**](packages/plugin-script-loader)
 - [**plugin-shared-cache**](packages/plugin-shared-cache)
+- [**plugin-managed-component**](packages/plugin-managed-component)
 - [**plugin-select**](packages/plugin-select)
 - [**plugin-self-xss**](packages/plugin-self-xss)
 - [**plugin-style-loader**](packages/plugin-style-loader)
@@ -41,6 +43,7 @@ The IMA.js plugins is multi-package repository containing most commonly used plu
 - [**plugin-websocket**](packages/plugin-websocket)
 - [**plugin-hot-reload**](packages/plugin-hot-reload)
 - [**plugin-merkur**](packages/plugin-merkur)
+- [**react-hooks**](packages/react-hooks)
 
 ## Create new plugin from hygen template
 
