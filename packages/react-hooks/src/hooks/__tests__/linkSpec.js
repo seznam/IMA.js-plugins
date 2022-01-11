@@ -16,7 +16,7 @@ describe('useLink', () => {
       result = useLink();
     }, contextMock);
 
-    expect(result).toBeInstanceOf(Function);
+    expect(typeof result === 'function').toBe(true);
     expect(result()).toBe('$Router.link() function');
   });
 });
