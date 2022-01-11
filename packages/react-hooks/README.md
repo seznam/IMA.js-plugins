@@ -43,7 +43,7 @@ Base hook you can use to initialize your component.
 Returns object, which gives you access to the same features you would
 get in your class component (`AbstractComponent`):
  * **Utility methods**: `cssClasses`, `localize`, `link`, `fire`, `listen`, `unlisten`.
- * **Objects**: `utils` (=== ComponentUtils), `currentAbTest`, `urlParams`.
+ * **Objects**: `utils` (=== ComponentUtils).
 
 `@example`
 ```javascript

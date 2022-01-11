@@ -8,13 +8,12 @@ import { usePageContext } from './pageContext';
  * Returns object, which gives you access to the same features you would
  * get in your class component:
  *  - Utility methods: cssClasses, localize, link, fire, listen, unlisten.
- *  - Objects: utils (=== ComponentUtils), urlParams.
+ *  - Objects: utils (=== ComponentUtils).
  *
  * @example
  * const { utils, cssClasses } = useComponent();
  *
  * @returns {{
- * 	urlParams: Object<string, unknown>,
  * 	utils: Object<string, Object>
  * 	cssClasses: function(...(string|Object<string, boolean>|[string])): string
  * 	localize: function(string, ?object)
@@ -25,9 +24,9 @@ import { usePageContext } from './pageContext';
  * }} object containing context data and utility methods.
  */
 function useComponent() {
-  const { urlParams, $Utils } = usePageContext();
+  const { $Utils } = usePageContext();
 
-  const memoizedUtils = useMemo(
+  return useMemo(
     () => ({
       utils: $Utils,
       cssClasses: (...params) => $Utils.$CssClasses(...params),
@@ -39,11 +38,6 @@ function useComponent() {
     }),
     [$Utils]
   );
-
-  return {
-    urlParams,
-    ...memoizedUtils
-  };
 }
 
 export { useComponent };
