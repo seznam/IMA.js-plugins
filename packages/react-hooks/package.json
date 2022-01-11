@@ -1,6 +1,6 @@
 {
   "name": "@ima/react-hooks",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Collection of React hooks for use in IMA.js applications",
   "main": "index.js",
   "scripts": {

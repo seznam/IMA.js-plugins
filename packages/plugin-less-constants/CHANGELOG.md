@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.4](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-less-constants@2.0.3...@ima/plugin-less-constants@2.0.4) (2022-01-11)
+
+**Note:** Version bump only for package @ima/plugin-less-constants
+
+
+
+
+
 ## [2.0.3](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-less-constants@2.0.2...@ima/plugin-less-constants@2.0.3) (2022-01-10)
 
 **Note:** Version bump only for package @ima/plugin-less-constants
