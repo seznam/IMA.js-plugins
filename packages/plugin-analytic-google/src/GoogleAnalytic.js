@@ -83,20 +83,6 @@ export default class GoogleAnalytic extends AbstractAnalytic {
   }
 
   /**
-   * Returns page view data derived from pageData param.
-   *
-   * @param {Object<string, *>} pageData
-   * @return {Object<string, *>} pageViewData
-   */
-  _getPageViewData(pageData) {
-    return {
-      page: pageData.path,
-      location: this._window.getUrl(),
-      title: document.title || ''
-    };
-  }
-
-  /**
    * @override
    * @inheritdoc
    */
@@ -137,6 +123,20 @@ export default class GoogleAnalytic extends AbstractAnalytic {
     );
 
     this._setSetter(this._config.settingsSetter);
+  }
+
+  /**
+   * Returns page view data derived from pageData param.
+   *
+   * @param {Object<string, *>} pageData
+   * @return {Object<string, *>} pageViewData
+   */
+  _getPageViewData(pageData) {
+    return {
+      page: pageData.path,
+      location: this._window.getUrl(),
+      title: document.title || ''
+    };
   }
 
   _setSetter(settings) {
