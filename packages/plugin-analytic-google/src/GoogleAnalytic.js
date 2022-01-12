@@ -82,6 +82,12 @@ export default class GoogleAnalytic extends AbstractAnalytic {
     clientWindow.ga('send', 'pageview');
   }
 
+  /**
+   * Returns page view data derived from pageData param.
+   *
+   * @param {Object<string, *>} pageData
+   * @return {Object<string, *>} pageViewData
+   */
   _getPageViewData(pageData) {
     return {
       page: pageData.path,
