@@ -77,11 +77,7 @@ export default class GoogleAnalytic extends AbstractAnalytic {
       this._setSetter(customDimensions);
     }
 
-    this._setSetter({
-      page: pageData.path,
-      location: this._window.getUrl(),
-      title: document.title || ''
-    });
+    this._setSetter(this._getPageViewData(pageData));
 
     clientWindow.ga('send', 'pageview');
   }
@@ -127,6 +123,20 @@ export default class GoogleAnalytic extends AbstractAnalytic {
     );
 
     this._setSetter(this._config.settingsSetter);
+  }
+
+  /**
+   * Returns page view data derived from pageData param.
+   *
+   * @param {Object<string, *>} pageData
+   * @return {Object<string, *>} pageViewData
+   */
+  _getPageViewData(pageData) {
+    return {
+      page: pageData.path,
+      location: this._window.getUrl(),
+      title: document.title || ''
+    };
   }
 
   _setSetter(settings) {
