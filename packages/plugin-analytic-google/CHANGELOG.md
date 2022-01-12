@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-analytic-google@5.0.2...@ima/plugin-analytic-google@5.1.0) (2022-01-12)
+
+
+### Features
+
+* 🎸 new _getPageViewData method for better override ([d700df2](https://github.com/seznam/IMA.js-plugins/commit/d700df21bd982b94e93f62ed40114e458d43a3bf))
+* 🎸 new _getPageViewData method for better override ([9a30328](https://github.com/seznam/IMA.js-plugins/commit/9a303281af56830a7489f31bcbaf0b1de41e0349))
+
+
+
+
+
 ## [5.0.2](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-analytic-google@5.0.1...@ima/plugin-analytic-google@5.0.2) (2022-01-11)
 
 **Note:** Version bump only for package @ima/plugin-analytic-google
