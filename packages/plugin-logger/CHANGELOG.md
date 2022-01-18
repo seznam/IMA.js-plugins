@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [4.0.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-logger@3.0.3...@ima/plugin-logger@4.0.0) (2022-01-18)
+
+
+### Code Refactoring
+
+* 💡 change module.exports to ES module export ([7b24325](https://github.com/seznam/IMA.js-plugins/commit/7b24325dc1675e6161812f137b613e724e6c99e2))
+
+
+### BREAKING CHANGES
+
+* 🧨 The module file is transformed from ES module to commonjs only from
+rollup's build.
+
+
+
+
+
 ## [3.0.3](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-logger@3.0.2...@ima/plugin-logger@3.0.3) (2022-01-11)
 
 **Note:** Version bump only for package @ima/plugin-logger
