@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/seznam/IMA.js-plugins/compare/@ima/react-hooks@1.1.0...@ima/react-hooks@1.1.1) (2022-02-09)
+
+
+### Performance Improvements
+
+* ⚡️ Memoize useSettings hook ([728dbbe](https://github.com/seznam/IMA.js-plugins/commit/728dbbe0fb8a7c63f60f8284d6fd02ea2b295398))
+
+
+
+
+
 # 1.1.0 (2022-01-11)
 
 
