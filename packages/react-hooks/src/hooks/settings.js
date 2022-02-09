@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useComponentUtils } from './componentUtils';
 
 /**
@@ -18,23 +19,25 @@ import { useComponentUtils } from './componentUtils';
 function useSettings(selector) {
   const { $Settings } = useComponentUtils();
 
-  if (selector) {
-    let segment;
-    let curSettings = $Settings;
-    const segments = selector.split('.');
+  return useMemo(() => {
+    if (selector) {
+      let segment;
+      let curSettings = $Settings;
+      const segments = selector.split('.');
 
-    while ((segment = segments.shift())) {
-      if (!(segment in curSettings)) {
-        return {};
+      while ((segment = segments.shift())) {
+        if (!(segment in curSettings)) {
+          return {};
+        }
+
+        curSettings = curSettings[segment];
       }
 
-      curSettings = curSettings[segment];
+      return curSettings;
     }
 
-    return curSettings;
-  }
-
-  return $Settings;
+    return $Settings;
+  }, [$Settings]);
 }
 
 export { useSettings };
