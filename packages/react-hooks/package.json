@@ -31,7 +31,6 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@ima/core": ">=17.x",
     "react": ">=16.8"
   },
   "browserify": {
