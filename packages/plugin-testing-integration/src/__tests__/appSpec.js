@@ -1,8 +1,9 @@
 jest.mock('@ima/core/build');
 jest.mock('@ima/core');
 
+// @FIXME Update import from @ima/cli once it exports resolveImaConfig function
+import * as imaCliUtils from '@ima/cli/dist/webpack/utils';
 import * as ima from '@ima/core';
-import * as build from '@ima/core/build';
 import * as helpers from '../helpers';
 import * as localization from '../localization';
 import * as configuration from '../configuration';
@@ -24,7 +25,6 @@ describe('Integration', () => {
       }
     };
     const config = {
-      appBuildPath: 'appBuildPath',
       appMainPath: 'appMainPath',
       masterElementId: 'masterElementId',
       protocol: 'http:',
@@ -50,24 +50,14 @@ describe('Integration', () => {
       initRoutes,
       initSettings
     });
-    build.vendors = {
-      common: [],
-      client: [],
-      server: []
-    };
     let languages = {
       en: [],
       fr: []
     };
+    imaCliUtils.resolveImaConfig = jest.fn().mockResolvedValue({ languages });
     helpers.requireFromProject = jest
       .fn()
-      .mockReturnValueOnce({
-        js: ['js'],
-        vendors: {},
-        languages
-      })
       .mockReturnValueOnce({ getInitialAppConfigFunctions });
-    helpers.loadFiles = jest.fn();
     localization.generateDictionary = jest.fn();
     configuration.getConfig = jest.fn().mockReturnValue(config);
     ima.createImaApp = jest.fn().mockReturnValue(app);
@@ -85,7 +75,6 @@ describe('Integration', () => {
     let application = await initImaApp();
 
     expect(application).toEqual(app);
-    expect(helpers.loadFiles).toHaveBeenCalledWith(['js']);
     expect(localization.generateDictionary).toHaveBeenCalledWith(
       languages,
       'fr'
@@ -131,11 +120,9 @@ describe('Integration', () => {
 
   it('can clear ima app', () => {
     let app = { oc: { clear: jest.fn() } };
-    ima.vendorLinker.clear = jest.fn();
 
     clearImaApp(app);
 
-    expect(ima.vendorLinker.clear).toHaveBeenCalled();
     expect(app.oc.clear).toHaveBeenCalled();
   });
 });

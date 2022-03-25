@@ -1,6 +1,6 @@
 let configuration = {
   appMainPath: 'app/main.js',
-  appBuildPath: 'app/build.js',
+  rootDir: process.cwd(),
   masterElementId: 'page',
   protocol: 'https:',
   host: 'imajs.io',

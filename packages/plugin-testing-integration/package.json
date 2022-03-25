@@ -46,12 +46,13 @@
   },
   "dependencies": {
     "@ima/helpers": "^17.4.0",
-    "globby": "^11.0.0",
-    "jsdom": "^16.2.1",
+    "globby": "11.1.0",
+    "jsdom": "^19.0.0",
     "messageformat": "^2.3.0",
-    "to-aop": "^0.5.3"
+    "to-aop": "^0.5.4"
   },
   "peerDependencies": {
-    "@ima/core": ">= 17.0.0"
+    "@ima/cli": ">= 18.0.0",
+    "@ima/core": ">= 18.0.0"
   }
 }

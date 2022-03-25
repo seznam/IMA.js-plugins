@@ -1,15 +1,15 @@
+// @FIXME Update import from @ima/cli once it exports resolveImaConfig function
+import { resolveImaConfig } from '@ima/cli/dist/webpack/utils';
 import {
   createImaApp,
   getClientBootConfig,
   onLoad,
-  bootClientApp,
-  vendorLinker
+  bootClientApp
 } from '@ima/core';
-import { vendors as imaVendors } from '@ima/core/build';
 import { assignRecursively } from '@ima/helpers';
 import { JSDOM } from 'jsdom';
 import { unAopAll } from './aop';
-import { requireFromProject, loadFiles } from './helpers';
+import { requireFromProject } from './helpers';
 import { getConfig } from './configuration';
 import { getBootConfigExtensions } from './bootConfigExtensions';
 import { generateDictionary } from './localization';
@@ -18,7 +18,6 @@ const setIntervalNative = global.setInterval;
 const setTimeoutNative = global.setTimeout;
 const setImmediateNative = global.setImmediate;
 
-let projectDependenciesLoaded = false;
 let timers = [];
 
 /**
@@ -31,7 +30,6 @@ function clearImaApp(app) {
   global.setImmediate = setImmediateNative;
   timers.forEach(({ clear }) => clear());
   unAopAll();
-  vendorLinker.clear();
   app.oc.clear();
 }
 
@@ -44,42 +42,10 @@ function clearImaApp(app) {
 async function initImaApp(bootConfigMethods = {}) {
   const config = getConfig();
   const bootConfigExtensions = getBootConfigExtensions();
-  let vendors = null;
-  let defaultBootConfigMethods = null;
-
-  /**
-   * Initializes all common, client and server vendors
-   */
-  function _initVendorLinker() {
-    const initializedVendors = [];
-
-    []
-      .concat(
-        vendors.common,
-        vendors.client,
-        vendors.server,
-        imaVendors.common,
-        imaVendors.server,
-        imaVendors.client
-      )
-      .forEach(vendor => {
-        let key = vendor;
-        let value = vendor;
-
-        if (typeof vendor === 'object') {
-          key = Object.keys(vendor)[0];
-          value = vendor[key];
-        }
-
-        if (initializedVendors.includes(key)) {
-          return;
-        }
-
-        initializedVendors.push(key);
-
-        vendorLinker.set(key, require(value));
-      });
-  }
+  const imaConfig = await resolveImaConfig({ rootDir: config.rootDir });
+  const defaultBootConfigMethods = requireFromProject(
+    config.appMainPath
+  ).getInitialAppConfigFunctions();
 
   /**
    * Initializes JSDOM environment for the application run
@@ -93,7 +59,11 @@ async function initImaApp(bootConfigMethods = {}) {
     }
 
     const jsdom = new JSDOM(
-      `<!doctype html><html id="main-html"><body><div id="${config.masterElementId}"></div></body></html>`
+      `<!doctype html><html><body><div id="${config.masterElementId}"></div></body></html>`,
+      {
+        pretendToBeVisual: true,
+        url: `${config.protocol}//${config.host}/`
+      }
     );
     const { window } = jsdom;
 
@@ -110,15 +80,11 @@ async function initImaApp(bootConfigMethods = {}) {
     global.window.scrollTo = () => {};
     global.window.fetch = require('node-fetch');
 
-    // To skip protocol/host not same as server's error (ima/main.js)
-    jsdom.reconfigure({
-      url: `${config.protocol}//${config.host}/`
-    });
-
     global.$IMA.$Protocol = config.protocol;
     global.$IMA.$Host = config.host;
     global.$IMA.$Env = config.environment;
     global.$IMA.$App = {};
+    global.$IMA.i18n = generateDictionary(imaConfig.languages, config.locale);
   }
 
   function _installTimerWrappers() {
@@ -165,28 +131,7 @@ async function initImaApp(bootConfigMethods = {}) {
   }
 
   _initJSDom();
-
-  // Require project files after jsdom is initialized
-  // to prevent errors with missing document/window
-  const { js, ...build } = requireFromProject(config.appBuildPath);
-
-  vendors = build.vendors;
-
-  global.$IMA.i18n = generateDictionary(build.languages, config.locale);
-
-  defaultBootConfigMethods = requireFromProject(
-    config.appMainPath
-  ).getInitialAppConfigFunctions();
-
-  // Load javascript files into namespace
-  // just once, to avoid conflicts
-  if (!projectDependenciesLoaded) {
-    loadFiles(js);
-    projectDependenciesLoaded = true;
-  }
-
   _installTimerWrappers();
-  _initVendorLinker();
 
   await config.prebootScript();
 

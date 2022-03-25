@@ -87,12 +87,12 @@ Following configuration options are available.
 
 Path to your main.js file exporting `getInitialAppConfigFunctions` method. You can override this option with path to a testing main.js file containing some boot config overrides if you are not able to use your production configuration.
 
-### appBuildPath
+### rootDir
 `<string>`
 
-`Default: 'app/build.js'`
+`Default: process.cwd()`
 
-Path to your build.js file exporting `js` and `vendors` objects, which are used to load your application javascript components into namespace and vendors.
+Root directory of your IMA.js application.
 
 ### masterElementId
 `<string>`
