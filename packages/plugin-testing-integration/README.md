@@ -245,8 +245,7 @@ Function returning Enzyme ReactWrapper, or array of Enzyme ReactWrappers (in cas
 
 ### Setup
 
-Create file named `jest.setup.js` inside app root dir, which is used by [jest.config](https://github.com/seznam/ima/blob/next/packages/create-ima-app/template/jest.config.js#L5)
-(obecneji)
+Use `setConfig` function to setup integration test page renderer:
 
 ```javascript
 const { setConfig } = require('@ima/plugin-testing-integration');
@@ -256,6 +255,9 @@ setConfig({
     TestPageRenderer: EnzymePageRenderer
 });
 ```
+
+For example with jest test runner you can use [jest setupFiles](https://jestjs.io/docs/configuration#setupfiles-array).
+
 
 ### Usage
 
