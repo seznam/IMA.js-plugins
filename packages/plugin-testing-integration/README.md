@@ -47,22 +47,23 @@ This method can be used to extend `prebootScript`, instead of just overriding it
 
 ## Setup
 
-Before the test run, you need to load `@ima/core/test.js` file from IMA.js-core. You can simply import it at the beginning of the test file.
+Before the test run, you need to load `@ima/core/setupFile.js` file from IMA.js-core. You can simply import it 
+at the beginning of the test file.
 
 ```javascript
-require('@ima/core/test.js');
+require('@ima/core/setupFile.js');
 
 describe('Integration', () => {
 	// your tests ...
 });
 ```
 
-Most test runners have option to load the `@ima/core/test.js` file as part of their setup. For example jest allows you to specify `setupFiles`.
+Most test runners have option to load the `@ima/core/setupFile.js` file as part of their setup. For example jest allows you to specify `setupFiles`.
 
 ```json
 {
 	"testEnvironment": "node",
-	"setupFiles": ["@ima/core/test.js"]
+	"setupFiles": ["@ima/core/setupFile.js"]
 }
 ```
 
@@ -244,6 +245,8 @@ Function returning Enzyme ReactWrapper, or array of Enzyme ReactWrappers (in cas
 
 ### Setup
 
+Use `setConfig` function to setup integration test page renderer:
+
 ```javascript
 const { setConfig } = require('@ima/plugin-testing-integration');
 const EnzymePageRenderer = require('@ima/plugin-testing-integration/EnzymePageRenderer');
@@ -252,6 +255,9 @@ setConfig({
     TestPageRenderer: EnzymePageRenderer
 });
 ```
+
+For example with jest test runner you can use [jest setupFiles](https://jestjs.io/docs/configuration#setupfiles-array).
+
 
 ### Usage
 
@@ -285,3 +291,44 @@ describe('Home page', () => {
 	});
 });
 ```
+
+## Integration tests described
+
+Integration test needs to run IMA application to test complex logic across app components in real applicattion runtime. For example [Create IMA.js App](https://github.com/seznam/ima/tree/master/packages/create-ima-app)
+
+This plugin contains all necesary functionality to run IMA app:
+
+### [configuration.js](https://github.com/seznam/IMA.js-plugins/blob/master/packages/plugin-testing-integration/src/configuration.js)
+
+Contains basic IMA config, which can be overriden by argument of `setConfig` function mentioned above
+
+
+### [bootConfigExtensions.js](https://github.com/seznam/IMA.js-plugins/blob/master/packages/plugin-testing-integration/src/bootConfigExtensions.js)
+
+Resolves boot components to extend native [init methods](https://imajs.io/docs/configuration) `initSettings`, `initBindApp`, `initServicesApp`, `initRoutes`, `getAppExtension`. These overrides can be defined in `configuration.js`
+
+## [app.js](https://github.com/seznam/IMA.js-plugins/blob/master/packages/plugin-testing-integration/src/app.js)
+
+There are two main methods described in [api](#api) section
+
+### initImaApp
+
+This main method performs following steps to initializes app to be as close as possibe to real IMA app inside real browser:
+  - resolves final [app config](https://imajs.io/docs/configuration)
+  - prepare JSDom environment to run IMA app and sets all necessary global variables
+  - overrides all native timer functions to save timers into internal storage (so these can be cleared on app exit)
+  - runs `prebootScript` from config if defined and awaits its completion
+  - creates [IMA app object](https://github.com/seznam/ima/blob/master/packages/core/src/main.js#L119)
+  - resolves [IMA app boot config](https://github.com/seznam/ima/blob/master/packages/core/src/main.js#L126)
+  - awaits for [load state of client app](https://github.com/seznam/ima/blob/master/packages/core/src/main.js#L230)
+  - [boots IMA client app](https://github.com/seznam/ima/blob/master/packages/core/src/main.js#L186)
+  - initializes IMA router inside JSDom environment
+
+
+### clearImaApp
+
+This method sets back all native timer functions, clears all pending timers used in integration test run, also calls `unAop` on all `aop` components and clears [IMA Object container](https://imajs.io/docs/object-container)
+
+
+
+
