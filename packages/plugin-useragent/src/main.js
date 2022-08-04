@@ -1,9 +1,9 @@
+import { pluginLoader } from '@ima/core';
+
 import UserAgent from './AbstractUserAgent.js';
 import ClientUserAgent from './ClientUserAgent.js';
 import ServerUserAgent from './ServerUserAgent.js';
 import PlatformJS from 'platform';
-
-var $registerImaPlugin = () => {};
 
 let initBind = (ns, oc) => {
   if (oc.get('$Window').isClient()) {
@@ -17,12 +17,8 @@ let initServices = (ns, oc) => {
   oc.get(UserAgent).init();
 };
 
-export {
-  ClientUserAgent,
-  ServerUserAgent,
-  UserAgent,
-  PlatformJS,
-  $registerImaPlugin,
-  initBind,
-  initServices
-};
+pluginLoader.register('@ima/plugin-useragent', () => {
+  return { initBind, initServices };
+});
+
+export { ClientUserAgent, ServerUserAgent, UserAgent, PlatformJS };

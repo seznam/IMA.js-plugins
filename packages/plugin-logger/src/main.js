@@ -1,3 +1,5 @@
+import { pluginLoader } from '@ima/core';
+
 /**
  * A configuration.
  * @typedef {Object} Configuration
@@ -256,6 +258,10 @@ function rejectIf(condition, reason) {
 let $registerImaPlugin = ns => {
   ns.namespace('plugin.logger');
 };
+
+pluginLoader.register('@ima/plugin-logger', ns => {
+  $registerImaPlugin(ns);
+});
 
 export {
   $registerImaPlugin,

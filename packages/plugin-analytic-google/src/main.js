@@ -1,3 +1,4 @@
+import { pluginLoader } from '@ima/core';
 import uid from 'easy-uid';
 
 import GoogleAnalytic from './GoogleAnalytic.js';
@@ -32,6 +33,12 @@ let initSettings = () => {
     dev: {}
   };
 };
+
+pluginLoader.register('@ima/plugin-analytic-google', () => {
+  $registerImaPlugin();
+
+  return { initSettings };
+});
 
 export {
   GoogleAnalytic,
