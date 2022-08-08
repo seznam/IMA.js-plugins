@@ -5,10 +5,8 @@ import GoogleAnalytic from './GoogleAnalytic.js';
 
 const defaultDependencies = GoogleAnalytic.$dependencies;
 
-const $registerImaPlugin = () => {};
-
-let initSettings = () => {
-  return {
+pluginLoader.register('@ima/plugin-analytic-google', () => ({
+  initSettings: () => ({
     prod: {
       plugin: {
         analytic: {
@@ -31,18 +29,7 @@ let initSettings = () => {
     test: {},
 
     dev: {}
-  };
-};
+  })
+}));
 
-pluginLoader.register('@ima/plugin-analytic-google', () => {
-  $registerImaPlugin();
-
-  return { initSettings };
-});
-
-export {
-  GoogleAnalytic,
-  defaultDependencies,
-  $registerImaPlugin,
-  initSettings
-};
+export { GoogleAnalytic, defaultDependencies };

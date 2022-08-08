@@ -3,10 +3,8 @@ import FacebookPixelAnalytic from './FacebookPixelAnalytic';
 
 const defaultDependencies = FacebookPixelAnalytic.$dependencies;
 
-const $registerImaPlugin = () => {};
-
-const initSettings = () => {
-  return {
+pluginLoader.register('@ima/plugin-analytic-google', () => ({
+  initSettings: () => ({
     prod: {
       plugin: {
         analytic: {
@@ -20,18 +18,7 @@ const initSettings = () => {
     test: {},
 
     dev: {}
-  };
-};
+  })
+}));
 
-pluginLoader.register('@ima/plugin-analytic-google', () => {
-  $registerImaPlugin();
-
-  return { initSettings };
-});
-
-export {
-  FacebookPixelAnalytic,
-  defaultDependencies,
-  $registerImaPlugin,
-  initSettings
-};
+export { FacebookPixelAnalytic, defaultDependencies };

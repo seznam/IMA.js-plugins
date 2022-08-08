@@ -255,16 +255,11 @@ function rejectIf(condition, reason) {
   return null;
 }
 
-let $registerImaPlugin = ns => {
-  ns.namespace('plugin.logger');
-};
-
 pluginLoader.register('@ima/plugin-logger', ns => {
-  $registerImaPlugin(ns);
+  ns.namespace('plugin.logger');
 });
 
 export {
-  $registerImaPlugin,
   configureLogger,
   beSilent,
   isSilent,

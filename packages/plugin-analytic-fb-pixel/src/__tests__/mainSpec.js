@@ -1,10 +1,6 @@
 import * as Main from '../main';
 
 describe('Main', () => {
-  it('should export $registerImaPlugin', () => {
-    expect(typeof Main.$registerImaPlugin).toEqual('function');
-  });
-
   it('should export FacebookPixelAnalytic', () => {
     expect(typeof Main.FacebookPixelAnalytic).toEqual('function');
   });

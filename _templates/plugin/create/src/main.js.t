@@ -1,8 +1,10 @@
 ---
 to: packages/<%= h.changeCase.paramCase(name) %>/src/main.js
 ---
-const $registerImaPlugin = () => {};
+import { pluginLoader } from '@ima/core';
 
-const initBind = () => {};
+pluginLoader.register('@ima/<%= h.changeCase.paramCase(name) %>', () => ({
+   })
+);
 
-export { initBind, $registerImaPlugin };
+export { };
