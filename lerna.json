@@ -9,7 +9,8 @@
     },
     "publish": {
       "conventionalCommits": true,
-      "preid": "rc"
+      "preid": "rc",
+      "verifyAccess": false
     },
     "bootstrap": {
       "npmClientArgs": ["--no-package-lock"]
