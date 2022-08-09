@@ -7,7 +7,6 @@
 "@ima/plugin-select": major
 "@ima/plugin-testing-integration": major
 "@ima/react-hooks": major
-"babel-plugin-ima-logger": major
 "@ima/plugin-analytic": major
 "@ima/plugin-analytic-fb-pixel": major
 "@ima/plugin-analytic-google": major

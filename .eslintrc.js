@@ -1,12 +1,16 @@
 module.exports = {
   extends: [
     'eslint:recommended',
-    'plugin:jsdoc/recommended',
+    // @TODO Fix jsdoc strings
+    // 'plugin:jsdoc/recommended',
     'plugin:react/recommended',
     'prettier'
   ],
   parser: '@babel/eslint-parser',
   rules: {
+    'jsdoc/no-undefined-types': 0,
+    'jsdoc/require-param-description': 0,
+    'jsdoc/require-returns-description': 0,
     'prettier/prettier': [
       'error',
       {
