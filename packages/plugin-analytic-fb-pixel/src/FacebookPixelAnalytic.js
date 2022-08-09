@@ -15,9 +15,11 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
   /**
    * Creates a Facebook Pixel Helper instance.
    *
-   * @constructor
-   * @param {object} IMA window object.
-   * @param {ScriptLoaderPlugin} Script loader.
+   * @function Object() { [native code] }
+   * @param {ScriptLoader} scriptLoader
+   * @param {Window} window
+   * @param {Dispatcher} dispatcher
+   * @param {object} config
    */
   constructor(scriptLoader, window, dispatcher, config) {
     super(scriptLoader, window, dispatcher, config);
@@ -35,7 +37,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
     /**
      * A main function of Facebook Pixel.
      *
-     * @type {function}
+     * @type {Function}
      */
     this._fbq = null;
   }
@@ -43,7 +45,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
   /**
    * Gets the identifier for Facebook Pixel.
    *
-   * @return {string} The identifier for Facebook Pixel.
+   * @returns {string} The identifier for Facebook Pixel.
    */
   getId() {
     switch (typeof this._config.id) {
@@ -64,7 +66,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
    * @override
    * @param {string} eventName Name of the event.
    * @param {object} [eventData=null] Data attached to the event.
-   * @return {boolean} TRUE when event has been hit; otherwise FALSE.
+   * @returns {boolean} TRUE when event has been hit; otherwise FALSE.
    */
   hit(eventName, eventData = null) {
     try {
@@ -101,7 +103,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
    *
    * @override
    * @param {object} [viewContentData = null] Page view data (containing path etc.).
-   * @return {boolean} TRUE when event has been hit; otherwise FALSE.
+   * @returns {boolean} TRUE when event has been hit; otherwise FALSE.
    */
   hitPageView(viewContentData = null) {
     try {
@@ -135,7 +137,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
    * Hits a search event (optionally with page name or other event data).
    *
    * @param {string|object} [queryOrData=null] Search query / event data.
-   * @return {boolean} TRUE when event has been hit; otherwise FALSE.
+   * @returns {boolean} TRUE when event has been hit; otherwise FALSE.
    */
   hitSearch(queryOrData = null) {
     try {

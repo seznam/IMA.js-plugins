@@ -23,7 +23,7 @@ export default class ServerUserAgent extends AbstractUserAgent {
 
   /**
    * @override
-   * @return {string}
+   * @returns {string}
    */
   getUserAgent() {
     return this._request.getHeader('User-Agent');

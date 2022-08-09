@@ -78,7 +78,7 @@ export default class HalsonLinkGenerator extends LinkGenerator {
    * @param {Object<string, (number|string|(number|string)[])>} parameters
    *        Map of URI template's placeholder names to values.
    * @param {string} apiRoot The URI to the REST API root.
-   * @return {string} Generated URI.
+   * @returns {string} Generated URI.
    */
   _processURITemplate(template, parameters, apiRoot) {
     let parsedTemplate;

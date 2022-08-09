@@ -12,10 +12,9 @@ import { usePageContext } from './pageContext';
  *
  * @example
  * const { utils, cssClasses } = useComponent();
- *
  * @returns {{
  * 	utils: Object<string, Object>
- * 	cssClasses: function(...(string|Object<string, boolean>|[string])): string
+ * 	cssClasses: function(...(string|Object<string, boolean>|string[])): string
  * 	localize: function(string, ?object)
  * 	link: function(string, Object<string, Object>)
  * 	fire: function(string, ?object=)

@@ -1,3 +1,5 @@
+/* eslint-disable jsdoc/check-param-names */
+
 /**
  * Command is an abstract class that defines a standard for defining command.
  *

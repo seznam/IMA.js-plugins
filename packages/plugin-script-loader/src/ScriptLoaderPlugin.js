@@ -51,7 +51,7 @@ export default class ScriptLoaderPlugin {
    *
    * @param {string} url
    * @param {string=} [template]
-   * @return {Promise<{url: string}>}
+   * @returns {Promise<{url: string}>}
    */
   load(url, template) {
     if ($Debug) {
@@ -91,7 +91,7 @@ export default class ScriptLoaderPlugin {
   /**
    * Creates a new script element and returns it.
    *
-   * @return {HTMLScriptElement} The created script element.
+   * @returns {HTMLScriptElement} The created script element.
    */
   _createScriptElement() {
     return document.createElement('script');
@@ -102,7 +102,7 @@ export default class ScriptLoaderPlugin {
    * events.
    *
    * @param {string} url
-   * @return {{url: string}}
+   * @returns {{url: string}}
    */
   _handleOnLoad(url) {
     let data = { url };

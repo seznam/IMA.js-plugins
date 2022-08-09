@@ -32,7 +32,7 @@ class LocalStorage extends Storage {
     /**
      * Holds current storage options.
      *
-     * @type {Object}
+     * @type {object}
      * @private
      */
     this._options = {};
@@ -196,7 +196,7 @@ class LocalStorage extends Storage {
    * Shortcut to {@code this.keys()} allowing the use of {@code for..of} loop
    * directly on the instance itself.
    *
-   * @return {Iterator<string>} An iterator for traversing the keys in this
+   * @returns {Iterator<string>} An iterator for traversing the keys in this
    *         storage. The iterator also implements the iterable protocol,
    *         returning itself as its own iterator, allowing it to be used in
    *         a {@code for..of} loop.

@@ -1,3 +1,5 @@
+/* eslint-disable jsdoc/check-param-names */
+
 import AnalyticEvents from './Events';
 import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
 
@@ -82,7 +84,7 @@ export default class AbstractAnalytic {
   /**
    * Initialization analytic.
    *
-   * @method init
+   * @function init
    * @param {Object<string, *>} initConfig
    * @param {Object<string, *>} initConfig.purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
    */
@@ -100,6 +102,8 @@ export default class AbstractAnalytic {
 
   /**
    * Load analytic script, configure analytic and execute deferred hits.
+   *
+   * @returns {Promise}
    */
   load() {
     if (this._window.isClient()) {
@@ -143,7 +147,7 @@ export default class AbstractAnalytic {
   /**
    * Returns true if analytic is enabled.
    *
-   * @return {boolean}
+   * @returns {boolean}
    */
   isEnabled() {
     return this._enable;

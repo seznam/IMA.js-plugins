@@ -1,16 +1,16 @@
 module.exports = {
   extends: [
     'eslint:recommended',
-    // @TODO Fix jsdoc strings
-    // 'plugin:jsdoc/recommended',
+    'plugin:jsdoc/recommended',
     'plugin:react/recommended',
     'prettier'
   ],
   parser: '@babel/eslint-parser',
   rules: {
-    'jsdoc/no-undefined-types': 0,
-    'jsdoc/require-param-description': 0,
-    'jsdoc/require-returns-description': 0,
+    'jsdoc/no-undefined-types': 0, // This should be probably enabled, but it could break some functionality if implemented correctly
+    'jsdoc/require-param-description': 0, // Description is not always needed
+    'jsdoc/require-returns-description': 0, // Description is not always needed
+    'jsdoc/require-returns-check': 0, // There are abstract classes documenting return value, but actually throwing error if not overriden
     'prettier/prettier': [
       'error',
       {

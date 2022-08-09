@@ -8,8 +8,7 @@ import { useComponentUtils } from './componentUtils';
  *
  * @example
  * const { isClient, isServer } = useSSR();
- *
- * @return {{
+ * @returns {{
  *  isServer: boolean,
  *  isClient: boolean,
  * }}

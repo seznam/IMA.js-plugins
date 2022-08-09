@@ -2,6 +2,13 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { PageContext } from '@ima/core';
 
+/**
+ *
+ * @param {Function} callback
+ * @param {object} context
+ * @param {object} props
+ * @returns {ReactWrapper}
+ */
 function mountHook(callback, context = {}, props = {}) {
   const TestHookComponent = ({ __callback__ }) => {
     __callback__();

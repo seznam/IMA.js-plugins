@@ -3,6 +3,12 @@ import globby from 'globby';
 import path from 'path';
 import { requireFromProject } from './helpers';
 
+/**
+ *
+ * @param {object} languages
+ * @param {string} locale
+ * @returns {object}
+ */
 function generateDictionary(languages, locale = 'en') {
   if (!languages) {
     return {};

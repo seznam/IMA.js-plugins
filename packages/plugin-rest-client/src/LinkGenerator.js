@@ -25,7 +25,7 @@ export default class LinkGenerator {
    *        REST client as provided by the server, or {@code null} if no
    *        server-provided configuration is being used with the current REST
    *        client.
-   * @return {string} The generated URL for accessing the specified resource.
+   * @returns {string} The generated URL for accessing the specified resource.
    */
   createLink(parentEntity, resource, id, parameters, serverConfiguration) {}
 
@@ -40,7 +40,7 @@ export default class LinkGenerator {
    * @param {string=} valueSeparator Separator of keys and values.
    * @param {function((number|string)): string=} encoder The key and value
    *        encoding function.
-   * @return {string} The encoded parameters.
+   * @returns {string} The encoded parameters.
    */
   static encodeQuery(
     parameters,

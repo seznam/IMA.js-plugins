@@ -39,14 +39,13 @@ import { useComponentUtils } from './componentUtils';
  *   dispatchEvent,
  *   createCustomEvent
  * } = useWindowEvent();
- *
  * @param	{object} params
- * @property {*} [params.eventTarget=null] Optional event target, if left blank
+ * @param {*} [params.eventTarget=null] Optional event target, if left blank
  * 	it defaults to current window (=> can be omitted in most use cases).
- * @property {string} [params.event] Event name.
- * @property {function} [params.callback] Callback to register to window event.
- * @property {boolean} [params.useCapture=false] Use capture instead of bubbling (default).
- * @return {{
+ * @param {string} [params.event] Event name.
+ * @param {Function} [params.callback] Callback to register to window event.
+ * @param {boolean} [params.useCapture=false] Use capture instead of bubbling (default).
+ * @returns {{
  * 	window: function(string, Object<string, *>, boolean),
  * 	dispatchEvent: function(),
  * 	createCustomEvent: function()

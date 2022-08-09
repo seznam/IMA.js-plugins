@@ -17,9 +17,6 @@ describe('XHR', () => {
   class URLSearchParams {}
   class ReadableStream {}
 
-  /**
-   * @type XHR
-   */
   let pluginInstance;
   let xhrSendCallback;
   let xhrProgressInterval;
@@ -539,12 +536,22 @@ describe('XHR', () => {
     delete global.XMLHttpRequest;
   });
 
+  /**
+   *
+   * @param {*} values
+   * @param {Function} func
+   */
   function using(values, func) {
     for (const value of values) {
       func.call(this, value);
     }
   }
 
+  /**
+   *
+   * @param {number} delayTime miliseconds
+   * @returns {Promise}
+   */
   function delay(delayTime) {
     return new Promise(resolve => setTimeout(resolve, delayTime));
   }

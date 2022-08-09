@@ -13,7 +13,7 @@
  *          }
  *        )>} dataFieldMapping The descriptor of how the entity data
  *        should be mapped to the entity's properties.
- * @return {function(function(
+ * @returns {function(function(
  *             new: AbstractEntity,
  *             RestClient,
  *             Object<string, *>,

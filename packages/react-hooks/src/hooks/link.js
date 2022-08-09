@@ -7,8 +7,7 @@ import { useComponentUtils } from './componentUtils';
  *
  * @example
  * const link = useLink();
- *
- * @return {function(string, Object<string, *>): string} Router.link
+ * @returns {function(string, Object<string, *>): string} Router.link
  */
 function useLink() {
   const { $Router } = useComponentUtils();

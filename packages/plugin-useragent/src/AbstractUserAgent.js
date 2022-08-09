@@ -4,6 +4,8 @@
 export default class AbstractUserAgent {
   /**
    * Initializes the user agent analyzer plugin.
+   *
+   * @param {PlatformJS} platformParser
    */
   constructor(platformParser) {
     /**
@@ -30,8 +32,6 @@ export default class AbstractUserAgent {
 
   /**
    * Returns original UserAgent.
-   *
-   * @return {string}
    */
   getUserAgent() {
     throw new Error(
@@ -43,7 +43,7 @@ export default class AbstractUserAgent {
    * Returns platform object - Returns platform object - all values are
    * strings(numbers), not undefined or null.
    *
-   * @return {Object} Object structure https://github.com/bestiejs/platform.js/blob/master/doc/README.md#readme
+   * @returns {object} Object structure https://github.com/bestiejs/platform.js/blob/master/doc/README.md#readme
    */
   getPlatform() {
     return this._uaObject;
@@ -52,7 +52,7 @@ export default class AbstractUserAgent {
   /**
    * Returns the platform description.
    *
-   * @return {string}
+   * @returns {string}
    */
   getDescription() {
     return this._uaObject.description;
@@ -61,7 +61,7 @@ export default class AbstractUserAgent {
   /**
    * Returns the name of the browser's layout engine.
    *
-   * @return {string}
+   * @returns {string}
    */
   getLayout() {
     return this._uaObject.layout;
@@ -70,7 +70,7 @@ export default class AbstractUserAgent {
   /**
    * Returns the name of the product's manufacturer.
    *
-   * @return {string}
+   * @returns {string}
    */
   getManufacturer() {
     return this._uaObject.manufacturer;
@@ -79,7 +79,7 @@ export default class AbstractUserAgent {
   /**
    * Returns the name of the browser/environment.
    *
-   * @return {string}
+   * @returns {string}
    */
   getName() {
     return this._uaObject.name;
@@ -88,7 +88,7 @@ export default class AbstractUserAgent {
   /**
    * Returns the alpha/beta release indicator.
    *
-   * @return {string}
+   * @returns {string}
    */
   getPrerelease() {
     return this._uaObject.prerelease;
@@ -97,7 +97,7 @@ export default class AbstractUserAgent {
   /**
    * Returns the name of the product hosting the browser.
    *
-   * @return {string}
+   * @returns {string}
    */
   getProduct() {
     return this._uaObject.product;
@@ -106,7 +106,7 @@ export default class AbstractUserAgent {
   /**
    * Returns the browser/environment version.
    *
-   * @return {string}
+   * @returns {string}
    */
   getVersion() {
     return this._uaObject.version;
@@ -119,7 +119,7 @@ export default class AbstractUserAgent {
    * "Windows XP", "OS X", "Ubuntu", "Debian", "Fedora", "Red Hat", "SuSE",
    * "Android", "iOS" and "Windows Phone"
    *
-   * @return {string}
+   * @returns {string}
    */
   getOSFamily() {
     return this._uaObject.os.family;
@@ -128,7 +128,7 @@ export default class AbstractUserAgent {
   /**
    * Returns the CPU architecture the OS is built for.
    *
-   * @return {number} The CPU architecture the OS is built for or -1 if
+   * @returns {number} The CPU architecture the OS is built for or -1 if
    *         unknown.
    */
   getOSArchitecture() {
@@ -138,7 +138,7 @@ export default class AbstractUserAgent {
   /**
    * Returns the version of the OS.
    *
-   * @return {string}
+   * @returns {string}
    */
   getOSVersion() {
     return this._uaObject.os.version;

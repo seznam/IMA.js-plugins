@@ -51,8 +51,8 @@ export default class StyleLoader {
    *
    * @param {string} url
    * @param {string=} [template]
-   * @param {Object<string, function|string|number>} [attributes]
-   * @return {Promise<{url: string}>}
+   * @param {Object<string, Function | string | number>} [attributes]
+   * @returns {Promise<{url: string}>}
    */
   load(url, template, attributes) {
     if ($Debug) {
@@ -101,7 +101,7 @@ export default class StyleLoader {
    * Creates a new style element and returns it.
    *
    * @param {boolean} isInlineStyle
-   * @return {HTMLLinkElement} The created style element.
+   * @returns {HTMLLinkElement} The created style element.
    */
   _createStyleElement(isInlineStyle) {
     let element = isInlineStyle ? 'style' : 'link';
@@ -114,7 +114,7 @@ export default class StyleLoader {
    * events.
    *
    * @param {string} url
-   * @return {{url: string}}
+   * @returns {{url: string}}
    */
   _handleOnLoad(url) {
     let data = { url };

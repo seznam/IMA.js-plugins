@@ -22,7 +22,8 @@ let timers = [];
 
 /**
  * Clears IMA Application instance from environment
- * @param {Object} app Object from initImaApp method
+ *
+ * @param {object} app Object from initImaApp method
  */
 function clearImaApp(app) {
   global.setInterval = setIntervalNative;
@@ -36,8 +37,9 @@ function clearImaApp(app) {
 /**
  * Initializes IMA application with our production-like configuration
  * Reinitializes jsdom with configuration, that will work with our application
- * @param {Object} [bootConfigMethods] Object, that can contain methods for ima boot configuration
- * @returns {Promise<Object>}
+ *
+ * @param {object} [bootConfigMethods] Object, that can contain methods for ima boot configuration
+ * @returns {Promise<object>}
  */
 async function initImaApp(bootConfigMethods = {}) {
   const config = getConfig();
@@ -51,6 +53,11 @@ async function initImaApp(bootConfigMethods = {}) {
    * Initializes JSDOM environment for the application run
    */
   function _initJSDom() {
+    /**
+     *
+     * @param {object} src
+     * @param {object} target
+     */
     function copyProps(src, target) {
       Object.defineProperties(target, {
         ...Object.getOwnPropertyDescriptors(src),
@@ -87,6 +94,9 @@ async function initImaApp(bootConfigMethods = {}) {
     global.$IMA.i18n = generateDictionary(imaConfig.languages, config.locale);
   }
 
+  /**
+   *
+   */
   function _installTimerWrappers() {
     global.setInterval = (...args) => {
       let timer = setIntervalNative(...args);

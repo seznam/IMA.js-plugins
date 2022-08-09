@@ -4,7 +4,7 @@
  * provided entity class.
  *
  * @param {string} resourceName The name of the REST API resource.
- * @return {function(function(
+ * @returns {function(function(
  *             new: AbstractEntity,
  *             RestClient,
  *             Object<string, *>,

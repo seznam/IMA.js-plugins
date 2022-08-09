@@ -6,6 +6,11 @@ const DEFAULT_OPTIONS = {
   port: 5888
 };
 
+/**
+ *
+ * @param {object} options
+ * @returns {WebSocket.Server}
+ */
 function createServer(options = {}) {
   let server = null;
   options = Object.assign({}, DEFAULT_OPTIONS, options);

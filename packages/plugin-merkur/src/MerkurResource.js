@@ -28,7 +28,7 @@ export default class MerkurResource {
    * @param {string} url
    * @param {Object<string, *>} data
    * @param {Object<string, *>} options
-   * @return {Promise<Response>} response
+   * @returns {Promise<Response>} response
    */
   async get(url, data, options = {}) {
     if (!data.containerSelector) {

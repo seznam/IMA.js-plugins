@@ -5,8 +5,7 @@ import { usePageContext } from './pageContext';
  *
  * @example
  * const utils = useComponentUtils();
- *
- * @return {Object<string, Object>} IMA.js ComponentUtils
+ * @returns {Object<string, Object>} IMA.js ComponentUtils
  */
 function useComponentUtils() {
   const pageContext = usePageContext();

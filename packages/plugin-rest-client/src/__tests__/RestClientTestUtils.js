@@ -1,3 +1,11 @@
+/**
+ *
+ * @param {Class} baseClass
+ * @param {string} propertyName
+ * @param {*} defaultValue
+ * @param {boolean} throwsError
+ * @param {*} testingValue
+ */
 export function testStaticProperty(
   baseClass,
   propertyName,

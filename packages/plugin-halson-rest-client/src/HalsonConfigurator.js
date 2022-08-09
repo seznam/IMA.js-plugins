@@ -44,7 +44,7 @@ export default class HalsonConfigurator extends Configurator {
    * Fetches the server-provided REST API client configuration - the resource
    * links map.
    *
-   * @return {Promise<{
+   * @returns {Promise<{
    *             links: Object<string, (string|{href: string})>,
    *             apiRoot: string
    *         }>} A promise that will resolve to the REST API root URL and the
@@ -65,7 +65,7 @@ export default class HalsonConfigurator extends Configurator {
    * configuration object for the HALSON REST API client.
    *
    * @protected
-   * @return {{url: string, data: null, options: {}}} Request to execute
+   * @returns {{url: string, data: null, options: {}}} Request to execute
    *         using the IMA's HTTP agent in order to fetch the REST API's
    *         navigation links map.
    */
@@ -83,8 +83,8 @@ export default class HalsonConfigurator extends Configurator {
    *
    * @protected
    * @param {*} responseBody The server's response's body.
-   * @return {{
-   *           links: Object.<string, string|{href: string}>,
+   * @returns {{
+   *           links: Object<string, string|{href: string}>
    *           apiRoot: string
    *         }} The HALSON REST API client configruration object.
    */
