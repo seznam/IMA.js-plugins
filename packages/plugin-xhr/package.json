@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-xhr",
-  "version": "2.0.2",
+  "version": "3.0.0-rc.0",
   "description": "Helper plugin simplifying the usage of the XMLHttpRequest API.",
   "main": "index.js",
   "scripts": {
