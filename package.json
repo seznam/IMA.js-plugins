@@ -1,60 +1,50 @@
 {
   "version": "1.0.0",
   "scripts": {
-    "postinstall": "if ! $CI; then lerna run prepare; fi",
-    "commit": "git-cz",
-    "test": "jest --coverage --no-watchman --config=jest.config.js",
+    "changeset": "changeset add",
+    "test:ci": "jest --coverage --colors --no-watchman --config=jest.config.js",
+    "test": "jest --onlyChanged --no-watchman --config=jest.config.js",
     "lint:cmd": "eslint -c ./.eslintrc.js --ignore-path ./.gitignore",
-    "lint": "npm run lint:cmd -- './**/*.{js,jsx}'",
+    "lint": "npm run lint:cmd -- --cache './**/*.{js,jsx}'",
     "lint:fix": "npm run lint -- --fix",
-    "doc": "lerna run doc",
-    "audit": "lerna run audit",
     "precommit": "lint-staged",
-    "release": "lerna version",
-    "release:publish": "lerna publish from-package --yes"
+    "release": "npm run release:prepare && npm run release:push",
+    "release:prepare": "changeset version",
+    "release:push": "git add . && git commit -m 'release: publish' && changeset tag && git push --follow-tags",
+    "release:graduate": "changeset pre exit && npm run release",
+    "release:next:init": "changeset pre enter rc",
+    "release:publish": "changeset publish --no-git-tag"
   },
   "workspaces": [
     "./packages/*"
   ],
   "devDependencies": {
     "@babel/core": "^7.11.1",
+    "@babel/eslint-parser": "^7.18.0",
     "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
-    "@commitlint/cli": "^9.1.1",
-    "@commitlint/config-conventional": "^9.1.1",
-    "@ima/cli": "18.0.0-rc.1",
-    "@ima/core": "18.0.0-rc.1",
-    "@ima/gulp-task-loader": "^17.7.0",
-    "@ima/server": "17.12.2",
+    "@changesets/cli": "2.24.2",
+    "@ima/cli": "18.0.0-rc.4",
+    "@ima/core": "18.0.0-rc.4",
+    "@ima/server": "18.0.0-rc.4",
     "@rollup/plugin-babel": "^5.1.0",
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
     "@rollup/plugin-replace": "^2.3.3",
-    "babel-eslint": "^10.1.0",
     "babel-preset-jest": "^26.2.0",
-    "cz-conventional-changelog": "^3.2.0",
-    "del": "^5.1.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.5.0",
-    "eslint": "^7.6.0",
-    "eslint-config-prettier": "6.11.0",
-    "eslint-plugin-jasmine": "^4.1.1",
-    "eslint-plugin-jest": "^23.20.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "7.20.5",
-    "git-cz": "^4.7.0",
-    "gulp": "^4.0.2",
-    "gulp-babel": "8.0.0",
-    "gulp-cached": "^1.1.1",
-    "gulp-change": "^1.0.2",
-    "gulp-jsdoc3": "^3.0.0",
-    "gulp-remember": "^1.0.1",
-    "gulp-rename": "^2.0.0",
+    "eslint": "^8.21.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jasmine": "^4.1.3",
+    "eslint-plugin-jest": "^26.8.0",
+    "eslint-plugin-jsdoc": "^39.3.4",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "7.30.1",
     "husky": "^4.2.5",
     "jest": "^26.2.2",
-    "lerna": "^3.22.1",
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
     "react": "^16.14.0",
@@ -64,22 +54,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.3",
     "to-mock": "^1.6.2"
   },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "lint-staged": {
     "**/*.{js,jsx}": "npm run lint:cmd"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }

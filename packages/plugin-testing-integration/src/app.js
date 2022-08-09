@@ -78,7 +78,7 @@ async function initImaApp(bootConfigMethods = {}) {
     global.window.$IMA = global.$IMA;
     global.window.$Debug = global.$Debug;
     global.window.scrollTo = () => {};
-    global.window.fetch = require('node-fetch');
+    global.window.fetch = global.fetch;
 
     global.$IMA.$Protocol = config.protocol;
     global.$IMA.$Host = config.host;

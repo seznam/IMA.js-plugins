@@ -6,14 +6,6 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 
----
-**NOTE**
-
-The root postinstall `lerna bootstrap` has been replaced for non-CI cases by `lerna run prepare`. This should cover all use-cases in both `npm <= 6` and `npm >= 7` versions.
-
-In `npm >= 7` there  is [npm workspace bug](https://github.com/npm/cli/issues/3840): the build of all monorepo packages (included in `lerna bootstrap` command) should be run by root `npm install` but it does not accept the per-package `prepare` scripts yet.
----
-
 ## Release
 
 For release new version of packages use lerna. Use following script:
@@ -55,3 +47,16 @@ follow the prompt and fill proper data to setup plugin properties.
 
 ## IMA.js
 The IMA.js is an application development stack for developing isomorphic applications written in pure JavaScript. You can find the IMA.js skeleton application at https://github.com/seznam/ima.
+
+## Contributing
+  
+Contribute to this project via [Pull-Requests](https://github.com/seznam/IMA.js-plugins/pulls).
+
+We are using [changesets](https://github.com/changesets/changesets/blob/main/docs/common-questions.md) for version management. To simplify the changeset creation process, you can use `npm run changeset` command. It opens an interactive interface, which should help you with changeset file composition.
+
+
+### Set up the dev environment
+
+Our dev stack expects `node>=18` and `npm>=8`.
+
+To set up, simply run `npm install` from the repo root.

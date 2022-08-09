@@ -35,7 +35,7 @@
     ]
   },
   "peerDependencies": {
-    "@ima/core": ">= 17.0.0",
+    "@ima/core": "*",
     "react": ">= 16.0.0"
   },
   "engines": {

@@ -38,7 +38,7 @@
     "uri-template": "1.0.1"
   },
   "peerDependencies": {
-    "@ima/core": ">= 17.0.0"
+    "@ima/core": "*"
   },
   "browserify": {
     "transform": [

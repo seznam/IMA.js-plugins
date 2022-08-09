@@ -1,0 +1,30 @@
+{
+  "mode": "pre",
+  "tag": "rc",
+  "initialVersions": {
+    "babel-plugin-ima-logger": "3.0.3",
+    "@ima/plugin-analytic": "4.1.2",
+    "@ima/plugin-analytic-fb-pixel": "5.1.3",
+    "@ima/plugin-analytic-google": "5.1.0",
+    "@ima/plugin-halson-rest-client": "1.1.3",
+    "@ima/plugin-hot-reload": "1.2.2",
+    "@ima/plugin-less-constants": "2.0.4",
+    "@ima/plugin-local-storage": "2.1.2",
+    "@ima/plugin-logger": "4.0.0",
+    "@ima/plugin-managed-component": "1.1.2",
+    "@ima/plugin-merkur": "3.1.2",
+    "@ima/plugin-resource-loader": "2.2.2",
+    "@ima/plugin-rest-client": "3.2.2",
+    "@ima/plugin-script-loader": "2.2.2",
+    "@ima/plugin-select": "3.3.2",
+    "@ima/plugin-self-xss": "2.2.2",
+    "@ima/plugin-shared-cache": "2.2.2",
+    "@ima/plugin-style-loader": "2.2.2",
+    "@ima/plugin-testing-integration": "2.2.2",
+    "@ima/plugin-useragent": "3.1.1",
+    "@ima/plugin-websocket": "1.2.2",
+    "@ima/plugin-xhr": "2.0.2",
+    "@ima/react-hooks": "1.1.1"
+  },
+  "changesets": []
+}

@@ -1,11 +1,11 @@
 module.exports = {
   extends: [
     'eslint:recommended',
+    'plugin:jsdoc/recommended',
     'plugin:react/recommended',
-    'prettier',
-    'prettier/react'
+    'prettier'
   ],
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   rules: {
     'prettier/prettier': [
       'error',
@@ -39,6 +39,10 @@ module.exports = {
     }
   },
   parserOptions: {
+    babelOptions: {
+      presets: ['@babel/preset-react']
+    },
+    requireConfigFile: false,
     sourceType: 'module',
     ecmaVersion: 6,
     ecmaFeatures: {

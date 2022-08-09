@@ -45,14 +45,14 @@
     ]
   },
   "dependencies": {
-    "@ima/helpers": "^18.0.0-rc.1",
+    "@ima/helpers": "^18.0.0-rc.2",
     "globby": "11.1.0",
     "jsdom": "^19.0.0",
     "messageformat": "^2.3.0",
     "to-aop": "^0.5.4"
   },
   "peerDependencies": {
-    "@ima/cli": "18.0.0-rc.1",
-    "@ima/core": "18.0.0-rc.1"
+    "@ima/cli": "*",
+    "@ima/core": "*"
   }
 }

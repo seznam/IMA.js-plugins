@@ -1,4 +1,3 @@
-jest.mock('@ima/core/build');
 jest.mock('@ima/core');
 
 // @FIXME Update import from @ima/cli once it exports resolveImaConfig function

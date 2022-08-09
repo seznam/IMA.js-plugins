@@ -6,5 +6,4 @@
 **/dist/
 **/doc/
 **/coverage/
-**/package-lock.json
-lerna-debug.log
+.eslintcache

@@ -34,7 +34,7 @@
     "@ima/plugin-websocket": "^1.2.2"
   },
   "peerDependencies": {
-    "@ima/core": ">= 17.0.0",
+    "@ima/core": "*",
     "@ima/plugin-websocket": ">= 1.0.2"
   },
   "browserify": {
