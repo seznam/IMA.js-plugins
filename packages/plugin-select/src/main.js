@@ -7,10 +7,7 @@ import forwardedSelect, {
   setHoistStaticMethod
 } from './select/select';
 
-/**
- *
- */
-function $registerImaPlugin() {}
+const $registerImaPlugin = () => {};
 
 export default forwardedSelect;
 

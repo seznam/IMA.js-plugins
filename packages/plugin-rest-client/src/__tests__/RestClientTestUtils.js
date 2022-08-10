@@ -1,4 +1,5 @@
 /**
+ * Tests provided set of conditions for the base class
  *
  * @param {Class} baseClass
  * @param {string} propertyName

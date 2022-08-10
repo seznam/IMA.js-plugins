@@ -548,6 +548,7 @@ describe('XHR', () => {
   }
 
   /**
+   * Waits for the provided delayTime
    *
    * @param {number} delayTime miliseconds
    * @returns {Promise}

@@ -234,7 +234,7 @@ describe('HalsonResponsePostProcessor', () => {
   }
 
   /**
-   *
+   * Initializes a response
    */
   function constructResponse() {
     response = new Response({
@@ -257,6 +257,7 @@ describe('HalsonResponsePostProcessor', () => {
   }
 
   /**
+   * Creates a deep copy of the source object
    *
    * @param {object} source
    * @returns {object}

@@ -54,6 +54,7 @@ async function initImaApp(bootConfigMethods = {}) {
    */
   function _initJSDom() {
     /**
+     * Copies object props from src to target
      *
      * @param {object} src
      * @param {object} target
@@ -95,7 +96,8 @@ async function initImaApp(bootConfigMethods = {}) {
   }
 
   /**
-   *
+   * Wraps the global timer methods to collect their return values,
+   * which can be later cleared in clearImaApp function
    */
   function _installTimerWrappers() {
     global.setInterval = (...args) => {

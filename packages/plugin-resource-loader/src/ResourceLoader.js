@@ -31,6 +31,7 @@ export default class ResourceLoader {
       }
 
       /**
+       * Make sure to reject with error instance
        *
        * @param {Error} error
        */

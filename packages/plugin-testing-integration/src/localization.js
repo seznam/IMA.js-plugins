@@ -4,6 +4,7 @@ import path from 'path';
 import { requireFromProject } from './helpers';
 
 /**
+ * Generates IMA formatted dictionary
  *
  * @param {object} languages
  * @param {string} locale
