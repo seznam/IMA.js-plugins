@@ -1,5 +1,19 @@
 # Change Log
 
+## 5.0.0-rc.1
+
+### Minor Changes
+
+- 0b81d28: npmignore revert logic, add missing npmignore
+  apply pluginLoader
+  update ima peer deps
+  refactor plugin register functions, remove exports for ima17
+
+### Patch Changes
+
+- Updated dependencies [0b81d28]
+  - @ima/plugin-script-loader@3.0.0-rc.1
+
 ## 5.0.0-rc.0
 
 ### Major Changes

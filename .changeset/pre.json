@@ -27,6 +27,7 @@
     "@ima/react-hooks": "1.1.1"
   },
   "changesets": [
-    "three-coats-cough"
+    "three-coats-cough",
+    "wet-planes-speak"
   ]
 }
