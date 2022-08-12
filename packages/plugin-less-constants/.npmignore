@@ -1,0 +1,4 @@
+*
+!tasks/*
+!*.js
+jest.config.js
