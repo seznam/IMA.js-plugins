@@ -12,8 +12,6 @@ import ResponsePostProcessor from './ResponsePostProcessor';
 import RestClient from './RestClient';
 import { deepFreeze } from './utils';
 
-let $registerImaPlugin = () => {};
-
 export default AbstractRestClient;
 
 export {
@@ -29,6 +27,5 @@ export {
   Response,
   ResponsePostProcessor,
   RestClient,
-  deepFreeze,
-  $registerImaPlugin
+  deepFreeze
 };

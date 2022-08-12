@@ -1,3 +1,5 @@
+import { pluginLoader } from '@ima/core';
+
 /**
  * A configuration.
  *
@@ -256,12 +258,11 @@ function rejectIf(condition, reason) {
   return null;
 }
 
-let $registerImaPlugin = ns => {
+pluginLoader.register('@ima/plugin-logger', ns => {
   ns.namespace('plugin.logger');
-};
+});
 
 export {
-  $registerImaPlugin,
   configureLogger,
   beSilent,
   isSilent,

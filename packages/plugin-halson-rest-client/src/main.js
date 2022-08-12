@@ -7,10 +7,7 @@ import embedName from './decorator/embedName';
 import idParameterName from './decorator/idParameterName';
 import inlineEmbeds from './decorator/inlineEmbeds';
 
-const $registerImaPlugin = () => {};
-
 export {
-  $registerImaPlugin,
   AbstractHalsonEntity,
   HalsonConfigurator,
   HalsonLinkGenerator,

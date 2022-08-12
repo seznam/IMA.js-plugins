@@ -3,6 +3,4 @@ import Events from './Events';
 
 const defaultDependencies = AbstractAnalytic.$dependencies;
 
-const $registerImaPlugin = () => {};
-
-export { AbstractAnalytic, Events, defaultDependencies, $registerImaPlugin };
+export { AbstractAnalytic, Events, defaultDependencies };
