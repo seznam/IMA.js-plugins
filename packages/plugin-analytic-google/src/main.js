@@ -1,13 +1,12 @@
+import { pluginLoader } from '@ima/core';
 import uid from 'easy-uid';
 
 import GoogleAnalytic from './GoogleAnalytic.js';
 
 const defaultDependencies = GoogleAnalytic.$dependencies;
 
-const $registerImaPlugin = () => {};
-
-let initSettings = () => {
-  return {
+pluginLoader.register('@ima/plugin-analytic-google', () => ({
+  initSettings: () => ({
     prod: {
       plugin: {
         analytic: {
@@ -30,12 +29,7 @@ let initSettings = () => {
     test: {},
 
     dev: {}
-  };
-};
+  })
+}));
 
-export {
-  GoogleAnalytic,
-  defaultDependencies,
-  $registerImaPlugin,
-  initSettings
-};
+export { GoogleAnalytic, defaultDependencies };

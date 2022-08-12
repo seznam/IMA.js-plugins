@@ -12,9 +12,5 @@ describe('plugin', () => {
     expect(typeof plugin.WebSocket).toEqual('function');
   });
 
-  it('should exported $registerImaPlugin', () => {
-    expect(plugin.$registerImaPlugin).not.toEqual(null);
-    expect(plugin.$registerImaPlugin).not.toEqual(undefined);
-    expect(typeof plugin.$registerImaPlugin).toEqual('function');
-  });
+  
 });

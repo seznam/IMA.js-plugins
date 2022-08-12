@@ -1,9 +1,10 @@
+import { pluginLoader } from '@ima/core';
 import HotReloadService from './HotReloadService';
 
-const $registerImaPlugin = () => {};
+pluginLoader.register('@ima/plugin-hot-reload', () => ({
+  initServices: (ns, oc) => {
+    oc.get(HotReloadService).init();
+  }
+}));
 
-const initServices = (ns, oc) => {
-  oc.get(HotReloadService).init();
-};
-
-export { initServices, $registerImaPlugin, HotReloadService };
+export { HotReloadService };
