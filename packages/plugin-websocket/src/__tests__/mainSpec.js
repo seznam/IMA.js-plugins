@@ -11,6 +11,4 @@ describe('plugin', () => {
     expect(plugin.WebSocket).not.toEqual(undefined);
     expect(typeof plugin.WebSocket).toEqual('function');
   });
-
-  
 });
