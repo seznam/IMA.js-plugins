@@ -76,6 +76,12 @@ describe('Client/Server implementation of Abstract class', () => {
     }
   };
 
+  /**
+   * Generates user agent implementation mocks
+   *
+   * @param {object} platformJS
+   * @returns {object[]}
+   */
   function getImplementations(platformJS) {
     var $WindowMock = {
       getWindow: () => {

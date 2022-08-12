@@ -8,8 +8,7 @@ import { useRef } from 'react';
  * useOnce(() => {
  * 	oneTimeAction();
  * });
- *
- * @param {function} callback
+ * @param {Function} callback
  */
 function useOnce(callback) {
   const called = useRef(false);

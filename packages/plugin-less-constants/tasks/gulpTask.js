@@ -8,6 +8,10 @@ global.$Debug = global.$Debug === undefined ? true : global.$Debug;
 
 gulp.task('less:constants', lessConstants); // gulp 3
 exports['less:constants'] = lessConstants; // gulp 4
+/**
+ *
+ * @param {Function} done
+ */
 function lessConstants(done) {
   const PROGRESS_FILE = './app/config/layout.js';
   let output =
@@ -26,6 +30,11 @@ function lessConstants(done) {
   done();
 }
 
+/**
+ *
+ * @param {string} file
+ * @returns {string}
+ */
 function getFileConfigOutput(file) {
   let output = '';
   let fileConfigContents = fs
@@ -59,6 +68,13 @@ function getFileConfigOutput(file) {
   return output;
 }
 
+/**
+ *
+ * @param {string} property
+ * @param {*} value
+ * @param {string} prefix
+ * @returns {string}
+ */
 function process(property, value, prefix) {
   const subPrefix = getSubPrefix(property, prefix);
 
@@ -77,10 +93,21 @@ function process(property, value, prefix) {
   return `${subPrefix}: ${value.toString()};\n`;
 }
 
+/**
+ *
+ * @param {string} property
+ * @param {string} prefix
+ * @returns {string}
+ */
 function getSubPrefix(property, prefix) {
   return prefix + (prefix.length > 1 ? '-' : '') + slugify(property);
 }
 
+/**
+ *
+ * @param {string} label
+ * @returns {string}
+ */
 function slugify(label) {
   let result = '';
 

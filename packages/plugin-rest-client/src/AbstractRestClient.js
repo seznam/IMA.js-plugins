@@ -234,7 +234,7 @@ export default class AbstractRestClient extends RestClient {
    *            withCredentials: boolean=
    *        }=} options The HTTP request option as they would be passed to
    *        the IMA HTTP agent.
-   * @return {Promise<?(Response|AbstractEntity|AbstractEntity[])>} The
+   * @returns {Promise<?(Response|AbstractEntity|AbstractEntity[])>} The
    *         post-processed server's response.
    */
   _prepareAndExecuteRequest(
@@ -285,7 +285,7 @@ export default class AbstractRestClient extends RestClient {
    *        entities to access.
    * @param {Object<string, (number|string|(number|string)[])>} parameters
    *        Additional parameters to use when generating the URL.
-   * @return {string} The generated URL.
+   * @returns {string} The generated URL.
    */
   _generateUrl(parentEntity, resource, id, parameters) {
     return this._linkGenerator.createLink(
@@ -320,7 +320,7 @@ export default class AbstractRestClient extends RestClient {
    *            withCredentials: boolean=
    *        }=} rawOptions The HTTP request option as they would be passed to
    *        the IMA HTTP agent.
-   * @return {Request} The created request.
+   * @returns {Request} The created request.
    */
   _createRequest(
     parentEntity,
@@ -359,7 +359,7 @@ export default class AbstractRestClient extends RestClient {
    * @private
    * @param {Request} request The request to pre-process, and then send to
    *        the server.
-   * @return {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
+   * @returns {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
    *         that will resolve to the post-processed server's response, or a
    *         post-processed response provided by one of the pre-processors,
    *         or an entity or array of entities or {@code null} if the
@@ -411,7 +411,7 @@ export default class AbstractRestClient extends RestClient {
    * @private
    * @param {Response} response The REST API response that should have its
    *        body replaced with entity(ies).
-   * @return {Response} Response object with its body set to an entity, an
+   * @returns {Response} Response object with its body set to an entity, an
    *         array of entities, or {@code null} if the original body did not
    *         contain any usable data.
    */
@@ -449,7 +449,7 @@ export default class AbstractRestClient extends RestClient {
    *
    * @private
    * @param {Request} request The request to send to the server.
-   * @return {Promise<Response>} A promise that will resolve to a response
+   * @returns {Promise<Response>} A promise that will resolve to a response
    *         object containing the server's response.
    */
   _executeRequestUsingHttpAgent(request) {

@@ -24,6 +24,7 @@ export function getConfig() {
 
 /**
  * Sets config keys
+ *
  * @param {object} config
  */
 export function setConfig(config) {

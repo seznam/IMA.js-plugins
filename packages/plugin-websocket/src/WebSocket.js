@@ -45,14 +45,14 @@ export default class WebSocket {
   }
 
   /**
-   * @param  {function} [observer=() => {}]
+   * @param  {Function} [observer=() => {}]
    */
   subscribe(observer = () => {}) {
     this._observers.push(observer);
   }
 
   /**
-   * @param  {function} [observer=() => {}]
+   * @param  {Function} [observer=() => {}]
    */
   unsubscribe(observer = () => {}) {
     const index = this._observers.indexOf(observer);
@@ -64,7 +64,8 @@ export default class WebSocket {
 
   /**
    * Returns count of observers.
-   * @return {number} The number of observers.
+   *
+   * @returns {number} The number of observers.
    */
   observersCount() {
     return this._observers.length;

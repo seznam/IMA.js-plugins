@@ -7,8 +7,7 @@ import { GenericError, PageContext } from '@ima/core';
  *
  * @example
  * const pageContext = usePageContext();
- *
- * @return {React.Consumer} IMA.js PageContext
+ * @returns {React.Consumer} IMA.js PageContext
  */
 function usePageContext() {
   const context = useContext(PageContext);

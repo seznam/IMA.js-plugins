@@ -11,10 +11,10 @@ export default class Response {
    * Initializes the response representation using the provided data.
    *
    * @param {{
-   *            status: number,
-   *            headers: Object<string, string>.
-   *            body: *,
-   *            cached: boolean,
+   *            status: number
+   *            headers: Object<string, string>
+   *            body: *
+   *            cached: boolean
    *            request: Request
    *        }} responseData The data representing this response. See the
    *        fields of this class for more information.

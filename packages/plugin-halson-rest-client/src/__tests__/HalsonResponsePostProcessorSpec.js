@@ -233,6 +233,9 @@ describe('HalsonResponsePostProcessor', () => {
     }
   }
 
+  /**
+   * Initializes a response
+   */
   function constructResponse() {
     response = new Response({
       status: 200,
@@ -253,6 +256,12 @@ describe('HalsonResponsePostProcessor', () => {
     });
   }
 
+  /**
+   * Creates a deep copy of the source object
+   *
+   * @param {object} source
+   * @returns {object}
+   */
   function deepCopy(source) {
     if (source instanceof Array) {
       return source.map(entity => deepCopy(entity));

@@ -34,7 +34,7 @@ export default class RestClient {
    *        resource will be manipulated. It may be needed to determine the
    *        parent resource from the entity. Use {@code null} if the
    *        specified resource is a top-level resource within the REST API.
-   * @return {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
+   * @returns {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
    *         that will resolve to the server's response, or the entity,
    *         entities or {@code null} constructed from the response body if
    *         the resource is a class extending the {@code AbstractEntity}
@@ -72,7 +72,7 @@ export default class RestClient {
    *        resource will be manipulated. It may be needed to determine the
    *        parent resource from the entity. Use {@code null} if the
    *        specified resource is a top-level resource within the REST API.
-   * @return {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
+   * @returns {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
    *         that will resolve to the server's response, or the entity,
    *         entities or {@code null} constructed from the response body if
    *         the resource is a class extending the {@code AbstractEntity}
@@ -113,7 +113,7 @@ export default class RestClient {
    *        resource will be manipulated. It may be needed to determine the
    *        parent resource from the entity. Use {@code null} if the
    *        specified resource is a top-level resource within the REST API.
-   * @return {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
+   * @returns {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
    *         that will resolve to the server's response, or the entity,
    *         entities or {@code null} constructed from the response body if
    *         the resource is a class extending the {@code AbstractEntity}
@@ -155,7 +155,7 @@ export default class RestClient {
    *        resource will be manipulated. It may be needed to determine the
    *        parent resource from the entity. Use {@code null} if the
    *        specified resource is a top-level resource within the REST API.
-   * @return {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
+   * @returns {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
    *         that will resolve to the server's response, or the entity,
    *         entities or {@code null} constructed from the response body if
    *         the resource is a class extending the {@code AbstractEntity}
@@ -195,7 +195,7 @@ export default class RestClient {
    *        resource will be manipulated. It may be needed to determine the
    *        parent resource from the entity. Use {@code null} if the
    *        specified resource is a top-level resource within the REST API.
-   * @return {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
+   * @returns {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
    *         that will resolve to the server's response, or the entity,
    *         entities or {@code null} constructed from the response body if
    *         the resource is a class extending the {@code AbstractEntity}
@@ -230,7 +230,7 @@ export default class RestClient {
    *        resource will be manipulated. It may be needed to determine the
    *        parent resource from the entity. Use {@code null} if the
    *        specified resource is a top-level resource within the REST API.
-   * @return {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
+   * @returns {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
    *         that will resolve to the server's response, or the entity,
    *         entities or {@code null} constructed from the response body if
    *         the resource is a class extending the {@code AbstractEntity}

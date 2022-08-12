@@ -6,16 +6,29 @@ import { createSelector } from 'reselect';
 let creatorOfStateSelector = createStateSelector;
 let hoistStaticMethod = hoistNonReactStaticMethod;
 
+/**
+ *
+ * @param {Function} createStateSelector
+ */
 export function setCreatorOfStateSelector(createStateSelector) {
   creatorOfStateSelector = createStateSelector;
 }
 
 export const hoistNonReactStatic = hoistNonReactStaticMethod;
 
+/**
+ *
+ * @param {Function} method
+ */
 export function setHoistStaticMethod(method) {
   hoistStaticMethod = method;
 }
 
+/**
+ *
+ * @param {...any} selectors
+ * @returns {Function}
+ */
 export function select(...selectors) {
   return Component => {
     const WithContext = props => {
@@ -39,6 +52,12 @@ export function select(...selectors) {
   };
 }
 
+/**
+ *
+ * @param {object} props
+ * @param {...any} selectors
+ * @returns {object[]}
+ */
 export function useSelect(props, ...selectors) {
   const context = useContext(PageContext);
   const utils = context.$Utils || props.$Utils;
@@ -82,6 +101,11 @@ export function useSelect(props, ...selectors) {
   return [resolveNewState.current()];
 }
 
+/**
+ *
+ * @param {...any} selectors
+ * @returns {Function}
+ */
 export default function forwardedSelect(...selectors) {
   return Component => {
     const SelectState = select(...selectors)(Component);
@@ -95,6 +119,11 @@ export default function forwardedSelect(...selectors) {
   };
 }
 
+/**
+ *
+ * @param {...any} selectors
+ * @returns {*}
+ */
 export function createStateSelector(...selectors) {
   const derivedState = createSelector(
     ...selectors.map(selector => {

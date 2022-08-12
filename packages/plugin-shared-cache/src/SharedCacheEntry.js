@@ -50,7 +50,7 @@ export default class SharedCacheEntry {
   /**
    * Returns `true` if this entry has expired.
    *
-   * @return {boolean} `true` if this entry has expired.
+   * @returns {boolean} `true` if this entry has expired.
    */
   isExpired() {
     if (!this._ttl) {
@@ -63,7 +63,7 @@ export default class SharedCacheEntry {
   /**
    * Returns the entry value.
    *
-   * @return {*} The entry value.
+   * @returns {*} The entry value.
    */
   get value() {
     this._accessed = Date.now();

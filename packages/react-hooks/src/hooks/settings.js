@@ -11,9 +11,8 @@ import { useComponentUtils } from './componentUtils';
  * // Using settings selector
  * const { scripts, documentView } = useSettings('$Page.$Render');
  * const esScripts = useSettings('$Page.$Render.esScripts');
- *
  * @param {string?} selector Optional path selector.
- * @return {object} Settings object or
+ * @returns {object} Settings object or
  *  specific sub-settings if selector is provided.
  */
 function useSettings(selector) {

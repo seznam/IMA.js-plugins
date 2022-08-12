@@ -7,8 +7,7 @@ import { useComponentUtils } from './componentUtils';
  *
  * @example
  * const localize = useLocalize();
- *
- * @return {function(string, Object<string, *>): string} Dictionary.get
+ * @returns {function(string, Object<string, *>): string} Dictionary.get
  */
 function useLocalize() {
   const { $Dictionary } = useComponentUtils();

@@ -21,10 +21,9 @@ import { useComponentUtils } from './componentUtils';
  * useEffect(() => {
  * 	fire('another-event', { data: {} })
  * });
- *
  * @param {string} [event=null] Event name.
- * @param {function} [callback=null] Callback to register to dispatcher.
- * @return {{
+ * @param {Function} [callback=null] Callback to register to dispatcher.
+ * @returns {{
  * 	fire: function(string, Object<string, *>, boolean)
  * }} Dispatcher `fire` method.
  */

@@ -7,8 +7,7 @@ import { useComponentUtils } from './componentUtils';
  *
  * @example
  * const cssClasses = useCssClasses();
- *
- * @return {function(...(string|Object<string, boolean>|[string])): string} classnames
+ * @returns {function(...(string|Object<string, boolean>|string[])): string} classnames
  */
 function useCssClasses() {
   const { $CssClasses } = useComponentUtils();

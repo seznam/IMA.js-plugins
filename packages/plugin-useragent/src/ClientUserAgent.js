@@ -23,7 +23,7 @@ export default class ClientUserAgent extends AbstractUserAgent {
 
   /**
    * @override
-   * @return {string}
+   * @returns {string}
    */
   getUserAgent() {
     return this._window.getWindow().navigator.userAgent;
