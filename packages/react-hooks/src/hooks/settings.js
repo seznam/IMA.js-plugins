@@ -24,6 +24,8 @@ function useSettings(selector) {
       let curSettings = $Settings;
       const segments = selector.split('.');
 
+      xxx();
+
       while ((segment = segments.shift())) {
         if (!(segment in curSettings)) {
           return {};

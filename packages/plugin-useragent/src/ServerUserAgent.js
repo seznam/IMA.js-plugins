@@ -1,11 +1,10 @@
-// @server-side
-
 import AbstractUserAgent from './AbstractUserAgent.js';
 
 /**
  * Server-side UserAgent class
  */
 export default class ServerUserAgent extends AbstractUserAgent {
+  // @if server
   /**
    * Initializes the user agent analyzer used at the server-side.
    *
@@ -28,4 +27,5 @@ export default class ServerUserAgent extends AbstractUserAgent {
   getUserAgent() {
     return this._request.getHeader('User-Agent');
   }
+  // @endif
 }
