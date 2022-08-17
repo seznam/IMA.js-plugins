@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "es2022",
+    "typeRoots": [
+      "typings",
+      "node_modules/@types"
+    ],
+    "declaration": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noUnusedLocals": false,
+    "jsx": "react-jsx",
+  },
+  "exclude": [
+    "**/node_modules/**",
+    "**/__snapshots__/**",
+    "**/__tests__/**",
+    "**/dist/**",
+    "**/.turbo/**"
+  ]
+}

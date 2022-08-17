@@ -1,0 +1,1 @@
+export { SelfXSS } from './SelfXSS';

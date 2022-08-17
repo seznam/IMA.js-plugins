@@ -1,26 +1,61 @@
-const { preprocessTransformer } = require('ima-plugin-cli');
-const { swcTransformer } = require('ima-plugin-cli');
+const {
+  swcTransformer,
+  preprocessTransformer,
+  typescriptDefinitionsPlugin
+} = require('ima-plugin-cli');
 
 const isProduction = process.env.NODE_ENV === 'production';
+const skipTransform = [/\.(css|less|json)/];
+const exclude = [
+  '**/__tests__/**',
+  '**/node_modules/**',
+  '**/dist/**',
+  '**/typings/**'
+];
 
-const swcTransform = swcTransformer({
-  sourceMaps: true,
-  inlineSourcesContent: true,
-  isModule: true,
-  jsc: {
-    target: 'es2022',
-    parser: {
-      syntax: 'ecmascript',
-      jsx: true
-    },
-    transform: {
-      react: {
-        useBuiltins: true,
-        development: !isProduction
+const swcTransformers = [
+  [
+    swcTransformer({
+      sourceMaps: true,
+      inlineSourcesContent: true,
+      isModule: true,
+      jsc: {
+        target: 'es2022',
+        parser: {
+          syntax: 'ecmascript',
+          jsx: true
+        },
+        transform: {
+          react: {
+            useBuiltins: true,
+            development: !isProduction
+          }
+        }
       }
-    }
-  }
-});
+    }),
+    { test: /\.(js|jsx)$/ }
+  ],
+  [
+    swcTransformer({
+      sourceMaps: true,
+      inlineSourcesContent: true,
+      jsc: {
+        target: 'es2022',
+        parser: {
+          syntax: 'typescript',
+          tsx: true
+        },
+        transform: {
+          react: {
+            useBuiltins: true,
+            development: !isProduction
+          }
+        }
+      }
+    }),
+    { test: /\.(ts|tsx)$/ }
+  ]
+];
 
 /**
  * @returns import('ima-plugin-cli').BuildConfig[]
@@ -30,16 +65,19 @@ function createClientServerConfig() {
     {
       input: './src',
       output: './dist/client',
-      skipTransform: [/\.(css|less)/],
+      skipTransform,
+      exclude,
       transforms: [
         preprocessTransformer({ context: { client: true, server: false } }),
-        [swcTransform, { test: /\.(js|jsx)/ }]
-      ]
+        ...swcTransformers
+      ],
+      plugins: [typescriptDefinitionsPlugin()]
     },
     {
       input: './src',
       output: './dist/server',
-      skipTransform: [/\.(css|less)/],
+      skipTransform,
+      exclude,
       transforms: [
         preprocessTransformer({
           context: {
@@ -47,8 +85,9 @@ function createClientServerConfig() {
             server: true
           }
         }),
-        [swcTransform, { test: /\.(js|jsx)/ }]
-      ]
+        ...swcTransformers
+      ],
+      plugins: [typescriptDefinitionsPlugin()]
     }
   ];
 }
@@ -60,8 +99,10 @@ function createBasicConfig() {
   return {
     input: './src',
     output: './dist',
-    skipTransform: [/\.(css|less)/],
-    transforms: [[swcTransform, { test: /\.(js|jsx)/ }]]
+    skipTransform,
+    exclude,
+    transforms: [...swcTransformers],
+    plugins: [typescriptDefinitionsPlugin()]
   };
 }
 

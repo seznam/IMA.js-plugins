@@ -1,7 +1,12 @@
-/**
- * Self XSS class
- */
-export default class SelfXSS {
+import type {
+  $Window,
+  Dictionary
+} from '@ima/core';
+
+export class SelfXSS {
+  #window: $Window;
+  #dictionary:Dictionary;
+
   static get $dependencies() {
     return ['$Window', '$Dictionary'];
   }
@@ -14,36 +19,22 @@ export default class SelfXSS {
     return 'ima-plugin-self-xss.phase';
   }
 
-  /**
-   * @param {ima.window.Window} window
-   * @param {ima.dictionary.Dictionary} dictionary
-   */
-  constructor(window, dictionary) {
-    /**
-     * @type {ima.window.Window}
-     */
-    this._window = window;
-
-    /**
-     * @type {ima.dictionary.Dictionary}
-     */
-    this._dictionary = dictionary;
+  constructor(window: $Window, dictionary: Dictionary) {
+    this.#window = window;
+    this.#dictionary = dictionary;
   }
 
   /**
    * The method print self XSS warning message to console.
    */
   init() {
-    let browserWindow = this._window.getWindow();
-    let isConsoleAvailable = browserWindow && !!browserWindow.console;
-
-    if (!this._window.isClient() || !isConsoleAvailable) {
+    if (!this.#window.isClient()) {
       return;
     }
 
     if (
-      !this._dictionary.has(SelfXSS.DICTIONARY_PHASE_KEY) ||
-      !this._dictionary.has(SelfXSS.DICTIONARY_TITLE_KEY)
+      !this.#dictionary.has(SelfXSS.DICTIONARY_PHASE_KEY) ||
+      !this.#dictionary.has(SelfXSS.DICTIONARY_TITLE_KEY)
     ) {
       if ($Debug) {
         throw new Error(
@@ -59,11 +50,11 @@ export default class SelfXSS {
 
     /* eslint-disable no-console */
     console.log(
-      `%c${this._dictionary.get(SelfXSS.DICTIONARY_TITLE_KEY)}`,
+      `%c${this.#dictionary.get(SelfXSS.DICTIONARY_TITLE_KEY)}`,
       'font: bold 4em sans-serif; -webkit-text-stroke: 1px black; color: red;'
     );
     console.log(
-      `%c${this._dictionary.get(SelfXSS.DICTIONARY_PHASE_KEY)}`,
+      `%c${this.#dictionary.get(SelfXSS.DICTIONARY_PHASE_KEY)}`,
       'font: 2em sans-serif; color: gray;'
     );
     /* eslint-disable */
