@@ -6,7 +6,6 @@ module.exports = {
       return babel.transform(src, {
         filename,
         presets: ['@babel/preset-react', 'babel-preset-jest'],
-        plugins: ['@babel/plugin-transform-modules-commonjs'],
         retainLines: true
       }).code;
     }

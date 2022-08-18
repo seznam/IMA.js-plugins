@@ -21,17 +21,11 @@
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/eslint-parser": "^7.18.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
     "@changesets/cli": "2.24.2",
     "@ima/cli": "18.0.0-rc.4",
     "@ima/core": "18.0.0-rc.4",
     "@ima/server": "18.0.0-rc.4",
-    "@rollup/plugin-babel": "^5.1.0",
-    "@rollup/plugin-commonjs": "^14.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^8.4.0",
-    "@rollup/plugin-replace": "^2.3.3",
     "babel-preset-jest": "^26.2.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
@@ -50,9 +44,6 @@
     "prettier": "^2.0.5",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "rollup": "^2.23.0",
-    "rollup-plugin-copy": "^3.3.0",
-    "rollup-plugin-peer-deps-external": "^2.2.3",
     "to-mock": "^1.6.2"
   },
   "lint-staged": {

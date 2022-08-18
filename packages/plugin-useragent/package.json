@@ -2,7 +2,7 @@
   "name": "@ima/plugin-useragent",
   "version": "4.0.0-rc.1",
   "description": "Seznam IMA.js plugin user-agent",
-  "main": "index.js",
+  "main": "./dist/main.js",
   "scripts": {
     "test": "../../node_modules/.bin/jest --config=jest.config.js",
     "doc": "../../node_modules/.bin/gulp doc",

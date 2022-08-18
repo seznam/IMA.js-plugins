@@ -2,7 +2,7 @@
   "name": "@ima/plugin-shared-cache",
   "version": "3.0.0-rc.1",
   "description": "A utility for creating caches that are shared between requests by all IMA.js application instances within the same node.js process.",
-  "main": "index.js",
+  "main": "./dist/main.js",
   "scripts": {
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "doc": "../../node_modules/.bin/gulp doc",
