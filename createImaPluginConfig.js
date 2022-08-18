@@ -5,13 +5,6 @@ const {
 } = require('ima-plugin-cli');
 
 const isProduction = process.env.NODE_ENV === 'production';
-const skipTransform = [/\.(css|less|json)/];
-const exclude = [
-  '**/__tests__/**',
-  '**/node_modules/**',
-  '**/dist/**',
-  '**/typings/**'
-];
 
 const swcTransformers = [
   [
@@ -65,8 +58,6 @@ function createClientServerConfig() {
     {
       input: './src',
       output: './dist/client',
-      skipTransform,
-      exclude,
       transforms: [
         preprocessTransformer({ context: { client: true, server: false } }),
         ...swcTransformers
@@ -76,8 +67,6 @@ function createClientServerConfig() {
     {
       input: './src',
       output: './dist/server',
-      skipTransform,
-      exclude,
       transforms: [
         preprocessTransformer({
           context: {
@@ -99,8 +88,6 @@ function createBasicConfig() {
   return {
     input: './src',
     output: './dist',
-    skipTransform,
-    exclude,
     transforms: [...swcTransformers],
     plugins: [typescriptDefinitionsPlugin()]
   };
