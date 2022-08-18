@@ -5,52 +5,36 @@ The [IMA](https://imajs.io) plugin is trying to mitigate Self-XSS security attac
 
 ## Installation
 
-```javascript
-
+```console
 npm install @ima/plugin-self-xss --save
-
 ```
+
+Add language paths to `ima.config.js` using the `languages` config settings. Follwing settings should cover all `@ima/` plugins:
 
 ```javascript
-// /app/build.js
-
-let vendors = {
-    common: [
-        '@ima/plugin-self-xss'
-    ]
+// ./ima.config.js
+module.exports = {
+  languages: {
+    cs: [
+      './node_modules/@ima/**/*CS.json',
+      './app/**/*CS.json',
+    ],
+    en: [
+      './node_modules/@ima/**/*EN.json',
+      './app/**/*EN.json',
+    ],
+  },
 };
 
-let languages = {
-	cs: [
-		'./node_modules/@ima/plugin-self-xss/dist/locales/*CS.json'
-	],
-	en : [
-		'./node_modules/@ima/plugin-self-xss/dist/locales/*EN.json'
-	]
+```
+
+```js
+// ./app/config/services.js
+import SelfXSS from '@ima/plugin-self-xss';
+
+export default (ns, oc, config) => {
+	// ...
+	oc.get(SelfXSS).init();
 };
 
-/*
-The atom components are now available within the namespace:
-
-import SelfXSS from '@ima/plugin-self-xss';
-*/
 ```
-
-```
-// /app/config/services.js
-import SelfXSS from '@ima/plugin-self-xss';
-
-...
-
-let selfXSS = oc.get(SelfXSS);
-
-...
-
-selfXSS.init();
-
-```
-
-## IMA.js
-
-The [IMA.js](https://imajs.io) is an application development stack for developing
-isomorphic applications written in pure JavaScript.

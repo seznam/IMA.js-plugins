@@ -1,7 +1,7 @@
 const {
   swcTransformer,
   preprocessTransformer,
-  typescriptDefinitionsPlugin
+  typescriptDeclarationsPlugin
 } = require('ima-plugin-cli');
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -9,8 +9,8 @@ const isProduction = process.env.NODE_ENV === 'production';
 const swcTransformers = [
   [
     swcTransformer({
-      sourceMaps: true,
-      inlineSourcesContent: true,
+      sourceMaps: false,
+      inlineSourcesContent: false,
       isModule: true,
       jsc: {
         target: 'es2022',
@@ -30,8 +30,8 @@ const swcTransformers = [
   ],
   [
     swcTransformer({
-      sourceMaps: true,
-      inlineSourcesContent: true,
+      sourceMaps: false,
+      inlineSourcesContent: false,
       jsc: {
         target: 'es2022',
         parser: {
@@ -62,7 +62,7 @@ function createClientServerConfig() {
         preprocessTransformer({ context: { client: true, server: false } }),
         ...swcTransformers
       ],
-      plugins: [typescriptDefinitionsPlugin()]
+      plugins: [typescriptDeclarationsPlugin()]
     },
     {
       input: './src',
@@ -75,21 +75,20 @@ function createClientServerConfig() {
           }
         }),
         ...swcTransformers
-      ],
-      plugins: [typescriptDefinitionsPlugin()]
+      ]
     }
   ];
 }
 
 /**
- * @returns import('ima-plugin-cli').BuildConfig[]
+ * @returns import('ima-plugin-cli').BuildConfig
  */
 function createBasicConfig() {
   return {
     input: './src',
     output: './dist',
     transforms: [...swcTransformers],
-    plugins: [typescriptDefinitionsPlugin()]
+    plugins: [typescriptDeclarationsPlugin()]
   };
 }
 

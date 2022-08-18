@@ -4,11 +4,10 @@ import type {
 } from '@ima/core';
 
 export class SelfXSS {
-  #window: $Window;
-  #dictionary:Dictionary;
+  #dictionary: Dictionary;
 
   static get $dependencies() {
-    return ['$Window', '$Dictionary'];
+    return ['$Dictionary'];
   }
 
   static get DICTIONARY_TITLE_KEY() {
@@ -19,8 +18,7 @@ export class SelfXSS {
     return 'ima-plugin-self-xss.phase';
   }
 
-  constructor(window: $Window, dictionary: Dictionary) {
-    this.#window = window;
+  constructor(dictionary: Dictionary) {
     this.#dictionary = dictionary;
   }
 
@@ -28,10 +26,7 @@ export class SelfXSS {
    * The method print self XSS warning message to console.
    */
   init() {
-    if (!this.#window.isClient()) {
-      return;
-    }
-
+    // @if client
     if (
       !this.#dictionary.has(SelfXSS.DICTIONARY_PHASE_KEY) ||
       !this.#dictionary.has(SelfXSS.DICTIONARY_TITLE_KEY)
@@ -48,7 +43,6 @@ export class SelfXSS {
       return;
     }
 
-    /* eslint-disable no-console */
     console.log(
       `%c${this.#dictionary.get(SelfXSS.DICTIONARY_TITLE_KEY)}`,
       'font: bold 4em sans-serif; -webkit-text-stroke: 1px black; color: red;'
@@ -57,6 +51,6 @@ export class SelfXSS {
       `%c${this.#dictionary.get(SelfXSS.DICTIONARY_PHASE_KEY)}`,
       'font: 2em sans-serif; color: gray;'
     );
-    /* eslint-disable */
+    // @endif
   }
 }

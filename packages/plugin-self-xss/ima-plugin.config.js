@@ -1,3 +1,3 @@
-const { createBasicConfig } = require('../../createImaPluginConfig');
+const { createClientServerConfig } = require('../../createImaPluginConfig');
 
-module.exports = createBasicConfig();
+module.exports = createClientServerConfig();
