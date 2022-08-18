@@ -4,11 +4,6 @@ declare module '@ima/core' {
     let $Debug: boolean;
   }
 
-  export interface $Window {
-    isClient(): boolean;
-    getWindow(): Window;
-  }
-
   export interface Dictionary {
     has(key: string): boolean;
     get(key: string): string;

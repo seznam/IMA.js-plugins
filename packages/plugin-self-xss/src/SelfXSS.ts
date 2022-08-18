@@ -1,5 +1,4 @@
 import type {
-  $Window,
   Dictionary
 } from '@ima/core';
 

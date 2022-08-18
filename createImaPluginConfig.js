@@ -9,14 +9,14 @@ const isProduction = process.env.NODE_ENV === 'production';
 const swcTransformers = [
   [
     swcTransformer({
-      sourceMaps: false,
-      inlineSourcesContent: false,
       isModule: true,
       jsc: {
         target: 'es2022',
         parser: {
           syntax: 'ecmascript',
-          jsx: true
+          jsx: true,
+          decorators: false,
+          dynamicImport: true
         },
         transform: {
           react: {
@@ -30,13 +30,14 @@ const swcTransformers = [
   ],
   [
     swcTransformer({
-      sourceMaps: false,
-      inlineSourcesContent: false,
+      isModule: true,
       jsc: {
         target: 'es2022',
         parser: {
           syntax: 'typescript',
-          tsx: true
+          tsx: true,
+          decorators: false,
+          dynamicImport: true
         },
         transform: {
           react: {
@@ -83,7 +84,7 @@ function createClientServerConfig() {
 /**
  * @returns import('ima-plugin-cli').BuildConfig
  */
-function createBasicConfig() {
+function createConfig() {
   return {
     input: './src',
     output: './dist',
@@ -92,4 +93,4 @@ function createBasicConfig() {
   };
 }
 
-module.exports = { createClientServerConfig, createBasicConfig };
+module.exports = { createClientServerConfig, createConfig };
