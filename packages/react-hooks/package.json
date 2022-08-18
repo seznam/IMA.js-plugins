@@ -4,12 +4,12 @@
   "description": "Collection of React hooks for use in IMA.js applications",
   "main": "./dist/main.js",
   "scripts": {
+    "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
+    "doc": "../../node_modules/.bin/gulp doc",
     "build": "NODE_ENV=production ima-plugin build",
     "dev": "ima-plugin dev",
     "link": "ima-plugin link",
-    "prepare": "npm run build",
-    "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
-    "doc": "../../node_modules/.bin/gulp doc"
+    "prepare": "npm run build"
   },
   "keywords": [
     "IMA.js",
