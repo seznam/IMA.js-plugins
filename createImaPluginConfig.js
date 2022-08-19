@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-jsdoc */
 const {
   swcTransformer,
   preprocessTransformer,
@@ -6,50 +7,46 @@ const {
 
 const isProduction = process.env.NODE_ENV === 'production';
 
-const swcTransformers = [
-  [
-    swcTransformer({
-      isModule: true,
-      jsc: {
-        target: 'es2022',
-        parser: {
-          syntax: 'ecmascript',
-          jsx: true,
-          decorators: false,
-          dynamicImport: true
-        },
-        transform: {
-          react: {
-            useBuiltins: true,
-            development: !isProduction
-          }
+function createSwcTransformer(options = {}) {
+  const optionsWithDefaults = {
+    type: 'es6',
+    syntax: 'ecmascript',
+    target: 'es2022',
+    ...options
+  };
+
+  return swcTransformer({
+    isModule: true,
+    module: {
+      type: optionsWithDefaults.type
+    },
+    jsc: {
+      target: optionsWithDefaults.target,
+      parser: {
+        syntax: optionsWithDefaults.syntax,
+        decorators: false,
+        dynamicImport: true,
+        [optionsWithDefaults.syntax === 'typescript' ? 'tsx' : 'jsx']: true
+      },
+      transform: {
+        react: {
+          useBuiltins: true,
+          development: !isProduction
         }
       }
-    }),
-    { test: /\.(js|jsx)$/ }
-  ],
-  [
-    swcTransformer({
-      isModule: true,
-      jsc: {
-        target: 'es2022',
-        parser: {
-          syntax: 'typescript',
-          tsx: true,
-          decorators: false,
-          dynamicImport: true
-        },
-        transform: {
-          react: {
-            useBuiltins: true,
-            development: !isProduction
-          }
-        }
-      }
-    }),
-    { test: /\.(ts|tsx)$/ }
-  ]
-];
+    }
+  });
+}
+
+function createSwcTransformers(options = {}) {
+  return [
+    [createSwcTransformer(options), { test: /\.(js|jsx)$/ }],
+    [
+      createSwcTransformer({ ...options, syntax: 'typescript' }),
+      { test: /\.(ts|tsx)$/ }
+    ]
+  ];
+}
 
 /**
  * @returns import('ima-plugin-cli').BuildConfig[]
@@ -61,7 +58,7 @@ function createClientServerConfig() {
       output: './dist/client',
       transforms: [
         preprocessTransformer({ context: { client: true, server: false } }),
-        ...swcTransformers
+        ...createSwcTransformers()
       ],
       plugins: [typescriptDeclarationsPlugin()]
     },
@@ -75,7 +72,7 @@ function createClientServerConfig() {
             server: true
           }
         }),
-        ...swcTransformers
+        ...createSwcTransformers()
       ]
     }
   ];
@@ -88,9 +85,21 @@ function createConfig() {
   return {
     input: './src',
     output: './dist',
-    transforms: [...swcTransformers],
+    transforms: createSwcTransformers(),
     plugins: [typescriptDeclarationsPlugin()]
   };
 }
 
-module.exports = { createClientServerConfig, createConfig };
+/**
+ * @returns import('ima-plugin-cli').BuildConfig
+ */
+function createNodeConfig() {
+  return {
+    input: './src',
+    output: './dist',
+    transforms: createSwcTransformers({ type: 'commonjs' }),
+    plugins: [typescriptDeclarationsPlugin()]
+  };
+}
+
+module.exports = { createClientServerConfig, createConfig, createNodeConfig };

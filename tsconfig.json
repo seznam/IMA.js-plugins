@@ -8,6 +8,7 @@
     ],
     "declaration": true,
     "allowJs": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noUnusedLocals": false,
