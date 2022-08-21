@@ -56,3 +56,7 @@ Pass any option that the `BundleStatsWebpackPlugin` accepts. These are then merg
 > `object`
 
 Pass any option that the `BundleAnalyzerPlugin` accepts. These are then merged with some of our custom defaults.
+
+---
+
+For more information, take a look at the [IMA.js documentation](https://imajs.io/cli/plugins/analyze-plugin).
