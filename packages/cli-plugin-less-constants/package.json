@@ -4,6 +4,16 @@
   "description": "Plugin for @ima/cli to enable sharing constants between LESS and JS source files.",
   "main": "./dist/main.js",
   "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "default": "./dist/main.js"
+    },
+    "./units": {
+      "types": "./dist/units/index.d.ts",
+      "default": "./dist/units/index.js"
+    }
+  },
   "scripts": {
     "test": "echo 'This package has no tests'; exit 0;",
     "doc": "../../node_modules/.bin/gulp doc",
