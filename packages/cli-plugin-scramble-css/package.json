@@ -1,9 +1,19 @@
 {
-  "name": "@ima/cli-plugin-analyze",
+  "name": "@ima/cli-plugin-scramble-css",
   "version": "0.1.0-rc1",
-  "description": "Plugin for @ima/cli adding analyze bundle functionality.",
+  "description": "Plugin for @ima/cli that implements CSS class minimizer and uglifier that can be reverse-compiled at runtime.",
   "main": "./dist/main.js",
   "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "default": "./dist/main.js"
+    },
+    "./scrambleCssClasses": {
+      "types": "./dist/scrambleCssClasses.d.ts",
+      "default": "./dist/scrambleCssClasses.js"
+    }
+  },
   "scripts": {
     "test": "echo 'This package has no tests'; exit 0;",
     "doc": "../../node_modules/.bin/gulp doc",
@@ -16,14 +26,15 @@
     "IMA",
     "cli",
     "plugin",
-    "analyze",
-    "bundle"
+    "scramble",
+    "css",
+    "minimize"
   ],
   "author": "Jan Šimeček <jan.simecek@firma.seznam.cz>",
   "repository": {
     "type": "git",
     "url": "https://github.com/seznam/IMA.js-plugins.git",
-    "directory": "packages/cli-plugin-analyze"
+    "directory": "packages/cli-plugin-scramble-css"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
@@ -37,18 +48,20 @@
     "node": ">=18",
     "npm": ">=7"
   },
-  "dependencies": {
-    "better-opn": "^3.0.2",
-    "bundle-stats-webpack-plugin": "^4.0.5",
-    "chalk": "^4.1.2",
-    "webpack-bundle-analyzer": "^4.5.0"
-  },
-  "devDependencies": {
-    "@types/webpack-bundle-analyzer": "^4.4.2",
-    "@types/yargs": "^17.0.11"
-  },
   "peerDependencies": {
     "@ima/cli": "*",
+    "@ima/core": "*",
+    "classnames": "*",
+    "postcss": ">=8",
+    "react": "*",
     "webpack": "*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.17",
+    "@types/yargs": "^17.0.11"
+  },
+  "dependencies": {
+    "postcss-selector-parser": "^6.0.10",
+    "schema-utils": "^4.0.0"
   }
 }

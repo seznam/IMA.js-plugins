@@ -8,4 +8,6 @@ declare module '@ima/core' {
     has(key: string): boolean;
     get(key: string): string;
   }
+
+  export function defaultCssClasses(): void;
 }
