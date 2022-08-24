@@ -4,7 +4,7 @@ module.exports = {
   testRegex: '(/src(/?[^/]*){0,5}/__tests__/).*Spec\\.jsx?$',
   modulePaths: ['<rootDir>/'],
   transform: {
-    '\\.jsx?': '<rootDir>/../../preprocess.js'
+    '\\.(js|jsx|ts|tsx)': '<rootDir>/../../preprocess.js'
   },
   testEnvironment: 'node'
 };
