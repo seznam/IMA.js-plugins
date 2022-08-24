@@ -2,6 +2,7 @@
   "version": "1.0.0",
   "scripts": {
     "changeset": "changeset add",
+    "postinstall": "npm run build",
     "build": "npm run build --workspaces",
     "test:ci": "jest --coverage --colors --no-watchman --config=jest.config.js",
     "test": "jest --onlyChanged --no-watchman --config=jest.config.js",
