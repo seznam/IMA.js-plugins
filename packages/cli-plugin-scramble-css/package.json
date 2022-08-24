@@ -57,8 +57,7 @@
     "webpack": "*"
   },
   "devDependencies": {
-    "@types/react": "^18.0.17",
-    "@types/yargs": "^17.0.11"
+    "@types/react": "^18.0.17"
   },
   "dependencies": {
     "postcss-selector-parser": "^6.0.10",

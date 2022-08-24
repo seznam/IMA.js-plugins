@@ -60,7 +60,11 @@ function createClientServerConfig() {
         preprocessTransformer({ context: { client: true, server: false } }),
         ...createSwcTransformers()
       ],
-      plugins: [typescriptDeclarationsPlugin()]
+      plugins: [
+        typescriptDeclarationsPlugin({
+          additionalArgs: ['--skipLibCheck']
+        })
+      ]
     },
     {
       input: './src',
@@ -86,7 +90,11 @@ function createConfig() {
     input: './src',
     output: './dist',
     transforms: createSwcTransformers(),
-    plugins: [typescriptDeclarationsPlugin()]
+    plugins: [
+      typescriptDeclarationsPlugin({
+        additionalArgs: ['--skipLibCheck']
+      })
+    ]
   };
 }
 
@@ -98,7 +106,11 @@ function createNodeConfig() {
     input: './src',
     output: './dist',
     transforms: createSwcTransformers({ type: 'commonjs' }),
-    plugins: [typescriptDeclarationsPlugin()]
+    plugins: [
+      typescriptDeclarationsPlugin({
+        additionalArgs: ['--skipLibCheck']
+      })
+    ]
   };
 }
 

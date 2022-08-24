@@ -45,7 +45,7 @@ class AnalyzePlugin implements ImaCliPlugin {
         choices: ['server', 'client', 'client.es'],
       },
     },
-  };
+  }
 
   constructor(options: AnalyzePluginOptions) {
     this._options = options;
