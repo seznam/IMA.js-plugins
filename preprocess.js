@@ -3,7 +3,6 @@ const filesRe = /\.(js|jsx|ts|tsx)$/;
 
 module.exports = {
   process: function (src, filename) {
-    console.log('filename', filename);
     if (filesRe.test(filename)) {
       return babel.transform(src, {
         filename,
