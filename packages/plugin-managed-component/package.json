@@ -4,9 +4,7 @@
   "description": "Base class for React components (for IMA.js applications) with automatically managed DOM, event bus, dispatcher, timeout and interval listeners.",
   "main": "index.js",
   "scripts": {
-    "build": "echo \"Release process is supported only via lerna command. See README.md for more info.\"; exit 1",
     "test": "../../node_modules/.bin/jest --config=jest.config.js",
-    "doc": "../../node_modules/.bin/gulp doc",
     "prepare": "../../node_modules/.bin/rollup -c"
   },
   "keywords": [

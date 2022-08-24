@@ -4,9 +4,7 @@
   "description": "Helper plugin simplifying the usage of the XMLHttpRequest API.",
   "main": "index.js",
   "scripts": {
-    "build": "echo \"Release process is supported only via lerna command. See README.md for more info.\"; exit 1",
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
-    "doc": "../../node_modules/.bin/gulp doc",
     "prepare": "../../node_modules/.bin/rollup -c"
   },
   "repository": {
