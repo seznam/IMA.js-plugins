@@ -8,8 +8,7 @@
     "doc": "../../node_modules/.bin/gulp doc",
     "build": "NODE_ENV=production ima-plugin build",
     "dev": "ima-plugin dev",
-    "link": "ima-plugin link",
-    "prepare": "npm run build"
+    "link": "ima-plugin link"
   },
   "keywords": [
     "ima",

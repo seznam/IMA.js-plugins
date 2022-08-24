@@ -2,6 +2,7 @@
   "version": "1.0.0",
   "scripts": {
     "changeset": "changeset add",
+    "build": "npm run build --workspaces",
     "test:ci": "jest --coverage --colors --no-watchman --config=jest.config.js",
     "test": "jest --onlyChanged --no-watchman --config=jest.config.js",
     "lint:cmd": "eslint -c ./.eslintrc.js --ignore-path ./.gitignore",
