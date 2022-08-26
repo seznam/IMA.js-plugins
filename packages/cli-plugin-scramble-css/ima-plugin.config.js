@@ -1,3 +1,3 @@
-const { createNodeConfig } = require('@ima/plugin-cli');
+const { createConfig } = require('@ima/plugin-cli');
 
-module.exports = createNodeConfig();
+module.exports = createConfig('commonjs');
