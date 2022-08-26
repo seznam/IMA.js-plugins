@@ -1,3 +1,3 @@
-const { createClientServerConfig } = require('../../createImaPluginConfig');
+const { createClientServerConfig } = require('@ima/plugin-cli');
 
 module.exports = createClientServerConfig();
