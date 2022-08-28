@@ -6,14 +6,15 @@ import { BundleStatsWebpackPlugin } from 'bundle-stats-webpack-plugin';
 import chalk from 'chalk';
 import { Configuration, WebpackPluginInstance } from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import StatoscopeWebpackPlugin from '@statoscope/webpack-plugin';
 import { CommandBuilder } from 'yargs';
 
+import { createLogger } from '@ima/dev-utils/dist/logger';
 import {
   ImaConfigurationContext,
   ImaCliCommand,
   ImaCliPlugin,
-  ImaCliArgs,
-  createLogger
+  ImaCliArgs
 } from '@ima/cli';
 
 // Extend existing cli args interface with new values
@@ -49,7 +50,7 @@ class AnalyzePlugin implements ImaCliPlugin {
 
   constructor(options: AnalyzePluginOptions) {
     this._options = options;
-    this._logger = createLogger(this);
+    this._logger = createLogger(this.name);
   }
 
   async webpack(
@@ -71,11 +72,14 @@ class AnalyzePlugin implements ImaCliPlugin {
         }) as WebpackPluginInstance,
         new BundleAnalyzerPlugin({
           analyzerMode: 'static',
-          generateStatsFile: true,
           logLevel: 'silent',
           openAnalyzer: false,
           ...(this._options?.bundleAnalyzerOptions ?? {})
-        }) as unknown as WebpackPluginInstance
+        }) as unknown as WebpackPluginInstance,
+        new StatoscopeWebpackPlugin({
+          saveTo: path.join(config.output?.path ?? '', 'statoscope.html'),
+          saveStatsTo: path.join(config.output?.path ?? '', 'stats.json')
+        })
       );
     }
 
@@ -90,76 +94,66 @@ class AnalyzePlugin implements ImaCliPlugin {
     const reportPath = path.join(args.rootDir, 'build/report.html');
     const statsPath = path.join(args.rootDir, 'build/stats.json');
     const bundleStatsPath = path.join(args.rootDir, 'build/bundle-stats.html');
+    const statoscopeStatsPath = path.join(
+      args.rootDir,
+      'build/statoscope.html'
+    );
 
-    const reportExists = fs.existsSync(reportPath);
-    const statsExists = fs.existsSync(statsPath);
-    const bundleStatsExists = fs.existsSync(bundleStatsPath);
-
-    // Don't print anything if no report was generated
-    if (!reportExists && !statsExists && !bundleStatsExists) {
-      return;
-    }
-
-    this._logger.plugin('generated following report:');
+    this._logger.plugin('generated following reports:');
 
     // Print generated files info
-    if (reportExists || statsExists) {
-      this._logger.write(chalk.bold.underline('\nWebpack Bundle Analyzer:'));
-      reportExists &&
-        this._logger.write(
-          `${chalk.gray('├')} report - ${chalk.magenta(reportPath)}`
-        );
-      statsExists &&
-        this._logger.write(
-          `${chalk.gray('└')} webpack stats - ${chalk.magenta(statsPath)}`
-        );
-    }
+    this._logger.write(
+      `${chalk.gray('├')} ${chalk.bold.underline(
+        'Webpack Bundle Analyzer:'
+      )} ${chalk.magenta(reportPath)}`
+    );
 
-    if (bundleStatsExists) {
-      this._logger.write(chalk.bold.underline('\nWebpack Bundle Stats:'));
-      this._logger.write(
-        `${chalk.gray('└')} report - ${chalk.magenta(bundleStatsPath)}`
-      );
-    }
+    this._logger.write(
+      `${chalk.gray('├')} ${chalk.bold.underline(
+        'Webpack Bundle Stats:'
+      )} ${chalk.magenta(bundleStatsPath)}`
+    );
+
+    this._logger.write(
+      `${chalk.gray('└')} ${chalk.bold.underline(
+        'Webpack Statoscope:'
+      )} ${chalk.magenta(statoscopeStatsPath)}`
+    );
 
     // Print info about stats.json usage
-    if (statsExists) {
-      this._logger.write(
-        chalk.bold(
-          `\nThe generated ${chalk.green(
-            'stats.js'
-          )} file can be used in the following online analyzers:`
-        )
-      );
-      this._logger.write(
-        `${chalk.gray(
-          '├'
-        )} https://alexkuz.github.io/webpack-chart/ ${chalk.gray(
-          '- interactive pie chart'
-        )}`
-      );
-      this._logger.write(
-        `${chalk.gray(
-          '├'
-        )} https://chrisbateman.github.io/webpack-visualizer/ ${chalk.gray(
-          '- visualize and analyze bundle'
-        )}`
-      );
-      this._logger.write(
-        `${chalk.gray('└')} https://webpack.jakoblind.no/optimize/ ${chalk.gray(
-          '- analyze and optimize bundle'
-        )}`
-      );
-      this._logger.write(
-        `${chalk.gray('└')} https://statoscope.tech/ ${chalk.gray(
-          '- detailed webpack stats analyzer\n'
-        )}`
-      );
-    }
+    this._logger.write(
+      chalk.bold(
+        `\nThe generated ${chalk.green(
+          'stats.js'
+        )} file can be used in the following online analyzers:`
+      )
+    );
+    this._logger.write(
+      `${chalk.gray('├')} ${chalk.green('stats.js')} - ${chalk.magenta(
+        statsPath
+      )}`
+    );
+    this._logger.write(
+      `${chalk.gray('├')} https://alexkuz.github.io/webpack-chart/ ${chalk.gray(
+        '- interactive pie chart'
+      )}`
+    );
+    this._logger.write(
+      `${chalk.gray(
+        '├'
+      )} https://chrisbateman.github.io/webpack-visualizer/ ${chalk.gray(
+        '- visualize and analyze bundle'
+      )}`
+    );
+    this._logger.write(
+      `${chalk.gray('└')} https://webpack.jakoblind.no/optimize/ ${chalk.gray(
+        '- analyze and optimize bundle'
+      )}`
+    );
 
     if (this._options?.open !== false) {
-      reportExists && open(`file://${reportPath}`);
-      bundleStatsExists && open(`file://${bundleStatsPath}`);
+      open(`file://${reportPath}`);
+      open(`file://${bundleStatsPath}`);
     }
   }
 }

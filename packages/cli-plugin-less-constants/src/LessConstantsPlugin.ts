@@ -4,7 +4,8 @@ import path from 'path';
 import chalk from 'chalk';
 import webpack from 'webpack';
 
-import { createLogger, ImaCliPlugin, ImaCliArgs, ImaConfig } from '@ima/cli';
+import { createLogger } from '@ima/dev-utils/dist/logger';
+import { ImaCliPlugin, ImaCliArgs, ImaConfig } from '@ima/cli';
 import { generateLessVariables, UnitValue } from './generator';
 
 export interface LessConstantsPluginOptions {
@@ -25,7 +26,7 @@ class LessConstantsPlugin implements ImaCliPlugin {
 
   constructor(options: LessConstantsPluginOptions) {
     this._options = options || {};
-    this._logger = createLogger(this);
+    this._logger = createLogger(this.name);
   }
 
   /**
