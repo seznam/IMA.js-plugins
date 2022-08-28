@@ -13,6 +13,8 @@ interface PostCssScramblerOptions {
 
 /**
  * Generate hash table from provided CSS.
+ *
+ * @param root
  */
 function createHashTable(root: postcss.Root): [string[], string[]] {
   const prefixes = new Set<string>();
@@ -48,6 +50,8 @@ function createHashTable(root: postcss.Root): [string[], string[]] {
 /**
  * PostCSS plugin to scramble css classes and generate hash table
  * mappings of scrambled and original classes.
+ *
+ * @param options
  */
 const PostCssScrambler: postcss.PluginCreator<
   PostCssScramblerOptions
@@ -107,7 +111,7 @@ const PostCssScrambler: postcss.PluginCreator<
             classNameNode.clone({
               value: `${numberToCssClass(prefixIndex)}_${numberToCssClass(
                 mainPartIndex
-              )}`,
+              )}`
             })
           );
         });
@@ -116,7 +120,7 @@ const PostCssScrambler: postcss.PluginCreator<
       root.walkRules(rule => {
         rule.selector = scramblingParser.processSync(rule.selector);
       });
-    },
+    }
   };
 };
 

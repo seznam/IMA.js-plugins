@@ -1,3 +1,1 @@
-export {
-  ScrambleCssPlugin,
-} from './ScrambleCssPlugin';
+export { ScrambleCssPlugin } from './ScrambleCssPlugin';

@@ -3,11 +3,8 @@
   "compilerOptions": {
     "module": "CommonJS",
     "resolveJsonModule": true,
-    "lib": [
-      "ES2022",
-    ],
   },
   "include": [
-    "./src/**/*"
+    "src"
   ]
 }

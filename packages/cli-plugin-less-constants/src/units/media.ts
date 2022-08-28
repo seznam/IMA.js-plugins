@@ -2,6 +2,11 @@ import { asUnit, Unit } from './utils';
 
 export type MediaType = 'all' | 'print' | 'screen' | 'speach';
 
+/**
+ *
+ * @param maxWidth
+ * @param type
+ */
 export function maxWidthMedia(maxWidth: number, type: MediaType = 'all'): Unit {
   return asUnit(
     '',
@@ -10,6 +15,11 @@ export function maxWidthMedia(maxWidth: number, type: MediaType = 'all'): Unit {
   );
 }
 
+/**
+ *
+ * @param minWidth
+ * @param type
+ */
 export function minWidthMedia(minWidth: number, type: MediaType = 'all'): Unit {
   return asUnit(
     '',
@@ -18,6 +28,12 @@ export function minWidthMedia(minWidth: number, type: MediaType = 'all'): Unit {
   );
 }
 
+/**
+ *
+ * @param minWidth
+ * @param maxWidth
+ * @param type
+ */
 export function minAndMaxWidthMedia(
   minWidth: number,
   maxWidth: number,
@@ -30,6 +46,11 @@ export function minAndMaxWidthMedia(
   );
 }
 
+/**
+ *
+ * @param maxHeight
+ * @param type
+ */
 export function maxHeightMedia(
   maxHeight: number,
   type: MediaType = 'all'
@@ -41,6 +62,11 @@ export function maxHeightMedia(
   );
 }
 
+/**
+ *
+ * @param minHeight
+ * @param type
+ */
 export function minHeightMedia(
   minHeight: number,
   type: MediaType = 'all'

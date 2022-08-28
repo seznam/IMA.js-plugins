@@ -13,6 +13,8 @@ export type ReactComponentArgument = {
 
 /**
  * CssClasses processor factory function.
+ *
+ * @param hashTable
  */
 function scramblerFactory(hashTable: HashTable) {
   const prefixTable = new Map<string, string>();
@@ -52,7 +54,7 @@ function scramblerFactory(hashTable: HashTable) {
 
     return {
       className: processedClasses,
-      'data-class': classNamesSource,
+      'data-class': classNamesSource
     };
   };
 }
@@ -61,6 +63,7 @@ function scramblerFactory(hashTable: HashTable) {
  * Custom $CssClassname implementation that enables the support
  * for scrambled classNames.
  *
+ * @param hashTable
  * @example
  * // In bind.js
  * oc.bind('$CssClasses', ...scrambleCssClasses(hashTable));

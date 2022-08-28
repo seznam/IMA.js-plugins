@@ -5,10 +5,10 @@
   "main": "./dist/main.js",
   "scripts": {
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
-    "doc": "../../node_modules/.bin/gulp doc",
-    "build": "NODE_ENV=production ima-plugin build",
+    "build": "ima-plugin build",
     "dev": "ima-plugin dev",
-    "link": "ima-plugin link"
+    "link": "ima-plugin link",
+    "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
   },
   "keywords": [
     "ima",

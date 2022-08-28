@@ -10,6 +10,8 @@ const EXTENDED_CLASSNAME_CHARS = (
 
 /**
  * Converts numbers into valid css classes.
+ *
+ * @param number
  */
 function numberToCssClass(number: number): string {
   if (number < CLASSNAME_CHARS.length) {

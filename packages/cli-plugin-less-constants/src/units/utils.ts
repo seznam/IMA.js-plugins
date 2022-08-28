@@ -10,6 +10,12 @@ export interface MapUnit {
   toString: () => string;
 }
 
+/**
+ *
+ * @param unit
+ * @param parts
+ * @param template
+ */
 export function asUnit(
   unit: string,
   parts: (string | number)[],
@@ -26,6 +32,6 @@ export function asUnit(
       return template
         .replace('${parts}', parts.join(','))
         .replace('${unit}', unit);
-    },
+    }
   };
 }

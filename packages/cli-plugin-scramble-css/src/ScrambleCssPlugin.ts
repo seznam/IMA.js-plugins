@@ -7,7 +7,7 @@ import { CommandBuilder } from 'yargs';
 import { ImaCliArgs, ImaCliPlugin, ImaConfigurationContext } from '@ima/cli';
 import {
   ScrambleCssMinimizerOptions,
-  ScrambleCssMinimizer,
+  ScrambleCssMinimizer
 } from './minimizer/ScrambleCssMinimizer';
 
 // Extend existing cli args interface with new values
@@ -20,13 +20,17 @@ export interface ScrambleCssPluginOptions {
   scrambleCssMinimizerOptions?: ScrambleCssMinimizerOptions;
 }
 
+/**
+ *
+ * @param command
+ */
 function createCliArgs(command: ImaCliArgs['command']): CommandBuilder {
   return {
     scrambleCss: {
       desc: 'Scrambles (uglifies) classNames in css files',
       type: 'boolean',
-      default: command === 'build',
-    },
+      default: command === 'build'
+    }
   };
 }
 
@@ -40,7 +44,7 @@ class ScrambleCssPlugin implements ImaCliPlugin {
   readonly name = 'ScrambleCssPlugin';
   readonly cliArgs = {
     build: createCliArgs('build'),
-    dev: createCliArgs('dev'),
+    dev: createCliArgs('dev')
   };
 
   constructor(options: Partial<ScrambleCssPluginOptions> = {}) {
@@ -83,8 +87,8 @@ class ScrambleCssPlugin implements ImaCliPlugin {
         ...this._options,
         scrambleCssMinimizerOptions: {
           ...this._options?.scrambleCssMinimizerOptions,
-          hashTableFilename: hashTablePath,
-        },
+          hashTableFilename: hashTablePath
+        }
       };
     }
 
@@ -118,7 +122,7 @@ class ScrambleCssPlugin implements ImaCliPlugin {
         config.optimization = {
           ...config.optimization,
           minimize: !ctx.isServer,
-          minimizer: [scrambleCssMinimizer],
+          minimizer: [scrambleCssMinimizer]
         };
       } else {
         /**

@@ -10,6 +10,8 @@ export type UnitValue =
 
 /**
  * Generates less variables from given object of values.
+ *
+ * @param values
  */
 function generateLessVariables(values: Record<string, UnitValue>): string {
   const lessConstants = Object.keys(values)
@@ -25,6 +27,10 @@ function generateLessVariables(values: Record<string, UnitValue>): string {
 
 /**
  * Processes provided value which can be either object or constant value recursively.
+ *
+ * @param property
+ * @param value
+ * @param prefix
  */
 function processValue(
   property: string,
@@ -57,6 +63,8 @@ function processValue(
 
 /**
  * Slugify provided value label (camelCase into dash-case)
+ *
+ * @param label
  */
 function slugify(label: string): string {
   let result = '';

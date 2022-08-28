@@ -1,4 +1,11 @@
 module.exports = {
+  root: true,
+  ignorePatterns: [
+    '**/node_modules/**',
+    '**/dist/**',
+    '**/build/**',
+    '**/coverage/**'
+  ],
   extends: [
     'eslint:recommended',
     'plugin:jsdoc/recommended',
@@ -56,6 +63,7 @@ module.exports = {
   env: {
     browser: true,
     node: true,
+    es2022: true,
     es6: true,
     jasmine: true,
     'jest/globals': true
@@ -67,5 +75,35 @@ module.exports = {
     extend: true,
     chrome: true,
     FB: true
-  }
+  },
+  overrides: [
+    // Typescript support
+    {
+      files: ['**/*.{ts,tsx}'],
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: './tsconfig.json'
+      },
+      extends: ['plugin:@typescript-eslint/recommended'],
+      rules: {
+        '@typescript-eslint/ban-ts-comment': [
+          'error',
+          { 'ts-expect-error': 'allow-with-description' }
+        ],
+        '@typescript-eslint/no-unused-vars': [
+          'error',
+          {
+            argsIgnorePattern: '^_',
+            varsIgnorePattern: '^_',
+            destructuredArrayIgnorePattern: '^_',
+            ignoreRestSiblings: true
+          }
+        ],
+        '@typescript-eslint/no-namespace': [
+          'error',
+          { allowDeclarations: true }
+        ]
+      }
+    }
+  ]
 };

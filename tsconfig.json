@@ -1,24 +1,20 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "es2022",
-    "typeRoots": [
-      "./typings",
-      "./node_modules/@types"
+    "lib": [
+      "ES2022"
     ],
+    "module": "es2022",
+    "moduleResolution": "node",
     "declaration": true,
     "allowJs": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "noUnusedLocals": false,
     "jsx": "react-jsx",
-  },
-  "exclude": [
-    "**/node_modules/**",
-    "**/__snapshots__/**",
-    "**/__tests__/**",
-    "**/dist/**",
-    "**/.turbo/**"
-  ]
+    "typeRoots": [
+      "types",
+      "node_modules/@types"
+    ]
+  }
 }

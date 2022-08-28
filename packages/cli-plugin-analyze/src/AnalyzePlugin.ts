@@ -42,10 +42,10 @@ class AnalyzePlugin implements ImaCliPlugin {
       analyze: {
         desc: 'Runs multiple webpack bundle analyzer plugins on given entry',
         type: 'string',
-        choices: ['server', 'client', 'client.es'],
-      },
-    },
-  }
+        choices: ['server', 'client', 'client.es']
+      }
+    }
+  };
 
   constructor(options: AnalyzePluginOptions) {
     this._options = options;
@@ -67,14 +67,14 @@ class AnalyzePlugin implements ImaCliPlugin {
         new BundleStatsWebpackPlugin({
           // @ts-expect-error Not in type definitions
           silent: true,
-          ...(this._options?.bundleStatsOptions ?? {}),
+          ...(this._options?.bundleStatsOptions ?? {})
         }) as WebpackPluginInstance,
         new BundleAnalyzerPlugin({
           analyzerMode: 'static',
           generateStatsFile: true,
           logLevel: 'silent',
           openAnalyzer: false,
-          ...(this._options?.bundleAnalyzerOptions ?? {}),
+          ...(this._options?.bundleAnalyzerOptions ?? {})
         }) as unknown as WebpackPluginInstance
       );
     }

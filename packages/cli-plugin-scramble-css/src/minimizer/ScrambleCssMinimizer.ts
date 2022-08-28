@@ -43,18 +43,20 @@ class ScrambleCssMinimizer {
       mainAssetFilter:
         options?.mainAssetFilter ??
         // Filter main app.css file
-        (filename => filename?.endsWith('app.css')),
+        (filename => filename?.endsWith('app.css'))
     };
 
     // Validate options
     validate(schema as Schema, this._options, {
       name: this._pluginName,
-      baseDataPath: 'options',
+      baseDataPath: 'options'
     });
   }
 
   /**
    * Add compilation hooks to the webpack compiler
+   *
+   * @param compiler
    */
   apply(compiler: Compiler) {
     compiler.hooks.compilation.tap(this._pluginName, compilation => {
@@ -63,7 +65,7 @@ class ScrambleCssMinimizer {
           name: this._pluginName,
           stage:
             compiler.webpack.Compilation.PROCESS_ASSETS_STAGE_OPTIMIZE_SIZE,
-          additionalAssets: true,
+          additionalAssets: true
         },
         (assets: Compilation['assets']) => this.optimize(assets, compilation)
       );
@@ -84,6 +86,9 @@ class ScrambleCssMinimizer {
    * Optimize css assets using postCss plugin. By default first file that
    * is returned from mainAssetFilter is used as base to generate hashMap,
    * other files are scrambled using existing map.
+   *
+   * @param assets
+   * @param compilation
    */
   async optimize(
     assets: Compilation['assets'],
@@ -117,6 +122,10 @@ class ScrambleCssMinimizer {
 
   /**
    * Process single css asset, while handling cache management
+   *
+   * @param filename
+   * @param compilation
+   * @param generateHashTable
    */
   private async _process(
     filename: string,
@@ -149,12 +158,12 @@ class ScrambleCssMinimizer {
     const { css, map } = await postcss([
       PostCssScrambler({
         generateHashTable,
-        hashTablePath: this._hashTablePath,
-      }),
+        hashTablePath: this._hashTablePath
+      })
     ]).process(source.source(), {
       map: prevMap ? { prev: prevMap } : false,
       from: filename,
-      to: filename,
+      to: filename
     });
 
     // Create new source
@@ -165,7 +174,7 @@ class ScrambleCssMinimizer {
     // Store cache
     await cacheItem.storePromise({
       source: newSource,
-      hashTableSource: generateHashTable ? await this._loadHashTable() : null,
+      hashTableSource: generateHashTable ? await this._loadHashTable() : null
     } as ScrambleCssMinimizerCacheEntry);
 
     compilation.updateAsset(filename, newSource);
@@ -185,6 +194,8 @@ class ScrambleCssMinimizer {
   /**
    * Restore hashTable.json file to the target directory
    * from webpack cache.
+   *
+   * @param hashTableSource
    */
   private async _restoreHashTable(
     hashTableSource: string | null
@@ -195,18 +206,20 @@ class ScrambleCssMinimizer {
 
     if (!fs.existsSync(this._hashTablePath)) {
       await fs.promises.mkdir(path.dirname(this._hashTablePath), {
-        recursive: true,
+        recursive: true
       });
     }
 
     return fs.promises.writeFile(this._hashTablePath, hashTableSource, {
-      encoding: 'utf8',
+      encoding: 'utf8'
     });
   }
 
   /**
    * Filter CSS assets and split them into two groups of main file and
    * other css files for additional processing using hash tabels.
+   *
+   * @param assets
    */
   private _filterAssets(assets: string[]): [string, string[]] {
     const cssAssets = assets.filter(asset => CSS_RE.test(asset));

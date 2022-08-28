@@ -1,12 +1,9 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "CommonJS",
-    "lib": [
-      "ES2022",
-    ],
+    "module": "CommonJS"
   },
   "include": [
-    "./src/**/*"
+    "src"
   ]
 }

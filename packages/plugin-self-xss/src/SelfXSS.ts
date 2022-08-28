@@ -1,6 +1,5 @@
-import type {
-  Dictionary
-} from '@ima/core';
+/* eslint-disable no-console */
+import type { Dictionary } from '@ima/core';
 
 export class SelfXSS {
   #dictionary: Dictionary;
