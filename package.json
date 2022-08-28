@@ -56,6 +56,6 @@
     "to-mock": "^1.6.2"
   },
   "lint-staged": {
-    "**/*.{js,jsx}": "npm run lint:cmd"
+    "**/*.{js,jsx,ts,tsx,mjs}": "eslint"
   }
 }
