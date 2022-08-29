@@ -1,4 +1,3 @@
-import fs from 'fs';
 import path from 'path';
 
 import open from 'better-opn';
@@ -34,8 +33,8 @@ export interface AnalyzePluginOptions {
  * Initializes webpack bundle analyzer plugins.
  */
 class AnalyzePlugin implements ImaCliPlugin {
-  private _options: AnalyzePluginOptions;
-  private _logger: ReturnType<typeof createLogger>;
+  #options: AnalyzePluginOptions;
+  #logger: ReturnType<typeof createLogger>;
 
   readonly name = 'AnalyzePlugin';
   readonly cliArgs: Partial<Record<ImaCliCommand, CommandBuilder>> = {
@@ -49,8 +48,8 @@ class AnalyzePlugin implements ImaCliPlugin {
   };
 
   constructor(options: AnalyzePluginOptions) {
-    this._options = options;
-    this._logger = createLogger(this.name);
+    this.#options = options;
+    this.#logger = createLogger(this.name);
   }
 
   async webpack(
@@ -68,13 +67,13 @@ class AnalyzePlugin implements ImaCliPlugin {
         new BundleStatsWebpackPlugin({
           // @ts-expect-error Not in type definitions
           silent: true,
-          ...(this._options?.bundleStatsOptions ?? {})
+          ...(this.#options?.bundleStatsOptions ?? {})
         }) as WebpackPluginInstance,
         new BundleAnalyzerPlugin({
           analyzerMode: 'static',
           logLevel: 'silent',
           openAnalyzer: false,
-          ...(this._options?.bundleAnalyzerOptions ?? {})
+          ...(this.#options?.bundleAnalyzerOptions ?? {})
         }) as unknown as WebpackPluginInstance,
         new StatoscopeWebpackPlugin({
           saveTo: path.join(config.output?.path ?? '', 'statoscope.html'),
@@ -99,59 +98,59 @@ class AnalyzePlugin implements ImaCliPlugin {
       'build/statoscope.html'
     );
 
-    this._logger.plugin('generated following reports:');
+    this.#logger.plugin('generated following reports:');
 
     // Print generated files info
-    this._logger.write(
+    this.#logger.write(
       `${chalk.gray('├')} ${chalk.bold.underline(
         'Webpack Bundle Analyzer:'
       )} ${chalk.magenta(reportPath)}`
     );
 
-    this._logger.write(
+    this.#logger.write(
       `${chalk.gray('├')} ${chalk.bold.underline(
         'Webpack Bundle Stats:'
       )} ${chalk.magenta(bundleStatsPath)}`
     );
 
-    this._logger.write(
+    this.#logger.write(
       `${chalk.gray('└')} ${chalk.bold.underline(
         'Webpack Statoscope:'
       )} ${chalk.magenta(statoscopeStatsPath)}`
     );
 
     // Print info about stats.json usage
-    this._logger.write(
+    this.#logger.write(
       chalk.bold(
         `\nThe generated ${chalk.green(
           'stats.js'
         )} file can be used in the following online analyzers:`
       )
     );
-    this._logger.write(
+    this.#logger.write(
       `${chalk.gray('├')} ${chalk.green('stats.js')} - ${chalk.magenta(
         statsPath
       )}`
     );
-    this._logger.write(
+    this.#logger.write(
       `${chalk.gray('├')} https://alexkuz.github.io/webpack-chart/ ${chalk.gray(
         '- interactive pie chart'
       )}`
     );
-    this._logger.write(
+    this.#logger.write(
       `${chalk.gray(
         '├'
       )} https://chrisbateman.github.io/webpack-visualizer/ ${chalk.gray(
         '- visualize and analyze bundle'
       )}`
     );
-    this._logger.write(
+    this.#logger.write(
       `${chalk.gray('└')} https://webpack.jakoblind.no/optimize/ ${chalk.gray(
         '- analyze and optimize bundle'
       )}`
     );
 
-    if (this._options?.open !== false) {
+    if (this.#options?.open !== false) {
       open(`file://${reportPath}`);
       open(`file://${bundleStatsPath}`);
     }
