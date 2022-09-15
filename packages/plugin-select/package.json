@@ -2,6 +2,7 @@
   "name": "@ima/plugin-select",
   "version": "4.0.0-rc.1",
   "description": "The plugin selects extra props from page state to your component.",
+  "type": "module",
   "main": "./dist/main.js",
   "scripts": {
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",

@@ -2,6 +2,7 @@
   "name": "@ima/plugin-logger",
   "version": "5.0.0-rc.1",
   "description": "Seznam IMA.js logger plugin",
+  "type": "module",
   "main": "./dist/main.js",
   "scripts": {
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",

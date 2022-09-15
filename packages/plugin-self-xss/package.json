@@ -2,6 +2,7 @@
   "name": "@ima/plugin-self-xss",
   "version": "3.0.0-rc.1",
   "description": "The plugin is trying to mitigate Self-XSS security attack by sending simple message into console",
+  "type": "module",
   "main": "./dist/server/main.js",
   "browser": "./dist/client/main.js",
   "types": "./dist/client/main.d.ts",

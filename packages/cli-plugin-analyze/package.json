@@ -2,6 +2,7 @@
   "name": "@ima/cli-plugin-analyze",
   "version": "0.1.0-rc1",
   "description": "Plugin for @ima/cli adding analyze bundle functionality.",
+  "type": "module",
   "main": "./dist/main.js",
   "types": "./dist/main.d.ts",
   "scripts": {

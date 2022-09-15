@@ -2,6 +2,7 @@
   "name": "@ima/plugin-analytic-google",
   "version": "6.0.0-rc.1",
   "description": "Seznam IMA.js google analytic plugin",
+  "type": "module",
   "main": "./dist/main.js",
   "scripts": {
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
