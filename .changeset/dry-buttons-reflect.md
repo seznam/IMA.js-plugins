@@ -1,29 +1,29 @@
 ---
-"babel-plugin-ima-logger": patch
-"@ima/cli-plugin-analyze": patch
-"@ima/cli-plugin-less-constants": patch
-"@ima/cli-plugin-scramble-css": patch
-"@ima/plugin-analytic": patch
-"@ima/plugin-analytic-fb-pixel": patch
-"@ima/plugin-analytic-google": patch
-"@ima/plugin-halson-rest-client": patch
-"@ima/plugin-hot-reload": patch
-"@ima/plugin-local-storage": patch
-"@ima/plugin-logger": patch
-"@ima/plugin-managed-component": patch
-"@ima/plugin-merkur": patch
-"@ima/plugin-resource-loader": patch
-"@ima/plugin-rest-client": patch
-"@ima/plugin-script-loader": patch
-"@ima/plugin-select": patch
-"@ima/plugin-self-xss": patch
-"@ima/plugin-shared-cache": patch
-"@ima/plugin-style-loader": patch
-"@ima/plugin-testing-integration": patch
-"@ima/plugin-useragent": patch
-"@ima/plugin-websocket": patch
-"@ima/plugin-xhr": patch
-"@ima/react-hooks": patch
+"babel-plugin-ima-logger": major
+"@ima/cli-plugin-analyze": major
+"@ima/cli-plugin-less-constants": major
+"@ima/cli-plugin-scramble-css": major
+"@ima/plugin-analytic": major
+"@ima/plugin-analytic-fb-pixel": major
+"@ima/plugin-analytic-google": major
+"@ima/plugin-halson-rest-client": major
+"@ima/plugin-hot-reload": major
+"@ima/plugin-local-storage": major
+"@ima/plugin-logger": major
+"@ima/plugin-managed-component": major
+"@ima/plugin-merkur": major
+"@ima/plugin-resource-loader": major
+"@ima/plugin-rest-client": major
+"@ima/plugin-script-loader": major
+"@ima/plugin-select": major
+"@ima/plugin-self-xss": major
+"@ima/plugin-shared-cache": major
+"@ima/plugin-style-loader": major
+"@ima/plugin-testing-integration": major
+"@ima/plugin-useragent": major
+"@ima/plugin-websocket": major
+"@ima/plugin-xhr": major
+"@ima/react-hooks": major
 ---
 
 Migrated packages to pure esm modules
