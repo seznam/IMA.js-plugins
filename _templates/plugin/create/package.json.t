@@ -7,12 +7,11 @@ to: packages/<%= h.changeCase.paramCase(name) %>/package.json
   "name": "@ima/<%= pluginName %>",
   "version": "<%= locals.version %>",
   "description": "<%= h.changeCase.sentenceCase(description) %>",
-  "main": "index.js",
+  "main": "./dist/main.js",
   "scripts": {
     "build": "echo \"Release process is supported only via lerna command. See README.md for more info.\"; exit 1",
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "lint": "../../node_modules/.bin/eslint './src/**/*.{js,jsx}' --fix",
-    "doc": "../../node_modules/.bin/gulp doc",
     "prepare": "../../node_modules/.bin/rollup -c"
   },
   "keywords": [

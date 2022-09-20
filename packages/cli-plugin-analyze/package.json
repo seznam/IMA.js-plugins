@@ -1,0 +1,53 @@
+{
+  "name": "@ima/cli-plugin-analyze",
+  "version": "0.1.0-rc1",
+  "description": "Plugin for @ima/cli adding analyze bundle functionality.",
+  "type": "module",
+  "main": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "scripts": {
+    "build": "ima-plugin build",
+    "dev": "ima-plugin dev",
+    "link": "ima-plugin link",
+    "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
+  },
+  "keywords": [
+    "IMA",
+    "cli",
+    "plugin",
+    "analyze",
+    "bundle"
+  ],
+  "author": "Jan Šimeček <jan.simecek@firma.seznam.cz>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git",
+    "directory": "packages/cli-plugin-analyze"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18",
+    "npm": ">=7"
+  },
+  "dependencies": {
+    "@statoscope/webpack-plugin": "^5.24.0",
+    "better-opn": "^3.0.2",
+    "bundle-stats-webpack-plugin": "^4.0.5",
+    "chalk": "^4.1.2",
+    "webpack-bundle-analyzer": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/webpack-bundle-analyzer": "^4.4.2"
+  },
+  "peerDependencies": {
+    "@ima/cli": "*",
+    "webpack": "*"
+  }
+}

@@ -2,10 +2,12 @@
   "version": "1.0.0",
   "scripts": {
     "changeset": "changeset add",
+    "postinstall": "npm run build",
+    "build": "npm run build --workspaces",
     "test:ci": "jest --coverage --colors --no-watchman --config=jest.config.js",
     "test": "jest --onlyChanged --no-watchman --config=jest.config.js",
     "lint:cmd": "eslint -c ./.eslintrc.js --ignore-path ./.gitignore",
-    "lint": "npm run lint:cmd -- --cache './**/*.{js,jsx}'",
+    "lint": "eslint --cache --cache-location=node_modules/.cache/ './**/*.{js,jsx,ts,tsx,mjs}'",
     "lint:fix": "npm run lint -- --fix",
     "precommit": "lint-staged",
     "release": "npm run release:prepare && npm run release:push",
@@ -21,17 +23,19 @@
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/eslint-parser": "^7.18.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.18.6",
     "@babel/preset-react": "^7.10.4",
+    "@babel/preset-typescript": "^7.18.6",
     "@changesets/cli": "2.24.2",
-    "@ima/cli": "18.0.0-rc.4",
-    "@ima/core": "18.0.0-rc.4",
-    "@ima/server": "18.0.0-rc.4",
-    "@rollup/plugin-babel": "^5.1.0",
-    "@rollup/plugin-commonjs": "^14.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^8.4.0",
-    "@rollup/plugin-replace": "^2.3.3",
+    "@ima/cli": "18.0.0-rc.8",
+    "@ima/core": "18.0.0-rc.8",
+    "@ima/dev-utils": "^18.0.0-rc.7",
+    "@ima/plugin-cli": "^18.0.0-rc.3",
+    "@ima/server": "18.0.0-rc.7",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^18.7.6",
+    "@typescript-eslint/eslint-plugin": "^5.35.1",
+    "@typescript-eslint/parser": "^5.35.1",
     "babel-preset-jest": "^26.2.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
@@ -49,12 +53,9 @@
     "prettier": "^2.0.5",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "rollup": "^2.23.0",
-    "rollup-plugin-copy": "^3.3.0",
-    "rollup-plugin-peer-deps-external": "^2.2.3",
     "to-mock": "^1.6.2"
   },
   "lint-staged": {
-    "**/*.{js,jsx}": "npm run lint:cmd"
+    "**/*.{js,jsx,ts,tsx,mjs}": "eslint"
   }
 }

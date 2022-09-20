@@ -1,0 +1,56 @@
+{
+  "name": "@ima/cli-plugin-less-constants",
+  "version": "0.1.0-rc1",
+  "description": "Plugin for @ima/cli to enable sharing constants between LESS and JS source files.",
+  "type": "module",
+  "main": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "default": "./dist/main.js"
+    },
+    "./units": {
+      "types": "./dist/units/index.d.ts",
+      "default": "./dist/units/index.js"
+    }
+  },
+  "scripts": {
+    "build": "ima-plugin build",
+    "dev": "ima-plugin dev",
+    "link": "ima-plugin link",
+    "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
+  },
+  "keywords": [
+    "IMA",
+    "cli",
+    "plugin",
+    "less",
+    "constants"
+  ],
+  "author": "Jan Šimeček <jan.simecek@firma.seznam.cz>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git",
+    "directory": "packages/cli-plugin-less-constants"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18",
+    "npm": ">=7"
+  },
+  "peerDependencies": {
+    "@ima/cli": "*",
+    "webpack": "*"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2"
+  }
+}

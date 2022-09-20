@@ -1,0 +1,65 @@
+{
+  "name": "@ima/cli-plugin-scramble-css",
+  "version": "0.1.0-rc1",
+  "description": "Plugin for @ima/cli that implements CSS class minimizer and uglifier that can be reverse-compiled at runtime.",
+  "type": "module",
+  "main": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "default": "./dist/main.js"
+    },
+    "./scrambleCssClasses": {
+      "types": "./dist/scrambleCssClasses.d.ts",
+      "default": "./dist/scrambleCssClasses.js"
+    }
+  },
+  "scripts": {
+    "build": "ima-plugin build",
+    "dev": "ima-plugin dev",
+    "link": "ima-plugin link",
+    "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
+  },
+  "keywords": [
+    "IMA",
+    "cli",
+    "plugin",
+    "scramble",
+    "css",
+    "minimize"
+  ],
+  "author": "Jan Šimeček <jan.simecek@firma.seznam.cz>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git",
+    "directory": "packages/cli-plugin-scramble-css"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18",
+    "npm": ">=7"
+  },
+  "peerDependencies": {
+    "@ima/cli": "*",
+    "@ima/core": "*",
+    "classnames": "*",
+    "postcss": ">=8",
+    "react": "*",
+    "webpack": "*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.17"
+  },
+  "dependencies": {
+    "postcss-selector-parser": "^6.0.10",
+    "schema-utils": "^4.0.0"
+  }
+}

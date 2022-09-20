@@ -2,6 +2,4 @@
 !dist/**/*
 !lib/**/*
 !package.json
-!gulpfile.js
-!index.js
 !EnzymePageRenderer.js

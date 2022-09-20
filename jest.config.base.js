@@ -3,8 +3,9 @@ module.exports = {
   verbose: true,
   testRegex: '(/src(/?[^/]*){0,5}/__tests__/).*Spec\\.jsx?$',
   modulePaths: ['<rootDir>/'],
+  transformIgnorePatterns: ['node_modules/(?!(@ima/core)/)'],
   transform: {
-    '\\.jsx?': '<rootDir>/../../preprocess.js'
+    '\\.(js|jsx|ts|tsx)': '<rootDir>/../../preprocess.js'
   },
   testEnvironment: 'node'
 };
