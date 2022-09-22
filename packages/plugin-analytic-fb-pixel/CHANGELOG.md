@@ -1,5 +1,17 @@
 # Change Log
 
+## 6.0.0-rc.2
+
+### Major Changes
+
+- fb1a51e: Migrated packages to pure esm modules
+
+### Patch Changes
+
+- Updated dependencies [fb1a51e]
+  - @ima/plugin-analytic@5.0.0-rc.2
+  - @ima/plugin-script-loader@3.0.0-rc.2
+
 ## 6.0.0-rc.1
 
 ### Minor Changes

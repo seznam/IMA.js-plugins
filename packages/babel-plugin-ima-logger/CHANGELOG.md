@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.0-rc.1
+
+### Major Changes
+
+- fb1a51e: Migrated packages to pure esm modules
+
 ## 3.1.0-rc.0
 
 ### Minor Changes

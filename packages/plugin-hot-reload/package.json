@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-hot-reload",
-  "version": "2.0.0-rc.1",
+  "version": "2.0.0-rc.2",
   "description": "The ima hot reload plugin",
   "type": "module",
   "main": "./dist/main.js",
@@ -33,11 +33,11 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@ima/plugin-websocket": "^2.0.0-rc.1"
+    "@ima/plugin-websocket": "^2.0.0-rc.2"
   },
   "peerDependencies": {
     "@ima/core": "*",
-    "@ima/plugin-websocket": ">=2.0.0-rc.1"
+    "@ima/plugin-websocket": ">=2.0.0-rc.2"
   },
   "browserify": {
     "transform": [

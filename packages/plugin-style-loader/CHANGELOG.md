@@ -1,5 +1,16 @@
 # Change Log
 
+## 3.0.0-rc.2
+
+### Major Changes
+
+- fb1a51e: Migrated packages to pure esm modules
+
+### Patch Changes
+
+- Updated dependencies [fb1a51e]
+  - @ima/plugin-resource-loader@3.0.0-rc.2
+
 ## 3.0.0-rc.1
 
 ### Minor Changes

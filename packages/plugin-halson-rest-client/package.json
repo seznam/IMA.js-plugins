@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-halson-rest-client",
-  "version": "2.0.0-rc.1",
+  "version": "2.0.0-rc.2",
   "description": "HAL+JSON REST API client for IMA applications.",
   "type": "module",
   "main": "./dist/main.js",
@@ -35,7 +35,7 @@
   },
   "homepage": "https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-halson-rest-client#readme",
   "dependencies": {
-    "@ima/plugin-rest-client": "^4.0.0-rc.1",
+    "@ima/plugin-rest-client": "^4.0.0-rc.2",
     "halson": "3.0.0",
     "uri-template": "1.0.1"
   },
