@@ -1,5 +1,15 @@
 # Change Log
 
+## 4.0.0-rc.2
+
+### Major Changes
+
+- fb1a51e: Migrated packages to pure esm modules
+
+### Patch Changes
+
+- b26dc24: Fixed incorrect package.json entry points
+
 ## 4.0.0-rc.1
 
 ### Minor Changes

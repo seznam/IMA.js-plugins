@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.0.0-rc.2
+
+### Major Changes
+
+- fb1a51e: Migrated packages to pure esm modules
+
 ## 2.0.0-rc.1
 
 ### Minor Changes
