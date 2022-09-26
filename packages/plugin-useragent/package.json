@@ -3,7 +3,8 @@
   "version": "4.0.0-rc.1",
   "description": "Seznam IMA.js plugin user-agent",
   "type": "module",
-  "main": "./dist/main.js",
+  "main": "./dist/server/main.js",
+  "browser": "./dist/client/main.js",
   "scripts": {
     "test": "../../node_modules/.bin/jest --config=jest.config.js",
     "build": "ima-plugin build",
