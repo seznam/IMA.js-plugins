@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.0-rc.3
+
+### Patch Changes
+
+- d0f1969: Fixed invalid package.json entry points
+
 ## 4.0.0-rc.2
 
 ### Major Changes
