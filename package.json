@@ -1,6 +1,7 @@
 {
   "version": "1.0.0",
   "scripts": {
+    "commit": "echo 'This command has been replaced with \"npm run changeset\"'",
     "changeset": "changeset add",
     "postinstall": "npm run build",
     "build": "npm run build --workspaces",
