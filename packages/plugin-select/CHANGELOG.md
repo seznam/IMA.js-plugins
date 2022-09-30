@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.0.0-rc.3
+
+### Patch Changes
+
+- f0e7879: Fixed package type for commonjs CLI packages
+  Update plugin-cli with fixes for jsx built files, where the extension was not normalized
+
 ## 4.0.0-rc.2
 
 ### Major Changes

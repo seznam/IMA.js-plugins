@@ -30,6 +30,7 @@
     "@ima/cli-plugin-scramble-css": "0.1.0-rc1"
   },
   "changesets": [
+    "chatty-pears-destroy",
     "dry-buttons-reflect",
     "honest-pumpkins-yell",
     "short-humans-kneel",
