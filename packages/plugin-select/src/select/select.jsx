@@ -125,7 +125,7 @@ export function createStateSelector(...selectors) {
       if (!selectorFunctions) {
         selectorFunctions = Object.keys(state).map(key => {
           return currentState => {
-            return currentState[key] || false;
+            return currentState[key] === undefined ? false : currentState[key];
           };
         });
       }
