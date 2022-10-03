@@ -18,6 +18,7 @@ module.exports = {
     'jsdoc/require-param-description': 0, // Description is not always needed
     'jsdoc/require-returns-description': 0, // Description is not always needed
     'jsdoc/require-returns-check': 0, // There are abstract classes documenting return value, but actually throwing error if not overriden
+    'jsdoc/require-jsdoc': 0,
     'prettier/prettier': [
       'error',
       {
