@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.0-rc.3
+
+### Patch Changes
+
+- a38c8d9: Initialize JSDom before we start importing project files, since some packages can do some client/server detection at this point
+
 ## 3.0.0-rc.2
 
 ### Major Changes
