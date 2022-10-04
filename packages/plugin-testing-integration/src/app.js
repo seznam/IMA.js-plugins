@@ -45,6 +45,14 @@ async function initImaApp(bootConfigMethods = {}) {
   const config = getConfig();
   const bootConfigExtensions = getBootConfigExtensions();
   const imaConfig = await resolveImaConfig({ rootDir: config.rootDir });
+
+  // JSDom needs to be initialized before we start importing project files,
+  // since some packages can do some client/server detection at this point
+  _initJSDom();
+  _installTimerWrappers();
+
+  await config.prebootScript();
+
   const defaultBootConfigMethods = requireFromProject(
     config.appMainPath
   ).getInitialAppConfigFunctions();
@@ -141,11 +149,6 @@ async function initImaApp(bootConfigMethods = {}) {
       return assignRecursively({}, ...results);
     };
   }
-
-  _initJSDom();
-  _installTimerWrappers();
-
-  await config.prebootScript();
 
   let app = createImaApp();
   let bootConfig = getClientBootConfig({
