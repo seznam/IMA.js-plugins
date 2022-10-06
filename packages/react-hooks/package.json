@@ -1,6 +1,6 @@
 {
   "name": "@ima/react-hooks",
-  "version": "2.0.0-rc.2",
+  "version": "2.0.0-rc.3",
   "description": "Collection of React hooks for use in IMA.js applications",
   "type": "module",
   "main": "./dist/main.js",

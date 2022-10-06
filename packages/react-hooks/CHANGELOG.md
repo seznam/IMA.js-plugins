@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.0.0-rc.3
+
+### Patch Changes
+
+- 8f0dbd0: Removed testUtils from main export
+
 ## 2.0.0-rc.2
 
 ### Major Changes
