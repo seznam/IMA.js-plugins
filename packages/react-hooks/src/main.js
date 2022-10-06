@@ -9,4 +9,3 @@ export * from './hooks/pageContext';
 export * from './hooks/settings';
 export * from './hooks/ssr';
 export * from './hooks/windowEvent';
-export * from './testUtils';
