@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 
-import { GenericError, PageContext } from '@ima/core';
+import { PageContext } from '@ima/react-page-renderer';
+import { GenericError } from '@ima/core';
 
 /**
  * Provides direct access to IMA Page context.

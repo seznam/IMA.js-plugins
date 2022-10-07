@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { PageContext } from '@ima/core';
+import { PageContext } from '@ima/react-page-renderer';
 
 /**
  *
