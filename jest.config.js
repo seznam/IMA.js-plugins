@@ -3,9 +3,9 @@ module.exports = {
   projects: ['<rootDir>/packages/*/jest.config.cjs'],
   coverageThreshold: {
     global: {
-      functions: 65,
-      lines: 75,
-      statements: 75
+      functions: 60,
+      lines: 70,
+      statements: 70
     }
   }
 };
