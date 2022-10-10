@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 7.0.0-rc.3
+
+### Major Changes
+
+- b61f5f4: Relocated to IMA.js plugins monorepo
+
 ## 7.0.0-rc.2
 
 ### Major Changes

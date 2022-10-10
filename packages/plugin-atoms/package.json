@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-atoms",
-  "version": "7.0.0-rc.2",
+  "version": "7.0.0-rc.3",
   "description": "IMA.js UI React atoms",
   "main": "./dist/server/main.js",
   "browser": "./dist/client/main.js",

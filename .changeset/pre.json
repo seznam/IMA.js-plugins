@@ -27,12 +27,14 @@
     "@ima/react-hooks": "1.1.1",
     "@ima/cli-plugin-analyze": "0.1.0-rc1",
     "@ima/cli-plugin-less-constants": "0.1.0-rc1",
-    "@ima/cli-plugin-scramble-css": "0.1.0-rc1"
+    "@ima/cli-plugin-scramble-css": "0.1.0-rc1",
+    "@ima/plugin-atoms": "7.0.0-rc.2"
   },
   "changesets": [
     "chatty-pears-destroy",
     "dry-buttons-reflect",
     "honest-pumpkins-yell",
+    "hot-deers-matter",
     "quiet-geese-raise",
     "real-turkeys-yawn",
     "short-humans-kneel",
