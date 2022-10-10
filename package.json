@@ -54,6 +54,7 @@
     "prettier": "^2.0.5",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "shallow-with-context": "^0.4.1",
     "to-mock": "^1.6.2"
   },
   "lint-staged": {

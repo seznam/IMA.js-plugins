@@ -1,0 +1,82 @@
+.atm- {
+
+	@keyframes resource-fade-in_opacity-scale {
+		from {
+			opacity: 0;
+			transform: scale(0.99);
+		}
+
+		to {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+
+	@keyframes resource-fade-in_saturation {
+		from {
+			-webkit-filter: saturate(0%);
+			filter: saturate(0%);
+		}
+
+		50% {
+			-webkit-filter: saturate(20%);
+			filter: saturate(20%);
+		}
+
+		to {
+			-webkit-filter: saturate(100%);
+			filter: saturate(100%);
+		}
+	}
+
+	&overflow {
+		overflow: hidden;
+		position: relative;
+	}
+
+	&loaded {
+		animation:
+				0.375s cubic-bezier(0.150, 0.555, 0.695, 0.675) resource-fade-in_opacity-scale/*,
+				0.75s cubic-bezier(0.150, 0.555, 0.695, 0.675) resource-fade-in_saturation*/;
+	}
+
+	&blur {
+		-webkit-filter: blur(20px);
+		filter: blur(20px);
+		transition: visibility 0ms ease 400ms;
+		visibility: hidden;
+	}
+
+	&visibility {
+		visibility: visible;
+	};
+
+	&responsive {
+		display: block;
+		position: relative;
+	}
+
+	&placeholder {
+		background-color: #f2f2f2;
+	}
+
+	&fill {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		padding: 0;
+		border: none;
+		display: block;
+		min-width: 100%;
+		max-width: 100%;
+		min-height: 100%;
+		max-height: 100%;
+		margin: auto;
+	}
+
+	&cover {
+		object-fit: cover;
+	}
+}
