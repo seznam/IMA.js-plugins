@@ -1,0 +1,43 @@
+{
+  "name": "@ima/plugin-atoms",
+  "version": "7.0.0-rc.2",
+  "description": "IMA.js UI React atoms",
+  "main": "./dist/server/main.js",
+  "browser": "./dist/client/main.js",
+  "type": "module",
+  "scripts": {
+    "test": "../../node_modules/.bin/jest --config=jest.config.js",
+    "build": "ima-plugin build",
+    "dev": "ima-plugin dev",
+    "link": "ima-plugin link",
+    "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
+  },
+  "keywords": [
+    "React",
+    "UI",
+    "IMA",
+    "plugin",
+    "atoms"
+  ],
+  "author": "Miroslav Jancarik <miroslav.jancarik@firma.seznam.cz>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/issues"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "*",
+    "@ima/core": "*",
+    "@ima/plugin-useragent": "*"
+  },
+  "dependencies": {
+    "infinite-circle": "^0.3.0"
+  }
+}
