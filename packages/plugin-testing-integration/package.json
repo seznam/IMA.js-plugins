@@ -48,9 +48,9 @@
   },
   "dependencies": {
     "@ima/helpers": "^18.0.0-rc.2",
+    "@messageformat/core": "^3.0.1",
     "globby": "11.1.0",
     "jsdom": "^19.0.0",
-    "messageformat": "^2.3.0",
     "to-aop": "^0.5.4"
   },
   "peerDependencies": {
