@@ -1,6 +1,6 @@
 module.exports = {
   verbose: true,
-  projects: ['<rootDir>/packages/*/jest.config.cjs'],
+  projects: ['<rootDir>/packages/*/jest.config.js'],
   coverageThreshold: {
     global: {
       functions: 60,
