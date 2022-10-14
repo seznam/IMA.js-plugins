@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.0-rc.2
+
+### Major Changes
+
+- 5149e99: Added additional CJS builds to npm dist directory
+
 ## 1.0.0-rc.1
 
 ### Patch Changes

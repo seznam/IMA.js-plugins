@@ -1,5 +1,16 @@
 # Change Log
 
+## 3.0.0-rc.3
+
+### Major Changes
+
+- 5149e99: Added additional CJS builds to npm dist directory
+
+### Patch Changes
+
+- Updated dependencies [5149e99]
+  - @ima/plugin-resource-loader@3.0.0-rc.3
+
 ## 3.0.0-rc.2
 
 ### Major Changes

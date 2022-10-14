@@ -1,5 +1,16 @@
 # Change Log
 
+## 2.0.0-rc.3
+
+### Major Changes
+
+- 5149e99: Added additional CJS builds to npm dist directory
+
+### Patch Changes
+
+- Updated dependencies [5149e99]
+  - @ima/plugin-rest-client@4.0.0-rc.3
+
 ## 2.0.0-rc.2
 
 ### Major Changes

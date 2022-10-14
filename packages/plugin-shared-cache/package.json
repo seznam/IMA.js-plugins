@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-shared-cache",
-  "version": "3.0.0-rc.2",
+  "version": "3.0.0-rc.3",
   "description": "A utility for creating caches that are shared between requests by all IMA.js application instances within the same node.js process.",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",

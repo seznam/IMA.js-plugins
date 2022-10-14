@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.0-rc.4
+
+### Major Changes
+
+- 5149e99: Added additional CJS builds to npm dist directory
+
 ## 4.0.0-rc.3
 
 ### Patch Changes

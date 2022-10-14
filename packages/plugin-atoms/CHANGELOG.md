@@ -1,5 +1,16 @@
 <a name="5.0.1"></a>
 
+## 7.0.0-rc.4
+
+### Major Changes
+
+- 5149e99: Added additional CJS builds to npm dist directory
+
+### Patch Changes
+
+- Updated dependencies [5149e99]
+  - @ima/plugin-useragent@4.0.0-rc.4
+
 ## 7.0.0-rc.3
 
 ### Major Changes

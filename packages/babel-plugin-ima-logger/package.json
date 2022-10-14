@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-ima-logger",
-  "version": "4.0.0-rc.1",
+  "version": "4.0.0-rc.2",
   "description": "The babel pluging that removes @ima/plugin-logger from source code at compilation time.",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
