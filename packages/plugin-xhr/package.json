@@ -2,8 +2,8 @@
   "name": "@ima/plugin-xhr",
   "version": "3.0.0-rc.2",
   "description": "Helper plugin simplifying the usage of the XMLHttpRequest API.",
-  "type": "module",
-  "main": "./dist/main.js",
+  "main": "./dist/cjs/main.js",
+  "module": "./dist/esm/main.js",
   "scripts": {
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "build": "ima-plugin build",

@@ -2,8 +2,8 @@
   "name": "@ima/plugin-testing-integration",
   "version": "3.0.0-rc.3",
   "description": "IMA.js plugin for integration testing",
-  "type": "module",
-  "main": "./dist/main.js",
+  "main": "./dist/cjs/main.js",
+  "module": "./dist/esm/main.js",
   "scripts": {
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "build": "ima-plugin build",

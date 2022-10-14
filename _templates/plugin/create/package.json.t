@@ -7,7 +7,8 @@ to: packages/<%= h.changeCase.paramCase(name) %>/package.json
   "name": "@ima/<%= pluginName %>",
   "version": "<%= locals.version %>",
   "description": "<%= h.changeCase.sentenceCase(description) %>",
-  "main": "./dist/main.js",
+  "main": "./dist/cjs/main.js",
+  "module": "./dist/esm/main.js",
   "scripts": {
     "build": "echo \"Release process is supported only via lerna command. See README.md for more info.\"; exit 1",
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
