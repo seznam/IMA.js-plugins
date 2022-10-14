@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.0-rc.4
+
+### Patch Changes
+
+- 71d51f0: Fixed entry points
+
 ## 5.0.0-rc.3
 
 ### Major Changes
