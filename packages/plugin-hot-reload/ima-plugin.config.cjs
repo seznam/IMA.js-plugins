@@ -1,3 +1,6 @@
-const { createConfig } = require('@ima/plugin-cli');
+const { generateConfig } = require('@ima/plugin-cli');
 
-module.exports = createConfig();
+/**
+ * @type import('@ima/plugin-cli').ImaPluginConfig[]
+ */
+module.exports = generateConfig();

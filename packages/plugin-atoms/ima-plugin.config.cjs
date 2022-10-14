@@ -1,3 +1,6 @@
-const { createClientServerConfig } = require('@ima/plugin-cli');
+const { generateConfig } = require('@ima/plugin-cli');
 
-module.exports = createClientServerConfig();
+/**
+ * @type import('@ima/plugin-cli').ImaPluginConfig[]
+ */
+module.exports = generateConfig(true);

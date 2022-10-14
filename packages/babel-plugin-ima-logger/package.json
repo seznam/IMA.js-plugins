@@ -2,8 +2,8 @@
   "name": "babel-plugin-ima-logger",
   "version": "4.0.0-rc.1",
   "description": "The babel pluging that removes @ima/plugin-logger from source code at compilation time.",
-  "type": "module",
-  "main": "./dist/main.js",
+  "main": "./dist/cjs/main.js",
+  "module": "./dist/esm/main.js",
   "scripts": {
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "build": "ima-plugin build",

@@ -1,3 +1,6 @@
-const { createConfig } = require('@ima/plugin-cli');
+const { createBaseConfig } = require('@ima/plugin-cli');
 
-module.exports = createConfig('commonjs');
+/**
+ * @type import('@ima/plugin-cli').ImaPluginConfig[]
+ */
+module.exports = createBaseConfig('commonjs');
