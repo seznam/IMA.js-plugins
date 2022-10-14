@@ -35,7 +35,7 @@
   "peerDependencies": {
     "react": "*",
     "@ima/core": "*",
-    "@ima/plugin-useragent": "*"
+    "@ima/plugin-useragent": "4.0.0-rc.3"
   },
   "dependencies": {
     "infinite-circle": "^0.3.0"

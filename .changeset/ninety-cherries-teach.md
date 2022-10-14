@@ -8,7 +8,6 @@
 "@ima/plugin-analytic-google": major
 "@ima/plugin-atoms": major
 "@ima/plugin-halson-rest-client": major
-"@ima/plugin-hot-reload": major
 "@ima/plugin-local-storage": major
 "@ima/plugin-logger": major
 "@ima/plugin-managed-component": major
