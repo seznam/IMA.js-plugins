@@ -2,12 +2,7 @@ import { asUnit, Unit } from './utils';
 
 export type MediaType = 'all' | 'print' | 'screen' | 'speach';
 
-/**
- *
- * @param maxWidth
- * @param type
- */
-export function maxWidthMedia(maxWidth: number, type: MediaType = 'all'): Unit {
+export function maxWidthMedia(maxWidth: Unit, type: MediaType = 'all'): Unit {
   return asUnit(
     '',
     [maxWidth.toString()],
@@ -15,12 +10,7 @@ export function maxWidthMedia(maxWidth: number, type: MediaType = 'all'): Unit {
   );
 }
 
-/**
- *
- * @param minWidth
- * @param type
- */
-export function minWidthMedia(minWidth: number, type: MediaType = 'all'): Unit {
+export function minWidthMedia(minWidth: Unit, type: MediaType = 'all'): Unit {
   return asUnit(
     '',
     [minWidth.toString()],
@@ -28,15 +18,9 @@ export function minWidthMedia(minWidth: number, type: MediaType = 'all'): Unit {
   );
 }
 
-/**
- *
- * @param minWidth
- * @param maxWidth
- * @param type
- */
 export function minAndMaxWidthMedia(
-  minWidth: number,
-  maxWidth: number,
+  minWidth: Unit,
+  maxWidth: Unit,
   type: MediaType = 'all'
 ): Unit {
   return asUnit(
@@ -46,15 +30,7 @@ export function minAndMaxWidthMedia(
   );
 }
 
-/**
- *
- * @param maxHeight
- * @param type
- */
-export function maxHeightMedia(
-  maxHeight: number,
-  type: MediaType = 'all'
-): Unit {
+export function maxHeightMedia(maxHeight: Unit, type: MediaType = 'all'): Unit {
   return asUnit(
     '',
     [maxHeight.toString()],
@@ -62,15 +38,7 @@ export function maxHeightMedia(
   );
 }
 
-/**
- *
- * @param minHeight
- * @param type
- */
-export function minHeightMedia(
-  minHeight: number,
-  type: MediaType = 'all'
-): Unit {
+export function minHeightMedia(minHeight: Unit, type: MediaType = 'all'): Unit {
   return asUnit(
     '',
     [minHeight.toString()],

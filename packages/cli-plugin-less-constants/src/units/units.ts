@@ -1,9 +1,5 @@
 import { asUnit, MapUnit, Unit } from './utils';
 
-/**
- *
- * @param unit
- */
 function sizeUnitFactory(unit: string) {
   return (size: number): Unit => asUnit(unit, [size]);
 }
@@ -35,31 +31,14 @@ export const pt = sizeUnitFactory('pt');
 export const px = sizeUnitFactory('px');
 export const percent = sizeUnitFactory('%');
 
-/**
- *
- * @param hex
- */
 export function hex(hex: string): Unit {
   return asUnit('#', [hex], '${unit}${parts}');
 }
 
-/**
- *
- * @param red
- * @param green
- * @param blue
- */
 export function rgb(red: number, green: number, blue: number): Unit {
   return asUnit('rgb', [red, green, blue], '${unit}(${parts})');
 }
 
-/**
- *
- * @param red
- * @param green
- * @param blue
- * @param alpha
- */
 export function rgba(
   red: number,
   green: number,
@@ -69,12 +48,6 @@ export function rgba(
   return asUnit('rgba', [red, green, blue, alpha], '${unit}(${parts})');
 }
 
-/**
- *
- * @param hue
- * @param saturation
- * @param lightness
- */
 export function hsl(hue: number, saturation: number, lightness: number): Unit {
   return asUnit(
     'hsl',
@@ -83,13 +56,6 @@ export function hsl(hue: number, saturation: number, lightness: number): Unit {
   );
 }
 
-/**
- *
- * @param hue
- * @param saturation
- * @param lightness
- * @param alpha
- */
 export function hsla(
   hue: number,
   saturation: number,
@@ -103,10 +69,6 @@ export function hsla(
   );
 }
 
-/**
- *
- * @param object
- */
 export function lessMap(object: Record<string, number>): MapUnit {
   return {
     __lessMap: true,
