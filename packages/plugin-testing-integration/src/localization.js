@@ -1,4 +1,4 @@
-import MessageFormat from 'messageformat';
+import MessageFormat from '@messageformat/core';
 import globby from 'globby';
 import path from 'path';
 import { requireFromProject } from './helpers';
