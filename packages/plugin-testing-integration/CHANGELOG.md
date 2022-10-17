@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.0-rc.5
+
+### Patch Changes
+
+- 051da94: feat: update localization messageformat to v3
+
 ## 3.0.0-rc.4
 
 ### Major Changes
