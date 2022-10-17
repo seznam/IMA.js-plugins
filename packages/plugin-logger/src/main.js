@@ -25,7 +25,7 @@ let _config = {
  */
 function configureLogger(config) {
   if (!config || typeof config !== 'object') {
-    exports.error(new TypeError('Argument config must be an object.'));
+    error(new TypeError('Argument config must be an object.'));
 
     return;
   }
@@ -65,7 +65,7 @@ function isSilent() {
  * @param {...*} message A message.
  */
 function log(...message) {
-  if (!exports.isSilent()) {
+  if (!isSilent()) {
 		console.log(...message); // eslint-disable-line
   }
 }
@@ -76,7 +76,7 @@ function log(...message) {
  * @param {...*} message An informational message.
  */
 function info(...message) {
-  if (!exports.isSilent()) {
+  if (!isSilent()) {
 		console.info(...message); //eslint-disable-line
   }
 }
@@ -87,7 +87,7 @@ function info(...message) {
  * @param {...*} message A warning message.
  */
 function warn(...message) {
-  if (!exports.isSilent()) {
+  if (!isSilent()) {
 		console.warn(...message); //eslint-disable-line
   }
 }
@@ -98,7 +98,7 @@ function warn(...message) {
  * @param {...*} message An error message.
  */
 function error(...message) {
-  if (!exports.isSilent()) {
+  if (!isSilent()) {
 		console.error(...message); //eslint-disable-line
   }
 }
@@ -109,7 +109,7 @@ function error(...message) {
  * @param {...*} message A debug message.
  */
 function debug(...message) {
-  if (!exports.isSilent()) {
+  if (!isSilent()) {
 		if (typeof console.debug === 'function') { //eslint-disable-line
 			console.debug(...message); //eslint-disable-line
     } else {
@@ -133,7 +133,7 @@ function debug(...message) {
  */
 function logIf(condition, ...message) {
   if (condition) {
-    exports.log(...message);
+    log(...message);
   }
 
   return !!condition;
@@ -148,7 +148,7 @@ function logIf(condition, ...message) {
  */
 function infoIf(condition, ...message) {
   if (condition) {
-    exports.info(...message);
+    info(...message);
   }
 
   return !!condition;
@@ -163,7 +163,7 @@ function infoIf(condition, ...message) {
  */
 function warnIf(condition, ...message) {
   if (condition) {
-    exports.warn(...message);
+    warn(...message);
   }
 
   return !!condition;
@@ -189,7 +189,7 @@ function warnIf(condition, ...message) {
  */
 function errorIf(condition, ...message) {
   if (condition) {
-    exports.error(...message);
+    error(...message);
   }
 
   return !!condition;
@@ -204,7 +204,7 @@ function errorIf(condition, ...message) {
  */
 function debugIf(condition, ...message) {
   if (condition) {
-    exports.debug(...message);
+    debug(...message);
   }
 
   return !!condition;
@@ -257,10 +257,6 @@ function rejectIf(condition, reason) {
 
   return null;
 }
-
-pluginLoader.register('@ima/plugin-logger', ns => {
-  ns.namespace('plugin.logger');
-});
 
 export {
   configureLogger,
