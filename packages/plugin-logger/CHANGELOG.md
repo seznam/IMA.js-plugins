@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.0-rc.5
+
+### Patch Changes
+
+- 1b21edc: Fixed invalid exports on logger function
+
 ## 5.0.0-rc.4
 
 ### Patch Changes

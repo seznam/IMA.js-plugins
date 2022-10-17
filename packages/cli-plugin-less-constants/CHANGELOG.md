@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.0-rc.3
+
+### Patch Changes
+
+- 89ba010: Fixed media units argument types
+
 ## 1.0.0-rc.2
 
 ### Major Changes
