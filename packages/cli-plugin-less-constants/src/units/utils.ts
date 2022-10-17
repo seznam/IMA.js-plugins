@@ -1,6 +1,6 @@
 export interface Unit {
   __propertyDeclaration: boolean;
-  valueOf: () => string;
+  valueOf: () => string | number;
   toString: () => string;
 }
 
@@ -10,12 +10,6 @@ export interface MapUnit {
   toString: () => string;
 }
 
-/**
- *
- * @param unit
- * @param parts
- * @param template
- */
 export function asUnit(
   unit: string,
   parts: (string | number)[],
@@ -24,8 +18,12 @@ export function asUnit(
   return {
     __propertyDeclaration: true,
 
-    valueOf(): string {
-      return parts.length === 1 ? parts[0].toString() : this.toString();
+    valueOf(): string | number {
+      if (parts.length !== 1) {
+        return this.toString();
+      }
+
+      return parts[0];
     },
 
     toString(): string {

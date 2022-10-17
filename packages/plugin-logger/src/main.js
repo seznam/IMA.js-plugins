@@ -1,5 +1,3 @@
-import { pluginLoader } from '@ima/core';
-
 /**
  * A configuration.
  *
@@ -13,7 +11,7 @@ import { pluginLoader } from '@ima/core';
  *
  * @type {module:main~Configuration}
  */
-let _config = {
+const _config = {
   silentMode: false
 };
 
