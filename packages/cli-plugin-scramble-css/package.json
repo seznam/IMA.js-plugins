@@ -2,16 +2,19 @@
   "name": "@ima/cli-plugin-scramble-css",
   "version": "1.0.0-rc.3",
   "description": "Plugin for @ima/cli that implements CSS class minimizer and uglifier that can be reverse-compiled at runtime.",
-  "main": "./dist/main.js",
-  "types": "./dist/main.d.ts",
+  "main": "./dist/cjs/main.js",
+  "module": "./dist/esm/main.js",
+  "types": "./dist/esm/main.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/main.d.ts",
-      "default": "./dist/main.js"
+      "main": "./dist/cjs/main.js",
+      "module": "./dist/esm/main.js",
+      "types": "./dist/esm/main.d.ts"
     },
     "./scrambleCssClasses": {
-      "types": "./dist/scrambleCssClasses.d.ts",
-      "default": "./dist/scrambleCssClasses.js"
+      "main": "./dist/cjs/scrambleCssClasses.js",
+      "module": "./dist/esm/scrambleCssClasses.js",
+      "types": "./dist/esm/scrambleCssClasses.d.ts"
     }
   },
   "scripts": {
