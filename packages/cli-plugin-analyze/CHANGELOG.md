@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.0-rc.4
+
+### Patch Changes
+
+- 2b6d864: Fixed pkg entry points
+
 ## 1.0.0-rc.3
 
 ### Patch Changes
