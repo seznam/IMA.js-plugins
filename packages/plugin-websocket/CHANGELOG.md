@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.0.0-rc.4
+
+### Patch Changes
+
+- f7fe41d: Updated to latest version of plugin-cli
+
 ## 2.0.0-rc.3
 
 ### Major Changes
