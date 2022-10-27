@@ -7,9 +7,9 @@
   "browser": "./dist/esm/client/main.js",
   "scripts": {
     "test": "../../node_modules/.bin/jest --config=jest.config.js",
-    "build": "ima-plugin build",
-    "dev": "ima-plugin dev",
-    "link": "ima-plugin link",
+    "build": "ima-plugin build --clientServerBundle",
+    "dev": "ima-plugin dev --clientServerBundle",
+    "link": "ima-plugin link --clientServerBundle",
     "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
   },
   "keywords": [
