@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.0-rc.7
+
+### Patch Changes
+
+- 7721f5f: Fixed error in package.json
+
 ## 1.0.0-rc.6
 
 ### Patch Changes
