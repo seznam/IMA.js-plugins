@@ -2,13 +2,12 @@
   "name": "@ima/cli-plugin-analyze",
   "version": "1.0.0-rc.4",
   "description": "Plugin for @ima/cli adding analyze bundle functionality.",
-  "main": "./dist/cjs/main.js",
-  "module": "./dist/esm/main.js",
-  "types": "./dist/esm/main.d.ts",
+  "main": " ./dist/main.js ",
+  "types": " ./dist/main.d.ts ",
   "scripts": {
-    "build": "ima-plugin build",
-    "dev": "ima-plugin dev",
-    "link": "ima-plugin link",
+    "build": "ima-plugin build --nodeConfig",
+    "dev": "ima-plugin dev --nodeConfig",
+    "link": "ima-plugin link --nodeConfig",
     "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
   },
   "keywords": [

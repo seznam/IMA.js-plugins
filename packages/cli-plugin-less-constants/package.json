@@ -2,25 +2,22 @@
   "name": "@ima/cli-plugin-less-constants",
   "version": "1.0.0-rc.5",
   "description": "Plugin for @ima/cli to enable sharing constants between LESS and JS source files.",
-  "main": "./dist/cjs/main.js",
-  "module": "./dist/esm/main.js",
-  "types": "./dist/esm/main.d.ts",
-  "exports": {
+  "main": " ./dist/main.js ",
+  "types": " ./dist/main.d.ts ",
+  "export": {
     ".": {
-      "main": "./dist/cjs/main.js",
-      "module": "./dist/esm/main.js",
-      "types": "./dist/esm/main.d.ts"
+      "types": " ./dist/main.d.ts ",
+      "default": " ./dist/main.js "
     },
     "./units": {
-      "main": "./dist/cjs/units/index.js",
-      "module": "./dist/esm/units/index.js",
-      "types": "./dist/esm/units/index.d.ts"
+      "types": " ./dist/units/index.d.ts ",
+      "default": " ./dist/units/index.js "
     }
   },
   "scripts": {
-    "build": "ima-plugin build",
-    "dev": "ima-plugin dev",
-    "link": "ima-plugin link",
+    "build": "ima-plugin build --nodeConfig",
+    "dev": "ima-plugin dev --nodeConfig",
+    "link": "ima-plugin link --nodeConfig",
     "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
   },
   "keywords": [
