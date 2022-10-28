@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.0-rc.5
+
+### Patch Changes
+
+- 431ad38: Fixed node config packages
+
 ## 3.0.0-rc.4
 
 ### Patch Changes

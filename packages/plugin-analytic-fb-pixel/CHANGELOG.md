@@ -1,5 +1,13 @@
 # Change Log
 
+## 6.0.0-rc.5
+
+### Patch Changes
+
+- 431ad38: Fixed node config packages
+- Updated dependencies [431ad38]
+  - @ima/plugin-script-loader@3.0.0-rc.5
+
 ## 6.0.0-rc.4
 
 ### Patch Changes

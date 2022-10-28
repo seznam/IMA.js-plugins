@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.0-rc.7
+
+### Patch Changes
+
+- 431ad38: Fixed node config packages
+
 ## 5.0.0-rc.6
 
 ### Patch Changes

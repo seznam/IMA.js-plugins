@@ -1,5 +1,13 @@
 <a name="5.0.1"></a>
 
+## 7.0.0-rc.6
+
+### Patch Changes
+
+- 431ad38: Fixed node config packages
+- Updated dependencies [431ad38]
+  - @ima/plugin-useragent@4.0.0-rc.6
+
 ## 7.0.0-rc.5
 
 ### Patch Changes

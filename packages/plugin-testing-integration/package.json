@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-testing-integration",
-  "version": "3.0.0-rc.6",
+  "version": "3.0.0-rc.7",
   "description": "IMA.js plugin for integration testing",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
