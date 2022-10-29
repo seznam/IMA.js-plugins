@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.0-rc.8
+
+### Patch Changes
+
+- 214dd9d: Fixed exports field typo in package.json
+
 ## 1.0.0-rc.7
 
 ### Patch Changes
