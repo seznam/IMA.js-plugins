@@ -4,7 +4,7 @@
   "description": "Plugin for @ima/cli to enable sharing constants between LESS and JS source files.",
   "main": "./dist/main.js",
   "types": "./dist/main.d.ts",
-  "export": {
+  "exports": {
     ".": {
       "types": "./dist/main.d.ts",
       "default": "./dist/main.js"
