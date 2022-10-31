@@ -31,10 +31,6 @@
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
   "license": "MIT",
-  "engines": {
-    "node": ">=18",
-    "npm": ">=7"
-  },
   "dependencies": {
     "@statoscope/webpack-plugin": "^5.24.0",
     "better-opn": "^3.0.2",

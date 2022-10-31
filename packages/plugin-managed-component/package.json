@@ -37,10 +37,6 @@
     "@ima/core": "*",
     "@ima/react-page-renderer": "*"
   },
-  "engines": {
-    "node": ">=12",
-    "npm": ">=6"
-  },
   "browserify": {
     "transform": [
       "babelify"

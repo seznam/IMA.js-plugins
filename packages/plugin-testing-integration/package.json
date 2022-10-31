@@ -37,10 +37,6 @@
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
   "license": "MIT",
-  "engines": {
-    "node": ">=6",
-    "npm": ">=4 <9"
-  },
   "browserify": {
     "transform": [
       "babelify"
