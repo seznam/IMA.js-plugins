@@ -36,8 +36,5 @@
   },
   "peerDependencies": {
     "@ima/core": "*"
-  },
-  "engines": {
-    "npm": ">=4 <9"
   }
 }

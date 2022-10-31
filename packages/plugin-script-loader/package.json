@@ -33,10 +33,6 @@
   "dependencies": {
     "@ima/plugin-resource-loader": "^3.0.0-rc.3"
   },
-  "engines": {
-    "node": ">=6",
-    "npm": ">=4 <9"
-  },
   "browserify": {
     "transform": [
       "babelify"

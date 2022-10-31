@@ -35,7 +35,6 @@ The IMA.js plugins is multi-package repository containing most commonly used plu
 - [**plugin-websocket**](packages/plugin-websocket)
 - [**plugin-hot-reload**](packages/plugin-hot-reload)
 - [**plugin-merkur**](packages/plugin-merkur)
-- [**react-hooks**](packages/react-hooks)
 
 ## Create new plugin from hygen template
 
@@ -49,7 +48,7 @@ follow the prompt and fill proper data to setup plugin properties.
 The IMA.js is an application development stack for developing isomorphic applications written in pure JavaScript. You can find the IMA.js skeleton application at https://github.com/seznam/ima.
 
 ## Contributing
-  
+
 Contribute to this project via [Pull-Requests](https://github.com/seznam/IMA.js-plugins/pulls).
 
 We are using [changesets](https://github.com/changesets/changesets/blob/main/docs/common-questions.md) for version management. To simplify the changeset creation process, you can use `npm run changeset` command. It opens an interactive interface, which should help you with changeset file composition.

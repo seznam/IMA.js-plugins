@@ -42,16 +42,11 @@
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
   "license": "MIT",
-  "engines": {
-    "node": ">=18",
-    "npm": ">=7"
-  },
   "peerDependencies": {
     "@ima/cli": "*",
-    "@ima/core": "*",
+    "@ima/react-page-renderer": "*",
     "classnames": "*",
     "postcss": ">=8",
-    "react": "*",
     "webpack": "*"
   },
   "devDependencies": {

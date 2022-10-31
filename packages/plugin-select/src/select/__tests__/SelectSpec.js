@@ -1,4 +1,5 @@
-import { PageStateManager, Dispatcher, PageContext } from '@ima/core';
+import { PageContext } from '@ima/react-page-renderer';
+import { PageStateManager, Dispatcher } from '@ima/core';
 import { shallow, mount } from 'enzyme';
 import React from 'react';
 import { toMockedInstance, setGlobalMockMethod } from 'to-mock';

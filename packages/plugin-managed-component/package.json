@@ -35,11 +35,7 @@
   "homepage": "https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-managed-component#readme",
   "peerDependencies": {
     "@ima/core": "*",
-    "react-dom": ">= 16.13.1"
-  },
-  "engines": {
-    "node": ">=12",
-    "npm": ">=6"
+    "@ima/react-page-renderer": "*"
   },
   "browserify": {
     "transform": [

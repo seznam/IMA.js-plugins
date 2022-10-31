@@ -36,9 +36,5 @@
     "transform": [
       "babelify"
     ]
-  },
-  "engines": {
-    "node": ">=6",
-    "npm": ">=4 <9"
   }
 }

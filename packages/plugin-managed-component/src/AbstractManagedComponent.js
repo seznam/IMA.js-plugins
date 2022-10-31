@@ -1,4 +1,4 @@
-import { AbstractComponent } from '@ima/core';
+import { AbstractComponent } from '@ima/react-page-renderer';
 import ReactDOM from 'react-dom';
 
 const IS_AT_CLIENT_SIDE = typeof window !== 'undefined';

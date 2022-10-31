@@ -11,7 +11,7 @@ The result is CSS file with mangled class names and companion hashtable that we 
 For this feature to work **you need to wrap all your `classNames` in `cssClasses` function.** Otherwise you'll end up with scrambled classes in CSS file but original class names in your components.
 
 ```jsx
-import { useComponent } from '@ima/react-hooks';
+import { useComponent } from '@ima/react-page-renderer';
 
 export default function Card() {
   const { cssClasses } = useComponent();
@@ -26,7 +26,7 @@ export default function Card() {
 or in case of **class components**:
 
 ```jsx
-import { AbstractPureComponent } from '@ima/core';
+import { AbstractPureComponent } from '@ima/react-page-renderer';
 
 export default class Card extends AbstractPureComponent {
   render() {

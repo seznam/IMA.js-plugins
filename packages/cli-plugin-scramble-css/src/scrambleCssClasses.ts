@@ -1,4 +1,4 @@
-import { defaultCssClasses } from '@ima/core';
+import { defaultCssClasses } from '@ima/react-page-renderer';
 import classnames, { Argument } from 'classnames';
 import { Component } from 'react';
 
