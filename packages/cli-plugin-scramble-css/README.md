@@ -26,7 +26,7 @@ export default function Card() {
 or in case of **class components**:
 
 ```jsx
-import { AbstractPureComponent } from '@ima/core';
+import { AbstractPureComponent } from '@ima/react-page-renderer';
 
 export default class Card extends AbstractPureComponent {
   render() {

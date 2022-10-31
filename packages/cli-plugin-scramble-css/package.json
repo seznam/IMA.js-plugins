@@ -44,10 +44,9 @@
   "license": "MIT",
   "peerDependencies": {
     "@ima/cli": "*",
-    "@ima/core": "*",
+    "@ima/react-page-renderer": "*",
     "classnames": "*",
     "postcss": ">=8",
-    "react": "*",
     "webpack": "*"
   },
   "devDependencies": {
