@@ -1,5 +1,13 @@
 <a name="5.0.1"></a>
 
+## 7.0.0-rc.7
+
+### Patch Changes
+
+- 1a6651d: Migrated to react-page-renderer
+- Updated dependencies [1a6651d]
+  - @ima/plugin-useragent@4.0.0-rc.7
+
 ## 7.0.0-rc.6
 
 ### Patch Changes

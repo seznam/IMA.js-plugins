@@ -1,5 +1,11 @@
 # Change Log
 
+## 6.0.0-rc.6
+
+### Patch Changes
+
+- 1a6651d: Migrated to react-page-renderer
+
 ## 6.0.0-rc.5
 
 ### Patch Changes

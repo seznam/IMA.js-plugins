@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.0-rc.9
+
+### Patch Changes
+
+- 1a6651d: Migrated to react-page-renderer
+
 ## 1.0.0-rc.8
 
 ### Patch Changes
