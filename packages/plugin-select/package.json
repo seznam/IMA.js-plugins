@@ -38,6 +38,7 @@
   },
   "peerDependencies": {
     "@ima/core": "*",
+    "@ima/react-page-renderer": "*",
     "react": ">= 16.0.0"
   },
   "engines": {

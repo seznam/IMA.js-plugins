@@ -1,4 +1,5 @@
-import { AbstractComponent, Dispatcher } from '@ima/core';
+import { AbstractComponent } from '@ima/react-page-renderer';
+import { Dispatcher } from '@ima/core';
 
 import { toMockedInstance } from 'to-mock';
 

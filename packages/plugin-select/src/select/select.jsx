@@ -1,4 +1,5 @@
-import { StateEvents, PageContext } from '@ima/core';
+import { PageContext } from '@ima/react-page-renderer';
+import { StateEvents } from '@ima/core';
 import hoistNonReactStaticMethod from 'hoist-non-react-statics';
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import { createSelector } from 'reselect';

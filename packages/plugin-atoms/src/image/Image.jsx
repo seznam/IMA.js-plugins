@@ -1,4 +1,4 @@
-import { PageContext } from '@ima/core';
+import { PageContext } from '@ima/react-page-renderer';
 import React from 'react';
 import HtmlImage from './HtmlImage';
 import AmpImage from './AmpImage';

@@ -35,6 +35,7 @@
   "peerDependencies": {
     "react": "*",
     "@ima/core": "*",
+    "@ima/react-page-renderer": "*",
     "@ima/plugin-useragent": "4.0.0-rc.6"
   },
   "dependencies": {
