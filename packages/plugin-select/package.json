@@ -6,9 +6,9 @@
   "module": "./dist/esm/main.js",
   "scripts": {
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
-    "build": "ima-plugin build",
-    "dev": "ima-plugin dev",
-    "link": "ima-plugin link",
+    "build": "ima-plugin build -j=automatic",
+    "dev": "ima-plugin dev -j=automatic",
+    "link": "ima-plugin link -j=automatic",
     "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
   },
   "keywords": [
