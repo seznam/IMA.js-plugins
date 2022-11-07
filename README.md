@@ -6,12 +6,42 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 
+## Changesets
+
+We are using [changesets](https://github.com/changesets/changesets/blob/main/docs/common-questions.md) for version management.
+
+To simplify the changeset creation process, you can use command
+
+```bash
+npm run changeset
+```
+
+It opens an interactive interface, which should help you with changeset file composition.
+
 ## Release
+For a new version release of packages, we use changesets, which will automatically bump version and generate changelogs. Following command will initialize interactive guide through the version release per package. Run from root:
 
-For release new version of packages use lerna. Use following script:
+```bash
+npm run release
+```
 
-`npm run release`
+This command prepares commit, tag and pushes everything to git and triggers pipeline in CI, which publishes the packages into npm registry.
 
+### Versioning
+Plugins in this repository are abided by [Semantic Versioning](https://semver.org/).
+Among others this means that plugins with major version zero (0.y.z) shouldn't be used in production.
+Such plugins are in development or are not tested enough to be marked as **"production ready"**.
+That doesn't necessary mean that this plugin version is not stable (or is not currently running in production environment on some project), but it's a way to say **"Don't use it yet"** to other teams.
+
+### Release candidate
+We use changesets [prereleases](https://github.com/changesets/changesets/blob/main/docs/prereleases.md) in this repository to release RC versions of packages.
+
+Pre-release maintener usualy inits this stage **once** by `npm run release:next:init` and team then commit and release RC version from branch `next` by common release command `npm run release`.
+
+Maintener can close pre-release stage by `npm run release:graduate` command , whitch will exit `pre` mode and releases new production versions of packages.
+
+
+## Packages:
 The IMA.js plugins is multi-package repository containing most commonly used plugins on IMA.js application development stack.
 
 - [**plugin-analytic**](packages/plugin-analytic)
@@ -35,12 +65,7 @@ The IMA.js plugins is multi-package repository containing most commonly used plu
 - [**plugin-websocket**](packages/plugin-websocket)
 - [**plugin-hot-reload**](packages/plugin-hot-reload)
 - [**plugin-merkur**](packages/plugin-merkur)
-
-## Create new plugin from hygen template
-
-```bash
-npx hygen plugin create
-```
+- [**react-hooks**](packages/react-hooks)
 
 follow the prompt and fill proper data to setup plugin properties.
 
@@ -48,14 +73,10 @@ follow the prompt and fill proper data to setup plugin properties.
 The IMA.js is an application development stack for developing isomorphic applications written in pure JavaScript. You can find the IMA.js skeleton application at https://github.com/seznam/ima.
 
 ## Contributing
-
 Contribute to this project via [Pull-Requests](https://github.com/seznam/IMA.js-plugins/pulls).
-
-We are using [changesets](https://github.com/changesets/changesets/blob/main/docs/common-questions.md) for version management. To simplify the changeset creation process, you can use `npm run changeset` command. It opens an interactive interface, which should help you with changeset file composition.
-
 
 ### Set up the dev environment
 
 Our dev stack expects `node>=18` and `npm>=8`.
 
-To set up, simply run `npm install` from the repo root.
+To set up, simply run `npm ci` from the repo root.
