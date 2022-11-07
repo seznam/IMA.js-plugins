@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.0-rc.8
+
+### Patch Changes
+
+- 15e981a: Updated plugin-cli to latest version
+
 ## 1.0.0-rc.7
 
 ### Patch Changes

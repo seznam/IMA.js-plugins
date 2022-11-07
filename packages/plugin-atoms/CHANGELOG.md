@@ -1,5 +1,13 @@
 <a name="5.0.1"></a>
 
+## 7.0.0-rc.8
+
+### Patch Changes
+
+- 15e981a: Updated plugin-cli to latest version
+- Updated dependencies [15e981a]
+  - @ima/plugin-useragent@4.0.0-rc.8
+
 ## 7.0.0-rc.7
 
 ### Patch Changes

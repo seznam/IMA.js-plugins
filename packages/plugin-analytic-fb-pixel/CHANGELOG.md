@@ -1,5 +1,13 @@
 # Change Log
 
+## 6.0.0-rc.7
+
+### Patch Changes
+
+- 15e981a: Updated plugin-cli to latest version
+- Updated dependencies [15e981a]
+  - @ima/plugin-script-loader@3.0.0-rc.7
+
 ## 6.0.0-rc.6
 
 ### Patch Changes
