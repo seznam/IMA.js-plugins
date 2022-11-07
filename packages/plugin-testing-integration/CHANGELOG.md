@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.0-rc.10
+
+### Patch Changes
+
+- 9bf6acf: @ima/plugin-cli version bump
+
 ## 3.0.0-rc.9
 
 ### Patch Changes

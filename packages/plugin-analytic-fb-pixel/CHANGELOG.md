@@ -1,5 +1,13 @@
 # Change Log
 
+## 6.0.0-rc.8
+
+### Patch Changes
+
+- 9bf6acf: @ima/plugin-cli version bump
+- Updated dependencies [9bf6acf]
+  - @ima/plugin-script-loader@3.0.0-rc.8
+
 ## 6.0.0-rc.7
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 <a name="5.0.1"></a>
 
+## 7.0.0-rc.9
+
+### Patch Changes
+
+- 9bf6acf: @ima/plugin-cli version bump
+- Updated dependencies [9bf6acf]
+  - @ima/plugin-useragent@4.0.0-rc.9
+
 ## 7.0.0-rc.8
 
 ### Patch Changes

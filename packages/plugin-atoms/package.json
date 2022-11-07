@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-atoms",
-  "version": "7.0.0-rc.8",
+  "version": "7.0.0-rc.9",
   "description": "IMA.js UI React atoms",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/server/main.js",
@@ -35,7 +35,7 @@
   "peerDependencies": {
     "@ima/core": "*",
     "@ima/react-page-renderer": "*",
-    "@ima/plugin-useragent": "4.0.0-rc.8"
+    "@ima/plugin-useragent": "4.0.0-rc.9"
   },
   "dependencies": {
     "infinite-circle": "^0.3.0"
