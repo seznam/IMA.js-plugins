@@ -7,7 +7,7 @@ import uriTemplateParser from 'uri-template';
  * @type {Object<string, symbol>}
  */
 const PRIVATE = Object.freeze({
-  uriTemplates: Symbol('uriTemplates')
+  uriTemplates: Symbol('uriTemplates'),
 });
 
 /**
@@ -59,7 +59,7 @@ export default class HalsonLinkGenerator extends LinkGenerator {
     let linkParameters = parameters;
     if (id !== null) {
       linkParameters = Object.assign({}, parameters, {
-        [idParameterName]: id
+        [idParameterName]: id,
       });
     }
 

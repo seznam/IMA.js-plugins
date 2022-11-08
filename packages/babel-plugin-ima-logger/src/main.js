@@ -80,7 +80,7 @@ class BabelLoggerPlugin {
                     'errorIf',
                     'logIf',
                     'infoIf',
-                    'warnIf'
+                    'warnIf',
                   ].indexOf(imported.name) >= 0
                 );
               })
@@ -90,8 +90,8 @@ class BabelLoggerPlugin {
               path.remove();
             }
           }
-        }
-      }
+        },
+      },
     };
   }
 

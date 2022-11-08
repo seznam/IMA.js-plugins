@@ -1,17 +1,18 @@
 import { transform } from '@babel/core';
+
 import pluginFunction, { plugin } from '../main';
 
 describe('main', () => {
   const PLUGIN_OPTIONS = { remove: true };
   const TRANSFORM_OPTIONS = {
-    plugins: [[pluginFunction, PLUGIN_OPTIONS]]
+    plugins: [[pluginFunction, PLUGIN_OPTIONS]],
   };
   const TRANSFORM_OPTIONS_DISABLED_REMOVING = {
-    plugins: [[pluginFunction, { remove: false }]]
+    plugins: [[pluginFunction, { remove: false }]],
   };
 
   beforeEach(() => {
-    spyOn(plugin, '_error');
+    jest.spyOn(plugin, '_error').mockImplementation(() => {});
   });
 
   describe('getPluginObject()', () => {
@@ -19,11 +20,11 @@ describe('main', () => {
       it(`should remove ${func}()`, () => {
         const { code } = transform(
           `foo();
-					${func}(
-						!arg || typeof arg !== 'string',
-						new TypeError('Argument arg must be a string.')
-					);
-					bar();`,
+  				${func}(
+  					!arg || typeof arg !== 'string',
+  					new TypeError('Argument arg must be a string.')
+  				);
+  				bar();`,
           TRANSFORM_OPTIONS
         );
         expect(code).toMatchSnapshot();
@@ -42,13 +43,13 @@ describe('main', () => {
       '(0, _pluginLogger.debug)',
       '(0, _pluginLogger.info)',
       '(0, _pluginLogger.log)',
-      '(0, _pluginLogger.warn)'
+      '(0, _pluginLogger.warn)',
     ].forEach(func => {
       it(`should remove ${func}()`, () => {
         const { code } = transform(
           `foo();
-					${func}('Argument arg must be a string.');
-					bar();`,
+  				${func}('Argument arg must be a string.');
+  				bar();`,
           TRANSFORM_OPTIONS
         );
         expect(code).toMatchSnapshot();
@@ -70,16 +71,16 @@ describe('main', () => {
       '(0, _pluginLogger.errorIf)',
       '(0, _pluginLogger.logIf)',
       '(0, _pluginLogger.infoIf)',
-      '(0, _pluginLogger.warnIf)'
+      '(0, _pluginLogger.warnIf)',
     ].forEach(func => {
       it(`should replace ${func}() with 0`, () => {
         const { code } = transform(
           `foo();
-				${func}(
-					!arg || typeof arg !== 'string',
-					new TypeError('Argument arg must be a string.')
-				);
-				bar();`,
+  			${func}(
+  				!arg || typeof arg !== 'string',
+  				new TypeError('Argument arg must be a string.')
+  			);
+  			bar();`,
           TRANSFORM_OPTIONS
         );
         expect(code).toMatchSnapshot();
@@ -88,13 +89,13 @@ describe('main', () => {
       it(`should replace ${func}() with 0 inside if`, () => {
         const { code } = transform(
           `foo();
-					if (${func}(
-						!arg || typeof arg !== 'string',
-						new TypeError('Argument arg must be a string.')
-					)) {
-						// do something
-					}
-					bar();`,
+  				if (${func}(
+  					!arg || typeof arg !== 'string',
+  					new TypeError('Argument arg must be a string.')
+  				)) {
+  					// do something
+  				}
+  				bar();`,
           TRANSFORM_OPTIONS
         );
         expect(code).toMatchSnapshot();
@@ -105,15 +106,15 @@ describe('main', () => {
       it(`should replace ${func}() with 0 inside if`, () => {
         const { code } = transform(
           `function returingPromise() {
-						let rejected;
-						if (rejected = (${func}(
-							!arg || typeof arg !== 'string',
-							new TypeError('Argument arg must be a string.')
-						))) {
-							return rejected;
-						}
-						return asyncBar();
-					}`,
+  					let rejected;
+  					if (rejected = (${func}(
+  						!arg || typeof arg !== 'string',
+  						new TypeError('Argument arg must be a string.')
+  					))) {
+  						return rejected;
+  					}
+  					return asyncBar();
+  				}`,
           TRANSFORM_OPTIONS
         );
         expect(code).toMatchSnapshot();
@@ -141,16 +142,16 @@ describe('main', () => {
       '(0, _pluginLogger.errorIf)',
       '(0, _pluginLogger.logIf)',
       '(0, _pluginLogger.infoIf)',
-      '(0, _pluginLogger.warnIf)'
+      '(0, _pluginLogger.warnIf)',
     ].forEach(func => {
       it(`should not remove ${func}() because removing is disabled by plugin options`, () => {
         const { code } = transform(
           `foo();
-					${func}(
-						!arg || typeof arg !== 'string',
-						new TypeError('Argument arg must be a string.')
-					);
-					bar();`,
+  				${func}(
+  					!arg || typeof arg !== 'string',
+  					new TypeError('Argument arg must be a string.')
+  				);
+  				bar();`,
           TRANSFORM_OPTIONS_DISABLED_REMOVING
         );
         expect(code).toMatchSnapshot();
@@ -170,13 +171,13 @@ describe('main', () => {
       '(0, _pluginLogger.debug)',
       '(0, _pluginLogger.info)',
       '(0, _pluginLogger.log)',
-      '(0, _pluginLogger.warn)'
+      '(0, _pluginLogger.warn)',
     ].forEach(func => {
       it(`should not remove ${func}() because removing is disabled by plugin options`, () => {
         const { code } = transform(
           `foo();
-					${func}('Argument arg must be a string.');
-					bar();`,
+  				${func}('Argument arg must be a string.');
+  				bar();`,
           TRANSFORM_OPTIONS_DISABLED_REMOVING
         );
         expect(code).toMatchSnapshot();
@@ -190,16 +191,16 @@ describe('main', () => {
       'errorIf',
       'logIf',
       'infoIf',
-      'warnIf'
+      'warnIf',
     ].forEach(method => {
       it(`should not remove instance.${method}()`, () => {
         const { code } = transform(
           `foo();
-					instance.${method}(
-						!arg || typeof arg !== 'string',
-						new TypeError('Argument arg must be a string.')
-					);
-					bar();`,
+  				instance.${method}(
+  					!arg || typeof arg !== 'string',
+  					new TypeError('Argument arg must be a string.')
+  				);
+  				bar();`,
           TRANSFORM_OPTIONS
         );
         expect(code).toMatchSnapshot();
@@ -211,8 +212,8 @@ describe('main', () => {
       it(`should not remove instance.${method}()`, () => {
         const { code } = transform(
           `foo();
-					instance.${method}('Argument arg must be a string.');
-					bar();`,
+  				instance.${method}('Argument arg must be a string.');
+  				bar();`,
           TRANSFORM_OPTIONS
         );
         expect(code).toMatchSnapshot();
@@ -222,8 +223,8 @@ describe('main', () => {
     it(`should not remove error()`, () => {
       const { code } = transform(
         `foo();
-				error('Argument arg must be a string.');
-				bar();`,
+  			error('Argument arg must be a string.');
+  			bar();`,
         TRANSFORM_OPTIONS
       );
       expect(code).toMatchSnapshot();
@@ -232,19 +233,19 @@ describe('main', () => {
     it('should remove the whole import statement', () => {
       const { code } = transform(
         `import {
-					debug,
-					info,
-					log,
-					warn,
-					throwIf,
-					rejectIf,
-					debugIf,
-					errorIf,
-					logIf,
-					infoIf,
-					warnIf
-				} from '@ima/plugin-logger';
-				foo();`,
+  				debug,
+  				info,
+  				log,
+  				warn,
+  				throwIf,
+  				rejectIf,
+  				debugIf,
+  				errorIf,
+  				logIf,
+  				infoIf,
+  				warnIf
+  			} from '@ima/plugin-logger';
+  			foo();`,
         TRANSFORM_OPTIONS
       );
       expect(code).toMatchSnapshot();
@@ -254,21 +255,21 @@ describe('main', () => {
     it('should keep error() and isSilent() in the import statement', () => {
       const { code } = transform(
         `import {
-					debug,
-					error,
-					info,
-					log,
-					warn,
-					throwIf,
-					rejectIf,
-					debugIf,
-					errorIf,
-					isSilent,
-					logIf,
-					infoIf,
-					warnIf
-				} from '@ima/plugin-logger';
-				foo();`,
+  				debug,
+  				error,
+  				info,
+  				log,
+  				warn,
+  				throwIf,
+  				rejectIf,
+  				debugIf,
+  				errorIf,
+  				isSilent,
+  				logIf,
+  				infoIf,
+  				warnIf
+  			} from '@ima/plugin-logger';
+  			foo();`,
         TRANSFORM_OPTIONS
       );
       expect(code).toMatchSnapshot();
@@ -278,7 +279,7 @@ describe('main', () => {
     it('should not remove the import statement for an unknown module', () => {
       const { code } = transform(
         `import { throwIf, errorIf } from 'bar';
-				foo();`,
+  			foo();`,
         TRANSFORM_OPTIONS
       );
       expect(code).toMatchSnapshot();
@@ -288,7 +289,7 @@ describe('main', () => {
     it('should not remove the import statement because removing is disabled by plugin options', () => {
       const { code } = transform(
         `import { throwIf, errorIf } from '@ima/plugin-logger';
-				foo();`,
+  			foo();`,
         TRANSFORM_OPTIONS_DISABLED_REMOVING
       );
       expect(code).toMatchSnapshot();

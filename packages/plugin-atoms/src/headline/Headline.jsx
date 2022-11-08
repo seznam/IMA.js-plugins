@@ -1,5 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { PureComponent } from 'react';
 
 /**
  * Base headline
@@ -7,7 +7,7 @@ import React from 'react';
  * @namespace ima.ui.atom.headline
  * @module ima.ui.atom
  */
-export default class Headline extends React.PureComponent {
+export default class Headline extends PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -20,7 +20,7 @@ export default class Headline extends React.PureComponent {
       mode: null,
       type: 'h1',
       style: null,
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -32,7 +32,7 @@ export default class Headline extends React.PureComponent {
       {
         ['atm-headline']: true,
         ['atm-' + mode]: mode,
-        ['atm-' + Type]: Type
+        ['atm-' + Type]: Type,
       },
       className
     );
@@ -45,7 +45,8 @@ export default class Headline extends React.PureComponent {
           className={computedClassName}
           {...helper.getEventProps(this.props)}
           {...helper.getDataProps(this.props)}
-          {...helper.getAriaProps(this.props)}>
+          {...helper.getAriaProps(this.props)}
+        >
           {children}
         </Type>
       );

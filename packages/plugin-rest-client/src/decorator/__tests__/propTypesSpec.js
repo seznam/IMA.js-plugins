@@ -1,5 +1,5 @@
-import propTypes from '../propTypes';
 import AbstractEntity from '../../AbstractEntity';
+import propTypes from '../propTypes';
 
 describe('propTypes', () => {
   it('should configure the propTypes property', () => {

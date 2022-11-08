@@ -1,15 +1,15 @@
 import classnames from 'classnames';
-import React from 'react';
 import { shallow } from 'enzyme';
 import { Infinite } from 'infinite-circle';
-import { toMockedInstance } from 'to-mock';
 import { withContext } from 'shallow-with-context';
-import Sizer from '../Sizer';
-import UIComponentHelper from '../../UIComponentHelper';
-import Visibility from '../../Visibility';
-import ComponentPositions from '../../ComponentPositions';
+import { toMockedInstance } from 'to-mock';
+
 import dummyRouter from '../../__tests__/mocks/router';
 import dummyWindow from '../../__tests__/mocks/window';
+import ComponentPositions from '../../ComponentPositions';
+import UIComponentHelper from '../../UIComponentHelper';
+import Visibility from '../../Visibility';
+import Sizer from '../Sizer';
 
 describe('Sizer component', () => {
   let wrapper = null;
@@ -26,8 +26,8 @@ describe('Sizer component', () => {
   );
   let context = {
     $Utils: {
-      $UIComponentHelper: uiComponentHelper
-    }
+      $UIComponentHelper: uiComponentHelper,
+    },
   };
 
   beforeEach(() => {
@@ -49,9 +49,9 @@ describe('Sizer component', () => {
   it('should calculate ratio between width and height', () => {
     wrapper.setProps({
       width: 16,
-      height: 9
+      height: 9,
     });
 
-    expect(wrapper.get(0).props.style.paddingTop).toEqual('56.25%');
+    expect(wrapper.get(0).props.style.paddingTop).toBe('56.25%');
   });
 });

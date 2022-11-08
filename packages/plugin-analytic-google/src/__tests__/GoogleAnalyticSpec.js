@@ -1,15 +1,16 @@
 import { Dispatcher, Window } from '@ima/core';
-import GoogleAnalytic from '../GoogleAnalytic';
-import { toMockedInstance } from 'to-mock';
 import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
+import { toMockedInstance } from 'to-mock';
+
+import GoogleAnalytic from '../GoogleAnalytic';
 
 const settings = {
   service: 'UA-XXXXXXX-X',
-  settings: {}
+  settings: {},
 };
 
 const mockGa = {
-  ga() {}
+  ga() {},
 };
 
 describe('GoogleAnalytic', () => {
@@ -18,7 +19,7 @@ describe('GoogleAnalytic', () => {
   const window = toMockedInstance(Window, {
     getWindow() {
       return mockGa;
-    }
+    },
   });
   let googleAnalytic = null;
 
@@ -31,14 +32,18 @@ describe('GoogleAnalytic', () => {
     );
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe('hitPageView method', () => {
     it('should set custom dimensions into ga', () => {
-      spyOn(googleAnalytic, 'isEnabled').and.returnValue(true);
-      spyOn(mockGa, 'ga');
+      jest.spyOn(googleAnalytic, 'isEnabled').mockReturnValue(true);
+      jest.spyOn(mockGa, 'ga').mockImplementation(() => {});
 
       const customDimensions = {
         dimension1: 'value1',
-        dimension2: 'value2'
+        dimension2: 'value2',
       };
 
       global.document = {};
@@ -52,8 +57,8 @@ describe('GoogleAnalytic', () => {
 
   describe('_setSetter method', () => {
     it('should do nothing when argument is null', () => {
-      spyOn(googleAnalytic, 'isEnabled').and.returnValue(true);
-      spyOn(mockGa, 'ga');
+      jest.spyOn(googleAnalytic, 'isEnabled').mockReturnValue(true);
+      jest.spyOn(mockGa, 'ga').mockImplementation(() => {});
 
       const setterObj = null;
 
@@ -63,8 +68,8 @@ describe('GoogleAnalytic', () => {
     });
 
     it('should do nothing when argument is not an object', () => {
-      spyOn(googleAnalytic, 'isEnabled').and.returnValue(true);
-      spyOn(mockGa, 'ga');
+      jest.spyOn(googleAnalytic, 'isEnabled').mockReturnValue(true);
+      jest.spyOn(mockGa, 'ga').mockImplementation(() => {});
 
       const setterObj = () => {};
 
@@ -74,12 +79,12 @@ describe('GoogleAnalytic', () => {
     });
 
     it('should set object properties into ga', () => {
-      spyOn(googleAnalytic, 'isEnabled').and.returnValue(true);
-      spyOn(mockGa, 'ga');
+      jest.spyOn(googleAnalytic, 'isEnabled').mockReturnValue(true);
+      jest.spyOn(mockGa, 'ga').mockImplementation(() => {});
 
       const setterObj = {
         prop1: 'value1',
-        prop2: 'value2'
+        prop2: 'value2',
       };
 
       googleAnalytic._setSetter(setterObj);
@@ -91,12 +96,12 @@ describe('GoogleAnalytic', () => {
 
   describe('_applyPurposeConsents method', () => {
     it('should remove clientId and storage from settings when purpose 1 is set', () => {
-      spyOn(googleAnalytic, 'isEnabled').and.returnValue(true);
-      spyOn(mockGa, 'ga');
+      jest.spyOn(googleAnalytic, 'isEnabled').mockReturnValue(true);
+      jest.spyOn(mockGa, 'ga').mockImplementation(() => {});
 
       settings.settings = {
         clientId: 'abcde12345',
-        storage: 'none'
+        storage: 'none',
       };
 
       googleAnalytic._applyPurposeConsents({ 1: true });
@@ -105,12 +110,12 @@ describe('GoogleAnalytic', () => {
     });
 
     it('should leave settings as it is when purpose 1 is not set', () => {
-      spyOn(googleAnalytic, 'isEnabled').and.returnValue(true);
-      spyOn(mockGa, 'ga');
+      jest.spyOn(googleAnalytic, 'isEnabled').mockReturnValue(true);
+      jest.spyOn(mockGa, 'ga').mockImplementation(() => {});
 
       settings.settings = {
         clientId: 'abcde123445',
-        storage: 'none'
+        storage: 'none',
       };
 
       const expectedSettings = Object.assign({}, settings.settings);

@@ -9,12 +9,11 @@ install:
 
 jobs:
   include:
-    - name: "Unit Tests"
-      script: npm run test:ci
-    # - name: "Audit"
-    #   script: npm audit || echo \"audit found some vulnerabilities.\"
-    - name: "Lint"
-      script: npm run lint
+    - name: "CI"
+      script:
+      - npm run test:all
+      - npm run stylelint
+      - npm run lint
     - if: branch =~ /^(master|next)$/
       stage: "deploy"
       script:

@@ -5,8 +5,8 @@ export default toMockedInstance(Window, {
   getWindow() {
     return {
       innerWidth: 1024,
-      innerHeight: 768
+      innerHeight: 768,
     };
   },
-  isClient: () => true
+  isClient: () => true,
 });

@@ -12,7 +12,7 @@
  * @type {module:main~Configuration}
  */
 const _config = {
-  silentMode: false
+  silentMode: false,
 };
 
 /**
@@ -271,5 +271,5 @@ export {
   errorIf,
   debugIf,
   throwIf,
-  rejectIf
+  rejectIf,
 };

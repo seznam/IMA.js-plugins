@@ -1,5 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { PureComponent } from 'react';
 
 /**
  * Common loader
@@ -8,7 +8,7 @@ import React from 'react';
  * @module ima.ui.atom
  */
 
-export default class Loader extends React.PureComponent {
+export default class Loader extends PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -20,20 +20,20 @@ export default class Loader extends React.PureComponent {
       timeout: null,
       color: 'black',
       className: '',
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (!nextProps.timeout) {
       return {
-        showLoader: true
+        showLoader: true,
       };
     }
 
     if (nextProps.timeout !== prevState.timeout) {
       return {
-        showLoader: prevState.showLoader || false
+        showLoader: prevState.showLoader || false,
       };
     }
 
@@ -77,16 +77,17 @@ export default class Loader extends React.PureComponent {
           {
             'atm-loader': true,
             ['atm-loader-' + mode]: mode,
-            ['atm-loader-' + layout]: layout
+            ['atm-loader-' + layout]: layout,
           },
           className
         )}
         {...helper.getEventProps(this.props)}
-        {...helper.getDataProps(this.props)}>
+        {...helper.getDataProps(this.props)}
+      >
         <div
           className={helper.cssClasses({
             'atm-loader-animation': true,
-            ['atm-loader-animation-' + color]: color
+            ['atm-loader-animation-' + color]: color,
           })}
         />
       </div>

@@ -1,5 +1,6 @@
 import { Window } from '@ima/core';
 import { toMockedInstance } from 'to-mock';
+
 import WebSocket from '../WebSocket';
 
 describe('WebSocket', () => {
@@ -10,13 +11,13 @@ describe('WebSocket', () => {
   describe('for server side', () => {
     beforeEach(() => {
       window = toMockedInstance(Window, {
-        isClient: () => false
+        isClient: () => false,
       });
       webSocket = new WebSocket(window, config);
     });
 
     it('should not call _connect for init method', () => {
-      spyOn(webSocket, '_connect');
+      jest.spyOn(webSocket, '_connect').mockImplementation(() => {});
 
       webSocket.init();
 
@@ -27,13 +28,13 @@ describe('WebSocket', () => {
   describe('for client side', () => {
     beforeEach(() => {
       window = toMockedInstance(window, {
-        isClient: () => true
+        isClient: () => true,
       });
       webSocket = new WebSocket(window, config);
     });
 
     it('should not call connect', () => {
-      spyOn(webSocket, '_connect');
+      jest.spyOn(webSocket, '_connect').mockImplementation(() => {});
 
       webSocket.init();
 
@@ -45,7 +46,7 @@ describe('WebSocket', () => {
 
       webSocket.subscribe(observer);
 
-      expect(webSocket.observersCount()).toEqual(1);
+      expect(webSocket.observersCount()).toBe(1);
     });
 
     it('should remove subscriber for messega', () => {
@@ -54,7 +55,7 @@ describe('WebSocket', () => {
       webSocket.subscribe(observer);
       webSocket.unsubscribe(observer);
 
-      expect(webSocket.observersCount()).toEqual(0);
+      expect(webSocket.observersCount()).toBe(0);
     });
   });
 });

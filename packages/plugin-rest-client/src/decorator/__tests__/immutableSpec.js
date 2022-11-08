@@ -1,5 +1,5 @@
-import immutable from '../immutable';
 import AbstractEntity from '../../AbstractEntity';
+import immutable from '../immutable';
 
 describe('immutable', () => {
   it('should configure the isImmutable property', () => {

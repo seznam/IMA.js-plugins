@@ -1,5 +1,6 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { createRef, PureComponent } from 'react';
+
 import Loader from '../loader/Loader';
 import Sizer from '../sizer/Sizer';
 
@@ -13,7 +14,7 @@ const TIME_TO_SHOW_LOADER = 3000;
  * @module ima.ui.atom
  */
 
-export default class HtmlImage extends React.PureComponent {
+export default class HtmlImage extends PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -29,7 +30,7 @@ export default class HtmlImage extends React.PureComponent {
         src: nextProps.src,
         srcSet: nextProps.srcSet,
         sizes: nextProps.sizes,
-        noloading: nextProps.noloading || prevState.noloading || false
+        noloading: nextProps.noloading || prevState.noloading || false,
       };
     }
 
@@ -49,7 +50,7 @@ export default class HtmlImage extends React.PureComponent {
 
     this._onVisibilityWriter = this.onVisibilityWriter.bind(this);
 
-    this._rootElement = React.createRef();
+    this._rootElement = createRef();
 
     this._helper = this.context.$Utils.$UIComponentHelper;
     this._settings = this.context.$Utils.$Settings;
@@ -104,7 +105,7 @@ export default class HtmlImage extends React.PureComponent {
             'atm-overflow': true,
             'atm-placeholder': !this.state.noloading,
             'atm-responsive': this.props.layout === 'responsive',
-            'atm-fill': this.props.layout === 'fill'
+            'atm-fill': this.props.layout === 'fill',
           },
           this.props.className
         )}
@@ -113,10 +114,11 @@ export default class HtmlImage extends React.PureComponent {
             ? {}
             : {
                 width: this.props.width || 'auto',
-                height: this.props.height || 'auto'
+                height: this.props.height || 'auto',
               }
         }
-        {...this._helper.getDataProps(this.props)}>
+        {...this._helper.getDataProps(this.props)}
+      >
         {this.props.layout === 'responsive' ? (
           <Sizer
             width={this.props.width}
@@ -133,7 +135,7 @@ export default class HtmlImage extends React.PureComponent {
               'atm-fill': true,
               'atm-visibility': !(
                 this.state.noloading && this._visibleInViewport
-              )
+              ),
             })}
           />
         ) : null}
@@ -146,14 +148,14 @@ export default class HtmlImage extends React.PureComponent {
             className={this._helper.cssClasses({
               'atm-fill': true,
               'atm-loaded': this.state.noloading && this._visibleInViewport,
-              'atm-cover': this.props.cover
+              'atm-cover': this.props.cover,
             })}
             {...this._helper.getEventProps(this.props)}
             {...this._helper.getAriaProps(this.props)}
           />
         ) : null}
         {this.state.showLoader && !this.state.noloading ? (
-          <Loader mode="small" layout="center" />
+          <Loader mode='small' layout='center' />
         ) : null}
         {!this.disableNoScript && (
           <noscript
@@ -166,7 +168,7 @@ export default class HtmlImage extends React.PureComponent {
                   class="${this._helper.cssClasses('atm-fill atm-loaded')}"
                   ${this._helper.serializeObjectToNoScript(
                     this._helper.getAriaProps(this.props)
-                  )}/>`
+                  )}/>`,
             }}
           />
         )}
@@ -205,7 +207,7 @@ export default class HtmlImage extends React.PureComponent {
         extendedPadding,
         useIntersectionObserver: this.useIntersectionObserver,
         width: this.props.width,
-        height: this.props.height
+        height: this.props.height,
       }),
       this._helper.wrapVisibilityWriter(this._onVisibilityWriter)
     );

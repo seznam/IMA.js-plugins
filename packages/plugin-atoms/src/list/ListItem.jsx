@@ -1,5 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { PureComponent } from 'react';
 
 /**
  * Common ListItem
@@ -8,7 +8,7 @@ import React from 'react';
  * @module ima.ui.atom
  */
 
-export default class ListItem extends React.PureComponent {
+export default class ListItem extends PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -19,7 +19,7 @@ export default class ListItem extends React.PureComponent {
       mode: '',
       style: null,
       className: '',
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -30,7 +30,7 @@ export default class ListItem extends React.PureComponent {
     let componentClassName = helper.cssClasses(
       {
         'atm-li': true,
-        ['atm-li-' + mode]: mode
+        ['atm-li-' + mode]: mode,
       },
       className
     );
@@ -41,7 +41,8 @@ export default class ListItem extends React.PureComponent {
           style={style}
           className={componentClassName}
           {...helper.getEventProps(this.props)}
-          {...helper.getDataProps(this.props)}>
+          {...helper.getDataProps(this.props)}
+        >
           {children}
         </li>
       );

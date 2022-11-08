@@ -27,5 +27,5 @@ export {
   Response,
   ResponsePostProcessor,
   RestClient,
-  deepFreeze
+  deepFreeze,
 };

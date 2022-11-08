@@ -111,7 +111,7 @@ const PostCssScrambler: postcss.PluginCreator<
             classNameNode.clone({
               value: `${numberToCssClass(prefixIndex)}_${numberToCssClass(
                 mainPartIndex
-              )}`
+              )}`,
             })
           );
         });
@@ -120,7 +120,7 @@ const PostCssScrambler: postcss.PluginCreator<
       root.walkRules(rule => {
         rule.selector = scramblingParser.processSync(rule.selector);
       });
-    }
+    },
   };
 };
 

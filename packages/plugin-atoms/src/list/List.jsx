@@ -1,5 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { PureComponent } from 'react';
 
 /**
  * Common list
@@ -8,7 +8,7 @@ import React from 'react';
  * @module ima.ui.atom
  */
 
-export default class List extends React.PureComponent {
+export default class List extends PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -19,7 +19,7 @@ export default class List extends React.PureComponent {
       mode: '',
       type: 'ul',
       style: null,
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -34,14 +34,15 @@ export default class List extends React.PureComponent {
           {
             'atm-list': true,
             ['atm-list-' + mode]: mode,
-            ['atm-list-' + Type]: Type
+            ['atm-list-' + Type]: Type,
           },
           className
         )}
         id={id}
         {...helper.getEventProps(this.props)}
         {...helper.getDataProps(this.props)}
-        {...helper.getAriaProps(this.props)}>
+        {...helper.getAriaProps(this.props)}
+      >
         {children}
       </Type>
     );

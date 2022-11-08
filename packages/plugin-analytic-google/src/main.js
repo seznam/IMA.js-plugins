@@ -14,22 +14,22 @@ pluginLoader.register('@ima/plugin-analytic-google', () => ({
             service: 'UA-XXXXXXX-X',
             settings: {
               clientId: uid(),
-              storage: 'none'
+              storage: 'none',
             },
             settingsSetter: {
               allowAdFeatures: false,
               anonymizeIp: true,
-              allowAdPersonalizationSignals: false
-            }
-          }
-        }
-      }
+              allowAdPersonalizationSignals: false,
+            },
+          },
+        },
+      },
     },
 
     test: {},
 
-    dev: {}
-  })
+    dev: {},
+  }),
 }));
 
 export { GoogleAnalytic, defaultDependencies };

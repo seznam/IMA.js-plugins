@@ -1,20 +1,19 @@
 import path from 'path';
 
+import {
+  ImaConfigurationContext,
+  ImaCliCommand,
+  ImaCliPlugin,
+  ImaCliArgs,
+} from '@ima/cli';
+import { createLogger } from '@ima/dev-utils/dist/logger';
+import StatoscopeWebpackPlugin from '@statoscope/webpack-plugin';
 import open from 'better-opn';
 import { BundleStatsWebpackPlugin } from 'bundle-stats-webpack-plugin';
 import chalk from 'chalk';
 import { Configuration, WebpackPluginInstance } from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import StatoscopeWebpackPlugin from '@statoscope/webpack-plugin';
 import { CommandBuilder } from 'yargs';
-
-import { createLogger } from '@ima/dev-utils/dist/logger';
-import {
-  ImaConfigurationContext,
-  ImaCliCommand,
-  ImaCliPlugin,
-  ImaCliArgs
-} from '@ima/cli';
 
 // Extend existing cli args interface with new values
 declare module '@ima/cli' {
@@ -42,9 +41,9 @@ class AnalyzePlugin implements ImaCliPlugin {
       analyze: {
         desc: 'Runs multiple webpack bundle analyzer plugins on given entry',
         type: 'string',
-        choices: ['server', 'client', 'client.es']
-      }
-    }
+        choices: ['server', 'client', 'client.es'],
+      },
+    },
   };
 
   constructor(options: AnalyzePluginOptions) {
@@ -67,17 +66,17 @@ class AnalyzePlugin implements ImaCliPlugin {
         new BundleStatsWebpackPlugin({
           // @ts-expect-error Not in type definitions
           silent: true,
-          ...(this.#options?.bundleStatsOptions ?? {})
+          ...(this.#options?.bundleStatsOptions ?? {}),
         }) as WebpackPluginInstance,
         new BundleAnalyzerPlugin({
           analyzerMode: 'static',
           logLevel: 'silent',
           openAnalyzer: false,
-          ...(this.#options?.bundleAnalyzerOptions ?? {})
+          ...(this.#options?.bundleAnalyzerOptions ?? {}),
         }) as unknown as WebpackPluginInstance,
         new StatoscopeWebpackPlugin({
           saveTo: path.join(config.output?.path ?? '', 'statoscope.html'),
-          saveStatsTo: path.join(config.output?.path ?? '', 'stats.json')
+          saveStatsTo: path.join(config.output?.path ?? '', 'stats.json'),
         })
       );
     }

@@ -1,4 +1,5 @@
 import clone from 'clone';
+
 import { deepFreeze } from './utils';
 
 /**

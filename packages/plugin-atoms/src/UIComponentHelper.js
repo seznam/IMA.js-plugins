@@ -1,6 +1,7 @@
+import { Infinite } from 'infinite-circle';
+
 import ComponentPositions from './ComponentPositions';
 import Visibility from './Visibility';
-import { Infinite } from 'infinite-circle';
 
 /**
  * UI component helper.
@@ -13,7 +14,7 @@ export default class UIComponentHelper {
       ComponentPositions,
       Visibility,
       Infinite,
-      '$CssClasses'
+      '$CssClasses',
     ];
   }
 
@@ -261,7 +262,7 @@ export default class UIComponentHelper {
     const self = this;
     const observerConfig = {
       rootMargin: options.extendedPadding + 'px',
-      threshold: options.threshold || [0]
+      threshold: options.threshold || [0],
     };
     let intersectionObserverEntry = null;
     let isFirstPositionCalculated = false;

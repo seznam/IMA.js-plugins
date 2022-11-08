@@ -1,5 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { PureComponent } from 'react';
 
 /**
  * Amp iframe
@@ -7,7 +7,7 @@ import React from 'react';
  * @namespace ima.ui.atom.iframe
  * @module ima.ui.atom
  */
-export default class AmpIframe extends React.PureComponent {
+export default class AmpIframe extends PureComponent {
   // @if server
   static get contextType() {
     return PageContext;
@@ -28,7 +28,7 @@ export default class AmpIframe extends React.PureComponent {
       allowFullScreen,
       resizable,
       marginWidth,
-      marginHeight
+      marginHeight,
     } = this.props;
     let props = {
       src,
@@ -41,7 +41,7 @@ export default class AmpIframe extends React.PureComponent {
       frameBorder,
       marginWidth,
       marginHeight,
-      class: helper.cssClasses(className)
+      class: helper.cssClasses(className),
     };
 
     if (allowFullScreen) {
@@ -56,8 +56,9 @@ export default class AmpIframe extends React.PureComponent {
       <amp-iframe
         {...props}
         {...helper.getDataProps(this.props)}
-        {...helper.getAriaProps(this.props)}>
-        {this.props.children || <div placeholder="" />}
+        {...helper.getAriaProps(this.props)}
+      >
+        {this.props.children || <div placeholder='' />}
       </amp-iframe>
     );
   }

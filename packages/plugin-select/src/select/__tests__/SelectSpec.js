@@ -1,14 +1,15 @@
-import { PageContext } from '@ima/react-page-renderer';
 import { PageStateManager, Dispatcher } from '@ima/core';
+import { PageContext } from '@ima/react-page-renderer';
 import { shallow, mount } from 'enzyme';
-import React from 'react';
+import { PureComponent, createElement, createRef } from 'react';
 import { toMockedInstance, setGlobalMockMethod } from 'to-mock';
+
 import forwardedSelect, {
   createStateSelector,
   select,
   setCreatorOfStateSelector,
   setHoistStaticMethod,
-  hoistNonReactStatic
+  hoistNonReactStatic,
 } from '../select';
 
 setGlobalMockMethod(jest.fn);
@@ -17,29 +18,29 @@ describe('plugin-select:', () => {
   const appState = {
     media: {
       width: 90,
-      height: 60
+      height: 60,
     },
-    title: 'title'
+    title: 'title',
   };
   const componentContext = {
     $Utils: {
       $PageStateManager: toMockedInstance(PageStateManager, {
         getState: () => {
           return appState;
-        }
+        },
       }),
-      $Dispatcher: toMockedInstance(Dispatcher)
-    }
+      $Dispatcher: toMockedInstance(Dispatcher),
+    },
   };
   const selectorMethods = [
     state => {
       return {
-        width: state.media.width
+        width: state.media.width,
       };
     },
     state => {
       return {
-        height: state.media.height
+        height: state.media.height,
       };
     },
     state => {
@@ -48,19 +49,19 @@ describe('plugin-select:', () => {
       }
 
       return {
-        dynamic: state.dynamic
+        dynamic: state.dynamic,
       };
-    }
+    },
   ];
 
   const selectorUsingProps = (state, context, props) => ({
     width: state.media.width * props.multiplier,
-    height: state.media.height * props.multiplier
+    height: state.media.height * props.multiplier,
   });
 
   const selectorReplaceProps = (state, context, props) => ({
     multiplier: props.multiplier * props.multiplier,
-    settings: Object.assign({}, props.settings, { newSettingsProp: true })
+    settings: Object.assign({}, props.settings, { newSettingsProp: true }),
   });
 
   beforeEach(() => {
@@ -131,11 +132,11 @@ describe('plugin-select:', () => {
       props: 'props',
       multiplier: 0.5,
       settings: {
-        color: 'red'
-      }
+        color: 'red',
+      },
     };
 
-    class Component extends React.PureComponent {
+    class Component extends PureComponent {
       static defaultProps() {
         return defaultProps;
       }
@@ -152,8 +153,8 @@ describe('plugin-select:', () => {
     );
 
     it('should render component', () => {
-      wrapper = shallow(React.createElement(Component, defaultProps), {
-        context: componentContext
+      wrapper = shallow(createElement(Component, defaultProps), {
+        context: componentContext,
       });
 
       expect(wrapper).toMatchSnapshot();
@@ -162,9 +163,9 @@ describe('plugin-select:', () => {
     it('should render component with extraProps', () => {
       let EnhancedComponent = select(...selectorMethods)(Component);
 
-      wrapper = mount(React.createElement(EnhancedComponent, defaultProps), {
+      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
         context: componentContext,
-        wrappingComponent: MockContextProvider
+        wrappingComponent: MockContextProvider,
       });
 
       expect(wrapper).toMatchSnapshot();
@@ -176,9 +177,9 @@ describe('plugin-select:', () => {
         selectorUsingProps
       )(Component);
 
-      wrapper = mount(React.createElement(EnhancedComponent, defaultProps), {
+      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
         context: componentContext,
-        wrappingComponent: MockContextProvider
+        wrappingComponent: MockContextProvider,
       });
 
       expect(wrapper).toMatchSnapshot();
@@ -190,9 +191,9 @@ describe('plugin-select:', () => {
         selectorReplaceProps
       )(Component);
 
-      wrapper = mount(React.createElement(EnhancedComponent, defaultProps), {
+      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
         context: componentContext,
-        wrappingComponent: MockContextProvider
+        wrappingComponent: MockContextProvider,
       });
 
       expect(wrapper).toMatchSnapshot();
@@ -201,9 +202,9 @@ describe('plugin-select:', () => {
     it('should add listener to dispatcher after mounting to DOM', () => {
       let EnhancedComponent = select(...selectorMethods)(Component);
 
-      wrapper = mount(React.createElement(EnhancedComponent, defaultProps), {
+      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
         context: componentContext,
-        wrappingComponent: MockContextProvider
+        wrappingComponent: MockContextProvider,
       });
 
       expect(componentContext.$Utils.$Dispatcher.listen).toHaveBeenCalled();
@@ -212,9 +213,9 @@ describe('plugin-select:', () => {
     it('should remove listener to dispatcher before unmounting from DOM', () => {
       let EnhancedComponent = select(...selectorMethods)(Component);
 
-      wrapper = mount(React.createElement(EnhancedComponent, defaultProps), {
+      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
         context: componentContext,
-        wrappingComponent: MockContextProvider
+        wrappingComponent: MockContextProvider,
       });
 
       wrapper.unmount();
@@ -232,9 +233,9 @@ describe('plugin-select:', () => {
       });
       let EnhancedComponent = select(...selectorMethods)(Component);
 
-      wrapper = mount(React.createElement(EnhancedComponent, defaultProps), {
+      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
         context: componentContext,
-        wrappingComponent: MockContextProvider
+        wrappingComponent: MockContextProvider,
       });
 
       expect(wrapper).toMatchSnapshot();
@@ -243,9 +244,9 @@ describe('plugin-select:', () => {
     it('should render component with changed props', () => {
       let EnhancedComponent = select(selectorUsingProps)(Component);
 
-      wrapper = mount(React.createElement(EnhancedComponent, defaultProps), {
+      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
         context: componentContext,
-        wrappingComponent: MockContextProvider
+        wrappingComponent: MockContextProvider,
       });
 
       wrapper.setProps({ multiplier: 3 });
@@ -270,9 +271,9 @@ describe('plugin-select:', () => {
       });
       let EnhancedComponent = select(...selectorMethods)(Component);
 
-      wrapper = mount(React.createElement(EnhancedComponent, defaultProps), {
+      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
         context: componentContext,
-        wrappingComponent: MockContextProvider
+        wrappingComponent: MockContextProvider,
       });
 
       expect(typeof EnhancedComponent.defaultProps === 'function').toBeTruthy();
@@ -281,13 +282,16 @@ describe('plugin-select:', () => {
 
     it('should forward ref', () => {
       let EnhancedComponent = forwardedSelect(...selectorMethods)(Component);
-      let props = Object.assign({}, defaultProps, {
-        ref: React.createRef()
-      });
 
-      wrapper = shallow(React.createElement(EnhancedComponent, props), {
-        context: componentContext
-      });
+      wrapper = shallow(
+        createElement(EnhancedComponent, {
+          ...defaultProps,
+          ref: createRef(),
+        }),
+        {
+          context: componentContext,
+        }
+      );
 
       expect(wrapper).toMatchSnapshot();
     });

@@ -1,7 +1,8 @@
 /* eslint-disable jsdoc/check-param-names */
 
-import AnalyticEvents from './Events';
 import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
+
+import AnalyticEvents from './Events';
 
 /**
  * Abstract analytic class

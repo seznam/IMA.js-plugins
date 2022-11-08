@@ -1,4 +1,5 @@
 import clone from 'clone';
+
 import AbstractEntity from './AbstractEntity';
 import Request from './Request';
 import { deepFreeze } from './utils';

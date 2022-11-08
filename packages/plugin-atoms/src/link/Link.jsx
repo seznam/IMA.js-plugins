@@ -1,5 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { PureComponent } from 'react';
 
 /**
  * Common link
@@ -8,7 +8,7 @@ import React from 'react';
  * @module ima.ui.atom
  */
 
-export default class Link extends React.PureComponent {
+export default class Link extends PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -20,7 +20,7 @@ export default class Link extends React.PureComponent {
       style: null,
       rel: null,
       className: '',
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -36,7 +36,7 @@ export default class Link extends React.PureComponent {
       children,
       text,
       style,
-      rel
+      rel,
     } = this.props;
 
     return (
@@ -50,13 +50,14 @@ export default class Link extends React.PureComponent {
         className={helper.cssClasses(
           {
             'atm-link': true,
-            ['atm-link-' + mode]: mode
+            ['atm-link-' + mode]: mode,
           },
           className
         )}
         {...helper.getEventProps(this.props)}
         {...helper.getDataProps(this.props)}
-        {...helper.getAriaProps(this.props)}>
+        {...helper.getAriaProps(this.props)}
+      >
         {children || text}
       </a>
     );

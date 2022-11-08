@@ -4,15 +4,15 @@ const settings = {
       useIntersectionObserver: {
         iframes: true,
         images: true,
-        videos: true
+        videos: true,
       },
       disableNoScript: {
         iframes: false,
         images: false,
-        videos: false
-      }
-    }
-  }
+        videos: false,
+      },
+    },
+  },
 };
 
 export default settings;

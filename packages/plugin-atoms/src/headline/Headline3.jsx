@@ -1,4 +1,5 @@
-import React from 'react';
+import { PureComponent } from 'react';
+
 import Headline from './Headline';
 
 /**
@@ -7,8 +8,8 @@ import Headline from './Headline';
  * @namespace ima.ui.atom.headline
  * @module ima.ui.atom
  */
-export default class Headline3 extends React.PureComponent {
+export default class Headline3 extends PureComponent {
   render() {
-    return <Headline {...this.props} type="h3" />;
+    return <Headline {...this.props} type='h3' />;
   }
 }

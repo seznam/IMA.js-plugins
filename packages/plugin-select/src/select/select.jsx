@@ -1,7 +1,13 @@
-import { PageContext } from '@ima/react-page-renderer';
 import { StateEvents } from '@ima/core';
+import { PageContext } from '@ima/react-page-renderer';
 import hoistNonReactStaticMethod from 'hoist-non-react-statics';
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import {
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+  forwardRef as reactForwardRef,
+} from 'react';
 import { createSelector } from 'reselect';
 
 let creatorOfStateSelector = createStateSelector;
@@ -63,7 +69,7 @@ export function useSelect(props, ...selectors) {
   const context = useContext(PageContext);
   const utils = context.$Utils || props.$Utils;
 
-  const currentProps = React.useRef(props);
+  const currentProps = useRef(props);
   currentProps.current = props;
 
   const stateSelector = useRef(creatorOfStateSelector(...selectors));
@@ -113,10 +119,11 @@ export default function forwardedSelect(...selectors) {
     const forwardRef = (props, ref) => {
       return <SelectState {...props} forwardedRef={ref} />;
     };
+
     const name = Component.displayName || Component.name;
     forwardRef.displayName = `select(${name})`;
 
-    return React.forwardRef(forwardRef);
+    return reactForwardRef(forwardRef);
   };
 }
 

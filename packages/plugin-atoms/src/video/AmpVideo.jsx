@@ -1,5 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { PureComponent } from 'react';
 
 /**
  * Amp video player.
@@ -7,7 +7,7 @@ import React from 'react';
  * @namespace ima.ui.atom.video
  * @module ima.ui.atom
  */
-export default class AmpVideo extends React.PureComponent {
+export default class AmpVideo extends PureComponent {
   // @if server
   static get contextType() {
     return PageContext;
@@ -26,7 +26,7 @@ export default class AmpVideo extends React.PureComponent {
       height,
       layout,
       className,
-      children
+      children,
     } = this.props;
 
     return (
@@ -42,8 +42,9 @@ export default class AmpVideo extends React.PureComponent {
         layout={layout}
         class={helper.cssClasses(className)}
         {...helper.getDataProps(this.props)}
-        {...helper.getAriaProps(this.props)}>
-        <div placeholder="" />
+        {...helper.getAriaProps(this.props)}
+      >
+        <div placeholder='' />
         {children}
       </amp-video>
     );

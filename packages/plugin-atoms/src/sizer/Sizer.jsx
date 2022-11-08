@@ -1,5 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { PureComponent } from 'react';
 
 /**
  * Common sizer
@@ -7,7 +7,7 @@ import React from 'react';
  * @namespace ima.ui.atom.sizer
  * @module ima.ui.atom
  */
-export default class Sizer extends React.PureComponent {
+export default class Sizer extends PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -17,7 +17,7 @@ export default class Sizer extends React.PureComponent {
       width: 0,
       height: 0,
       placeholder: false,
-      className: ''
+      className: '',
     };
   }
 
@@ -29,12 +29,12 @@ export default class Sizer extends React.PureComponent {
         className={helper.cssClasses(
           {
             'atm-sizer': true,
-            'atm-placeholder': this.props.placeholder
+            'atm-placeholder': this.props.placeholder,
           },
           this.props.className
         )}
         style={{
-          paddingTop: (this.props.height / this.props.width) * 100 + '%'
+          paddingTop: (this.props.height / this.props.width) * 100 + '%',
         }}
         {...helper.getEventProps(this.props)}
         {...helper.getDataProps(this.props)}

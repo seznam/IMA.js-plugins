@@ -1,5 +1,6 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { PureComponent } from 'react';
+
 import AmpVideo from './AmpVideo';
 import HtmlVideo from './HtmlVideo';
 
@@ -10,7 +11,7 @@ import HtmlVideo from './HtmlVideo';
  * @module ima.ui.atom
  */
 
-export default class Video extends React.PureComponent {
+export default class Video extends PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -27,7 +28,7 @@ export default class Video extends React.PureComponent {
       height: null,
       layout: null,
       className: '',
-      noloading: false
+      noloading: false,
     };
   }
 

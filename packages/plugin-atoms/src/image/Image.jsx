@@ -1,7 +1,8 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
-import HtmlImage from './HtmlImage';
+import { PureComponent } from 'react';
+
 import AmpImage from './AmpImage';
+import HtmlImage from './HtmlImage';
 
 /**
  * Common image
@@ -10,7 +11,7 @@ import AmpImage from './AmpImage';
  * @module ima.ui.atom
  */
 
-export default class Image extends React.PureComponent {
+export default class Image extends PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -28,7 +29,7 @@ export default class Image extends React.PureComponent {
       layout: null,
       noloading: false,
       extendedPadding: 0,
-      cover: false
+      cover: false,
     };
   }
 

@@ -1,5 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { PureComponent } from 'react';
 
 /**
  * Common paragraph
@@ -8,7 +8,7 @@ import React from 'react';
  * @module ima.ui.atom
  */
 
-export default class Paragraph extends React.PureComponent {
+export default class Paragraph extends PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -19,7 +19,7 @@ export default class Paragraph extends React.PureComponent {
       text: null,
       mode: '',
       style: null,
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -31,7 +31,7 @@ export default class Paragraph extends React.PureComponent {
       {
         'atm-paragraph': true,
         ['atm-paragraph-' + mode]: mode,
-        ['atm-paragraph-align-' + align]: align
+        ['atm-paragraph-align-' + align]: align,
       },
       className
     );
@@ -43,7 +43,8 @@ export default class Paragraph extends React.PureComponent {
           className={componentClassName}
           {...helper.getEventProps(this.props)}
           {...helper.getDataProps(this.props)}
-          {...helper.getAriaProps(this.props)}>
+          {...helper.getAriaProps(this.props)}
+        >
           {children}
         </p>
       );

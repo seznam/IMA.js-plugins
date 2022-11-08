@@ -1,7 +1,6 @@
 import Visibility from '../Visibility';
-
-import _window from './mocks/window';
 import _dispatcher from './mocks/dispatcher';
+import _window from './mocks/window';
 
 describe('Visibility', () => {
   let reader = () => {};
@@ -18,11 +17,11 @@ describe('Visibility', () => {
     it('should return visibilityId', () => {
       expect(
         typeof visibility.register(reader, writer, options) === 'string'
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it('should start listening on scroll and resize events', () => {
-      spyOn(visibility, '_listenOnEvents');
+      jest.spyOn(visibility, '_listenOnEvents').mockImplementation(() => {});
 
       visibility.register(reader, writer, options);
 
@@ -58,7 +57,7 @@ describe('Visibility', () => {
     });
 
     it('should stop listening on scroll and resize events', () => {
-      spyOn(visibility, '_unlistenOnEvents');
+      jest.spyOn(visibility, '_unlistenOnEvents').mockImplementation(() => {});
 
       visibility.unregister(visibilityId);
 

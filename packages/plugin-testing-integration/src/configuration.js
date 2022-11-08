@@ -12,7 +12,7 @@ let configuration = {
   initServicesApp: () => {},
   initRoutes: () => {},
   extendAppObject: () => {},
-  prebootScript: () => Promise.resolve()
+  prebootScript: () => Promise.resolve(),
 };
 
 /**

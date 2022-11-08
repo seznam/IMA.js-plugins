@@ -1,5 +1,6 @@
-import Events from './Events';
 import { ResourceLoader } from '@ima/plugin-resource-loader';
+
+import Events from './Events';
 
 /**
  * Style loader plugin class.
@@ -134,7 +135,7 @@ export default class StyleLoader {
     let error = new Error(`The ${url} style failed to load.`);
     let data = {
       url,
-      error
+      error,
     };
 
     this._dispatcher.fire(Events.LOADED, data, true);
