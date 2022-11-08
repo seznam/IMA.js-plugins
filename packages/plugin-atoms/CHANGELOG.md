@@ -1,5 +1,13 @@
 <a name="5.0.1"></a>
 
+## 7.0.0-rc.10
+
+### Patch Changes
+
+- 1c61a6d: Automatic JSX runtime, deps update
+- Updated dependencies [1c61a6d]
+  - @ima/plugin-useragent@4.0.0-rc.10
+
 ## 7.0.0-rc.9
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.0-rc.8
+
+### Patch Changes
+
+- 1c61a6d: Automatic JSX runtime, deps update
+
 ## 4.0.0-rc.7
 
 ### Patch Changes
