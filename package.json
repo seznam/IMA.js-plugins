@@ -11,6 +11,7 @@
     "lint:cmd": "eslint -c ./.eslintrc.js --ignore-path ./.gitignore",
     "lint": "eslint --cache --cache-location=node_modules/.cache/ './**/*.{js,jsx,ts,tsx,mjs}'",
     "lint:fix": "npm run lint -- --fix",
+    "stylelint": "stylelint --cache --cache-location=node_modules/.cache/ './**/*.{css,less}'",
     "precommit": "lint-staged",
     "release": "npm run release:prepare && npm run release:push",
     "release:prepare": "changeset version",
@@ -22,6 +23,10 @@
   "workspaces": [
     "./packages/*"
   ],
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,mjs}": "eslint",
+    "**/*.{css,less}": "stylelint"
+  },
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.0",
     "@babel/preset-react": "^7.18.6",
@@ -52,13 +57,17 @@
     "jest-watch-select-projects": "^2.0.0",
     "jest-watch-typeahead": "^2.2.0",
     "lint-staged": "^13.0.3",
+    "postcss": "^8.4.18",
+    "postcss-less": "^6.0.0",
     "prettier": "^2.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "shallow-with-context": "^0.5.1",
+    "stylelint": "^14.14.1",
+    "stylelint-config-css-modules": "^4.1.0",
+    "stylelint-config-standard": "^29.0.0",
+    "stylelint-declaration-block-no-ignored-properties": "^2.6.0",
+    "stylelint-order": "^5.0.0",
     "to-mock": "^1.6.2"
-  },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,mjs}": "eslint"
   }
 }
