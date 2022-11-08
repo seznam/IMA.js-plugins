@@ -197,7 +197,7 @@ export default class ComponentPositions {
       top: clientRect.top - extended,
       left: clientRect.left - extended,
       width: clientRect.width + 2 * extended,
-      height: (clientRect.height || height || 0 / width || 0) + 2 * extended
+      height: (clientRect.height || height || 0 / width || 0) + 2 * extended,
     };
 
     return this._fixBoundingClientRectOnIOS(elmRectStyle);

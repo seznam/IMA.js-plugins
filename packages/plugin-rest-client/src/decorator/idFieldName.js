@@ -16,7 +16,7 @@
 export default idParameterName => {
   return classConstructor => {
     Object.defineProperty(classConstructor, 'idFieldName', {
-      value: idParameterName
+      value: idParameterName,
     });
   };
 };

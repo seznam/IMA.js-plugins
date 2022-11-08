@@ -4,14 +4,15 @@ import {
   createImaApp,
   getClientBootConfig,
   onLoad,
-  bootClientApp
+  bootClientApp,
 } from '@ima/core';
 import { assignRecursively } from '@ima/helpers';
 import { JSDOM } from 'jsdom';
+
 import { unAopAll } from './aop';
-import { requireFromProject } from './helpers';
-import { getConfig } from './configuration';
 import { getBootConfigExtensions } from './bootConfigExtensions';
+import { getConfig } from './configuration';
+import { requireFromProject } from './helpers';
 import { generateDictionary } from './localization';
 
 const setIntervalNative = global.setInterval;
@@ -70,7 +71,7 @@ async function initImaApp(bootConfigMethods = {}) {
     function copyProps(src, target) {
       Object.defineProperties(target, {
         ...Object.getOwnPropertyDescriptors(src),
-        ...Object.getOwnPropertyDescriptors(target)
+        ...Object.getOwnPropertyDescriptors(target),
       });
     }
 
@@ -78,7 +79,7 @@ async function initImaApp(bootConfigMethods = {}) {
       `<!doctype html><html><body><div id="${config.masterElementId}"></div></body></html>`,
       {
         pretendToBeVisual: true,
-        url: `${config.protocol}//${config.host}/`
+        url: `${config.protocol}//${config.host}/`,
       }
     );
     const { window } = jsdom;
@@ -86,7 +87,7 @@ async function initImaApp(bootConfigMethods = {}) {
     global.window = window;
     global.document = window.document;
     global.navigator = {
-      userAgent: 'node.js'
+      userAgent: 'node.js',
     };
     copyProps(window, global);
     global.jsdom = jsdom;
@@ -155,7 +156,7 @@ async function initImaApp(bootConfigMethods = {}) {
     initSettings: _getBootConfigForMethod('initSettings'),
     initBindApp: _getBootConfigForMethod('initBindApp'),
     initServicesApp: _getBootConfigForMethod('initServicesApp'),
-    initRoutes: _getBootConfigForMethod('initRoutes')
+    initRoutes: _getBootConfigForMethod('initRoutes'),
   });
   await onLoad();
   bootClientApp(app, bootConfig);

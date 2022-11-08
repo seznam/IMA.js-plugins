@@ -20,7 +20,7 @@ export default class Headline extends PureComponent {
       mode: null,
       type: 'h1',
       style: null,
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -32,7 +32,7 @@ export default class Headline extends PureComponent {
       {
         ['atm-headline']: true,
         ['atm-' + mode]: mode,
-        ['atm-' + Type]: Type
+        ['atm-' + Type]: Type,
       },
       className
     );
@@ -45,7 +45,8 @@ export default class Headline extends PureComponent {
           className={computedClassName}
           {...helper.getEventProps(this.props)}
           {...helper.getDataProps(this.props)}
-          {...helper.getAriaProps(this.props)}>
+          {...helper.getAriaProps(this.props)}
+        >
           {children}
         </Type>
       );

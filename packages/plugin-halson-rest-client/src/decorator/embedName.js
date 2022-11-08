@@ -17,7 +17,7 @@
 export default embedName => {
   return classConstructor => {
     Object.defineProperty(classConstructor, 'embedName', {
-      value: embedName
+      value: embedName,
     });
   };
 };

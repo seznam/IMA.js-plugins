@@ -1,7 +1,6 @@
 import Visibility from '../Visibility';
-
-import _window from './mocks/window';
 import _dispatcher from './mocks/dispatcher';
+import _window from './mocks/window';
 
 describe('Visibility', () => {
   let reader = () => {};
@@ -18,7 +17,7 @@ describe('Visibility', () => {
     it('should return visibilityId', () => {
       expect(
         typeof visibility.register(reader, writer, options) === 'string'
-      ).toEqual(true);
+      ).toBe(true);
     });
 
     it('should start listening on scroll and resize events', () => {

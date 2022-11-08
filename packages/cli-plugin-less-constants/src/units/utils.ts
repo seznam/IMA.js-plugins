@@ -30,6 +30,6 @@ export function asUnit(
       return template
         .replace('${parts}', parts.join(','))
         .replace('${unit}', unit);
-    }
+    },
   };
 }

@@ -1,8 +1,9 @@
 import { Window, Dispatcher } from '@ima/core';
-import ScriptLoaderPlugin from '../ScriptLoaderPlugin';
-import Events from '../Events';
 import { ResourceLoader } from '@ima/plugin-resource-loader';
 import { toMockedInstance } from 'to-mock';
+
+import Events from '../Events';
+import ScriptLoaderPlugin from '../ScriptLoaderPlugin';
 
 describe('ScriptLoaderPlugin', () => {
   let scriptLoaderPlugin = null;
@@ -14,7 +15,7 @@ describe('ScriptLoaderPlugin', () => {
   const window = toMockedInstance(Window, {
     isClient() {
       return true;
-    }
+    },
   });
   const dispatcher = toMockedInstance(Dispatcher);
   const resourceLoader = toMockedInstance(ResourceLoader);
@@ -28,7 +29,7 @@ describe('ScriptLoaderPlugin', () => {
     element = {
       onload() {},
       onerror() {},
-      onabort() {}
+      onabort() {},
     };
 
     global.$Debug = true;
@@ -97,13 +98,15 @@ describe('ScriptLoaderPlugin', () => {
         .spyOn(resourceLoader, 'promisify')
         .mockReturnValue(Promise.reject(new Error('message')));
 
-      scriptLoaderPlugin.load(url).catch(error => {
+      try {
+        await scriptLoaderPlugin.load(url);
+      } catch (error) {
         expect(dispatcher.fire).toHaveBeenCalledWith(
           Events.LOADED,
           { url, error },
           true
         );
-      });
+      }
     });
   });
 });

@@ -85,6 +85,6 @@ export function lessMap(object: Record<string, number>): MapUnit {
       return Object.keys(object)
         .map(key => `\t${key}: ${object[key]};\n`)
         .join('');
-    }
+    },
   };
 }

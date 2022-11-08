@@ -10,6 +10,6 @@ describe('Configuration', () => {
 
     setConfig(config);
 
-    expect(getConfig().key).toEqual('value');
+    expect(getConfig().key).toBe('value');
   });
 });

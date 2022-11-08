@@ -4,7 +4,7 @@ describe('LocalStorageHelper', () => {
   let dummyWindow = {
     isClient() {
       return true;
-    }
+    },
   };
 
   let localStorageMock = {
@@ -16,7 +16,7 @@ describe('LocalStorageHelper', () => {
       return this._keys[index];
     },
     length: 4,
-    _keys: ['a', 'b', 'c', 'd']
+    _keys: ['a', 'b', 'c', 'd'],
   };
 
   let localStorageInstance = null;
@@ -37,7 +37,7 @@ describe('LocalStorageHelper', () => {
 
       let result = localStorageInstance.has('testName');
 
-      expect(result).toEqual(true);
+      expect(result).toBe(true);
     });
 
     it('should return false if localStorageInstance.get method returns invalid result', () => {
@@ -45,7 +45,7 @@ describe('LocalStorageHelper', () => {
 
       let result = localStorageInstance.has('testName');
 
-      expect(result).toEqual(false);
+      expect(result).toBe(false);
     });
 
     it('should return true for boolean value', () => {
@@ -53,7 +53,7 @@ describe('LocalStorageHelper', () => {
 
       let result = localStorageInstance.has('testName');
 
-      expect(result).toEqual(true);
+      expect(result).toBe(true);
     });
 
     it('should return true for null', () => {
@@ -61,7 +61,7 @@ describe('LocalStorageHelper', () => {
 
       let result = localStorageInstance.has('testName');
 
-      expect(result).toEqual(true);
+      expect(result).toBe(true);
     });
   });
 
@@ -71,7 +71,7 @@ describe('LocalStorageHelper', () => {
 
       let result = localStorageInstance.get('testName');
 
-      expect(result).toEqual(undefined);
+      expect(result).toBeUndefined();
     });
 
     it('should call localStorageInstance.get method', () => {
@@ -89,7 +89,7 @@ describe('LocalStorageHelper', () => {
 
       let result = localStorageInstance.get('testName');
 
-      expect(result).toEqual('testValue');
+      expect(result).toBe('testValue');
     });
 
     it('should return correct value boolean', () => {
@@ -97,7 +97,7 @@ describe('LocalStorageHelper', () => {
 
       let result = localStorageInstance.get('testName');
 
-      expect(result).toEqual(false);
+      expect(result).toBe(false);
     });
 
     it('should return correct value for undefined', () => {
@@ -105,7 +105,7 @@ describe('LocalStorageHelper', () => {
 
       let result = localStorageInstance.get('testName');
 
-      expect(result).toEqual(undefined);
+      expect(result).toBeUndefined();
     });
 
     it('should return correct value for null', () => {
@@ -113,25 +113,25 @@ describe('LocalStorageHelper', () => {
 
       let result = localStorageInstance.get('testName');
 
-      expect(result).toEqual(null);
+      expect(result).toBeNull();
     });
 
     it('should return undefined and call localStorageInstance.delete method if item is expired', () => {
       jest.spyOn(localStorage, 'getItem').mockReturnValue({
         value: 'testValue',
-        expires: Date.now()
+        expires: Date.now(),
       });
       jest.spyOn(localStorageInstance, 'delete').mockImplementation(() => {});
 
       let result = localStorageInstance.get('testName');
 
-      expect(result).toEqual(undefined);
+      expect(result).toBeUndefined();
       expect(localStorageInstance.delete).toHaveBeenCalled();
     });
 
     it('should return item if item has no value', () => {
       jest.spyOn(localStorageInstance, 'get').mockReturnValue({
-        testKey: 'testValue'
+        testKey: 'testValue',
       });
 
       let result = localStorageInstance.get('testName');
@@ -144,7 +144,7 @@ describe('LocalStorageHelper', () => {
 
       let result = localStorageInstance.get('testName');
 
-      expect(result).toEqual(undefined);
+      expect(result).toBeUndefined();
     });
   });
 
@@ -169,7 +169,7 @@ describe('LocalStorageHelper', () => {
 
       let result = localStorageInstance.set('testName', undefined);
 
-      expect(localStorageInstance._initialized).toEqual(true);
+      expect(localStorageInstance._initialized).toBe(true);
       expect(result).toEqual(localStorageInstance);
       expect(localStorageInstance.delete).toHaveBeenCalled();
     });
@@ -190,7 +190,7 @@ describe('LocalStorageHelper', () => {
       localStorageInstance.set('testKey', 'testValue');
 
       expect(localStorageInstance._getExpires).toHaveBeenCalledWith({
-        expires: 10
+        expires: 10,
       });
       expect(localStorage.setItem).toHaveBeenCalledWith(
         'testKey',
@@ -206,7 +206,7 @@ describe('LocalStorageHelper', () => {
       localStorageInstance.set('testKey', 'testValue', { expires: 5 });
 
       expect(localStorageInstance._getExpires).toHaveBeenCalledWith({
-        expires: 5
+        expires: 5,
       });
       expect(localStorage.setItem).toHaveBeenCalledWith(
         'testKey',
@@ -279,7 +279,7 @@ describe('LocalStorageHelper', () => {
 
       let result = localStorageInstance.keys();
 
-      expect(typeof result).toEqual('object');
+      expect(typeof result).toBe('object');
 
       let i = 0;
       for (let key of result) {
@@ -300,13 +300,13 @@ describe('LocalStorageHelper', () => {
     it('should return localStorage.length', () => {
       let result = localStorageInstance.size();
 
-      expect(result).toEqual(4);
+      expect(result).toBe(4);
     });
   });
 
   describe('isSupported method', () => {
     let jsonMock = {
-      stringify() {}
+      stringify() {},
     };
 
     beforeEach(() => {
@@ -320,7 +320,7 @@ describe('LocalStorageHelper', () => {
 
       let result = localStorageInstance.isSupported();
 
-      expect(result).toEqual(false);
+      expect(result).toBe(false);
       expect(localStorageInstance._window.isClient).toHaveBeenCalled();
     });
 
@@ -330,7 +330,7 @@ describe('LocalStorageHelper', () => {
 
       let result = localStorageInstance.isSupported();
 
-      expect(result).toEqual(false);
+      expect(result).toBe(false);
     });
 
     it('should return false if JSON object is not available', () => {
@@ -339,7 +339,7 @@ describe('LocalStorageHelper', () => {
 
       let result = localStorageInstance.isSupported();
 
-      expect(result).toEqual(false);
+      expect(result).toBe(false);
     });
 
     it('should return false if setting localStorage item fails', () => {
@@ -352,16 +352,16 @@ describe('LocalStorageHelper', () => {
 
       let result = localStorageInstance.isSupported();
 
-      expect(result).toEqual(false);
+      expect(result).toBe(false);
       expect(localStorageInstance._isLocalStorageReady).toHaveBeenCalled();
     });
 
     it('should return true if all prerequisites met', () => {
-      expect(localStorageInstance._isLocalStorageReady()).toEqual(true);
-      expect(localStorageInstance._window.isClient()).toEqual(true);
-      expect(localStorage !== undefined).toEqual(true);
-      expect(JSON !== undefined).toEqual(true);
-      expect(localStorageInstance.isSupported()).toEqual(true);
+      expect(localStorageInstance._isLocalStorageReady()).toBe(true);
+      expect(localStorageInstance._window.isClient()).toBe(true);
+      expect(localStorage !== undefined).toBe(true);
+      expect(JSON !== undefined).toBe(true);
+      expect(localStorageInstance.isSupported()).toBe(true);
     });
   });
 
@@ -374,7 +374,7 @@ describe('LocalStorageHelper', () => {
       let result = localStorageInstance._isLocalStorageReady();
 
       expect(localStorage.setItem).toThrow('error');
-      expect(result).toEqual(false);
+      expect(result).toBe(false);
     });
 
     it('should return true if there was no error', () => {
@@ -385,16 +385,16 @@ describe('LocalStorageHelper', () => {
 
       expect(localStorage.setItem).toHaveBeenCalled();
       expect(localStorage.removeItem).toHaveBeenCalled();
-      expect(result).toEqual(true);
+      expect(result).toBe(true);
     });
   });
 
   describe('_getExpires method', () => {
     it('should return undefined if invalid or no options were passed', () => {
-      expect(localStorageInstance._getExpires()).toEqual(undefined);
-      expect(localStorageInstance._getExpires('')).toEqual(undefined);
-      expect(localStorageInstance._getExpires([1, 2, 3])).toEqual(undefined);
-      expect(localStorageInstance._getExpires(undefined)).toEqual(undefined);
+      expect(localStorageInstance._getExpires()).toBeUndefined();
+      expect(localStorageInstance._getExpires('')).toBeUndefined();
+      expect(localStorageInstance._getExpires([1, 2, 3])).toBeUndefined();
+      expect(localStorageInstance._getExpires(undefined)).toBeUndefined();
     });
 
     it('should return date as a number if value was provided as Date object', () => {
@@ -408,7 +408,7 @@ describe('LocalStorageHelper', () => {
       jest.spyOn(Date, 'now').mockReturnValue(10000);
       let result = localStorageInstance._getExpires({ expires: 1500 });
 
-      expect(result).toEqual(1510000);
+      expect(result).toBe(1510000);
     });
   });
 });

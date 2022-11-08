@@ -4,79 +4,141 @@ module.exports = {
     '**/node_modules/**',
     '**/dist/**',
     '**/build/**',
-    '**/coverage/**'
+    '**/coverage/**',
   ],
   extends: [
     'eslint:recommended',
     'plugin:jsdoc/recommended',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
-    'prettier'
+    'plugin:jest/recommended',
+    'plugin:jest/style',
+    'plugin:import/recommended',
+    'plugin:prettier/recommended',
   ],
-  parser: '@babel/eslint-parser',
   rules: {
-    'jsdoc/no-undefined-types': 0, // This should be probably enabled, but it could break some functionality if implemented correctly
-    'jsdoc/require-param-description': 0, // Description is not always needed
-    'jsdoc/require-returns-description': 0, // Description is not always needed
-    'jsdoc/require-returns-check': 0, // There are abstract classes documenting return value, but actually throwing error if not overriden
-    'jsdoc/require-jsdoc': 0,
+    // JSDoc plugin
+    'jsdoc/no-undefined-types': 'off',
+    'jsdoc/require-param-description': 'off',
+    'jsdoc/require-returns-description': 'off',
+    'jsdoc/require-returns-check': 'off',
+    'jsdoc/require-jsdoc': 'off',
+
+    'no-console': [
+      'error',
+      {
+        allow: ['warn', 'error'],
+      },
+    ],
+    'no-unused-vars': [
+      'error',
+      {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        destructuredArrayIgnorePattern: '^_',
+        ignoreRestSiblings: true,
+      },
+    ],
+
+    // Prettier
     'prettier/prettier': [
       'error',
       {
         singleQuote: true,
         semi: true,
-        jsxBracketSameLine: true,
-        trailingComma: 'none',
-        arrowParens: 'avoid'
-      }
+        trailingComma: 'es5',
+        jsxSingleQuote: true,
+        bracketSameLine: false,
+        arrowParens: 'avoid',
+      },
     ],
 
-    'no-console': [
+    // Jest plugin overrides
+    'jest/valid-title': 'off',
+    'jest/no-done-callback': 'warn',
+    'jest/no-disabled-tests': 'warn',
+    'jest/no-conditional-expect': 'warn',
+    'jest/prefer-expect-resolves': 'warn',
+    'jest/prefer-lowercase-title': [
+      'warn',
+      {
+        ignore: ['describe'],
+      },
+    ],
+    // Remove when migrated to jest >=27
+    'jest/no-jasmine-globals': 'off',
+
+    // React plugin overrides
+    'react/prop-types': 'off',
+
+    // Import plugin
+    'import/no-unresolved': [
+      'warn',
+      {
+        ignore: [
+          '^@\\/', // ignore @/* aliases
+          '@(docusaurus|theme)',
+        ],
+      },
+    ],
+    'import/order': [
       'error',
       {
-        allow: ['warn', 'error']
-      }
+        groups: ['builtin', 'external', 'internal'],
+        pathGroups: [
+          {
+            pattern: '{preact|react|svelte|docusaurus|theme}{/**,**}',
+            group: 'external',
+            position: 'before',
+          },
+          {
+            pattern: '@/**',
+            group: 'internal',
+            position: 'after',
+          },
+          {
+            pattern: '*.{css,less,json,html,txt,csv,png,jpg,svg}',
+            group: 'object',
+            patternOptions: { matchBase: true },
+            position: 'after',
+          },
+        ],
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
     ],
-
-    'react/prop-types': 0,
-    'react/wrap-multilines': 0,
-    'react/no-deprecated': 0,
-    'no-import-assign': 0
   },
-  plugins: ['prettier', 'jest', 'react', 'jasmine'],
   settings: {
-    ecmascript: 2015,
-    jsx: true,
     react: {
-      version: '16'
-    }
-  },
-  parserOptions: {
-    babelOptions: {
-      presets: ['@babel/preset-react']
+      version: '18',
     },
-    requireConfigFile: false,
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.ts', '.jsx', '.tsx', '.mjs', '.json'],
+      },
+    },
+  },
+  parser: '@babel/eslint-parser',
+  parserOptions: {
     sourceType: 'module',
-    ecmaVersion: 6,
-    ecmaFeatures: {
-      jsx: true
-    }
+    requireConfigFile: false,
+    babelOptions: {
+      presets: ['@babel/preset-react'],
+    },
   },
   env: {
     browser: true,
     node: true,
     es2022: true,
-    es6: true,
-    jasmine: true,
-    'jest/globals': true
   },
   globals: {
     $Debug: true,
     $IMA: true,
-    using: true,
-    extend: true,
     chrome: true,
-    FB: true
+    FB: true,
   },
   overrides: [
     // Typescript support
@@ -84,13 +146,13 @@ module.exports = {
       files: ['**/*.{ts,tsx}'],
       parserOptions: {
         tsconfigRootDir: __dirname,
-        project: './tsconfig.json'
+        project: './tsconfig.json',
       },
       extends: ['plugin:@typescript-eslint/recommended'],
       rules: {
         '@typescript-eslint/ban-ts-comment': [
           'error',
-          { 'ts-expect-error': 'allow-with-description' }
+          { 'ts-expect-error': 'allow-with-description' },
         ],
         '@typescript-eslint/no-unused-vars': [
           'error',
@@ -98,14 +160,14 @@ module.exports = {
             argsIgnorePattern: '^_',
             varsIgnorePattern: '^_',
             destructuredArrayIgnorePattern: '^_',
-            ignoreRestSiblings: true
-          }
+            ignoreRestSiblings: true,
+          },
         ],
         '@typescript-eslint/no-namespace': [
           'error',
-          { allowDeclarations: true }
-        ]
-      }
-    }
-  ]
+          { allowDeclarations: true },
+        ],
+      },
+    },
+  ],
 };

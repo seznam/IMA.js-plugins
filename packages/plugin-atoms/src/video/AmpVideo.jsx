@@ -26,7 +26,7 @@ export default class AmpVideo extends PureComponent {
       height,
       layout,
       className,
-      children
+      children,
     } = this.props;
 
     return (
@@ -42,8 +42,9 @@ export default class AmpVideo extends PureComponent {
         layout={layout}
         class={helper.cssClasses(className)}
         {...helper.getDataProps(this.props)}
-        {...helper.getAriaProps(this.props)}>
-        <div placeholder="" />
+        {...helper.getAriaProps(this.props)}
+      >
+        <div placeholder='' />
         {children}
       </amp-video>
     );

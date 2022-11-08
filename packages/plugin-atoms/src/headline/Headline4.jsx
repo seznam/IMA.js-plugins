@@ -1,4 +1,5 @@
 import { PureComponent } from 'react';
+
 import Headline from './Headline';
 
 /**
@@ -9,6 +10,6 @@ import Headline from './Headline';
  */
 export default class Headline4 extends PureComponent {
   render() {
-    return <Headline {...this.props} type="h4" />;
+    return <Headline {...this.props} type='h4' />;
   }
 }

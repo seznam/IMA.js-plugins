@@ -20,7 +20,7 @@ const PRIVATE = {
   // methods
   registerListener: Symbol('registerListener'),
   deregisterListener: Symbol('deregisterListener'),
-  bindUiEventListeners: Symbol('bindUiEventListeners')
+  bindUiEventListeners: Symbol('bindUiEventListeners'),
 };
 if ($Debug) {
   Object.freeze(PRIVATE);
@@ -605,12 +605,12 @@ export default class AbstractManagedComponent extends AbstractComponent {
       Object.defineProperty(clone, '_self', {
         enumerable: false,
         configurable: false,
-        value: reactElement._self
+        value: reactElement._self,
       });
       Object.defineProperty(clone, '_source', {
         enumerable: false,
         configurable: false,
-        value: reactElement._source
+        value: reactElement._source,
       });
 
       props = clone.props && Object.assign({}, clone.props);

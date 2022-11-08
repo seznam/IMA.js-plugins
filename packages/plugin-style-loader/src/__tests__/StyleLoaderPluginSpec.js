@@ -1,8 +1,9 @@
 import { Window, Dispatcher } from '@ima/core';
-import Events from '../Events';
-import StyleLoaderPlugin from '../StyleLoaderPlugin';
 import { ResourceLoader } from '@ima/plugin-resource-loader';
 import { toMockedInstance } from 'to-mock';
+
+import Events from '../Events';
+import StyleLoaderPlugin from '../StyleLoaderPlugin';
 
 describe('StyleLoaderPlugin', () => {
   let styleLoaderPlugin = null;
@@ -14,7 +15,7 @@ describe('StyleLoaderPlugin', () => {
   const window = toMockedInstance(Window, {
     isClient() {
       return true;
-    }
+    },
   });
   const dispatcher = toMockedInstance(Dispatcher);
   const resourceLoader = toMockedInstance(ResourceLoader);
@@ -28,12 +29,12 @@ describe('StyleLoaderPlugin', () => {
     element = {
       onload() {},
       onerror() {},
-      onabort() {}
+      onabort() {},
     };
     attributes = {
       media: 'screen',
       type: 'text/css',
-      onunload() {}
+      onunload() {},
     };
 
     global.$Debug = true;

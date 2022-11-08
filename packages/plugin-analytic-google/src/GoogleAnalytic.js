@@ -135,7 +135,7 @@ export default class GoogleAnalytic extends AbstractAnalytic {
     return {
       page: pageData.path,
       location: this._window.getUrl(),
-      title: document.title || ''
+      title: document.title || '',
     };
   }
 

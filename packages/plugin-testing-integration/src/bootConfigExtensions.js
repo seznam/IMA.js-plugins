@@ -35,6 +35,6 @@ export function getBootConfigExtensions() {
     },
     getAppExtension: app => {
       return Object.assign({}, ...results, config.extendAppObject(app));
-    }
+    },
   };
 }

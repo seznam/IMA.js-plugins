@@ -17,7 +17,7 @@ export default class Sizer extends PureComponent {
       width: 0,
       height: 0,
       placeholder: false,
-      className: ''
+      className: '',
     };
   }
 
@@ -29,12 +29,12 @@ export default class Sizer extends PureComponent {
         className={helper.cssClasses(
           {
             'atm-sizer': true,
-            'atm-placeholder': this.props.placeholder
+            'atm-placeholder': this.props.placeholder,
           },
           this.props.className
         )}
         style={{
-          paddingTop: (this.props.height / this.props.width) * 100 + '%'
+          paddingTop: (this.props.height / this.props.width) * 100 + '%',
         }}
         {...helper.getEventProps(this.props)}
         {...helper.getDataProps(this.props)}

@@ -11,7 +11,7 @@ const PRIVATE = Object.freeze({
   idParameterName: Symbol('idParameterName'),
   idParameterNameConfigured: Symbol('idParameterNameConfigured'),
   inlineEmbeds: Symbol('inlineEmbeds'),
-  inlineEmbedsConfigured: Symbol('inlineEmbedsConfigured')
+  inlineEmbedsConfigured: Symbol('inlineEmbedsConfigured'),
 });
 
 /**
@@ -37,7 +37,7 @@ export default class AbstractHalsonEntity extends AbstractEntity {
       this._links = {};
     }
     Object.defineProperty(this, '_links', {
-      enumerable: false
+      enumerable: false,
     });
   }
 

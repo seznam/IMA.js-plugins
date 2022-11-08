@@ -1,5 +1,6 @@
 import { PageContext } from '@ima/react-page-renderer';
 import { PureComponent } from 'react';
+
 import AmpVideo from './AmpVideo';
 import HtmlVideo from './HtmlVideo';
 
@@ -27,7 +28,7 @@ export default class Video extends PureComponent {
       height: null,
       layout: null,
       className: '',
-      noloading: false
+      noloading: false,
     };
   }
 

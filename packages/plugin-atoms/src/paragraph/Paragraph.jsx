@@ -19,7 +19,7 @@ export default class Paragraph extends PureComponent {
       text: null,
       mode: '',
       style: null,
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -31,7 +31,7 @@ export default class Paragraph extends PureComponent {
       {
         'atm-paragraph': true,
         ['atm-paragraph-' + mode]: mode,
-        ['atm-paragraph-align-' + align]: align
+        ['atm-paragraph-align-' + align]: align,
       },
       className
     );
@@ -43,7 +43,8 @@ export default class Paragraph extends PureComponent {
           className={componentClassName}
           {...helper.getEventProps(this.props)}
           {...helper.getDataProps(this.props)}
-          {...helper.getAriaProps(this.props)}>
+          {...helper.getAriaProps(this.props)}
+        >
           {children}
         </p>
       );

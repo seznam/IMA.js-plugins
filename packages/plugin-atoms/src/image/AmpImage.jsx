@@ -25,7 +25,7 @@ export default class AmpImage extends PureComponent {
       cover,
       alt,
       noloading,
-      className
+      className,
     } = this.props;
 
     return (

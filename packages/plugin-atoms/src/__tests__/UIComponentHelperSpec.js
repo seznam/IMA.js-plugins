@@ -1,11 +1,10 @@
-import { toMockedInstance } from 'to-mock';
 import classnames from 'classnames';
+import { Infinite } from 'infinite-circle';
+import { toMockedInstance } from 'to-mock';
 
 import ComponentPositions from '../ComponentPositions';
 import UIComponentHelper from '../UIComponentHelper';
 import Visibility from '../Visibility';
-import { Infinite } from 'infinite-circle';
-
 import _router from './mocks/router';
 import _window from './mocks/window';
 
@@ -29,7 +28,7 @@ describe('UIComponentHelper', () => {
   describe('isAmp method', () => {
     it('should return true if url query contains amp flag of value true', () => {
       jest.spyOn(_router, 'getCurrentRouteInfo').mockReturnValue({
-        params: { amp: true }
+        params: { amp: true },
       });
 
       expect(uiComponentHelper.isAmp()).toBeTruthy();
@@ -37,7 +36,7 @@ describe('UIComponentHelper', () => {
 
     it('should return true if url query contains amp flag of value "1"', () => {
       jest.spyOn(_router, 'getCurrentRouteInfo').mockReturnValue({
-        params: { amp: '1' }
+        params: { amp: '1' },
       });
 
       expect(uiComponentHelper.isAmp()).toBeTruthy();
@@ -45,7 +44,7 @@ describe('UIComponentHelper', () => {
 
     it('should return false if url query does not contain amp flag', () => {
       jest.spyOn(_router, 'getCurrentRouteInfo').mockReturnValue({
-        params: { amp: '0' }
+        params: { amp: '0' },
       });
 
       expect(uiComponentHelper.isAmp()).toBeFalsy();
@@ -59,7 +58,7 @@ describe('UIComponentHelper', () => {
   describe('getDataProps method', () => {
     let dataProps = {
       'data-e2e': 'something',
-      'data-key': 'key'
+      'data-key': 'key',
     };
     let props = Object.assign({ key: 'key' }, dataProps);
 
@@ -71,7 +70,7 @@ describe('UIComponentHelper', () => {
   describe('getAriaProps method', () => {
     let ariaProps = {
       'aria-label': 'something',
-      'aria-hidden': true
+      'aria-hidden': true,
     };
     let props = Object.assign({ key: 'key' }, ariaProps);
 
@@ -83,7 +82,7 @@ describe('UIComponentHelper', () => {
   describe('getEventProps method', () => {
     let eventProps = {
       onKeyDown: () => {},
-      onClick: function () {}
+      onClick: function () {},
     };
     let props = Object.assign(
       {
@@ -91,7 +90,7 @@ describe('UIComponentHelper', () => {
         once: 'notValid',
         oNsubmit: 'notValid',
         onSubmit: 'notValid',
-        onDrag: {}
+        onDrag: {},
       },
       eventProps
     );
@@ -104,7 +103,7 @@ describe('UIComponentHelper', () => {
   describe('serializeObjectToNoScript method', () => {
     let ariaProps = {
       'aria-label': 'something',
-      'aria-hidden': true
+      'aria-hidden': true,
     };
 
     it('should return serialized object to string for noscript tag', () => {
@@ -123,7 +122,7 @@ describe('UIComponentHelper', () => {
             foo: true,
             bar: false,
             another: false,
-            'more-things': true
+            'more-things': true,
           },
           'things'
         )
@@ -157,22 +156,22 @@ describe('UIComponentHelper', () => {
       observer: OBSERVER,
       intersectionObserverEntry: {
         intersectionRatio: 0.3,
-        isIntersecting: true
-      }
+        isIntersecting: true,
+      },
     };
     const NONINTERSECTED_PAYLOAD_OBJECT = {
       observer: OBSERVER,
       intersectionObserverEntry: {
         intersectionRatio: 0,
-        isIntersecting: false
-      }
+        isIntersecting: false,
+      },
     };
     const BUGGED_PAYLOAD_OBJECT = {
       observer: OBSERVER,
       intersectionObserverEntry: {
         intersectionRatio: 0,
-        isIntersecting: true
-      }
+        isIntersecting: true,
+      },
     };
 
     it('should return a return value of writer(PAYLOAD)', () => {

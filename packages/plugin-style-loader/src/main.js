@@ -1,5 +1,5 @@
-import StyleLoaderPlugin from './StyleLoaderPlugin';
 import Events from './Events';
+import StyleLoaderPlugin from './StyleLoaderPlugin';
 
 let defaultDependencies = StyleLoaderPlugin.$dependencies;
 

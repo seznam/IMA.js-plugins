@@ -11,7 +11,7 @@ describe('AbstractHalsonEntity', () => {
 
   it('should make the _links property non-enumarable', () => {
     const entity = new Entity({
-      _links: { foo: 'bar' }
+      _links: { foo: 'bar' },
     });
 
     expect(entity._links.foo).toBe('bar');

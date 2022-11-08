@@ -54,7 +54,7 @@ function scramblerFactory(hashTable: HashTable) {
 
     return {
       className: processedClasses,
-      'data-class': classNamesSource
+      'data-class': classNamesSource,
     };
   };
 }

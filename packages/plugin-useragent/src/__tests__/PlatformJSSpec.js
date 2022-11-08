@@ -1,4 +1,5 @@
 import PlatformJS from 'platform';
+
 import using from './using.js';
 
 var testedUserAgents = [
@@ -17,9 +18,9 @@ var testedUserAgents = [
       os: {
         architecture: 64,
         family: 'Windows Server 2008 R2 / 7',
-        version: '7'
-      }
-    }
+        version: '7',
+      },
+    },
   },
   {
     uaString:
@@ -36,9 +37,9 @@ var testedUserAgents = [
       os: {
         architecture: 32,
         family: 'OS X',
-        version: '10.11.2'
-      }
-    }
+        version: '10.11.2',
+      },
+    },
   },
   {
     uaString:
@@ -55,9 +56,9 @@ var testedUserAgents = [
       os: {
         architecture: 64,
         family: 'Ubuntu',
-        version: null
-      }
-    }
+        version: null,
+      },
+    },
   },
   {
     uaString:
@@ -74,9 +75,9 @@ var testedUserAgents = [
       os: {
         architecture: 64,
         family: 'Windows Server 2008 R2 / 7',
-        version: '7'
-      }
-    }
+        version: '7',
+      },
+    },
   },
   {
     uaString:
@@ -93,9 +94,9 @@ var testedUserAgents = [
       os: {
         architecture: 32,
         family: 'iOS',
-        version: '9.2'
-      }
-    }
+        version: '9.2',
+      },
+    },
   },
   {
     uaString:
@@ -112,9 +113,9 @@ var testedUserAgents = [
       os: {
         architecture: 64,
         family: 'Windows',
-        version: '10'
-      }
-    }
+        version: '10',
+      },
+    },
   },
   {
     uaString:
@@ -131,9 +132,9 @@ var testedUserAgents = [
       os: {
         architecture: 64,
         family: 'Windows',
-        version: '8.1'
-      }
-    }
+        version: '8.1',
+      },
+    },
   },
   {
     uaString:
@@ -151,9 +152,9 @@ var testedUserAgents = [
       os: {
         architecture: 32,
         family: 'Android',
-        version: '4.0.3'
-      }
-    }
+        version: '4.0.3',
+      },
+    },
   },
   {
     uaString:
@@ -170,9 +171,9 @@ var testedUserAgents = [
       os: {
         architecture: null,
         family: null,
-        version: null
-      }
-    }
+        version: null,
+      },
+    },
   },
   {
     uaString:
@@ -190,9 +191,9 @@ var testedUserAgents = [
       os: {
         architecture: null,
         family: null,
-        version: null
-      }
-    }
+        version: null,
+      },
+    },
   },
   {
     uaString:
@@ -210,20 +211,20 @@ var testedUserAgents = [
       os: {
         architecture: null,
         family: null,
-        version: null
-      }
-    }
-  }
+        version: null,
+      },
+    },
+  },
 ];
 
 describe('PlatformJS', () => {
   it('should be included', () => {
-    expect(typeof PlatformJS === 'object').toEqual(true);
-    expect(typeof PlatformJS.parse === 'function').toEqual(true);
+    expect(typeof PlatformJS === 'object').toBe(true);
+    expect(typeof PlatformJS.parse === 'function').toBe(true);
   });
 
   it('should have parse method', () => {
-    expect(typeof PlatformJS.parse === 'function').toEqual(true);
+    expect(typeof PlatformJS.parse === 'function').toBe(true);
   });
 
   describe('parse method', () => {

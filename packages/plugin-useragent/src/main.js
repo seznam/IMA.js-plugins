@@ -1,9 +1,9 @@
 import { pluginLoader } from '@ima/core';
+import PlatformJS from 'platform';
 
 import UserAgent from './AbstractUserAgent.js';
 import ClientUserAgent from './ClientUserAgent.js';
 import ServerUserAgent from './ServerUserAgent.js';
-import PlatformJS from 'platform';
 
 pluginLoader.register('@ima/plugin-useragent', () => {
   return {
@@ -16,7 +16,7 @@ pluginLoader.register('@ima/plugin-useragent', () => {
     },
     initServices: (ns, oc) => {
       oc.get(UserAgent).init();
-    }
+    },
   };
 });
 

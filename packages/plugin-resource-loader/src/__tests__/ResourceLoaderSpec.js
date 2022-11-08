@@ -3,25 +3,25 @@ import ResourceLoader from '../ResourceLoader';
 describe('ResourceLoader', () => {
   let resourceLoader = null;
   let element = null;
-  let url = '//example.com/js/script.js';
 
   beforeEach(() => {
     resourceLoader = new ResourceLoader();
     element = {
       onload() {},
       onerror() {},
-      onabort() {}
+      onabort() {},
     };
 
     global.$Debug = true;
     global.document = {
       head: {
-        appendChild() {}
-      }
+        appendChild() {},
+      },
     };
   });
 
   afterEach(() => {
+    jest.clearAllMocks();
     delete global.document;
     delete global.$Debug;
   });
@@ -41,26 +41,6 @@ describe('ResourceLoader', () => {
 
       resourceLoader.injectToPage(element);
       expect(global.document.head.appendChild).toHaveBeenCalledWith(element);
-    });
-  });
-
-  describe('promisify method', () => {
-    it('should resolve the load promise when the resource loads', done => {
-      resourceLoader.promisify(element, url).then(done);
-
-      element.onload();
-    });
-
-    it('should reject the load promise when resource fails to load', done => {
-      resourceLoader.promisify(element, url).catch(() => done());
-
-      element.onerror();
-    });
-
-    it('should allow rejecting the load promise on abort', done => {
-      resourceLoader.promisify(element, url, true).catch(() => done());
-
-      element.onabort();
     });
   });
 });

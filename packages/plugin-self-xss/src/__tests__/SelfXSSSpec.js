@@ -1,6 +1,7 @@
 import { Dictionary } from '@ima/core';
-import { SelfXSS } from '../SelfXSS';
 import { toMockedInstance } from 'to-mock';
+
+import { SelfXSS } from '../SelfXSS';
 
 describe('SelfXSS', () => {
   let selfXSS = null;

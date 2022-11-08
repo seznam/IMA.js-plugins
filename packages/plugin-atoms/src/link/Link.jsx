@@ -20,7 +20,7 @@ export default class Link extends PureComponent {
       style: null,
       rel: null,
       className: '',
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -36,7 +36,7 @@ export default class Link extends PureComponent {
       children,
       text,
       style,
-      rel
+      rel,
     } = this.props;
 
     return (
@@ -50,13 +50,14 @@ export default class Link extends PureComponent {
         className={helper.cssClasses(
           {
             'atm-link': true,
-            ['atm-link-' + mode]: mode
+            ['atm-link-' + mode]: mode,
           },
           className
         )}
         {...helper.getEventProps(this.props)}
         {...helper.getDataProps(this.props)}
-        {...helper.getAriaProps(this.props)}>
+        {...helper.getAriaProps(this.props)}
+      >
         {children || text}
       </a>
     );

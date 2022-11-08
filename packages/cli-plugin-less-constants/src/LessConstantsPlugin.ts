@@ -1,11 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
+import { ImaCliPlugin, ImaCliArgs, ImaConfig } from '@ima/cli';
+import { createLogger } from '@ima/dev-utils/dist/logger';
 import chalk from 'chalk';
 import webpack from 'webpack';
 
-import { createLogger } from '@ima/dev-utils/dist/logger';
-import { ImaCliPlugin, ImaCliArgs, ImaConfig } from '@ima/cli';
 import { generateLessVariables, UnitValue } from './generator';
 
 export interface LessConstantsPluginOptions {
@@ -57,7 +57,7 @@ class LessConstantsPlugin implements ImaCliPlugin {
 
     // Print output info
     this._logger.plugin(`Processing ${chalk.magenta(entry)} file..`, {
-      trackTime: true
+      trackTime: true,
     });
 
     try {
@@ -73,7 +73,7 @@ class LessConstantsPlugin implements ImaCliPlugin {
 
       await fs.promises.mkdir(path.dirname(outputPath), { recursive: true });
       await fs.promises.writeFile(outputPath, lessConstants, {
-        encoding: 'utf8'
+        encoding: 'utf8',
       });
     } catch (error) {
       this._logger.error(error instanceof Error ? error : 'unknown error');
@@ -113,7 +113,7 @@ class LessConstantsPlugin implements ImaCliPlugin {
           mode: 'none',
           output: {
             path: outputDir,
-            libraryTarget: 'commonjs2'
+            libraryTarget: 'commonjs2',
           },
           entry: { lessConstantsEntry: modulePath },
           module: {
@@ -125,20 +125,20 @@ class LessConstantsPlugin implements ImaCliPlugin {
                 test: /\.mjs$/,
                 type: 'javascript/auto',
                 resolve: {
-                  fullySpecified: false
-                }
-              }
-            ]
+                  fullySpecified: false,
+                },
+              },
+            ],
           },
           resolve: {
             alias: {
               app: path.join(args.rootDir, 'app'),
-              ...imaConfig.webpackAliases
-            }
+              ...imaConfig.webpackAliases,
+            },
           },
           cache: {
             name: 'less-constants-plugin',
-            type: 'filesystem'
+            type: 'filesystem',
           },
           optimization: {
             moduleIds: 'named',
@@ -148,16 +148,16 @@ class LessConstantsPlugin implements ImaCliPlugin {
                 vendor: {
                   test: /[\\/]node_modules[\\/]/,
                   name: 'vendors',
-                  chunks: 'all'
-                }
-              }
-            }
+                  chunks: 'all',
+                },
+              },
+            },
           },
           plugins: [
             new webpack.DefinePlugin({
-              $Debug: false
-            })
-          ]
+              $Debug: false,
+            }),
+          ],
         },
         err => {
           if (err) {

@@ -1,5 +1,6 @@
 import { PageContext } from '@ima/react-page-renderer';
 import { createRef, PureComponent } from 'react';
+
 import Sizer from '../sizer/Sizer';
 
 const EXTENDED_PADDING = 300;
@@ -20,7 +21,7 @@ export default class HtmlVideo extends PureComponent {
     super(props, context);
 
     this.state = {
-      noloading: props.noloading || false
+      noloading: props.noloading || false,
     };
 
     this._mounted = false;
@@ -58,7 +59,7 @@ export default class HtmlVideo extends PureComponent {
             'atm-overflow': true,
             'atm-placeholder': !this.state.noloading,
             'atm-responsive': this.props.layout === 'responsive',
-            'atm-fill': this.props.layout === 'fill'
+            'atm-fill': this.props.layout === 'fill',
           },
           this.props.className
         )}
@@ -67,10 +68,11 @@ export default class HtmlVideo extends PureComponent {
             ? {}
             : {
                 width: this.props.width || 'auto',
-                height: this.props.height || 'auto'
+                height: this.props.height || 'auto',
               }
         }
-        {...this._helper.getDataProps(this.props)}>
+        {...this._helper.getDataProps(this.props)}
+      >
         {this.props.layout === 'responsive' ? (
           <Sizer
             width={this.props.width}
@@ -90,11 +92,12 @@ export default class HtmlVideo extends PureComponent {
             height={this.props.height}
             className={this._helper.cssClasses({
               'atm-fill': true,
-              'atm-loaded': this.state.noloading && this._visibleInViewport
+              'atm-loaded': this.state.noloading && this._visibleInViewport,
             })}
             {...this._helper.getEventProps(this.props)}
-            {...this._helper.getAriaProps(this.props)}>
-            <div placeholder="" />
+            {...this._helper.getAriaProps(this.props)}
+          >
+            <div placeholder='' />
             {this.props.children}
           </video>
         ) : null}
@@ -111,7 +114,7 @@ export default class HtmlVideo extends PureComponent {
 								class="${this._helper.cssClasses('atm-fill atm-loaded')}"
 								${this._helper.serializeObjectToNoScript(
                   this._helper.getAriaProps(this.props)
-                )}></video>`
+                )}></video>`,
             }}
           />
         )}
@@ -160,7 +163,7 @@ export default class HtmlVideo extends PureComponent {
         useIntersectionObserver: this.useIntersectionObserver,
         extendedPadding,
         width: this.props.width,
-        height: this.props.height
+        height: this.props.height,
       }),
       this._helper.wrapVisibilityWriter(this._onVisibilityWriter)
     );
@@ -169,7 +172,7 @@ export default class HtmlVideo extends PureComponent {
   _preLoadPosterImage() {
     if (!this.props.poster) {
       this.setState({
-        noloading: true
+        noloading: true,
       });
       return;
     }
@@ -183,7 +186,7 @@ export default class HtmlVideo extends PureComponent {
     function onLoadingCompleted() {
       if (componentInstance._mounted) {
         componentInstance.setState({
-          noloading: true
+          noloading: true,
         });
       }
     }

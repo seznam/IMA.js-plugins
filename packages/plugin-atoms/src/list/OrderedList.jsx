@@ -1,4 +1,5 @@
 import { PureComponent } from 'react';
+
 import List from './List';
 
 /**
@@ -10,6 +11,6 @@ import List from './List';
 
 export default class OrderedList extends PureComponent {
   render() {
-    return <List {...this.props} type="ol" />;
+    return <List {...this.props} type='ol' />;
   }
 }

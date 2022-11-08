@@ -1,5 +1,5 @@
 /**
- * @type {import('jest').Config}
+ * @type import('jest').Config
  */
 module.exports = {
   bail: true,
@@ -10,27 +10,45 @@ module.exports = {
   modulePaths: ['<rootDir>/'],
   watchPlugins: [
     'jest-watch-typeahead/filename',
-    'jest-watch-typeahead/testname'
+    'jest-watch-typeahead/testname',
   ],
   transformIgnorePatterns: [
-    'node_modules/(?!(@ima/core|@ima/react-page-renderer)/)'
+    'node_modules/(?!(@ima/core|@ima/react-page-renderer)/)',
   ],
   transform: {
-    '^.+\\.(t|j)sx?$': [
+    '^.+\\.(js|jsx)$': [
       '@swc/jest',
       {
         jsc: {
           target: 'es2022',
           parser: {
-            jsx: true
+            syntax: 'ecmascript',
+            jsx: true,
           },
           transform: {
             react: {
-              runtime: 'automatic'
-            }
-          }
-        }
-      }
-    ]
-  }
+              runtime: 'automatic',
+            },
+          },
+        },
+      },
+    ],
+    '^.+\\.(ts|tsx)$': [
+      '@swc/jest',
+      {
+        jsc: {
+          target: 'es2022',
+          parser: {
+            syntax: 'typescript',
+            tsx: true,
+          },
+          transform: {
+            react: {
+              runtime: 'automatic',
+            },
+          },
+        },
+      },
+    ],
+  },
 };

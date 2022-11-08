@@ -1,10 +1,7 @@
 import { ComponentUtils, pluginLoader } from '@ima/core';
 import { Infinite, Circle, uuid } from 'infinite-circle';
 
-import UIComponentHelper from './UIComponentHelper';
 import ComponentPositions from './ComponentPositions';
-import Visibility from './Visibility';
-
 import Headline from './headline/Headline';
 import Headline1 from './headline/Headline1';
 import Headline2 from './headline/Headline2';
@@ -12,25 +9,19 @@ import Headline3 from './headline/Headline3';
 import Headline4 from './headline/Headline4';
 import Headline5 from './headline/Headline5';
 import Headline6 from './headline/Headline6';
-
 import Iframe from './iframe/Iframe';
-
 import Image from './image/Image';
-
 import Link from './link/Link';
-
 import List from './list/List';
+import ListItem from './list/ListItem';
 import OrderedList from './list/OrderedList';
 import UnorderedList from './list/UnorderedList';
-import ListItem from './list/ListItem';
-
 import Loader from './loader/Loader';
-
 import Paragraph from './paragraph/Paragraph';
-
 import Sizer from './sizer/Sizer';
-
+import UIComponentHelper from './UIComponentHelper';
 import Video from './video/Video';
+import Visibility from './Visibility';
 
 const defaultDependencies = ['$Router', ComponentPositions, Visibility];
 
@@ -113,18 +104,18 @@ pluginLoader.register('@ima/plugin-atoms', ns => {
               useIntersectionObserver: {
                 iframes: true,
                 images: true,
-                videos: true
+                videos: true,
               },
               disableNoScript: {
                 iframes: false,
                 images: false,
-                videos: false
-              }
-            }
-          }
-        }
+                videos: false,
+              },
+            },
+          },
+        },
       };
-    }
+    },
   };
 });
 
@@ -165,5 +156,5 @@ export {
   Video,
   Circle,
   Infinite,
-  uuid
+  uuid,
 };

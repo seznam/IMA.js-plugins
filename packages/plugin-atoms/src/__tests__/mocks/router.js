@@ -5,8 +5,8 @@ export default toMockedInstance(Window, {
   getCurrentRouteInfo: () => {
     return {
       params: {
-        amp: false
-      }
+        amp: false,
+      },
     };
-  }
+  },
 });

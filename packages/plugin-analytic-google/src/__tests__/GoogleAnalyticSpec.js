@@ -1,15 +1,16 @@
 import { Dispatcher, Window } from '@ima/core';
-import GoogleAnalytic from '../GoogleAnalytic';
-import { toMockedInstance } from 'to-mock';
 import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
+import { toMockedInstance } from 'to-mock';
+
+import GoogleAnalytic from '../GoogleAnalytic';
 
 const settings = {
   service: 'UA-XXXXXXX-X',
-  settings: {}
+  settings: {},
 };
 
 const mockGa = {
-  ga() {}
+  ga() {},
 };
 
 describe('GoogleAnalytic', () => {
@@ -18,7 +19,7 @@ describe('GoogleAnalytic', () => {
   const window = toMockedInstance(Window, {
     getWindow() {
       return mockGa;
-    }
+    },
   });
   let googleAnalytic = null;
 
@@ -42,7 +43,7 @@ describe('GoogleAnalytic', () => {
 
       const customDimensions = {
         dimension1: 'value1',
-        dimension2: 'value2'
+        dimension2: 'value2',
       };
 
       global.document = {};
@@ -83,7 +84,7 @@ describe('GoogleAnalytic', () => {
 
       const setterObj = {
         prop1: 'value1',
-        prop2: 'value2'
+        prop2: 'value2',
       };
 
       googleAnalytic._setSetter(setterObj);
@@ -100,7 +101,7 @@ describe('GoogleAnalytic', () => {
 
       settings.settings = {
         clientId: 'abcde12345',
-        storage: 'none'
+        storage: 'none',
       };
 
       googleAnalytic._applyPurposeConsents({ 1: true });
@@ -114,7 +115,7 @@ describe('GoogleAnalytic', () => {
 
       settings.settings = {
         clientId: 'abcde123445',
-        storage: 'none'
+        storage: 'none',
       };
 
       const expectedSettings = Object.assign({}, settings.settings);

@@ -1,8 +1,9 @@
 import { Window, Dispatcher } from '@ima/core';
-import AbstractAnalytic from '../AbstractAnalytic';
-import AnalyticEvents from '../Events';
 import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
 import { toMockedInstance } from 'to-mock';
+
+import AbstractAnalytic from '../AbstractAnalytic';
+import AnalyticEvents from '../Events';
 
 describe('AbstractAnalytic', () => {
   let abstractAnalytic = null;
@@ -10,13 +11,13 @@ describe('AbstractAnalytic', () => {
   const _windowMock = toMockedInstance(Window, {
     isClient() {
       return true;
-    }
+    },
   });
   const dispatcher = toMockedInstance(Dispatcher);
   const scriptLoader = toMockedInstance(ScriptLoaderPlugin, {
     load() {
       return Promise.resolve(null);
-    }
+    },
   });
 
   beforeEach(() => {
@@ -109,14 +110,14 @@ describe('AbstractAnalytic', () => {
       await abstractAnalytic.load();
       await abstractAnalytic.load();
 
-      expect(scriptLoader.load.mock.calls.length).toEqual(1);
-      expect(abstractAnalytic._configuration.mock.calls.length).toEqual(1);
+      expect(scriptLoader.load.mock.calls).toHaveLength(1);
+      expect(abstractAnalytic._configuration.mock.calls).toHaveLength(1);
       expect(dispatcher.fire).toHaveBeenCalledWith(
         AnalyticEvents.LOADED,
         { type: 'dummy' },
         true
       );
-      expect(dispatcher.fire.mock.calls.length).toEqual(1);
+      expect(dispatcher.fire.mock.calls).toHaveLength(1);
     });
   });
 });

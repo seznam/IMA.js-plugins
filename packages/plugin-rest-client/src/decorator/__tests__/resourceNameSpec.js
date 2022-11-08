@@ -1,5 +1,5 @@
-import resourceName from '../resourceName';
 import AbstractEntity from '../../AbstractEntity';
+import resourceName from '../resourceName';
 
 describe('resourceName', () => {
   it('should configure the resourceName property', () => {

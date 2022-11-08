@@ -19,7 +19,7 @@ export default class ListItem extends PureComponent {
       mode: '',
       style: null,
       className: '',
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -30,7 +30,7 @@ export default class ListItem extends PureComponent {
     let componentClassName = helper.cssClasses(
       {
         'atm-li': true,
-        ['atm-li-' + mode]: mode
+        ['atm-li-' + mode]: mode,
       },
       className
     );
@@ -41,7 +41,8 @@ export default class ListItem extends PureComponent {
           style={style}
           className={componentClassName}
           {...helper.getEventProps(this.props)}
-          {...helper.getDataProps(this.props)}>
+          {...helper.getDataProps(this.props)}
+        >
           {children}
         </li>
       );

@@ -1,5 +1,6 @@
 import { PageContext } from '@ima/react-page-renderer';
 import { createRef, PureComponent } from 'react';
+
 import Sizer from '../sizer/Sizer';
 
 const MIN_EXTENDED_PADDING = 500;
@@ -19,7 +20,7 @@ export default class HtmlIframe extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
     return {
       visibleInViewport:
-        nextProps.noloading || prevState.visibleInViewport || false
+        nextProps.noloading || prevState.visibleInViewport || false,
     };
   }
 
@@ -70,7 +71,7 @@ export default class HtmlIframe extends PureComponent {
             'atm-overflow': true,
             'atm-placeholder': !this.state.visibleInViewport,
             'atm-responsive': this.props.layout === 'responsive',
-            'atm-fill': this.props.layout === 'fill'
+            'atm-fill': this.props.layout === 'fill',
           },
           this.props.className
         )}
@@ -79,10 +80,11 @@ export default class HtmlIframe extends PureComponent {
             ? {}
             : {
                 width: this.props.width || 'auto',
-                height: this.props.height || 'auto'
+                height: this.props.height || 'auto',
               }
         }
-        {...this._helper.getDataProps(this.props)}>
+        {...this._helper.getDataProps(this.props)}
+      >
         {this.props.layout === 'responsive' ? (
           <Sizer
             width={this.props.width}
@@ -105,7 +107,7 @@ export default class HtmlIframe extends PureComponent {
             marginWidth={this.props.marginWidth}
             marginHeight={this.props.marginHeight}
             className={this._helper.cssClasses({
-              'atm-fill': true
+              'atm-fill': true,
             })}
             {...this._helper.getEventProps(this.props)}
             {...this._helper.getAriaProps(this.props)}
@@ -117,7 +119,7 @@ export default class HtmlIframe extends PureComponent {
             style={{
               display: 'block',
               width: this.props.width || 'auto',
-              height: this.props.height || 'auto'
+              height: this.props.height || 'auto',
             }}
             dangerouslySetInnerHTML={{
               __html: `<iframe
@@ -151,7 +153,7 @@ export default class HtmlIframe extends PureComponent {
                   class="${this._helper.cssClasses('atm-fill atm-loaded')}"
                   ${this._helper.serializeObjectToNoScript(
                     this._helper.getAriaProps(this.props)
-                  )}></iframe>`
+                  )}></iframe>`,
             }}
           />
         )}
@@ -188,7 +190,7 @@ export default class HtmlIframe extends PureComponent {
         useIntersectionObserver: this.useIntersectionObserver,
         extendedPadding,
         width: this.props.width,
-        height: this.props.height
+        height: this.props.height,
       }),
       this._helper.wrapVisibilityWriter(this._onVisibilityWriter)
     );

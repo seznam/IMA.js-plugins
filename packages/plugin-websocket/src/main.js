@@ -1,4 +1,5 @@
 import { pluginLoader } from '@ima/core';
+
 import WebSocket from './WebSocket';
 
 pluginLoader.register('@ima/plugin-websocket', () => ({
@@ -7,14 +8,14 @@ pluginLoader.register('@ima/plugin-websocket', () => ({
       plugin: {
         websocket: {
           url: 'ws://localhost:5888',
-          debug: false
-        }
-      }
-    }
+          debug: false,
+        },
+      },
+    },
   }),
   initServices: (ns, oc) => {
     oc.get(WebSocket).init();
-  }
+  },
 }));
 
 export { WebSocket };

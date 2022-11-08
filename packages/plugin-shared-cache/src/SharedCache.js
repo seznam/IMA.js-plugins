@@ -1,6 +1,7 @@
 // TODO: consider using the memored npm module for sharing the cache between
 // all processes
 import clone from 'clone';
+
 import SharedCacheEntry from './SharedCacheEntry';
 
 const CACHES_KEY = Symbol('sharedCaches');
@@ -12,7 +13,7 @@ if (typeof window === 'undefined' && !global[CACHES_KEY]) {
   Object.defineProperty(global, CACHES_KEY, {
     enumerable: false,
     writable: false,
-    value: {}
+    value: {},
   });
 }
 
@@ -32,7 +33,7 @@ const PRIVATE = Object.freeze({
   entryCount: Symbol('entryCount'),
 
   // methods
-  performGarbageCollection: Symbol('performGarbageCollection')
+  performGarbageCollection: Symbol('performGarbageCollection'),
 });
 
 /**
@@ -105,7 +106,7 @@ export default class SharedCache {
         {
           maxEntries: 64,
           gcFactor: 0.75,
-          ttl: 0 // 0 = unlimited
+          ttl: 0, // 0 = unlimited
         },
         options
       )
@@ -295,7 +296,7 @@ export default class SharedCache {
       if (insertAtIndex > -1) {
         entriesToDelete.splice(insertAtIndex, 0, {
           key,
-          lastAccess: entry.lastAccess
+          lastAccess: entry.lastAccess,
         });
       }
 

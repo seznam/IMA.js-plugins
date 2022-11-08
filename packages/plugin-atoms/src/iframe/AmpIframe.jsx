@@ -28,7 +28,7 @@ export default class AmpIframe extends PureComponent {
       allowFullScreen,
       resizable,
       marginWidth,
-      marginHeight
+      marginHeight,
     } = this.props;
     let props = {
       src,
@@ -41,7 +41,7 @@ export default class AmpIframe extends PureComponent {
       frameBorder,
       marginWidth,
       marginHeight,
-      class: helper.cssClasses(className)
+      class: helper.cssClasses(className),
     };
 
     if (allowFullScreen) {
@@ -56,8 +56,9 @@ export default class AmpIframe extends PureComponent {
       <amp-iframe
         {...props}
         {...helper.getDataProps(this.props)}
-        {...helper.getAriaProps(this.props)}>
-        {this.props.children || <div placeholder="" />}
+        {...helper.getAriaProps(this.props)}
+      >
+        {this.props.children || <div placeholder='' />}
       </amp-iframe>
     );
   }

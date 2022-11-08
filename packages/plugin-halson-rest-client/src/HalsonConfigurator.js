@@ -73,7 +73,7 @@ export default class HalsonConfigurator extends Configurator {
     return {
       url: this._apiRoot + '/',
       data: null,
-      options: {}
+      options: {},
     };
   }
 
@@ -91,7 +91,7 @@ export default class HalsonConfigurator extends Configurator {
   _processResourceLinksMapResponse(responseBody) {
     return {
       links: this._linkMapResolver(responseBody),
-      apiRoot: this._apiRoot
+      apiRoot: this._apiRoot,
     };
   }
 }

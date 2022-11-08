@@ -1,7 +1,8 @@
 import { PageContext } from '@ima/react-page-renderer';
 import { PureComponent } from 'react';
-import HtmlIframe from './HtmlIframe';
+
 import AmpIframe from './AmpIframe';
+import HtmlIframe from './HtmlIframe';
 
 /**
  * Common iframe
@@ -32,7 +33,7 @@ export default class Iframe extends PureComponent {
       onLoad: null,
       'data-e2e': null,
       marginWidth: null,
-      marginHeight: null
+      marginHeight: null,
     };
   }
 

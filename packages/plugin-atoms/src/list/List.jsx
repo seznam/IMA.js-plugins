@@ -19,7 +19,7 @@ export default class List extends PureComponent {
       mode: '',
       type: 'ul',
       style: null,
-      'data-e2e': null
+      'data-e2e': null,
     };
   }
 
@@ -34,14 +34,15 @@ export default class List extends PureComponent {
           {
             'atm-list': true,
             ['atm-list-' + mode]: mode,
-            ['atm-list-' + Type]: Type
+            ['atm-list-' + Type]: Type,
           },
           className
         )}
         id={id}
         {...helper.getEventProps(this.props)}
         {...helper.getDataProps(this.props)}
-        {...helper.getAriaProps(this.props)}>
+        {...helper.getAriaProps(this.props)}
+      >
         {children}
       </Type>
     );
