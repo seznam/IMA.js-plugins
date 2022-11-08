@@ -65,8 +65,6 @@ module.exports = {
         ignore: ['describe'],
       },
     ],
-    // Remove when migrated to jest >=27
-    'jest/no-jasmine-globals': 'off',
 
     // React plugin overrides
     'react/prop-types': 'off',
