@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`plugin-select: createStateSelector should return same output for dynamic changing state selector keys with same values 1`] = `
-Object {
+{
   "height": 60,
   "width": 90,
 }
 `;
 
 exports[`plugin-select: createStateSelector should return same output for dynamic changing state selector keys with same values 2`] = `
-Object {
+{
   "dynamic": 1,
   "height": 60,
   "width": 90,
@@ -16,7 +16,7 @@ Object {
 `;
 
 exports[`plugin-select: createStateSelector should return same output for dynamic changing state selector keys with same values 3`] = `
-Object {
+{
   "dynamic": 1,
   "height": 60,
   "width": 90,
@@ -24,14 +24,14 @@ Object {
 `;
 
 exports[`plugin-select: createStateSelector should return same output for dynamic changing state selector keys with same values 4`] = `
-Object {
+{
   "height": 60,
   "width": 90,
 }
 `;
 
 exports[`plugin-select: createStateSelector should select extra properties from state 1`] = `
-Object {
+{
   "height": 60,
   "width": 90,
 }
@@ -40,14 +40,14 @@ Object {
 exports[`plugin-select: select should forward ref 1`] = `
 <withContext(Component)
   forwardedRef={
-    Object {
+    {
       "current": null,
     }
   }
   multiplier={0.5}
   props="props"
   settings={
-    Object {
+    {
       "color": "red",
     }
   }
@@ -65,7 +65,7 @@ exports[`plugin-select: select should render component with changed props 1`] = 
   multiplier={3}
   props="props"
   settings={
-    Object {
+    {
       "color": "red",
     }
   }
@@ -75,7 +75,7 @@ exports[`plugin-select: select should render component with changed props 1`] = 
     multiplier={3}
     props="props"
     settings={
-      Object {
+      {
         "color": "red",
       }
     }
@@ -93,7 +93,7 @@ exports[`plugin-select: select should render component with extraProps 1`] = `
   multiplier={0.5}
   props="props"
   settings={
-    Object {
+    {
       "color": "red",
     }
   }
@@ -103,7 +103,7 @@ exports[`plugin-select: select should render component with extraProps 1`] = `
     multiplier={0.5}
     props="props"
     settings={
-      Object {
+      {
         "color": "red",
       }
     }
@@ -121,7 +121,7 @@ exports[`plugin-select: select should render component with extraProps and own c
   multiplier={0.5}
   props="props"
   settings={
-    Object {
+    {
       "color": "red",
     }
   }
@@ -131,7 +131,7 @@ exports[`plugin-select: select should render component with extraProps and own c
     multiplier={0.5}
     props="props"
     settings={
-      Object {
+      {
         "color": "red",
       }
     }
@@ -149,7 +149,7 @@ exports[`plugin-select: select should render component with extraProps and own s
   multiplier={0.5}
   props="props"
   settings={
-    Object {
+    {
       "color": "red",
     }
   }
@@ -159,7 +159,7 @@ exports[`plugin-select: select should render component with extraProps and own s
     multiplier={0.5}
     props="props"
     settings={
-      Object {
+      {
         "color": "red",
       }
     }
@@ -177,7 +177,7 @@ exports[`plugin-select: select should render component with extraProps modifies 
   multiplier={0.5}
   props="props"
   settings={
-    Object {
+    {
       "color": "red",
     }
   }
@@ -187,7 +187,7 @@ exports[`plugin-select: select should render component with extraProps modifies 
     multiplier={0.5}
     props="props"
     settings={
-      Object {
+      {
         "color": "red",
       }
     }
@@ -205,7 +205,7 @@ exports[`plugin-select: select should render component with extraProps replaced 
   multiplier={0.5}
   props="props"
   settings={
-    Object {
+    {
       "color": "red",
     }
   }
@@ -215,7 +215,7 @@ exports[`plugin-select: select should render component with extraProps replaced 
     multiplier={0.25}
     props="props"
     settings={
-      Object {
+      {
         "color": "red",
         "newSettingsProp": true,
       }

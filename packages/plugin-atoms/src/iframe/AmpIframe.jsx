@@ -1,5 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { PureComponent } from 'react';
 
 /**
  * Amp iframe
@@ -7,7 +7,7 @@ import React from 'react';
  * @namespace ima.ui.atom.iframe
  * @module ima.ui.atom
  */
-export default class AmpIframe extends React.PureComponent {
+export default class AmpIframe extends PureComponent {
   // @if server
   static get contextType() {
     return PageContext;

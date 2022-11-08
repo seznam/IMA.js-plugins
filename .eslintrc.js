@@ -10,6 +10,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:jsdoc/recommended',
     'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
     'prettier'
   ],
   parser: '@babel/eslint-parser',

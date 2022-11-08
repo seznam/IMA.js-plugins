@@ -27,9 +27,13 @@ describe('LocalStorageHelper', () => {
     localStorageInstance.init();
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe('has method', () => {
     it('should return true if localStorageInstance.get method returns valid result', () => {
-      spyOn(localStorageInstance, 'get').and.returnValue(42);
+      jest.spyOn(localStorageInstance, 'get').mockReturnValue(42);
 
       let result = localStorageInstance.has('testName');
 
@@ -37,7 +41,7 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should return false if localStorageInstance.get method returns invalid result', () => {
-      spyOn(localStorageInstance, 'get').and.returnValue(undefined);
+      jest.spyOn(localStorageInstance, 'get').mockReturnValue(undefined);
 
       let result = localStorageInstance.has('testName');
 
@@ -45,7 +49,7 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should return true for boolean value', () => {
-      spyOn(localStorageInstance, 'get').and.returnValue(false);
+      jest.spyOn(localStorageInstance, 'get').mockReturnValue(false);
 
       let result = localStorageInstance.has('testName');
 
@@ -53,7 +57,7 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should return true for null', () => {
-      spyOn(localStorageInstance, 'get').and.returnValue(null);
+      jest.spyOn(localStorageInstance, 'get').mockReturnValue(null);
 
       let result = localStorageInstance.has('testName');
 
@@ -71,7 +75,7 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should call localStorageInstance.get method', () => {
-      spyOn(localStorageInstance, 'get');
+      jest.spyOn(localStorageInstance, 'get').mockImplementation(() => {});
 
       localStorageInstance.get('testName');
 
@@ -79,7 +83,9 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should return correct value', () => {
-      spyOn(localStorage, 'getItem').and.returnValue({ value: 'testValue' });
+      jest
+        .spyOn(localStorage, 'getItem')
+        .mockReturnValue({ value: 'testValue' });
 
       let result = localStorageInstance.get('testName');
 
@@ -87,7 +93,7 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should return correct value boolean', () => {
-      spyOn(localStorage, 'getItem').and.returnValue({ value: false });
+      jest.spyOn(localStorage, 'getItem').mockReturnValue({ value: false });
 
       let result = localStorageInstance.get('testName');
 
@@ -95,7 +101,7 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should return correct value for undefined', () => {
-      spyOn(localStorage, 'getItem').and.returnValue({ value: undefined });
+      jest.spyOn(localStorage, 'getItem').mockReturnValue({ value: undefined });
 
       let result = localStorageInstance.get('testName');
 
@@ -103,7 +109,7 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should return correct value for null', () => {
-      spyOn(localStorage, 'getItem').and.returnValue({ value: null });
+      jest.spyOn(localStorage, 'getItem').mockReturnValue({ value: null });
 
       let result = localStorageInstance.get('testName');
 
@@ -111,11 +117,11 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should return undefined and call localStorageInstance.delete method if item is expired', () => {
-      spyOn(localStorage, 'getItem').and.returnValue({
+      jest.spyOn(localStorage, 'getItem').mockReturnValue({
         value: 'testValue',
         expires: Date.now()
       });
-      spyOn(localStorageInstance, 'delete');
+      jest.spyOn(localStorageInstance, 'delete').mockImplementation(() => {});
 
       let result = localStorageInstance.get('testName');
 
@@ -124,7 +130,7 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should return item if item has no value', () => {
-      spyOn(localStorageInstance, 'get').and.returnValue({
+      jest.spyOn(localStorageInstance, 'get').mockReturnValue({
         testKey: 'testValue'
       });
 
@@ -134,7 +140,7 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should return undefined if item is not defined', () => {
-      spyOn(localStorage, 'getItem').and.returnValue(null);
+      jest.spyOn(localStorage, 'getItem').mockReturnValue(null);
 
       let result = localStorageInstance.get('testName');
 
@@ -144,8 +150,10 @@ describe('LocalStorageHelper', () => {
 
   describe('set method', () => {
     it('should call localStorage.setItem method', () => {
-      spyOn(localStorage, 'setItem');
-      spyOn(localStorageInstance, '_getExpires');
+      jest.spyOn(localStorage, 'setItem').mockImplementation(() => {});
+      jest
+        .spyOn(localStorageInstance, '_getExpires')
+        .mockImplementation(() => {});
 
       localStorageInstance.set('testKey', 'testValue');
 
@@ -157,7 +165,7 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should call localStorageInstance.delete method if value is undefined', () => {
-      spyOn(localStorageInstance, 'delete');
+      jest.spyOn(localStorageInstance, 'delete').mockImplementation(() => {});
 
       let result = localStorageInstance.set('testName', undefined);
 
@@ -175,8 +183,8 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should correctly set global options if provided', () => {
-      spyOn(localStorageInstance, '_getExpires').and.returnValue(10);
-      spyOn(localStorage, 'setItem');
+      jest.spyOn(localStorageInstance, '_getExpires').mockReturnValue(10);
+      jest.spyOn(localStorage, 'setItem').mockImplementation(() => {});
 
       localStorageInstance._options = { expires: 10 };
       localStorageInstance.set('testKey', 'testValue');
@@ -191,8 +199,8 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should correctly override global options if local options provided', () => {
-      spyOn(localStorageInstance, '_getExpires').and.returnValue(5);
-      spyOn(localStorage, 'setItem');
+      jest.spyOn(localStorageInstance, '_getExpires').mockReturnValue(5);
+      jest.spyOn(localStorage, 'setItem').mockImplementation(() => {});
 
       localStorageInstance._options = { expires: 10 };
       localStorageInstance.set('testKey', 'testValue', { expires: 5 });
@@ -225,7 +233,7 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should call localStorage.removeItem method', () => {
-      spyOn(localStorage, 'removeItem');
+      jest.spyOn(localStorage, 'removeItem').mockImplementation(() => {});
 
       localStorageInstance.delete('testName', 'testValue');
 
@@ -249,7 +257,7 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should call localStorage.clear method', () => {
-      spyOn(localStorage, 'clear');
+      jest.spyOn(localStorage, 'clear').mockImplementation(() => {});
 
       localStorageInstance.clear();
 
@@ -267,7 +275,7 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should return keys iterator', () => {
-      spyOn(localStorageInstance, 'get').and.returnValue(true);
+      jest.spyOn(localStorageInstance, 'get').mockReturnValue(true);
 
       let result = localStorageInstance.keys();
 
@@ -306,7 +314,9 @@ describe('LocalStorageHelper', () => {
     });
 
     it("should return false if we're not on client", () => {
-      spyOn(localStorageInstance._window, 'isClient').and.returnValue(false);
+      jest
+        .spyOn(localStorageInstance._window, 'isClient')
+        .mockReturnValue(false);
 
       let result = localStorageInstance.isSupported();
 
@@ -333,9 +343,12 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should return false if setting localStorage item fails', () => {
-      spyOn(localStorageInstance, '_isLocalStorageReady').and.returnValue(
-        false
-      );
+      jest
+        .spyOn(localStorageInstance._window, 'isClient')
+        .mockReturnValue(true);
+      jest
+        .spyOn(localStorageInstance, '_isLocalStorageReady')
+        .mockReturnValue(false);
 
       let result = localStorageInstance.isSupported();
 
@@ -354,7 +367,9 @@ describe('LocalStorageHelper', () => {
 
   describe('_isLocalStorageReady', () => {
     it('should return false if localStorage.setItem throws an error', () => {
-      spyOn(localStorage, 'setItem').and.throwError('error');
+      jest.spyOn(localStorage, 'setItem').mockImplementation(() => {
+        throw new Error('error');
+      });
 
       let result = localStorageInstance._isLocalStorageReady();
 
@@ -363,8 +378,8 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should return true if there was no error', () => {
-      spyOn(localStorage, 'setItem');
-      spyOn(localStorage, 'removeItem');
+      jest.spyOn(localStorage, 'setItem').mockImplementation(() => {});
+      jest.spyOn(localStorage, 'removeItem').mockImplementation(() => {});
 
       let result = localStorageInstance._isLocalStorageReady();
 
@@ -390,7 +405,7 @@ describe('LocalStorageHelper', () => {
     });
 
     it('should return shifted date as a number if value was provided as number in seconds', () => {
-      spyOn(Date, 'now').and.returnValue(10000);
+      jest.spyOn(Date, 'now').mockReturnValue(10000);
       let result = localStorageInstance._getExpires({ expires: 1500 });
 
       expect(result).toEqual(1510000);

@@ -28,7 +28,7 @@ describe('UIComponentHelper', () => {
 
   describe('isAmp method', () => {
     it('should return true if url query contains amp flag of value true', () => {
-      spyOn(_router, 'getCurrentRouteInfo').and.returnValue({
+      jest.spyOn(_router, 'getCurrentRouteInfo').mockReturnValue({
         params: { amp: true }
       });
 
@@ -36,7 +36,7 @@ describe('UIComponentHelper', () => {
     });
 
     it('should return true if url query contains amp flag of value "1"', () => {
-      spyOn(_router, 'getCurrentRouteInfo').and.returnValue({
+      jest.spyOn(_router, 'getCurrentRouteInfo').mockReturnValue({
         params: { amp: '1' }
       });
 
@@ -44,7 +44,7 @@ describe('UIComponentHelper', () => {
     });
 
     it('should return false if url query does not contain amp flag', () => {
-      spyOn(_router, 'getCurrentRouteInfo').and.returnValue({
+      jest.spyOn(_router, 'getCurrentRouteInfo').mockReturnValue({
         params: { amp: '0' }
       });
 

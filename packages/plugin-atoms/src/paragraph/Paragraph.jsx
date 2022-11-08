@@ -1,5 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { PureComponent } from 'react';
 
 /**
  * Common paragraph
@@ -8,7 +8,7 @@ import React from 'react';
  * @module ima.ui.atom
  */
 
-export default class Paragraph extends React.PureComponent {
+export default class Paragraph extends PureComponent {
   static get contextType() {
     return PageContext;
   }

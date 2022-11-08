@@ -1,5 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { PureComponent } from 'react';
 
 /**
  * Base headline
@@ -7,7 +7,7 @@ import React from 'react';
  * @namespace ima.ui.atom.headline
  * @module ima.ui.atom
  */
-export default class Headline extends React.PureComponent {
+export default class Headline extends PureComponent {
   static get contextType() {
     return PageContext;
   }

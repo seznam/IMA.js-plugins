@@ -5,7 +5,7 @@ let cacheEntry = null;
 
 describe('SharedCacheEntry', () => {
   beforeEach(() => {
-    spyOn(Date, 'now').and.returnValue(1000);
+    jest.spyOn(Date, 'now').mockReturnValue(1000);
     cacheEntry = new SharedCacheEntry(ENTRY_VALUE, 500);
   });
 
@@ -17,7 +17,7 @@ describe('SharedCacheEntry', () => {
     it('should return entry value and mark timestamp when it was last accessed', () => {
       expect(cacheEntry.lastAccess).toBe(Number.MIN_SAFE_INTEGER);
 
-      Date.now.and.returnValue(2000);
+      Date.now.mockReturnValue(2000);
       expect(cacheEntry.value).toBe(ENTRY_VALUE); // Explicitly `toBe` to check if the object is not dereferenced
       expect(cacheEntry.lastAccess).toBe(2000);
     });
@@ -27,7 +27,7 @@ describe('SharedCacheEntry', () => {
     it('should update entry value and mark timestamp when it was last updated', () => {
       expect(cacheEntry.lastUpdate).toBe(1000);
 
-      Date.now.and.returnValue(3000);
+      Date.now.mockReturnValue(3000);
       const NEW_VALUE = { test: 'newvalue' };
       cacheEntry.value = NEW_VALUE;
 
@@ -38,7 +38,7 @@ describe('SharedCacheEntry', () => {
 
   describe('isExpired() method', () => {
     beforeEach(() => {
-      Date.now.and.returnValue(4000); // 4000 (now) > 1000 (timestamp) + 500 (TTL)
+      Date.now.mockReturnValue(4000); // 4000 (now) > 1000 (timestamp) + 500 (TTL)
     });
 
     it('should return true if entry TTL ran out.', () => {

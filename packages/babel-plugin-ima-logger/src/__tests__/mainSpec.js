@@ -11,7 +11,7 @@ describe('main', () => {
   };
 
   beforeEach(() => {
-    spyOn(plugin, '_error');
+    jest.spyOn(plugin, '_error').mockImplementation(() => {});
   });
 
   describe('getPluginObject()', () => {

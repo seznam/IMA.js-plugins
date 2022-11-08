@@ -1,5 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { PureComponent } from 'react';
 
 /**
  * Amp video player.
@@ -7,7 +7,7 @@ import React from 'react';
  * @namespace ima.ui.atom.video
  * @module ima.ui.atom
  */
-export default class AmpVideo extends React.PureComponent {
+export default class AmpVideo extends PureComponent {
   // @if server
   static get contextType() {
     return PageContext;

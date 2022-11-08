@@ -1,11 +1,36 @@
+/**
+ * @type {import('jest').Config}
+ */
 module.exports = {
   bail: true,
   verbose: true,
-  testRegex: '(/src(/?[^/]*){0,5}/__tests__/).*Spec\\.jsx?$',
+  rootDir: '.',
+  testEnvironment: 'node',
+  testRegex: '(/__tests__/).*Spec\\.jsx?$',
   modulePaths: ['<rootDir>/'],
-  transformIgnorePatterns: ['node_modules/(?!(@ima/core)/)'],
+  watchPlugins: [
+    'jest-watch-typeahead/filename',
+    'jest-watch-typeahead/testname'
+  ],
+  transformIgnorePatterns: [
+    'node_modules/(?!(@ima/core|@ima/react-page-renderer)/)'
+  ],
   transform: {
-    '\\.(js|jsx|ts|tsx)': '<rootDir>/../../preprocess.js'
-  },
-  testEnvironment: 'node'
+    '^.+\\.(t|j)sx?$': [
+      '@swc/jest',
+      {
+        jsc: {
+          target: 'es2022',
+          parser: {
+            jsx: true
+          },
+          transform: {
+            react: {
+              runtime: 'automatic'
+            }
+          }
+        }
+      }
+    ]
+  }
 };

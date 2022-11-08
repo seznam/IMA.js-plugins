@@ -2,7 +2,7 @@ import { getConfig, setConfig } from '../configuration';
 
 describe('Configuration', () => {
   it('can get config with default values', () => {
-    expect(getConfig()).toEqual(jasmine.any(Object));
+    expect(getConfig()).toEqual(expect.any(Object));
   });
 
   it('can set config', () => {

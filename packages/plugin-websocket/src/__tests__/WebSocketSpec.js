@@ -16,7 +16,7 @@ describe('WebSocket', () => {
     });
 
     it('should not call _connect for init method', () => {
-      spyOn(webSocket, '_connect');
+      jest.spyOn(webSocket, '_connect').mockImplementation(() => {});
 
       webSocket.init();
 
@@ -33,7 +33,7 @@ describe('WebSocket', () => {
     });
 
     it('should not call connect', () => {
-      spyOn(webSocket, '_connect');
+      jest.spyOn(webSocket, '_connect').mockImplementation(() => {});
 
       webSocket.init();
 

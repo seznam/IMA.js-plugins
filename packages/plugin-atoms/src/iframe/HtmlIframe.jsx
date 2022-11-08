@@ -1,5 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { createRef, PureComponent } from 'react';
 import Sizer from '../sizer/Sizer';
 
 const MIN_EXTENDED_PADDING = 500;
@@ -11,7 +11,7 @@ const MIN_EXTENDED_PADDING = 500;
  * @module ima.ui.atom
  */
 
-export default class HtmlIframe extends React.PureComponent {
+export default class HtmlIframe extends PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -32,7 +32,7 @@ export default class HtmlIframe extends React.PureComponent {
 
     this._onVisibilityWriter = this.onVisibilityWriter.bind(this);
 
-    this._rootElement = React.createRef();
+    this._rootElement = createRef();
 
     this._helper = this.context.$Utils.$UIComponentHelper;
     this._settings = this.context.$Utils.$Settings;

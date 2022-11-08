@@ -1,5 +1,4 @@
 import classnames from 'classnames';
-import React from 'react';
 import { shallow } from 'enzyme';
 import { Infinite } from 'infinite-circle';
 import { toMockedInstance } from 'to-mock';

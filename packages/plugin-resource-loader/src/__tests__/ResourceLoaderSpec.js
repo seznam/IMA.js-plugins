@@ -35,7 +35,9 @@ describe('ResourceLoader', () => {
     });
 
     it('should append the resource element to the document head', () => {
-      spyOn(global.document.head, 'appendChild');
+      jest
+        .spyOn(global.document.head, 'appendChild')
+        .mockImplementation(() => {});
 
       resourceLoader.injectToPage(element);
       expect(global.document.head.appendChild).toHaveBeenCalledWith(element);

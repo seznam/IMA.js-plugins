@@ -76,9 +76,9 @@ describe('AbstractUserAgent', () => {
     beforeEach(() => {
       abstractUserAgent = new AbstractUserAgent(PlatformJS);
 
-      spyOn(abstractUserAgent, 'getUserAgent').and.returnValue(
-        testValues.uaString
-      );
+      jest
+        .spyOn(abstractUserAgent, 'getUserAgent')
+        .mockReturnValue(testValues.uaString);
 
       abstractUserAgent.init();
     });

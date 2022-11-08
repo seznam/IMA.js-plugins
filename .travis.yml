@@ -10,7 +10,7 @@ install:
 jobs:
   include:
     - name: "Unit Tests"
-      script: npm run test:ci
+      script: npm run test:all
     # - name: "Audit"
     #   script: npm audit || echo \"audit found some vulnerabilities.\"
     - name: "Lint"

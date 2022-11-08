@@ -67,7 +67,7 @@ describe('AbstractResource', () => {
 
   describe('list', () => {
     it('should call restClient.list method', done => {
-      spyOn(restClient, 'list').and.callThrough();
+      jest.spyOn(restClient, 'list');
 
       resource
         .list(parametersToPass, {}, null)
@@ -89,7 +89,7 @@ describe('AbstractResource', () => {
 
   describe('get', () => {
     it('should call restClient.get method', done => {
-      spyOn(restClient, 'get').and.callThrough();
+      jest.spyOn(restClient, 'get');
       const id = 24;
 
       resource
@@ -113,7 +113,7 @@ describe('AbstractResource', () => {
 
   describe('create', () => {
     it('should call restClient.create method with data', done => {
-      spyOn(restClient, 'create').and.callThrough();
+      jest.spyOn(restClient, 'create');
       const data = {
         id: 1,
         foo: 'bar'
@@ -140,7 +140,7 @@ describe('AbstractResource', () => {
 
   describe('delete', () => {
     it('should call restClient.delete method', done => {
-      spyOn(restClient, 'delete').and.callThrough();
+      jest.spyOn(restClient, 'delete');
       const id = 24;
 
       resource
@@ -164,7 +164,7 @@ describe('AbstractResource', () => {
 
   describe('patch', () => {
     it("should call restClient.patch method with entity's serialized data", done => {
-      spyOn(restClient, 'patch').and.callThrough();
+      jest.spyOn(restClient, 'patch');
 
       const data = { id: 1, foo: 'bar' };
       let newEntity = new Entity(data);

@@ -1,5 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { createRef, PureComponent } from 'react';
 import Loader from '../loader/Loader';
 import Sizer from '../sizer/Sizer';
 
@@ -13,7 +13,7 @@ const TIME_TO_SHOW_LOADER = 3000;
  * @module ima.ui.atom
  */
 
-export default class HtmlImage extends React.PureComponent {
+export default class HtmlImage extends PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -49,7 +49,7 @@ export default class HtmlImage extends React.PureComponent {
 
     this._onVisibilityWriter = this.onVisibilityWriter.bind(this);
 
-    this._rootElement = React.createRef();
+    this._rootElement = createRef();
 
     this._helper = this.context.$Utils.$UIComponentHelper;
     this._settings = this.context.$Utils.$Settings;

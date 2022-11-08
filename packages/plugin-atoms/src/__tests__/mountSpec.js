@@ -1,6 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
 import { mount } from 'enzyme';
-import React from 'react';
 import { toMockedInstance } from 'to-mock';
 import classnames from 'classnames';
 

@@ -1,5 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { PureComponent } from 'react';
 
 /**
  * Common sizer
@@ -7,7 +7,7 @@ import React from 'react';
  * @namespace ima.ui.atom.sizer
  * @module ima.ui.atom
  */
-export default class Sizer extends React.PureComponent {
+export default class Sizer extends PureComponent {
   static get contextType() {
     return PageContext;
   }

@@ -22,7 +22,7 @@ describe('Visibility', () => {
     });
 
     it('should start listening on scroll and resize events', () => {
-      spyOn(visibility, '_listenOnEvents');
+      jest.spyOn(visibility, '_listenOnEvents').mockImplementation(() => {});
 
       visibility.register(reader, writer, options);
 
@@ -58,7 +58,7 @@ describe('Visibility', () => {
     });
 
     it('should stop listening on scroll and resize events', () => {
-      spyOn(visibility, '_unlistenOnEvents');
+      jest.spyOn(visibility, '_unlistenOnEvents').mockImplementation(() => {});
 
       visibility.unregister(visibilityId);
 

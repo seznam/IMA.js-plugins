@@ -1,5 +1,5 @@
 import { PageContext } from '@ima/react-page-renderer';
-import React from 'react';
+import { createRef, PureComponent } from 'react';
 import Sizer from '../sizer/Sizer';
 
 const EXTENDED_PADDING = 300;
@@ -11,7 +11,7 @@ const EXTENDED_PADDING = 300;
  * @module ima.ui.atom
  */
 
-export default class HtmlVideo extends React.PureComponent {
+export default class HtmlVideo extends PureComponent {
   static get contextType() {
     return PageContext;
   }
@@ -30,7 +30,7 @@ export default class HtmlVideo extends React.PureComponent {
 
     this._onVisibilityWriter = this.onVisibilityWriter.bind(this);
 
-    this._rootElement = React.createRef();
+    this._rootElement = createRef();
 
     this._helper = this.context.$Utils.$UIComponentHelper;
     this._settings = this.context.$Utils.$Settings;

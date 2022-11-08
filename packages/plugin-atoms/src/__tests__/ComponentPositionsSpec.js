@@ -69,9 +69,9 @@ describe('ComponentPositions', () => {
 
   describe('getPercentOfVisibility method', () => {
     it('should return percent of visibility on window viewport', () => {
-      spyOn(componentPositions, 'getWindowViewportRect').and.returnValue(
-        windowViewportRect
-      );
+      jest
+        .spyOn(componentPositions, 'getWindowViewportRect')
+        .mockReturnValue(windowViewportRect);
 
       let percentOfVisibility =
         componentPositions.getPercentOfVisibility(elmRect);
@@ -132,15 +132,15 @@ describe('ComponentPositions', () => {
 
   describe('getBoundingClientRect method (iOS fix)', () => {
     beforeEach(() => {
-      spyOn(mockedUserAgent, 'getOSFamily').and.returnValue('iOS');
-      spyOn(_window, 'getDocument').and.returnValue({
+      jest.spyOn(mockedUserAgent, 'getOSFamily').mockReturnValue('iOS');
+      jest.spyOn(_window, 'getDocument').mockReturnValue({
         body: { scrollHeight: 3000 },
         documentElement: {}
       });
     });
 
     it('should return a rectangle with fixed top on iOS', () => {
-      spyOn(_window, 'getWindow').and.returnValue({
+      jest.spyOn(_window, 'getWindow').mockReturnValue({
         innerHeight: 800,
         scrollY: -100
       });
@@ -163,7 +163,7 @@ describe('ComponentPositions', () => {
     });
 
     it('should return a rectangle with fixed top on iOS for top < 0', () => {
-      spyOn(_window, 'getWindow').and.returnValue({
+      jest.spyOn(_window, 'getWindow').mockReturnValue({
         innerHeight: 800,
         scrollY: 2300
       });

@@ -13,7 +13,6 @@ describe('XHR', () => {
   });
   class Blob {}
   class BufferSource {}
-  class FormData {}
   class URLSearchParams {}
   class ReadableStream {}
 
@@ -25,7 +24,6 @@ describe('XHR', () => {
   beforeAll(() => {
     global.Blob = global.Blob || Blob;
     global.BufferSource = global.BufferSource || BufferSource;
-    global.FormData = global.FormData || FormData;
     global.URLSearchParams = global.URLSearchParams || URLSearchParams;
     global.ReadableStream = global.ReadableStream || ReadableStream;
 
