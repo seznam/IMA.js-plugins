@@ -1,4 +1,4 @@
-import { MapUnit, Unit } from './units/utils';
+import type { MapUnit, Unit } from '../units/utils';
 
 export type UnitValue =
   | Record<string, unknown>

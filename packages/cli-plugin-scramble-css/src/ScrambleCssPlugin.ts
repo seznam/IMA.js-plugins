@@ -1,7 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 
-import { ImaCliArgs, ImaCliPlugin, ImaConfigurationContext } from '@ima/cli';
+import { ImaCliPlugin, ImaConfig, ImaConfigurationContext } from '@ima/cli';
+// eslint-disable-next-line import/default
+import CopyPlugin from 'copy-webpack-plugin';
 import { Configuration } from 'webpack';
 import { CommandBuilder } from 'yargs';
 
@@ -20,16 +22,11 @@ export interface ScrambleCssPluginOptions {
   scrambleCssMinimizerOptions?: ScrambleCssMinimizerOptions;
 }
 
-/**
- *
- * @param command
- */
-function createCliArgs(command: ImaCliArgs['command']): CommandBuilder {
+function createCliArgs(): CommandBuilder {
   return {
     scrambleCss: {
-      desc: 'Scrambles (uglifies) classNames in css files',
+      desc: 'Scrambles (uglifies) classNames in css files (defaults to `true` for production builds)',
       type: 'boolean',
-      default: command === 'build',
     },
   };
 }
@@ -43,8 +40,8 @@ class ScrambleCssPlugin implements ImaCliPlugin {
 
   readonly name = 'ScrambleCssPlugin';
   readonly cliArgs = {
-    build: createCliArgs('build'),
-    dev: createCliArgs('dev'),
+    build: createCliArgs(),
+    dev: createCliArgs(),
   };
 
   constructor(options: Partial<ScrambleCssPluginOptions> = {}) {
@@ -53,12 +50,44 @@ class ScrambleCssPlugin implements ImaCliPlugin {
 
   async webpack(
     config: Configuration,
-    ctx: ImaConfigurationContext
+    ctx: ImaConfigurationContext,
+    imaConfig: ImaConfig
   ): Promise<Configuration> {
+    /**
+     * Exclude this plugin from vendor swc transformations,
+     * this is because we're using cli/client code mix, which
+     * would result in errors
+     */
+    imaConfig.transformVendorPaths = {
+      ...imaConfig.transformVendorPaths,
+      exclude: [
+        ...(imaConfig.transformVendorPaths?.exclude ?? []),
+        /@ima\/cli-plugin-scramble-css/,
+      ],
+    };
+
     // Add only in css processing context
     if (!ctx.processCss) {
       return config;
     }
+
+    // Bail if not enabled (either by env or command)
+    if (!ctx.scrambleCss || ctx.environment === 'production') {
+      return config;
+    }
+
+    // Copy debug script to app public/static
+    config.plugins?.push(
+      new CopyPlugin({
+        patterns: [
+          {
+            from: path.resolve(__dirname, '../static'),
+            to: 'static/public',
+            noErrorOnMissing: true,
+          },
+        ],
+      })
+    );
 
     /**
      * Set plugin default options. We need to do this here, rather than in

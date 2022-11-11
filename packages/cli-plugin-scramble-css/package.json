@@ -46,10 +46,12 @@
     "@ima/cli": "*",
     "@ima/react-page-renderer": "*",
     "classnames": "*",
+    "copy-webpack-plugin": "*",
     "postcss": ">=8",
     "webpack": "*"
   },
   "devDependencies": {
+    "@types/copy-webpack-plugin": "^10.1.0",
     "@types/react": "^18.0.17"
   },
   "dependencies": {

@@ -7,3 +7,4 @@
 **/doc/
 **/coverage/
 .eslintcache
+*.tgz
