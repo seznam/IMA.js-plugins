@@ -2,7 +2,9 @@ import fs from 'fs';
 import path from 'path';
 
 import { ImaCliArgs, ImaCliPlugin, ImaConfigurationContext } from '@ima/cli';
-import { Configuration } from 'webpack';
+// eslint-disable-next-line import/default
+import CopyPlugin from 'copy-webpack-plugin';
+import { Configuration, RuleSetRule, RuleSetUseItem } from 'webpack';
 import { CommandBuilder } from 'yargs';
 
 import {
@@ -20,16 +22,11 @@ export interface ScrambleCssPluginOptions {
   scrambleCssMinimizerOptions?: ScrambleCssMinimizerOptions;
 }
 
-/**
- *
- * @param command
- */
-function createCliArgs(command: ImaCliArgs['command']): CommandBuilder {
+function createCliArgs(): CommandBuilder {
   return {
     scrambleCss: {
-      desc: 'Scrambles (uglifies) classNames in css files',
+      desc: 'Scrambles (uglifies) classNames in css files (defaults to `true` for production builds)',
       type: 'boolean',
-      default: command === 'build',
     },
   };
 }
@@ -43,8 +40,8 @@ class ScrambleCssPlugin implements ImaCliPlugin {
 
   readonly name = 'ScrambleCssPlugin';
   readonly cliArgs = {
-    build: createCliArgs('build'),
-    dev: createCliArgs('dev'),
+    build: createCliArgs(),
+    dev: createCliArgs(),
   };
 
   constructor(options: Partial<ScrambleCssPluginOptions> = {}) {
@@ -55,8 +52,50 @@ class ScrambleCssPlugin implements ImaCliPlugin {
     config: Configuration,
     ctx: ImaConfigurationContext
   ): Promise<Configuration> {
+    /**
+     * Exclude this plugin from vendor swc transformations,
+     * this is because we're using cli/client code mix, which
+     * would result in errors
+     */
+    if (ctx.name === 'client') {
+      const rules = (config?.module?.rules?.[0] as RuleSetRule).oneOf;
+
+      if (rules) {
+        const swcVendorLoader = rules.find(rule =>
+          rule?.loader?.includes('swc-loader')
+        );
+
+        if (swcVendorLoader) {
+          swcVendorLoader.exclude = [
+            ...((swcVendorLoader?.exclude as []) ?? []),
+            /@ima\/cli-plugin-scramble-css/,
+          ];
+        }
+      }
+    }
+
+    // Copy debug script to app public/static
+    if (ctx.isEsVersion) {
+      config.plugins?.push(
+        new CopyPlugin({
+          patterns: [
+            {
+              from: path.resolve(__dirname, '../static/public'),
+              to: 'static',
+              noErrorOnMissing: true,
+            },
+          ],
+        })
+      );
+    }
+
     // Add only in css processing context
     if (!ctx.processCss) {
+      return config;
+    }
+
+    // Bail if not enabled (either by env or command)
+    if (!ctx.scrambleCss || ctx.environment === 'production') {
       return config;
     }
 
