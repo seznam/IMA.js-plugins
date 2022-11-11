@@ -1,15 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 
-import {
-  ImaCliArgs,
-  ImaCliPlugin,
-  ImaConfig,
-  ImaConfigurationContext,
-} from '@ima/cli';
+import { ImaCliPlugin, ImaConfig, ImaConfigurationContext } from '@ima/cli';
 // eslint-disable-next-line import/default
 import CopyPlugin from 'copy-webpack-plugin';
-import { Configuration, RuleSetRule, RuleSetUseItem } from 'webpack';
+import { Configuration } from 'webpack';
 import { CommandBuilder } from 'yargs';
 
 import {
