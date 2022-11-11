@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.0-rc.13
+
+### Patch Changes
+
+- 6418df1: Updated build to work with legacy client
+
 ## 1.0.0-rc.12
 
 ### Patch Changes

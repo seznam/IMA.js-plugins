@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.0.0-rc.12
+
+### Patch Changes
+
+- 6418df1: The plugin is now enabled by default for production env instead of build command
+  Updated built to work with legacy client
+  Added static script that can be used for scramble css debugging
+
 ## 1.0.0-rc.11
 
 ### Patch Changes
