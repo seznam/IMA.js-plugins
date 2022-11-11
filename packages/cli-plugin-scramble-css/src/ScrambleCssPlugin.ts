@@ -1,7 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 
-import { ImaCliArgs, ImaCliPlugin, ImaConfigurationContext } from '@ima/cli';
+import {
+  ImaCliArgs,
+  ImaCliPlugin,
+  ImaConfig,
+  ImaConfigurationContext,
+} from '@ima/cli';
 // eslint-disable-next-line import/default
 import CopyPlugin from 'copy-webpack-plugin';
 import { Configuration, RuleSetRule, RuleSetUseItem } from 'webpack';
@@ -50,29 +55,21 @@ class ScrambleCssPlugin implements ImaCliPlugin {
 
   async webpack(
     config: Configuration,
-    ctx: ImaConfigurationContext
+    ctx: ImaConfigurationContext,
+    imaConfig: ImaConfig
   ): Promise<Configuration> {
     /**
      * Exclude this plugin from vendor swc transformations,
      * this is because we're using cli/client code mix, which
      * would result in errors
      */
-    if (ctx.name === 'client') {
-      const rules = (config?.module?.rules?.[0] as RuleSetRule).oneOf;
-
-      if (rules) {
-        const swcVendorLoader = rules.find(rule =>
-          rule?.loader?.includes('swc-loader')
-        );
-
-        if (swcVendorLoader) {
-          swcVendorLoader.exclude = [
-            ...((swcVendorLoader?.exclude as []) ?? []),
-            /@ima\/cli-plugin-scramble-css/,
-          ];
-        }
-      }
-    }
+    imaConfig.transformVendorPaths = {
+      ...imaConfig.transformVendorPaths,
+      exclude: [
+        ...(imaConfig.transformVendorPaths?.exclude ?? []),
+        /@ima\/cli-plugin-scramble-css/,
+      ],
+    };
 
     // Copy debug script to app public/static
     if (ctx.isEsVersion) {
