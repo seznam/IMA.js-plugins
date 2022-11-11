@@ -66,21 +66,6 @@ class ScrambleCssPlugin implements ImaCliPlugin {
       ],
     };
 
-    // Copy debug script to app public/static
-    if (ctx.isEsVersion) {
-      config.plugins?.push(
-        new CopyPlugin({
-          patterns: [
-            {
-              from: path.resolve(__dirname, '../static/public'),
-              to: 'static',
-              noErrorOnMissing: true,
-            },
-          ],
-        })
-      );
-    }
-
     // Add only in css processing context
     if (!ctx.processCss) {
       return config;
@@ -90,6 +75,19 @@ class ScrambleCssPlugin implements ImaCliPlugin {
     if (!ctx.scrambleCss || ctx.environment === 'production') {
       return config;
     }
+
+    // Copy debug script to app public/static
+    config.plugins?.push(
+      new CopyPlugin({
+        patterns: [
+          {
+            from: path.resolve(__dirname, '../static/public'),
+            to: 'static',
+            noErrorOnMissing: true,
+          },
+        ],
+      })
+    );
 
     /**
      * Set plugin default options. We need to do this here, rather than in
