@@ -16,7 +16,7 @@ export default class Paragraph extends PureComponent {
   static get defaultProps() {
     return {
       className: '',
-      text: null,
+      html: null,
       mode: '',
       style: null,
       'data-e2e': null,
@@ -25,7 +25,7 @@ export default class Paragraph extends PureComponent {
 
   render() {
     let helper = this.context.$Utils.$UIComponentHelper;
-    let { mode, align, className, children, text, style } = this.props;
+    let { mode, align, className, children, html, style } = this.props;
     let paragraph = null;
     let componentClassName = helper.cssClasses(
       {
@@ -56,7 +56,7 @@ export default class Paragraph extends PureComponent {
           {...helper.getEventProps(this.props)}
           {...helper.getDataProps(this.props)}
           {...helper.getAriaProps(this.props)}
-          dangerouslySetInnerHTML={{ __html: text }}
+          dangerouslySetInnerHTML={{ __html: html }}
         />
       );
     }

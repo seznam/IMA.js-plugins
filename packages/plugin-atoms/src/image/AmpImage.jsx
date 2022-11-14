@@ -30,7 +30,7 @@ export default class AmpImage extends PureComponent {
 
     return (
       <amp-img
-        src={src}
+        src={helper.sanitizeUrl(src)}
         srcSet={srcSet}
         sizes={sizes}
         width={width}

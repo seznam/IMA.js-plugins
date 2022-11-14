@@ -50,6 +50,8 @@ export default class HtmlVideo extends PureComponent {
   }
 
   render() {
+    const src = this._helper.sanitizeUrl(this.props.src);
+
     return (
       <div
         ref={this._rootElement}
@@ -82,7 +84,7 @@ export default class HtmlVideo extends PureComponent {
         ) : null}
         {this.state.noloading ? (
           <video
-            src={this.props.src}
+            src={src}
             poster={this.props.poster}
             autoPlay={this.props.autoplay}
             controls={this.props.controls}
@@ -105,7 +107,7 @@ export default class HtmlVideo extends PureComponent {
           <noscript
             dangerouslySetInnerHTML={{
               __html: `<video
-								src="${this.props.src || ''}"
+								src="${src || ''}"
 								poster="${this.props.alt || ''}"
 								controls
 								${this.props.autoplay ? 'autoPlay' : ''}
@@ -181,7 +183,7 @@ export default class HtmlVideo extends PureComponent {
     let image = new Image();
     image.onload = onLoadingCompleted;
     image.onerror = onLoadingCompleted;
-    image.src = this.props.poster;
+    image.src = this._helper.sanitizeUrl(this.props.poster);
 
     function onLoadingCompleted() {
       if (componentInstance._mounted) {

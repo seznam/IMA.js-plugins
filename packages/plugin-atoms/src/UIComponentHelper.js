@@ -189,6 +189,22 @@ export default class UIComponentHelper {
   }
 
   /**
+   * The regular expression was taken from the Closure sanitization library.
+   *
+   * @param {string} url
+   * @returns {string}
+   */
+  sanitizeUrl(url) {
+    const SAFE_URL_PATTERN =
+        /^(?:(?:https?|mailto|data|ftp|tel|file|sms):|[^&:/?#]*(?:[/?#]|$))/gi;
+
+    url = String(url);
+    if (url.match(SAFE_URL_PATTERN)) return url;
+
+    return 'unsafe:' + url;
+  }
+
+  /**
    * Serialize object as key and value pairs for using in noscript tag.
    *
    * @param {Object<string, *>} object

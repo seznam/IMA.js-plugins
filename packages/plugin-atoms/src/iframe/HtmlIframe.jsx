@@ -62,6 +62,8 @@ export default class HtmlIframe extends PureComponent {
   }
 
   render() {
+    const src = this._helper.sanitizeUrl(this.props.src);
+
     return (
       <div
         ref={this._rootElement}
@@ -94,7 +96,7 @@ export default class HtmlIframe extends PureComponent {
         ) : null}
         {this.state.visibleInViewport ? (
           <iframe
-            src={this.props.src}
+            src={src}
             name={this.props.src}
             srcDoc={this.props.srcDoc}
             width={this.props.width}
@@ -123,7 +125,7 @@ export default class HtmlIframe extends PureComponent {
             }}
             dangerouslySetInnerHTML={{
               __html: `<iframe
-                  src="${this.props.src}"
+                  src="${src}"
                   ${
                     this.props.srcDoc !== null
                       ? `srcdoc="${this.props.srcDoc}"`

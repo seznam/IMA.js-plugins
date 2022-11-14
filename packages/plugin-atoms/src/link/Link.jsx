@@ -41,7 +41,7 @@ export default class Link extends PureComponent {
 
     return (
       <a
-        href={href}
+        href={helper.sanitizeUrl(href)}
         title={title}
         target={target}
         style={style}
