@@ -71,12 +71,18 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
       return;
     }
 
+    this._enable = true;
+
     clientWindow[GTAG_ROOT_VARIABLE]('js', new Date());
 
-    clientWindow[GTAG_ROOT_VARIABLE]('config', this._config.service);
+    clientWindow[GTAG_ROOT_VARIABLE]('config', this._config.service, {
+      send_page_view: false
+    });
   }
 
   _createGlobalDefinition(window) {
+    window['gtag_enable_tcf_support'] = true;
+
     window.dataLayer = window.dataLayer || [];
     window[GTAG_ROOT_VARIABLE] = function () {
       dataLayer.push(arguments); // eslint-disable-line no-undef
