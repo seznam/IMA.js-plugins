@@ -371,10 +371,9 @@ bar();"
 
 exports[`main getPluginObject() should replace (0, _imaPluginLogger.debugIf)() with 0 inside if 1`] = `
 "foo();
-
-if (0) {// do something
+if (0) {
+  // do something
 }
-
 bar();"
 `;
 
@@ -386,10 +385,9 @@ bar();"
 
 exports[`main getPluginObject() should replace (0, _imaPluginLogger.errorIf)() with 0 inside if 1`] = `
 "foo();
-
-if (0) {// do something
+if (0) {
+  // do something
 }
-
 bar();"
 `;
 
@@ -401,10 +399,9 @@ bar();"
 
 exports[`main getPluginObject() should replace (0, _imaPluginLogger.infoIf)() with 0 inside if 1`] = `
 "foo();
-
-if (0) {// do something
+if (0) {
+  // do something
 }
-
 bar();"
 `;
 
@@ -416,21 +413,18 @@ bar();"
 
 exports[`main getPluginObject() should replace (0, _imaPluginLogger.logIf)() with 0 inside if 1`] = `
 "foo();
-
-if (0) {// do something
+if (0) {
+  // do something
 }
-
 bar();"
 `;
 
 exports[`main getPluginObject() should replace (0, _imaPluginLogger.rejectIf)() with 0 inside if 1`] = `
 "function returingPromise() {
   let rejected;
-
   if (rejected = 0) {
     return rejected;
   }
-
   return asyncBar();
 }"
 `;
@@ -443,10 +437,9 @@ bar();"
 
 exports[`main getPluginObject() should replace (0, _imaPluginLogger.warnIf)() with 0 inside if 1`] = `
 "foo();
-
-if (0) {// do something
+if (0) {
+  // do something
 }
-
 bar();"
 `;
 
@@ -458,10 +451,9 @@ bar();"
 
 exports[`main getPluginObject() should replace (0, _pluginLogger.debugIf)() with 0 inside if 1`] = `
 "foo();
-
-if (0) {// do something
+if (0) {
+  // do something
 }
-
 bar();"
 `;
 
@@ -473,10 +465,9 @@ bar();"
 
 exports[`main getPluginObject() should replace (0, _pluginLogger.errorIf)() with 0 inside if 1`] = `
 "foo();
-
-if (0) {// do something
+if (0) {
+  // do something
 }
-
 bar();"
 `;
 
@@ -488,10 +479,9 @@ bar();"
 
 exports[`main getPluginObject() should replace (0, _pluginLogger.infoIf)() with 0 inside if 1`] = `
 "foo();
-
-if (0) {// do something
+if (0) {
+  // do something
 }
-
 bar();"
 `;
 
@@ -503,10 +493,9 @@ bar();"
 
 exports[`main getPluginObject() should replace (0, _pluginLogger.logIf)() with 0 inside if 1`] = `
 "foo();
-
-if (0) {// do something
+if (0) {
+  // do something
 }
-
 bar();"
 `;
 
@@ -518,10 +507,9 @@ bar();"
 
 exports[`main getPluginObject() should replace (0, _pluginLogger.warnIf)() with 0 inside if 1`] = `
 "foo();
-
-if (0) {// do something
+if (0) {
+  // do something
 }
-
 bar();"
 `;
 
@@ -533,10 +521,9 @@ bar();"
 
 exports[`main getPluginObject() should replace debugIf() with 0 inside if 1`] = `
 "foo();
-
-if (0) {// do something
+if (0) {
+  // do something
 }
-
 bar();"
 `;
 
@@ -548,10 +535,9 @@ bar();"
 
 exports[`main getPluginObject() should replace errorIf() with 0 inside if 1`] = `
 "foo();
-
-if (0) {// do something
+if (0) {
+  // do something
 }
-
 bar();"
 `;
 
@@ -563,10 +549,9 @@ bar();"
 
 exports[`main getPluginObject() should replace infoIf() with 0 inside if 1`] = `
 "foo();
-
-if (0) {// do something
+if (0) {
+  // do something
 }
-
 bar();"
 `;
 
@@ -578,21 +563,18 @@ bar();"
 
 exports[`main getPluginObject() should replace logIf() with 0 inside if 1`] = `
 "foo();
-
-if (0) {// do something
+if (0) {
+  // do something
 }
-
 bar();"
 `;
 
 exports[`main getPluginObject() should replace rejectIf() with 0 inside if 1`] = `
 "function returingPromise() {
   let rejected;
-
   if (rejected = 0) {
     return rejected;
   }
-
   return asyncBar();
 }"
 `;
@@ -605,9 +587,8 @@ bar();"
 
 exports[`main getPluginObject() should replace warnIf() with 0 inside if 1`] = `
 "foo();
-
-if (0) {// do something
+if (0) {
+  // do something
 }
-
 bar();"
 `;
