@@ -15,7 +15,7 @@ export default class ListItem extends PureComponent {
 
   static get defaultProps() {
     return {
-      text: null,
+      html: null,
       mode: '',
       style: null,
       className: '',
@@ -25,7 +25,7 @@ export default class ListItem extends PureComponent {
 
   render() {
     let helper = this.context.$Utils.$UIComponentHelper;
-    let { mode, className, children, text, style } = this.props;
+    let { mode, className, children, html, style } = this.props;
     let listItem = null;
     let componentClassName = helper.cssClasses(
       {
@@ -53,7 +53,7 @@ export default class ListItem extends PureComponent {
           className={componentClassName}
           {...helper.getEventProps(this.props)}
           {...helper.getDataProps(this.props)}
-          dangerouslySetInnerHTML={{ __html: text }}
+          dangerouslySetInnerHTML={{ __html: html }}
         />
       );
     }
