@@ -34,7 +34,6 @@
     "@changesets/cli": "^2.25.2",
     "@ima/cli": "latest",
     "@ima/core": "rc",
-    "@ima/dev-utils": "latest",
     "@ima/plugin-cli": "latest",
     "@swc/jest": "^0.2.23",
     "@types/jest": "^29.2.2",
