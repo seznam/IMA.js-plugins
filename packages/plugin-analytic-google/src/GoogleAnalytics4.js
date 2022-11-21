@@ -22,25 +22,12 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
     super(scriptLoader, window, dispatcher, config);
 
     this._analyticScriptName = 'google_analytics_4';
-    this._analyticScriptUrl = 'https://www.googletagmanager.com/gtag/js';
+    this._analyticScriptUrl = `https://www.googletagmanager.com/gtag/js?id=${this._config.service}`;
   }
 
-  hit(/*data*/) {
-    if (!this.isEnabled()) {
-      return;
-    }
-
-    // const clientWindow = this._window.getWindow();
-    //
-    // clientWindow[GTAG_ROOT_VARIABLE](
-    //   data.method || 'send',
-    //   data.type || 'event',
-    //   data.category || 'undefined',
-    //   data.action || 'undefined',
-    //   data.label,
-    //   data.value,
-    //   data.fields
-    // );
+  hit() {
+    /* not implemented yet */
+    return;
   }
 
   /**
@@ -72,6 +59,13 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
     }
 
     this._enable = true;
+
+    clientWindow[GTAG_ROOT_VARIABLE]('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      personalization_storage: 'denied',
+      wait_for_update: 5000
+    });
 
     clientWindow[GTAG_ROOT_VARIABLE]('js', new Date());
 
