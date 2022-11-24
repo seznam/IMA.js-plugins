@@ -26,6 +26,11 @@ let initSettings = () => {
             }
           },
           google4: {
+            consentSettings: {
+              ad_storage: 'denied',
+              analytics_storage: 'denied',
+              personalization_storage: 'denied'
+            },
             service: 'G-XXXXXXXXXX'
           }
         }

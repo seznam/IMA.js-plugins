@@ -23,6 +23,7 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
 
     this._analyticScriptName = 'google_analytics_4';
     this._analyticScriptUrl = `https://www.googletagmanager.com/gtag/js?id=${this._config.service}`;
+    this._consentSettings = this._config.consentSettings;
   }
 
   hit() {
@@ -37,16 +38,38 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
    * @param {Object<string, *>} pageData
    * @param {Object<string, string>} customDimensions
    */
-  hitPageView() {
+  hitPageView(pageData) {
     if (!this.isEnabled()) {
       return;
     }
 
     const clientWindow = this._window.getWindow();
 
-    clientWindow[GTAG_ROOT_VARIABLE]('event', 'page_view');
+    clientWindow[GTAG_ROOT_VARIABLE](
+      'event',
+      'page_view',
+      this._getPageViewData(pageData)
+    );
   }
 
+  /**
+   * @override
+   * @inheritdoc
+   */
+  _applyPurposeConsents(purposeConsents) {
+    if (purposeConsents && typeof purposeConsents === 'object') {
+      if (purposeConsents['1']) {
+        this._consentSettings.analytics_storage = 'granted';
+      } else {
+        this._consentSettings.analytics_storage = 'denied';
+      }
+    }
+  }
+
+  /**
+   * @override
+   * @inheritdoc
+   */
   _configuration() {
     const clientWindow = this._window.getWindow();
 
@@ -61,9 +84,7 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
     this._enable = true;
 
     clientWindow[GTAG_ROOT_VARIABLE]('consent', 'default', {
-      ad_storage: 'denied',
-      analytics_storage: 'denied',
-      personalization_storage: 'denied',
+      ...this._consentSettings,
       wait_for_update: 5000
     });
 
@@ -74,9 +95,11 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
     });
   }
 
+  /**
+   * @override
+   * @inheritdoc
+   */
   _createGlobalDefinition(window) {
-    window['gtag_enable_tcf_support'] = true;
-
     window.dataLayer = window.dataLayer || [];
     window[GTAG_ROOT_VARIABLE] = function () {
       dataLayer.push(arguments); // eslint-disable-line no-undef
