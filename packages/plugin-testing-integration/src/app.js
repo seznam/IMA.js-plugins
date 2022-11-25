@@ -100,7 +100,7 @@ async function initImaApp(bootConfigMethods = {}) {
     global.$IMA.$Protocol = config.protocol;
     global.$IMA.$Host = config.host;
     global.$IMA.$Env = config.environment;
-    global.$IMA.$App = {};
+    global.$IMA.$App = config.$App || {};
     global.$IMA.i18n = generateDictionary(imaConfig.languages, config.locale);
   }
 
