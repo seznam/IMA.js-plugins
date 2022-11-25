@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 7.0.0-rc.11
+
+### Major Changes
+
+- fb5bfe9: rename text prop to html, SanitizeUrl
+
 ## 7.0.0-rc.10
 
 ### Patch Changes

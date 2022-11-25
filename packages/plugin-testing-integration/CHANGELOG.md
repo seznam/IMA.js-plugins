@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.0-rc.12
+
+### Patch Changes
+
+- 3423e0a: Added forwarding of $App settings from config
+
 ## 3.0.0-rc.11
 
 ### Patch Changes
