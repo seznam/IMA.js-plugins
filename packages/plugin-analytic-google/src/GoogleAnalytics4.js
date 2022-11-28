@@ -22,7 +22,9 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
     super(scriptLoader, window, dispatcher, config);
 
     this._analyticScriptName = 'google_analytics_4';
+
     this._analyticScriptUrl = `https://www.googletagmanager.com/gtag/js?id=${this._config.service}`;
+
     this._consentSettings = this._config.consentSettings;
   }
 
@@ -50,6 +52,21 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
       'page_view',
       this._getPageViewData(pageData)
     );
+  }
+
+  /**
+   * Updates user consents in Google Analytics script
+   *
+   * @param {Object<string, *>} purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
+   */
+  updateConsent(purposeConsents) {
+    const clientWindow = this._window.getWindow();
+
+    this._applyPurposeConsents(purposeConsents);
+
+    clientWindow[GTAG_ROOT_VARIABLE]('consent', 'update', {
+      ...this._consentSettings
+    });
   }
 
   /**
@@ -93,6 +110,20 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
     clientWindow[GTAG_ROOT_VARIABLE]('config', this._config.service, {
       send_page_view: false
     });
+  }
+
+  /**
+   * Returns page view data derived from pageData param.
+   *
+   * @param {Object<string, *>} pageData
+   * @return {Object<string, *>} pageViewData
+   */
+  _getPageViewData(pageData) {
+    return {
+      page: pageData.path,
+      location: this._window.getUrl(),
+      title: document.title || ''
+    };
   }
 
   /**
