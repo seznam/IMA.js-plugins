@@ -6,13 +6,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 # [5.2.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-analytic-google@5.1.0...@ima/plugin-analytic-google@5.2.0) (2022-11-29)
 
 
-### Bug Fixes
+### Features
 
-* 🐛 default settings for GA4 ([28aad6b](https://github.com/seznam/IMA.js-plugins/commit/28aad6b709c660b3c28d9edefdfcd3d005a893fb))
-* 🐛 GA4 hit method for custom events ([ef58d98](https://github.com/seznam/IMA.js-plugins/commit/ef58d9888720b41963b2d869e7057618d634a006))
-* 🐛 manage consents on our own ([b6ce79c](https://github.com/seznam/IMA.js-plugins/commit/b6ce79c7e26899ebbb7d41c8edbffb6dc99b8124))
-* 🐛 move GoogleAnalytics4 to plugin-analytic-google ([ff0ae06](https://github.com/seznam/IMA.js-plugins/commit/ff0ae06b9dbce136ecbc1a535ec3397d61d28475))
-* 🐛 updateConsent method and tests ([c68e249](https://github.com/seznam/IMA.js-plugins/commit/c68e24908d1b790abab54b59bd993367f00f7daa))
+* 🎸 Google Analytics 4 implementation ([092ef19](https://github.com/seznam/IMA.js-plugins/commit/092ef19fceee71bc50f0ecebb674bcd7bbeae2a3))
 
 
 
