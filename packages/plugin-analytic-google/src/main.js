@@ -1,8 +1,10 @@
 import uid from 'easy-uid';
 
 import GoogleAnalytic from './GoogleAnalytic.js';
+import GoogleAnalytics4 from './GoogleAnalytics4';
 
 const defaultDependencies = GoogleAnalytic.$dependencies;
+const googleAnalytics4DefaultDependencies = GoogleAnalytics4.$dependencies;
 
 const $registerImaPlugin = () => {};
 
@@ -22,6 +24,14 @@ let initSettings = () => {
               anonymizeIp: true,
               allowAdPersonalizationSignals: false
             }
+          },
+          google4: {
+            consentSettings: {
+              ad_storage: 'denied',
+              analytics_storage: 'denied',
+              personalization_storage: 'denied'
+            },
+            service: 'G-XXXXXXXXXX'
           }
         }
       }
@@ -35,7 +45,9 @@ let initSettings = () => {
 
 export {
   GoogleAnalytic,
+  GoogleAnalytics4,
   defaultDependencies,
+  googleAnalytics4DefaultDependencies,
   $registerImaPlugin,
   initSettings
 };
