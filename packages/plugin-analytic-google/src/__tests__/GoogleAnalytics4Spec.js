@@ -12,7 +12,7 @@ describe('GoogleAnalytics4', () => {
   };
 
   const mockGtag = {
-    gtag() {}
+    gtag: jest.fn()
   };
   const mockUrl = 'mockUrl';
 
@@ -45,7 +45,6 @@ describe('GoogleAnalytics4', () => {
     describe('hitPageView', () => {
       it('should call event page_view on gtag', () => {
         jest.spyOn(googleAnalytics4, 'isEnabled').mockReturnValue(true);
-        jest.spyOn(mockGtag, 'gtag');
 
         const pageTitle = 'Page title';
         const mockPath = 'somePath';
@@ -61,6 +60,26 @@ describe('GoogleAnalytics4', () => {
           page: mockPath,
           title: pageTitle
         });
+      });
+    });
+
+    describe('hit', () => {
+      it('should hit given custom event', () => {
+        jest.spyOn(googleAnalytics4, 'isEnabled').mockReturnValue(true);
+
+        const customEventName = 'customEventName';
+        const customEventData = {
+          property1: 'value1',
+          property2: 2
+        };
+
+        googleAnalytics4.hit(customEventName, customEventData);
+
+        expect(mockGtag.gtag).toHaveBeenCalledWith(
+          'event',
+          customEventName,
+          customEventData
+        );
       });
     });
 

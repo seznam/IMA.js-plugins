@@ -27,10 +27,19 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
 
     this._consentSettings = this._config.consentSettings;
   }
+  /**
+   * Hits custom event of given with given data
+   * @param {string} eventName custom event name
+   * @param {Object<string, *>} eventData custom event data
+   */
+  hit(eventName, eventData) {
+    if (!this.isEnabled()) {
+      return;
+    }
 
-  hit() {
-    /* not implemented yet */
-    return;
+    const clientWindow = this._window.getWindow();
+
+    clientWindow[GTAG_ROOT_VARIABLE]('event', eventName, eventData);
   }
 
   /**
