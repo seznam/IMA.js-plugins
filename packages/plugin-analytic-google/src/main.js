@@ -28,9 +28,9 @@ pluginLoader.register('@ima/plugin-analytic-google', () => ({
             consentSettings: {
               ad_storage: 'denied',
               analytics_storage: 'denied',
-              personalization_storage: 'denied'
+              personalization_storage: 'denied',
             },
-            service: 'G-XXXXXXXXXX'
+            service: 'G-XXXXXXXXXX',
           },
         },
       },
@@ -44,6 +44,4 @@ export {
   GoogleAnalytics4,
   defaultDependencies,
   googleAnalytics4DefaultDependencies,
-  $registerImaPlugin,
-  initSettings
 };

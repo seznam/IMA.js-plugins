@@ -29,6 +29,7 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
   }
   /**
    * Hits custom event of given with given data
+   *
    * @param {string} eventName custom event name
    * @param {Object<string, *>} eventData custom event data
    */
@@ -74,7 +75,7 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
     this._applyPurposeConsents(purposeConsents);
 
     clientWindow[GTAG_ROOT_VARIABLE]('consent', 'update', {
-      ...this._consentSettings
+      ...this._consentSettings,
     });
   }
 
@@ -111,13 +112,13 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
 
     clientWindow[GTAG_ROOT_VARIABLE]('consent', 'default', {
       ...this._consentSettings,
-      wait_for_update: 5000
+      wait_for_update: 5000,
     });
 
     clientWindow[GTAG_ROOT_VARIABLE]('js', new Date());
 
     clientWindow[GTAG_ROOT_VARIABLE]('config', this._config.service, {
-      send_page_view: false
+      send_page_view: false,
     });
   }
 
@@ -125,13 +126,13 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
    * Returns page view data derived from pageData param.
    *
    * @param {Object<string, *>} pageData
-   * @return {Object<string, *>} pageViewData
+   * @returns {Object<string, *>} pageViewData
    */
   _getPageViewData(pageData) {
     return {
       page: pageData.path,
       location: this._window.getUrl(),
-      title: document.title || ''
+      title: document.title || '',
     };
   }
 

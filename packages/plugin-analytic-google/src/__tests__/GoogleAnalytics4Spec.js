@@ -1,18 +1,17 @@
-import { toMockedInstance } from 'to-mock';
-
 import { Dispatcher, Window } from '@ima/core';
 import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
+import { toMockedInstance } from 'to-mock';
 
 import GoogleAnalytics4 from '../GoogleAnalytics4';
 
 describe('GoogleAnalytics4', () => {
   const settings = {
     service: 'G-XXXXXXXXXX',
-    consentSettings: {}
+    consentSettings: {},
   };
 
   const mockGtag = {
-    gtag: jest.fn()
+    gtag: jest.fn(),
   };
   const mockUrl = 'mockUrl';
 
@@ -24,7 +23,7 @@ describe('GoogleAnalytics4', () => {
     },
     getUrl() {
       return mockUrl;
-    }
+    },
   });
   let googleAnalytics4 = null;
 
@@ -50,7 +49,7 @@ describe('GoogleAnalytics4', () => {
         const mockPath = 'somePath';
 
         global.document = {
-          title: pageTitle
+          title: pageTitle,
         };
 
         googleAnalytics4.hitPageView({ path: mockPath });
@@ -58,7 +57,7 @@ describe('GoogleAnalytics4', () => {
         expect(mockGtag.gtag).toHaveBeenCalledWith('event', 'page_view', {
           location: mockUrl,
           page: mockPath,
-          title: pageTitle
+          title: pageTitle,
         });
       });
     });
@@ -70,7 +69,7 @@ describe('GoogleAnalytics4', () => {
         const customEventName = 'customEventName';
         const customEventData = {
           property1: 'value1',
-          property2: 2
+          property2: 2,
         };
 
         googleAnalytics4.hit(customEventName, customEventData);
@@ -87,7 +86,7 @@ describe('GoogleAnalytics4', () => {
       it('should set consent setting analytics_storage to granted when purpose 1 is set', () => {
         googleAnalytics4._applyPurposeConsents({ 1: true });
 
-        expect(googleAnalytics4._consentSettings.analytics_storage).toEqual(
+        expect(googleAnalytics4._consentSettings.analytics_storage).toBe(
           'granted'
         );
       });
@@ -95,7 +94,7 @@ describe('GoogleAnalytics4', () => {
       it('should set consent setting analytics_storage to denied when purpose 1 is not set', () => {
         googleAnalytics4._applyPurposeConsents({ 1: false });
 
-        expect(googleAnalytics4._consentSettings.analytics_storage).toEqual(
+        expect(googleAnalytics4._consentSettings.analytics_storage).toBe(
           'denied'
         );
       });
@@ -103,7 +102,7 @@ describe('GoogleAnalytics4', () => {
       it('should set consent setting analytics_storage to denied when purpose 1 is not present', () => {
         googleAnalytics4._applyPurposeConsents({});
 
-        expect(googleAnalytics4._consentSettings.analytics_storage).toEqual(
+        expect(googleAnalytics4._consentSettings.analytics_storage).toBe(
           'denied'
         );
       });
@@ -112,7 +111,7 @@ describe('GoogleAnalytics4', () => {
     describe('updateConsent', () => {
       it('should apply new consent and fire consent update event', () => {
         const purposeConsents = {
-          1: true
+          1: true,
         };
 
         googleAnalytics4.updateConsent(purposeConsents);
