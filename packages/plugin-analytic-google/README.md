@@ -1,13 +1,14 @@
 # @ima/plugin-analytic-google
 
-This is the google analytic plugin for the IMA.js application. You can visit our site <https://imajs.io>.
+This is the Google analytic plugin for the IMA.js application. You can visit our site <https://imajs.io>.
+
+The plugin currently implements both UA and GA4 analytics.
+It is planned to remove UA later in year 2023 as its support ends in this year.
 
 ## Installation
 
-```javascript
-
+```console
 npm install @ima/plugin-analytic-google @ima/plugin-script-loader --save
-
 ```
 
 ```javascript
@@ -29,7 +30,6 @@ ns.ima.plugin.analytic.google.defaultDependencies;
 
 import { GoogleAnalytic, defaultDependencies } from '@ima/plugin-analytic-google';
 */
-
 ```
 
 ```javascript
@@ -41,9 +41,12 @@ prod: {
 	$Page:{ ... },
 	plugin : {
 		analytic: {
-			google: {
-				service: 'UA-XXXXXXX-X'
-			}
+            google: { //for UA
+                service: 'UA-XXXXXXX-X'
+            },
+            google4: { //for GA4
+                service: 'G-XXXXXXXXXX'
+            }
 		}
 	}
 }
@@ -57,12 +60,14 @@ import { RouterEvents } from '@ima/core';
 var $window = oc.get('$Window');
 var $dispatcher = oc.get('$Dispatcher');
 var googleAnalytic = oc.get(GoogleAnalytic);
+var googleAnalytics4 = oc.get(GoogleAnalytics4);
 
 
 if ($window.isClient()) {
 
 	// insert analytic script to page and initialization analytic
 	googleAnalytic.init();
+	googleAnalytics4.init();
 
 	//set hit page view to analytic
 	$dispatcher.listen(RouterEvents.AFTER_HANDLE_ROUTE, (pageData) => {
@@ -73,6 +78,7 @@ if ($window.isClient()) {
 				pageData.response.status < 300)) {
 
 			googleAnalytic.hitPageView(pageData);
+            googleAnalytics4.hitPageView(pageData);
 
 		} else {
 
@@ -102,6 +108,7 @@ if ($window.isClient()) {
 	// insert analytic script to page and initialization analytic
 	googleAnalytic.init();
 	googleAnalytic.load();
+	googleAnalytics4.load();
 
 	// ...
 ```
@@ -109,5 +116,5 @@ if ($window.isClient()) {
 ## Dependencies
 If you are looking more details, you should
 follow this links:
-[https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-analytic](https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-analytic,
+[https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-analytic](https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-analytic),
 [https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-script-loader](https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-script-loader)

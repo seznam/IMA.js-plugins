@@ -90,6 +90,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-analytic-google@5.1.0...@ima/plugin-analytic-google@5.2.0) (2022-11-29)
+
+
+### Features
+
+* 🎸 Google Analytics 4 implementation ([092ef19](https://github.com/seznam/IMA.js-plugins/commit/092ef19fceee71bc50f0ecebb674bcd7bbeae2a3))
+
+
+
+
+
 # [5.1.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-analytic-google@5.0.2...@ima/plugin-analytic-google@5.1.0) (2022-01-12)
 
 ### Features

@@ -2,8 +2,10 @@ import { pluginLoader } from '@ima/core';
 import uid from 'easy-uid';
 
 import GoogleAnalytic from './GoogleAnalytic.js';
+import GoogleAnalytics4 from './GoogleAnalytics4';
 
 const defaultDependencies = GoogleAnalytic.$dependencies;
+const googleAnalytics4DefaultDependencies = GoogleAnalytics4.$dependencies;
 
 pluginLoader.register('@ima/plugin-analytic-google', () => ({
   initSettings: () => ({
@@ -22,6 +24,14 @@ pluginLoader.register('@ima/plugin-analytic-google', () => ({
               allowAdPersonalizationSignals: false,
             },
           },
+          google4: {
+            consentSettings: {
+              ad_storage: 'denied',
+              analytics_storage: 'denied',
+              personalization_storage: 'denied'
+            },
+            service: 'G-XXXXXXXXXX'
+          },
         },
       },
     },
@@ -32,4 +42,11 @@ pluginLoader.register('@ima/plugin-analytic-google', () => ({
   }),
 }));
 
-export { GoogleAnalytic, defaultDependencies };
+export {
+  GoogleAnalytic,
+  GoogleAnalytics4,
+  defaultDependencies,
+  googleAnalytics4DefaultDependencies,
+  $registerImaPlugin,
+  initSettings
+};
