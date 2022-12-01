@@ -1,6 +1,6 @@
 {
   "name": "@ima/cli-plugin-analyze",
-  "version": "1.0.0-rc.10",
+  "version": "1.0.0-rc.11",
   "description": "Plugin for @ima/cli adding analyze bundle functionality.",
   "main": "./dist/main.js",
   "types": "./dist/main.d.ts",

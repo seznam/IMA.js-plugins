@@ -1,5 +1,15 @@
 <a name="5.0.1"></a>
 
+## 7.0.0-rc.12
+
+### Patch Changes
+
+- df68488: All plugin maintenance relase
+- 113952b: Preventive update after master merge
+- Updated dependencies [df68488]
+- Updated dependencies [113952b]
+  - @ima/plugin-useragent@4.0.0-rc.11
+
 ## 7.0.0-rc.11
 
 ### Major Changes

@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.0.0-rc.11
+
+### Patch Changes
+
+- df68488: All plugin maintenance relase
+- 113952b: Preventive update after master merge
+
 ## 1.0.0-rc.10
 
 ### Patch Changes

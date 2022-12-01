@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-analytic-google",
-  "version": "6.0.0-rc.9",
+  "version": "6.0.0-rc.10",
   "description": "Seznam IMA.js google analytic plugin",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
@@ -37,7 +37,7 @@
     "easy-uid": "^1.0.2"
   },
   "peerDependencies": {
-    "@ima/plugin-script-loader": ">=3.0.0-rc.9"
+    "@ima/plugin-script-loader": ">=3.0.0-rc.10"
   },
   "browserify": {
     "transform": [

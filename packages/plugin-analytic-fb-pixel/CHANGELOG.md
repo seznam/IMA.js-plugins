@@ -1,5 +1,15 @@
 # Change Log
 
+## 6.0.0-rc.10
+
+### Patch Changes
+
+- df68488: All plugin maintenance relase
+- 113952b: Preventive update after master merge
+- Updated dependencies [df68488]
+- Updated dependencies [113952b]
+  - @ima/plugin-script-loader@3.0.0-rc.10
+
 ## 6.0.0-rc.9
 
 ### Patch Changes
