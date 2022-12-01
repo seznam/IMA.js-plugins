@@ -35,9 +35,6 @@ pluginLoader.register('@ima/plugin-analytic-google', () => ({
         },
       },
     },
-
-    test: {},
-
     dev: {},
   }),
 }));
