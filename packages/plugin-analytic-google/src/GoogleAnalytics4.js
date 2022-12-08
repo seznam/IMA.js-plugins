@@ -10,6 +10,12 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
     return [...defaultDependencies, '$Settings.plugin.analytic.google4'];
   }
 
+  set _ga4Script(value) {
+    const clientWindow = this._window.getWindow();
+
+    clientWindow[GTAG_ROOT_VARIABLE] = value;
+  }
+
   get _ga4Script() {
     const clientWindow = this._window.getWindow();
 
@@ -133,10 +139,12 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
    * @override
    * @inheritdoc
    */
-  _createGlobalDefinition(window) {
+  _createGlobalDefinition() {
+    const window = this._window.getWindow();
+
     window.dataLayer = window.dataLayer || [];
 
-    window[GTAG_ROOT_VARIABLE] = function () {
+    this._ga4Script = function () {
       window.dataLayer.push(arguments);
     };
 
