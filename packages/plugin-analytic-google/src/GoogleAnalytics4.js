@@ -10,6 +10,18 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
     return [...defaultDependencies, '$Settings.plugin.analytic.google4'];
   }
 
+  set _ga4Script(value) {
+    const clientWindow = this._window.getWindow();
+
+    clientWindow[GTAG_ROOT_VARIABLE] = value;
+  }
+
+  get _ga4Script() {
+    const clientWindow = this._window.getWindow();
+
+    return clientWindow[GTAG_ROOT_VARIABLE];
+  }
+
   /**
    * Initializes the Google Analytics 4 plugin.
    *
@@ -37,9 +49,7 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
       return;
     }
 
-    const clientWindow = this._window.getWindow();
-
-    clientWindow[GTAG_ROOT_VARIABLE]('event', eventName, eventData);
+    this._ga4Script('event', eventName, eventData);
   }
 
   /**
@@ -54,13 +64,7 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
       return;
     }
 
-    const clientWindow = this._window.getWindow();
-
-    clientWindow[GTAG_ROOT_VARIABLE](
-      'event',
-      'page_view',
-      this._getPageViewData(pageData)
-    );
+    this._ga4Script('event', 'page_view', this._getPageViewData(pageData));
   }
 
   /**
@@ -69,11 +73,9 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
    * @param {Object<string, *>} purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
    */
   updateConsent(purposeConsents) {
-    const clientWindow = this._window.getWindow();
-
     this._applyPurposeConsents(purposeConsents);
 
-    clientWindow[GTAG_ROOT_VARIABLE]('consent', 'update', {
+    this._ga4Script('consent', 'update', {
       ...this._consentSettings
     });
   }
@@ -97,26 +99,24 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
    * @inheritdoc
    */
   _configuration() {
-    const clientWindow = this._window.getWindow();
-
     if (
       this.isEnabled() ||
-      !clientWindow[GTAG_ROOT_VARIABLE] ||
-      typeof clientWindow[GTAG_ROOT_VARIABLE] !== 'function'
+      !this._ga4Script ||
+      typeof this._ga4Script !== 'function'
     ) {
       return;
     }
 
     this._enable = true;
 
-    clientWindow[GTAG_ROOT_VARIABLE]('consent', 'default', {
+    this._ga4Script('consent', 'default', {
       ...this._consentSettings,
-      wait_for_update: 5000
+      wait_for_update: this._config.waitForUpdateTimeout
     });
 
-    clientWindow[GTAG_ROOT_VARIABLE]('js', new Date());
+    this._ga4Script('js', new Date());
 
-    clientWindow[GTAG_ROOT_VARIABLE]('config', this._config.service, {
+    this._ga4Script('config', this._config.service, {
       send_page_view: false
     });
   }
@@ -139,10 +139,13 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
    * @override
    * @inheritdoc
    */
-  _createGlobalDefinition(window) {
+  _createGlobalDefinition() {
+    const window = this._window.getWindow();
+
     window.dataLayer = window.dataLayer || [];
-    window[GTAG_ROOT_VARIABLE] = function () {
-      dataLayer.push(arguments); // eslint-disable-line no-undef
+
+    this._ga4Script = function () {
+      window.dataLayer.push(arguments);
     };
 
     this._configuration();

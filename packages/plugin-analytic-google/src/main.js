@@ -31,7 +31,8 @@ let initSettings = () => {
               analytics_storage: 'denied',
               personalization_storage: 'denied'
             },
-            service: 'G-XXXXXXXXXX'
+            service: 'G-XXXXXXXXXX',
+            waitForUpdateTimeout: 5000
           }
         }
       }
