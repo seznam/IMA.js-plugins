@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.2.1](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-analytic-google@5.2.0...@ima/plugin-analytic-google@5.2.1) (2022-12-08)
+
+**Note:** Version bump only for package @ima/plugin-analytic-google
+
+
+
+
+
 # [5.2.0](https://github.com/seznam/IMA.js-plugins/compare/@ima/plugin-analytic-google@5.1.0...@ima/plugin-analytic-google@5.2.0) (2022-11-29)
 
 
