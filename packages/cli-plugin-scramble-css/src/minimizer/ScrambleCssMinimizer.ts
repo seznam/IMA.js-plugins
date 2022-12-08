@@ -11,6 +11,7 @@ import PostCssScrambler from '../postCssPlugin';
 import schema from './options.json';
 
 const CSS_RE = /\.css$/;
+const MAIN_ASSET_RE = /app(\.\w+)?.css$/;
 
 export interface ScrambleCssMinimizerOptions {
   hashTableFilename?: string;
@@ -43,7 +44,7 @@ class ScrambleCssMinimizer {
       mainAssetFilter:
         options?.mainAssetFilter ??
         // Filter main app.css file
-        (filename => filename?.endsWith('app.css')),
+        (fileName => MAIN_ASSET_RE.test(fileName)),
     };
 
     // Validate options
