@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.0-rc.14
+
+### Patch Changes
+
+- 86bbe84: Fixed scramble after manifest plugin update\
+
 ## 1.0.0-rc.13
 
 ### Patch Changes
