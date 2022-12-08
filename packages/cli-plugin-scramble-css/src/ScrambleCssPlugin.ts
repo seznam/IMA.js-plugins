@@ -71,8 +71,15 @@ class ScrambleCssPlugin implements ImaCliPlugin {
       return config;
     }
 
-    // Bail if not enabled (either by env or command)
-    if (!ctx.scrambleCss || ctx.environment === 'production') {
+    // Scramble for production builds or basesd on scrambleCss argument
+    const shouldScramble =
+      ctx.processCss &&
+      ((typeof ctx.scrambleCss !== 'undefined' && ctx.scrambleCss) ||
+        (typeof ctx.scrambleCss === 'undefined' &&
+          ctx.command === 'build' &&
+          ctx.environment === 'production'));
+
+    if (!shouldScramble) {
       return config;
     }
 
@@ -141,7 +148,7 @@ class ScrambleCssPlugin implements ImaCliPlugin {
       );
     }
 
-    if (ctx.scrambleCss) {
+    if (shouldScramble) {
       if (ctx.command === 'dev') {
         /**
          * Force minimizer in development if CLI argument is present.
