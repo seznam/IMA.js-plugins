@@ -66,7 +66,6 @@ class ScrambleCssMinimizer {
           name: this._pluginName,
           stage:
             compiler.webpack.Compilation.PROCESS_ASSETS_STAGE_OPTIMIZE_SIZE,
-          additionalAssets: true,
         },
         (assets: Compilation['assets']) => this.optimize(assets, compilation)
       );
