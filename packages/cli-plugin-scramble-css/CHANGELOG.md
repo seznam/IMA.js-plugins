@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.0-rc.15
+
+### Patch Changes
+
+- 5d32829: Fixed builds with emitted additional assets
+
 ## 1.0.0-rc.14
 
 ### Patch Changes
