@@ -23,7 +23,6 @@
 "@ima/plugin-useragent": major
 "@ima/plugin-websocket": major
 "@ima/plugin-xhr": major
-"@ima/react-hooks": major
 ---
 
 Added additional CJS builds to npm dist directory
