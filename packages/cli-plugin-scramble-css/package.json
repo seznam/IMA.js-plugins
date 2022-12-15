@@ -48,7 +48,7 @@
     "classnames": "*",
     "copy-webpack-plugin": "*",
     "postcss": ">=8",
-    "webpack": "*"
+    "webpack": ">=5"
   },
   "devDependencies": {
     "@types/copy-webpack-plugin": "^10.1.0",

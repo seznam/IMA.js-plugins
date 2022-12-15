@@ -43,6 +43,6 @@
   },
   "peerDependencies": {
     "@ima/cli": "*",
-    "webpack": "*"
+    "webpack": ">=5"
   }
 }
