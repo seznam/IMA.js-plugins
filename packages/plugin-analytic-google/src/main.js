@@ -31,6 +31,7 @@ pluginLoader.register('@ima/plugin-analytic-google', () => ({
               personalization_storage: 'denied',
             },
             service: 'G-XXXXXXXXXX',
+            waitForUpdateTimeout: 5000,
           },
         },
       },
