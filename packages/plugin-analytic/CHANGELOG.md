@@ -1,5 +1,44 @@
 # Change Log
 
+## 5.0.0
+
+### Major Changes
+
+- fb1a51e: Migrated packages to pure esm modules
+- 5149e99: Added additional CJS builds to npm dist directory
+- 1256647: Add support for IMA 18, Node 18 and npm 8
+
+### Minor Changes
+
+- 0b81d28: npmignore revert logic, add missing npmignore
+  apply pluginLoader
+  update ima peer deps
+  refactor plugin register functions, remove exports for ima17
+
+### Patch Changes
+
+- 431ad38: Fixed node config packages
+- 1c61a6d: Automatic JSX runtime, deps update
+- f7fe41d: Updated to latest version of plugin-cli
+- 15e981a: Updated plugin-cli to latest version
+- df68488: All plugin maintenance relase
+- 113952b: Preventive update after master merge
+- 9bf6acf: @ima/plugin-cli version bump
+- 1a6651d: Migrated to react-page-renderer
+- Updated dependencies [431ad38]
+- Updated dependencies [fb1a51e]
+- Updated dependencies [1c61a6d]
+- Updated dependencies [5149e99]
+- Updated dependencies [f7fe41d]
+- Updated dependencies [15e981a]
+- Updated dependencies [df68488]
+- Updated dependencies [1256647]
+- Updated dependencies [113952b]
+- Updated dependencies [9bf6acf]
+- Updated dependencies [1a6651d]
+- Updated dependencies [0b81d28]
+  - @ima/plugin-script-loader@3.0.0
+
 ## 5.0.0-rc.10
 
 ### Patch Changes
