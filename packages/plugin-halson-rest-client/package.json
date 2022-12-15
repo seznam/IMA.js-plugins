@@ -35,12 +35,12 @@
   },
   "homepage": "https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-halson-rest-client#readme",
   "dependencies": {
-    "@ima/plugin-rest-client": "^4.0.0-rc.3",
+    "@ima/plugin-rest-client": "^4.0.0-rc.10",
     "halson": "3.0.0",
     "uri-template": "1.0.1"
   },
   "peerDependencies": {
-    "@ima/core": "*"
+    "@ima/core": ">=18.0.0"
   },
   "browserify": {
     "transform": [

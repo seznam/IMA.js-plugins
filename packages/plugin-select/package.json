@@ -37,8 +37,8 @@
     ]
   },
   "peerDependencies": {
-    "@ima/core": "*",
-    "@ima/react-page-renderer": "*"
+    "@ima/core": ">=18.0.0",
+    "@ima/react-page-renderer": ">=18.0.0"
   },
   "dependencies": {
     "hoist-non-react-statics": "^3.3.2",
