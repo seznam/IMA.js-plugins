@@ -1,5 +1,34 @@
 # Change Log
 
+## 1.0.0
+
+### Major Changes
+
+- fb1a51e: Migrated packages to pure esm modules
+- 5149e99: Added additional CJS builds to npm dist directory
+- b45198b: Added @ima/cli-plugin-scramble-css
+
+### Patch Changes
+
+- f0e7879: Fixed package type for commonjs CLI packages
+  Update plugin-cli with fixes for jsx built files, where the extension was not normalized
+- 431ad38: Fixed node config packages
+- 86bbe84: Fixed scramble after manifest plugin update\
+- 5d32829: Fixed builds with emitted additional assets
+- 1c61a6d: Automatic JSX runtime, deps update
+- 2b6d864: Fixed pkg entry points
+- f7fe41d: Updated to latest version of plugin-cli
+- 15e981a: Updated plugin-cli to latest version
+- df68488: All plugin maintenance relase
+- 7721f5f: Fixed error in package.json
+- 214dd9d: Fixed exports field typo in package.json
+- 113952b: Preventive update after master merge
+- 9bf6acf: @ima/plugin-cli version bump
+- 1a6651d: Migrated to react-page-renderer
+- 6418df1: The plugin is now enabled by default for production env instead of build command
+  Updated built to work with legacy client
+  Added static script that can be used for scramble css debugging
+
 ## 1.0.0-rc.15
 
 ### Patch Changes

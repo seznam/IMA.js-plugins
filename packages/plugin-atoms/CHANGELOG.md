@@ -1,5 +1,38 @@
 <a name="5.0.1"></a>
 
+## 7.0.0
+
+### Major Changes
+
+- fb5bfe9: rename text prop to html, SanitizeUrl
+- b61f5f4: Relocated to IMA.js plugins monorepo
+- 5149e99: Added additional CJS builds to npm dist directory
+
+### Patch Changes
+
+- 431ad38: Fixed node config packages
+- 1c61a6d: Automatic JSX runtime, deps update
+- f7fe41d: Updated to latest version of plugin-cli
+- 15e981a: Updated plugin-cli to latest version
+- df68488: All plugin maintenance relase
+- 113952b: Preventive update after master merge
+- 9bf6acf: @ima/plugin-cli version bump
+- 1a6651d: Migrated to react-page-renderer
+- Updated dependencies [431ad38]
+- Updated dependencies [fb1a51e]
+- Updated dependencies [1c61a6d]
+- Updated dependencies [d0f1969]
+- Updated dependencies [5149e99]
+- Updated dependencies [f7fe41d]
+- Updated dependencies [15e981a]
+- Updated dependencies [df68488]
+- Updated dependencies [1256647]
+- Updated dependencies [113952b]
+- Updated dependencies [9bf6acf]
+- Updated dependencies [1a6651d]
+- Updated dependencies [0b81d28]
+  - @ima/plugin-useragent@4.0.0
+
 ## 7.0.0-rc.12
 
 ### Patch Changes

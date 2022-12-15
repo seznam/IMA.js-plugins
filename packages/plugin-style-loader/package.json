@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-style-loader",
-  "version": "3.0.0-rc.10",
+  "version": "3.0.0",
   "description": "Seznam IMA.js plugin for loading style",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
@@ -37,7 +37,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@ima/plugin-resource-loader": "^3.0.0-rc.10"
+    "@ima/plugin-resource-loader": "^3.0.0"
   },
   "browserify": {
     "transform": [

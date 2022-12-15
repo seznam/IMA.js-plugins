@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-websocket",
-  "version": "2.0.0-rc.10",
+  "version": "2.0.0",
   "description": "Simple WebSocket server and client for IMA.js",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
