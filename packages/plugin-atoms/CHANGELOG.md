@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 7.0.1
+
+### Patch Changes
+
+- 736accd: Unfreezted @ima/plugin-useragent freezed peer dependency
+
 ## 7.0.0
 
 ### Major Changes
