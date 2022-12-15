@@ -7,7 +7,6 @@
 "@ima/plugin-analytic-fb-pixel": major
 "@ima/plugin-analytic-google": major
 "@ima/plugin-halson-rest-client": major
-"@ima/plugin-hot-reload": major
 "@ima/plugin-local-storage": major
 "@ima/plugin-logger": major
 "@ima/plugin-managed-component": major
@@ -23,7 +22,6 @@
 "@ima/plugin-useragent": major
 "@ima/plugin-websocket": major
 "@ima/plugin-xhr": major
-"@ima/react-hooks": major
 ---
 
 Migrated packages to pure esm modules

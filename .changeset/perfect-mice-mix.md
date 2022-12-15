@@ -23,7 +23,6 @@
 "@ima/plugin-useragent": patch
 "@ima/plugin-websocket": patch
 "@ima/plugin-xhr": patch
-"@ima/react-hooks": patch
 ---
 
 Updated to latest version of plugin-cli

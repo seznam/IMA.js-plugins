@@ -4,7 +4,6 @@
 "@ima/plugin-analytic-fb-pixel": minor
 "@ima/plugin-analytic-google": minor
 "@ima/plugin-halson-rest-client": minor
-"@ima/plugin-hot-reload": minor
 "@ima/plugin-less-constants": minor
 "@ima/plugin-local-storage": minor
 "@ima/plugin-logger": minor
@@ -21,7 +20,6 @@
 "@ima/plugin-useragent": minor
 "@ima/plugin-websocket": minor
 "@ima/plugin-xhr": minor
-"@ima/react-hooks": minor
 ---
 
 npmignore revert logic, add missing npmignore

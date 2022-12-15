@@ -1,12 +1,10 @@
 ---
 "@ima/plugin-halson-rest-client": major
-"@ima/plugin-hot-reload": major
 "@ima/plugin-local-storage": major
 "@ima/plugin-managed-component": major
 "@ima/plugin-merkur": major
 "@ima/plugin-select": major
 "@ima/plugin-testing-integration": major
-"@ima/react-hooks": major
 "@ima/plugin-analytic": major
 "@ima/plugin-analytic-fb-pixel": major
 "@ima/plugin-analytic-google": major
