@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 8.0.0
+
+### Major Changes
+
+- f759cca: Added support for IMA18
+
 ## 7.0.1
 
 ### Patch Changes
