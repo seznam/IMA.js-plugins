@@ -24,7 +24,6 @@
     "@ima/plugin-useragent": "3.1.1",
     "@ima/plugin-websocket": "1.2.2",
     "@ima/plugin-xhr": "2.0.2",
-    "@ima/react-hooks": "1.1.1",
     "@ima/cli-plugin-analyze": "0.1.0-rc1",
     "@ima/cli-plugin-less-constants": "0.1.0-rc1",
     "@ima/cli-plugin-scramble-css": "0.1.0-rc1",
