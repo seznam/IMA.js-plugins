@@ -1,8 +1,17 @@
-import MessageFormat from 'messageformat';
-import globby from 'globby';
 import path from 'path';
+
+import MessageFormat from '@messageformat/core';
+import globby from 'globby';
+
 import { requireFromProject } from './helpers';
 
+/**
+ * Generates IMA formatted dictionary
+ *
+ * @param {object} languages
+ * @param {string} locale
+ * @returns {object}
+ */
 function generateDictionary(languages, locale = 'en') {
   if (!languages) {
     return {};

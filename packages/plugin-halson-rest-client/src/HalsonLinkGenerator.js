@@ -7,7 +7,7 @@ import uriTemplateParser from 'uri-template';
  * @type {Object<string, symbol>}
  */
 const PRIVATE = Object.freeze({
-  uriTemplates: Symbol('uriTemplates')
+  uriTemplates: Symbol('uriTemplates'),
 });
 
 /**
@@ -59,7 +59,7 @@ export default class HalsonLinkGenerator extends LinkGenerator {
     let linkParameters = parameters;
     if (id !== null) {
       linkParameters = Object.assign({}, parameters, {
-        [idParameterName]: id
+        [idParameterName]: id,
       });
     }
 
@@ -78,7 +78,7 @@ export default class HalsonLinkGenerator extends LinkGenerator {
    * @param {Object<string, (number|string|(number|string)[])>} parameters
    *        Map of URI template's placeholder names to values.
    * @param {string} apiRoot The URI to the REST API root.
-   * @return {string} Generated URI.
+   * @returns {string} Generated URI.
    */
   _processURITemplate(template, parameters, apiRoot) {
     let parsedTemplate;

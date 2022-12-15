@@ -1,29 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MerkurResource class default usage should return response from widget API with containerSelector set to both props and widget 1`] = `
-Object {
-  "assets": Array [
-    Object {
+{
+  "assets": [
+    {
       "name": "polyfill.js",
-      "source": Object {
+      "source": {
         "es5": "http://localhost:4444/static/es5/polyfill.31c5090d8c961e43fade.js",
       },
       "test": "return window.fetch",
       "type": "script",
     },
-    Object {
-      "attr": Object {
+    {
+      "attr": {
         "async": true,
         "custom-attribute": "foo",
       },
       "name": "widget.js",
-      "source": Object {
+      "source": {
         "es5": "http://localhost:4444/static/es5/widget.31c5090d8c961e43fade.js",
         "es9": "http://localhost:4444/static/es9/widget.6961af42bfa3596bb147.js",
       },
       "type": "script",
     },
-    Object {
+    {
       "name": "widget.css",
       "source": "http://localhost:4444/static/es9/widget.814e0cb568c7ddc0725d.css",
       "type": "stylesheet",
@@ -32,10 +32,10 @@ Object {
   "containerSelector": ".some-class",
   "html": "<div></div>",
   "name": "my-widget",
-  "props": Object {
+  "props": {
     "containerSelector": ".some-class",
   },
-  "state": Object {
+  "state": {
     "counter": 0,
   },
   "version": "0.0.1",
@@ -43,30 +43,30 @@ Object {
 `;
 
 exports[`MerkurResource class slot usage should append container selectors to defined slot 1`] = `
-Object {
-  "body": Object {
-    "assets": Array [
-      Object {
+{
+  "body": {
+    "assets": [
+      {
         "name": "polyfill.js",
-        "source": Object {
+        "source": {
           "es5": "http://localhost:4444/static/es5/polyfill.31c5090d8c961e43fade.js",
         },
         "test": "return window.fetch",
         "type": "script",
       },
-      Object {
-        "attr": Object {
+      {
+        "attr": {
           "async": true,
           "custom-attribute": "foo",
         },
         "name": "widget.js",
-        "source": Object {
+        "source": {
           "es5": "http://localhost:4444/static/es5/widget.31c5090d8c961e43fade.js",
           "es9": "http://localhost:4444/static/es9/widget.6961af42bfa3596bb147.js",
         },
         "type": "script",
       },
-      Object {
+      {
         "name": "widget.css",
         "source": "http://localhost:4444/static/es9/widget.814e0cb568c7ddc0725d.css",
         "type": "stylesheet",
@@ -75,24 +75,24 @@ Object {
     "containerSelector": ".some-class",
     "html": "<div></div>",
     "name": "my-widget",
-    "props": Object {
+    "props": {
       "containerSelector": ".some-class",
     },
-    "slot": Object {
-      "headline": Object {
+    "slot": {
+      "headline": {
         "containerSelector": ".headline",
         "html": "<div></div>",
         "name": "headline",
       },
     },
-    "state": Object {
+    "state": {
       "counter": 0,
     },
     "version": "0.0.1",
   },
   "cached": true,
-  "headers": Object {},
-  "params": Object {
+  "headers": {},
+  "params": {
     "containerSelector": ".some-class",
   },
   "status": 200,

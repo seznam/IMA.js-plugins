@@ -1,11 +1,5 @@
-.idea/
-.vscode/
-.history/
-src/
-doc/
-coverage/
-.gitignore
-gulpfile.js
-jest.config.js
-preprocess.js
-npm-debug.log
+*
+!dist/**/*
+!lib/**/*
+!package.json
+!EnzymePageRenderer.js

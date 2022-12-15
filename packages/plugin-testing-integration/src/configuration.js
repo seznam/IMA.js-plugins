@@ -1,6 +1,6 @@
 let configuration = {
   appMainPath: 'app/main.js',
-  appBuildPath: 'app/build.js',
+  rootDir: process.cwd(),
   masterElementId: 'page',
   protocol: 'https:',
   host: 'imajs.io',
@@ -12,7 +12,7 @@ let configuration = {
   initServicesApp: () => {},
   initRoutes: () => {},
   extendAppObject: () => {},
-  prebootScript: () => Promise.resolve()
+  prebootScript: () => Promise.resolve(),
 };
 
 /**
@@ -24,6 +24,7 @@ export function getConfig() {
 
 /**
  * Sets config keys
+ *
  * @param {object} config
  */
 export function setConfig(config) {

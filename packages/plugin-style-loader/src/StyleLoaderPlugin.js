@@ -1,5 +1,6 @@
-import Events from './Events';
 import { ResourceLoader } from '@ima/plugin-resource-loader';
+
+import Events from './Events';
 
 /**
  * Style loader plugin class.
@@ -51,8 +52,8 @@ export default class StyleLoader {
    *
    * @param {string} url
    * @param {string=} [template]
-   * @param {Object<string, function|string|number>} [attributes]
-   * @return {Promise<{url: string}>}
+   * @param {Object<string, Function | string | number>} [attributes]
+   * @returns {Promise<{url: string}>}
    */
   load(url, template, attributes) {
     if ($Debug) {
@@ -101,7 +102,7 @@ export default class StyleLoader {
    * Creates a new style element and returns it.
    *
    * @param {boolean} isInlineStyle
-   * @return {HTMLLinkElement} The created style element.
+   * @returns {HTMLLinkElement} The created style element.
    */
   _createStyleElement(isInlineStyle) {
     let element = isInlineStyle ? 'style' : 'link';
@@ -114,7 +115,7 @@ export default class StyleLoader {
    * events.
    *
    * @param {string} url
-   * @return {{url: string}}
+   * @returns {{url: string}}
    */
   _handleOnLoad(url) {
     let data = { url };
@@ -134,7 +135,7 @@ export default class StyleLoader {
     let error = new Error(`The ${url} style failed to load.`);
     let data = {
       url,
-      error
+      error,
     };
 
     this._dispatcher.fire(Events.LOADED, data, true);

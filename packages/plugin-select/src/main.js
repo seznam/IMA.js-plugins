@@ -4,19 +4,16 @@ import forwardedSelect, {
   createStateSelector,
   hoistNonReactStatic,
   setCreatorOfStateSelector,
-  setHoistStaticMethod
+  setHoistStaticMethod,
 } from './select/select';
-
-function $registerImaPlugin() {}
 
 export default forwardedSelect;
 
 export {
-  $registerImaPlugin,
   createStateSelector,
   hoistNonReactStatic,
   select,
   useSelect,
   setCreatorOfStateSelector,
-  setHoistStaticMethod
+  setHoistStaticMethod,
 };

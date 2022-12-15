@@ -2,42 +2,37 @@ import * as plugin from '../main';
 
 describe('plugin', () => {
   it('should is exported', () => {
-    expect(plugin).not.toEqual(null);
-    expect(plugin).not.toEqual(undefined);
+    expect(plugin).not.toBeNull();
+    expect(plugin).toBeDefined();
   });
 
   it('should exported select', () => {
-    expect(plugin.select).not.toEqual(null);
-    expect(plugin.select).not.toEqual(undefined);
+    expect(plugin.select).not.toBeNull();
+    expect(plugin.select).toBeDefined();
   });
 
   it('should exported usuSelect', () => {
-    expect(plugin.useSelect).not.toEqual(null);
-    expect(plugin.useSelect).not.toEqual(undefined);
-  });
-
-  it('should exported $registerImaPlugin', () => {
-    expect(plugin.$registerImaPlugin).not.toEqual(null);
-    expect(plugin.$registerImaPlugin).not.toEqual(undefined);
+    expect(plugin.useSelect).not.toBeNull();
+    expect(plugin.useSelect).toBeDefined();
   });
 
   it('should exported setCreatorOfStateSelector', () => {
-    expect(plugin.setCreatorOfStateSelector).not.toEqual(null);
-    expect(plugin.setCreatorOfStateSelector).not.toEqual(undefined);
+    expect(plugin.setCreatorOfStateSelector).not.toBeNull();
+    expect(plugin.setCreatorOfStateSelector).toBeDefined();
   });
 
   it('should exported createStateSelector', () => {
-    expect(plugin.createStateSelector).not.toEqual(null);
-    expect(plugin.createStateSelector).not.toEqual(undefined);
+    expect(plugin.createStateSelector).not.toBeNull();
+    expect(plugin.createStateSelector).toBeDefined();
   });
 
   it('should exported setHoistStaticMethod', () => {
-    expect(plugin.setHoistStaticMethod).not.toEqual(null);
-    expect(plugin.setHoistStaticMethod).not.toEqual(undefined);
+    expect(plugin.setHoistStaticMethod).not.toBeNull();
+    expect(plugin.setHoistStaticMethod).toBeDefined();
   });
 
   it('should exported hoistNonReactStatic', () => {
-    expect(plugin.hoistNonReactStatic).not.toEqual(null);
-    expect(plugin.hoistNonReactStatic).not.toEqual(undefined);
+    expect(plugin.hoistNonReactStatic).not.toBeNull();
+    expect(plugin.hoistNonReactStatic).toBeDefined();
   });
 });

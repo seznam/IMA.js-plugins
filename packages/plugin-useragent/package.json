@@ -1,13 +1,16 @@
 {
   "name": "@ima/plugin-useragent",
-  "version": "3.1.1",
+  "version": "4.0.0-rc.11",
   "description": "Seznam IMA.js plugin user-agent",
-  "main": "index.js",
+  "main": "./dist/cjs/main.js",
+  "module": "./dist/esm/server/main.js",
+  "browser": "./dist/esm/client/main.js",
   "scripts": {
-    "build": "echo \"Release process is supported only via lerna command. See README.md for more info.\"; exit 1",
     "test": "../../node_modules/.bin/jest --config=jest.config.js",
-    "doc": "../../node_modules/.bin/gulp doc",
-    "prepare": "../../node_modules/.bin/rollup -c"
+    "build": "ima-plugin build --clientServerConfig",
+    "dev": "ima-plugin dev --clientServerConfig",
+    "link": "ima-plugin link --clientServerConfig",
+    "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
   },
   "keywords": [
     "IMA.js",

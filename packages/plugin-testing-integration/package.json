@@ -1,13 +1,15 @@
 {
   "name": "@ima/plugin-testing-integration",
-  "version": "2.2.2",
+  "version": "3.0.0-rc.13",
   "description": "IMA.js plugin for integration testing",
-  "main": "index.js",
+  "main": "./dist/cjs/main.js",
+  "module": "./dist/esm/main.js",
   "scripts": {
-    "build": "echo \"Release process is supported only via lerna command. See README.md for more info.\"; exit 1",
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
-    "doc": "../../node_modules/.bin/gulp doc",
-    "prepare": "../../node_modules/.bin/rollup -c"
+    "build": "ima-plugin build",
+    "dev": "ima-plugin dev",
+    "link": "ima-plugin link",
+    "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
   },
   "keywords": [
     "IMA.js",
@@ -35,23 +37,20 @@
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
   "license": "MIT",
-  "engines": {
-    "node": ">=6",
-    "npm": ">=4 <9"
-  },
   "browserify": {
     "transform": [
       "babelify"
     ]
   },
   "dependencies": {
-    "@ima/helpers": "^17.4.0",
-    "globby": "^11.0.0",
-    "jsdom": "^16.2.1",
-    "messageformat": "^2.3.0",
-    "to-aop": "^0.5.3"
+    "@ima/helpers": "^18.0.0-rc.2",
+    "@messageformat/core": "^3.0.1",
+    "globby": "11.1.0",
+    "jsdom": "^19.0.0",
+    "to-aop": "^0.5.4"
   },
   "peerDependencies": {
-    "@ima/core": ">= 17.0.0"
+    "@ima/cli": "*",
+    "@ima/core": "*"
   }
 }

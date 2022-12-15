@@ -16,7 +16,7 @@ export default (ns, oc) => {
       if (isFirstNavigation) {
         /* eslint-disable-next-line no-undef */
         jsdom.reconfigure({
-          url: context.getBaseUrl() + path
+          url: context.getBaseUrl() + path,
         });
       }
     }

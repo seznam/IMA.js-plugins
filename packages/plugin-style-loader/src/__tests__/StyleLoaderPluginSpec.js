@@ -1,8 +1,9 @@
 import { Window, Dispatcher } from '@ima/core';
-import Events from '../Events';
-import StyleLoaderPlugin from '../StyleLoaderPlugin';
 import { ResourceLoader } from '@ima/plugin-resource-loader';
 import { toMockedInstance } from 'to-mock';
+
+import Events from '../Events';
+import StyleLoaderPlugin from '../StyleLoaderPlugin';
 
 describe('StyleLoaderPlugin', () => {
   let styleLoaderPlugin = null;
@@ -14,7 +15,7 @@ describe('StyleLoaderPlugin', () => {
   const window = toMockedInstance(Window, {
     isClient() {
       return true;
-    }
+    },
   });
   const dispatcher = toMockedInstance(Dispatcher);
   const resourceLoader = toMockedInstance(ResourceLoader);
@@ -28,12 +29,12 @@ describe('StyleLoaderPlugin', () => {
     element = {
       onload() {},
       onerror() {},
-      onabort() {}
+      onabort() {},
     };
     attributes = {
       media: 'screen',
       type: 'text/css',
-      onunload() {}
+      onunload() {},
     };
 
     global.$Debug = true;
@@ -41,130 +42,119 @@ describe('StyleLoaderPlugin', () => {
 
   afterEach(() => {
     delete global.$Debug;
+    jest.clearAllMocks();
   });
 
   describe('load method', () => {
     beforeEach(() => {
-      spyOn(styleLoaderPlugin, '_createStyleElement').and.returnValue(element);
+      jest.spyOn(window, 'isClient').mockReturnValue(true);
+      jest
+        .spyOn(styleLoaderPlugin, '_createStyleElement')
+        .mockReturnValue(element);
     });
 
     it('should throw an error at server side', () => {
-      spyOn(window, 'isClient').and.returnValue(false);
+      jest.spyOn(window, 'isClient').mockReturnValue(false);
 
       expect(() => {
         styleLoaderPlugin.load(url);
       }).toThrow();
     });
 
-    it('should return value from cache', done => {
+    it('should return value from cache', async () => {
       styleLoaderPlugin._loadedStyles[url] = Promise.resolve({ url });
+      const value = await styleLoaderPlugin.load(url);
 
-      styleLoaderPlugin
-        .load(url)
-        .then(value => {
-          expect(value.url).toEqual(url);
-          done();
-        })
-        .catch(error => {
-          done(error);
-        });
+      expect(value.url).toEqual(url);
     });
 
-    it('should append custom attributes to link element, if provided', done => {
-      spyOn(dispatcher, 'fire');
-      spyOn(resourceLoader, 'promisify').and.returnValue(Promise.resolve());
-      spyOn(styleLoaderPlugin._resourceLoader, 'injectToPage');
+    it('should append custom attributes to link element, if provided', async () => {
+      jest.spyOn(dispatcher, 'fire').mockImplementation(() => {});
+      jest
+        .spyOn(resourceLoader, 'promisify')
+        .mockReturnValue(Promise.resolve());
+      jest
+        .spyOn(styleLoaderPlugin._resourceLoader, 'injectToPage')
+        .mockImplementation(() => {});
 
-      styleLoaderPlugin
-        .load(url, '', attributes)
-        .then(() => {
-          expect(dispatcher.fire).toHaveBeenCalledWith(
-            Events.LOADED,
-            { url },
-            true
-          );
+      await styleLoaderPlugin.load(url, '', attributes);
 
-          expect(
-            styleLoaderPlugin._resourceLoader.injectToPage
-          ).toHaveBeenCalledWith(Object.assign({}, element, attributes));
-
-          done();
-        })
-        .catch(done);
+      expect(dispatcher.fire).toHaveBeenCalledWith(
+        Events.LOADED,
+        { url },
+        true
+      );
+      expect(
+        styleLoaderPlugin._resourceLoader.injectToPage
+      ).toHaveBeenCalledWith(Object.assign({}, element, attributes));
     });
 
-    it('should append custom attributes to custom template, if provided', done => {
-      spyOn(dispatcher, 'fire');
-      spyOn(resourceLoader, 'promisify').and.returnValue(Promise.resolve());
-      spyOn(styleLoaderPlugin._resourceLoader, 'injectToPage');
+    it('should append custom attributes to custom template, if provided', async () => {
+      jest.spyOn(dispatcher, 'fire').mockImplementation(() => {});
+      jest
+        .spyOn(resourceLoader, 'promisify')
+        .mockReturnValue(Promise.resolve());
+      jest
+        .spyOn(styleLoaderPlugin._resourceLoader, 'injectToPage')
+        .mockImplementation(() => {});
 
-      styleLoaderPlugin
-        .load(url, template, attributes)
-        .then(() => {
-          expect(dispatcher.fire).toHaveBeenCalledWith(
-            Events.LOADED,
-            { url },
-            true
-          );
+      await styleLoaderPlugin.load(url, template, attributes);
 
-          expect(
-            styleLoaderPlugin._resourceLoader.injectToPage
-          ).toHaveBeenCalledWith(
-            Object.assign({ innerHTML: template }, element, attributes)
-          );
-
-          done();
-        })
-        .catch(done);
-    });
-
-    it('the dispatcher fire loaded event for styles loaded by template', done => {
-      spyOn(dispatcher, 'fire');
-      spyOn(resourceLoader, 'promisify').and.returnValue(Promise.resolve());
-
-      styleLoaderPlugin
-        .load(url, template)
-        .then(() => {
-          expect(dispatcher.fire).toHaveBeenCalledWith(
-            Events.LOADED,
-            { url },
-            true
-          );
-          done();
-        })
-        .catch(done);
-    });
-
-    it('the dispatcher fire loaded event for styles loaded by url', done => {
-      spyOn(dispatcher, 'fire');
-      spyOn(resourceLoader, 'promisify').and.returnValue(Promise.resolve());
-
-      styleLoaderPlugin
-        .load(url)
-        .then(() => {
-          expect(dispatcher.fire).toHaveBeenCalledWith(
-            Events.LOADED,
-            { url },
-            true
-          );
-          done();
-        })
-        .catch(done);
-    });
-
-    it('the dispatcher fire loaded event with errors', done => {
-      spyOn(dispatcher, 'fire');
-      spyOn(resourceLoader, 'promisify').and.returnValue(
-        Promise.reject(new Error('message'))
+      expect(dispatcher.fire).toHaveBeenCalledWith(
+        Events.LOADED,
+        { url },
+        true
       );
 
-      styleLoaderPlugin.load(url).catch(error => {
+      expect(
+        styleLoaderPlugin._resourceLoader.injectToPage
+      ).toHaveBeenCalledWith(
+        Object.assign({ innerHTML: template }, element, attributes)
+      );
+    });
+
+    it('the dispatcher fire loaded event for styles loaded by template', async () => {
+      jest.spyOn(dispatcher, 'fire').mockImplementation(() => {});
+      jest
+        .spyOn(resourceLoader, 'promisify')
+        .mockReturnValue(Promise.resolve());
+
+      await styleLoaderPlugin.load(url, template);
+
+      expect(dispatcher.fire).toHaveBeenCalledWith(
+        Events.LOADED,
+        { url },
+        true
+      );
+    });
+
+    it('the dispatcher fire loaded event for styles loaded by url', async () => {
+      jest.spyOn(dispatcher, 'fire').mockImplementation(() => {});
+      jest
+        .spyOn(resourceLoader, 'promisify')
+        .mockReturnValue(Promise.resolve());
+
+      await styleLoaderPlugin.load(url);
+
+      expect(dispatcher.fire).toHaveBeenCalledWith(
+        Events.LOADED,
+        { url },
+        true
+      );
+    });
+
+    it('the dispatcher fire loaded event with errors', async () => {
+      jest.spyOn(dispatcher, 'fire').mockImplementation(() => {});
+      jest
+        .spyOn(resourceLoader, 'promisify')
+        .mockReturnValue(Promise.reject(new Error('message')));
+
+      await styleLoaderPlugin.load(url).catch(error => {
         expect(dispatcher.fire).toHaveBeenCalledWith(
           Events.LOADED,
           { url, error },
           true
         );
-        done();
       });
     });
   });

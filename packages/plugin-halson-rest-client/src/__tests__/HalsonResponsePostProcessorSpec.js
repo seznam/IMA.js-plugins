@@ -1,6 +1,7 @@
+import { Request, Response } from '@ima/plugin-rest-client';
+
 import AbstractHalsonEntity from '../AbstractHalsonEntity';
 import HalsonResponsePostProcessor from '../HalsonResponsePostProcessor';
-import { Request, Response } from '@ima/plugin-rest-client';
 
 describe('HalsonResponsePostProcessor', () => {
   let postProcessor;
@@ -25,8 +26,8 @@ describe('HalsonResponsePostProcessor', () => {
       foo: 'bar',
       baz: 123,
       _links: {
-        self: '/foo/123'
-      }
+        self: '/foo/123',
+      },
     };
     constructResponse();
     let processed = postProcessor.process(response).body;
@@ -34,8 +35,8 @@ describe('HalsonResponsePostProcessor', () => {
       foo: 'bar',
       baz: 123,
       _links: {
-        self: '/foo/123'
-      }
+        self: '/foo/123',
+      },
     });
   });
 
@@ -44,18 +45,18 @@ describe('HalsonResponsePostProcessor', () => {
       foo: 'bar',
       _embedded: {
         'prefixed:stuff': {
-          data: 12
+          data: 12,
         },
         nonPrefixed: {
-          data: 34
+          data: 34,
         },
         'a:lot:of:prefixes:stuff2': {
-          data: 56
+          data: 56,
         },
         ignored: {
-          data: 78
-        }
-      }
+          data: 78,
+        },
+      },
     };
     embeds = ['prefixed:stuff', 'nonPrefixed', 'a:lot:of:prefixes:stuff2'];
     constructResponse();
@@ -63,49 +64,49 @@ describe('HalsonResponsePostProcessor', () => {
     expect(deepCopy(processed)).toEqual({
       foo: 'bar',
       stuff: {
-        data: 12
+        data: 12,
       },
       nonPrefixed: {
-        data: 34
+        data: 34,
       },
       stuff2: {
-        data: 56
+        data: 56,
       },
       _embedded: {
         'prefixed:stuff': {
-          data: 12
+          data: 12,
         },
         nonPrefixed: {
-          data: 34
+          data: 34,
         },
         'a:lot:of:prefixes:stuff2': {
-          data: 56
+          data: 56,
         },
         ignored: {
-          data: 78
-        }
-      }
+          data: 78,
+        },
+      },
     });
   });
 
   it('should handle an inlined list of entities', () => {
     responseBody = [
       {
-        foo: 'bar'
+        foo: 'bar',
       },
       {
-        bar: 'baz'
-      }
+        bar: 'baz',
+      },
     ];
     constructResponse();
     let processed = postProcessor.process(response).body;
     expect(deepCopy(processed)).toEqual([
       {
-        foo: 'bar'
+        foo: 'bar',
       },
       {
-        bar: 'baz'
-      }
+        bar: 'baz',
+      },
     ]);
   });
 
@@ -113,16 +114,16 @@ describe('HalsonResponsePostProcessor', () => {
     responseBody = {
       _embedded: {
         foo: {
-          bar: 'baz'
-        }
-      }
+          bar: 'baz',
+        },
+      },
     };
     constructResponse();
     let processed = postProcessor.process(response).body;
     expect(deepCopy(processed)).toEqual([
       {
-        bar: 'baz'
-      }
+        bar: 'baz',
+      },
     ]);
   });
 
@@ -131,23 +132,23 @@ describe('HalsonResponsePostProcessor', () => {
       _embedded: {
         foo: [
           {
-            id: 1
+            id: 1,
           },
           {
-            id: 2
-          }
-        ]
-      }
+            id: 2,
+          },
+        ],
+      },
     };
     constructResponse();
     let processed = postProcessor.process(response).body;
     expect(deepCopy(processed)).toEqual([
       {
-        id: 1
+        id: 1,
       },
       {
-        id: 2
-      }
+        id: 2,
+      },
     ]);
   });
 
@@ -157,24 +158,24 @@ describe('HalsonResponsePostProcessor', () => {
         id: 1,
         _embedded: {
           'prefix:foo': {
-            data: 123
+            data: 123,
           },
           ignored: {
-            data: 456
-          }
-        }
+            data: 456,
+          },
+        },
       },
       {
         id: 2,
         _embedded: {
           'prefix:foo': {
-            moreData: 789
+            moreData: 789,
           },
           anotherIgnored: {
-            data: 987
-          }
-        }
-      }
+            data: 987,
+          },
+        },
+      },
     ];
     embeds = ['prefix:foo'];
     constructResponse();
@@ -183,31 +184,31 @@ describe('HalsonResponsePostProcessor', () => {
       {
         id: 1,
         foo: {
-          data: 123
+          data: 123,
         },
         _embedded: {
           'prefix:foo': {
-            data: 123
+            data: 123,
           },
           ignored: {
-            data: 456
-          }
-        }
+            data: 456,
+          },
+        },
       },
       {
         id: 2,
         foo: {
-          moreData: 789
+          moreData: 789,
         },
         _embedded: {
           'prefix:foo': {
-            moreData: 789
+            moreData: 789,
           },
           anotherIgnored: {
-            data: 987
-          }
-        }
-      }
+            data: 987,
+          },
+        },
+      },
     ]);
   });
 
@@ -233,6 +234,9 @@ describe('HalsonResponsePostProcessor', () => {
     }
   }
 
+  /**
+   * Initializes a response
+   */
   function constructResponse() {
     response = new Response({
       status: 200,
@@ -248,11 +252,17 @@ describe('HalsonResponsePostProcessor', () => {
         data: null,
         headers: {},
         options: {},
-        serverConfiguration: null
-      })
+        serverConfiguration: null,
+      }),
     });
   }
 
+  /**
+   * Creates a deep copy of the source object
+   *
+   * @param {object} source
+   * @returns {object}
+   */
   function deepCopy(source) {
     if (source instanceof Array) {
       return source.map(entity => deepCopy(entity));

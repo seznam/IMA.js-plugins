@@ -1,22 +1,21 @@
+import { pluginLoader } from '@ima/core';
+
 import WebSocket from './WebSocket';
 
-const $registerImaPlugin = () => {};
-
-const initSettings = () => {
-  return {
+pluginLoader.register('@ima/plugin-websocket', () => ({
+  initSettings: () => ({
     prod: {
       plugin: {
         websocket: {
           url: 'ws://localhost:5888',
-          debug: false
-        }
-      }
-    }
-  };
-};
+          debug: false,
+        },
+      },
+    },
+  }),
+  initServices: (ns, oc) => {
+    oc.get(WebSocket).init();
+  },
+}));
 
-const initServices = (ns, oc) => {
-  oc.get(WebSocket).init();
-};
-
-export { initServices, initSettings, $registerImaPlugin, WebSocket };
+export { WebSocket };

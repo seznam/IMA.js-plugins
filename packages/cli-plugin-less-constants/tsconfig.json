@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS"
+  },
+  "include": [
+    "cli-plugin",
+    "units"
+  ]
+}

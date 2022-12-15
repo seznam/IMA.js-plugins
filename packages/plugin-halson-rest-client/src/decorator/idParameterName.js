@@ -5,7 +5,7 @@
  *
  * @param {string} idParameterName The name of the link parameters used to
  *        specify the ID(s) of the entity(ies).
- * @return {function(function(
+ * @returns {function(function(
  *             new: AbstractHalsonEntity,
  *             HalsonRestClient,
  *             Object<string, *>,
@@ -16,7 +16,7 @@
 export default idParameterName => {
   return classConstructor => {
     Object.defineProperty(classConstructor, 'idParameterName', {
-      value: idParameterName
+      value: idParameterName,
     });
   };
 };

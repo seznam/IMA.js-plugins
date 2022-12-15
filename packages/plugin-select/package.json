@@ -1,13 +1,15 @@
 {
   "name": "@ima/plugin-select",
-  "version": "3.3.2",
+  "version": "4.0.0-rc.11",
   "description": "The plugin selects extra props from page state to your component.",
-  "main": "index.js",
+  "main": "./dist/cjs/main.js",
+  "module": "./dist/esm/main.js",
   "scripts": {
-    "build": "echo \"Release process is supported only via lerna command. See README.md for more info.\"; exit 1",
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
-    "doc": "../../node_modules/.bin/gulp doc",
-    "prepare": "../../node_modules/.bin/rollup -c"
+    "build": "ima-plugin build",
+    "dev": "ima-plugin dev",
+    "link": "ima-plugin link",
+    "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
   },
   "keywords": [
     "IMA",
@@ -35,12 +37,8 @@
     ]
   },
   "peerDependencies": {
-    "@ima/core": ">= 17.0.0",
-    "react": ">= 16.0.0"
-  },
-  "engines": {
-    "node": ">=6",
-    "npm": ">=4 <9"
+    "@ima/core": "*",
+    "@ima/react-page-renderer": "*"
   },
   "dependencies": {
     "hoist-non-react-statics": "^3.3.2",

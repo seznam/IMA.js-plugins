@@ -1,24 +1,20 @@
 language: node_js
-node_js:
-  - "16"
+dist: focal
 
 notifications:
   email: false
 
 install:
-  - npm install
+  - npm ci
 
 jobs:
   include:
-    - name: "Unit Tests"
-      script: npm test
-    # - name: "Audit"
-    #   script: npm audit || echo \"audit found some vulnerabilities.\"
-    - name: "Docs"
-      script: npm run doc
-    - name: "Lint"
-      script: npm run lint
-    - if: branch = master
+    - name: "CI"
+      script:
+      - npm run test:all
+      - npm run stylelint
+      - npm run lint
+    - if: branch =~ /^(master|next)$/
       stage: "deploy"
       script:
         - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null

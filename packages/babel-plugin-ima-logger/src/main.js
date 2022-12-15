@@ -1,7 +1,7 @@
 /**
  * A default environment.
  *
- * @const {string} BabelLoggerPlugin~DEFAULT_ENVIRONMENT
+ * @constant {string} BabelLoggerPlugin~DEFAULT_ENVIRONMENT
  */
 const DEFAULT_ENVIRONMENT = 'dev';
 
@@ -16,7 +16,8 @@ class BabelLoggerPlugin {
    *
    * @see https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#toc-writing-your-first-babel-plugin
    * @param {object} babel The current `babel` object.
-   * @return {object} The plugin object.
+   * @param {object} babel.types
+   * @returns {object} The plugin object.
    */
   getPluginObject({ types: t }) {
     if (!t) {
@@ -79,7 +80,7 @@ class BabelLoggerPlugin {
                     'errorIf',
                     'logIf',
                     'infoIf',
-                    'warnIf'
+                    'warnIf',
                   ].indexOf(imported.name) >= 0
                 );
               })
@@ -89,8 +90,8 @@ class BabelLoggerPlugin {
               path.remove();
             }
           }
-        }
-      }
+        },
+      },
     };
   }
 
@@ -101,7 +102,7 @@ class BabelLoggerPlugin {
    * @param {object} path The AST path to be removed.
    * @param {object} node The AST node used to check if the call expression
    *        should be removed.
-   * @return {boolean} `true` when the expression has been removed, otherwise
+   * @returns {boolean} `true` when the expression has been removed, otherwise
    *         `false`.
    */
   _removeCallExpression(t, path, node) {
@@ -131,10 +132,10 @@ class BabelLoggerPlugin {
   /**
    * Checks if this plugin should remove logger statements.
    *
-   * @param {Object.<string, *>} options The plugin options.
+   * @param {Object<string, *>} options The plugin options.
    * @param {string} [environment = process.env.NODE_ENV || DEFAULT_ENVIRONMENT]
    *        The environment.
-   * @return {boolean} `true` when it should remove logger statements,
+   * @returns {boolean} `true` when it should remove logger statements,
    *         otherwise `false`.
    */
   _shouldRemoveLogger(

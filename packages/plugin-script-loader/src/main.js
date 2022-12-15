@@ -1,8 +1,6 @@
-import ScriptLoaderPlugin from './ScriptLoaderPlugin';
 import Events from './Events';
+import ScriptLoaderPlugin from './ScriptLoaderPlugin';
 
 let defaultDependencies = ScriptLoaderPlugin.$dependencies;
 
-let $registerImaPlugin = () => {};
-
-export { ScriptLoaderPlugin, Events, defaultDependencies, $registerImaPlugin };
+export { ScriptLoaderPlugin, Events, defaultDependencies };

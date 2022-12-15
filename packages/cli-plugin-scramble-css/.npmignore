@@ -1,0 +1,5 @@
+*
+!dist/**/*
+!lib/**/*
+!package.json
+!static/**/*

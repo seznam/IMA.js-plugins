@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIComponentHelper serializeObjectToNoScript method should return serialized object to string for noscript tag 1`] = `" aria-label="something" aria-hidden="true""`;

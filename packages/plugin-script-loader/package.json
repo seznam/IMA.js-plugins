@@ -1,13 +1,15 @@
 {
   "name": "@ima/plugin-script-loader",
-  "version": "2.2.2",
+  "version": "3.0.0-rc.10",
   "description": "Seznam IMA.js plugin for loading script",
-  "main": "index.js",
+  "main": "./dist/cjs/main.js",
+  "module": "./dist/esm/main.js",
   "scripts": {
-    "build": "echo \"Release process is supported only via lerna command. See README.md for more info.\"; exit 1",
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
-    "doc": "../../node_modules/.bin/gulp doc",
-    "prepare": "../../node_modules/.bin/rollup -c"
+    "build": "ima-plugin build",
+    "dev": "ima-plugin dev",
+    "link": "ima-plugin link",
+    "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
   },
   "keywords": [
     "IMA.js",
@@ -29,11 +31,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@ima/plugin-resource-loader": "^2.2.2"
-  },
-  "engines": {
-    "node": ">=6",
-    "npm": ">=4 <9"
+    "@ima/plugin-resource-loader": "^3.0.0-rc.3"
   },
   "browserify": {
     "transform": [

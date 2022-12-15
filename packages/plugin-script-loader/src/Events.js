@@ -1,9 +1,9 @@
 /**
- * @Events
+ * @typedef Events
  * @property {string} LOADED - The event was fired after provided script is loaded.
  */
 const Events = Object.freeze({
-  LOADED: 'ima.plugin.script.loader.loaded'
+  LOADED: 'ima.plugin.script.loader.loaded',
 });
 
 export default Events;

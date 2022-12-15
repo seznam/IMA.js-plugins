@@ -3,12 +3,12 @@ import RestClient from './RestClient';
 /**
  * Symbols for representing the private fields in the entity.
  *
- * @type {Object<string, Symbol>}
+ * @type {Object<string, symbol>}
  */
 const PRIVATE = Object.freeze({
   restClient: Symbol('restClient'),
   entityClass: Symbol('entityClass'),
-  entityClassConfigured: Symbol('entityClassConfigured')
+  entityClassConfigured: Symbol('entityClassConfigured'),
 });
 
 /**
@@ -42,7 +42,7 @@ export default class AbstractResource {
      */
     this[PRIVATE.restClient] = restClient;
     Object.defineProperty(this, PRIVATE.restClient, {
-      enumerable: false
+      enumerable: false,
     });
   }
 
@@ -51,7 +51,7 @@ export default class AbstractResource {
    * returned REST API client will also be used in all the dynamic methods of
    * this service.
    *
-   * @return {RestClient} The REST API client.
+   * @returns {RestClient} The REST API client.
    */
   get $restClient() {
     return this[PRIVATE.restClient];
@@ -61,7 +61,7 @@ export default class AbstractResource {
    * Returns entity class identifying the resource of this service, it is also used
    * to initialize all data fetched using the appropriate class methods.
    *
-   * @return {?AbstractEntity} Entity class identifying the resource of this service.
+   * @returns {?AbstractEntity} Entity class identifying the resource of this service.
    */
   static get entityClass() {
     if ($Debug) {
@@ -92,7 +92,7 @@ export default class AbstractResource {
 
     this[PRIVATE.entityClass] = entityClass;
     Object.defineProperty(this, PRIVATE.entityClass, {
-      enumerable: false
+      enumerable: false,
     });
     this[PRIVATE.entityClassConfigured] = true;
   }
@@ -115,7 +115,7 @@ export default class AbstractResource {
    *        agent for more details.
    * @param {?AbstractEntity=} parentEntity The parent entity containing the
    *        resource from which the entities should be listed.
-   * @return {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
+   * @returns {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
    *         that will resolve to the server's response, or the entity,
    *         entities or {@code null} constructed from the response body if
    *         this entity class has the {@code inlineResponseBody} flag set.
@@ -149,7 +149,7 @@ export default class AbstractResource {
    *        agent for more details.
    * @param {?AbstractEntity=} parentEntity The parent entity containing the
    *        resource from which the entity should be retrieved.
-   * @return {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
+   * @returns {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
    *         that will resolve to the server's response, or the entity,
    *         entities or {@code null} constructed from the response body if
    *         this entity class has the {@code inlineResponseBody} flag set.
@@ -186,7 +186,7 @@ export default class AbstractResource {
    *        agent for more details.
    * @param {?AbstractEntity=} parentEntity The parent entity containing the
    *        nested resource within which the new entity should be created.
-   * @return {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
+   * @returns {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
    *         that will resolve to the server's response, or the entity,
    *         entities or {@code null} constructed from the response body if
    *         this entity class has the {@code inlineResponseBody} flag set.
@@ -196,7 +196,7 @@ export default class AbstractResource {
     // and properly create a new entity instance later in the REST API client.
     let fakeEntity = Reflect.construct(this.constructor.entityClass, [
       data,
-      parentEntity
+      parentEntity,
     ]);
     let serializedData = fakeEntity.$serialize();
 
@@ -229,7 +229,7 @@ export default class AbstractResource {
    *        agent for more details.
    * @param {?AbstractEntity=} parentEntity The parent entity containing the
    *        resource from which the entity should be deleted.
-   * @return {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
+   * @returns {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
    *         that will resolve to the server's response, or the entity,
    *         entities or {@code null} constructed from the response body if
    *         this entity class has the {@code inlineResponseBody} flag set.
@@ -268,7 +268,7 @@ export default class AbstractResource {
    *            withCredentials: boolean=
    *        }=} options Request options. See the documentation of the HTTP
    *        agent for more details.
-   * @return {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
+   * @returns {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
    *         that will resolve to the server's response, or the entity,
    *         entities or {@code null} constructed from the response body if
    *         the provided entity's class has the {@code inlineResponseBody}
@@ -307,7 +307,7 @@ export default class AbstractResource {
    *            withCredentials: boolean=
    *        }=} options Request options. See the documentation of the HTTP
    *        agent for more details.
-   * @return {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
+   * @returns {Promise<?(Response|AbstractEntity|AbstractEntity[])>} A promise
    *         that will resolve to the server's response, or the entity,
    *         entities or {@code null} constructed from the response body if
    *         the provided entity's class has the {@code inlineResponseBody}

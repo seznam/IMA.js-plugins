@@ -1,4 +1,4 @@
-import { AbstractComponent } from '@ima/core';
+import { AbstractComponent } from '@ima/react-page-renderer';
 import ReactDOM from 'react-dom';
 
 const IS_AT_CLIENT_SIDE = typeof window !== 'undefined';
@@ -20,7 +20,7 @@ const PRIVATE = {
   // methods
   registerListener: Symbol('registerListener'),
   deregisterListener: Symbol('deregisterListener'),
-  bindUiEventListeners: Symbol('bindUiEventListeners')
+  bindUiEventListeners: Symbol('bindUiEventListeners'),
 };
 if ($Debug) {
   Object.freeze(PRIVATE);
@@ -479,7 +479,7 @@ export default class AbstractManagedComponent extends AbstractComponent {
    *        listener is to be executed.
    * @param {function(*)} listener The event listener to execute on the
    *        specified event's occurrence.
-   * @return {?function(*)} The listener to pass to the underlying event
+   * @returns {?function(*)} The listener to pass to the underlying event
    *         API.
    */
   [PRIVATE.registerListener](
@@ -531,7 +531,7 @@ export default class AbstractManagedComponent extends AbstractComponent {
    *        listener was to be executed.
    * @param {function(*)} listener The listener that was to be executed
    *        on the specified event's occurrence.
-   * @return {?function(*)} The listener that was passed to the
+   * @returns {?function(*)} The listener that was passed to the
    *         underlying event API, or {@code null} if the provided
    *         listener was not registered.
    */
@@ -583,7 +583,7 @@ export default class AbstractManagedComponent extends AbstractComponent {
    * @param {?(boolean|number|string|React.Element|Array<React.Element>)} reactElement
    *        The root react element created by this component's render()
    *        method.
-   * @return {?(boolean|number|string|React.Element|Array<React.Element>)}
+   * @returns {?(boolean|number|string|React.Element|Array<React.Element>)}
    *         The post-processed tree of react elements.
    */
   [PRIVATE.bindUiEventListeners](reactElement) {
@@ -605,12 +605,12 @@ export default class AbstractManagedComponent extends AbstractComponent {
       Object.defineProperty(clone, '_self', {
         enumerable: false,
         configurable: false,
-        value: reactElement._self
+        value: reactElement._self,
       });
       Object.defineProperty(clone, '_source', {
         enumerable: false,
         configurable: false,
-        value: reactElement._source
+        value: reactElement._source,
       });
 
       props = clone.props && Object.assign({}, clone.props);

@@ -18,8 +18,8 @@ describe('Client/Server implementation of Abstract class', () => {
     os: {
       architecture: 64,
       family: 'Windows Server 2008 R2 / 7',
-      version: '7'
-    }
+      version: '7',
+    },
   };
 
   var userAgentObjectImproved = {
@@ -34,8 +34,8 @@ describe('Client/Server implementation of Abstract class', () => {
     os: {
       architecture: 64,
       family: 'Windows Server 2008 R2 / 7',
-      version: '7'
-    }
+      version: '7',
+    },
   };
 
   var userAgentObjectUndefined = {
@@ -45,8 +45,8 @@ describe('Client/Server implementation of Abstract class', () => {
     os: {
       architecture: undefined,
       family: undefined,
-      version: undefined
-    }
+      version: undefined,
+    },
   };
 
   var userAgentObjectNull = {
@@ -58,7 +58,7 @@ describe('Client/Server implementation of Abstract class', () => {
     name: null,
     ua: null,
     version: null,
-    os: null
+    os: null,
   };
   var userAgentObjectUnknown = {
     description: 'unknown',
@@ -72,19 +72,25 @@ describe('Client/Server implementation of Abstract class', () => {
     os: {
       architecture: -1,
       family: 'unknown',
-      version: 'unknown'
-    }
+      version: 'unknown',
+    },
   };
 
+  /**
+   * Generates user agent implementation mocks
+   *
+   * @param {object} platformJS
+   * @returns {object[]}
+   */
   function getImplementations(platformJS) {
     var $WindowMock = {
       getWindow: () => {
         return {
           navigator: {
-            userAgent: userAgentString
-          }
+            userAgent: userAgentString,
+          },
         };
-      }
+      },
     };
 
     var $RequestMock = {
@@ -94,13 +100,13 @@ describe('Client/Server implementation of Abstract class', () => {
         } else {
           return null;
         }
-      }
+      },
     };
 
     var PlatformJSMock = platformJS;
     if (!platformJS) {
       PlatformJSMock = {
-        parse: () => userAgentObject
+        parse: () => userAgentObject,
       };
     }
 
@@ -112,7 +118,7 @@ describe('Client/Server implementation of Abstract class', () => {
 
     return [
       { instance: uaClient, name: 'client' },
-      { instance: uaServer, name: 'server' }
+      { instance: uaServer, name: 'server' },
     ];
   }
 
@@ -129,7 +135,7 @@ describe('Client/Server implementation of Abstract class', () => {
     });
 
     var PlatformJSMockUndefined = {
-      parse: () => userAgentObjectUndefined
+      parse: () => userAgentObjectUndefined,
     };
     using(getImplementations(PlatformJSMockUndefined), implementation => {
       it(
@@ -144,7 +150,7 @@ describe('Client/Server implementation of Abstract class', () => {
     });
 
     var PlatformJSMockNull = {
-      parse: () => userAgentObjectNull
+      parse: () => userAgentObjectNull,
     };
     using(getImplementations(PlatformJSMockNull), implementation => {
       it(
@@ -195,7 +201,7 @@ describe('Client/Server implementation of Abstract class', () => {
   describe('getManufacturer method', () => {
     using(getImplementations(), implementation => {
       it('should return correct string on ' + implementation.name, () => {
-        expect(implementation.instance.getManufacturer()).toEqual('unknown');
+        expect(implementation.instance.getManufacturer()).toBe('unknown');
       });
     });
   });
@@ -211,7 +217,7 @@ describe('Client/Server implementation of Abstract class', () => {
   describe('getPrerelease method', () => {
     using(getImplementations(), implementation => {
       it('should return correct string on ' + implementation.name, () => {
-        expect(implementation.instance.getPrerelease()).toEqual('unknown');
+        expect(implementation.instance.getPrerelease()).toBe('unknown');
       });
     });
   });
@@ -219,7 +225,7 @@ describe('Client/Server implementation of Abstract class', () => {
   describe('getProduct method', () => {
     using(getImplementations(), implementation => {
       it('should return correct string on ' + implementation.name, () => {
-        expect(implementation.instance.getProduct()).toEqual('unknown');
+        expect(implementation.instance.getProduct()).toBe('unknown');
       });
     });
   });

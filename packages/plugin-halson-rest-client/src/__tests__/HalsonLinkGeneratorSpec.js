@@ -26,17 +26,17 @@ describe('HalsonLinkGenerator', () => {
     apiRoot: 'http://localhost/api',
     links: {
       user: {
-        href: '/user'
+        href: '/user',
       },
       programme: {
         href: '/programme/{id}{?oldId}',
-        templated: true
+        templated: true,
       },
       tips: {
         href: '/tips{?channelIds,timestamp}',
-        templated: true
-      }
-    }
+        templated: true,
+      },
+    },
   };
 
   let linkGenerator;
@@ -69,7 +69,7 @@ describe('HalsonLinkGenerator', () => {
       Entity,
       123,
       {
-        oldId: 4654
+        oldId: 4654,
       },
       CONFIG
     );
@@ -82,7 +82,7 @@ describe('HalsonLinkGenerator', () => {
       null,
       {
         channelIds: [1, 2, 3],
-        timestamp: 1234567890
+        timestamp: 1234567890,
       },
       CONFIG
     );
@@ -98,7 +98,7 @@ describe('HalsonLinkGenerator', () => {
       Entity,
       null,
       {
-        channelIds: [1, 2]
+        channelIds: [1, 2],
       },
       CONFIG
     );
@@ -112,13 +112,13 @@ describe('HalsonLinkGenerator', () => {
       Entity,
       null,
       {
-        channelIds: [1, 2]
+        channelIds: [1, 2],
       },
       {
         apiRoot: 'http://localhost/api',
         links: {
-          tips: '/tips{?channelIds,timestamp}'
-        }
+          tips: '/tips{?channelIds,timestamp}',
+        },
       }
     );
     expect(uri).toBe('http://localhost/api/tips?channelIds=1,2');
@@ -129,13 +129,13 @@ describe('HalsonLinkGenerator', () => {
     let uri = linkGenerator.createLink(
       {
         _links: {
-          tips: '/some/12/tips{?channelIds,timestamp}'
-        }
+          tips: '/some/12/tips{?channelIds,timestamp}',
+        },
       },
       Entity,
       null,
       {
-        channelIds: [1, 2]
+        channelIds: [1, 2],
       },
       CONFIG
     );

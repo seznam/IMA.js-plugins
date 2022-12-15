@@ -11,7 +11,7 @@ const PRIVATE = Object.freeze({
   idParameterName: Symbol('idParameterName'),
   idParameterNameConfigured: Symbol('idParameterNameConfigured'),
   inlineEmbeds: Symbol('inlineEmbeds'),
-  inlineEmbedsConfigured: Symbol('inlineEmbedsConfigured')
+  inlineEmbedsConfigured: Symbol('inlineEmbedsConfigured'),
 });
 
 /**
@@ -37,7 +37,7 @@ export default class AbstractHalsonEntity extends AbstractEntity {
       this._links = {};
     }
     Object.defineProperty(this, '_links', {
-      enumerable: false
+      enumerable: false,
     });
   }
 
@@ -45,7 +45,7 @@ export default class AbstractHalsonEntity extends AbstractEntity {
    * Returns the name of the embed within which the entities will most likely
    * be embedded when listing the entities from their resource.
    *
-   * @return {string} The name of the embed within which the entities will
+   * @returns {string} The name of the embed within which the entities will
    *         most likely be embedded when listing the entities from their
    *         resource.
    */
@@ -77,7 +77,7 @@ export default class AbstractHalsonEntity extends AbstractEntity {
    * Returns the name of the ID parameter used in this entity's resource to
    * identify individual entities.
    *
-   * @return {string} The name of the ID parameter used in this entity's
+   * @returns {string} The name of the ID parameter used in this entity's
    *         resource to identify individual entities.
    */
   static get idParameterName() {
@@ -113,7 +113,7 @@ export default class AbstractHalsonEntity extends AbstractEntity {
    * from the resource name. The prefixes will not be included in the names
    * of the entity fields into which the embedded resources will be inlined.
    *
-   * @return {?string[]} The names of the embedded resources that should be
+   * @returns {?string[]} The names of the embedded resources that should be
    *         inlined into the entity's fields.
    */
   static get inlineEmbeds() {

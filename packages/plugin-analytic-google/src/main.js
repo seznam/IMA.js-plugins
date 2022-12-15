@@ -1,3 +1,4 @@
+import { pluginLoader } from '@ima/core';
 import uid from 'easy-uid';
 
 import GoogleAnalytic from './GoogleAnalytic.js';
@@ -6,10 +7,8 @@ import GoogleAnalytics4 from './GoogleAnalytics4';
 const defaultDependencies = GoogleAnalytic.$dependencies;
 const googleAnalytics4DefaultDependencies = GoogleAnalytics4.$dependencies;
 
-const $registerImaPlugin = () => {};
-
-let initSettings = () => {
-  return {
+pluginLoader.register('@ima/plugin-analytic-google', () => ({
+  initSettings: () => ({
     prod: {
       plugin: {
         analytic: {
@@ -17,38 +16,33 @@ let initSettings = () => {
             service: 'UA-XXXXXXX-X',
             settings: {
               clientId: uid(),
-              storage: 'none'
+              storage: 'none',
             },
             settingsSetter: {
               allowAdFeatures: false,
               anonymizeIp: true,
-              allowAdPersonalizationSignals: false
-            }
+              allowAdPersonalizationSignals: false,
+            },
           },
           google4: {
             consentSettings: {
               ad_storage: 'denied',
               analytics_storage: 'denied',
-              personalization_storage: 'denied'
+              personalization_storage: 'denied',
             },
             service: 'G-XXXXXXXXXX',
-            waitForUpdateTimeout: 5000
-          }
-        }
-      }
+            waitForUpdateTimeout: 5000,
+          },
+        },
+      },
     },
-
-    test: {},
-
-    dev: {}
-  };
-};
+    dev: {},
+  }),
+}));
 
 export {
   GoogleAnalytic,
   GoogleAnalytics4,
   defaultDependencies,
   googleAnalytics4DefaultDependencies,
-  $registerImaPlugin,
-  initSettings
 };

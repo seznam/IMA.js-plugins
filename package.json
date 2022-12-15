@@ -1,83 +1,72 @@
 {
   "version": "1.0.0",
   "scripts": {
-    "postinstall": "if ! $CI; then lerna run prepare; fi",
-    "commit": "git-cz",
-    "test": "jest --coverage --no-watchman --config=jest.config.js",
+    "prepare": "husky install",
+    "commit": "echo 'This command has been replaced with \"npm run changeset\"'",
+    "changeset": "changeset add",
+    "postinstall": "npm run build",
+    "build": "npm run build --workspaces",
+    "test": "jest --changedSince `test -f '.changeset/pre.json' && echo 'next' || echo 'master'`",
+    "test:all": "jest --colors",
     "lint:cmd": "eslint -c ./.eslintrc.js --ignore-path ./.gitignore",
-    "lint": "npm run lint:cmd -- './**/*.{js,jsx}'",
+    "lint": "eslint --cache --cache-location=node_modules/.cache/ './**/*.{js,jsx,ts,tsx,mjs}'",
     "lint:fix": "npm run lint -- --fix",
-    "doc": "lerna run doc",
-    "audit": "lerna run audit",
+    "stylelint": "stylelint --cache --cache-location=node_modules/.cache/ './**/*.{css,less}'",
     "precommit": "lint-staged",
-    "release": "lerna version",
-    "release:publish": "lerna publish from-package --yes"
+    "release": "npm run release:prepare && npm run release:push",
+    "release:prepare": "changeset version",
+    "release:push": "git add . && git commit -m 'release: publish' && changeset tag && git push --follow-tags",
+    "release:graduate": "changeset pre exit && npm run release",
+    "release:next:init": "changeset pre enter rc",
+    "release:publish": "changeset publish --no-git-tag"
   },
   "workspaces": [
     "./packages/*"
   ],
-  "devDependencies": {
-    "@babel/core": "^7.11.1",
-    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
-    "@babel/preset-react": "^7.10.4",
-    "@commitlint/cli": "^9.1.1",
-    "@commitlint/config-conventional": "^9.1.1",
-    "@ima/core": "^17.7.2",
-    "@ima/gulp-task-loader": "^17.7.0",
-    "@rollup/plugin-babel": "^5.1.0",
-    "@rollup/plugin-commonjs": "^14.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^8.4.0",
-    "@rollup/plugin-replace": "^2.3.3",
-    "babel-eslint": "^10.1.0",
-    "babel-preset-jest": "^26.2.0",
-    "cz-conventional-changelog": "^3.2.0",
-    "del": "^5.1.0",
-    "enzyme": "3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2",
-    "enzyme-to-json": "^3.5.0",
-    "eslint": "^7.6.0",
-    "eslint-config-prettier": "6.11.0",
-    "eslint-plugin-jasmine": "^4.1.1",
-    "eslint-plugin-jest": "^23.20.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "7.20.5",
-    "git-cz": "^4.7.0",
-    "gulp": "^4.0.2",
-    "gulp-babel": "8.0.0",
-    "gulp-cached": "^1.1.1",
-    "gulp-change": "^1.0.2",
-    "gulp-jsdoc3": "^3.0.0",
-    "gulp-remember": "^1.0.1",
-    "gulp-rename": "^2.0.0",
-    "husky": "^4.2.5",
-    "jest": "^26.2.2",
-    "lerna": "^3.22.1",
-    "lint-staged": "^10.2.11",
-    "prettier": "^2.0.5",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
-    "rollup": "^2.23.0",
-    "rollup-plugin-copy": "^3.3.0",
-    "rollup-plugin-peer-deps-external": "^2.2.3",
-    "to-mock": "^1.6.2"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
   "lint-staged": {
-    "**/*.{js,jsx}": "npm run lint:cmd"
+    "**/*.{js,jsx,ts,tsx,mjs}": "eslint",
+    "**/*.{css,less}": "stylelint"
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.18.0",
+    "@babel/preset-react": "^7.18.6",
+    "@cfaester/enzyme-adapter-react-18": "^0.6.0",
+    "@changesets/cli": "^2.25.2",
+    "@ima/cli": "latest",
+    "@ima/core": "rc",
+    "@ima/plugin-cli": "latest",
+    "@swc/jest": "^0.2.23",
+    "@types/jest": "^29.2.3",
+    "@types/node": "^18.7.6",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "enzyme": "3.11.0",
+    "enzyme-to-json": "^3.5.0",
+    "eslint": "^8.28.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^27.1.6",
+    "eslint-plugin-jsdoc": "^39.6.4",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.11",
+    "husky": "^8.0.2",
+    "jest": "^29.3.0",
+    "jest-environment-jsdom": "^29.3.0",
+    "jest-watch-select-projects": "^2.0.0",
+    "jest-watch-typeahead": "^2.2.1",
+    "lint-staged": "^13.0.4",
+    "postcss": "^8.4.18",
+    "postcss-less": "^6.0.0",
+    "prettier": "^2.8.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "shallow-with-context": "^0.5.1",
+    "stylelint": "^14.14.1",
+    "stylelint-config-css-modules": "^4.1.0",
+    "stylelint-config-standard": "^29.0.0",
+    "stylelint-declaration-block-no-ignored-properties": "^2.6.0",
+    "stylelint-order": "^5.0.0",
+    "to-mock": "^1.6.2",
+    "typescript": "^4.9.3"
   }
 }

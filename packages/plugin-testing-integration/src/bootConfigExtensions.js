@@ -1,6 +1,15 @@
 import { getConfig } from './configuration';
 import initBindApp from './extensions/bind';
 
+/**
+ * @returns {{
+ *  initSettings: function()
+ *  initBindApp: function()
+ *  initServicesApp: function()
+ *  initRoutes: function()
+ *  getAppExtension: function()
+ * }}
+ */
 export function getBootConfigExtensions() {
   const { TestPageRenderer, ...config } = getConfig();
   let results = [];
@@ -26,6 +35,6 @@ export function getBootConfigExtensions() {
     },
     getAppExtension: app => {
       return Object.assign({}, ...results, config.extendAppObject(app));
-    }
+    },
   };
 }

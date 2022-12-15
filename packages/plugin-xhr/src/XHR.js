@@ -9,7 +9,8 @@ const EMPTY_OBJECT = {};
 
 /**
  * Options for a request sent using the HTTP agent.
- * @typedef {Object} XHRRequestOptions
+ *
+ * @typedef {object} XHRRequestOptions
  * @property {number} [timeout] Specifies the request timeout in milliseconds.
  * @property {number} [repeatRequest] Specifies the maximum number of tries to
  *           repeat the request if the request fails.
@@ -29,7 +30,8 @@ const EMPTY_OBJECT = {};
  * Request observer and controller object. The state of the request may be
  * observed by setting its <code>on</code>-prefixed properties (these are
  * <code>null</code> by default.
- * @typedef {Object} RequestObserver
+ *
+ * @typedef {object} RequestObserver
  * @property {number} state The current <code>readyState</code> state of the
  *           observed XHR request.
  * @property {function()} abort Callback used to abort the observed XHR
@@ -44,7 +46,8 @@ const EMPTY_OBJECT = {};
 /**
  * Object representing an HTTP response. This is compatible with the IMA's
  * HTTP Agent's <code>AgentResponse</code> type.
- * @typedef {Object} XHRResponse
+ *
+ * @typedef {object} XHRResponse
  * @property {number} status The HTTP response status code.
  * @property {*} body The parsed response body, parsed as JSON.
  * @property {Object<string, string>} headers The response HTTP headers.
@@ -55,7 +58,7 @@ const EMPTY_OBJECT = {};
  */
 
 /**
- * @typedef {Object} XHRRequestParameters
+ * @typedef {object} XHRRequestParameters
  * @property {string} method The HTTP method used to make the request.
  * @property {string} url The original URL to which the request should have
  *           been made.
@@ -98,7 +101,7 @@ export default class XHR {
    * @param {string} url The URL to which the request should be made.
    * @param {*=} data The data to send in the request's query string.
    * @param {XHRRequestOptions=} options The optional request options.
-   * @return {Promise<XHRResponse>} A promise that will resolve to the
+   * @returns {Promise<XHRResponse>} A promise that will resolve to the
    *         response object.
    */
   get(url, data = EMPTY_OBJECT, options = EMPTY_OBJECT) {
@@ -112,7 +115,7 @@ export default class XHR {
    * @param {string} url The URL to which the request should be made.
    * @param {*=} data The data to send send in the request's body.
    * @param {XHRRequestOptions=} options The optional request options.
-   * @return {Promise<XHRResponse>} A promise that will resolve to the
+   * @returns {Promise<XHRResponse>} A promise that will resolve to the
    *         response object.
    */
   post(url, data = null, options = EMPTY_OBJECT) {
@@ -126,7 +129,7 @@ export default class XHR {
    * @param {string} url The URL to which the request should be made.
    * @param {*=} data The data to send send in the request's body.
    * @param {XHRRequestOptions=} options The optional request options.
-   * @return {Promise<XHRResponse>} A promise that will resolve to the
+   * @returns {Promise<XHRResponse>} A promise that will resolve to the
    *         response object.
    */
   put(url, data = null, options = EMPTY_OBJECT) {
@@ -140,7 +143,7 @@ export default class XHR {
    * @param {string} url The URL to which the request should be made.
    * @param {*=} data The data to send send in the request's body.
    * @param {XHRRequestOptions=} options The optional request options.
-   * @return {Promise<XHRResponse>} A promise that will resolve to the
+   * @returns {Promise<XHRResponse>} A promise that will resolve to the
    *         response object.
    */
   patch(url, data = null, options = EMPTY_OBJECT) {
@@ -154,7 +157,7 @@ export default class XHR {
    * @param {string} url The URL to which the request should be made.
    * @param {*=} data The data to send send in the request's body.
    * @param {XHRRequestOptions=} options The optional request options.
-   * @return {Promise<XHRResponse>} A promise that will resolve to the
+   * @returns {Promise<XHRResponse>} A promise that will resolve to the
    *         response object.
    */
   delete(url, data = null, options = EMPTY_OBJECT) {
@@ -195,7 +198,7 @@ export default class XHR {
    *        for requests using other HTTP methods.
    * @param {XHRRequestOptions} options Request options, as provided by the
    *        caller of the public API.
-   * @return {Promise<XHRResponse>} A promise that will resolve to the
+   * @returns {Promise<XHRResponse>} A promise that will resolve to the
    *         response object.
    */
   _prepareAndSendRequest(method, url, data, options) {
@@ -236,7 +239,7 @@ export default class XHR {
           url,
           data,
           Object.assign({}, completeOptions, {
-            repeatRequest: completeOptions.repeatRequest - 1
+            repeatRequest: completeOptions.repeatRequest - 1,
           })
         );
       } else {
@@ -256,7 +259,7 @@ export default class XHR {
    *        public API, augmented with the default options and headers.
    * @param {XHRRequestParameters} requestParams Parameters that were used to
    *        create the request.
-   * @return Promise<XHRResponse> A promise that will resolve to the
+   * @returns {Promise<XHRResponse>} A promise that will resolve to the
    *         response object.
    */
   _sendRequest(method, url, body, options, requestParams) {
@@ -281,7 +284,7 @@ export default class XHR {
         }
       },
       onstatechange: null,
-      onprogress: null
+      onprogress: null,
     };
     if (options.observe) {
       options.observe(observer);
@@ -308,7 +311,7 @@ export default class XHR {
    *        public API, augmented with the default options and headers.
    * @param {XHRRequestParameters} requestParams The parameters that were
    *        used to create the request.
-   * @return {Promise<XHRResponse>} A promise that will resolve to the
+   * @returns {Promise<XHRResponse>} A promise that will resolve to the
    *         response object.
    */
   _sendXHRRequest(xhr, body, observer, options, requestParams) {
@@ -342,14 +345,14 @@ export default class XHR {
       xhr.addEventListener('error', event => {
         reject(
           new GenericError('The request failed.', {
-            cause: event
+            cause: event,
           })
         );
       });
       xhr.addEventListener('timeout', event => {
         reject(
           new GenericError('The request timed out.', {
-            cause: event
+            cause: event,
           })
         );
       });
@@ -368,7 +371,7 @@ export default class XHR {
    * @param {Error} cause The cause of the request's failure.
    * @param {XHRRequestParameters} requestParams Parameters that were used to
    *        create the request.
-   * @return {GenericError} The error to reject the request promise with.
+   * @returns {GenericError} The error to reject the request promise with.
    */
   _composeRequestError(cause, requestParams) {
     const params =
@@ -385,7 +388,7 @@ export default class XHR {
       Object.assign({}, requestParams, {
         status,
         body: params.xhr && (params.xhr.response || params.xhr.responseText),
-        cause
+        cause,
       })
     );
   }
@@ -397,7 +400,7 @@ export default class XHR {
    *        sent request.
    * @param {XHRRequestParameters} requestParams Parameters that were used to
    *        create the request.
-   * @return {XHRResponse} Composed response object.
+   * @returns {XHRResponse} Composed response object.
    */
   _composeResponse(xhr, requestParams) {
     return {
@@ -405,7 +408,7 @@ export default class XHR {
       body: xhr.response,
       params: requestParams,
       headers: this._parseHeaders(xhr.getAllResponseHeaders()),
-      cached: false
+      cached: false,
     };
   }
 
@@ -413,9 +416,9 @@ export default class XHR {
    * Parses the provided string containing a set of HTTP headers into a
    * key-value object.
    *
-   * @params {string} allHeaders A string containing HTTP headers separated
+   * @param {string} allHeaders A string containing HTTP headers separated
    *         by the CRLF sequence.
-   * @return {Object<string, string>} Parsed HTTP headers.
+   * @returns {Object<string, string>} Parsed HTTP headers.
    */
   _parseHeaders(allHeaders) {
     const parsedHeaders = {};
@@ -435,7 +438,7 @@ export default class XHR {
    *
    * @param {Object<string, (boolean|number|string)>} query The query to
    *        encode.
-   * @return {string} Encoded query string, without the "?" prefix.
+   * @returns {string} Encoded query string, without the "?" prefix.
    */
   _encodeQuery(query) {
     // It would be great if we had native support for URLSearchParams, but
@@ -455,7 +458,7 @@ export default class XHR {
    *        the request.
    * @param {XHRRequestOptions} options The options passed by the calling
    *        API.
-   * @return {XHRRequestParameters} The composed request parameters object.
+   * @returns {XHRRequestParameters} The composed request parameters object.
    */
   _composeRequestParameters(method, url, data, options) {
     return {
@@ -463,7 +466,7 @@ export default class XHR {
       url,
       transformedUrl: url,
       data,
-      options
+      options,
     };
   }
 
@@ -472,7 +475,7 @@ export default class XHR {
    * JSON.
    *
    * @param {*} requestBody The request body.
-   * @return {boolean} <code>true</code> if and only if the provided request
+   * @returns {boolean} <code>true</code> if and only if the provided request
    *         body should be manually encoded as JSON, the request body may be
    *         used as-is otherwise.
    */
@@ -503,7 +506,7 @@ export default class XHR {
    *
    * @param {XHRRequestOptions} options The options, as provided by the
    *        calling code.
-   * @return {XHRRequestOptions} Composed options, with the default options
+   * @returns {XHRRequestOptions} Composed options, with the default options
    *         and default headers filled in.
    */
   _composeOptions(options) {
@@ -513,7 +516,7 @@ export default class XHR {
         this._defaultOptions.headers,
         this._defaultHeaders,
         options.headers
-      )
+      ),
     });
   }
 }

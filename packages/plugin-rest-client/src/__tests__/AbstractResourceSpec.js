@@ -1,7 +1,6 @@
-import AbstractResource from '../AbstractResource';
 import AbstractEntity from '../AbstractEntity';
+import AbstractResource from '../AbstractResource';
 import AbstractRestClient from '../AbstractRestClient';
-import { testStaticProperty } from './RestClientTestUtils';
 
 describe('AbstractResource', () => {
   class Entity extends AbstractEntity {
@@ -66,134 +65,95 @@ describe('AbstractResource', () => {
   });
 
   describe('list', () => {
-    it('should call restClient.list method', done => {
-      spyOn(restClient, 'list').and.callThrough();
+    it('should call restClient.list method', async () => {
+      jest.spyOn(restClient, 'list');
 
-      resource
-        .list(parametersToPass, {}, null)
-        .then(() => {
-          expect(restClient.list).toHaveBeenCalledWith(
-            resource.constructor.entityClass,
-            parametersToPass,
-            {},
-            null
-          );
-          done();
-        })
-        .catch(error => {
-          fail(error.stack);
-          done();
-        });
+      await resource.list(parametersToPass, {}, null);
+
+      expect(restClient.list).toHaveBeenCalledWith(
+        resource.constructor.entityClass,
+        parametersToPass,
+        {},
+        null
+      );
     });
   });
 
   describe('get', () => {
-    it('should call restClient.get method', done => {
-      spyOn(restClient, 'get').and.callThrough();
+    it('should call restClient.get method', async () => {
+      jest.spyOn(restClient, 'get');
       const id = 24;
 
-      resource
-        .get(id, parametersToPass, {}, null)
-        .then(() => {
-          expect(restClient.get).toHaveBeenCalledWith(
-            resource.constructor.entityClass,
-            id,
-            parametersToPass,
-            {},
-            null
-          );
-          done();
-        })
-        .catch(error => {
-          fail(error.stack);
-          done();
-        });
+      await resource.get(id, parametersToPass, {}, null);
+
+      expect(restClient.get).toHaveBeenCalledWith(
+        resource.constructor.entityClass,
+        id,
+        parametersToPass,
+        {},
+        null
+      );
     });
   });
 
   describe('create', () => {
-    it('should call restClient.create method with data', done => {
-      spyOn(restClient, 'create').and.callThrough();
+    it('should call restClient.create method with data', async () => {
+      jest.spyOn(restClient, 'create');
       const data = {
         id: 1,
-        foo: 'bar'
+        foo: 'bar',
       };
 
-      resource
-        .create(data, parametersToPass, {}, null)
-        .then(() => {
-          expect(restClient.create).toHaveBeenCalledWith(
-            resource.constructor.entityClass,
-            data,
-            parametersToPass,
-            {},
-            null
-          );
-          done();
-        })
-        .catch(error => {
-          fail(error.stack);
-          done();
-        });
+      await resource.create(data, parametersToPass, {}, null);
+
+      expect(restClient.create).toHaveBeenCalledWith(
+        resource.constructor.entityClass,
+        data,
+        parametersToPass,
+        {},
+        null
+      );
     });
   });
 
   describe('delete', () => {
-    it('should call restClient.delete method', done => {
-      spyOn(restClient, 'delete').and.callThrough();
+    it('should call restClient.delete method', async () => {
+      jest.spyOn(restClient, 'delete');
       const id = 24;
 
-      resource
-        .delete(id, parametersToPass, {}, null)
-        .then(() => {
-          expect(restClient.delete).toHaveBeenCalledWith(
-            resource.constructor.entityClass,
-            id,
-            parametersToPass,
-            {},
-            null
-          );
-          done();
-        })
-        .catch(error => {
-          fail(error.stack);
-          done();
-        });
+      await resource.delete(id, parametersToPass, {}, null);
+
+      expect(restClient.delete).toHaveBeenCalledWith(
+        resource.constructor.entityClass,
+        id,
+        parametersToPass,
+        {},
+        null
+      );
     });
   });
 
   describe('patch', () => {
-    it("should call restClient.patch method with entity's serialized data", done => {
-      spyOn(restClient, 'patch').and.callThrough();
+    it("should call restClient.patch method with entity's serialized data", async () => {
+      jest.spyOn(restClient, 'patch');
 
       const data = { id: 1, foo: 'bar' };
       let newEntity = new Entity(data);
       let serializedData = newEntity.$serialize(data);
 
-      resource
-        .patch(newEntity, data, parametersToPass, {})
-        .then(() => {
-          expect(restClient.patch).toHaveBeenCalledWith(
-            newEntity.constructor,
-            newEntity[Entity.idFieldName],
-            serializedData,
-            parametersToPass,
-            {}
-          );
-          done();
-        })
-        .catch(error => {
-          fail(error.stack);
-          done();
-        });
+      await resource.patch(newEntity, data, parametersToPass, {});
+
+      expect(restClient.patch).toHaveBeenCalledWith(
+        newEntity.constructor,
+        newEntity[Entity.idFieldName],
+        serializedData,
+        parametersToPass,
+        {}
+      );
     });
   });
 
   describe('static properties', () => {
-    it('should be possible to configure entityClass only once', () => {
-      testStaticProperty(AbstractResource, 'entityClass', null, true, Entity);
-    });
-
     it(
       'should have all its private symbol properties marked as ' +
         'non-enumerable',

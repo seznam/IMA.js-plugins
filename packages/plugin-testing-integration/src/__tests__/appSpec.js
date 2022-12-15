@@ -1,18 +1,23 @@
-jest.mock('@ima/core/build');
 jest.mock('@ima/core');
+jest.mock('../helpers.js');
+jest.mock('../localization.js');
+jest.mock('../configuration.js');
+jest.mock('../bootConfigExtensions.js');
 
+// @FIXME Update import from @ima/cli once it exports resolveImaConfig function
+import * as imaCliUtils from '@ima/cli/dist/webpack/utils';
 import * as ima from '@ima/core';
-import * as build from '@ima/core/build';
+
+import { initImaApp, clearImaApp } from '../app';
+import * as bootConfigExtensions from '../bootConfigExtensions';
+import * as configuration from '../configuration';
 import * as helpers from '../helpers';
 import * as localization from '../localization';
-import * as configuration from '../configuration';
-import * as bootConfigExtensions from '../bootConfigExtensions';
-import { initImaApp, clearImaApp } from '../app';
 
 describe('Integration', () => {
   it('can init ima app', async () => {
     const router = {
-      listen: jest.fn()
+      listen: jest.fn(),
     };
     const app = {
       oc: {
@@ -20,25 +25,24 @@ describe('Integration', () => {
           if (key === '$Router') {
             return router;
           }
-        })
-      }
+        }),
+      },
     };
     const config = {
-      appBuildPath: 'appBuildPath',
       appMainPath: 'appMainPath',
       masterElementId: 'masterElementId',
       protocol: 'http:',
       host: 'www.example.com',
       environment: 'environment',
       locale: 'fr',
-      prebootScript: jest.fn().mockReturnValue(Promise.resolve())
+      prebootScript: jest.fn().mockReturnValue(Promise.resolve()),
     };
     let configExtensions = {
       initSettings: jest.fn(),
       initBindApp: jest.fn(),
       initServicesApp: jest.fn(),
       initRoutes: jest.fn(),
-      getAppExtension: jest.fn()
+      getAppExtension: jest.fn(),
     };
     let initBindApp = jest.fn();
     let initServicesApp = jest.fn();
@@ -48,44 +52,37 @@ describe('Integration', () => {
       initBindApp,
       initServicesApp,
       initRoutes,
-      initSettings
+      initSettings,
     });
-    build.vendors = {
-      common: [],
-      client: [],
-      server: []
-    };
     let languages = {
       en: [],
-      fr: []
+      fr: [],
     };
-    helpers.requireFromProject = jest
-      .fn()
-      .mockReturnValueOnce({
-        js: ['js'],
-        vendors: {},
-        languages
-      })
+
+    jest
+      .spyOn(imaCliUtils, 'resolveImaConfig')
+      .mockResolvedValue({ languages });
+    jest
+      .spyOn(helpers, 'requireFromProject')
       .mockReturnValueOnce({ getInitialAppConfigFunctions });
-    helpers.loadFiles = jest.fn();
-    localization.generateDictionary = jest.fn();
-    configuration.getConfig = jest.fn().mockReturnValue(config);
-    ima.createImaApp = jest.fn().mockReturnValue(app);
-    ima.getClientBootConfig = jest.fn(bootConfig => {
+    jest.spyOn(localization, 'generateDictionary');
+    jest.spyOn(configuration, 'getConfig').mockReturnValue(config);
+    jest.spyOn(ima, 'createImaApp').mockReturnValue(app);
+    jest.spyOn(ima, 'getClientBootConfig').mockImplementation(bootConfig => {
       Object.values(bootConfig).forEach(method => method('ns', 'oc', 'config'));
 
       return 'bootConfig';
     });
-    ima.onLoad = jest.fn().mockReturnValue(Promise.resolve());
-    ima.bootClientApp = jest.fn();
-    bootConfigExtensions.getBootConfigExtensions = jest
-      .fn()
+    jest.spyOn(ima, 'onLoad').mockReturnValue(Promise.resolve());
+    jest.spyOn(ima, 'bootClientApp');
+    jest.spyOn(ima, 'bootClientApp');
+    jest
+      .spyOn(bootConfigExtensions, 'getBootConfigExtensions')
       .mockReturnValue(configExtensions);
 
     let application = await initImaApp();
 
     expect(application).toEqual(app);
-    expect(helpers.loadFiles).toHaveBeenCalledWith(['js']);
     expect(localization.generateDictionary).toHaveBeenCalledWith(
       languages,
       'fr'
@@ -93,10 +90,10 @@ describe('Integration', () => {
     expect(config.prebootScript).toHaveBeenCalled();
     expect(ima.createImaApp).toHaveBeenCalled();
     expect(ima.getClientBootConfig).toHaveBeenCalledWith({
-      initServicesApp: jasmine.any(Function),
-      initBindApp: jasmine.any(Function),
-      initRoutes: jasmine.any(Function),
-      initSettings: jasmine.any(Function)
+      initServicesApp: expect.any(Function),
+      initBindApp: expect.any(Function),
+      initRoutes: expect.any(Function),
+      initSettings: expect.any(Function),
     });
     expect(initServicesApp).toHaveBeenCalledWith('ns', 'oc', 'config');
     expect(initBindApp).toHaveBeenCalledWith('ns', 'oc', 'config');
@@ -131,11 +128,9 @@ describe('Integration', () => {
 
   it('can clear ima app', () => {
     let app = { oc: { clear: jest.fn() } };
-    ima.vendorLinker.clear = jest.fn();
 
     clearImaApp(app);
 
-    expect(ima.vendorLinker.clear).toHaveBeenCalled();
     expect(app.oc.clear).toHaveBeenCalled();
   });
 });

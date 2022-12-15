@@ -4,7 +4,7 @@ describe('HalsonConfigurator', () => {
   const API_ROOT = 'http://localhost/api';
   const LINK_MAP_RESOLVER = body => body._links;
 
-  it('should fetch the configuration', done => {
+  it('should fetch the configuration', async () => {
     let httpAgent = {
       get(url) {
         expect(url).toBe(API_ROOT + '/');
@@ -16,12 +16,12 @@ describe('HalsonConfigurator', () => {
             url,
             transformedUrl: url,
             data: {},
-            headers: {}
+            headers: {},
           },
           headers: {},
-          cached: false
+          cached: false,
         });
-      }
+      },
     };
 
     let configurator = new HalsonConfigurator(
@@ -29,18 +29,12 @@ describe('HalsonConfigurator', () => {
       API_ROOT,
       LINK_MAP_RESOLVER
     );
-    configurator
-      .getConfiguration()
-      .then(configurator => {
-        expect(configurator).toEqual({
-          links: { stuff: 'stuff too' },
-          apiRoot: API_ROOT
-        });
-        done();
-      })
-      .catch(error => {
-        fail(error.stack);
-        done();
-      });
+
+    let conf = await configurator.getConfiguration();
+
+    expect(conf).toEqual({
+      links: { stuff: 'stuff too' },
+      apiRoot: API_ROOT,
+    });
   });
 });

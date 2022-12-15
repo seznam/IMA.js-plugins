@@ -1,13 +1,15 @@
 {
   "name": "@ima/plugin-merkur",
-  "version": "3.1.2",
+  "version": "4.0.0-rc.10",
   "description": "The Plugin merkur",
-  "main": "index.js",
+  "main": "./dist/cjs/main.js",
+  "module": "./dist/esm/main.js",
   "scripts": {
-    "build": "echo \"Release process is supported only via lerna command. See README.md for more info.\"; exit 1",
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
-    "doc": "../../node_modules/.bin/gulp doc",
-    "prepare": "../../node_modules/.bin/rollup -c"
+    "build": "ima-plugin build",
+    "dev": "ima-plugin dev",
+    "link": "ima-plugin link",
+    "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
   },
   "keywords": [
     "ima",
@@ -33,9 +35,6 @@
     ]
   },
   "peerDependencies": {
-    "@ima/core": ">= 17.0.0"
-  },
-  "engines": {
-    "npm": ">=4 <9"
+    "@ima/core": "*"
   }
 }

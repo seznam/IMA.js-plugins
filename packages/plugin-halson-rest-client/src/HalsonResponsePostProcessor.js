@@ -1,5 +1,5 @@
-import halson from 'halson';
 import { Response, ResponsePostProcessor } from '@ima/plugin-rest-client';
+import halson from 'halson';
 
 /**
  * REST API response post-processor that decodes a HAL+JSON response body into
@@ -25,7 +25,7 @@ export default class HalsonResponsePostProcessor extends ResponsePostProcessor {
     if (!processedBody) {
       return new Response(
         Object.assign({}, response, {
-          body: null
+          body: null,
         })
       );
     }
@@ -41,7 +41,7 @@ export default class HalsonResponsePostProcessor extends ResponsePostProcessor {
 
     return new Response(
       Object.assign({}, response, {
-        body: processedBody
+        body: processedBody,
       })
     );
   }

@@ -1,21 +1,41 @@
-import { StateEvents, PageContext } from '@ima/core';
+import { StateEvents } from '@ima/core';
+import { PageContext } from '@ima/react-page-renderer';
 import hoistNonReactStaticMethod from 'hoist-non-react-statics';
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import {
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+  forwardRef as reactForwardRef,
+} from 'react';
 import { createSelector } from 'reselect';
 
 let creatorOfStateSelector = createStateSelector;
 let hoistStaticMethod = hoistNonReactStaticMethod;
 
+/**
+ *
+ * @param {Function} createStateSelector
+ */
 export function setCreatorOfStateSelector(createStateSelector) {
   creatorOfStateSelector = createStateSelector;
 }
 
 export const hoistNonReactStatic = hoistNonReactStaticMethod;
 
+/**
+ *
+ * @param {Function} method
+ */
 export function setHoistStaticMethod(method) {
   hoistStaticMethod = method;
 }
 
+/**
+ *
+ * @param {...any} selectors
+ * @returns {Function}
+ */
 export function select(...selectors) {
   return Component => {
     const WithContext = props => {
@@ -39,11 +59,17 @@ export function select(...selectors) {
   };
 }
 
+/**
+ *
+ * @param {object} props
+ * @param {...any} selectors
+ * @returns {object[]}
+ */
 export function useSelect(props, ...selectors) {
   const context = useContext(PageContext);
   const utils = context.$Utils || props.$Utils;
 
-  const currentProps = React.useRef(props);
+  const currentProps = useRef(props);
   currentProps.current = props;
 
   const stateSelector = useRef(creatorOfStateSelector(...selectors));
@@ -82,19 +108,30 @@ export function useSelect(props, ...selectors) {
   return [resolveNewState.current()];
 }
 
+/**
+ *
+ * @param {...any} selectors
+ * @returns {Function}
+ */
 export default function forwardedSelect(...selectors) {
   return Component => {
     const SelectState = select(...selectors)(Component);
     const forwardRef = (props, ref) => {
       return <SelectState {...props} forwardedRef={ref} />;
     };
+
     const name = Component.displayName || Component.name;
     forwardRef.displayName = `select(${name})`;
 
-    return React.forwardRef(forwardRef);
+    return reactForwardRef(forwardRef);
   };
 }
 
+/**
+ *
+ * @param {...any} selectors
+ * @returns {*}
+ */
 export function createStateSelector(...selectors) {
   const derivedState = createSelector(
     ...selectors.map(selector => {

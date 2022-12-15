@@ -5,7 +5,7 @@
  *
  * @param {string} embedName The name of the embed that contains the entities
  *        when listing the resource.
- * @return {function(function(
+ * @returns {function(function(
  *             new: AbstractHalsonEntity,
  *             HalsonRestClient,
  *             Object<string, *>,
@@ -17,7 +17,7 @@
 export default embedName => {
   return classConstructor => {
     Object.defineProperty(classConstructor, 'embedName', {
-      value: embedName
+      value: embedName,
     });
   };
 };

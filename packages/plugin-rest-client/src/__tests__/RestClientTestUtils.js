@@ -1,3 +1,12 @@
+/**
+ * Tests provided set of conditions for the base class
+ *
+ * @param {Class} baseClass
+ * @param {string} propertyName
+ * @param {*} defaultValue
+ * @param {boolean} throwsError
+ * @param {*} testingValue
+ */
 export function testStaticProperty(
   baseClass,
   propertyName,

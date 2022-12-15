@@ -5,7 +5,7 @@
  *
  * @param {string} idParameterName The name of the field containing the
  *        entity's ID.
- * @return {function(function(
+ * @returns {function(function(
  *             new: AbstractEntity,
  *             RestClient,
  *             Object<string, *>,
@@ -16,7 +16,7 @@
 export default idParameterName => {
   return classConstructor => {
     Object.defineProperty(classConstructor, 'idFieldName', {
-      value: idParameterName
+      value: idParameterName,
     });
   };
 };

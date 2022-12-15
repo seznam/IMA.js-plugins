@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 const PRIVATE = {
   dataFieldName: Symbol('dataFieldName'),
-  dataFieldNameConfigured: Symbol('dataFieldNameConfigured')
+  dataFieldNameConfigured: Symbol('dataFieldNameConfigured'),
 };
 if ($Debug) {
   Object.freeze(PRIVATE);
@@ -34,7 +34,7 @@ export default class AbstractDataFieldMapper {
    * The property of the raw data of the same name as the target entity
    * property will be used if this property returns {@code null}.
    *
-   * @return {?string} The name of the property in the raw data that should
+   * @returns {?string} The name of the property in the raw data that should
    *         be mapped to the entity property with which is this mapper
    *         associated.
    */
@@ -82,7 +82,7 @@ export default class AbstractDataFieldMapper {
    *        API.
    * @param {AbstractEntity} entity The entity of which's property value is
    *        being deserialized.
-   * @return {*} The deserialized value that should be set to the entity's
+   * @returns {*} The deserialized value that should be set to the entity's
    *         property.
    */
   static deserialize(value, entity) {
@@ -98,7 +98,7 @@ export default class AbstractDataFieldMapper {
    * @param {*} value The entity's property value.
    * @param {AbstractEntity} entity The entity of which's property value is
    *        being serialized.
-   * @return {*} The serialized value.
+   * @returns {*} The serialized value.
    */
   static serialize(value, entity) {
     throw new Error('The serialize method is abstract and must be overridden');
@@ -115,7 +115,7 @@ export default class AbstractDataFieldMapper {
    *        for deserialization of a raw value.
    * @param {function(*, AbstractEntity): *} serialize The callback to use
    *        for serializing the entity's property value.
-   * @return {function(new: AbstractDataFieldMapper)} The generated data
+   * @returns {function(new: AbstractDataFieldMapper)} The generated data
    *         field mapper.
    */
   static makeMapper(dataFieldName, deserialize, serialize) {

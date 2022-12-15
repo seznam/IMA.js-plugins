@@ -30,6 +30,11 @@ export default class ResourceLoader {
           );
       }
 
+      /**
+       * Make sure to reject with error instance
+       *
+       * @param {Error} error
+       */
       function handleError(error) {
         if (error instanceof Error) {
           reject(error);

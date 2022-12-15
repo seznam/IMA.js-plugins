@@ -4,7 +4,7 @@
  *
  * @param {Object<string, *>} propTypes The descriptor of types of the entity's
  *        data-holding properties.
- * @return {function(function(
+ * @returns {function(function(
  *             new: AbstractEntity,
  *             RestClient,
  *             Object<string, *>,
@@ -15,7 +15,7 @@
 export default propTypes => {
   return classConstructor => {
     Object.defineProperty(classConstructor, 'propTypes', {
-      value: propTypes
+      value: propTypes,
     });
   };
 };

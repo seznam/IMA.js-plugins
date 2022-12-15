@@ -1,16 +1,16 @@
-import { AbstractComponent, Dispatcher } from '@ima/core';
-
+import { Dispatcher } from '@ima/core';
+import { AbstractComponent } from '@ima/react-page-renderer';
 import { toMockedInstance } from 'to-mock';
 
 import AbstractManagedComponent from '../AbstractManagedComponent';
 
 const eventTarget = {
   addEventListener: jest.fn(),
-  removeEventListener: jest.fn()
+  removeEventListener: jest.fn(),
 };
 
 const listener = {
-  bind: jest.fn()
+  bind: jest.fn(),
 };
 
 listener.bind.mockReturnValue(listener);
@@ -18,8 +18,8 @@ listener.bind.mockReturnValue(listener);
 const $Utils = {
   $Dispatcher: toMockedInstance(Dispatcher, {
     listen: jest.fn(),
-    unlisten: jest.fn()
-  })
+    unlisten: jest.fn(),
+  }),
 };
 
 const testCallbackFunction = jest.fn();
@@ -54,53 +54,53 @@ describe('AbstractManagedComponent', () => {
   });
 
   describe('Component construction', () => {
-    it('Should throw error when creating instance without utils', () => {
-      expect(() => new TestComponent({})).toThrowError();
+    it('should throw error when creating instance without utils', () => {
+      expect(() => new TestComponent({})).toThrow();
     });
   });
 
   describe('Component timer functions', () => {
-    it('Should call callback within setTimeout', () => {
+    it('should call callback within setTimeout', () => {
       Component.setTimeout(timeoutTestCallbackFunction, 1000);
 
-      expect(timeoutTestCallbackFunction).not.toBeCalled();
+      expect(timeoutTestCallbackFunction).not.toHaveBeenCalled();
 
       jest.advanceTimersByTime(2000);
-      expect(timeoutTestCallbackFunction).toBeCalled();
+      expect(timeoutTestCallbackFunction).toHaveBeenCalled();
     });
 
-    it('Should not call callback within setTimeout when calling clearTimeout', () => {
+    it('should not call callback within setTimeout when calling clearTimeout', () => {
       Component.setTimeout(timeoutTestCallbackFunction, 1000);
 
-      expect(timeoutTestCallbackFunction).not.toBeCalled();
+      expect(timeoutTestCallbackFunction).not.toHaveBeenCalled();
       Component.clearTimeout(timeoutTestCallbackFunction);
 
       jest.advanceTimersByTime(2000);
-      expect(timeoutTestCallbackFunction).not.toBeCalled();
+      expect(timeoutTestCallbackFunction).not.toHaveBeenCalled();
     });
 
-    it('Should call callback within setInterval and stop after calling clearInterval', () => {
+    it('should call callback within setInterval and stop after calling clearInterval', () => {
       Component.setInterval(intervalTestCallbackFunction, 1000);
 
-      expect(intervalTestCallbackFunction).not.toBeCalled();
+      expect(intervalTestCallbackFunction).not.toHaveBeenCalled();
 
       jest.advanceTimersByTime(2000);
-      expect(intervalTestCallbackFunction).toBeCalledTimes(2);
+      expect(intervalTestCallbackFunction).toHaveBeenCalledTimes(2);
 
       Component.clearInterval(intervalTestCallbackFunction);
       jest.advanceTimersByTime(2000);
 
-      expect(intervalTestCallbackFunction).toBeCalledTimes(2);
+      expect(intervalTestCallbackFunction).toHaveBeenCalledTimes(2);
     });
 
-    it('Should not call callback within setInterval when calling clearInterval', () => {
+    it('should not call callback within setInterval when calling clearInterval', () => {
       Component.setInterval(intervalTestCallbackFunction, 1000);
 
-      expect(intervalTestCallbackFunction).not.toBeCalled();
+      expect(intervalTestCallbackFunction).not.toHaveBeenCalled();
       Component.clearInterval(intervalTestCallbackFunction);
 
       jest.advanceTimersByTime(2000);
-      expect(intervalTestCallbackFunction).not.toBeCalled();
+      expect(intervalTestCallbackFunction).not.toHaveBeenCalled();
     });
   });
 
@@ -149,7 +149,7 @@ describe('AbstractManagedComponent', () => {
     it('should add event listener to event target', () => {
       Component.addDispatcherListener('event', listener);
 
-      expect($Utils.$Dispatcher.listen).toBeCalled();
+      expect($Utils.$Dispatcher.listen).toHaveBeenCalled();
     });
 
     it('should remove added event listener from event target', () => {

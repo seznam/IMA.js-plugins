@@ -9,7 +9,7 @@
  *
  * @param {...string} embedNames The names of the embedded resources that
  *        should be inlined into the entity's fields.
- * @return {function(function(
+ * @returns {function(function(
  *             new: AbstractHalsonEntity,
  *             HalsonRestClient,
  *             Object<string, *>,
@@ -20,7 +20,7 @@
 export default (...embedNames) => {
   return classConstructor => {
     Object.defineProperty(classConstructor, 'inlineEmbeds', {
-      value: embedNames
+      value: embedNames,
     });
   };
 };

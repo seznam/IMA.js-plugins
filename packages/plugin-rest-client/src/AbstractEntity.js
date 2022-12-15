@@ -4,7 +4,7 @@ import { deepFreeze } from './utils';
 /**
  * Symbols for representing the private fields in the entity.
  *
- * @type {Object<string, Symbol>}
+ * @type {Object<string, symbol>}
  */
 const PRIVATE = {
   // static private fields
@@ -23,7 +23,7 @@ const PRIVATE = {
 
   // private fields
   restClient: Symbol('restClient'),
-  parentEntity: Symbol('parentEntity')
+  parentEntity: Symbol('parentEntity'),
 };
 if ($Debug) {
   Object.freeze(PRIVATE);
@@ -55,7 +55,7 @@ export default class AbstractEntity {
      */
     this[PRIVATE.parentEntity] = parentEntity;
     Object.defineProperty(this, PRIVATE.parentEntity, {
-      enumerable: false
+      enumerable: false,
     });
 
     let entityData = this.$deserialize(data);
@@ -76,7 +76,7 @@ export default class AbstractEntity {
    * API identifying the resource, depending on the REST API client's
    * implementation.
    *
-   * @return {string} The name of the REST API resource containing this
+   * @returns {string} The name of the REST API resource containing this
    *         entity.
    */
   static get resourceName() {
@@ -117,7 +117,7 @@ export default class AbstractEntity {
    * Returns the name of the field of this entity that contains the entity's
    * primary key (ID).
    *
-   * @return {string} The name of the field containing the entity's ID.
+   * @returns {string} The name of the field containing the entity's ID.
    */
   static get idFieldName() {
     if ($Debug) {
@@ -162,7 +162,7 @@ export default class AbstractEntity {
    * been processed by response post-processors, or only the response body
    * contains any useful data.
    *
-   * @return {boolean} The flag specifying whether the REST client should
+   * @returns {boolean} The flag specifying whether the REST client should
    *         return only the response body instead of the response object.
    */
   static get inlineResponseBody() {
@@ -211,7 +211,7 @@ export default class AbstractEntity {
    * validation of these constraints - this should be provided by a plugin
    * extending this one.
    *
-   * @return {Object<string, *>} The validation constrains that should be
+   * @returns {Object<string, *>} The validation constrains that should be
    *         applied to this entity's properties.
    */
   static get propTypes() {
@@ -261,7 +261,7 @@ export default class AbstractEntity {
    *   property value to raw data. The {@code dataFieldName} property may
    *   return {@code null} if the property does not need to be renamed.
    *
-   * @return {Object<string, (
+   * @returns {Object<string, (
    *           string|
    *           function(new: AbstractDataFieldMapper)|
    *           {
@@ -332,7 +332,7 @@ export default class AbstractEntity {
    * Also note that any embedded entity will be skipped over, allowing each
    * entity class to have consistent mutability of its instances.
    *
-   * @return {boolean} Whether the instances of this entity class should be
+   * @returns {boolean} Whether the instances of this entity class should be
    *         made automatically immutable upon instantiation.
    */
   static get isImmutable() {
@@ -374,7 +374,7 @@ export default class AbstractEntity {
    * @param {?string} dataFieldName The name of the raw data field being
    *        mapped, or {@code null} if it is the same as the name of the
    *        entity property being mapped.
-   * @return {function(new: AbstractDataFieldMapper)} The generated data
+   * @returns {function(new: AbstractDataFieldMapper)} The generated data
    *         field mapper.
    */
   static asDataFieldMapper(dataFieldName = null) {
@@ -392,7 +392,7 @@ export default class AbstractEntity {
    * returns {@code null} if this entity's resource is a top-level resource
    * without a parent.
    *
-   * @return {?AbstractEntity} The direct parent entity of this entity.
+   * @returns {?AbstractEntity} The direct parent entity of this entity.
    */
   get $parentEntity() {
     return this[PRIVATE.parentEntity];
@@ -404,7 +404,7 @@ export default class AbstractEntity {
    * @param {boolean=} includingParent The flag specifying whether the parent
    *        entity should be cloned as well. The parent entity will be only
    *        referenced when this flag is not set. Defaults to {@code false}.
-   * @return {AbstractEntity} A clone of this entity.
+   * @returns {AbstractEntity} A clone of this entity.
    */
   clone(includingParent = false) {
     let data = this.$serialize();
@@ -427,7 +427,7 @@ export default class AbstractEntity {
    *
    * @param {Object<string, *>} statePatch The patch of this entity's state
    *        that should be applied to the clone.
-   * @return {AbstractEntity} The created patched clone.
+   * @returns {AbstractEntity} The created patched clone.
    */
   cloneAndPatch(statePatch) {
     let data = this.$serialize();
@@ -450,7 +450,8 @@ export default class AbstractEntity {
    * The default implementation of this method implements a mapping based on
    * the {@linkcode dataFieldMapping} property's value.
    *
-   * @return {Object<string, *>} Data object representing this entity in a
+   * @param {AbstractEntity} data
+   * @returns {Object<string, *>} Data object representing this entity in a
    *         way that is compatible with the REST API.
    */
   $serialize(data = this) {
@@ -493,7 +494,7 @@ export default class AbstractEntity {
    * the {@linkcode dataFieldMapping} property's value.
    *
    * @param {Object<string, *>} data The data retrieved from the REST API.
-   * @return {Object<string, *>} The data ready to be assigned to this
+   * @returns {Object<string, *>} The data ready to be assigned to this
    *         entity.
    */
   $deserialize(data) {

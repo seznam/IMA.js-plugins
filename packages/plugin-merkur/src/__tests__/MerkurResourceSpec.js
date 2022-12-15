@@ -1,6 +1,7 @@
-import MerkurResource from '../MerkurResource';
 import { Cache, HttpAgent } from '@ima/core';
 import { toMockedInstance, setGlobalMockMethod } from 'to-mock';
+
+import MerkurResource from '../MerkurResource';
 
 setGlobalMockMethod(jest.fn);
 
@@ -10,7 +11,7 @@ describe('MerkurResource class', () => {
 
   let url = 'http://example.com/widget';
   let data = {
-    containerSelector: '.some-class'
+    containerSelector: '.some-class',
   };
   let options = {};
 
@@ -19,37 +20,37 @@ describe('MerkurResource class', () => {
     version: '0.0.1',
     props: {},
     state: {
-      counter: 0
+      counter: 0,
     },
     assets: [
       {
         name: 'polyfill.js',
         type: 'script',
         source: {
-          es5: 'http://localhost:4444/static/es5/polyfill.31c5090d8c961e43fade.js'
+          es5: 'http://localhost:4444/static/es5/polyfill.31c5090d8c961e43fade.js',
         },
-        test: 'return window.fetch'
+        test: 'return window.fetch',
       },
       {
         name: 'widget.js',
         type: 'script',
         source: {
           es9: 'http://localhost:4444/static/es9/widget.6961af42bfa3596bb147.js',
-          es5: 'http://localhost:4444/static/es5/widget.31c5090d8c961e43fade.js'
+          es5: 'http://localhost:4444/static/es5/widget.31c5090d8c961e43fade.js',
         },
         attr: {
           async: true,
-          'custom-attribute': 'foo'
-        }
+          'custom-attribute': 'foo',
+        },
       },
       {
         name: 'widget.css',
         type: 'stylesheet',
         source:
-          'http://localhost:4444/static/es9/widget.814e0cb568c7ddc0725d.css'
-      }
+          'http://localhost:4444/static/es9/widget.814e0cb568c7ddc0725d.css',
+      },
     ],
-    html: '<div></div>'
+    html: '<div></div>',
   };
 
   describe('default usage', () => {
@@ -57,7 +58,7 @@ describe('MerkurResource class', () => {
       http = toMockedInstance(HttpAgent, {
         get() {
           return { body, headers: {}, params: data, status: 200, cached: true };
-        }
+        },
       });
 
       merkurResource = new MerkurResource(http, toMockedInstance(Cache));
@@ -113,9 +114,9 @@ describe('MerkurResource class', () => {
       ...data,
       slot: {
         headline: {
-          containerSelector: '.headline'
-        }
-      }
+          containerSelector: '.headline',
+        },
+      },
     };
 
     beforeEach(() => {
@@ -127,16 +128,16 @@ describe('MerkurResource class', () => {
               slot: {
                 headline: {
                   name: 'headline',
-                  html: '<div></div>'
-                }
-              }
+                  html: '<div></div>',
+                },
+              },
             },
             headers: {},
             params: data,
             status: 200,
-            cached: true
+            cached: true,
           };
-        }
+        },
       });
 
       merkurResource = new MerkurResource(http, toMockedInstance(Cache));
@@ -182,9 +183,9 @@ describe('MerkurResource class', () => {
         slot: {
           headline: {
             containerSelector: '.headline',
-            html: '<html></html>'
-          }
-        }
+            html: '<html></html>',
+          },
+        },
       };
     });
 
@@ -193,13 +194,13 @@ describe('MerkurResource class', () => {
         toMockedInstance(HttpAgent, {
           getCacheKey() {
             return 'cacheKey';
-          }
+          },
         }),
         toMockedInstance(Cache, {
           has() {
             return true;
           },
-          set: jest.fn()
+          set: jest.fn(),
         })
       );
     });
@@ -229,10 +230,10 @@ describe('MerkurResource class', () => {
           slot: {
             ...slotData.slot,
             headline: {
-              ...slotData.slot.headline
-            }
-          }
-        }
+              ...slotData.slot.headline,
+            },
+          },
+        },
       }));
 
       merkurResource._removeHTMLFromCache('', '', '');
@@ -242,9 +243,9 @@ describe('MerkurResource class', () => {
         slot: {
           ...slotData.slot,
           headline: {
-            ...slotData.slot.headline
-          }
-        }
+            ...slotData.slot.headline,
+          },
+        },
       };
 
       delete bodyWithslotWithoutHtml.html;

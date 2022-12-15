@@ -1,29 +1,30 @@
+// @FIXME Update import from @ima/cli once it exports resolveImaConfig function
+import { resolveImaConfig } from '@ima/cli/dist/webpack/utils';
 import {
   createImaApp,
   getClientBootConfig,
   onLoad,
   bootClientApp,
-  vendorLinker
 } from '@ima/core';
-import { vendors as imaVendors } from '@ima/core/build';
 import { assignRecursively } from '@ima/helpers';
 import { JSDOM } from 'jsdom';
+
 import { unAopAll } from './aop';
-import { requireFromProject, loadFiles } from './helpers';
-import { getConfig } from './configuration';
 import { getBootConfigExtensions } from './bootConfigExtensions';
+import { getConfig } from './configuration';
+import { requireFromProject } from './helpers';
 import { generateDictionary } from './localization';
 
 const setIntervalNative = global.setInterval;
 const setTimeoutNative = global.setTimeout;
 const setImmediateNative = global.setImmediate;
 
-let projectDependenciesLoaded = false;
 let timers = [];
 
 /**
  * Clears IMA Application instance from environment
- * @param {Object} app Object from initImaApp method
+ *
+ * @param {object} app Object from initImaApp method
  */
 function clearImaApp(app) {
   global.setInterval = setIntervalNative;
@@ -31,76 +32,62 @@ function clearImaApp(app) {
   global.setImmediate = setImmediateNative;
   timers.forEach(({ clear }) => clear());
   unAopAll();
-  vendorLinker.clear();
   app.oc.clear();
 }
 
 /**
  * Initializes IMA application with our production-like configuration
  * Reinitializes jsdom with configuration, that will work with our application
- * @param {Object} [bootConfigMethods] Object, that can contain methods for ima boot configuration
- * @returns {Promise<Object>}
+ *
+ * @param {object} [bootConfigMethods] Object, that can contain methods for ima boot configuration
+ * @returns {Promise<object>}
  */
 async function initImaApp(bootConfigMethods = {}) {
   const config = getConfig();
   const bootConfigExtensions = getBootConfigExtensions();
-  let vendors = null;
-  let defaultBootConfigMethods = null;
+  const imaConfig = await resolveImaConfig({ rootDir: config.rootDir });
 
-  /**
-   * Initializes all common, client and server vendors
-   */
-  function _initVendorLinker() {
-    const initializedVendors = [];
+  // JSDom needs to be initialized before we start importing project files,
+  // since some packages can do some client/server detection at this point
+  _initJSDom();
+  _installTimerWrappers();
 
-    []
-      .concat(
-        vendors.common,
-        vendors.client,
-        vendors.server,
-        imaVendors.common,
-        imaVendors.server,
-        imaVendors.client
-      )
-      .forEach(vendor => {
-        let key = vendor;
-        let value = vendor;
+  await config.prebootScript();
 
-        if (typeof vendor === 'object') {
-          key = Object.keys(vendor)[0];
-          value = vendor[key];
-        }
-
-        if (initializedVendors.includes(key)) {
-          return;
-        }
-
-        initializedVendors.push(key);
-
-        vendorLinker.set(key, require(value));
-      });
-  }
+  const defaultBootConfigMethods = requireFromProject(
+    config.appMainPath
+  ).getInitialAppConfigFunctions();
 
   /**
    * Initializes JSDOM environment for the application run
    */
   function _initJSDom() {
+    /**
+     * Copies object props from src to target
+     *
+     * @param {object} src
+     * @param {object} target
+     */
     function copyProps(src, target) {
       Object.defineProperties(target, {
         ...Object.getOwnPropertyDescriptors(src),
-        ...Object.getOwnPropertyDescriptors(target)
+        ...Object.getOwnPropertyDescriptors(target),
       });
     }
 
     const jsdom = new JSDOM(
-      `<!doctype html><html id="main-html"><body><div id="${config.masterElementId}"></div></body></html>`
+      `<!doctype html><html><body><div id="${config.masterElementId}"></div></body></html>`,
+      {
+        pretendToBeVisual: true,
+        url: `${config.protocol}//${config.host}/`,
+      }
     );
     const { window } = jsdom;
 
     global.window = window;
     global.document = window.document;
     global.navigator = {
-      userAgent: 'node.js'
+      userAgent: 'node.js',
     };
     copyProps(window, global);
     global.jsdom = jsdom;
@@ -108,19 +95,19 @@ async function initImaApp(bootConfigMethods = {}) {
     global.window.$IMA = global.$IMA;
     global.window.$Debug = global.$Debug;
     global.window.scrollTo = () => {};
-    global.window.fetch = require('node-fetch');
-
-    // To skip protocol/host not same as server's error (ima/main.js)
-    jsdom.reconfigure({
-      url: `${config.protocol}//${config.host}/`
-    });
+    global.window.fetch = global.fetch;
 
     global.$IMA.$Protocol = config.protocol;
     global.$IMA.$Host = config.host;
     global.$IMA.$Env = config.environment;
-    global.$IMA.$App = {};
+    global.$IMA.$App = config.$App || {};
+    global.$IMA.i18n = generateDictionary(imaConfig.languages, config.locale);
   }
 
+  /**
+   * Wraps the global timer methods to collect their return values,
+   * which can be later cleared in clearImaApp function
+   */
   function _installTimerWrappers() {
     global.setInterval = (...args) => {
       let timer = setIntervalNative(...args);
@@ -164,38 +151,12 @@ async function initImaApp(bootConfigMethods = {}) {
     };
   }
 
-  _initJSDom();
-
-  // Require project files after jsdom is initialized
-  // to prevent errors with missing document/window
-  const { js, ...build } = requireFromProject(config.appBuildPath);
-
-  vendors = build.vendors;
-
-  global.$IMA.i18n = generateDictionary(build.languages, config.locale);
-
-  defaultBootConfigMethods = requireFromProject(
-    config.appMainPath
-  ).getInitialAppConfigFunctions();
-
-  // Load javascript files into namespace
-  // just once, to avoid conflicts
-  if (!projectDependenciesLoaded) {
-    loadFiles(js);
-    projectDependenciesLoaded = true;
-  }
-
-  _installTimerWrappers();
-  _initVendorLinker();
-
-  await config.prebootScript();
-
   let app = createImaApp();
   let bootConfig = getClientBootConfig({
     initSettings: _getBootConfigForMethod('initSettings'),
     initBindApp: _getBootConfigForMethod('initBindApp'),
     initServicesApp: _getBootConfigForMethod('initServicesApp'),
-    initRoutes: _getBootConfigForMethod('initRoutes')
+    initRoutes: _getBootConfigForMethod('initRoutes'),
   });
   await onLoad();
   bootClientApp(app, bootConfig);

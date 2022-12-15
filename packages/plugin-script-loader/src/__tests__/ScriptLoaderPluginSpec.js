@@ -1,8 +1,9 @@
 import { Window, Dispatcher } from '@ima/core';
-import ScriptLoaderPlugin from '../ScriptLoaderPlugin';
-import Events from '../Events';
 import { ResourceLoader } from '@ima/plugin-resource-loader';
 import { toMockedInstance } from 'to-mock';
+
+import Events from '../Events';
+import ScriptLoaderPlugin from '../ScriptLoaderPlugin';
 
 describe('ScriptLoaderPlugin', () => {
   let scriptLoaderPlugin = null;
@@ -14,7 +15,7 @@ describe('ScriptLoaderPlugin', () => {
   const window = toMockedInstance(Window, {
     isClient() {
       return true;
-    }
+    },
   });
   const dispatcher = toMockedInstance(Dispatcher);
   const resourceLoader = toMockedInstance(ResourceLoader);
@@ -28,7 +29,7 @@ describe('ScriptLoaderPlugin', () => {
     element = {
       onload() {},
       onerror() {},
-      onabort() {}
+      onabort() {},
     };
 
     global.$Debug = true;
@@ -40,81 +41,72 @@ describe('ScriptLoaderPlugin', () => {
 
   describe('load method', () => {
     beforeEach(() => {
-      spyOn(scriptLoaderPlugin, '_createScriptElement').and.returnValue(
-        element
-      );
+      jest.spyOn(window, 'isClient').mockReturnValue(true);
+      jest
+        .spyOn(scriptLoaderPlugin, '_createScriptElement')
+        .mockReturnValue(element);
     });
 
     it('should throw an error at server side', () => {
-      spyOn(window, 'isClient').and.returnValue(false);
+      jest.spyOn(window, 'isClient').mockReturnValue(false);
 
       expect(() => {
         scriptLoaderPlugin.load(url);
       }).toThrow();
     });
 
-    it('should return value from cache', done => {
+    it('should return value from cache', async () => {
       scriptLoaderPlugin._loadedScripts[url] = Promise.resolve({ url });
+      const value = await scriptLoaderPlugin.load(url);
 
-      scriptLoaderPlugin
-        .load(url)
-        .then(value => {
-          expect(value.url).toEqual(url);
-          done();
-        })
-        .catch(error => {
-          done(error);
-        });
+      expect(value.url).toEqual(url);
     });
 
-    it('the dispatcher fire loaded event for scripts loaded by template', done => {
-      spyOn(dispatcher, 'fire');
-      spyOn(resourceLoader, 'promisify').and.returnValue(Promise.resolve());
+    it('the dispatcher fire loaded event for scripts loaded by template', async () => {
+      jest.spyOn(dispatcher, 'fire').mockImplementation(() => {});
+      jest
+        .spyOn(resourceLoader, 'promisify')
+        .mockReturnValue(Promise.resolve());
 
-      scriptLoaderPlugin
-        .load(url, template)
-        .then(() => {
-          expect(dispatcher.fire).toHaveBeenCalledWith(
-            Events.LOADED,
-            { url },
-            true
-          );
-          done();
-        })
-        .catch(done);
-    });
+      await scriptLoaderPlugin.load(url, template);
 
-    it('the dispatcher fire loaded event for scripts loaded by url', done => {
-      spyOn(dispatcher, 'fire');
-      spyOn(resourceLoader, 'promisify').and.returnValue(Promise.resolve());
-
-      scriptLoaderPlugin
-        .load(url)
-        .then(() => {
-          expect(dispatcher.fire).toHaveBeenCalledWith(
-            Events.LOADED,
-            { url },
-            true
-          );
-          done();
-        })
-        .catch(done);
-    });
-
-    it('the dispatcher fire loaded event with errors', done => {
-      spyOn(dispatcher, 'fire');
-      spyOn(resourceLoader, 'promisify').and.returnValue(
-        Promise.reject(new Error('message'))
+      expect(dispatcher.fire).toHaveBeenCalledWith(
+        Events.LOADED,
+        { url },
+        true
       );
+    });
 
-      scriptLoaderPlugin.load(url).catch(error => {
+    it('the dispatcher fire loaded event for scripts loaded by url', async () => {
+      jest.spyOn(dispatcher, 'fire').mockImplementation(() => {});
+      jest
+        .spyOn(resourceLoader, 'promisify')
+        .mockReturnValue(Promise.resolve());
+
+      await scriptLoaderPlugin.load(url);
+
+      expect(dispatcher.fire).toHaveBeenCalledWith(
+        Events.LOADED,
+        { url },
+        true
+      );
+    });
+
+    it('the dispatcher fire loaded event with errors', async () => {
+      jest.spyOn(dispatcher, 'fire').mockImplementation(() => {});
+      jest
+        .spyOn(resourceLoader, 'promisify')
+        .mockReturnValue(Promise.reject(new Error('message')));
+
+      try {
+        await scriptLoaderPlugin.load(url);
+      } catch (error) {
         expect(dispatcher.fire).toHaveBeenCalledWith(
           Events.LOADED,
           { url, error },
           true
         );
-        done();
-      });
+      }
     });
   });
 });
