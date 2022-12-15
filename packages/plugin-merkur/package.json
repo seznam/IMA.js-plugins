@@ -35,6 +35,6 @@
     ]
   },
   "peerDependencies": {
-    "@ima/core": "*"
+    "@ima/core": ">=18.0.0"
   }
 }

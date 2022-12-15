@@ -31,7 +31,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@ima/plugin-script-loader": "^3.0.0-rc.3"
+    "@ima/plugin-script-loader": "^3.0.0-rc.10"
   },
   "browserify": {
     "transform": [

@@ -33,7 +33,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@ima/plugin-analytic": "^5.0.0-rc.3"
+    "@ima/plugin-analytic": "^5.0.0-rc.10"
   },
   "peerDependencies": {
     "@ima/plugin-script-loader": ">=3.0.0-rc.10"
