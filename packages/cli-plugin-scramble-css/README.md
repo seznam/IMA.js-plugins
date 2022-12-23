@@ -117,6 +117,7 @@ The scrambling is enabled by default for `production` environment. However you c
 ```ts
 new ScrambleCssPlugin(options: {
   scrambleCssMinimizerOptions?: {
+    assetFilter?: (filename: string) => boolean;
     hashTableFilename?: string;
     mainAssetFilter?: (filename: string) => boolean;
   };
@@ -129,6 +130,7 @@ new ScrambleCssPlugin(options: {
 
 These are passed directly into the `ScrambleCssMinimizer`. You can define custom:
 
+- `assetFilter` - filter files to scramble.
 - `hashTableFilename` - custom translation `hashtable.json` filename. Defaults to: **./build/static/css/hashTable.json**.
 - `mainAssetFilter` - should resolve to the **main css file**. The minimizer first processes the main.css file and generates the `hashtable.json` **translation table**. If you then want to process other assets with existing hashtable, these should be filtered out in this function, since the minimizer minimizes them in **second pass using existing** `hashtable.json`.
 

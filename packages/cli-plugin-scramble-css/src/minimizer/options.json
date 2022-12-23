@@ -3,6 +3,10 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
+    "assetFilter": {
+      "instanceof": "Function",
+      "description": "Optional asset filter for files which should be scrambled."
+    },
     "hashTableFilename": {
       "type": "string",
       "description": "This option determines the location of generated hashTable.json file."
