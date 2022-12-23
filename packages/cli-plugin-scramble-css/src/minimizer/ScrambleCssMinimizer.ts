@@ -10,10 +10,11 @@ import PostCssScrambler from '../postCssPlugin';
 
 import schema from './options.json';
 
-const CSS_RE = /\.css$/;
+const CSS_RE = /^((?!public).)*\.css$/;
 const MAIN_ASSET_RE = /app(\.\w+)?.css$/;
 
 export interface ScrambleCssMinimizerOptions {
+  assetFilter?: (filename: string) => boolean;
   hashTableFilename?: string;
   mainAssetFilter?: (filename: string) => boolean;
 }
@@ -39,6 +40,7 @@ class ScrambleCssMinimizer {
 
     // Set defaults
     this._options = {
+      assetFilter: options?.assetFilter ?? (asset => CSS_RE.test(asset)),
       hashTableFilename:
         options?.hashTableFilename ?? 'static/css/hashTable.json',
       mainAssetFilter:
@@ -222,7 +224,7 @@ class ScrambleCssMinimizer {
    * @param assets
    */
   private _filterAssets(assets: string[]): [string, string[]] {
-    const cssAssets = assets.filter(asset => CSS_RE.test(asset));
+    const cssAssets = assets.filter(this._options.assetFilter);
     const [mainAsset] = cssAssets.splice(
       cssAssets.findIndex(asset => this._options.mainAssetFilter(asset)),
       1
