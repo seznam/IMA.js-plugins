@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.0.1
+
+### Patch Changes
+
+- f205203: Add option assetFilter for scramble
+
 ## 1.0.0
 
 ### Major Changes
