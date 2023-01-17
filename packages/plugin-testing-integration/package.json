@@ -52,5 +52,10 @@
   "peerDependencies": {
     "@ima/cli": ">=18.0.0",
     "@ima/core": ">=18.0.0"
+  },
+  "overrides": {
+    "@ima/cli": ">=0.0.0-next",
+    "@ima/core": ">=0.0.0-next",
+    "@ima/helpers": "^0.0.0-next"
   }
 }
