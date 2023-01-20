@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.1
+
+### Patch Changes
+
+- dd4dd52: Updated to latest @ima/plugin-cli - the final bundle now contains new styles folder containing all less/css files and they are no longer bundled into esm bundle
+
 ## 5.0.0
 
 ### Major Changes
