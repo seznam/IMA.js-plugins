@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-merkur",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "The Plugin merkur",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
