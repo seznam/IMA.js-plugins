@@ -3,4 +3,4 @@
  * until typescript starts supporting properly the `exports` field defined
  * in package.json
  */
-export * from './dist/units';
+export * from './dist/esm/units';
