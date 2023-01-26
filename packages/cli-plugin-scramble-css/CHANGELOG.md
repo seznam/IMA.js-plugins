@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.1
+
+### Patch Changes
+
+- df4a5ff: Fix wrong path to plugin static files
+
 ## 1.1.0
 
 ### Minor Changes
