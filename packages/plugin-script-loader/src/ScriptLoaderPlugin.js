@@ -52,10 +52,9 @@ export default class ScriptLoaderPlugin {
    *
    * @param {string} url
    * @param {string=} [template]
-   * @param {boolean} force
    * @returns {Promise<{url: string}>}
    */
-  load(url, template, force = false) {
+  load(url, template) {
     if ($Debug) {
       if (!this._window.isClient()) {
         throw new Error(
@@ -65,7 +64,7 @@ export default class ScriptLoaderPlugin {
       }
     }
 
-    if (this._loadedScripts[url] && !force) {
+    if (this._loadedScripts[url]) {
       return this._loadedScripts[url];
     }
 
