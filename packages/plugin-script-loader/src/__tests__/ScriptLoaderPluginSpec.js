@@ -108,5 +108,33 @@ describe('ScriptLoaderPlugin', () => {
         );
       }
     });
+
+    it('should load script multiple times with force option', async () => {
+      jest.spyOn(dispatcher, 'fire').mockImplementation(() => {});
+      jest
+        .spyOn(resourceLoader, 'promisify')
+        .mockReturnValue(Promise.resolve());
+
+      await scriptLoaderPlugin.load(url);
+
+      expect(dispatcher.fire).toHaveBeenCalledWith(
+        Events.LOADED,
+        { url },
+        true
+      );
+
+      jest.clearAllMocks();
+      await scriptLoaderPlugin.load(url);
+
+      expect(dispatcher.fire).not.toHaveBeenCalled();
+
+      await scriptLoaderPlugin.load(url, null, true);
+
+      expect(dispatcher.fire).toHaveBeenCalledWith(
+        Events.LOADED,
+        { url },
+        true
+      );
+    });
   });
 });
