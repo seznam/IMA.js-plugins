@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.1
+
+### Patch Changes
+
+- df4a5ff: Fix compatibility with eslint=plugin-import by adding `main`/`module` fields to package.json
+
 ## 1.1.0
 
 ### Minor Changes

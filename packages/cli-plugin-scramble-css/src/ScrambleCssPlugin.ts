@@ -87,9 +87,8 @@ class ScrambleCssPlugin implements ImaCliPlugin {
       new CopyPlugin({
         patterns: [
           {
-            from: path.resolve(__dirname, '../static'),
+            from: path.resolve(__dirname, '../../static'),
             to: 'static/public',
-            noErrorOnMissing: true,
           },
         ],
       })

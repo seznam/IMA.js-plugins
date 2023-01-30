@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.1.0
+
+### Minor Changes
+
+- 44c238f: Added ability to load script multiple times
+
 ## 3.0.1
 
 ### Patch Changes
