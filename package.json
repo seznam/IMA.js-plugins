@@ -14,7 +14,7 @@
     "stylelint": "stylelint --cache --cache-location=node_modules/.cache/ './**/*.{css,less}'",
     "precommit": "lint-staged",
     "release": "npm run release:prepare && npm run release:push",
-    "release:prepare": "[[ ! -z `git status . --porcelain` ]] && echo 'There are uncommitted changes. Aborting release.' && exit 1 || changeset version",
+    "release:prepare": "[[ ! -z `git status . --porcelain` ]] && echo 'There are uncommitted changes. Aborting release.' && exit 1 || changeset version && npm i --package-lock-only --ignore-scripts",
     "release:push": "git add . && git commit -m 'release: publish' && changeset tag && git push --follow-tags",
     "release:graduate": "changeset pre exit && npm run release",
     "release:next:init": "changeset pre enter rc",
