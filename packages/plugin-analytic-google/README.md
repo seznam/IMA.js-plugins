@@ -64,10 +64,13 @@ var googleAnalytics4 = oc.get(GoogleAnalytics4);
 
 
 if ($window.isClient()) {
+    
+    // get info about purpose consents of your user, see part Handling user's purposeConsents
+    const purposeConsents = getPurposeConsents();
 
 	// insert analytic script to page and initialization analytic
-	googleAnalytic.init();
-	googleAnalytics4.init();
+	googleAnalytic.init(purposeConsents);
+	googleAnalytics4.init(purposeConsents);
 
 	//set hit page view to analytic
 	$dispatcher.listen(RouterEvents.AFTER_HANDLE_ROUTE, (pageData) => {
@@ -96,6 +99,19 @@ if ($window.isClient()) {
 	});
 }
 ```
+
+### Handling user's purpose consents in GA Universe
+By default, this plugin sets to Google analytic that user didn't grant any purpose consent.
+In Google Analytics Universe this leads to anonymization of all hits.
+You can set user's purpose consents in `init` method by passing object with Purpose Consents structure of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel.
+Now it looks just for purpose 1, therefore the minimal `purposeConsents` object with permission granted is `{ '1': true }`.
+
+### Handling user's purpose consents in GA 4
+By default, this plugin sets Google analytic that user didn't grant any purpose consent.
+In Google Analytics 4 this leads to **hidden all analytics data from GA user interface**. Therefore, **handling user's purpose consents in GA 4 is crucial**.
+You can set user's purpose consents in init method by passing object with Purpose Consents structure of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel.
+Now it looks just for purpose 1, therefore the minimal `purposeConsents` object with permission granted is `{ '1': true }`.
+GA4 comes with possibility to change purpose consents at any time after initialisation by method `updateConsent`.
 
 ## Version 1.0 notice
 
