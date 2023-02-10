@@ -198,7 +198,7 @@ export default class UIComponentHelper {
     const SAFE_URL_PATTERN =
       /^(?:(?:https?|mailto|data|ftp|tel|file|sms):|[^&:/?#]*(?:[/?#]|$))/gi;
 
-    url = String(url);
+    url = String(url).trim();
     if (url.match(SAFE_URL_PATTERN)) return url;
 
     return 'unsafe:' + url;
