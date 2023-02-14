@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 8.1.0
+
+### Minor Changes
+
+- c8e0a08: Trim Link url during sanitize
+
 ## 8.0.1
 
 ### Patch Changes
