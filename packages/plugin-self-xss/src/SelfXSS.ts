@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import type { Dictionary } from '@ima/core';
 
 export class SelfXSS {
@@ -41,12 +40,13 @@ export class SelfXSS {
       return;
     }
 
+    // FIXME when types are fixed in ima
     console.log(
-      `%c${this.#dictionary.get(SelfXSS.DICTIONARY_TITLE_KEY)}`,
+      `%c${this.#dictionary.get(SelfXSS.DICTIONARY_TITLE_KEY, {})}`,
       'font: bold 4em sans-serif; -webkit-text-stroke: 1px black; color: red;'
     );
     console.log(
-      `%c${this.#dictionary.get(SelfXSS.DICTIONARY_PHASE_KEY)}`,
+      `%c${this.#dictionary.get(SelfXSS.DICTIONARY_PHASE_KEY, {})}`,
       'font: 2em sans-serif; color: gray;'
     );
     // @endif

@@ -32,7 +32,7 @@
     "@babel/preset-react": "^7.18.6",
     "@cfaester/enzyme-adapter-react-18": "^0.6.0",
     "@changesets/cli": "^2.25.2",
-    "@ima/plugin-cli": "^18.1.0",
+    "@ima/plugin-cli": "19.0.0-rc.1",
     "@swc/jest": "^0.2.23",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.7.6",
@@ -66,5 +66,9 @@
     "stylelint-order": "^5.0.0",
     "to-mock": "^1.6.2",
     "typescript": "^4.9.3"
+  },
+  "overrides": {
+    "@ima/cli": "^19.0.0-rc.2",
+    "@ima/dev-utils": "^19.0.0-rc.2"
   }
 }

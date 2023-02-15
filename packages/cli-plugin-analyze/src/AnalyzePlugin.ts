@@ -6,7 +6,7 @@ import {
   ImaCliPlugin,
   ImaCliArgs,
 } from '@ima/cli';
-import { createLogger } from '@ima/dev-utils/dist/logger';
+import { createLogger } from '@ima/dev-utils/logger';
 import StatoscopeWebpackPlugin from '@statoscope/webpack-plugin';
 import open from 'better-opn';
 import { BundleStatsWebpackPlugin } from 'bundle-stats-webpack-plugin';
@@ -64,7 +64,6 @@ class AnalyzePlugin implements ImaCliPlugin {
     if (analyze && analyze === name) {
       config.plugins?.push(
         new BundleStatsWebpackPlugin({
-          // @ts-expect-error Not in type definitions
           silent: true,
           ...(this.#options?.bundleStatsOptions ?? {}),
         }) as WebpackPluginInstance,

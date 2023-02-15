@@ -1,4 +1,4 @@
-import { GenericError, StatusCode, Window } from '@ima/core';
+import { GenericError, HttpStatusCode, Window } from '@ima/core';
 
 /**
  * Empty object used as a fallback immutable value where an object is expected.
@@ -380,8 +380,8 @@ export default class XHR {
       params.status ||
       (params.xhr && params.xhr.status) ||
       (params.cause && params.cause.type === 'timeout'
-        ? StatusCode.TIMEOUT
-        : StatusCode.SERVER_ERROR);
+        ? HttpStatusCode.TIMEOUT
+        : HttpStatusCode.SERVER_ERROR);
 
     return new GenericError(
       cause.message,
