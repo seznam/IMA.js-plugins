@@ -68,9 +68,9 @@
     "typescript": "^4.9.3"
   },
   "overrides": {
-    "@ima/react-page-renderer": "^19.0.0-rc.2",
-    "@ima/cli": "^19.0.0-rc.2",
-    "@ima/dev-utils": "^19.0.0-rc.2",
-    "@ima/core": "^19.0.0-rc.2"
+    "@ima/react-page-renderer": "19.0.0-rc.2",
+    "@ima/cli": "19.0.0-rc.2",
+    "@ima/dev-utils": "19.0.0-rc.2",
+    "@ima/core": "19.0.0-rc.2"
   }
 }
