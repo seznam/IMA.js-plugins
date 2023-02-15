@@ -5,6 +5,9 @@ import { Infinite } from 'infinite-circle';
 import { JSDOM } from 'jsdom';
 import { toMockedInstance } from 'to-mock';
 
+import _router from './mocks/router';
+import _settings from './mocks/settings';
+import _window from './mocks/window';
 import ComponentPositions from '../ComponentPositions';
 import * as UIAtoms from '../main';
 import UIComponentHelper from '../UIComponentHelper';
@@ -13,10 +16,6 @@ import Visibility from '../Visibility';
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
 const { window } = jsdom;
-
-import _router from './mocks/router';
-import _settings from './mocks/settings';
-import _window from './mocks/window';
 
 global.window = window;
 global.document = window.document;

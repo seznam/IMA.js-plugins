@@ -1,4 +1,4 @@
-import { StatusCode, Window } from '@ima/core';
+import { HttpStatusCode, Window } from '@ima/core';
 import { toMockedInstance } from 'to-mock';
 
 import XHR from '../XHR.js';
@@ -12,10 +12,9 @@ describe('XHR', () => {
       return global;
     },
   });
-  class Blob {}
+
   class BufferSource {}
   class URLSearchParams {}
-  class ReadableStream {}
 
   let pluginInstance;
   let xhrSendCallback;
@@ -23,10 +22,8 @@ describe('XHR', () => {
   let xhrResponseHeaders;
 
   beforeAll(() => {
-    global.Blob = global.Blob || Blob;
     global.BufferSource = global.BufferSource || BufferSource;
     global.URLSearchParams = global.URLSearchParams || URLSearchParams;
-    global.ReadableStream = global.ReadableStream || ReadableStream;
 
     global.XMLHttpRequest = class XMLHttpRequest {
       constructor() {
@@ -270,7 +267,7 @@ describe('XHR', () => {
           }
         );
       } catch (timeoutError) {
-        expect(timeoutError.getParams().status).toBe(StatusCode.TIMEOUT);
+        expect(timeoutError.getParams().status).toBe(HttpStatusCode.TIMEOUT);
         return;
       }
 

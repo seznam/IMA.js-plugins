@@ -1,6 +1,6 @@
-import Visibility from '../Visibility';
 import _dispatcher from './mocks/dispatcher';
 import _window from './mocks/window';
+import Visibility from '../Visibility';
 
 describe('Visibility', () => {
   let reader = () => {};

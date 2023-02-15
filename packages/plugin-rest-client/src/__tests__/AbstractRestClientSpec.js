@@ -820,12 +820,12 @@ describe('AbstractRestClient', () => {
         .then(response => {
           expect(response.request.resource).toBe(Entity);
           expect(response.body instanceof Entity).toBeTruthy();
-          expect(response.body).toMatchObject(
-            new Entity({
-              id: 1,
-              stuff: 'yes',
-            })
-          );
+          expect(response.body).toMatchInlineSnapshot(`
+            Entity {
+              "id": 1,
+              "stuff": "yes",
+            }
+          `);
           expect(response.body.$parentEntity).toBe(parent);
 
           responseBody = '';

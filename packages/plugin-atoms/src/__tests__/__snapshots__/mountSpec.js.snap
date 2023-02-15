@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UIAtoms mount rendering should render atoms with noscript tag - disabled by $Settings, overriden by props:  iframe without noscript tag 1`] = `
-"<div class="atm-iframe atm-overflow atm-placeholder" style="width: auto; height: auto;"><noscript class="atm-fill" style="display: block; width: auto; height: auto;">&lt;iframe
+"<div class="atm-iframe atm-overflow atm-placeholder" style="width: auto; height: auto;"><noscript class="atm-fill" style="display: block; width: auto; height: auto;"><iframe
                   src="example.html"
                   
                   width="auto"
@@ -14,21 +14,21 @@ exports[`UIAtoms mount rendering should render atoms with noscript tag - disable
                   
                   
                   class="atm-fill atm-loaded"
-                  &gt;&lt;/iframe&gt;</noscript></div>"
+                  ></iframe></noscript></div>"
 `;
 
 exports[`UIAtoms mount rendering should render atoms with noscript tag - disabled by $Settings, overriden by props:  image without noscript tag 1`] = `
-"<div class="atm-image atm-overflow atm-placeholder" style="width: auto; height: auto;"><noscript>&lt;img
+"<div class="atm-image atm-overflow atm-placeholder" style="width: auto; height: auto;"><noscript><img
                   src="example.jpg"
                   srcset=""
                   sizes=""
                   alt=""
                   class="atm-fill atm-loaded"
-                  /&gt;</noscript></div>"
+                  /></noscript></div>"
 `;
 
 exports[`UIAtoms mount rendering should render atoms with noscript tag - disabled by $Settings, overriden by props:  video without noscript tag 1`] = `
-"<div class="atm-video atm-overflow atm-placeholder" style="width: auto; height: auto;"><noscript>&lt;video
+"<div class="atm-video atm-overflow atm-placeholder" style="width: auto; height: auto;"><noscript><video
 								src="example.mov"
 								poster=""
 								controls
@@ -36,11 +36,11 @@ exports[`UIAtoms mount rendering should render atoms with noscript tag - disable
 								
 								
 								class="atm-fill atm-loaded"
-								&gt;&lt;/video&gt;</noscript></div>"
+								></video></noscript></div>"
 `;
 
 exports[`UIAtoms mount rendering should render atoms with noscript tag:  should render Iframe with noscript tag 1`] = `
-"<div class="atm-iframe atm-overflow atm-placeholder" style="width: auto; height: auto;"><noscript class="atm-fill" style="display: block; width: auto; height: auto;">&lt;iframe
+"<div class="atm-iframe atm-overflow atm-placeholder" style="width: auto; height: auto;"><noscript class="atm-fill" style="display: block; width: auto; height: auto;"><iframe
                   src="example.html"
                   
                   width="auto"
@@ -53,21 +53,21 @@ exports[`UIAtoms mount rendering should render atoms with noscript tag:  should 
                   
                   
                   class="atm-fill atm-loaded"
-                  &gt;&lt;/iframe&gt;</noscript></div>"
+                  ></iframe></noscript></div>"
 `;
 
 exports[`UIAtoms mount rendering should render atoms with noscript tag:  should render Image with noscript tag 1`] = `
-"<div class="atm-image atm-overflow atm-placeholder" style="width: auto; height: auto;"><noscript>&lt;img
+"<div class="atm-image atm-overflow atm-placeholder" style="width: auto; height: auto;"><noscript><img
                   src="example.jpg"
                   srcset=""
                   sizes=""
                   alt=""
                   class="atm-fill atm-loaded"
-                  /&gt;</noscript></div>"
+                  /></noscript></div>"
 `;
 
 exports[`UIAtoms mount rendering should render atoms with noscript tag:  should render Video with noscript tag 1`] = `
-"<div class="atm-video atm-overflow atm-placeholder" style="width: auto; height: auto;"><noscript>&lt;video
+"<div class="atm-video atm-overflow atm-placeholder" style="width: auto; height: auto;"><noscript><video
 								src="example.mov"
 								poster=""
 								controls
@@ -75,7 +75,7 @@ exports[`UIAtoms mount rendering should render atoms with noscript tag:  should 
 								
 								
 								class="atm-fill atm-loaded"
-								&gt;&lt;/video&gt;</noscript></div>"
+								></video></noscript></div>"
 `;
 
 exports[`UIAtoms mount rendering should render atoms without noscript tag - disabled by $Settings:  iframe without noscript tag 1`] = `"<div class="atm-iframe atm-overflow atm-placeholder" style="width: auto; height: auto;"></div>"`;

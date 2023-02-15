@@ -1,7 +1,7 @@
 import PlatformJS from 'platform';
 
-import AbstractUserAgent from '../AbstractUserAgent';
 import using from './using.js';
+import AbstractUserAgent from '../AbstractUserAgent';
 
 var testedUserAgents = [
   {

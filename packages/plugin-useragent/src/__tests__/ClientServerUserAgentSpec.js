@@ -1,6 +1,6 @@
+import using from './using.js';
 import ClientUserAgent from '../ClientUserAgent';
 import ServerUserAgent from '../ServerUserAgent';
-import using from './using.js';
 
 describe('Client/Server implementation of Abstract class', () => {
   var userAgentString =

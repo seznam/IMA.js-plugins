@@ -1,6 +1,6 @@
+import { testStaticProperty } from './RestClientTestUtils';
 import AbstractDataFieldMapper from '../AbstractDataFieldMapper';
 import AbstractEntity from '../AbstractEntity';
-import { testStaticProperty } from './RestClientTestUtils';
 
 describe('AbstractEntity', () => {
   class Entity extends AbstractEntity {
@@ -237,7 +237,20 @@ describe('AbstractEntity', () => {
       templateEntity.anotherSession = new Session({
         id: 'GHI',
       });
-      expect(entity).toMatchObject(templateEntity);
+      expect(entity).toMatchInlineSnapshot(`
+        User {
+          "anotherSession": Session {
+            "id": "GHI",
+          },
+          "id": 1,
+          "otherSession": Session {
+            "id": "DEF",
+          },
+          "session": Session {
+            "id": "ABC",
+          },
+        }
+      `);
       expect(entity.session.$parentEntity).toBe(entity);
       expect(entity.otherSession.$parentEntity).toBe(entity);
       expect(entity.anotherSession.$parentEntity).toBe(entity);
