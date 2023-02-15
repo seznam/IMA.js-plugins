@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import { ImaCliPlugin, ImaCliArgs, ImaConfig } from '@ima/cli';
-import { createLogger } from '@ima/dev-utils/dist/logger';
+import { createLogger } from '@ima/dev-utils/logger';
 import chalk from 'chalk';
 import webpack from 'webpack';
 

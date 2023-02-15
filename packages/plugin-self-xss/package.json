@@ -36,5 +36,8 @@
     "transform": [
       "babelify"
     ]
+  },
+  "devDependencies": {
+    "@ima/cli": "^19.0.0"
   }
 }
