@@ -38,6 +38,6 @@
     ]
   },
   "devDependencies": {
-    "@ima/cli": "^19.0.0"
+    "@ima/cli": "^18.3.2"
   }
 }

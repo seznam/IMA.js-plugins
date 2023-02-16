@@ -5,7 +5,10 @@ notifications:
   email: false
 
 install:
-  - npm ci
+  - if: branch =~ /^(next)$/
+    - npm install
+  - else:
+    - npm ci
 
 jobs:
   include:
