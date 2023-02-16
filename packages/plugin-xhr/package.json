@@ -39,6 +39,6 @@
   },
   "homepage": "https://github.com/seznam/IMA.js-plugins#readme",
   "peerDependencies": {
-    "@ima/core": ">=19.0.0"
+    "@ima/core": ">=18.0.0"
   }
 }
