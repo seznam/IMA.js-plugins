@@ -1,5 +1,4 @@
-// @FIXME Update import from @ima/cli once it exports resolveImaConfig function
-import { resolveImaConfig } from '@ima/cli/dist/webpack/utils';
+import { resolveImaConfig } from '@ima/cli';
 import {
   createImaApp,
   getClientBootConfig,
@@ -7,6 +6,8 @@ import {
   bootClientApp,
 } from '@ima/core';
 import { assignRecursively } from '@ima/helpers';
+import environmentFactory from '@ima/server/lib/factory/environmentFactory.js';
+import responseUtilsFactory from '@ima/server/lib/factory/responseUtilsFactory.js';
 import { JSDOM } from 'jsdom';
 
 import { unAopAll } from './aop';
@@ -14,6 +15,8 @@ import { getBootConfigExtensions } from './bootConfigExtensions';
 import { getConfig } from './configuration';
 import { requireFromProject } from './helpers';
 import { generateDictionary } from './localization';
+
+const createIMAServer = require('@ima/server');
 
 const setIntervalNative = global.setInterval;
 const setTimeoutNative = global.setTimeout;
@@ -62,46 +65,45 @@ async function initImaApp(bootConfigMethods = {}) {
    * Initializes JSDOM environment for the application run
    */
   function _initJSDom() {
-    /**
-     * Copies object props from src to target
-     *
-     * @param {object} src
-     * @param {object} target
-     */
-    function copyProps(src, target) {
-      Object.defineProperties(target, {
-        ...Object.getOwnPropertyDescriptors(src),
-        ...Object.getOwnPropertyDescriptors(target),
-      });
-    }
+    const content = _getIMAResponseContent();
 
-    const jsdom = new JSDOM(
-      `<!doctype html><html><body><div id="${config.masterElementId}"></div></body></html>`,
-      {
-        pretendToBeVisual: true,
-        url: `${config.protocol}//${config.host}/`,
-      }
-    );
+    // SPA jsdom interpreter
+    const jsdom = new JSDOM(content, {
+      pretendToBeVisual: true,
+      url: `${config.protocol}//${config.host}/`,
+    });
+
+    // Setup node environment to work with jsdom window
     const { window } = jsdom;
 
     global.window = window;
-    global.document = window.document;
-    global.navigator = {
-      userAgent: 'node.js',
-    };
-    copyProps(window, global);
     global.jsdom = jsdom;
-    global.$IMA = global.$IMA || {};
-    global.window.$IMA = global.$IMA;
-    global.window.$Debug = global.$Debug;
-    global.window.scrollTo = () => {};
-    global.window.fetch = global.fetch;
 
-    global.$IMA.$Protocol = config.protocol;
-    global.$IMA.$Host = config.host;
-    global.$IMA.$Env = config.environment;
+    // Call all page scripts (jsdom build-in runScript creates new V8 context, unable to mix with node context)
+    const scripts = jsdom.window.document.getElementsByTagName('script');
+    for (const JSscript of scripts) {
+      if (JSscript.id !== 'ima-runner') {
+        window.eval(JSscript.text);
+      }
+    }
+
+    // Extend node global with created window vars
+    Object.defineProperties(global, {
+      ...Object.getOwnPropertyDescriptors(window),
+      ...Object.getOwnPropertyDescriptors(global),
+    });
+
+    // Copy app from config
     global.$IMA.$App = config.$App || {};
+
+    // Mock dictionary
     global.$IMA.i18n = generateDictionary(imaConfig.languages, config.locale);
+
+    // Mock scroll for ClientWindow.scrollTo
+    global.window.scrollTo = () => {};
+
+    // Mock fetch with node fetch
+    global.window.fetch = global.fetch;
   }
 
   /**
@@ -151,8 +153,65 @@ async function initImaApp(bootConfigMethods = {}) {
     };
   }
 
-  let app = createImaApp();
-  let bootConfig = getClientBootConfig({
+  /**
+   *Get response content for the application run
+   *
+   * @returns {string} html content
+   */
+  function _getIMAResponseContent() {
+    // Prepare IMA startup environment, requires config file in <rootDir>/server/config folder
+    const environment = environmentFactory({
+      applicationFolder: config.rootDir,
+    });
+
+    // // Event to generate request chain response
+    const dummyEvent = {
+      context: {},
+      environment,
+      result: {},
+      req: {},
+      res: {
+        locals: {
+          language: config.locale,
+          languagePartPath: '',
+          host: config.host,
+          root: '',
+          path: '',
+          protocol: config.protocol,
+          cnsVariables: { testType: 'integration' },
+        },
+      },
+    };
+
+    let createdIMAServer;
+
+    let pageTemplate;
+
+    createdIMAServer = createIMAServer({
+      environment,
+      manifestRequire: () => ({ default: {} }),
+    });
+    pageTemplate = createdIMAServer.serverApp.renderStaticSPAPage({
+      ...dummyEvent,
+      environment: createdIMAServer.environment,
+    });
+
+    // Get content template processor and variables generator
+    const { processContent, createContentVariables } = responseUtilsFactory();
+
+    const responceSource = {
+      response: pageTemplate,
+      bootConfig: createdIMAServer.serverApp.createBootConfig(dummyEvent),
+    };
+
+    // Generate dummy SPA page content
+    const contentVariables = createContentVariables(responceSource);
+    responceSource.response.contentVariables = contentVariables;
+    return processContent(responceSource);
+  }
+
+  const app = createImaApp();
+  const bootConfig = getClientBootConfig({
     initSettings: _getBootConfigForMethod('initSettings'),
     initBindApp: _getBootConfigForMethod('initBindApp'),
     initServicesApp: _getBootConfigForMethod('initServicesApp'),
