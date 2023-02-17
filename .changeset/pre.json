@@ -28,6 +28,7 @@
     "@ima/plugin-xhr": "3.0.1"
   },
   "changesets": [
+    "dry-weeks-learn",
     "light-melons-live",
     "wet-bugs-brake"
   ]

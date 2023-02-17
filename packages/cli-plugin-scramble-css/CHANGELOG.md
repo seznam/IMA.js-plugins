@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.2-rc.0
+
+### Patch Changes
+
+- 37c3f2f: Udpated dependencies to support RC ima versions
+
 ## 1.1.1
 
 ### Patch Changes
