@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.0-rc.0
+
+### Major Changes
+
+- 53758b8: Updated to support IMA@19
+
 ## 3.0.1
 
 ### Patch Changes

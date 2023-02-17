@@ -27,5 +27,7 @@
     "@ima/plugin-websocket": "2.0.1",
     "@ima/plugin-xhr": "3.0.1"
   },
-  "changesets": []
+  "changesets": [
+    "light-melons-live"
+  ]
 }
