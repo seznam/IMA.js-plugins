@@ -34,8 +34,8 @@
   },
   "homepage": "https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-managed-component#readme",
   "peerDependencies": {
-    "@ima/core": ">=18.0.0",
-    "@ima/react-page-renderer": ">=18.0.0"
+    "@ima/core": ">=19.0.0-rc.0",
+    "@ima/react-page-renderer": ">=19.0.0-rc.0"
   },
   "browserify": {
     "transform": [

@@ -43,7 +43,7 @@
     "@types/webpack-bundle-analyzer": "^4.4.2"
   },
   "peerDependencies": {
-    "@ima/cli": ">=18.0.0",
+    "@ima/cli": ">=19.0.0-rc.0",
     "webpack": ">=5"
   }
 }
