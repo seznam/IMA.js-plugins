@@ -28,6 +28,7 @@
     "@ima/plugin-xhr": "3.0.1"
   },
   "changesets": [
-    "light-melons-live"
+    "light-melons-live",
+    "wet-bugs-brake"
   ]
 }

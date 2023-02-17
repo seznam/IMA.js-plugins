@@ -1,5 +1,16 @@
 <a name="5.0.1"></a>
 
+## 9.0.0-rc.0
+
+### Major Changes
+
+- 192d82e: IMA@19 compatibility fixes
+
+### Patch Changes
+
+- Updated dependencies [192d82e]
+  - @ima/plugin-useragent@5.0.0-rc.0
+
 ## 8.1.0
 
 ### Minor Changes

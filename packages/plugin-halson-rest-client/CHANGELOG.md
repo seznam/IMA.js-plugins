@@ -1,5 +1,12 @@
 # Change Log
 
+## 2.0.2-rc.0
+
+### Patch Changes
+
+- Updated dependencies [192d82e]
+  - @ima/plugin-rest-client@5.0.0-rc.0
+
 ## 2.0.1
 
 ### Patch Changes

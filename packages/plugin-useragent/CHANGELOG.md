@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.0-rc.0
+
+### Major Changes
+
+- 192d82e: IMA@19 compatibility fixes
+
 ## 4.0.1
 
 ### Patch Changes
