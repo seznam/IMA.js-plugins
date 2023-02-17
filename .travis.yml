@@ -5,9 +5,7 @@ notifications:
   email: false
 
 install:
-  - npm install
-
-cache: false
+  - npm ci
 
 jobs:
   include:
