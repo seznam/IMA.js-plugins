@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.1.1-rc.0
+
+### Patch Changes
+
+- 2e61a48: Built using new version of @ima/plugin-cli, js sources now include source maps
+- Updated dependencies [2e61a48]
+  - @ima/plugin-resource-loader@3.0.2-rc.0
+
 ## 3.1.0
 
 ### Minor Changes

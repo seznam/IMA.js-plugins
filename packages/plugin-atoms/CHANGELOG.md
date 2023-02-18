@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 9.0.0-rc.2
+
+### Patch Changes
+
+- 2e61a48: Built using new version of @ima/plugin-cli, js sources now include source maps
+
 ## 9.0.0-rc.1
 
 ### Patch Changes

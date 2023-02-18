@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.2-rc.0
+
+### Patch Changes
+
+- 2e61a48: Built using new version of @ima/plugin-cli, js sources now include source maps
+
 ## 5.0.1
 
 ### Patch Changes
