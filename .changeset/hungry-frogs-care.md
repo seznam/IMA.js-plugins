@@ -16,7 +16,6 @@
 "@ima/plugin-merkur": patch
 "@ima/plugin-select": patch
 "@ima/plugin-atoms": patch
-"@ima/plugin-xhr": patch
 "@ima/plugin-analytic": patch
 "@ima/plugin-logger": patch
 "@ima/plugin-resource-loader": patch

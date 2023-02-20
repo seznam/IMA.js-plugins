@@ -24,8 +24,7 @@
     "@ima/plugin-style-loader": "3.0.1",
     "@ima/plugin-testing-integration": "3.0.1",
     "@ima/plugin-useragent": "4.0.1",
-    "@ima/plugin-websocket": "2.0.1",
-    "@ima/plugin-xhr": "3.0.1"
+    "@ima/plugin-websocket": "2.0.1"
   },
   "changesets": [
     "dry-weeks-learn",
