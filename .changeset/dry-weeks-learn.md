@@ -16,7 +16,6 @@
 "@ima/plugin-merkur": patch
 "@ima/plugin-select": patch
 "@ima/plugin-atoms": patch
-"@ima/plugin-xhr": patch
 ---
 
 Udpated dependencies to support RC ima versions

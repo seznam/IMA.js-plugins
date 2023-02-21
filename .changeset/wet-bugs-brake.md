@@ -6,7 +6,6 @@
 "@ima/plugin-useragent": major
 "@ima/plugin-self-xss": major
 "@ima/plugin-atoms": major
-"@ima/plugin-xhr": major
 ---
 
 IMA@19 compatibility fixes
