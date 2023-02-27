@@ -20,7 +20,8 @@
     "build": "ima-plugin build",
     "dev": "ima-plugin dev",
     "link": "ima-plugin link",
-    "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
+    "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'",
+    "test": "../../node_modules/.bin/jest --config=jest.config.js"
   },
   "keywords": [
     "IMA",

@@ -90,6 +90,14 @@ class ScrambleCssPlugin implements ImaCliPlugin {
             from: path.resolve(__dirname, '../../static'),
             to: 'static/public',
           },
+          {
+            from: path.resolve(
+              __dirname,
+              '../esm/postCssPlugin',
+              'numberToCssClass.js'
+            ),
+            to: 'static/public',
+          },
         ],
       })
     );
