@@ -2,4 +2,4 @@
 "@ima/cli-plugin-scramble-css": minor
 ---
 
-Support the exclusion of forbidden classes from scrambled classes
+Scrambler doesn't transform class names to potentially harmful class names like "ad".

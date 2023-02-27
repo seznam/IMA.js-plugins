@@ -33,7 +33,7 @@ describe('numberToCssClass()', () => {
 
       expect(classNames[49999]).toEqual(expect.any(String));
       expect(classNames[49999].length).toBeGreaterThan(0);
-      expect(classNames.includes(className.toLocaleLowerCase())).toBeFalsy();
+      expect(classNames.includes(className.toLowerCase())).toBeFalsy();
     }
   );
 
