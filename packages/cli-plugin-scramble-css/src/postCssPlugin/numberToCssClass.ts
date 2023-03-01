@@ -12,7 +12,7 @@ const EXTENDED_CLASSNAME_CHARS = (
 const FORBIDDEN_CLASSNAMES: string[] = ['ad'];
 
 // TODO TS 5 should support findLastIndex() on number[], so we can remove any.
-let forbiddenNumbersCache: any = [];
+const forbiddenNumbersCache: any = [];
 let maxProcessedNumber = -1;
 
 /**
@@ -48,8 +48,8 @@ function numberToCssClass(number: number, forbiddenCount = 0): string {
     for (let i = maxProcessedNumber + 1; i <= offseted; i++) {
       const className = numberToCssClassIgnoringForbidden(i);
 
-      if (isClassForbidden(className)) {
-        forbiddenNumbersCache = [...new Set([...forbiddenNumbersCache, i])];
+      if (isClassForbidden(className) && !forbiddenNumbersCache.includes(i)) {
+        forbiddenNumbersCache.push(i);
         forbiddenNumbersCache.sort((a: number, b: number) => a - b); // ascending order
       }
     }
