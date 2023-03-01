@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.0
+
+### Minor Changes
+
+- b23a557: Scrambler doesn't transform class names to potentially harmful class names like "ad".
+
 ## 1.1.1
 
 ### Patch Changes
