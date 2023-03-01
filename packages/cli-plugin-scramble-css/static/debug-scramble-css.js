@@ -1,3 +1,8 @@
+// File numberToCssClass.js is being copied to the same directory as this file
+// by ScrambleCssPlugin.webpack().
+// eslint-disable-next-line import/no-unresolved
+import { numberToCssClass } from './numberToCssClass.js';
+
 (function () {
   'use strict';
 
@@ -70,46 +75,12 @@
     var prefixes = hashTable[0];
     var mainParts = hashTable[1];
     for (var i = 0; i < prefixes.length; i++) {
-      prefixDecodeTable.set(numberEncoder(i), prefixes[i]);
+      prefixDecodeTable.set(numberToCssClass(i), prefixes[i]);
     }
     for (var j = 0; j < mainParts.length; j++) {
-      mainPartDecodeTable.set(numberEncoder(j), mainParts[j]);
+      mainPartDecodeTable.set(numberToCssClass(j), mainParts[j]);
     }
 
     return [prefixDecodeTable, mainPartDecodeTable];
-  }
-
-  function numberEncoder(number) {
-    const CLASSNAME_CHARS = (
-      'abcdefghijklmnopqrstuvwxyz' +
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
-      '-'
-    ).split('');
-    const EXTENDED_CLASSNAME_CHARS = (
-      CLASSNAME_CHARS.join('') + '0123456789'
-    ).split('');
-
-    if (number < CLASSNAME_CHARS.length) {
-      return CLASSNAME_CHARS[number];
-    } // we have to "shift" the number to adjust for the gap between base53 and
-    // base64 encoding
-
-    number += EXTENDED_CLASSNAME_CHARS.length - CLASSNAME_CHARS.length;
-    let className = '';
-
-    while (number >= CLASSNAME_CHARS.length) {
-      className =
-        EXTENDED_CLASSNAME_CHARS[number % EXTENDED_CLASSNAME_CHARS.length] +
-        className;
-      number = Math.floor(number / EXTENDED_CLASSNAME_CHARS.length);
-    }
-
-    if (number) {
-      className = CLASSNAME_CHARS[number - 1] + className;
-    } else {
-      className = '_' + className;
-    }
-
-    return className;
   }
 })();
