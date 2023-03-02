@@ -49,7 +49,7 @@ function numberToCssClass(number: number, forbiddenCount = 0): string {
 
       if (isClassForbidden(className) && !forbiddenNumbersCache.includes(i)) {
         forbiddenNumbersCache.push(i);
-        forbiddenNumbersCache.sort((a: number, b: number) => b - a); // ascending order
+        forbiddenNumbersCache.sort((a: number, b: number) => b - a); // descending order
       }
     }
 
