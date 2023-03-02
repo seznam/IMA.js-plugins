@@ -11,8 +11,7 @@ const EXTENDED_CLASSNAME_CHARS = (
 // Forbidden scrambled CSS classes (the matching is case insensitive).
 const FORBIDDEN_CLASSNAMES: string[] = ['ad'];
 
-// TODO TS 5 should support findLastIndex() on number[], so we can remove any.
-const forbiddenNumbersCache: any = [];
+const forbiddenNumbersCache: number[] = [];
 let maxProcessedNumber = -1;
 
 /**
@@ -50,7 +49,7 @@ function numberToCssClass(number: number, forbiddenCount = 0): string {
 
       if (isClassForbidden(className) && !forbiddenNumbersCache.includes(i)) {
         forbiddenNumbersCache.push(i);
-        forbiddenNumbersCache.sort((a: number, b: number) => a - b); // ascending order
+        forbiddenNumbersCache.sort((a: number, b: number) => b - a); // ascending order
       }
     }
 
@@ -86,9 +85,8 @@ function countForbiddenNumbersNotGreaterThan(number: number): number {
   }
 
   return (
-    forbiddenNumbersCache.findLastIndex(
-      (forbidden: number) => number >= forbidden
-    ) + 1
+    forbiddenNumbersCache.length -
+    forbiddenNumbersCache.findIndex((forbidden: number) => number >= forbidden)
   );
 }
 
