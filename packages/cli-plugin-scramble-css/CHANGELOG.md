@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.2
+
+### Patch Changes
+
+- 1813d15: Use for loop because of build errors with findIndex()
+
 ## 1.2.1
 
 ### Patch Changes
