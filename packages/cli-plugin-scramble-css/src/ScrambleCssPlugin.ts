@@ -75,8 +75,7 @@ class ScrambleCssPlugin implements ImaCliPlugin {
     const shouldScramble =
       (typeof ctx.scrambleCss !== 'undefined' && ctx.scrambleCss) ||
       (typeof ctx.scrambleCss === 'undefined' &&
-        ctx.command === 'build' &&
-        ctx.environment === 'production');
+        (ctx.command === 'build' || ctx.command === 'dev'));
 
     if (!shouldScramble) {
       return config;
