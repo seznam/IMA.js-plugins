@@ -84,10 +84,15 @@ function countForbiddenNumbersNotGreaterThan(number: number): number {
     return forbiddenNumbersCache.length;
   }
 
-  return (
-    forbiddenNumbersCache.length -
-    forbiddenNumbersCache.findIndex((forbidden: number) => number >= forbidden)
-  );
+  let index: number;
+
+  for (index = 0; index < forbiddenNumbersCache.length; index++) {
+    if (number >= forbiddenNumbersCache[index]) {
+      break;
+    }
+  }
+
+  return forbiddenNumbersCache.length - index;
 }
 
 function clearCache() {
