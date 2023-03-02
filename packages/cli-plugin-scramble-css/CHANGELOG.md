@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.1
+
+### Patch Changes
+
+- 2a93641: Remove findLastIndex() and new Set() syntax for backward compatibility
+
 ## 1.2.0
 
 ### Minor Changes
