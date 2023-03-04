@@ -6,8 +6,6 @@ import {
   bootClientApp,
 } from '@ima/core';
 import { assignRecursively } from '@ima/helpers';
-import environmentFactory from '@ima/server/lib/factory/environmentFactory.js';
-import responseUtilsFactory from '@ima/server/lib/factory/responseUtilsFactory.js';
 import { JSDOM } from 'jsdom';
 
 import { unAopAll } from './aop';
@@ -52,7 +50,7 @@ async function initImaApp(bootConfigMethods = {}) {
 
   // JSDom needs to be initialized before we start importing project files,
   // since some packages can do some client/server detection at this point
-  _initJSDom();
+  await _initJSDom();
   _installTimerWrappers();
 
   await config.prebootScript();
@@ -64,8 +62,8 @@ async function initImaApp(bootConfigMethods = {}) {
   /**
    * Initializes JSDOM environment for the application run
    */
-  function _initJSDom() {
-    const content = _getIMAResponseContent();
+  async function _initJSDom() {
+    const content = await _getIMAResponseContent();
 
     // SPA jsdom interpreter
     const jsdom = new JSDOM(content, {
@@ -80,10 +78,10 @@ async function initImaApp(bootConfigMethods = {}) {
     global.jsdom = jsdom;
 
     // Call all page scripts (jsdom build-in runScript creates new V8 context, unable to mix with node context)
-    const scripts = jsdom.window.document.getElementsByTagName('script');
-    for (const JSscript of scripts) {
-      if (JSscript.id !== 'ima-runner') {
-        window.eval(JSscript.text);
+    const pageScripts = jsdom.window.document.getElementsByTagName('script');
+    if (typeof config.pageScriptEvalFn === 'function') {
+      for (const script of pageScripts) {
+        config.pageScriptEvalFn(script, global, window, { ...config });
       }
     }
 
@@ -93,17 +91,11 @@ async function initImaApp(bootConfigMethods = {}) {
       ...Object.getOwnPropertyDescriptors(global),
     });
 
-    // Copy app from config
-    global.$IMA.$App = config.$App || {};
-
     // Mock dictionary
     global.$IMA.i18n = generateDictionary(imaConfig.languages, config.locale);
 
     // Mock scroll for ClientWindow.scrollTo
     global.window.scrollTo = () => {};
-
-    // Mock fetch with node fetch
-    global.window.fetch = global.fetch;
   }
 
   /**
@@ -158,56 +150,39 @@ async function initImaApp(bootConfigMethods = {}) {
    *
    * @returns {string} html content
    */
-  function _getIMAResponseContent() {
-    // Prepare IMA startup environment, requires config file in <rootDir>/server/config folder
-    const environment = environmentFactory({
-      applicationFolder: config.rootDir,
-    });
+  async function _getIMAResponseContent() {
+    const devUtilsFactory = jest.mock(
+      '@ima/server/lib/factory/devUtilsFactory.js',
+      () => () => ({
+        manifestRequire: () => ({
+          ima: {
+            createImaApp,
+          },
+        }),
+      })
+    );
 
-    // // Event to generate request chain response
-    const dummyEvent = {
-      context: {},
-      environment,
-      result: {},
-      req: {},
-      res: {
+    // Generate request output
+    const { content } = await createIMAServer().serverApp.requestHandler(
+      {
+        headers: () => '',
+      },
+      {
+        status: () => 200,
+        send: () => {},
+        set: () => {},
         locals: {
           language: config.locale,
-          languagePartPath: '',
           host: config.host,
-          root: '',
-          path: '',
           protocol: config.protocol,
-          cnsVariables: { testType: 'integration' },
+          path: '',
+          root: '',
+          languagePartPath: '',
         },
-      },
-    };
-
-    let createdIMAServer;
-
-    let pageTemplate;
-
-    createdIMAServer = createIMAServer({
-      environment,
-      manifestRequire: () => ({ default: {} }),
-    });
-    pageTemplate = createdIMAServer.serverApp.renderStaticSPAPage({
-      ...dummyEvent,
-      environment: createdIMAServer.environment,
-    });
-
-    // Get content template processor and variables generator
-    const { processContent, createContentVariables } = responseUtilsFactory();
-
-    const responceSource = {
-      response: pageTemplate,
-      bootConfig: createdIMAServer.serverApp.createBootConfig(dummyEvent),
-    };
-
-    // Generate dummy SPA page content
-    const contentVariables = createContentVariables(responceSource);
-    responceSource.response.contentVariables = contentVariables;
-    return processContent(responceSource);
+      }
+    );
+    devUtilsFactory.restoreAllMocks();
+    return content;
   }
 
   const app = createImaApp();

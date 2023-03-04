@@ -14,9 +14,10 @@ export default (ns, oc) => {
       // navigation to simulate browser behavior, where you
       // already have correct url set in address bar.
       if (isFirstNavigation) {
+        const url = context.getBaseUrl() + path;
         /* eslint-disable-next-line no-undef */
         jsdom.reconfigure({
-          url: context.getBaseUrl() + path,
+          url,
         });
       }
     }

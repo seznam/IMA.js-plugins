@@ -2,4 +2,5 @@
 "@ima/plugin-testing-integration": minor
 ---
 
-Use spa template from app to create JSDOM
+JSDOM is now using real spa content generated from ejs template
+Enabled JSDOM page scripts evaluation (configured by setup function)
