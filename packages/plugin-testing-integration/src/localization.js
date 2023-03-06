@@ -41,8 +41,8 @@ function generateDictionary(languages, locale = 'en') {
 /**
  * Apply function through full object or array values
  *
- * @param {object|array} object to be manipulated
- * @param {function} function to run on values
+ * @param {object|array} obj object to be manipulated
+ * @param {function} fn function to run on values
  * @returns {object|array}
  */
 function _deepMapValues(obj, fn) {
@@ -53,9 +53,11 @@ function _deepMapValues(obj, fn) {
       const key = current;
       const val = obj[current];
       acc[key] =
-          val !== null && typeof val === 'object' ? _deepMapValues(val, fn) : fn(val);
+        val !== null && typeof val === 'object'
+          ? _deepMapValues(val, fn)
+          : fn(val);
       return acc;
-    }, {})
+    }, {});
   } else {
     return fn(val);
   }
