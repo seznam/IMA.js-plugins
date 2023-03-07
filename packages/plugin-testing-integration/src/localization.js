@@ -41,16 +41,16 @@ function generateDictionary(languages, locale = 'en') {
 /**
  * Apply function through full object or array values
  *
- * @param {object|array} obj object to be manipulated
- * @param {function} fn function to run on values
- * @returns {object|array}
+ * @param {object | Array} obj object to be manipulated
+ * @param {Function} fn function to run on values
+ * @returns {object | Array}
  */
 function _deepMapValues(obj, fn) {
   if (Array.isArray(obj)) {
     return obj.map(val => _deepMapValues(val, fn));
   } else if (typeof obj === 'object' && obj !== null) {
     return Object.keys(obj).reduce((acc, current) => {
-      acc[current] = _deepMapValues(obj[current], fn)
+      acc[current] = _deepMapValues(obj[current], fn);
       return acc;
     }, {});
   } else {
