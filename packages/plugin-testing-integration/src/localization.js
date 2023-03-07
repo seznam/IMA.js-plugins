@@ -48,18 +48,13 @@ function generateDictionary(languages, locale = 'en') {
 function _deepMapValues(obj, fn) {
   if (Array.isArray(obj)) {
     return obj.map(val => _deepMapValues(val, fn));
-  } else if (typeof obj === 'object') {
+  } else if (typeof obj === 'object' && obj !== null) {
     return Object.keys(obj).reduce((acc, current) => {
-      const key = current;
-      const val = obj[current];
-      acc[key] =
-        val !== null && typeof val === 'object'
-          ? _deepMapValues(val, fn)
-          : fn(val);
+      acc[current] = _deepMapValues(obj[current], fn)
       return acc;
     }, {});
   } else {
-    return fn(val);
+    return fn(obj);
   }
 }
 
