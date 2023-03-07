@@ -26,13 +26,8 @@ function generateDictionary(languages, locale = 'en') {
         .replace(locale.toUpperCase() + path.extname(file), '');
 
       const dictJson = requireFromProject(file);
-      const dict = {};
-      Object.keys(dictJson).forEach(key => {
-        const message = dictJson[key];
-        dict[key] = mf.compile(message);
-      });
 
-      dictionaries[filename] = dict;
+      dictionaries[filename] = _deepMapValues(dictJson, mf.compile.bind(mf));
     } catch (e) {
       console.error(
         `Tried to load dictionary JSON at path "${file}", but recieved following error.`
@@ -41,6 +36,26 @@ function generateDictionary(languages, locale = 'en') {
     }
   });
   return dictionaries;
+}
+
+/**
+ * Apply function through full object or array values
+ *
+ * @param {object|array} obj object to be manipulated
+ * @param {function} fn function to run on values
+ * @returns {object|array}
+ */
+function _deepMapValues(obj, fn) {
+  if (Array.isArray(obj)) {
+    return obj.map(val => _deepMapValues(val, fn));
+  } else if (typeof obj === 'object' && obj !== null) {
+    return Object.keys(obj).reduce((acc, current) => {
+      acc[current] = _deepMapValues(obj[current], fn)
+      return acc;
+    }, {});
+  } else {
+    return fn(obj);
+  }
 }
 
 export { generateDictionary };
