@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.1.0
+
+### Minor Changes
+
+- 7aae66d: Add support to multidimensional app dictionary to integration tests
+
 ## 3.0.1
 
 ### Patch Changes
