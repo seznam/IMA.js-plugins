@@ -152,11 +152,7 @@ async function initImaApp(bootConfigMethods = {}) {
   async function _getIMAResponseContent() {
     // Mock devUtils to override manifest loading
     const devUtils = {
-      manifestRequire: () => ({
-        ima: {
-          createImaApp,
-        },
-      }),
+      manifestRequire: () => ({}),
     };
 
     // Generate request output
