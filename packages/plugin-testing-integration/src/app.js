@@ -6,6 +6,7 @@ import {
   bootClientApp,
 } from '@ima/core';
 import { assignRecursively } from '@ima/helpers';
+import createIMAServer from '@ima/server';
 import { JSDOM } from 'jsdom';
 
 import { unAopAll } from './aop';
@@ -13,8 +14,6 @@ import { getBootConfigExtensions } from './bootConfigExtensions';
 import { getConfig } from './configuration';
 import { requireFromProject } from './helpers';
 import { generateDictionary } from './localization';
-
-const createIMAServer = require('@ima/server');
 
 const setIntervalNative = global.setInterval;
 const setTimeoutNative = global.setTimeout;
@@ -77,14 +76,6 @@ async function initImaApp(bootConfigMethods = {}) {
     global.window = window;
     global.jsdom = jsdom;
 
-    // Call all page scripts (jsdom build-in runScript creates new V8 context, unable to mix with node context)
-    const pageScripts = jsdom.window.document.getElementsByTagName('script');
-    if (typeof config.pageScriptEvalFn === 'function') {
-      for (const script of pageScripts) {
-        config.pageScriptEvalFn(script, global, window, { ...config });
-      }
-    }
-
     // Extend node global with created window vars
     Object.defineProperties(global, {
       ...Object.getOwnPropertyDescriptors(window),
@@ -96,6 +87,14 @@ async function initImaApp(bootConfigMethods = {}) {
 
     // Mock scroll for ClientWindow.scrollTo
     global.window.scrollTo = () => {};
+
+    // Call all page scripts (jsdom build-in runScript creates new V8 context, unable to mix with node context)
+    const pageScripts = jsdom.window.document.getElementsByTagName('script');
+    if (typeof config.pageScriptEvalFn === 'function') {
+      for (const script of pageScripts) {
+        config.pageScriptEvalFn(script);
+      }
+    }
   }
 
   /**
@@ -146,24 +145,24 @@ async function initImaApp(bootConfigMethods = {}) {
   }
 
   /**
-   *Get response content for the application run
+   * Get response content for the application run
    *
    * @returns {string} html content
    */
   async function _getIMAResponseContent() {
-    const devUtilsFactory = jest.mock(
-      '@ima/server/lib/factory/devUtilsFactory.js',
-      () => () => ({
-        manifestRequire: () => ({
-          ima: {
-            createImaApp,
-          },
-        }),
-      })
-    );
+    // Mock devUtils to override manifest loading
+    const devUtils = {
+      manifestRequire: () => ({
+        ima: {
+          createImaApp,
+        },
+      }),
+    };
 
     // Generate request output
-    const { content } = await createIMAServer().serverApp.requestHandler(
+    const { content } = await createIMAServer({
+      devUtils,
+    }).serverApp.requestHandler(
       {
         headers: () => '',
       },
@@ -181,7 +180,7 @@ async function initImaApp(bootConfigMethods = {}) {
         },
       }
     );
-    devUtilsFactory.restoreAllMocks();
+
     return content;
   }
 
