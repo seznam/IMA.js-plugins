@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.1
+
+### Patch Changes
+
+- 35fc043: Fix: peer to ima/cli min version increaced to 18.1.0
+
 ## 4.0.0
 
 ### Major Changes
