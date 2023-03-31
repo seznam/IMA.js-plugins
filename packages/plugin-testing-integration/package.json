@@ -51,6 +51,7 @@
   },
   "peerDependencies": {
     "@ima/cli": ">=18.0.0",
-    "@ima/core": ">=18.0.0"
+    "@ima/core": ">=18.0.0",
+    "@ima/server": ">=18.3.2"
   }
 }
