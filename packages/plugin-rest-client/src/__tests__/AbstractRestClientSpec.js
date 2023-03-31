@@ -820,7 +820,7 @@ describe('AbstractRestClient', () => {
         .then(response => {
           expect(response.request.resource).toBe(Entity);
           expect(response.body instanceof Entity).toBeTruthy();
-          expect(response.body).toMatchObject(
+          expect(response.body).toEqual(
             new Entity({
               id: 1,
               stuff: 'yes',
