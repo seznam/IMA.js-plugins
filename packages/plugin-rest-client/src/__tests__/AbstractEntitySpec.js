@@ -1,6 +1,6 @@
+import { testStaticProperty } from './RestClientTestUtils';
 import AbstractDataFieldMapper from '../AbstractDataFieldMapper';
 import AbstractEntity from '../AbstractEntity';
-import { testStaticProperty } from './RestClientTestUtils';
 
 describe('AbstractEntity', () => {
   class Entity extends AbstractEntity {

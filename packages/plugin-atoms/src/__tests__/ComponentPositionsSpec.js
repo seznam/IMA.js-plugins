@@ -1,8 +1,8 @@
 import { UserAgent } from '@ima/plugin-useragent';
 import { toMockedInstance } from 'to-mock';
 
-import ComponentPositions from '../ComponentPositions';
 import _window from './mocks/window';
+import ComponentPositions from '../ComponentPositions';
 
 describe('ComponentPositions', () => {
   const mockedUserAgent = toMockedInstance(UserAgent, {
