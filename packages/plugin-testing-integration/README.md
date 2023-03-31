@@ -181,6 +181,13 @@ This can be useful to make frequently used functions available directly from the
 
 This script is executed right before the IMA.js boot config is initialized, but jsdom and vendor linker is already loaded. You can make any kind of modifications, that are needed to boot the ima application into the jsdom.
 
+### pageScriptEvalFn
+`<Function>`
+
+`Default: script => script && script.text && script.id !== 'ima-runner' && window.eval(script.text)`
+
+Function to run on each HTML script element of generated JSDOM page. By default the runner script is not evaluated.
+
 ## Usage
 
 This is Jest example of simple integration test, that loads the IMA.js app homepage and mocks all http get requests.
