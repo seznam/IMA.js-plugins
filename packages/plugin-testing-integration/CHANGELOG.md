@@ -1,5 +1,13 @@
 # Change Log
 
+## 4.0.0
+
+### Major Changes
+
+- 076eddc: JSDOM is now using real spa content generated from ejs template
+  Enabled JSDOM page scripts evaluation (configured by setup function)
+  Requires @ima/server@18.3.2 and later
+
 ## 3.1.0
 
 ### Minor Changes
