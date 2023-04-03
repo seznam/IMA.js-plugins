@@ -2,28 +2,46 @@ import { GenericError } from '@ima/core';
 
 import RestClient from './RestClient';
 
+export const PathType = Object.freeze({
+  LIST: 'list',
+  GET: 'get',
+  CREATE: 'create',
+  UPDATE: 'update',
+  REPLACE: 'replace',
+  DELETE: 'delete',
+});
+
 export default class AbstractResource {
   static get $dependencies() {
     return [RestClient, 'REST_CLIENT_BASE_API_URL'];
   }
 
-  get entityClass() {
+  static get entityClass() {
     return null;
   }
 
   // get path() {
   //   return {
   //     list: '/roles',
-  //     item: '/roles/{_id}'
+  //     item: '/roles/{_id}',
   //   };
   // }
 
-  get path() {
-    throw new GenericError(`RestClient: getter "path" must be overriden.`);
+  static get resourceBasePath() {
+    throw new GenericError(
+      `RestClient: getter "resourceBasePath" must be overriden.`
+    );
   }
 
-  get defaultPathType() {
-    return 'item';
+  get path() {
+    return Object.values(PathType).reduce((result, item) => {
+      result[item] =
+        item === PathType.LIST
+          ? `/${this.constructor.resourceBasePath}`
+          : `/${this.constructor.resourceBasePath}/{_id}`;
+
+      return result;
+    }, {});
   }
 
   constructor(restClient, baseApiUrl) {
@@ -33,69 +51,41 @@ export default class AbstractResource {
   }
 
   async list(data, options) {
-    const { response } = await this._restClientRequest(
+    const { body } = await this._restClientRequest(
       'get',
-      'list',
+      PathType.LIST,
       data,
       options
     );
 
-    return response;
+    return body;
   }
 
   async get(data, options) {
-    const { response } = await this._restClientRequest(
+    const { body } = await this._restClientRequest(
       'get',
-      'get',
+      PathType.GET,
       data,
       options
     );
 
-    return response;
+    return body;
   }
 
-  async create(data, options) {
-    const { response } = await this._restClientRequest(
-      'post',
-      'create',
-      data,
-      options
-    );
-
-    return response;
+  create(data, options) {
+    return this._restClientRequest('post', PathType.CREATE, data, options);
   }
 
-  async update(data, options) {
-    const { response } = await this._restClientRequest(
-      'patch',
-      'update',
-      data,
-      options
-    );
-
-    return response;
+  update(data, options) {
+    return this._restClientRequest('patch', PathType.UPDATE, data, options);
   }
 
-  async replace(data, options) {
-    const { response } = await this._restClientRequest(
-      'put',
-      'replace',
-      data,
-      options
-    );
-
-    return response;
+  replace(data, options) {
+    return this._restClientRequest('put', PathType.REPLACE, data, options);
   }
 
-  async delete(data, options) {
-    const { response } = await this._restClientRequest(
-      'delete',
-      'delete',
-      data,
-      options
-    );
-
-    return response;
+  delete(data, options) {
+    return this._restClientRequest('delete', PathType.DELETE, data, options);
   }
 
   async _restClientRequest(method, pathType, data, options) {
@@ -122,17 +112,14 @@ export default class AbstractResource {
   }
 
   _getPath(pathType, data) {
-    let pathTemplate = this.path[pathType];
+    const pathTemplate = this.path[pathType];
 
     if (!pathTemplate) {
-      pathTemplate = this.path[this.defaultPathType];
-
-      if (!pathTemplate) {
-        throw new GenericError(
-          `RestClient: getter "path" does not contain ${pathType}.`
-        );
-      }
+      throw new GenericError(
+        `RestClient: getter "path" does not contain ${pathType}.`
+      );
     }
+
     const path = this._processPathTemplate(pathTemplate, data);
 
     return this._baseApiUrl + path;

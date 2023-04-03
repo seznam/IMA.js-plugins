@@ -4,10 +4,9 @@ export const Operation = Object.freeze({
 });
 
 export default class Processor {
-  // static get $dependencies() {
-  //   return [];
-  // }
-
+  get name() {
+    return this.constructor.name;
+  }
 
   [Operation.PRE_REQUEST](request) {
     return [request];

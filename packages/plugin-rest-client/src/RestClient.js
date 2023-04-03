@@ -1,16 +1,20 @@
 import { GenericError } from '@ima/core';
 
-import Processor, { Operation } from './Processor';
+import Processor, { Operation } from './processor/Processor';
 
 export default class RestClient {
   static get $dependencies() {
-    return ['$Http', 'REST_CLIENT_DEFAULT_PROCESSORS'];
+    return ['$Http'];
   }
 
-  constructor(http, defaultProcessors) {
+  constructor(http) {
     this._http = http;
 
-    this._defaultProcessors = defaultProcessors;
+    this._defaultProcessors = [];
+  }
+
+  registerProcessor(processor) {
+    this._defaultProcessors.push(processor);
   }
 
   async request(method, path, data, options = {}) {
@@ -66,4 +70,11 @@ export default class RestClient {
 
     return transformProcessors(defaultProcessors);
   }
+  /*
+  {
+  transformProcessors:
+  processors => {processors.push(oc.get(Processor); return processors;})
+  processors => processors.filter(item=>item.name!=Processor))
+  }
+  * */
 }
