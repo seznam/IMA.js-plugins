@@ -27,7 +27,7 @@ export default class AbstractResource {
   //   };
   // }
 
-  static get resourceBasePath() {
+  get resourceBasePath() {
     throw new GenericError(
       `RestClient: getter "resourceBasePath" must be overriden.`
     );
@@ -37,8 +37,8 @@ export default class AbstractResource {
     return Object.values(PathType).reduce((result, item) => {
       result[item] =
         item === PathType.LIST
-          ? `/${this.constructor.resourceBasePath}`
-          : `/${this.constructor.resourceBasePath}/{_id}`;
+          ? `/${this.resourceBasePath}`
+          : `/${this.resourceBasePath}/{id}`;
 
       return result;
     }, {});
@@ -116,7 +116,7 @@ export default class AbstractResource {
 
     if (!pathTemplate) {
       throw new GenericError(
-        `RestClient: getter "path" does not contain ${pathType}.`
+        `RestClient: getter "path" does not contain ${pathType} in ${this.constructor.name}`
       );
     }
 
@@ -152,7 +152,7 @@ export default class AbstractResource {
 
   _convertResponseBodyToEntities(response) {
     const body = response.body;
-    const resource = this.entityClass;
+    const resource = this.constructor.entityClass;
 
     if (body && resource) {
       if (body instanceof Array) {

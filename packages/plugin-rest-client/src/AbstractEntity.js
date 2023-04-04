@@ -1,8 +1,6 @@
-import AbstractDataFieldMapper from './AbstractDataFieldMapper';
-
 /**
  * The base class for typed REST API entities. Usage of typed entities may be
- * optional and is dependant on the specific implementation of the REST API
+ * optional and is dependent on the specific implementation of the REST API
  * client.
  */
 export default class AbstractEntity {
@@ -11,21 +9,10 @@ export default class AbstractEntity {
    *
    * @param {Object<string, *>} data Entity data, which will be directly
    *        assigned to the entity's fields.
-   * @param {?AbstractEntity=} parentEntity The entity within which the
-   *        resource containing this entity is located. Can be set to
-   *        {@code null} if this entity belongs to a top-level resource
-   *        without a parent.
    */
   constructor(data) {
-    /**
-     * The entity within which the resource containing this entity is
-     * located. Can be set to null if this entity belongs to a top-level
-     * resource without a parent.
-     *
-     * @type {?AbstractEntity}
-     */
+    const entityData = this.$deserialize(data);
 
-    let entityData = this.$deserialize(data);
     Object.assign(this, entityData);
   }
 
@@ -48,7 +35,6 @@ export default class AbstractEntity {
    *
    * @returns {Object<string, (
    *           string|
-   *           function(new: AbstractDataFieldMapper)|
    *           {
    *             dataFieldName: ?string,
    *             deserialize: function(*, AbstractEntity): *,
@@ -58,50 +44,7 @@ export default class AbstractEntity {
    *         mapped to the entity properties and vice versa.
    */
   static get dataFieldMapping() {
-    return this.dataFieldMapping;
-  }
-
-  /**
-   * This setter is used for compatibility with the Public Class Fields ES
-   * proposal (at stage 2 at the moment of writing this).
-   *
-   * See the related getter for more details about this property.
-   *
-   * @param {Object<string, (
-   *          string|
-   *          function(new: AbstractDataFieldMapper)|
-   *          {
-   *            dataFieldName: ?string,
-   *            deserialize: function(*, AbstractEntity): *,
-   *            serialize: function(*, AbstractEntity): *
-   *          }
-   *        )>} dataFieldMapping The description of how the raw data
-   *        properties should be mapped to the entity properties and vice
-   *        versa.
-   */
-  static set dataFieldMapping(dataFieldMapping) {
-    this.dataFieldMapping = dataFieldMapping;
-  }
-
-  /**
-   * Creates a data field mapper for mapping the property of the specified
-   * name in the raw data to an instance of this entity class. The entity
-   * having its data mapped will also be set as the parent entity of the
-   * generated entity.
-   *
-   * @param {?string} dataFieldName The name of the raw data field being
-   *        mapped, or {@code null} if it is the same as the name of the
-   *        entity property being mapped.
-   * @returns {function(new: AbstractDataFieldMapper)} The generated data
-   *         field mapper.
-   */
-  static asDataFieldMapper(dataFieldName = null) {
-    let entityClass = this;
-    return AbstractDataFieldMapper.makeMapper(
-      dataFieldName,
-      data => new entityClass(data),
-      entity => entity.$serialize()
-    );
+    return {};
   }
 
   /**
@@ -120,9 +63,9 @@ export default class AbstractEntity {
    *         way that is compatible with the REST API.
    */
   $serialize(data = this) {
-    let mappings = this.constructor.dataFieldMapping;
+    const mappings = this.constructor.dataFieldMapping;
 
-    let serializedData = {};
+    const serializedData = {};
     for (let entityPropertyName of Object.keys(data)) {
       if (!Object.prototype.hasOwnProperty.call(mappings, entityPropertyName)) {
         serializedData[entityPropertyName] = data[entityPropertyName];
@@ -132,10 +75,7 @@ export default class AbstractEntity {
       let value = data[entityPropertyName];
       if (mapper instanceof Object) {
         let serializedValue = mapper.serialize(value, this);
-        let dataFieldName =
-          mapper.dataFieldName === null
-            ? entityPropertyName
-            : mapper.dataFieldName;
+        let dataFieldName = mapper?.dataFieldName || entityPropertyName;
         serializedData[dataFieldName] = serializedValue;
       } else {
         serializedData[mapper] = value;
@@ -163,20 +103,18 @@ export default class AbstractEntity {
    *         entity.
    */
   $deserialize(data) {
-    let mappings = this.constructor.dataFieldMapping;
-    let mappedDataProperties = {};
-    for (let entityPropertyName of Object.keys(mappings)) {
-      let mapper = mappings[entityPropertyName];
+    const mappings = this.constructor.dataFieldMapping;
+
+    const mappedDataProperties = {};
+    Object.entries(mappings).forEach(([propertyName, mapper]) => {
       if (mapper instanceof Object) {
-        let dataFieldName = mapper.dataFieldName;
-        if (dataFieldName === null) {
-          dataFieldName = entityPropertyName;
-        }
-        mappedDataProperties[dataFieldName] = entityPropertyName;
+        const dataFieldName = mapper.dataFieldName || propertyName;
+
+        mappedDataProperties[dataFieldName] = propertyName;
       } else {
-        mappedDataProperties[mapper] = entityPropertyName;
+        mappedDataProperties[mapper] = propertyName;
       }
-    }
+    });
 
     let deserializedData = {};
     for (let propertyName of Object.keys(data)) {
@@ -203,5 +141,25 @@ export default class AbstractEntity {
     }
 
     return deserializedData;
+  }
+
+  /**
+   * Creates a clone of this entity with its state patched using the provided
+   * state patch object.
+   *
+   * Note that this method is meant to be used primarily for creating
+   * modified versions of immutable entities.
+   *
+   * @param {Object<string, *>} statePatch The patch of this entity's state
+   *        that should be applied to the clone.
+   * @returns {AbstractEntity} The created patched clone.
+   */
+  cloneAndPatch(statePatch) {
+    let data = this.$serialize();
+    let patchData = this.$serialize(statePatch);
+    let patchedData = Object.assign({}, data, patchData);
+    let entityClass = this.constructor;
+
+    return new entityClass(patchedData);
   }
 }
