@@ -17,13 +17,14 @@ export default class RestClient {
     this._defaultProcessors.push(processor);
   }
 
-  async request(method, path, data, options = {}) {
+  async request(resource, method, path, data, options = {}) {
     let request = { method, path, data, options };
     const processors = this._getProcessors(request);
 
     [request] = await this._runProcessors(
       processors,
       Operation.PRE_REQUEST,
+      resource,
       request
     );
     let response = await this._http[method](
@@ -34,6 +35,7 @@ export default class RestClient {
     [request, response] = await this._runProcessors(
       processors,
       Operation.POST_REQUEST,
+      resource,
       request,
       response
     );
@@ -41,7 +43,7 @@ export default class RestClient {
     return { request, response };
   }
 
-  async _runProcessors(processors, operation, ...rest) {
+  async _runProcessors(processors, operation, resource, ...rest) {
     for (const processor of processors) {
       if (!(processor instanceof Processor)) {
         throw new GenericError(
@@ -49,7 +51,7 @@ export default class RestClient {
         );
       }
 
-      rest = await processor[operation](...rest);
+      rest = await processor[operation](resource, ...rest);
     }
 
     return rest;

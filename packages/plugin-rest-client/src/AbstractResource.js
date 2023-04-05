@@ -20,13 +20,6 @@ export default class AbstractResource {
     return null;
   }
 
-  // get path() {
-  //   return {
-  //     list: '/roles',
-  //     item: '/roles/{_id}',
-  //   };
-  // }
-
   get resourceBasePath() {
     throw new GenericError(
       `RestClient: getter "resourceBasePath" must be overriden.`
@@ -92,6 +85,7 @@ export default class AbstractResource {
     const path = this._getPath(pathType, data);
 
     const { response } = await this._restClient.request(
+      this,
       method,
       path,
       this._prepareData(data),
