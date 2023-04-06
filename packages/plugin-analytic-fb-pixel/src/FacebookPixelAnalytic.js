@@ -16,9 +16,9 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
    * Creates a Facebook Pixel Helper instance.
    *
    * @function Object() { [native code] }
-   * @param {ScriptLoader} scriptLoader
-   * @param {Window} window
-   * @param {Dispatcher} dispatcher
+   * @param {import('@ima/plugin-script-loader').ScriptLoaderPlugin} scriptLoader
+   * @param {import('@ima/core').Window} window
+   * @param {import('@ima/core').Dispatcher} dispatcher
    * @param {object} config
    */
   constructor(scriptLoader, window, dispatcher, config) {

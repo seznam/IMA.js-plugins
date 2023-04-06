@@ -23,13 +23,13 @@ export default class Visibility {
   constructor(window, dispatcher) {
     /**
      * @property _window
-     * @type {ima.window.Window}
+     * @type {import('@ima/core').Window}
      */
     this._window = window;
 
     /**
      * @property _dispatcher
-     * @type {ima.event.Dispatcher}
+     * @type {import('@ima/core').Dispatcher}
      */
     this._dispatcher = dispatcher;
 

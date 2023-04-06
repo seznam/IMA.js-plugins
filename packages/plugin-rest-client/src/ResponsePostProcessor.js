@@ -12,9 +12,9 @@ export default class ResponsePostProcessor {
    * should be passed to the caller of the REST API client's methods, or the
    * next post-processor in the queue.
    *
-   * @param {Response} response The REST API response to post-process before
+   * @param {import('@ima/core').Response} response The REST API response to post-process before
    *        returning it to the caller of the REST API client's methods.
-   * @returns {Response} The response as it should be passed to the caller of
+   * @returns {import('@ima/core').Response} The response as it should be passed to the caller of
    *         the REST API client's methods.
    */
   process(response) {}

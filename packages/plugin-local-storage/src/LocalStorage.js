@@ -11,13 +11,13 @@ class LocalStorage extends Storage {
   }
 
   /**
-   * @param {ima.window.Window} window Global window object on client
+   * @param {import('@ima/core').Window} window Global window object on client
    */
   constructor(window) {
     super();
 
     /**
-     * @type {ima.window.Window}
+     * @type {import('@ima/core').Window}
      */
     this._window = window;
 

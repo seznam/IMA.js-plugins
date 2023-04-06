@@ -39,7 +39,7 @@ function clearImaApp(app) {
  * Initializes IMA application with our production-like configuration
  * Reinitializes jsdom with configuration, that will work with our application
  *
- * @param {object} [bootConfigMethods] Object, that can contain methods for ima boot configuration
+ * @param {import('@ima/core').AppConfigFunctions} [bootConfigMethods] Object, that can contain methods for ima boot configuration
  * @returns {Promise<object>}
  */
 async function initImaApp(bootConfigMethods = {}) {
