@@ -20,6 +20,7 @@ export default class ScriptLoaderPlugin {
   constructor(window, dispatcher, resourceLoader) {
     /**
      * IMA.js Window
+     *
      * @type {import('@ima/core').Window}
      */
     this._window = window;
