@@ -1,11 +1,32 @@
 import { pluginLoader } from '@ima/core';
+// @ts-expect-error missing types
 import uid from 'easy-uid';
 
-import GoogleAnalytic from './GoogleAnalytic.js';
-import GoogleAnalytics4 from './GoogleAnalytics4';
-
-const defaultDependencies = GoogleAnalytic.$dependencies;
-const googleAnalytics4DefaultDependencies = GoogleAnalytics4.$dependencies;
+declare module '@ima/core' {
+  interface PluginAnalyticSettings {
+    google?: {
+      service: string | null;
+      settings: {
+        clientId?: string;
+        storage?: 'none';
+      };
+      settingsSetter: {
+        allowAdFeatures?: boolean;
+        anonymizeIp?: boolean;
+        allowAdPersonalizationSignals?: boolean;
+      };
+    };
+    google4: {
+      consentSettings: {
+        ad_storage?: 'denied' | 'granted';
+        analytics_storage?: 'denied' | 'granted';
+        personalization_storage?: 'denied' | 'granted';
+      };
+      service: string;
+      waitForUpdateTimeout?: number;
+    };
+  }
+}
 
 pluginLoader.register('@ima/plugin-analytic-google', () => ({
   initSettings: () => ({
@@ -40,9 +61,4 @@ pluginLoader.register('@ima/plugin-analytic-google', () => ({
   }),
 }));
 
-export {
-  GoogleAnalytic,
-  GoogleAnalytics4,
-  defaultDependencies,
-  googleAnalytics4DefaultDependencies,
-};
+export {};

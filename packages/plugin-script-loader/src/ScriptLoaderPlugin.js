@@ -13,22 +13,21 @@ export default class ScriptLoaderPlugin {
   /**
    * Initializes the script loader.
    *
-   * @param {ima.window.Window} window
-   * @param {ima.event.Dispatcher} dispatcher
+   * @param {import('@ima/core').Window} window
+   * @param {import('@ima/core').Dispatcher} dispatcher
    * @param {ResourceLoader} resourceLoader
    */
   constructor(window, dispatcher, resourceLoader) {
     /**
      * IMA.js Window
-     *
-     * @type {ima.window.Window}
+     * @type {import('@ima/core').Window}
      */
     this._window = window;
 
     /**
      * IMA.js Dispatcher
      *
-     * @type {ima.event.Dispatcher}
+     * @type {import('@ima/core').Dispatcher}
      */
     this._dispatcher = dispatcher;
 

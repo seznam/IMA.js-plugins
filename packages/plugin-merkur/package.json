@@ -4,6 +4,10 @@
   "description": "The Plugin merkur",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
+  "types": "./dist/esm/main.d.ts",
+  "sideEffects": [
+    "./dist/**/register.js"
+  ],
   "scripts": {
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "build": "ima-plugin build",

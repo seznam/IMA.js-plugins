@@ -1,15 +1,11 @@
-/**
- * A configuration.
- *
- * @typedef {object} Configuration
- * @property {boolean} [silentMode=false] Indicates whether the logging is
- *           silenced.
- */
+export interface Configuration {
+  silentMode: boolean;
+}
 
 /**
  * A configuration.
  *
- * @type {module:main~Configuration}
+ * @type {Configuration}
  */
 const _config = {
   silentMode: false,
@@ -18,10 +14,10 @@ const _config = {
 /**
  * Configure the logger.
  *
- * @param {module:main~Configuration} config Some or all of configuration
+ * @param {Configuration} config Some or all of configuration
  *        properties, which overwrites the current values.
  */
-function configureLogger(config) {
+function configureLogger(config: Configuration) {
   if (!config || typeof config !== 'object') {
     error(new TypeError('Argument config must be an object.'));
 
@@ -62,7 +58,7 @@ function isSilent() {
  *
  * @param {...*} message A message.
  */
-function log(...message) {
+function log(...message: any[]) {
   if (!isSilent()) {
 		console.log(...message); // eslint-disable-line
   }
@@ -73,7 +69,7 @@ function log(...message) {
  *
  * @param {...*} message An informational message.
  */
-function info(...message) {
+function info(...message: any[]) {
   if (!isSilent()) {
 		console.info(...message); //eslint-disable-line
   }
@@ -84,7 +80,7 @@ function info(...message) {
  *
  * @param {...*} message A warning message.
  */
-function warn(...message) {
+function warn(...message: any[]) {
   if (!isSilent()) {
 		console.warn(...message); //eslint-disable-line
   }
@@ -95,7 +91,7 @@ function warn(...message) {
  *
  * @param {...*} message An error message.
  */
-function error(...message) {
+function error(...message: any[]) {
   if (!isSilent()) {
 		console.error(...message); //eslint-disable-line
   }
@@ -106,7 +102,7 @@ function error(...message) {
  *
  * @param {...*} message A debug message.
  */
-function debug(...message) {
+function debug(...message: any[]) {
   if (!isSilent()) {
 		if (typeof console.debug === 'function') { //eslint-disable-line
 			console.debug(...message); //eslint-disable-line
@@ -125,11 +121,11 @@ function debug(...message) {
 /**
  * Outputs a message if a condition is met.
  *
- * @param {module:main~Condition} condition A condition.
+ * @param {*} condition A condition.
  * @param {...*} message A message.
  * @returns {booolean} TRUE when the condition is met, otherwise FALSE.
  */
-function logIf(condition, ...message) {
+function logIf(condition: any, ...message: any[]) {
   if (condition) {
     log(...message);
   }
@@ -140,11 +136,11 @@ function logIf(condition, ...message) {
 /**
  * Outputs an informational message if a condition is met.
  *
- * @param {module:main~Condition} condition A condition.
+ * @param {*} condition A condition.
  * @param {...*} message An informational message.
  * @returns {booolean} TRUE when the condition is met, otherwise FALSE.
  */
-function infoIf(condition, ...message) {
+function infoIf(condition: any, ...message: any[]) {
   if (condition) {
     info(...message);
   }
@@ -155,11 +151,11 @@ function infoIf(condition, ...message) {
 /**
  * Outputs a warning message if a condition is met.
  *
- * @param {module:main~Condition} condition A condition.
+ * @param {*} condition A condition.
  * @param {...*} message A warning message.
  * @returns {booolean} TRUE when the condition is met, otherwise FALSE.
  */
-function warnIf(condition, ...message) {
+function warnIf(condition: any, ...message: any[]) {
   if (condition) {
     warn(...message);
   }
@@ -181,11 +177,11 @@ function warnIf(condition, ...message) {
  *   }
  *   ...
  * }
- * @param {module:main~Condition} condition A condition.
+ * @param {*} condition A condition.
  * @param {...*} message An error message.
  * @returns {booolean} TRUE when the condition is met, otherwise FALSE.
  */
-function errorIf(condition, ...message) {
+function errorIf(condition: any, ...message: any[]) {
   if (condition) {
     error(...message);
   }
@@ -196,11 +192,11 @@ function errorIf(condition, ...message) {
 /**
  * Outputs a debug message if a condition is met.
  *
- * @param {module:main~Condition} condition A condition.
+ * @param {*} condition A condition.
  * @param {...*} message A debug message.
  * @returns {booolean} TRUE when the condition is met, otherwise FALSE.
  */
-function debugIf(condition, ...message) {
+function debugIf(condition: any, ...message: any[]) {
   if (condition) {
     debug(...message);
   }
@@ -216,12 +212,15 @@ function debugIf(condition, ...message) {
  *   throwIf(typeof num !== 'number', new TypeError('Argument num must be a number.'));
  *   ...
  * }
- * @param {module:main~Condition} condition A condition.
+ * @param {*} condition A condition.
  * @param {string|number|boolean|object} expression An expression to throw
  *        (please prefer an instance of Error, because it contains an original
  *        location, where it was created).
  */
-function throwIf(condition, expression) {
+function throwIf(
+  condition: any,
+  expression: string | number | boolean | object
+) {
   if (condition) {
     throw expression;
   }
@@ -242,13 +241,13 @@ function throwIf(condition, expression) {
  *   }
  *   ...
  * }
- * @param {module:main~Condition} condition A condition.
+ * @param {*} condition A condition.
  * @param {string|number|boolean|object} reason A reason of rejecting (please
  *        prefer an instance of Error, because it contains an original location,
  *        where it was created).
  * @returns {?Promise} A promise that is rejected with the given reason or null.
  */
-function rejectIf(condition, reason) {
+function rejectIf(condition: any, reason: string | number | boolean | object) {
   if (condition) {
     return Promise.reject(reason);
   }

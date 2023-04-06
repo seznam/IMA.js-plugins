@@ -22,12 +22,12 @@ export default class ComponentPositions {
   /**
    * Initializes the helper.
    *
-   * @param {ima.window.Window} window
+   * @param {import('@ima/core').Window} window
    * @param {UserAgent} userAgent
    */
   constructor(window, userAgent) {
     /**
-     * @type {ima.window.Window}
+     * @type {import('@ima/core').Window}
      */
     this._window = window;
 

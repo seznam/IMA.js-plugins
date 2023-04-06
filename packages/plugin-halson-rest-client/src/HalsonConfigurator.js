@@ -7,7 +7,7 @@ export default class HalsonConfigurator extends Configurator {
   /**
    * Initializes the HAL+JSON REST API client configurator.
    *
-   * @param {ima.http.HttpAgent} httpAgent The IMA HTTP agent for sending
+   * @param {import('@ima/core').HttpAgent} httpAgent The IMA HTTP agent for sending
    *        HTTP request.
    * @param {string} apiRoot URL to the REST API root.
    * @param {function(*): Object<string, (string|{href: string})>=} linkMapResolver
@@ -20,7 +20,7 @@ export default class HalsonConfigurator extends Configurator {
     /**
      * The IMA HTTP agent for sending HTTP request.
      *
-     * @type {ima.http.HttpAgent}
+     * @type {import('@ima/core').HttpAgent}
      */
     this._httpAgent = httpAgent;
 

@@ -8,14 +8,14 @@ export default class ClientUserAgent extends AbstractUserAgent {
   /**
    * Initializes the user agent analyzer used at the client-side.
    *
-   * @param {PlatformJS} platformJS
-   * @param {ima.window.Window} window
+   * @param {import('platform').default} platformJS
+   * @param {import('@ima/core').Window} window
    */
   constructor(platformJS, window) {
     super(platformJS);
 
     /**
-     * @type {ima.window.Window}
+     * @type {import('@ima/core').Window}
      */
     this._window = window;
   }

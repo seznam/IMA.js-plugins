@@ -5,7 +5,7 @@ export default class WebSocket {
 
   constructor(window, config) {
     /**
-     * @type {Window}
+     * @type {import('@ima/core').Window}
      */
     this._window = window;
 

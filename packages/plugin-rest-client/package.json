@@ -4,6 +4,10 @@
   "description": "Generic REST API client plugin for the IMA application framework.",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
+  "types": "./dist/esm/main.d.ts",
+  "sideEffects": [
+    "./dist/**/register.js"
+  ],
   "scripts": {
     "test": "../../node_modules/.bin/jest --config=jest.config.js",
     "build": "ima-plugin build",

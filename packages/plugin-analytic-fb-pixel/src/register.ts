@@ -1,8 +1,12 @@
 import { pluginLoader } from '@ima/core';
 
-import FacebookPixelAnalytic from './FacebookPixelAnalytic';
-
-const defaultDependencies = FacebookPixelAnalytic.$dependencies;
+declare module '@ima/core' {
+  interface PluginAnalyticSettings {
+    fbPixel: {
+      id: string | null;
+    };
+  }
+}
 
 pluginLoader.register('@ima/plugin-analytic-google', () => ({
   initSettings: () => ({
@@ -15,8 +19,7 @@ pluginLoader.register('@ima/plugin-analytic-google', () => ({
         },
       },
     },
-    dev: {},
   }),
 }));
 
-export { FacebookPixelAnalytic, defaultDependencies };
+export {};

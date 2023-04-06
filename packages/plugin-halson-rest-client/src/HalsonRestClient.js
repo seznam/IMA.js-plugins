@@ -10,7 +10,7 @@ export default class HalsonRestClient extends AbstractRestClient {
   /**
    * Initializes the HALSON REST API client.
    *
-   * @param {HttpAgent} httpAgent The IMA HTTP agent used for communication
+   * @param {import('@ima/core').HttpAgent} httpAgent The IMA HTTP agent used for communication
    *        with the REST API.
    * @param {Configurator} configurator URL to the REST API root.
    * @param {RequestPreProcessor[]} preProcessors The request pre-processors.

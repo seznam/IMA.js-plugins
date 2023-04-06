@@ -1,6 +1,7 @@
 import AbstractAnalytic from './AbstractAnalytic';
-import Events from './Events';
+import './register';
 
 const defaultDependencies = AbstractAnalytic.$dependencies;
 
-export { AbstractAnalytic, Events, defaultDependencies };
+export { Events } from './Events';
+export { AbstractAnalytic, defaultDependencies };

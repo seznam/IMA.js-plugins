@@ -17,9 +17,9 @@ export default class RequestPreProcessor {
    * Note that the returned response will still pass all the response
    * post-processors registered with the current REST API client.
    *
-   * @param {Request} request The REST API request to pre-process before
+   * @param {import('@ima/core').Request} request The REST API request to pre-process before
    *        passing it to the HTTP agent.
-   * @returns {(Request|Response|Promise<Response>)} The request, as it should
+   * @returns {import('@ima/core').Request} The request, as it should
    *         be passed to the next request pre-processor, or the HTTP agent
    *         itself if there are no remaining pre-processors left; or a
    *         response (or promise that will resolve to a response) to return

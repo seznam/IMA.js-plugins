@@ -7,17 +7,17 @@ export default class MerkurResource {
 
   /**
    *
-   * @param {HttpAgent} http
-   * @param {Cache} cache
+   * @param {import('@ima/core').HttpAgent} http
+   * @param {import('@ima/core').Cache} cache
    */
   constructor(http, cache) {
     /**
-     * @type {HttpAgent}
+     * @type {import('@ima/core').HttpAgent}
      */
     this._http = http;
 
     /**
-     * @type {Cache}
+     * @type {import('@ima/core').Cache}
      */
     this._cache = cache;
   }

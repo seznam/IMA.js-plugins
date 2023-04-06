@@ -1,5 +1,12 @@
 /* eslint-disable no-console */
-import type { Dictionary } from '@ima/core';
+import type { Dictionary, DictionaryMap } from '@ima/core';
+
+declare module '@ima/core' {
+  interface DictionaryMap {
+    'ima-plugin-self-xss.title': string;
+    'ima-plugin-self-xss.phase': string;
+  }
+}
 
 export class SelfXSS {
   #dictionary: Dictionary;
@@ -8,11 +15,11 @@ export class SelfXSS {
     return ['$Dictionary'];
   }
 
-  static get DICTIONARY_TITLE_KEY() {
+  static get DICTIONARY_TITLE_KEY(): keyof DictionaryMap {
     return 'ima-plugin-self-xss.title';
   }
 
-  static get DICTIONARY_PHASE_KEY() {
+  static get DICTIONARY_PHASE_KEY(): keyof DictionaryMap {
     return 'ima-plugin-self-xss.phase';
   }
 

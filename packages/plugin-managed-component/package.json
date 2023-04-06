@@ -4,6 +4,10 @@
   "description": "Base class for React components (for IMA.js applications) with automatically managed DOM, event bus, dispatcher, timeout and interval listeners.",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
+  "types": "./dist/esm/main.d.ts",
+  "sideEffects": [
+    "./dist/**/register.js"
+  ],
   "scripts": {
     "test": "../../node_modules/.bin/jest --config=jest.config.js",
     "build": "ima-plugin build",
