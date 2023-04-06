@@ -27,10 +27,5 @@
   "bugs": {
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
-  "license": "MIT",
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
-  }
+  "license": "MIT"
 }

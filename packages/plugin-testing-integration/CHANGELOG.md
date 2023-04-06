@@ -1,4 +1,23 @@
 # Change Log
+## 4.0.1
+
+### Patch Changes
+
+- 35fc043: Fix: peer to ima/cli min version increaced to 18.1.0
+
+## 4.0.0
+
+### Major Changes
+
+- 076eddc: JSDOM is now using real spa content generated from ejs template
+  Enabled JSDOM page scripts evaluation (configured by setup function)
+  Requires @ima/server@18.3.2 and later
+
+## 3.1.0
+
+### Minor Changes
+
+- 7aae66d: Add support to multidimensional app dictionary to integration tests
 
 ## 3.0.2-rc.1
 

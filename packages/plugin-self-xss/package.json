@@ -32,11 +32,6 @@
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
   "license": "MIT",
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
-  },
   "peerDependencies": {
     "@ima/core": ">=18.0.0 || >=19.0.0-rc.0"
   }

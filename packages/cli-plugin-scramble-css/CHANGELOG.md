@@ -1,4 +1,21 @@
 # Change Log
+## 1.2.2
+
+### Patch Changes
+
+- 1813d15: Use for loop because of build errors with findIndex()
+
+## 1.2.1
+
+### Patch Changes
+
+- 2a93641: Remove findLastIndex() and new Set() syntax for backward compatibility
+
+## 1.2.0
+
+### Minor Changes
+
+- b23a557: Scrambler doesn't transform class names to potentially harmful class names like "ad".
 
 ## 1.1.2-rc.1
 

@@ -139,3 +139,7 @@ These are passed directly into the `ScrambleCssMinimizer`. You can define custom
 ---
 
 For more information, take a look at the [IMA.js documentation](https://imajs.io/cli/plugins/analyze-plugin).
+
+## Unscrambling in a browser
+
+To unscramble a scrambled web page in a browser, you can save this code `javascript: var s=document.createElement('script');s.type='module';s.src='/pro/static/public/debug-scramble-css.js';document.head.appendChild(s)` as a bookmark URL.

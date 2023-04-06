@@ -30,10 +30,5 @@
   "license": "UNLICENSED",
   "dependencies": {
     "clone": "^2.1.2"
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
   }
 }
