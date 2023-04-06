@@ -20,7 +20,7 @@ export default class WebSocket {
     this._socket = null;
 
     /**
-     * @type {Array}
+     * @type {any[]}
      */
     this._observers = [];
   }
