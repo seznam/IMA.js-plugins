@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.3-rc.1
+
+### Patch Changes
+
+- 6d47aaa: Side effects notation from package.json
+
 ## 1.2.3-rc.0
 
 ### Patch Changes

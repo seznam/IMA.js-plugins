@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-self-xss",
-  "version": "4.0.0-rc.4",
+  "version": "4.0.0-rc.5",
   "description": "The plugin is trying to mitigate Self-XSS security attack by sending simple message into console",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/server/main.js",

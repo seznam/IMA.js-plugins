@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.0.0-rc.5
+
+### Patch Changes
+
+- 6d47aaa: Side effects notation from package.json
+
 ## 2.0.0-rc.4
 
 ### Patch Changes

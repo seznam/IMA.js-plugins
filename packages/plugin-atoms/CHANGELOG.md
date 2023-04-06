@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 9.0.0-rc.4
+
+### Patch Changes
+
+- 6d47aaa: Side effects notation from package.json
+
 ## 9.0.0-rc.3
 
 ### Patch Changes
