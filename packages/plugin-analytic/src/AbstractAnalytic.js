@@ -2,7 +2,7 @@
 
 import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
 
-import AnalyticEvents from './Events';
+import { Events as AnalyticEvents } from './Events';
 
 /**
  * Abstract analytic class

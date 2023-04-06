@@ -49,12 +49,10 @@ export class SelfXSS {
     }
 
     console.log(
-      // @ts-expect-error
       `%c${this.#dictionary.get(SelfXSS.DICTIONARY_TITLE_KEY)}`,
       'font: bold 4em sans-serif; -webkit-text-stroke: 1px black; color: red;'
     );
     console.log(
-      // @ts-expect-error
       `%c${this.#dictionary.get(SelfXSS.DICTIONARY_PHASE_KEY)}`,
       'font: 2em sans-serif; color: gray;'
     );
