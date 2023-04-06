@@ -8,11 +8,11 @@ export default class Processor {
     return this.constructor.name;
   }
 
-  [Operation.PRE_REQUEST](request) {
+  [Operation.PRE_REQUEST](resource, request) {
     return [request];
   }
 
-  [Operation.POST_REQUEST](request, response) {
+  [Operation.POST_REQUEST](resource, request, response) {
     return [request, response];
   }
 }
