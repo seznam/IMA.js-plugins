@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.0-rc.3
+
+### Patch Changes
+
+- d08218b: Added type declarations generated from JSdoc
+
 ## 5.0.0-rc.2
 
 ### Patch Changes

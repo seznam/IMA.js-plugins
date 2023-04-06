@@ -1,4 +1,11 @@
 # Change Log
+
+## 4.0.2-rc.0
+
+### Patch Changes
+
+- d08218b: Added type declarations generated from JSdoc
+
 ## 4.0.1
 
 ### Patch Changes
