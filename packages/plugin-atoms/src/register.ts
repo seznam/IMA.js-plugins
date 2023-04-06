@@ -59,51 +59,40 @@ pluginLoader.register('@ima/plugin-atoms', ns => {
   ns.namespace('ima.ui.atom.sizer');
   ns.namespace('ima.ui.atom.video');
 
-  const nsHeadline = ns.ima.ui.atom.headline;
-  nsHeadline.Headline = Headline;
-  nsHeadline.Headline1 = Headline1;
-  nsHeadline.Headline2 = Headline2;
-  nsHeadline.Headline3 = Headline3;
-  nsHeadline.Headline4 = Headline4;
-  nsHeadline.Headline5 = Headline5;
-  nsHeadline.Headline6 = Headline6;
-  nsHeadline.H1 = Headline1;
-  nsHeadline.H2 = Headline2;
-  nsHeadline.H3 = Headline3;
-  nsHeadline.H4 = Headline4;
-  nsHeadline.H5 = Headline5;
-  nsHeadline.H6 = Headline6;
-
-  ns.ima.ui.atom.iframe.Iframe = Iframe;
-
-  ns.ima.ui.atom.image.Image = Image;
-  ns.ima.ui.atom.image.Img = Image;
-
-  ns.ima.ui.atom.link.Link = Link;
-  ns.ima.ui.atom.link.A = Link;
-
-  const nsList = ns.ima.ui.atom.list;
-  nsList.List = List;
-  nsList.ListItem = ListItem;
-  nsList.OrderedList = OrderedList;
-  nsList.UnorderedList = UnorderedList;
-  nsList.Li = ListItem;
-  nsList.Ol = OrderedList;
-  nsList.Ul = UnorderedList;
-
-  ns.ima.ui.atom.loader.Loader = Loader;
-
-  ns.ima.ui.atom.paragraph.Paragraph = Paragraph;
-  ns.ima.ui.atom.paragraph.P = Paragraph;
-
-  ns.ima.ui.atom.sizer.Sizer = Sizer;
-
-  ns.ima.ui.atom.video.Video = Video;
-
-  ns.ima.ui.atom.UIComponentHelper = UIComponentHelper;
-  ns.ima.ui.atom.Visibility = Visibility;
-  ns.ima.ui.atom.ComponentPositions = ComponentPositions;
-  ns.ima.ui.atom.defaultDependencies = defaultDependencies;
+  ns.set('ima.ui.atom.headline.Headline', Headline);
+  ns.set('ima.ui.atom.headline.Headline1', Headline1);
+  ns.set('ima.ui.atom.headline.Headline2', Headline2);
+  ns.set('ima.ui.atom.headline.Headline3', Headline3);
+  ns.set('ima.ui.atom.headline.Headline4', Headline4);
+  ns.set('ima.ui.atom.headline.Headline5', Headline5);
+  ns.set('ima.ui.atom.headline.Headline6', Headline6);
+  ns.set('ima.ui.atom.headline.H1', Headline1);
+  ns.set('ima.ui.atom.headline.H2', Headline2);
+  ns.set('ima.ui.atom.headline.H3', Headline3);
+  ns.set('ima.ui.atom.headline.H4', Headline4);
+  ns.set('ima.ui.atom.headline.H5', Headline5);
+  ns.set('ima.ui.atom.headline.H6', Headline6);
+  ns.set('ima.ui.atom.iframe.Iframe', Iframe);
+  ns.set('ima.ui.atom.image.Image', Image);
+  ns.set('ima.ui.atom.image.Img', Image);
+  ns.set('ima.ui.atom.link.Link', Link);
+  ns.set('ima.ui.atom.link.A', Link);
+  ns.set('ima.ui.atom.list.List', List);
+  ns.set('ima.ui.atom.list.ListItem', ListItem);
+  ns.set('ima.ui.atom.list.OrderedList', OrderedList);
+  ns.set('ima.ui.atom.list.UnorderedList', UnorderedList);
+  ns.set('ima.ui.atom.list.Li', ListItem);
+  ns.set('ima.ui.atom.list.Ol', OrderedList);
+  ns.set('ima.ui.atom.list.Ul', UnorderedList);
+  ns.set('ima.ui.atom.loader.Loader', Loader);
+  ns.set('ima.ui.atom.paragraph.Paragraph', Paragraph);
+  ns.set('ima.ui.atom.paragraph.P', Paragraph);
+  ns.set('ima.ui.atom.sizer.Sizer', Sizer);
+  ns.set('ima.ui.atom.video.Video', Video);
+  ns.set('ima.ui.atom.UIComponentHelper', UIComponentHelper);
+  ns.set('ima.ui.atom.Visibility', Visibility);
+  ns.set('ima.ui.atom.ComponentPositions', ComponentPositions);
+  ns.set('ima.ui.atom.defaultDependencies', defaultDependencies);
 
   return {
     initBind: (ns, oc) => {

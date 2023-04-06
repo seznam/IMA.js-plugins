@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 import { pluginLoader } from '@ima/core';
 // @ts-expect-error missing types
 import uid from 'easy-uid';
 
 declare module '@ima/core' {
+  interface PluginSettings {}
   interface PluginAnalyticSettings {
     google?: {
       service: string | null;
@@ -25,6 +27,14 @@ declare module '@ima/core' {
       service: string;
       waitForUpdateTimeout?: number;
     };
+  }
+
+  interface Settings {
+    plugin: PluginSettings;
+  }
+
+  interface PluginSettings {
+    analytic: PluginAnalyticSettings;
   }
 }
 
