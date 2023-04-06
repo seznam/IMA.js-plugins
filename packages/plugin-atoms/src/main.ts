@@ -1,6 +1,7 @@
 // @ts-expect-error
 import { Infinite, Circle, uuid } from 'infinite-circle';
 
+import './register';
 import ComponentPositions from './ComponentPositions';
 import Headline from './headline/Headline';
 import Headline1 from './headline/Headline1';

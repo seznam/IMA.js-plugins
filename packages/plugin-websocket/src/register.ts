@@ -5,7 +5,7 @@ import WebSocket from './WebSocket';
 
 declare module '@ima/core' {
   interface PluginSettings {
-    websocket: {
+    websocket?: {
       url?: string;
       debug?: boolean;
     };

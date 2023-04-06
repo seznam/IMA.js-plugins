@@ -26,13 +26,13 @@ import Visibility from './Visibility';
 
 declare module '@ima/core' {
   interface PluginSettings {
-    uiAtoms: {
-      useIntersectionObserver: {
+    uiAtoms?: {
+      useIntersectionObserver?: {
         iframes?: boolean;
         images?: boolean;
         videos?: boolean;
       };
-      disableNoScript: {
+      disableNoScript?: {
         iframes?: boolean;
         images?: boolean;
         videos?: boolean;

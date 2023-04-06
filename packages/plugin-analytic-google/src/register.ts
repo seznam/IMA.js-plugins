@@ -8,18 +8,18 @@ declare module '@ima/core' {
   interface PluginAnalyticSettings {
     google?: {
       service: string | null;
-      settings: {
+      settings?: {
         clientId?: string;
         storage?: 'none';
       };
-      settingsSetter: {
+      settingsSetter?: {
         allowAdFeatures?: boolean;
         anonymizeIp?: boolean;
         allowAdPersonalizationSignals?: boolean;
       };
     };
     google4: {
-      consentSettings: {
+      consentSettings?: {
         ad_storage?: 'denied' | 'granted';
         analytics_storage?: 'denied' | 'granted';
         personalization_storage?: 'denied' | 'granted';
