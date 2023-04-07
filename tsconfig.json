@@ -17,6 +17,9 @@
     "typeRoots": [
       "types",
       "node_modules/@types"
-    ]
-  }
+    ],
+  },
+  "exclude": [
+    "**/__tests__/**"
+  ]
 }
