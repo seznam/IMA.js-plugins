@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
 import { pluginLoader } from '@ima/core';
 // @ts-expect-error missing types
 import uid from 'easy-uid';
@@ -10,7 +9,6 @@ const defaultDependencies = GoogleAnalytic.$dependencies;
 const googleAnalytics4DefaultDependencies = GoogleAnalytics4.$dependencies;
 
 declare module '@ima/core' {
-  interface PluginSettings {}
   interface PluginAnalyticSettings {
     google?: {
       service: string | null;
