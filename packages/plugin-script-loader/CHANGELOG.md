@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.1.1-rc.3
+
+### Patch Changes
+
+- e75b1da: Added dispatcher types
+
 ## 3.1.1-rc.2
 
 ### Patch Changes

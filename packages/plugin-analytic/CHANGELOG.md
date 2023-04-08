@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.2-rc.3
+
+### Patch Changes
+
+- e75b1da: Added dispatcher types
+
 ## 5.0.2-rc.2
 
 ### Patch Changes
