@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 9.0.0-rc.5
+
+### Patch Changes
+
+- 75efac8: Fixed types path in package.json
+
 ## 9.0.0-rc.4
 
 ### Patch Changes
