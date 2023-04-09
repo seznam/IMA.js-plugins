@@ -5,7 +5,7 @@
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/server/main.js",
   "browser": "./dist/esm/client/main.js",
-  "types": "./dist/esm/main.d.ts",
+  "types": "./dist/esm/client/main.d.ts",
   "scripts": {
     "test": "../../node_modules/.bin/jest --config=jest.config.js",
     "build": "ima-plugin build --clientServerConfig",
