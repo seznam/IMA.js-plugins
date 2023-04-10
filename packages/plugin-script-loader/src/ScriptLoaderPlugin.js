@@ -6,6 +6,7 @@ import { Events } from './Events';
  * Script loader plugin class.
  */
 export default class ScriptLoaderPlugin {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return ['$Window', '$Dispatcher', ResourceLoader];
   }

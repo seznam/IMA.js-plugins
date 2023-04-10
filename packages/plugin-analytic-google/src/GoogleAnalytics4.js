@@ -6,6 +6,7 @@ const GTAG_ROOT_VARIABLE = 'gtag';
  * Google analytic 4 class
  */
 export default class GoogleAnalytics4 extends AbstractAnalytic {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return [...defaultDependencies, '$Settings.plugin.analytic.google4'];
   }

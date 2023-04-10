@@ -1,6 +1,7 @@
 import { Cache, HttpAgent } from '@ima/core';
 
 export default class MerkurResource {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return [HttpAgent, Cache];
   }

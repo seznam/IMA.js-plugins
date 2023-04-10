@@ -1,4 +1,5 @@
 export default class WebSocket {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return ['$Window', '$Settings.plugin.websocket'];
   }

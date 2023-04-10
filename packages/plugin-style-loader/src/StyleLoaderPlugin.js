@@ -6,6 +6,7 @@ import { Events } from './Events';
  * Style loader plugin class.
  */
 export default class StyleLoader {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return ['$Window', '$Dispatcher', ResourceLoader];
   }

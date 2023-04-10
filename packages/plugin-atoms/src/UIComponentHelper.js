@@ -7,6 +7,7 @@ import Visibility from './Visibility';
  * UI component helper.
  */
 export default class UIComponentHelper {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return [
       '$Router',

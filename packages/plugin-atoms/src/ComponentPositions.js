@@ -15,6 +15,7 @@ import { UserAgent } from '@ima/plugin-useragent';
  * Component positions helper.
  */
 export default class ComponentPositions {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return ['$Window', UserAgent];
   }

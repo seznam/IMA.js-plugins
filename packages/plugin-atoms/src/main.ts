@@ -43,6 +43,10 @@ declare module '@ima/core' {
   interface Settings {
     plugin: PluginSettings;
   }
+
+  interface Utils {
+    $UIComponentHelper: UIComponentHelper;
+  }
 }
 
 const defaultDependencies = ['$Router', ComponentPositions, Visibility];

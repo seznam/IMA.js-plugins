@@ -6,6 +6,7 @@ const TEST_KEY = '@ima/plugin-local-storage';
  * Local storage class
  */
 class LocalStorage extends Storage {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return ['$Window'];
   }

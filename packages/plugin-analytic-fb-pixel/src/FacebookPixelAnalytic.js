@@ -8,6 +8,7 @@ const FB_ROOT_VARIABLE = 'fbq';
  * @class
  */
 export default class FacebookPixelAnalytic extends AbstractAnalytic {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return [...defaultDependencies, '$Settings.plugin.analytic.fbPixel'];
   }

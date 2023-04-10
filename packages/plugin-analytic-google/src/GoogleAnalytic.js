@@ -6,6 +6,7 @@ const GA_ROOT_VARIABLE = 'ga';
  * Google analytic class
  */
 export default class GoogleAnalytic extends AbstractAnalytic {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return [...defaultDependencies, '$Settings.plugin.analytic.google'];
   }

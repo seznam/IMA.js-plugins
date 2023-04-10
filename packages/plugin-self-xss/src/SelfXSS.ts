@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { Dictionary, DictionaryMap } from '@ima/core';
+import type { Dependencies, Dictionary, DictionaryMap } from '@ima/core';
 
 declare module '@ima/core' {
   interface DictionaryMap {
@@ -11,7 +11,7 @@ declare module '@ima/core' {
 export class SelfXSS {
   #dictionary: Dictionary;
 
-  static get $dependencies() {
+  static get $dependencies(): Dependencies {
     return ['$Dictionary'];
   }
 

@@ -8,6 +8,7 @@ import { Events as AnalyticEvents } from './Events';
  * Abstract analytic class
  */
 export default class AbstractAnalytic {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return [ScriptLoaderPlugin, '$Window', '$Dispatcher'];
   }
