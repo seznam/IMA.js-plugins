@@ -1,14 +1,19 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
 import { pluginLoader } from '@ima/core';
 
 import FacebookPixelAnalytic from './FacebookPixelAnalytic';
 
+export interface PluginAnalyticFBPixelSettings {
+  fbPixel: {
+    id: string | null;
+  };
+}
+
 declare module '@ima/core' {
-  interface PluginSettings {}
-  interface PluginAnalyticSettings {
-    fbPixel: {
-      id: string | null;
-    };
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface PluginAnalyticSettings extends PluginAnalyticFBPixelSettings {}
+
+  interface PluginSettings {
+    analytic: PluginAnalyticSettings;
   }
 
   interface Settings {

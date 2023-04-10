@@ -1,16 +1,17 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
 import { pluginLoader } from '@ima/core';
 
 import WebSocket from './WebSocket';
 
-declare module '@ima/core' {
-  interface PluginSettings {
-    websocket?: {
-      url?: string;
-      debug?: boolean;
-    };
-  }
+export interface PluginWebsocketSettings {
+  websocket?: {
+    url?: string;
+    debug?: boolean;
+  };
+}
 
+declare module '@ima/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface PluginSettings extends PluginWebsocketSettings {}
   interface Settings {
     plugin: PluginSettings;
   }

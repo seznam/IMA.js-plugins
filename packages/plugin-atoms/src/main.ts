@@ -24,21 +24,24 @@ import UIComponentHelper from './UIComponentHelper';
 import Video from './video/Video';
 import Visibility from './Visibility';
 
-declare module '@ima/core' {
-  interface PluginSettings {
-    uiAtoms?: {
-      useIntersectionObserver?: {
-        iframes?: boolean;
-        images?: boolean;
-        videos?: boolean;
-      };
-      disableNoScript?: {
-        iframes?: boolean;
-        images?: boolean;
-        videos?: boolean;
-      };
+export interface PluginAtomsSettings {
+  uiAtoms?: {
+    useIntersectionObserver?: {
+      iframes?: boolean;
+      images?: boolean;
+      videos?: boolean;
     };
-  }
+    disableNoScript?: {
+      iframes?: boolean;
+      images?: boolean;
+      videos?: boolean;
+    };
+  };
+}
+
+declare module '@ima/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface PluginSettings extends PluginAtomsSettings {}
 
   interface Settings {
     plugin: PluginSettings;
