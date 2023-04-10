@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.0-rc.6
+
+### Patch Changes
+
+- 5717869: Added $dependencies typing comments for TS apps
+
 ## 4.0.0-rc.5
 
 ### Patch Changes

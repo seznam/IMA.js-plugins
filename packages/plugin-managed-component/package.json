@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-managed-component",
-  "version": "2.0.2-rc.3",
+  "version": "2.0.2-rc.4",
   "description": "Base class for React components (for IMA.js applications) with automatically managed DOM, event bus, dispatcher, timeout and interval listeners.",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",

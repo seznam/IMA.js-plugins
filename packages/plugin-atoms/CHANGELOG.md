@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 9.0.0-rc.6
+
+### Patch Changes
+
+- 5717869: Added $dependencies typing comments for TS apps
+
 ## 9.0.0-rc.5
 
 ### Patch Changes
