@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.2-rc.5
+
+### Patch Changes
+
+- de5b640: Added plugin settings exports
+
 ## 5.0.2-rc.4
 
 ### Patch Changes

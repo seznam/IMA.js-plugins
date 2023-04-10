@@ -27,6 +27,7 @@
     "@ima/plugin-websocket": "2.0.1"
   },
   "changesets": [
+    "dry-waves-travel",
     "dry-weeks-learn",
     "dull-fishes-call",
     "hungry-frogs-care",

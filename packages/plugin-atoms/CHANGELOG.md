@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 9.0.0-rc.7
+
+### Patch Changes
+
+- de5b640: Added plugin settings exports
+
 ## 9.0.0-rc.6
 
 ### Patch Changes
