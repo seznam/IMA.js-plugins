@@ -155,10 +155,25 @@ async function initImaApp(bootConfigMethods = {}) {
       manifestRequire: () => ({}),
     };
 
-    // Generate request output
-    const { content } = await createIMAServer({
+    // Prepare server with environment
+    const { serverApp } = await createIMAServer({
       devUtils,
-    }).serverApp.requestHandler(
+      processEnvironment: currentEnvironment =>
+        config.processEnvironment({
+          ...currentEnvironment,
+          $Server: {
+            ...currentEnvironment.$Server,
+            concurrency: 0,
+            serveSPA: {
+              allow: true,
+            },
+          },
+          $Debug: true,
+        }),
+    });
+
+    // Generate request output
+    const { content } = await serverApp.requestHandler(
       {
         headers: () => '',
       },
@@ -170,9 +185,9 @@ async function initImaApp(bootConfigMethods = {}) {
           language: config.locale,
           host: config.host,
           protocol: config.protocol,
-          path: '',
-          root: '',
-          languagePartPath: '',
+          path: config.path || '',
+          root: config.root || '',
+          languagePartPath: config.languagePartPath || '',
         },
       }
     );
