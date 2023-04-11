@@ -17,8 +17,8 @@ export default class RestClient {
     this._defaultProcessors.push(processor);
   }
 
-  async request(resource, method, path, data, options = {}) {
-    let request = { method, path, data, options };
+  async request(resource, method, url, data, options = {}) {
+    let request = { method, url, data, options };
     const processors = this._getProcessors(request);
 
     [request] = await this._runProcessors(
@@ -28,7 +28,7 @@ export default class RestClient {
       request
     );
     let response = await this._http[method](
-      request.path,
+      request.url,
       request.data,
       request.options
     );

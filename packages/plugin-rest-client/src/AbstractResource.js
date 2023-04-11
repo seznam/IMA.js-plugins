@@ -82,12 +82,12 @@ export default class AbstractResource {
   }
 
   async _restClientRequest(method, pathType, data, options) {
-    const path = this._getPath(pathType, data);
+    const url = this._getUrl(pathType, data);
 
     const { response } = await this._restClient.request(
       this,
       method,
-      path,
+      url,
       this._prepareData(data),
       this._prepareOptions(options)
     );
@@ -105,7 +105,7 @@ export default class AbstractResource {
     return { ...options };
   }
 
-  _getPath(pathType, data) {
+  _getUrl(pathType, data) {
     const pathTemplate = this.path[pathType];
 
     if (!pathTemplate) {
