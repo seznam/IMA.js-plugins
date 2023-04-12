@@ -1,0 +1,40 @@
+{
+  "name": "@ima/cli-plugin-legacy-css",
+  "version": "0.1.0",
+  "description": "Plugin for @ima/cli adding additional legacy CSS bundle output.",
+  "main": "./dist/cjs/main.js",
+  "module": "./dist/esm/main.js",
+  "types": "./dist/esm/main.d.ts",
+  "scripts": {
+    "build": "ima-plugin build",
+    "dev": "ima-plugin dev",
+    "link": "ima-plugin link",
+    "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
+  },
+  "keywords": [
+    "IMA",
+    "cli",
+    "plugin",
+    "legacy",
+    "css"
+  ],
+  "author": "Jan Šimeček <jan.simecek@firma.seznam.cz>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git",
+    "directory": "packages/cli-plugin-analyze"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/issues"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@ima/server": ">=18.1.0 || >=19.0.0-rc.0",
+    "@ima/cli": ">=18.0.0 || >=19.0.0-rc.0",
+    "webpack": ">=5"
+  }
+}
