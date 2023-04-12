@@ -16,10 +16,6 @@ export default class AbstractResource {
     return [RestClient, 'REST_CLIENT_BASE_API_URL'];
   }
 
-  static get entityClass() {
-    return null;
-  }
-
   get resourceBasePath() {
     throw new GenericError(
       `RestClient: getter "resourceBasePath" must be overriden.`
@@ -85,14 +81,12 @@ export default class AbstractResource {
     const url = this._getUrl(pathType, data);
 
     const { response } = await this._restClient.request(
-      this,
+      { resource: this, pathType },
       method,
       url,
       this._prepareData(data),
       this._prepareOptions(options)
     );
-
-    this._convertResponseBodyToEntities(response);
 
     return response;
   }
@@ -142,18 +136,5 @@ export default class AbstractResource {
     });
 
     return path;
-  }
-
-  _convertResponseBodyToEntities(response) {
-    const body = response.body;
-    const resource = this.constructor.entityClass;
-
-    if (body && resource) {
-      if (body instanceof Array) {
-        response.body = body.map(entityData => new resource(entityData));
-      } else {
-        response.body = new resource(body);
-      }
-    }
   }
 }
