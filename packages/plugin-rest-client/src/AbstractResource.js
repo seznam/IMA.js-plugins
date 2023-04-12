@@ -16,6 +16,10 @@ export default class AbstractResource {
     return [RestClient, 'REST_CLIENT_BASE_API_URL'];
   }
 
+  static get entityClass() {
+    return null;
+  }
+
   get resourceBasePath() {
     throw new GenericError(
       `RestClient: getter "resourceBasePath" must be overriden.`
