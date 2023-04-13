@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.1.0-rc.4
+
+### Patch Changes
+
+- e00897a: Fixed named exports for plugin integration testing
+
 ## 4.1.0-rc.3
 
 ### Minor Changes
