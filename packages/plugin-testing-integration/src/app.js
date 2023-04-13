@@ -44,6 +44,7 @@ function clearImaApp(app) {
  */
 async function initImaApp(bootConfigMethods = {}) {
   const config = getConfig();
+
   const bootConfigExtensions = getBootConfigExtensions();
   const imaConfig = await resolveImaConfig({ rootDir: config.rootDir });
 
@@ -155,12 +156,30 @@ async function initImaApp(bootConfigMethods = {}) {
       manifestRequire: () => ({}),
     };
 
-    // Generate request output
-    const { content } = await createIMAServer({
+    // Prepare serverApp with environment override
+    const { serverApp } = await createIMAServer({
       devUtils,
-    }).serverApp.requestHandler(
+      processEnvironment: currentEnvironment =>
+        config.processEnvironment({
+          ...currentEnvironment,
+          $Server: {
+            ...currentEnvironment.$Server,
+            concurrency: 0,
+            serveSPA: {
+              allow: true,
+            },
+          },
+          $Debug: true,
+        }),
+    });
+
+    // Generate request response
+    const response = await serverApp.requestHandler(
       {
+        get: () => '',
         headers: () => '',
+        originalUrl: config.host,
+        protocol: config.protocol.replace(':', ''),
       },
       {
         status: () => 200,
@@ -170,14 +189,14 @@ async function initImaApp(bootConfigMethods = {}) {
           language: config.locale,
           host: config.host,
           protocol: config.protocol,
-          path: '',
-          root: '',
-          languagePartPath: '',
+          path: config.path || '',
+          root: config.root || '',
+          languagePartPath: config.languagePartPath || '',
         },
       }
     );
 
-    return content;
+    return response.content;
   }
 
   const app = createImaApp();

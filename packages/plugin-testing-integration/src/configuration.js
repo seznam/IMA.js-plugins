@@ -18,6 +18,7 @@ let configuration = {
     script.text &&
     script.id !== 'ima-runner' &&
     window.eval(script.text),
+  processEnvironment: env => env,
 };
 
 /**
