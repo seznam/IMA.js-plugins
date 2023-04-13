@@ -6,7 +6,7 @@ import {
   bootClientApp,
 } from '@ima/core';
 import { assignRecursively } from '@ima/helpers';
-import createIMAServer from '@ima/server';
+import { createIMAServer } from '@ima/server';
 import { JSDOM } from 'jsdom';
 
 import { unAopAll } from './aop';
