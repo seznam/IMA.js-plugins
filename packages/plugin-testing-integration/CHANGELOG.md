@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.1.0-rc.3
+
+### Minor Changes
+
+- 0490a80: use overrides for createIMAServer, set test environment defaults, allow service to process currently resolved environment
+
 ## 4.0.2-rc.2
 
 ### Patch Changes
