@@ -1,3 +1,5 @@
+import { strict as assert } from 'node:assert';
+
 import { resolveImaConfig } from '@ima/cli';
 import {
   createImaApp,
@@ -88,6 +90,12 @@ async function initImaApp(bootConfigMethods = {}) {
 
     // Mock scroll for ClientWindow.scrollTo
     global.window.scrollTo = () => {};
+
+    // Replace window fetch by node fetch
+    global.window.fetch = global.fetch;
+
+    // Required for JSDOM XPath selectors
+    global.console.assert = assert; // eslint-disable-line no-console
 
     // Call all page scripts (jsdom build-in runScript creates new V8 context, unable to mix with node context)
     const pageScripts = jsdom.window.document.getElementsByTagName('script');
