@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.1.0-rc.5
+
+### Patch Changes
+
+- 8261ccd: Override node fetch on window, node assert on console
+
 ## 4.1.0-rc.4
 
 ### Patch Changes
