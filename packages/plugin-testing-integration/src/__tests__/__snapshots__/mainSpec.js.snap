@@ -6,5 +6,6 @@ exports[`Main can export all necessary properties 1`] = `
   "getConfig": [Function],
   "initImaApp": [Function],
   "setConfig": [Function],
+  "setConfigFeatures": [Function],
 }
 `;
