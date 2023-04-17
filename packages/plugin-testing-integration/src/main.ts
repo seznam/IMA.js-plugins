@@ -1,4 +1,4 @@
 import { initImaApp, clearImaApp } from './app';
-import { getConfig, setConfig } from './configuration';
+import { getConfig, setConfig, setConfigFeatures } from './configuration';
 
-export { getConfig, setConfig, initImaApp, clearImaApp };
+export { getConfig, setConfig, setConfigFeatures, initImaApp, clearImaApp };

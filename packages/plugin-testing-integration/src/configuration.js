@@ -19,6 +19,9 @@ let configuration = {
     script.id !== 'ima-runner' &&
     window.eval(script.text),
   processEnvironment: env => env,
+  features: {
+    popupWindow: false,
+  },
 };
 
 /**
@@ -35,4 +38,13 @@ export function getConfig() {
  */
 export function setConfig(config) {
   Object.assign(configuration, config);
+}
+
+/**
+ * Sets object of features in config
+ *
+ * @param {object} configFeatures
+ */
+export function setConfigFeatures(configFeatures) {
+  Object.assign(configuration.features, configFeatures);
 }
