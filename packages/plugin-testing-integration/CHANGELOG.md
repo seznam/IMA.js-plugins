@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.1.0-rc.6
+
+### Minor Changes
+
+- 6f950a1: Add configuration features object with default popupWindow flag
+  Add window.opener setup after DOM init
+
 ## 4.1.0-rc.5
 
 ### Patch Changes
