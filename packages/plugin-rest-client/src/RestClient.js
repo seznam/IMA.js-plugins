@@ -2,6 +2,8 @@ import { GenericError } from '@ima/core';
 
 import Processor, { Operation } from './processor/Processor';
 
+export const OPTION_TRANSFORM_PROCESSORS = 'transformProcessors';
+
 export default class RestClient {
   static get $dependencies() {
     return ['$Http'];
@@ -27,7 +29,7 @@ export default class RestClient {
       resource,
       request
     );
-    let response = await this._http[method](
+    let response = await this._http[request.method](
       request.url,
       request.data,
       request.options
@@ -62,12 +64,12 @@ export default class RestClient {
 
     let transformProcessors = processors => processors;
     if (
-      request?.options?.transformProcessors &&
-      typeof request.options.transformProcessors === 'function'
+      request?.options?.[OPTION_TRANSFORM_PROCESSORS] &&
+      typeof request.options[OPTION_TRANSFORM_PROCESSORS] === 'function'
     ) {
-      transformProcessors = request.options.transformProcessors;
+      transformProcessors = request.options[OPTION_TRANSFORM_PROCESSORS];
 
-      delete request.options.transformProcessors;
+      delete request.options[OPTION_TRANSFORM_PROCESSORS];
     }
 
     return transformProcessors(defaultProcessors);
@@ -75,8 +77,8 @@ export default class RestClient {
   /*
   {
   transformProcessors:
-  processors => {processors.push(oc.get(Processor); return processors;})
-  processors => processors.filter(item=>item.name!=Processor))
+  processors => {processors.push(processor); return processors;}
+  processors => processors.filter(item=>item.name!=='Processor'))
   }
   * */
 }
