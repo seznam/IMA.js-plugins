@@ -42,7 +42,6 @@ describe('Integration', () => {
       environment: 'environment',
       locale: 'fr',
       prebootScript: jest.fn().mockReturnValue(Promise.resolve()),
-      features: { popupWindow: false },
     };
     let configExtensions = {
       initSettings: jest.fn(),
