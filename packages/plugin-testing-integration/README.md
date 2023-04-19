@@ -195,18 +195,6 @@ Function to run on each HTML script element of generated JSDOM page. By default 
 
 Function to modify currently resolved environment.
 
-### features
-`<object>`
-
-`Default: { popupWindow: false }`
-
-Features configuration object. This can be extended by config function `setConfigFeatures`
-
-Flag `popupWindow` setups `window.opener` object:
-- to the same `window` when popup is disabled
-- `popupWindow` function to customize `window` which is send by only argument when function called
-- `popupWindow` boolean `true` to mock `opener` to `document` object with empty `div` inside `body`
-
 
 ## Usage
 

@@ -61,22 +61,6 @@ async function initImaApp(bootConfigMethods = {}) {
     config.appMainPath
   ).getInitialAppConfigFunctions();
 
-  const app = createImaApp();
-  const bootConfig = getClientBootConfig({
-    initSettings: _getBootConfigForMethod('initSettings'),
-    initBindApp: _getBootConfigForMethod('initBindApp'),
-    initServicesApp: _getBootConfigForMethod('initServicesApp'),
-    initRoutes: _getBootConfigForMethod('initRoutes'),
-  });
-  await onLoad();
-  bootClientApp(app, bootConfig);
-
-  // To use ima route handler in jsdom
-  app.oc.get('$Router').listen();
-
-  return Object.assign({}, app, bootConfigExtensions.getAppExtension(app));
-
-  /* Functions ===================================================== */
   /**
    * Initializes JSDOM environment for the application run
    */
@@ -112,24 +96,6 @@ async function initImaApp(bootConfigMethods = {}) {
 
     // Required for JSDOM XPath selectors
     global.console.assert = assert; // eslint-disable-line no-console
-
-    // Popup setup
-    if (config.features.popupWindow) {
-      if (typeof config.features.popupWindow === 'function') {
-        // Custom function
-        config.features.popupWindow(global.window);
-      } else {
-        // Default mock for popup detection
-        global.window.opener = {
-          document: {
-            body: document.createElement('div'),
-          },
-        };
-      }
-    } else {
-      // Disabled popup
-      global.window.opener = window;
-    }
 
     // Call all page scripts (jsdom build-in runScript creates new V8 context, unable to mix with node context)
     const pageScripts = jsdom.window.document.getElementsByTagName('script');
@@ -240,6 +206,21 @@ async function initImaApp(bootConfigMethods = {}) {
 
     return response.content;
   }
+
+  const app = createImaApp();
+  const bootConfig = getClientBootConfig({
+    initSettings: _getBootConfigForMethod('initSettings'),
+    initBindApp: _getBootConfigForMethod('initBindApp'),
+    initServicesApp: _getBootConfigForMethod('initServicesApp'),
+    initRoutes: _getBootConfigForMethod('initRoutes'),
+  });
+  await onLoad();
+  bootClientApp(app, bootConfig);
+
+  // To use ima route handler in jsdom
+  app.oc.get('$Router').listen();
+
+  return Object.assign({}, app, bootConfigExtensions.getAppExtension(app));
 }
 
 export { initImaApp, clearImaApp };
