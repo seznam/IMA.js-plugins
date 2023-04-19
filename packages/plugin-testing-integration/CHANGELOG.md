@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.1.0-rc.8
+
+### Patch Changes
+
+- 5c7dba5: bump version with changes from master
+
 ## 4.1.0-rc.7
 
 ### Patch Changes
