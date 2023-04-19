@@ -75,6 +75,7 @@ async function initImaApp(bootConfigMethods = {}) {
 
     global.window = window;
     global.jsdom = jsdom;
+    global.document = window.document;
 
     // Extend node global with created window vars
     Object.defineProperties(global, {
@@ -82,10 +83,13 @@ async function initImaApp(bootConfigMethods = {}) {
       ...Object.getOwnPropertyDescriptors(global),
     });
 
+    // set debug before IMA env debug
+    global.$Debug = true;
+
     // Mock dictionary
     global.$IMA.i18n = generateDictionary(imaConfig.languages, config.locale);
 
-    // Mock scroll for ClientWindow.scrollTo
+    // Mock scroll for ClientWindow.scrollTo for ima/core page routing scroll
     global.window.scrollTo = () => {};
 
     // Call all page scripts (jsdom build-in runScript creates new V8 context, unable to mix with node context)
