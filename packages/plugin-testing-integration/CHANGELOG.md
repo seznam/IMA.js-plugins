@@ -1,5 +1,12 @@
 # Change Log
 
+## 4.1.0-rc.7
+
+### Patch Changes
+
+- 6514f0b: Remove added configuration features object with default popupWindow flag
+  Remove added window.opener setup after DOM init
+
 ## 4.1.0-rc.6
 
 ### Minor Changes
