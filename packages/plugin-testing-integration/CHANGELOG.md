@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.1.0-rc.9
+
+### Patch Changes
+
+- 201225d: revert testing integration features
+
 ## 4.1.0-rc.8
 
 ### Patch Changes
