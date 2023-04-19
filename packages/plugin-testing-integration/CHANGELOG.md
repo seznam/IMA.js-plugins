@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.2
+
+### Patch Changes
+
+- ea1c5e7: Fix window.document mock, early $Debug setup
+
 ## 4.0.1
 
 ### Patch Changes
