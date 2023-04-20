@@ -1,249 +1,11 @@
-import AbstractDataFieldMapper from './AbstractDataFieldMapper';
-import { deepFreeze } from './utils';
-
-/**
- * Symbols for representing the private fields in the entity.
- *
- * @type {Object<string, symbol>}
- */
-const PRIVATE = {
-  // static private fields
-  resourceName: Symbol('resourceName'),
-  resourceNameConfigured: Symbol('resourceNameConfigured'),
-  idFieldName: Symbol('idFieldName'),
-  idFieldNameConfigured: Symbol('idFieldNameConfigured'),
-  inlineResponseBody: Symbol('inlineResponseBody'),
-  inlineResponseBodyConfigured: Symbol('inlineResponseBodyConfigured'),
-  propTypes: Symbol('propTypes'),
-  propTypesConfigured: Symbol('propTypesConfigured'),
-  dataFieldMapping: Symbol('dataFieldMapping'),
-  dataFieldMappingConfigured: Symbol('dataFieldMappingConfigured'),
-  isImmutable: Symbol('isImmutable'),
-  isImmutableConfigured: Symbol('isImmutableConfigured'),
-
-  // private fields
-  restClient: Symbol('restClient'),
-  parentEntity: Symbol('parentEntity'),
-};
-if ($Debug) {
-  Object.freeze(PRIVATE);
-}
+import clone from 'clone';
 
 /**
  * The base class for typed REST API entities. Usage of typed entities may be
- * optional and is dependant on the specific implementation of the REST API
+ * optional and is dependent on the specific implementation of the REST API
  * client.
  */
 export default class AbstractEntity {
-  /**
-   * Initializes the entity.
-   *
-   * @param {Object<string, *>} data Entity data, which will be directly
-   *        assigned to the entity's fields.
-   * @param {?AbstractEntity=} parentEntity The entity within which the
-   *        resource containing this entity is located. Can be set to
-   *        {@code null} if this entity belongs to a top-level resource
-   *        without a parent.
-   */
-  constructor(data, parentEntity = null) {
-    /**
-     * The entity within which the resource containing this entity is
-     * located. Can be set to null if this entity belongs to a top-level
-     * resource without a parent.
-     *
-     * @type {?AbstractEntity}
-     */
-    this[PRIVATE.parentEntity] = parentEntity;
-    Object.defineProperty(this, PRIVATE.parentEntity, {
-      enumerable: false,
-    });
-
-    let entityData = this.$deserialize(data);
-    Object.assign(this, entityData);
-
-    if ($Debug) {
-      this.$validatePropTypes();
-
-      if (this.constructor.isImmutable) {
-        deepFreeze(this);
-      }
-    }
-  }
-
-  /**
-   * Returns the name of the REST API resource containing this entity. The
-   * resource name does not have to match the URI path fragment in the REST
-   * API identifying the resource, depending on the REST API client's
-   * implementation.
-   *
-   * @returns {string} The name of the REST API resource containing this
-   *         entity.
-   */
-  static get resourceName() {
-    if ($Debug) {
-      if (!this[PRIVATE.resourceNameConfigured]) {
-        throw new Error(
-          'The resourceName getter is abstract and must be overridden'
-        );
-      }
-    }
-
-    return this[PRIVATE.resourceName];
-  }
-
-  /**
-   * This setter is used for compatibility with the Public Class Fields ES
-   * proposal (at stage 2 at the moment of writing this).
-   *
-   * See the related getter for more details about this property.
-   *
-   * @param {string} resourceName The name of the REST API resource
-   *        containing this entity.
-   */
-  static set resourceName(resourceName) {
-    if ($Debug) {
-      if (this[PRIVATE.resourceNameConfigured]) {
-        throw new TypeError('The resourceName property cannot be reconfigured');
-      }
-    }
-
-    this[PRIVATE.resourceName] = resourceName;
-    if ($Debug) {
-      this[PRIVATE.resourceNameConfigured] = true;
-    }
-  }
-
-  /**
-   * Returns the name of the field of this entity that contains the entity's
-   * primary key (ID).
-   *
-   * @returns {string} The name of the field containing the entity's ID.
-   */
-  static get idFieldName() {
-    if ($Debug) {
-      if (!this[PRIVATE.idFieldNameConfigured]) {
-        throw new Error(
-          'The idFieldName getter is abstract and must be overridden'
-        );
-      }
-    }
-
-    return this[PRIVATE.idFieldName];
-  }
-
-  /**
-   * This setter is used for compatibility with the Public Class Fields ES
-   * proposal (at stage 2 at the moment of writing this).
-   *
-   * See the related getter for more details about this property.
-   *
-   * @param {string} idFieldName The name of the field containing the
-   *        entity's ID.
-   */
-  static set idFieldName(idFieldName) {
-    if ($Debug) {
-      if (this[PRIVATE.idFieldNameConfigured]) {
-        throw new TypeError('The idFieldName property cannot be reconfigured');
-      }
-    }
-
-    this[PRIVATE.idFieldName] = idFieldName;
-    if ($Debug) {
-      this[PRIVATE.idFieldNameConfigured] = true;
-    }
-  }
-
-  /**
-   * The flag specifying whether the REST API client should return only the
-   * response body (processed into entity/entities) instead of the complete
-   * response object.
-   *
-   * This is useful if all useful information outside the response body has
-   * been processed by response post-processors, or only the response body
-   * contains any useful data.
-   *
-   * @returns {boolean} The flag specifying whether the REST client should
-   *         return only the response body instead of the response object.
-   */
-  static get inlineResponseBody() {
-    if (!this[PRIVATE.inlineResponseBodyConfigured]) {
-      return false;
-    }
-
-    return this[PRIVATE.inlineResponseBody];
-  }
-
-  /**
-   * This setter is used for compatibility with the Public Class Fields ES
-   * proposal (at stage 2 at the moment of writing this).
-   *
-   * See the related getter for more details about this property.
-   *
-   * @param {boolean} inlineResponseBody The flag specifying whether the REST
-   *        client should return only the response body instead of the
-   *        response object.
-   */
-  static set inlineResponseBody(inlineResponseBody) {
-    if ($Debug) {
-      if (this[PRIVATE.inlineResponseBodyConfigured]) {
-        throw new TypeError(
-          'The inlineResponseBody property cannot be reconfigured'
-        );
-      }
-    }
-
-    this[PRIVATE.inlineResponseBody] = inlineResponseBody;
-    this[PRIVATE.inlineResponseBodyConfigured] = true;
-  }
-
-  /**
-   * Returns the constrains that should be applied on the properties on the
-   * data-holding properties of this entity.
-   *
-   * The keys of the returned object are the names of the data-holding
-   * properties of this entity that should be validated, the values represent
-   * the validation constraints (these are implementation-specific).
-   *
-   * The constraints will be evaluated after setting the properties on this
-   * entity using the entity's constructor of standard manipulation methods.
-   *
-   * Note that this class does not provides no implementation of actual
-   * validation of these constraints - this should be provided by a plugin
-   * extending this one.
-   *
-   * @returns {Object<string, *>} The validation constrains that should be
-   *         applied to this entity's properties.
-   */
-  static get propTypes() {
-    if (!this[PRIVATE.propTypesConfigured]) {
-      return {};
-    }
-
-    return this[PRIVATE.propTypes];
-  }
-
-  /**
-   * This setter is used for compatibility with the Public Class Fields ES
-   * proposal (at stage 2 at the moment of writing this).
-   *
-   * See the related getter for more details about this property.
-   *
-   * @param {Object<string, *>} propTypes The validation constrains that
-   *        should be applied to this entity's properties.
-   */
-  static set propTypes(propTypes) {
-    if ($Debug) {
-      if (this[PRIVATE.propTypesConfigured]) {
-        throw new TypeError('The propTypes property cannot be reconfigured');
-      }
-    }
-
-    this[PRIVATE.propTypes] = propTypes;
-    if ($Debug) {
-      this[PRIVATE.propTypesConfigured] = true;
-    }
-  }
-
   /**
    * Returns the description of automatic mapping of the raw data exchanged
    * between the REST API and the REST API client, and the properties of this
@@ -263,7 +25,6 @@ export default class AbstractEntity {
    *
    * @returns {Object<string, (
    *           string|
-   *           function(new: AbstractDataFieldMapper)|
    *           {
    *             dataFieldName: ?string,
    *             deserialize: function(*, AbstractEntity): *,
@@ -273,170 +34,19 @@ export default class AbstractEntity {
    *         mapped to the entity properties and vice versa.
    */
   static get dataFieldMapping() {
-    if (!this[PRIVATE.dataFieldMappingConfigured]) {
-      return {};
-    }
-
-    return this[PRIVATE.dataFieldMapping];
+    return {};
   }
 
   /**
-   * This setter is used for compatibility with the Public Class Fields ES
-   * proposal (at stage 2 at the moment of writing this).
+   * Initializes the entity.
    *
-   * See the related getter for more details about this property.
-   *
-   * @param {Object<string, (
-   *          string|
-   *          function(new: AbstractDataFieldMapper)|
-   *          {
-   *            dataFieldName: ?string,
-   *            deserialize: function(*, AbstractEntity): *,
-   *            serialize: function(*, AbstractEntity): *
-   *          }
-   *        )>} dataFieldMapping The description of how the raw data
-   *        properties should be mapped to the entity properties and vice
-   *        versa.
+   * @param {Object<string, *>} data Entity data, which will be directly
+   *        assigned to the entity's fields.
    */
-  static set dataFieldMapping(dataFieldMapping) {
-    if ($Debug) {
-      if (this[PRIVATE.dataFieldMappingConfigured]) {
-        throw new TypeError(
-          'The dataFieldMapping property cannot be reconfigured'
-        );
-      }
-    }
+  constructor(data) {
+    const entityData = this.$deserialize(data);
 
-    this[PRIVATE.dataFieldMapping] = dataFieldMapping;
-    if ($Debug) {
-      this[PRIVATE.dataFieldMappingConfigured] = true;
-    }
-  }
-
-  /**
-   * Flag specifying whether the instances of this entity class should be
-   * made automatically immutable (the instance will be deeply frozen) upon
-   * instantiation.
-   *
-   * Setting this flag also modifies behavior of methods that would otherwise
-   * modify the state of the entity to just return a modified version (as
-   * they already do) without modifying the instance these methods are
-   * invoked on.
-   *
-   * Note that the deep freeze of the entity's state will be applied in the
-   * {@linkcode AbstractEntity}'s constructor, therefore the constructors
-   * of classes extending this one cannot make final adjustments of the
-   * entity's state once a call to the {@code super}-constructor has been
-   * made.
-   *
-   * Also note that any embedded entity will be skipped over, allowing each
-   * entity class to have consistent mutability of its instances.
-   *
-   * @returns {boolean} Whether the instances of this entity class should be
-   *         made automatically immutable upon instantiation.
-   */
-  static get isImmutable() {
-    if (!this[PRIVATE.isImmutableConfigured]) {
-      return false;
-    }
-
-    return this[PRIVATE.isImmutable];
-  }
-
-  /**
-   * This setter is used for compatibility with the Public Class Fields ES
-   * proposal (at stage 2 at the moment of writing this).
-   *
-   * See the related getter for more details about this property.
-   *
-   * @param {boolean} isImmutable Whether the instances of this entity class
-   *        should be made automatically immutable upon instantiation.
-   */
-  static set isImmutable(isImmutable) {
-    if ($Debug) {
-      if (this[PRIVATE.isImmutableConfigured]) {
-        throw new TypeError('The isImmutable property cannot be reconfigured');
-      }
-    }
-
-    this[PRIVATE.isImmutable] = isImmutable;
-    if ($Debug) {
-      this[PRIVATE.isImmutableConfigured] = true;
-    }
-  }
-
-  /**
-   * Creates a data field mapper for mapping the property of the specified
-   * name in the raw data to an instance of this entity class. The entity
-   * having its data mapped will also be set as the parent entity of the
-   * generated entity.
-   *
-   * @param {?string} dataFieldName The name of the raw data field being
-   *        mapped, or {@code null} if it is the same as the name of the
-   *        entity property being mapped.
-   * @returns {function(new: AbstractDataFieldMapper)} The generated data
-   *         field mapper.
-   */
-  static asDataFieldMapper(dataFieldName = null) {
-    let entityClass = this;
-    return AbstractDataFieldMapper.makeMapper(
-      dataFieldName,
-      (data, parentEntity) => new entityClass(data, parentEntity),
-      entity => entity.$serialize()
-    );
-  }
-
-  /**
-   * Returns the direct parent entity of this entity. The parent entity
-   * contains the REST resource from which this entity originates. The getter
-   * returns {@code null} if this entity's resource is a top-level resource
-   * without a parent.
-   *
-   * @returns {?AbstractEntity} The direct parent entity of this entity.
-   */
-  get $parentEntity() {
-    return this[PRIVATE.parentEntity];
-  }
-
-  /**
-   * Creates a clone of this entity.
-   *
-   * @param {boolean=} includingParent The flag specifying whether the parent
-   *        entity should be cloned as well. The parent entity will be only
-   *        referenced when this flag is not set. Defaults to {@code false}.
-   * @returns {AbstractEntity} A clone of this entity.
-   */
-  clone(includingParent = false) {
-    let data = this.$serialize();
-    let entityClass = this.constructor;
-    let parentEntity = this[PRIVATE.parentEntity];
-
-    if (includingParent && parentEntity) {
-      parentEntity = parentEntity.clone(includingParent);
-    }
-
-    return new entityClass(data, parentEntity);
-  }
-
-  /**
-   * Creates a clone of this entity with its state patched using the provided
-   * state patch object.
-   *
-   * Note that this method is meant to be used primarily for creating
-   * modified versions of immutable entities.
-   *
-   * @param {Object<string, *>} statePatch The patch of this entity's state
-   *        that should be applied to the clone.
-   * @returns {AbstractEntity} The created patched clone.
-   */
-  cloneAndPatch(statePatch) {
-    let data = this.$serialize();
-    let patchData = this.$serialize(statePatch);
-    let patchedData = Object.assign({}, data, patchData);
-    let entityClass = this.constructor;
-    let parentEntity = this[PRIVATE.parentEntity];
-
-    return new entityClass(patchedData, parentEntity);
+    Object.assign(this, entityData);
   }
 
   /**
@@ -455,9 +65,9 @@ export default class AbstractEntity {
    *         way that is compatible with the REST API.
    */
   $serialize(data = this) {
-    let mappings = this.constructor.dataFieldMapping;
+    const mappings = this.constructor.dataFieldMapping;
 
-    let serializedData = {};
+    const serializedData = {};
     for (let entityPropertyName of Object.keys(data)) {
       if (!Object.prototype.hasOwnProperty.call(mappings, entityPropertyName)) {
         serializedData[entityPropertyName] = data[entityPropertyName];
@@ -467,10 +77,7 @@ export default class AbstractEntity {
       let value = data[entityPropertyName];
       if (mapper instanceof Object) {
         let serializedValue = mapper.serialize(value, this);
-        let dataFieldName =
-          mapper.dataFieldName === null
-            ? entityPropertyName
-            : mapper.dataFieldName;
+        let dataFieldName = mapper?.dataFieldName || entityPropertyName;
         serializedData[dataFieldName] = serializedValue;
       } else {
         serializedData[mapper] = value;
@@ -498,20 +105,18 @@ export default class AbstractEntity {
    *         entity.
    */
   $deserialize(data) {
-    let mappings = this.constructor.dataFieldMapping;
-    let mappedDataProperties = {};
-    for (let entityPropertyName of Object.keys(mappings)) {
-      let mapper = mappings[entityPropertyName];
+    const mappings = this.constructor.dataFieldMapping;
+
+    const mappedDataProperties = {};
+    Object.entries(mappings).forEach(([propertyName, mapper]) => {
       if (mapper instanceof Object) {
-        let dataFieldName = mapper.dataFieldName;
-        if (dataFieldName === null) {
-          dataFieldName = entityPropertyName;
-        }
-        mappedDataProperties[dataFieldName] = entityPropertyName;
+        const dataFieldName = mapper.dataFieldName || propertyName;
+
+        mappedDataProperties[dataFieldName] = propertyName;
       } else {
-        mappedDataProperties[mapper] = entityPropertyName;
+        mappedDataProperties[mapper] = propertyName;
       }
-    }
+    });
 
     let deserializedData = {};
     for (let propertyName of Object.keys(data)) {
@@ -541,15 +146,35 @@ export default class AbstractEntity {
   }
 
   /**
-   * Validates the currently set properties of this entity against the
-   * constraints specified by the static {@linkcode propTypes} property.
+   * Creates a clone of this entity.
    *
-   * @throws {TypeError} Thrown if any of the entity's currently set
-   *         properties do not comply with the current property validation
-   *         constraints. The error should carry information about all
-   *         invalid properties, not just the first one.
+   * @returns {AbstractEntity} A clone of this entity.
    */
-  $validatePropTypes() {
-    // override this method to enable property type validation
+  clone() {
+    const data = clone(this.$serialize());
+    const entityClass = this.constructor;
+
+    return new entityClass(data);
+  }
+
+  /**
+   * Creates a clone of this entity with its state patched using the provided
+   * state patch object.
+   *
+   *
+   * @param {Object<string, *> | AbstractEntity} statePatch The patch of this entity's state
+   *        that should be applied to the clone.
+   * @returns {AbstractEntity} The created patched clone.
+   */
+  cloneAndPatch(statePatch) {
+    const data = this.$serialize();
+    const patchData =
+      statePatch instanceof this.constructor
+        ? this.$serialize(statePatch)
+        : statePatch;
+    const mergedData = clone({ ...data, ...patchData });
+    const entityClass = this.constructor;
+
+    return new entityClass(mergedData);
   }
 }
