@@ -1,3 +1,5 @@
+import clone from 'clone';
+
 /**
  * The base class for typed REST API entities. Usage of typed entities may be
  * optional and is dependent on the specific implementation of the REST API
@@ -144,22 +146,35 @@ export default class AbstractEntity {
   }
 
   /**
+   * Creates a clone of this entity.
+   *
+   * @returns {AbstractEntity} A clone of this entity.
+   */
+  clone() {
+    const data = clone(this.$serialize());
+    const entityClass = this.constructor;
+
+    return new entityClass(data);
+  }
+
+  /**
    * Creates a clone of this entity with its state patched using the provided
    * state patch object.
    *
-   * Note that this method is meant to be used primarily for creating
-   * modified versions of immutable entities.
    *
-   * @param {Object<string, *>} statePatch The patch of this entity's state
+   * @param {Object<string, *> | AbstractEntity} statePatch The patch of this entity's state
    *        that should be applied to the clone.
    * @returns {AbstractEntity} The created patched clone.
    */
   cloneAndPatch(statePatch) {
-    let data = this.$serialize();
-    let patchData = this.$serialize(statePatch);
-    let patchedData = Object.assign({}, data, patchData);
-    let entityClass = this.constructor;
+    const data = this.$serialize();
+    const patchData =
+      statePatch instanceof this.constructor
+        ? this.$serialize(statePatch)
+        : statePatch;
+    const mergedData = clone({ ...data, ...patchData });
+    const entityClass = this.constructor;
 
-    return new entityClass(patchedData);
+    return new entityClass(mergedData);
   }
 }
