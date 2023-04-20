@@ -59,10 +59,25 @@ export default class RestClient {
     return rest;
   }
 
+  /*
+  Do readme
+  Mozne upravit pro vsechny volani _defaultTransformProcessors,
+  mozno upravit pro konkretni resource v _prepareOptions
+  nebo by request v options
+{
+transformProcessors:
+processors => ({...processors, newProcessor})
+processors => processors.filter(item=>item.name!=='Processor'))
+}
+* */
+  _defaultTransformProcessors(processors) {
+    return processors;
+  }
+
   _getProcessors(request) {
     const defaultProcessors = this._defaultProcessors;
 
-    let transformProcessors = processors => processors;
+    let transformProcessors = this._defaultTransformProcessors;
     if (
       request?.options?.[OPTION_TRANSFORM_PROCESSORS] &&
       typeof request.options[OPTION_TRANSFORM_PROCESSORS] === 'function'
@@ -74,11 +89,4 @@ export default class RestClient {
 
     return transformProcessors(defaultProcessors);
   }
-  /*
-  {
-  transformProcessors:
-  processors => {processors.push(processor); return processors;}
-  processors => processors.filter(item=>item.name!=='Processor'))
-  }
-  * */
 }
