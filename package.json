@@ -17,7 +17,7 @@
     "release": "npm run release:prepare && npm run release:push",
     "release:prepare": "npm run check:uncommited:changes && changeset version && npm i --package-lock-only --ignore-scripts",
     "release:push": "git add . && git commit -m 'release: publish' && changeset tag && git push --follow-tags",
-    "release:graduate": "npm run check:uncommited:changes && changeset pre exit && npm run release",
+    "release:graduate": "npm run check:uncommited:changes && changeset pre exit && changeset version",
     "release:next:init": "changeset pre enter rc",
     "release:publish": "changeset publish --no-git-tag",
     "check:uncommited:changes": "test \"`git status . --porcelain`\" && echo 'There are uncommitted changes. Aborting release.' && exit 1 || exit 0"
