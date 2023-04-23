@@ -1,5 +1,18 @@
 # Change Log
 
+## 6.0.0
+
+### Major Changes
+
+- 697f90d: Removed `babel-plugin-ima-logger`, this functionallity is now replaced partially by the `@ima/plugin-logger` itself, where in production build logger functions are replaced with empty functions.
+
+### Patch Changes
+
+- 2e61a48: Built using new version of @ima/plugin-cli, js sources now include source maps
+- d08218b: Added type declarations generated from JSdoc
+- 6d47aaa: Side effects notation from package.json
+- 5717869: Added $dependencies typing comments for TS apps
+
 ## 5.0.2-rc.3
 
 ### Patch Changes

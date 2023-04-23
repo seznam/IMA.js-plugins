@@ -1,5 +1,27 @@
 # Change Log
 
+## 4.1.0
+
+### Minor Changes
+
+- 0490a80: use overrides for createIMAServer, set test environment defaults, allow service to process currently resolved environment
+- 6f950a1: Add configuration features object with default popupWindow flag
+  Add window.opener setup after DOM init
+
+### Patch Changes
+
+- 8261ccd: Override node fetch on window, node assert on console
+- e00897a: Fixed named exports for plugin integration testing
+- 37c3f2f: Udpated dependencies to support RC ima versions
+- 6514f0b: Remove added configuration features object with default popupWindow flag
+  Remove added window.opener setup after DOM init
+- 2e61a48: Built using new version of @ima/plugin-cli, js sources now include source maps
+- d08218b: Added type declarations generated from JSdoc
+- 6d47aaa: Side effects notation from package.json
+- 201225d: revert testing integration features
+- 5717869: Added $dependencies typing comments for TS apps
+- 5c7dba5: bump version with changes from master
+
 ## 4.1.0-rc.9
 
 ### Patch Changes

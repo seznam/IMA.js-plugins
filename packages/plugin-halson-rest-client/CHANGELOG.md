@@ -1,5 +1,22 @@
 # Change Log
 
+## 2.0.2
+
+### Patch Changes
+
+- 37c3f2f: Udpated dependencies to support RC ima versions
+- 2e61a48: Built using new version of @ima/plugin-cli, js sources now include source maps
+- d08218b: Added type declarations generated from JSdoc
+- 6d47aaa: Side effects notation from package.json
+- 5717869: Added $dependencies typing comments for TS apps
+- Updated dependencies [37c3f2f]
+- Updated dependencies [2e61a48]
+- Updated dependencies [d08218b]
+- Updated dependencies [6d47aaa]
+- Updated dependencies [5717869]
+- Updated dependencies [192d82e]
+  - @ima/plugin-rest-client@5.0.0
+
 ## 2.0.2-rc.5
 
 ### Patch Changes

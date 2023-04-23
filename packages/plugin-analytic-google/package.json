@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-analytic-google",
-  "version": "6.0.2-rc.5",
+  "version": "6.0.2",
   "description": "Seznam IMA.js google analytic plugin",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
