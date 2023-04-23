@@ -1,32 +1,43 @@
-export interface Configuration {
+/* @if production **
+export function log() {};
+export function info() {};
+export function warn() {};
+export function error() {};
+export function debug() {};
+export function logIf() { return 0; };
+export function infoIf() { return 0; };
+export function warnIf() { return 0; };
+export function errorIf() { return 0; };
+export function debugIf() { return 0; };
+export function throwIf() { return 0; };
+export function rejectIf() { return 0; };
+export function configureLogger() {};
+export function beSilent() {};
+export function isSilent() {};
+/* @else */
+/* eslint-disable no-console */
+export interface LoggerConfiguration {
   silentMode: boolean;
 }
 
-/**
- * A configuration.
- *
- * @type {Configuration}
- */
-const _config = {
+const _config: LoggerConfiguration = {
   silentMode: false,
 };
 
 /**
  * Configure the logger.
  *
- * @param {Configuration} config Some or all of configuration
- *        properties, which overwrites the current values.
+ * @param config Some or all of configuration
+ *  properties, which overwrites the current values.
  */
-function configureLogger(config: Configuration) {
+export function configureLogger(config: LoggerConfiguration): void {
   if (!config || typeof config !== 'object') {
     error(new TypeError('Argument config must be an object.'));
 
     return;
   }
 
-  if ('silentMode' in config) {
-    _config.silentMode = !!config.silentMode;
-  }
+  _config.silentMode = !!config.silentMode;
 }
 
 /**
@@ -40,92 +51,86 @@ function configureLogger(config: Configuration) {
  *   logger.beSilent();
  * });
  */
-function beSilent() {
+export function beSilent(): void {
   configureLogger({ silentMode: true });
 }
 
 /**
  * Checks if the logging is in the silent mode.
  *
- * @returns {boolean} TRUE = when it's active, otherwise FALSE.
+ * @returns TRUE = when it's active, otherwise FALSE.
  */
-function isSilent() {
+export function isSilent(): boolean {
   return _config.silentMode;
 }
 
 /**
  * Outputs a message.
  *
- * @param {...*} message A message.
+ * @param message A message.
  */
-function log(...message: any[]) {
+export function log(...message: unknown[]): void {
   if (!isSilent()) {
-		console.log(...message); // eslint-disable-line
+    console.log(...message);
   }
 }
 
 /**
  * Outputs an informational message.
  *
- * @param {...*} message An informational message.
+ * @param message An informational message.
  */
-function info(...message: any[]) {
+export function info(...message: unknown[]): void {
   if (!isSilent()) {
-		console.info(...message); //eslint-disable-line
+    console.info(...message);
   }
 }
 
 /**
  * Outputs a warning message.
  *
- * @param {...*} message A warning message.
+ * @param message A warning message.
  */
-function warn(...message: any[]) {
+export function warn(...message: unknown[]): void {
   if (!isSilent()) {
-		console.warn(...message); //eslint-disable-line
+    console.warn(...message);
   }
 }
 
 /**
  * Outputs an error message.
  *
- * @param {...*} message An error message.
+ * @param message An error message.
  */
-function error(...message: any[]) {
+export function error(...message: unknown[]): void {
   if (!isSilent()) {
-		console.error(...message); //eslint-disable-line
+    console.error(...message);
   }
 }
 
 /**
  * Outputs a debug message.
  *
- * @param {...*} message A debug message.
+ * @param message A debug message.
  */
-function debug(...message: any[]) {
+export function debug(...message: unknown[]): void {
   if (!isSilent()) {
-		if (typeof console.debug === 'function') { //eslint-disable-line
-			console.debug(...message); //eslint-disable-line
+    if (typeof console.debug === 'function') {
+      console.debug(...message);
     } else {
-			console.log(...message); //eslint-disable-line
+      console.log(...message);
     }
   }
 }
 
 /**
- * An expression that is evaluated as a boolean value.
- *
- * @typedef {*} Condition
- */
-
-/**
  * Outputs a message if a condition is met.
  *
- * @param {*} condition A condition.
- * @param {...*} message A message.
- * @returns {booolean} TRUE when the condition is met, otherwise FALSE.
+ * @param condition A condition.
+ * @param message A message.
+ * @returns TRUE when the condition is met, otherwise FALSE.
  */
-function logIf(condition: any, ...message: any[]) {
+export function logIf(condition: boolean, ...message: unknown[]): boolean {
   if (condition) {
     log(...message);
   }
@@ -136,11 +141,11 @@ function logIf(condition: any, ...message: any[]) {
 /**
  * Outputs an informational message if a condition is met.
  *
- * @param {*} condition A condition.
- * @param {...*} message An informational message.
- * @returns {booolean} TRUE when the condition is met, otherwise FALSE.
+ * @param condition A condition.
+ * @param message An informational message.
+ * @returns TRUE when the condition is met, otherwise FALSE.
  */
-function infoIf(condition: any, ...message: any[]) {
+export function infoIf(condition: boolean, ...message: unknown[]): boolean {
   if (condition) {
     info(...message);
   }
@@ -151,11 +156,11 @@ function infoIf(condition: any, ...message: any[]) {
 /**
  * Outputs a warning message if a condition is met.
  *
- * @param {*} condition A condition.
- * @param {...*} message A warning message.
- * @returns {booolean} TRUE when the condition is met, otherwise FALSE.
+ * @param condition A condition.
+ * @param message A warning message.
+ * @returns TRUE when the condition is met, otherwise FALSE.
  */
-function warnIf(condition: any, ...message: any[]) {
+export function warnIf(condition: boolean, ...message: unknown[]): boolean {
   if (condition) {
     warn(...message);
   }
@@ -167,7 +172,7 @@ function warnIf(condition: any, ...message: any[]) {
  * Outputs an error message if a condition is met.
  *
  * @example
- * function foo(num, str) {
+ * export function foo(num, str) {
  *   if (
  *     errorIf(typeof num !== 'number', new TypeError('Argument num must be a number.')) ||
  *     errorIf(typeof str !== 'string', new TypeError('Argument str must be a string.'))
@@ -177,11 +182,11 @@ function warnIf(condition: any, ...message: any[]) {
  *   }
  *   ...
  * }
- * @param {*} condition A condition.
- * @param {...*} message An error message.
- * @returns {booolean} TRUE when the condition is met, otherwise FALSE.
+ * @param condition A condition.
+ * @param message An error message.
+ * @returns TRUE when the condition is met, otherwise FALSE.
  */
-function errorIf(condition: any, ...message: any[]) {
+export function errorIf(condition: boolean, ...message: unknown[]): boolean {
   if (condition) {
     error(...message);
   }
@@ -192,11 +197,11 @@ function errorIf(condition: any, ...message: any[]) {
 /**
  * Outputs a debug message if a condition is met.
  *
- * @param {*} condition A condition.
- * @param {...*} message A debug message.
- * @returns {booolean} TRUE when the condition is met, otherwise FALSE.
+ * @param condition A condition.
+ * @param message A debug message.
+ * @returns TRUE when the condition is met, otherwise FALSE.
  */
-function debugIf(condition: any, ...message: any[]) {
+export function debugIf(condition: boolean, ...message: unknown[]): boolean {
   if (condition) {
     debug(...message);
   }
@@ -212,15 +217,15 @@ function debugIf(condition: any, ...message: any[]) {
  *   throwIf(typeof num !== 'number', new TypeError('Argument num must be a number.'));
  *   ...
  * }
- * @param {*} condition A condition.
- * @param {string|number|boolean|object} expression An expression to throw
+ * @param condition A condition.
+ * @param expression An expression to throw
  *        (please prefer an instance of Error, because it contains an original
  *        location, where it was created).
  */
-function throwIf(
-  condition: any,
-  expression: string | number | boolean | object
-) {
+export function throwIf(
+  condition: boolean,
+  expression: Error | string | number | boolean | object
+): never | void {
   if (condition) {
     throw expression;
   }
@@ -241,34 +246,20 @@ function throwIf(
  *   }
  *   ...
  * }
- * @param {*} condition A condition.
- * @param {string|number|boolean|object} reason A reason of rejecting (please
+ * @param condition A condition.
+ * @param reason A reason of rejecting (please
  *        prefer an instance of Error, because it contains an original location,
  *        where it was created).
- * @returns {?Promise} A promise that is rejected with the given reason or null.
+ * @returns A promise that is rejected with the given reason or null.
  */
-function rejectIf(condition: any, reason: string | number | boolean | object) {
+export function rejectIf(
+  condition: boolean,
+  reason: Error | string | number | boolean | object
+): Promise<never> | null {
   if (condition) {
     return Promise.reject(reason);
   }
 
   return null;
 }
-
-export {
-  configureLogger,
-  beSilent,
-  isSilent,
-  log,
-  info,
-  warn,
-  error,
-  debug,
-  logIf,
-  infoIf,
-  warnIf,
-  errorIf,
-  debugIf,
-  throwIf,
-  rejectIf,
-};
+/* @endif */
