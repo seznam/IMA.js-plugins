@@ -24,13 +24,25 @@
     "@ima/plugin-style-loader": "3.0.1",
     "@ima/plugin-testing-integration": "3.0.1",
     "@ima/plugin-useragent": "4.0.1",
-    "@ima/plugin-websocket": "2.0.1",
-    "@ima/plugin-xhr": "3.0.1"
+    "@ima/plugin-websocket": "2.0.1"
   },
   "changesets": [
+    "blue-jobs-shout",
+    "chilled-boxes-attend",
+    "dry-waves-travel",
     "dry-weeks-learn",
+    "dull-fishes-call",
+    "fast-jars-begin",
     "hungry-frogs-care",
     "light-melons-live",
+    "nice-colts-warn",
+    "popular-apples-confess",
+    "real-icons-attend",
+    "silly-actors-join",
+    "slow-pots-fix",
+    "strange-jars-fetch",
+    "tasty-flies-wonder",
+    "tough-pugs-appear",
     "wet-bugs-brake"
   ]
 }

@@ -6,6 +6,7 @@ const GA_ROOT_VARIABLE = 'ga';
  * Google analytic class
  */
 export default class GoogleAnalytic extends AbstractAnalytic {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return [...defaultDependencies, '$Settings.plugin.analytic.google'];
   }
@@ -13,9 +14,9 @@ export default class GoogleAnalytic extends AbstractAnalytic {
   /**
    * Initializes the Google Analytics plugin.
    *
-   * @param {ima.plugin.script.loader.ScriptLoaderPlugin} scriptLoader
-   * @param {ima.window.Window} window
-   * @param {ima.event.Dispatcher} dispatcher
+   * @param {import('@ima/plugin-script-loader').ScriptLoaderPlugin} scriptLoader
+   * @param {import('@ima/core').Window} window
+   * @param {import('@ima/core').Dispatcher} dispatcher
    * @param {Object<string, *>} config
    */
   constructor(scriptLoader, window, dispatcher, config) {

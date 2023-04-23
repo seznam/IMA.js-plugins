@@ -1,9 +1,10 @@
 {
   "name": "@ima/plugin-merkur",
-  "version": "4.0.2-rc.1",
+  "version": "4.0.2-rc.4",
   "description": "The Plugin merkur",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
+  "types": "./dist/esm/main.d.ts",
   "scripts": {
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "build": "ima-plugin build",
@@ -29,11 +30,6 @@
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
   "license": "MIT",
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
-  },
   "peerDependencies": {
     "@ima/core": ">=18.0.0 || >=19.0.0-rc.0"
   }

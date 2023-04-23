@@ -1,5 +1,6 @@
-// @FIXME Update import from @ima/cli once it exports resolveImaConfig function
-import { resolveImaConfig } from '@ima/cli/dist/webpack/utils';
+import { strict as assert } from 'node:assert';
+
+import { resolveImaConfig } from '@ima/cli';
 import {
   createImaApp,
   getClientBootConfig,
@@ -7,6 +8,7 @@ import {
   bootClientApp,
 } from '@ima/core';
 import { assignRecursively } from '@ima/helpers';
+import { createIMAServer } from '@ima/server';
 import { JSDOM } from 'jsdom';
 
 import { unAopAll } from './aop';
@@ -39,17 +41,18 @@ function clearImaApp(app) {
  * Initializes IMA application with our production-like configuration
  * Reinitializes jsdom with configuration, that will work with our application
  *
- * @param {object} [bootConfigMethods] Object, that can contain methods for ima boot configuration
+ * @param {import('@ima/core').AppConfigFunctions} [bootConfigMethods] Object, that can contain methods for ima boot configuration
  * @returns {Promise<object>}
  */
 async function initImaApp(bootConfigMethods = {}) {
   const config = getConfig();
+
   const bootConfigExtensions = getBootConfigExtensions();
   const imaConfig = await resolveImaConfig({ rootDir: config.rootDir });
 
   // JSDom needs to be initialized before we start importing project files,
   // since some packages can do some client/server detection at this point
-  _initJSDom();
+  await _initJSDom();
   _installTimerWrappers();
 
   await config.prebootScript();
@@ -61,47 +64,50 @@ async function initImaApp(bootConfigMethods = {}) {
   /**
    * Initializes JSDOM environment for the application run
    */
-  function _initJSDom() {
-    /**
-     * Copies object props from src to target
-     *
-     * @param {object} src
-     * @param {object} target
-     */
-    function copyProps(src, target) {
-      Object.defineProperties(target, {
-        ...Object.getOwnPropertyDescriptors(src),
-        ...Object.getOwnPropertyDescriptors(target),
-      });
-    }
+  async function _initJSDom() {
+    const content = await _getIMAResponseContent();
 
-    const jsdom = new JSDOM(
-      `<!doctype html><html><body><div id="${config.masterElementId}"></div></body></html>`,
-      {
-        pretendToBeVisual: true,
-        url: `${config.protocol}//${config.host}/`,
-      }
-    );
+    // SPA jsdom interpreter
+    const jsdom = new JSDOM(content, {
+      pretendToBeVisual: true,
+      url: `${config.protocol}//${config.host}/`,
+    });
+
+    // Setup node environment to work with jsdom window
     const { window } = jsdom;
 
     global.window = window;
-    global.document = window.document;
-    global.navigator = {
-      userAgent: 'node.js',
-    };
-    copyProps(window, global);
     global.jsdom = jsdom;
-    global.$IMA = global.$IMA || {};
-    global.window.$IMA = global.$IMA;
-    global.window.$Debug = global.$Debug;
+    global.document = window.document;
+
+    // Extend node global with created window vars
+    Object.defineProperties(global, {
+      ...Object.getOwnPropertyDescriptors(window),
+      ...Object.getOwnPropertyDescriptors(global),
+    });
+
+    // set debug before IMA env debug
+    global.$Debug = true;
+
+    // Mock dictionary
+    global.$IMA.i18n = generateDictionary(imaConfig.languages, config.locale);
+
+    // Mock scroll for ClientWindow.scrollTo for ima/core page routing scroll
     global.window.scrollTo = () => {};
+
+    // Replace window fetch by node fetch
     global.window.fetch = global.fetch;
 
-    global.$IMA.$Protocol = config.protocol;
-    global.$IMA.$Host = config.host;
-    global.$IMA.$Env = config.environment;
-    global.$IMA.$App = config.$App || {};
-    global.$IMA.i18n = generateDictionary(imaConfig.languages, config.locale);
+    // Required for JSDOM XPath selectors
+    global.console.assert = assert; // eslint-disable-line no-console
+
+    // Call all page scripts (jsdom build-in runScript creates new V8 context, unable to mix with node context)
+    const pageScripts = jsdom.window.document.getElementsByTagName('script');
+    if (typeof config.pageScriptEvalFn === 'function') {
+      for (const script of pageScripts) {
+        config.pageScriptEvalFn(script);
+      }
+    }
   }
 
   /**
@@ -151,8 +157,62 @@ async function initImaApp(bootConfigMethods = {}) {
     };
   }
 
-  let app = createImaApp();
-  let bootConfig = getClientBootConfig({
+  /**
+   * Get response content for the application run
+   *
+   * @returns {string} html content
+   */
+  async function _getIMAResponseContent() {
+    // Mock devUtils to override manifest loading
+    const devUtils = {
+      manifestRequire: () => ({}),
+    };
+
+    // Prepare serverApp with environment override
+    const { serverApp } = await createIMAServer({
+      devUtils,
+      processEnvironment: currentEnvironment =>
+        config.processEnvironment({
+          ...currentEnvironment,
+          $Server: {
+            ...currentEnvironment.$Server,
+            concurrency: 0,
+            serveSPA: {
+              allow: true,
+            },
+          },
+          $Debug: true,
+        }),
+    });
+
+    // Generate request response
+    const response = await serverApp.requestHandler(
+      {
+        get: () => '',
+        headers: () => '',
+        originalUrl: config.host,
+        protocol: config.protocol.replace(':', ''),
+      },
+      {
+        status: () => 200,
+        send: () => {},
+        set: () => {},
+        locals: {
+          language: config.locale,
+          host: config.host,
+          protocol: config.protocol,
+          path: config.path || '',
+          root: config.root || '',
+          languagePartPath: config.languagePartPath || '',
+        },
+      }
+    );
+
+    return response.content;
+  }
+
+  const app = createImaApp();
+  const bootConfig = getClientBootConfig({
     initSettings: _getBootConfigForMethod('initSettings'),
     initBindApp: _getBootConfigForMethod('initBindApp'),
     initServicesApp: _getBootConfigForMethod('initServicesApp'),

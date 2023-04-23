@@ -1,5 +1,35 @@
 <a name="5.0.1"></a>
 
+## 9.0.0-rc.7
+
+### Patch Changes
+
+- de5b640: Added plugin settings exports
+
+## 9.0.0-rc.6
+
+### Patch Changes
+
+- 5717869: Added $dependencies typing comments for TS apps
+
+## 9.0.0-rc.5
+
+### Patch Changes
+
+- 75efac8: Fixed types path in package.json
+
+## 9.0.0-rc.4
+
+### Patch Changes
+
+- 6d47aaa: Side effects notation from package.json
+
+## 9.0.0-rc.3
+
+### Patch Changes
+
+- d08218b: Added type declarations generated from JSdoc
+
 ## 9.0.0-rc.2
 
 ### Patch Changes

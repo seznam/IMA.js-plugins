@@ -1,5 +1,41 @@
 # Change Log
 
+## 1.2.3-rc.2
+
+### Patch Changes
+
+- 5717869: Added $dependencies typing comments for TS apps
+
+## 1.2.3-rc.1
+
+### Patch Changes
+
+- 6d47aaa: Side effects notation from package.json
+
+## 1.2.3-rc.0
+
+### Patch Changes
+
+- d08218b: Added type declarations generated from JSdoc
+
+## 1.2.2
+
+### Patch Changes
+
+- 1813d15: Use for loop because of build errors with findIndex()
+
+## 1.2.1
+
+### Patch Changes
+
+- 2a93641: Remove findLastIndex() and new Set() syntax for backward compatibility
+
+## 1.2.0
+
+### Minor Changes
+
+- b23a557: Scrambler doesn't transform class names to potentially harmful class names like "ad".
+
 ## 1.1.2-rc.1
 
 ### Patch Changes

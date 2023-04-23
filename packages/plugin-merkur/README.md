@@ -26,6 +26,7 @@ import { AbstractController } from '@ima/core';
 import { MerkurResource } from '@ima/plugin-merkur';
 
 class HomeController extends AbstractController {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return [MerkurResource];
   }

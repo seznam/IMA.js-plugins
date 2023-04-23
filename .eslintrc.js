@@ -148,10 +148,6 @@ module.exports = {
       },
       extends: ['plugin:@typescript-eslint/recommended'],
       rules: {
-        '@typescript-eslint/ban-ts-comment': [
-          'error',
-          { 'ts-expect-error': 'allow-with-description' },
-        ],
         '@typescript-eslint/no-unused-vars': [
           'error',
           {
@@ -159,7 +155,12 @@ module.exports = {
             varsIgnorePattern: '^_',
             destructuredArrayIgnorePattern: '^_',
             ignoreRestSiblings: true,
+            args: 'none',
           },
+        ],
+        '@typescript-eslint/ban-ts-comment': [
+          'error',
+          { 'ts-expect-error': 'off' },
         ],
         '@typescript-eslint/no-namespace': [
           'error',

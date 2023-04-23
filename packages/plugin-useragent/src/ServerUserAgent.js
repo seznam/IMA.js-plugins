@@ -8,14 +8,14 @@ export default class ServerUserAgent extends AbstractUserAgent {
   /**
    * Initializes the user agent analyzer used at the server-side.
    *
-   * @param {PlatformJS} platformJS
-   * @param {ima.router.Request} request
+   * @param {import('platform').default} platformJS
+   * @param {import('@ima/core').Request} request
    */
   constructor(platformJS, request) {
     super(platformJS);
 
     /**
-     * @type {ima.router.Request}
+     * @type {import('@ima/core').Request}
      */
     this._request = request;
   }

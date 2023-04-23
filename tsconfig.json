@@ -4,6 +4,8 @@
     "lib": [
       "ES2022"
     ],
+    "emitDeclarationOnly": true,
+    "outDir": "./dist",
     "module": "es2022",
     "moduleResolution": "node16",
     "declaration": true,
@@ -15,6 +17,9 @@
     "typeRoots": [
       "types",
       "node_modules/@types"
-    ]
-  }
+    ],
+  },
+  "exclude": [
+    "**/__tests__/**"
+  ]
 }

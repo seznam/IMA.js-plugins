@@ -1,9 +1,10 @@
 {
   "name": "@ima/plugin-shared-cache",
-  "version": "3.0.2-rc.0",
+  "version": "3.0.2-rc.3",
   "description": "A utility for creating caches that are shared between requests by all IMA.js application instances within the same node.js process.",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
+  "types": "./dist/esm/main.d.ts",
   "scripts": {
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "build": "ima-plugin build",
@@ -30,10 +31,5 @@
   "license": "UNLICENSED",
   "dependencies": {
     "clone": "^2.1.2"
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
   }
 }

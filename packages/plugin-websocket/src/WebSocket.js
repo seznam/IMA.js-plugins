@@ -1,11 +1,12 @@
 export default class WebSocket {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return ['$Window', '$Settings.plugin.websocket'];
   }
 
   constructor(window, config) {
     /**
-     * @type {Window}
+     * @type {import('@ima/core').Window}
      */
     this._window = window;
 
@@ -20,7 +21,7 @@ export default class WebSocket {
     this._socket = null;
 
     /**
-     * @type {Array}
+     * @type {any[]}
      */
     this._observers = [];
   }

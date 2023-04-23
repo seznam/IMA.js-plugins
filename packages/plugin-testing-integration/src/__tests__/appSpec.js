@@ -1,4 +1,10 @@
 jest.mock('@ima/core');
+jest.mock('@ima/server', () => ({
+  __esModule: true,
+  createIMAServer: () => ({
+    serverApp: { requestHandler: () => ({ content: '' }) },
+  }),
+}));
 jest.mock('../helpers.js');
 jest.mock('../localization.js');
 jest.mock('../configuration.js');
@@ -79,6 +85,8 @@ describe('Integration', () => {
     jest
       .spyOn(bootConfigExtensions, 'getBootConfigExtensions')
       .mockReturnValue(configExtensions);
+
+    global.$IMA = {};
 
     let application = await initImaApp();
 

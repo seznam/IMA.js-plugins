@@ -1,6 +1,6 @@
 {
   "name": "@ima/cli-plugin-less-constants",
-  "version": "2.0.0-rc.3",
+  "version": "2.0.0-rc.6",
   "description": "Plugin for @ima/cli to enable sharing constants between LESS and JS source files.",
   "main": "./dist/cjs/cli-plugin/main.js",
   "module": "./dist/esm/cli-plugin/main.js",

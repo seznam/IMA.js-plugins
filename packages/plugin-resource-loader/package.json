@@ -1,9 +1,10 @@
 {
   "name": "@ima/plugin-resource-loader",
-  "version": "3.0.2-rc.0",
+  "version": "3.0.2-rc.3",
   "description": "Seznam IMA.js plugin for loading web resources",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
+  "types": "./dist/esm/main.d.ts",
   "scripts": {
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "build": "ima-plugin build",
@@ -29,10 +30,5 @@
   "bugs": {
     "url": "https://github.com/seznam/IMA.js-plugins/issues"
   },
-  "license": "MIT",
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
-  }
+  "license": "MIT"
 }

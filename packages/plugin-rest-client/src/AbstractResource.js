@@ -16,6 +16,7 @@ const PRIVATE = Object.freeze({
  * specified by the REST API client implementation on the given AbstractEntity Class.
  */
 export default class AbstractResource {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return [RestClient];
   }

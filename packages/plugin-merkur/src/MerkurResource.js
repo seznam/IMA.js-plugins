@@ -1,23 +1,24 @@
 import { Cache, HttpAgent } from '@ima/core';
 
 export default class MerkurResource {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return [HttpAgent, Cache];
   }
 
   /**
    *
-   * @param {HttpAgent} http
-   * @param {Cache} cache
+   * @param {import('@ima/core').HttpAgent} http
+   * @param {import('@ima/core').Cache} cache
    */
   constructor(http, cache) {
     /**
-     * @type {HttpAgent}
+     * @type {import('@ima/core').HttpAgent}
      */
     this._http = http;
 
     /**
-     * @type {Cache}
+     * @type {import('@ima/core').Cache}
      */
     this._cache = cache;
   }

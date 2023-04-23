@@ -1,9 +1,10 @@
 {
   "name": "@ima/plugin-analytic-fb-pixel",
-  "version": "6.0.2-rc.1",
+  "version": "6.0.2-rc.5",
   "description": "Seznam IMA.js analytic plugin for Facebook Pixel",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
+  "types": "./dist/esm/main.d.ts",
   "scripts": {
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "build": "ima-plugin build",
@@ -38,10 +39,5 @@
   "peerDependencies": {
     "@ima/core": ">=18.0.0 || >=19.0.0-rc.0",
     "@ima/plugin-script-loader": ">=3.1.1-rc.0"
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
   }
 }

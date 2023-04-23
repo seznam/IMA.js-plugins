@@ -1,5 +1,87 @@
 # Change Log
 
+## 4.1.0-rc.9
+
+### Patch Changes
+
+- 201225d: revert testing integration features
+
+## 4.1.0-rc.8
+
+### Patch Changes
+
+- 5c7dba5: bump version with changes from master
+
+## 4.1.0-rc.7
+
+### Patch Changes
+
+- 6514f0b: Remove added configuration features object with default popupWindow flag
+  Remove added window.opener setup after DOM init
+
+## 4.1.0-rc.6
+
+### Minor Changes
+
+- 6f950a1: Add configuration features object with default popupWindow flag
+  Add window.opener setup after DOM init
+
+## 4.1.0-rc.5
+
+### Patch Changes
+
+- 8261ccd: Override node fetch on window, node assert on console
+
+## 4.1.0-rc.4
+
+### Patch Changes
+
+- e00897a: Fixed named exports for plugin integration testing
+
+## 4.1.0-rc.3
+
+### Minor Changes
+
+- 0490a80: use overrides for createIMAServer, set test environment defaults, allow service to process currently resolved environment
+
+## 4.0.2-rc.2
+
+### Patch Changes
+
+- 5717869: Added $dependencies typing comments for TS apps
+
+## 4.0.2-rc.1
+
+### Patch Changes
+
+- 6d47aaa: Side effects notation from package.json
+
+## 4.0.2-rc.0
+
+### Patch Changes
+
+- d08218b: Added type declarations generated from JSdoc
+
+## 4.0.1
+
+### Patch Changes
+
+- 35fc043: Fix: peer to ima/cli min version increaced to 18.1.0
+
+## 4.0.0
+
+### Major Changes
+
+- 076eddc: JSDOM is now using real spa content generated from ejs template
+  Enabled JSDOM page scripts evaluation (configured by setup function)
+  Requires @ima/server@18.3.2 and later
+
+## 3.1.0
+
+### Minor Changes
+
+- 7aae66d: Add support to multidimensional app dictionary to integration tests
+
 ## 3.0.2-rc.1
 
 ### Patch Changes

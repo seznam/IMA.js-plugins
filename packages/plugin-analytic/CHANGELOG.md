@@ -1,5 +1,35 @@
 # Change Log
 
+## 5.0.2-rc.5
+
+### Patch Changes
+
+- de5b640: Added plugin settings exports
+
+## 5.0.2-rc.4
+
+### Patch Changes
+
+- 5717869: Added $dependencies typing comments for TS apps
+
+## 5.0.2-rc.3
+
+### Patch Changes
+
+- e75b1da: Added dispatcher types
+
+## 5.0.2-rc.2
+
+### Patch Changes
+
+- 6d47aaa: Side effects notation from package.json
+
+## 5.0.2-rc.1
+
+### Patch Changes
+
+- d08218b: Added type declarations generated from JSdoc
+
 ## 5.0.2-rc.0
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # Change Log
 
+## 2.0.0-rc.6
+
+### Patch Changes
+
+- 5717869: Added $dependencies typing comments for TS apps
+
+## 2.0.0-rc.5
+
+### Patch Changes
+
+- 6d47aaa: Side effects notation from package.json
+
+## 2.0.0-rc.4
+
+### Patch Changes
+
+- d08218b: Added type declarations generated from JSdoc
+
 ## 2.0.0-rc.3
 
 ### Patch Changes

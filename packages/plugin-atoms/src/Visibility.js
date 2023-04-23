@@ -6,7 +6,7 @@ import { Circle } from 'infinite-circle';
   @type {object}
   @property {string} type - event type
  /
- 
+
 /**
  * @callback notifyCallback
  * @param {notifyPayload} payload
@@ -16,6 +16,7 @@ import { Circle } from 'infinite-circle';
  * Visibility helper.
  */
 export default class Visibility {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return ['$Window', '$Dispatcher'];
   }
@@ -23,13 +24,13 @@ export default class Visibility {
   constructor(window, dispatcher) {
     /**
      * @property _window
-     * @type {ima.window.Window}
+     * @type {import('@ima/core').Window}
      */
     this._window = window;
 
     /**
      * @property _dispatcher
-     * @type {ima.event.Dispatcher}
+     * @type {import('@ima/core').Dispatcher}
      */
     this._dispatcher = dispatcher;
 
