@@ -47,9 +47,6 @@ import {
 - `rejectIf(condition, reason)`: Returns a rejected promise if a condition is
   met.
 
-The vast majority of these functions can be automatically removed from 
-production bundles if you use [`babel-plugin-ima-logger` plugin](https://github.com/seznam/IMA.js-plugins/tree/master/packages/babel-plugin-ima-logger).
-
 ## Options
 
 ### `silentMode`

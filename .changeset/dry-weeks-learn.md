@@ -4,7 +4,6 @@
 "@ima/plugin-halson-rest-client": patch
 "@ima/plugin-analytic-fb-pixel": patch
 "@ima/plugin-managed-component": patch
-"babel-plugin-ima-logger": patch
 "@ima/cli-plugin-scramble-css": patch
 "@ima/plugin-analytic-google": patch
 "@ima/plugin-local-storage": patch

@@ -1,6 +1,5 @@
 ---
 "@ima/cli-plugin-less-constants": major
-"babel-plugin-ima-logger": major
 "@ima/cli-plugin-analyze": major
 "@ima/plugin-rest-client": major
 "@ima/plugin-useragent": major
