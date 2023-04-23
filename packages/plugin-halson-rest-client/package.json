@@ -1,9 +1,10 @@
 {
   "name": "@ima/plugin-halson-rest-client",
-  "version": "2.0.1",
+  "version": "2.0.2-rc.5",
   "description": "HAL+JSON REST API client for IMA applications.",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
+  "types": "./dist/esm/main.d.ts",
   "scripts": {
     "test": "../../node_modules/.bin/jest --config=jest.config.js",
     "build": "ima-plugin build",
@@ -35,16 +36,11 @@
   },
   "homepage": "https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-halson-rest-client#readme",
   "dependencies": {
-    "@ima/plugin-rest-client": "^4.0.0",
+    "@ima/plugin-rest-client": "^5.0.0-rc.0",
     "halson": "3.0.0",
     "uri-template": "1.0.1"
   },
   "peerDependencies": {
-    "@ima/core": ">=18.0.0"
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
+    "@ima/core": ">=18.0.0 || >=19.0.0-rc.0"
   }
 }

@@ -1,11 +1,12 @@
 import { ResourceLoader } from '@ima/plugin-resource-loader';
 
-import Events from './Events';
+import { Events } from './Events';
 
 /**
  * Style loader plugin class.
  */
 export default class StyleLoader {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return ['$Window', '$Dispatcher', ResourceLoader];
   }
@@ -13,22 +14,22 @@ export default class StyleLoader {
   /**
    * Initializes the style loader.
    *
-   * @param {ima.window.Window} window
-   * @param {ima.event.Dispatcher} dispatcher
+   * @param {import('@ima/core').Window} window
+   * @param {import('@ima/core').Dispatcher} dispatcher
    * @param {ResourceLoader} resourceLoader
    */
   constructor(window, dispatcher, resourceLoader) {
     /**
      * IMA.js Window
      *
-     * @type {ima.window.Window}
+     * @type {import('@ima/core').Window}
      */
     this._window = window;
 
     /**
      * IMA.js Dispatcher
      *
-     * @type {ima.event.Dispatcher}
+     * @type {import('@ima/core').Dispatcher}
      */
     this._dispatcher = dispatcher;
 

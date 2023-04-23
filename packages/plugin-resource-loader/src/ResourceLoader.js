@@ -4,6 +4,7 @@
  * {@code onabort} callback properties.
  */
 export default class ResourceLoader {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return [];
   }

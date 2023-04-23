@@ -1,5 +1,47 @@
 # Change Log
 
+## 2.0.0-rc.6
+
+### Patch Changes
+
+- 5717869: Added $dependencies typing comments for TS apps
+
+## 2.0.0-rc.5
+
+### Patch Changes
+
+- 6d47aaa: Side effects notation from package.json
+
+## 2.0.0-rc.4
+
+### Patch Changes
+
+- d08218b: Added type declarations generated from JSdoc
+
+## 2.0.0-rc.3
+
+### Patch Changes
+
+- 2e61a48: Built using new version of @ima/plugin-cli, js sources now include source maps
+
+## 2.0.0-rc.2
+
+### Patch Changes
+
+- 37c3f2f: Udpated dependencies to support RC ima versions
+
+## 2.0.0-rc.1
+
+### Major Changes
+
+- 192d82e: IMA@19 compatibility fixes
+
+## 2.0.0-rc.0
+
+### Major Changes
+
+- 53758b8: Updated to support IMA@19
+
 ## 1.1.1
 
 ### Patch Changes

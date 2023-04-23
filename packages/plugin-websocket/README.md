@@ -47,6 +47,7 @@ The below example is for client side usage.
 import { WebSocket } from '@ima/plugin-websocket';
 
 class Logic {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return [WebSocket];
   }

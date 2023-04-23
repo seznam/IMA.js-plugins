@@ -6,18 +6,19 @@ const TEST_KEY = '@ima/plugin-local-storage';
  * Local storage class
  */
 class LocalStorage extends Storage {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return ['$Window'];
   }
 
   /**
-   * @param {ima.window.Window} window Global window object on client
+   * @param {import('@ima/core').Window} window Global window object on client
    */
   constructor(window) {
     super();
 
     /**
-     * @type {ima.window.Window}
+     * @type {import('@ima/core').Window}
      */
     this._window = window;
 

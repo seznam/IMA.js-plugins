@@ -1,5 +1,29 @@
 # Change Log
 
+## 5.0.2-rc.3
+
+### Patch Changes
+
+- 5717869: Added $dependencies typing comments for TS apps
+
+## 5.0.2-rc.2
+
+### Patch Changes
+
+- 6d47aaa: Side effects notation from package.json
+
+## 5.0.2-rc.1
+
+### Patch Changes
+
+- d08218b: Added type declarations generated from JSdoc
+
+## 5.0.2-rc.0
+
+### Patch Changes
+
+- 2e61a48: Built using new version of @ima/plugin-cli, js sources now include source maps
+
 ## 5.0.1
 
 ### Patch Changes

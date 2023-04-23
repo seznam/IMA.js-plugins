@@ -1,6 +1,6 @@
 {
   "name": "@ima/cli-plugin-analyze",
-  "version": "1.1.0",
+  "version": "2.0.0-rc.6",
   "description": "Plugin for @ima/cli adding analyze bundle functionality.",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
@@ -43,7 +43,7 @@
     "@types/webpack-bundle-analyzer": "^4.4.2"
   },
   "peerDependencies": {
-    "@ima/cli": ">=18.0.0",
+    "@ima/cli": ">=18.0.0 || >=19.0.0-rc.0",
     "webpack": ">=5"
   }
 }

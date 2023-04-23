@@ -59,7 +59,6 @@ The IMA.js plugins is multi-package repository containing most commonly used plu
 - [**plugin-self-xss**](packages/plugin-self-xss)
 - [**plugin-style-loader**](packages/plugin-style-loader)
 - [**plugin-useragent**](packages/plugin-useragent)
-- [**plugin-xhr**](packages/plugin-xhr)
 - [**plugin-local-storage**](packages/plugin-local-storage)
 - [**plugin-testing-integration**](packages/plugin-testing-integration)
 - [**plugin-websocket**](packages/plugin-websocket)

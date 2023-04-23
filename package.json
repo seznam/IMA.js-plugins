@@ -1,4 +1,5 @@
 {
+  "name": "@ima/plugins",
   "version": "1.0.0",
   "scripts": {
     "prepare": "husky install",
@@ -30,9 +31,9 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.0",
     "@babel/preset-react": "^7.18.6",
-    "@cfaester/enzyme-adapter-react-18": "^0.6.0",
+    "@cfaester/enzyme-adapter-react-18": "^0.7.0",
     "@changesets/cli": "^2.25.2",
-    "@ima/plugin-cli": "^18.1.0",
+    "@ima/plugin-cli": "rc",
     "@swc/jest": "^0.2.23",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.7.6",
@@ -44,7 +45,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^27.1.6",
-    "eslint-plugin-jsdoc": "^39.6.4",
+    "eslint-plugin-jsdoc": "^40.1.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.11",
     "husky": "^8.0.2",
@@ -59,12 +60,16 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "shallow-with-context": "^0.5.1",
-    "stylelint": "^14.14.1",
+    "stylelint": "^15.4.0",
     "stylelint-config-css-modules": "^4.1.0",
-    "stylelint-config-standard": "^29.0.0",
+    "stylelint-config-standard": "^32.0.0",
     "stylelint-declaration-block-no-ignored-properties": "^2.6.0",
-    "stylelint-order": "^5.0.0",
+    "stylelint-order": "^6.0.3",
     "to-mock": "^1.6.2",
-    "typescript": "^4.9.3"
+    "typescript": "^5.0.3"
+  },
+  "overrides": {
+    "@ima/core": "rc",
+    "@ima/cli": "rc"
   }
 }

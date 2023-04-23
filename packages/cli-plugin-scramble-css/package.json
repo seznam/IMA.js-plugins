@@ -1,6 +1,6 @@
 {
   "name": "@ima/cli-plugin-scramble-css",
-  "version": "1.2.2",
+  "version": "1.2.3-rc.2",
   "description": "Plugin for @ima/cli that implements CSS class minimizer and uglifier that can be reverse-compiled at runtime.",
   "main": "./dist/cjs/main.js",
   "types": "./dist/esm/main.d.ts",
@@ -46,8 +46,8 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@ima/cli": ">=18.0.0",
-    "@ima/react-page-renderer": ">=18.0.0",
+    "@ima/cli": ">=18.0.0 || >=19.0.0-rc.0",
+    "@ima/react-page-renderer": ">=18.0.0 || >=19.0.0-rc.0",
     "classnames": "*",
     "copy-webpack-plugin": "*",
     "postcss": ">=8",

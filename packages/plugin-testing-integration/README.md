@@ -188,6 +188,14 @@ This script is executed right before the IMA.js boot config is initialized, but 
 
 Function to run on each HTML script element of generated JSDOM page. By default the runner script is not evaluated.
 
+### processEnvironment
+`<Function>`
+
+`Default: env => env`
+
+Function to modify currently resolved environment.
+
+
 ## Usage
 
 This is Jest example of simple integration test, that loads the IMA.js app homepage and mocks all http get requests.

@@ -5,13 +5,13 @@ export default class AbstractUserAgent {
   /**
    * Initializes the user agent analyzer plugin.
    *
-   * @param {PlatformJS} platformParser
+   * @param {import('platform').default} platformParser
    */
   constructor(platformParser) {
     /**
      * UserAgent parser.
      *
-     * @type {PlatformJS}
+     * @type {import('platform').default}
      */
     this._platformParser = platformParser;
 

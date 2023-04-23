@@ -2,20 +2,21 @@
 
 import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
 
-import AnalyticEvents from './Events';
+import { Events as AnalyticEvents } from './Events';
 
 /**
  * Abstract analytic class
  */
 export default class AbstractAnalytic {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return [ScriptLoaderPlugin, '$Window', '$Dispatcher'];
   }
 
   /**
    * @param {ima.plugin.script.loader.ScriptLoaderPlugin} scriptLoader
-   * @param {ima.window.Window} window
-   * @param {ima.event.Dispatcher} dispatcher
+   * @param {import('@ima/core').Window} window
+   * @param {import('@ima/core').Dispatcher} dispatcher
    * @param {Object<string, *>} config
    */
   constructor(scriptLoader, window, dispatcher, config) {
@@ -31,7 +32,7 @@ export default class AbstractAnalytic {
      * IMA.js Window
      *
      * @protected
-     * @type {ima.window.Window}
+     * @type {import('@ima/core').Window}
      */
     this._window = window;
 
@@ -39,7 +40,7 @@ export default class AbstractAnalytic {
      * IMA.js Dispatcher
      *
      * @protected
-     * @type {ima.event.Dispatcher}
+     * @type {import('@ima/core').Dispatcher}
      */
     this._dispatcher = dispatcher;
 

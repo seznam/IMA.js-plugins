@@ -1,5 +1,37 @@
 # Change Log
 
+## 3.1.1-rc.4
+
+### Patch Changes
+
+- 5717869: Added $dependencies typing comments for TS apps
+
+## 3.1.1-rc.3
+
+### Patch Changes
+
+- e75b1da: Added dispatcher types
+
+## 3.1.1-rc.2
+
+### Patch Changes
+
+- 6d47aaa: Side effects notation from package.json
+
+## 3.1.1-rc.1
+
+### Patch Changes
+
+- d08218b: Added type declarations generated from JSdoc
+
+## 3.1.1-rc.0
+
+### Patch Changes
+
+- 2e61a48: Built using new version of @ima/plugin-cli, js sources now include source maps
+- Updated dependencies [2e61a48]
+  - @ima/plugin-resource-loader@3.0.2-rc.0
+
 ## 3.1.0
 
 ### Minor Changes

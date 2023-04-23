@@ -1,7 +1,9 @@
 jest.mock('@ima/core');
 jest.mock('@ima/server', () => ({
   __esModule: true,
-  default: () => ({ serverApp: { requestHandler: () => ({ content: '' }) } }),
+  createIMAServer: () => ({
+    serverApp: { requestHandler: () => ({ content: '' }) },
+  }),
 }));
 jest.mock('../helpers.js');
 jest.mock('../localization.js');

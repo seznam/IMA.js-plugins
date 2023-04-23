@@ -20,6 +20,7 @@ module.exports = {
   rules: {
     indentation: 2,
     'no-empty-source': null,
+    'declaration-block-no-redundant-longhand-properties': null,
     'declaration-empty-line-before': null,
     'no-duplicate-selectors': null,
     'no-descending-specificity': null,

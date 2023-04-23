@@ -3,7 +3,7 @@ import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
 import { toMockedInstance } from 'to-mock';
 
 import AbstractAnalytic from '../AbstractAnalytic';
-import AnalyticEvents from '../Events';
+import { Events as AnalyticEvents } from '../Events';
 
 describe('AbstractAnalytic', () => {
   let abstractAnalytic = null;

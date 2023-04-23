@@ -7,6 +7,7 @@ import Visibility from './Visibility';
  * UI component helper.
  */
 export default class UIComponentHelper {
+  /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return [
       '$Router',
@@ -21,8 +22,8 @@ export default class UIComponentHelper {
   /**
    * Initializes the helper.
    *
-   * @param {ima.router.Router} router
-   * @param {ima.window.Window} window
+   * @param {import('@ima/core').Router} router
+   * @param {import('@ima/core').Window} window
    * @param {ComponentPositions} componentPositions
    * @param {Visibility} visibility
    * @param {Infinite} infinite
@@ -39,14 +40,14 @@ export default class UIComponentHelper {
     /**
      * IMA Router
      *
-     * @type {ima.router.Router}
+     * @type {import('@ima/core').Router}
      */
     this._router = router;
 
     /**
      * IMA Window
      *
-     * @type {ima.window.Window}
+     * @type {import('@ima/core').Window}
      */
     this._window = window;
 

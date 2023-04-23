@@ -1,10 +1,11 @@
 {
   "name": "@ima/plugin-useragent",
-  "version": "4.0.1",
+  "version": "5.0.0-rc.5",
   "description": "Seznam IMA.js plugin user-agent",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/server/main.js",
   "browser": "./dist/esm/client/main.js",
+  "types": "./dist/esm/client/main.d.ts",
   "scripts": {
     "test": "../../node_modules/.bin/jest --config=jest.config.js",
     "build": "ima-plugin build --clientServerConfig",
@@ -42,11 +43,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@types/platform": "^1.3.4",
     "platform": "1.3.5"
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
   }
 }

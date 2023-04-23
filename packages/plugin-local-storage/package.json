@@ -1,9 +1,10 @@
 {
   "name": "@ima/plugin-local-storage",
-  "version": "3.0.1",
+  "version": "3.0.2-rc.4",
   "description": "Seznam IMA.js local-storage plugin",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
+  "types": "./dist/esm/main.d.ts",
   "scripts": {
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "build": "ima-plugin build",
@@ -32,11 +33,6 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@ima/core": ">=18.0.0"
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
+    "@ima/core": ">=18.0.0 || >=19.0.0-rc.0"
   }
 }

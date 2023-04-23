@@ -1,9 +1,10 @@
 {
   "name": "@ima/plugin-rest-client",
-  "version": "4.0.1",
+  "version": "5.0.0-rc.5",
   "description": "Generic REST API client plugin for the IMA application framework.",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
+  "types": "./dist/esm/main.d.ts",
   "scripts": {
     "test": "../../node_modules/.bin/jest --config=jest.config.js",
     "build": "ima-plugin build",
@@ -33,10 +34,5 @@
   "homepage": "https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-rest-client#readme",
   "dependencies": {
     "clone": "^2.1.2"
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
   }
 }
