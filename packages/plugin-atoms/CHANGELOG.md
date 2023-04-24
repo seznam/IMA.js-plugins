@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 9.0.1
+
+### Patch Changes
+
+- 110c2af: Removed invalid RC version ranges in package.json files
+
 ## 9.0.0
 
 ### Major Changes

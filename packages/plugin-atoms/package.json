@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-atoms",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "description": "IMA.js UI React atoms",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/server/main.js",

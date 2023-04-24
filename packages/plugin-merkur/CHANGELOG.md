@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.3
+
+### Patch Changes
+
+- 110c2af: Removed invalid RC version ranges in package.json files
+
 ## 4.0.2
 
 ### Patch Changes
