@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.4
+
+### Patch Changes
+
+- dc22ea6: Fixed invalid peer dependency
+
 ## 1.2.3
 
 ### Patch Changes
