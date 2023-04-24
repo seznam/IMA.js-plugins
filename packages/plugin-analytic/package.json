@@ -32,9 +32,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@ima/plugin-script-loader": "^3.1.1-rc.0"
+    "@ima/plugin-script-loader": "^3.1.1"
   },
   "peerDependencies": {
-    "@ima/core": ">=18.0.0 || >=19.0.0-rc.0"
+    "@ima/core": ">=18.0.0"
   }
 }

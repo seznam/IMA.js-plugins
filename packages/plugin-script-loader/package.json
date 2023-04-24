@@ -32,6 +32,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@ima/plugin-resource-loader": "^3.0.2-rc.0"
+    "@ima/plugin-resource-loader": "^3.0.2"
   }
 }
