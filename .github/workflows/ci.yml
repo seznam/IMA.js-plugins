@@ -28,6 +28,7 @@ jobs:
         run: npm run test:all
 
   deploy:
+    needs: [ci]
     name: Deploy
     runs-on: ubuntu-latest
     if: endsWith(github.ref, 'master') || endsWith(github.ref, 'next')
