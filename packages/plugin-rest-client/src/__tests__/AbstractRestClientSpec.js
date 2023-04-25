@@ -77,10 +77,12 @@ describe('AbstractRestClient', () => {
         // all query parameters are processed by the link generator
         expect(data).toEqual({});
         expect(options).toEqual({
-          headers: {
-            'Custom-Header': 'stuff',
+          fetchOptions: {
+            credentials: 'include',
+            headers: {
+              'Custom-Header': 'stuff',
+            },
           },
-          withCredentials: true,
         });
 
         return Promise.resolve({
@@ -143,8 +145,8 @@ describe('AbstractRestClient', () => {
         expect(request.headers).toEqual({
           'Custom-Header': 'stuff',
         });
-        expect(request.options).toEqual({
-          withCredentials: true,
+        expect(request.options.fetchOptions).toEqual({
+          credentials: 'include',
         });
         expect(request.serverConfiguration).toEqual({
           configGenerated: true,
@@ -176,8 +178,8 @@ describe('AbstractRestClient', () => {
         expect(request.headers).toEqual({
           'Custom-Header': 'stuff',
         });
-        expect(request.options).toEqual({
-          withCredentials: true,
+        expect(request.options.fetchOptions).toEqual({
+          credentials: 'include',
         });
         expect(request.serverConfiguration).toEqual({
           configGenerated: true,
@@ -216,8 +218,8 @@ describe('AbstractRestClient', () => {
         expect(request.headers).toEqual({
           'Custom-Header': 'stuff',
         });
-        expect(request.options).toEqual({
-          withCredentials: true,
+        expect(request.options.fetchOptions).toEqual({
+          credentials: 'include',
         });
         expect(request.serverConfiguration).toEqual({
           configGenerated: true,
@@ -256,8 +258,8 @@ describe('AbstractRestClient', () => {
         expect(request.headers).toEqual({
           'Custom-Header': 'stuff',
         });
-        expect(request.options).toEqual({
-          withCredentials: true,
+        expect(request.options.fetchOptions).toEqual({
+          credentials: 'include',
         });
         expect(request.serverConfiguration).toEqual({
           configGenerated: true,
@@ -284,10 +286,12 @@ describe('AbstractRestClient', () => {
       123,
       { bar: 'baz', two: 2 },
       {
-        headers: {
-          'Custom-Header': 'stuff',
+        fetchOptions: {
+          headers: {
+            'Custom-Header': 'stuff',
+          },
+          credentials: 'include',
         },
-        withCredentials: true,
       },
       { stuff: 'yeah', someId: 321 }
     );
@@ -312,8 +316,8 @@ describe('AbstractRestClient', () => {
     expect(request.headers).toEqual({
       'Custom-Header': 'stuff',
     });
-    expect(request.options).toEqual({
-      withCredentials: true,
+    expect(request.options.fetchOptions).toEqual({
+      credentials: 'include',
     });
     expect(request.serverConfiguration).toEqual({
       configGenerated: true,
@@ -337,10 +341,12 @@ describe('AbstractRestClient', () => {
           // all query parameters are processed by the link generator
           expect(data).toEqual({});
           expect(options).toEqual({
-            headers: {
-              'Custom-Header': 'stuff',
+            fetchOptions: {
+              headers: {
+                'Custom-Header': 'stuff',
+              },
+              credentials: 'include',
             },
-            withCredentials: true,
           });
 
           return Promise.resolve({
@@ -389,10 +395,12 @@ describe('AbstractRestClient', () => {
         123,
         { bar: 'baz', two: 2 },
         {
-          headers: {
-            'Custom-Header': 'stuff',
+          fetchOptions: {
+            headers: {
+              'Custom-Header': 'stuff',
+            },
+            credentials: 'include',
           },
-          withCredentials: true,
         },
         { stuff: 'yeah', someId: 321 }
       );
@@ -417,8 +425,8 @@ describe('AbstractRestClient', () => {
       expect(request.headers).toEqual({
         'Custom-Header': 'stuff',
       });
-      expect(request.options).toEqual({
-        withCredentials: true,
+      expect(request.options.fetchOptions).toEqual({
+        credentials: 'include',
       });
       expect(request.serverConfiguration).toBeNull();
     }
