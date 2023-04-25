@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.1
+
+### Patch Changes
+
+- 2f1cfd6: Fixed http agent request options (headers moved to fetch options)
+
 ## 5.0.0
 
 ### Major Changes
