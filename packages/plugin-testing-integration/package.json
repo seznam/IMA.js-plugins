@@ -39,13 +39,13 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@ima/helpers": "^18.0.0",
     "@messageformat/core": "^3.0.1",
     "globby": "11.1.0",
     "jsdom": "^19.0.0",
     "to-aop": "^0.5.4"
   },
   "peerDependencies": {
+    "@ima/helpers": ">=18.0.0",
     "@ima/cli": ">=18.1.0",
     "@ima/core": ">=18.0.0",
     "@ima/server": ">=18.3.2"
