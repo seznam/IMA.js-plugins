@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.2
+
+### Patch Changes
+
+- 324a851: Force re-release
+
 ## 5.0.1
 
 ### Patch Changes
