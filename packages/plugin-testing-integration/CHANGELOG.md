@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.0
+
+### Major Changes
+
+- 7532677: @ima/helpers moved to peer dependencies
+
 ## 4.1.1
 
 ### Patch Changes
