@@ -143,6 +143,7 @@ export default class HtmlImage extends PureComponent {
         ) : null}
         {this.state.noloading ? (
           <img
+            ref={this.props.imageRef}
             src={src}
             srcSet={this.props.srcSet}
             sizes={this.props.sizes}

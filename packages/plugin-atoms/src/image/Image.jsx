@@ -30,6 +30,7 @@ export default class Image extends PureComponent {
       noloading: false,
       extendedPadding: 0,
       cover: false,
+      imageRef: null,
     };
   }
 
