@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.1.0
+
+### Minor Changes
+
+- d5911e5: Add applicationFolder overide feature for createImaServer by config
+
 ## 5.0.1
 
 ### Patch Changes
