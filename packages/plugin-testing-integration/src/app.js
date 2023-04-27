@@ -171,6 +171,7 @@ async function initImaApp(bootConfigMethods = {}) {
     // Prepare serverApp with environment override
     const { serverApp } = await createIMAServer({
       devUtils,
+      applicationFolder: config.applicationFolder,
       processEnvironment: currentEnvironment =>
         config.processEnvironment({
           ...currentEnvironment,
