@@ -166,7 +166,7 @@ By defining this method, you can extend default bootConfigMethod `initServicesAp
 By defining this method, you can extend default bootConfigMethod `initRoutes`. This method recieves namespace, Object Container and application config as arguments.
 
 ### extendAppObject
-`Function`
+`<Function>`
 
 `Default: () => {}`
 
@@ -194,6 +194,13 @@ Function to run on each HTML script element of generated JSDOM page. By default 
 `Default: env => env`
 
 Function to modify currently resolved environment.
+
+### applicationFolder
+`<string>`
+
+`Default:undefined`
+
+Config applicationFolder as root to resolve environment file (used for genereate spa resonse content).
 
 
 ## Usage
