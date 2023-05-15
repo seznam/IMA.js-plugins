@@ -1,0 +1,46 @@
+{
+  "name": "@ima/plugin-http-client",
+  "version": "1.0.0",
+  "description": "Generic http client for the IMA application framework.",
+  "main": "./dist/cjs/main.js",
+  "module": "./dist/esm/server/main.js",
+  "browser": "./dist/esm/client/main.js",
+  "types": "./dist/esm/client/main.d.ts",
+  "exports": {
+    "./rest": {
+      "types": "./dist/esm/rest/main.d.ts",
+      "import": "./dist/esm/rest/main.js",
+      "require": "./dist/cjs/rest/main.js"
+    }
+  },
+  "scripts": {
+    "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
+    "build": "ima-plugin build --clientServerConfig",
+    "dev": "ima-plugin dev --clientServerConfig",
+    "link": "ima-plugin link --clientServerConfig",
+    "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
+  },
+  "keywords": [
+    "IMA",
+    "http",
+    "rest",
+    "plugin"
+  ],
+  "author": "Zdenek Lastuvka <zdenek.lastuvka@firma.seznam.cz>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/issues"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@ima/helpers": ">=18.0.0",
+    "@ima/core": ">=18.0.0"
+  }
+}
