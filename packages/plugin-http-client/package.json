@@ -7,10 +7,15 @@
   "browser": "./dist/esm/client/main.js",
   "types": "./dist/esm/client/main.d.ts",
   "exports": {
+    ".": {
+      "types": "./dist/esm/client/main.d.ts",
+      "import": "./dist/esm/client/main.js",
+      "require": "./dist/cjs/server/main.js"
+    },
     "./rest": {
-      "types": "./dist/esm/rest/main.d.ts",
-      "import": "./dist/esm/rest/main.js",
-      "require": "./dist/cjs/rest/main.js"
+      "types": "./dist/esm/client/rest/main.d.ts",
+      "import": "./dist/esm/client/rest/main.js",
+      "require": "./dist/cjs/server/rest/main.js"
     }
   },
   "scripts": {
