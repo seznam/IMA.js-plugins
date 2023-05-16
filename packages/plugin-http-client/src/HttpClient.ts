@@ -92,7 +92,8 @@ export class HttpClient {
     processorParams: ProcessorParams<B>
   ) {
     for (const processor of processors) {
-      processorParams = await processor[operation](processorParams);
+      const processorResult = await processor[operation](processorParams);
+      processorParams = { ...processorParams, ...processorResult };
     }
 
     return processorParams;
