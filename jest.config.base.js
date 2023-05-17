@@ -2,16 +2,10 @@
  * @type import('jest').Config
  */
 module.exports = {
-  bail: true,
-  verbose: true,
   rootDir: '.',
   testEnvironment: 'node',
   testRegex: '(/__tests__/).*Spec\\.jsx?$',
   modulePaths: ['<rootDir>/'],
-  watchPlugins: [
-    'jest-watch-typeahead/filename',
-    'jest-watch-typeahead/testname',
-  ],
   transformIgnorePatterns: [
     'node_modules/(?!(@ima/core|@ima/react-page-renderer)/)',
   ],
