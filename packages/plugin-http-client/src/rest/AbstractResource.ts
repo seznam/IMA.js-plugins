@@ -18,7 +18,7 @@ export class AbstractResource {
   #baseApiUrl: string;
 
   static get $dependencies(): Dependencies {
-    return [HttpClient, 'REST_CLIENT_BASE_API_URL'];
+    return [HttpClient, '?REST_CLIENT_BASE_API_URL'];
   }
 
   static get PathType() {
@@ -44,6 +44,9 @@ export class AbstractResource {
   constructor(httpClient: HttpClient, baseApiUrl: string) {
     this.#httpClient = httpClient;
 
+    if (!baseApiUrl) {
+      throw new GenericError(`REST_CLIENT_BASE_API_URL is not set.`);
+    }
     this.#baseApiUrl = baseApiUrl;
   }
 

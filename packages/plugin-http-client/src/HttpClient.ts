@@ -49,7 +49,9 @@ export class HttpClient {
   constructor(http: HttpAgent, ...defaultProcessors: Processor[]) {
     this.#http = http;
 
-    this.#defaultProcessors = defaultProcessors;
+    this.#defaultProcessors = defaultProcessors.filter(
+      item => item instanceof Processor
+    );
   }
 
   registerProcessor(processor: Processor) {
