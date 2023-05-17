@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.1
+
+### Patch Changes
+
+- 754bc73: Update dependency `platform` v1.3.6+
+
 ## 5.0.0
 
 ### Major Changes
