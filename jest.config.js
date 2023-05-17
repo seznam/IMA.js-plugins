@@ -2,6 +2,8 @@
  * @type import('jest').Config
  */
 module.exports = {
+  bail: true,
+  verbose: true,
   projects: ['<rootDir>/packages/*/jest.config.js'],
   watchPlugins: [
     'jest-watch-select-projects',

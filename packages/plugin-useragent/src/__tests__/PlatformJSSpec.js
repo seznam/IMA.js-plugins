@@ -141,7 +141,7 @@ var testedUserAgents = [
       'Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30',
     expected: {
       description:
-        'Android Browser 4.0 (like Safari 5.x) on LG (Android 4.0.3)',
+        'Android Browser 4.0 (like Safari 5.x) on LG L160L (Android 4.0.3)',
       layout: 'WebKit',
       manufacturer: 'LG',
       name: 'Android Browser',
