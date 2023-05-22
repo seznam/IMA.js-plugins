@@ -13,11 +13,6 @@ declare module '@ima/core' {
 
 import { Processor, Operation, ProcessorParams } from './Processor';
 
-export type ResourceInfo = {
-  pathType: string;
-  resource: any;
-};
-
 export const OPTION_TRANSFORM_PROCESSORS = 'transformProcessors';
 
 export type HttpClientRequestOptions = {
@@ -58,14 +53,17 @@ export class HttpClient {
     this.#defaultProcessors.push(processor);
   }
 
-  async request(resourceInfo: ResourceInfo, request: HttpClientRequest) {
+  async request(
+    request: HttpClientRequest,
+    additionalParams: object | undefined
+  ) {
     const processors = this._getProcessors(request);
 
     const processorResult = await this._runProcessors(
       processors,
       Operation.PRE_REQUEST,
       {
-        resourceInfo,
+        additionalParams,
         request,
         response: null,
       }
@@ -82,7 +80,7 @@ export class HttpClient {
     }
 
     return await this._runProcessors(processors, Operation.POST_REQUEST, {
-      resourceInfo,
+      additionalParams,
       request: processedRequest,
       response: processedResponse,
     });
@@ -101,25 +99,14 @@ export class HttpClient {
     return processorParams;
   }
 
-  /*
-    Do readme
-    Mozne upravit pro vsechny volani _defaultTransformProcessors,
-    mozno upravit pro konkretni resource v _prepareOptions
-    nebo by request v options
-  {
-  transformProcessors:
-  processors => ({...processors, newProcessor})
-  processors => processors.filter(item=>item.name!=='Processor'))
-  }
-  * */
-  _defaultTransformProcessors(processors: Processor[]): Processor[] {
+  defaultTransformProcessors(processors: Processor[]): Processor[] {
     return processors;
   }
 
   _getProcessors(request: HttpClientRequest): Processor[] {
     const defaultProcessors = this.#defaultProcessors;
 
-    let transformProcessors = this._defaultTransformProcessors;
+    let transformProcessors = this.defaultTransformProcessors;
     if (
       request?.options?.[OPTION_TRANSFORM_PROCESSORS] &&
       typeof request.options[OPTION_TRANSFORM_PROCESSORS] === 'function'

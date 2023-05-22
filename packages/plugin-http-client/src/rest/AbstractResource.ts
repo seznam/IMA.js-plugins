@@ -10,7 +10,6 @@ import {
   HttpClient,
   HttpClientRequestMethod,
   HttpClientRequestOptions,
-  ResourceInfo,
 } from '../HttpClient';
 
 export class AbstractResource {
@@ -31,13 +30,13 @@ export class AbstractResource {
     };
   }
 
-  static get path(): { [pathType: string]: string } {
+  get path(): { [pathType: string]: string } {
     throw new GenericError(
       `AbstractResource: Static getter "path" must be overriden.`
     );
   }
 
-  static get entityClass() {
+  get entityClass() {
     return null;
   }
 
@@ -91,9 +90,7 @@ export class AbstractResource {
   }
 
   _getPathTemplate(pathType: string): string {
-    const pathTemplate = (this.constructor as typeof AbstractResource).path[
-      pathType
-    ];
+    const pathTemplate = this.path[pathType];
 
     if (!pathTemplate) {
       throw new GenericError(
@@ -112,11 +109,11 @@ export class AbstractResource {
     return this.#baseApiUrl + path;
   }
 
-  _prepareData(data: object) {
+  prepareData(data: object) {
     return { ...data };
   }
 
-  _prepareOptions(options: HttpClientRequestOptions) {
+  prepareOptions(options: HttpClientRequestOptions) {
     return { ...options };
   }
 
@@ -155,19 +152,19 @@ export class AbstractResource {
     const url = this._getUrl(pathType, data);
 
     const { response } = await this.#httpClient.request(
-      this._getResourceInfo(pathType),
       {
         method,
         url,
-        data: this._prepareData(data),
-        options: this._prepareOptions(options),
-      }
+        data: this.prepareData(data),
+        options: this.prepareOptions(options),
+      },
+      this._getResourceInfo(pathType)
     );
 
     return response;
   }
 
-  _getResourceInfo(pathType: string): ResourceInfo {
+  _getResourceInfo(pathType: string): object {
     return { resource: this, pathType };
   }
 }

@@ -2,12 +2,12 @@ import { Processor, ProcessorParams } from '../../Processor';
 
 export class EntityProcessor extends Processor {
   postRequest<B>(params: ProcessorParams<B>) {
-    const { response, resourceInfo } = params;
+    const { response, additionalParams } = params;
 
     if (response) {
       const { body } = response;
 
-      const entityClass = resourceInfo.resource.constructor.entityClass;
+      const entityClass = additionalParams?.resource?.entityClass;
 
       if (body && entityClass) {
         let newBody: object | object[];

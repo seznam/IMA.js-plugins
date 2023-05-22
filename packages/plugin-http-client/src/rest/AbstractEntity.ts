@@ -41,7 +41,7 @@ export class AbstractEntity {
    *         )>} The description of how the raw data properties should be
    *         mapped to the entity properties and vice versa.
    */
-  static get dataFieldMapping(): {
+  get dataFieldMapping(): {
     [key: string]: MapperItem | Mapper | string;
   } {
     return {};
@@ -105,8 +105,7 @@ export class AbstractEntity {
   _getDataFieldMapping(): {
     [key: string]: MapperItem;
   } {
-    const dataFieldMapping = (this.constructor as typeof AbstractEntity)
-      .dataFieldMapping;
+    const dataFieldMapping = this.dataFieldMapping;
 
     const processedDataFieldMapping: { [key: string]: MapperItem } = {};
     Object.entries(dataFieldMapping).forEach(([key, value]) => {

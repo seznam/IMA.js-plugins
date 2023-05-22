@@ -1,6 +1,6 @@
 import { HttpAgentResponse, Dependencies } from '@ima/core';
 
-import { HttpClientRequest, ResourceInfo } from './HttpClient';
+import { HttpClientRequest } from './HttpClient';
 
 export enum Operation {
   PRE_REQUEST = 'preRequest',
@@ -10,7 +10,7 @@ export enum Operation {
 export type ProcessorParams<B> = {
   response: HttpAgentResponse<B> | null;
   request: HttpClientRequest;
-  resourceInfo: ResourceInfo;
+  additionalParams?: any;
 };
 
 export class Processor {
