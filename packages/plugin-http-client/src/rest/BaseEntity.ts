@@ -1,19 +1,23 @@
-// @ts-ignore
 import { clone } from '@ima/helpers';
 
-import { Mapper } from './mapper/Mapper';
+import { BaseMapper, Mapper } from './mapper/BaseMapper';
 
 export type MapperItem = {
   mapper: Mapper;
   newKey: string;
 };
 
+export interface Entity {
+  serialize(data: object): any;
+  deserialize(data: object): any;
+}
+
 /**
  * The base class for typed REST API entities. Usage of typed entities may be
  * optional and is dependent on the specific implementation of the REST API
  * client.
  */
-export class AbstractEntity {
+export class BaseEntity {
   /**
    * Returns the description of automatic mapping of the raw data exchanged
    * between the REST API and the REST API client, and the properties of this
@@ -74,8 +78,8 @@ export class AbstractEntity {
    * @returns {Object<string, *>} Data object representing this entity in a
    *         way that is compatible with the REST API.
    */
-  serialize(data: any = this) {
-    const mapping = this._getDataFieldMapping();
+  serialize(data: any = this): any {
+    const mapping = this.#getDataFieldMapping();
 
     const initialValue: { [key: string]: MapperItem } = {};
     const reverseMapping: {
@@ -102,7 +106,7 @@ export class AbstractEntity {
     return serializedData;
   }
 
-  _getDataFieldMapping(): {
+  #getDataFieldMapping(): {
     [key: string]: MapperItem;
   } {
     const dataFieldMapping = this.dataFieldMapping;
@@ -111,11 +115,12 @@ export class AbstractEntity {
     Object.entries(dataFieldMapping).forEach(([key, value]) => {
       let mapperItem: MapperItem;
 
-      if (value instanceof Mapper) {
+      if (value instanceof BaseMapper) {
         mapperItem = { mapper: value, newKey: key };
       } else if (typeof value === 'string') {
-        mapperItem = { mapper: new Mapper(), newKey: value };
+        mapperItem = { mapper: new BaseMapper(), newKey: value };
       } else {
+        // @ts-ignore
         mapperItem = value;
       }
 
@@ -142,8 +147,8 @@ export class AbstractEntity {
    * @returns {Object<string, *>} The data ready to be assigned to this
    *         entity.
    */
-  deserialize(data: object) {
-    const mapping = this._getDataFieldMapping();
+  deserialize(data: object): any {
+    const mapping = this.#getDataFieldMapping();
 
     const deserializedData: { [key: string]: any } = {};
     Object.entries(data).forEach(([key, value]) => {

@@ -1,6 +1,6 @@
 export { AbstractResource } from './AbstractResource';
-export { AbstractEntity } from './AbstractEntity';
+export { BaseEntity } from './BaseEntity';
 export { EntityMapper } from './mapper/EntityMapper';
 export { EntityListMapper } from './mapper/EntityListMapper';
 export { DefaultToArray } from './mapper/DefaultToArray';
-export { Mapper } from './mapper/Mapper';
+export { BaseMapper } from './mapper/BaseMapper';

@@ -13,16 +13,21 @@ export type ProcessorParams<B> = {
   additionalParams?: any;
 };
 
-export class Processor {
+export interface Processor {
+  preRequest<B = any>(params: ProcessorParams<B>): ProcessorParams<B>;
+  postRequest<B = any>(params: ProcessorParams<B>): ProcessorParams<B>;
+}
+
+export abstract class AbstractProcessor implements Processor {
   static get $dependencies(): Dependencies {
     return [];
   }
 
-  preRequest<B>(params: ProcessorParams<B>) {
+  preRequest<B = any>(params: ProcessorParams<B>) {
     return params;
   }
 
-  postRequest<B>(params: ProcessorParams<B>) {
+  postRequest<B = any>(params: ProcessorParams<B>) {
     return params;
   }
 }

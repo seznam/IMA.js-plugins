@@ -1,6 +1,6 @@
-import { Mapper } from './Mapper';
+import { BaseMapper } from './BaseMapper';
 
-export class DefaultToArray extends Mapper {
+export class DefaultToArray extends BaseMapper {
   deserialize(value: any) {
     return value || [];
   }

@@ -7,11 +7,16 @@ import type {
 
 declare module '@ima/core' {
   interface OCAliasMap {
-    $DefaultProcessors: Processor[];
+    HttpClientDefaultProcessors: Processor[];
   }
 }
 
-import { Processor, Operation, ProcessorParams } from './Processor';
+import {
+  AbstractProcessor,
+  Processor,
+  Operation,
+  ProcessorParams,
+} from './AbstractProcessor';
 
 export const OPTION_TRANSFORM_PROCESSORS = 'transformProcessors';
 
@@ -38,14 +43,14 @@ export class HttpClient {
   #defaultProcessors: Processor[];
 
   static get $dependencies(): Dependencies {
-    return ['$Http', '...?$DefaultProcessors'];
+    return ['$Http', '...?HttpClientDefaultProcessors'];
   }
 
   constructor(http: HttpAgent, ...defaultProcessors: Processor[]) {
     this.#http = http;
 
     this.#defaultProcessors = defaultProcessors.filter(
-      item => item instanceof Processor
+      item => item instanceof AbstractProcessor
     );
   }
 
@@ -53,13 +58,13 @@ export class HttpClient {
     this.#defaultProcessors.push(processor);
   }
 
-  async request(
+  async request<B = any>(
     request: HttpClientRequest,
-    additionalParams: object | undefined
+    additionalParams?: object
   ) {
-    const processors = this._getProcessors(request);
+    const processors = this.#getProcessors(request);
 
-    const processorResult = await this._runProcessors(
+    const processorResult = await this.#runProcessors<B>(
       processors,
       Operation.PRE_REQUEST,
       {
@@ -79,14 +84,14 @@ export class HttpClient {
       );
     }
 
-    return await this._runProcessors(processors, Operation.POST_REQUEST, {
+    return await this.#runProcessors<B>(processors, Operation.POST_REQUEST, {
       additionalParams,
       request: processedRequest,
       response: processedResponse,
     });
   }
 
-  async _runProcessors<B>(
+  async #runProcessors<B>(
     processors: Processor[],
     operation: Operation,
     processorParams: ProcessorParams<B>
@@ -103,7 +108,7 @@ export class HttpClient {
     return processors;
   }
 
-  _getProcessors(request: HttpClientRequest): Processor[] {
+  #getProcessors(request: HttpClientRequest): Processor[] {
     const defaultProcessors = this.#defaultProcessors;
 
     let transformProcessors = this.defaultTransformProcessors;

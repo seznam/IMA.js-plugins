@@ -1,6 +1,6 @@
-import { Processor, ProcessorParams } from '../../Processor';
+import { AbstractProcessor, ProcessorParams } from '../../AbstractProcessor';
 
-export class EntityProcessor extends Processor {
+export class EntityProcessor extends AbstractProcessor {
   postRequest<B>(params: ProcessorParams<B>) {
     const { response, additionalParams } = params;
 

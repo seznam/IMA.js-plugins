@@ -1,17 +1,17 @@
-import { Mapper } from './Mapper';
-import { AbstractEntity } from '../AbstractEntity';
+import { BaseMapper } from './BaseMapper';
+import { BaseEntity, Entity } from '../BaseEntity';
 
-export class EntityMapper extends Mapper {
-  #EntityClass: AbstractEntity;
+export class EntityMapper extends BaseMapper {
+  #EntityClass: Entity;
 
-  constructor(entity: AbstractEntity) {
+  constructor(entity: Entity) {
     super();
 
     this.#EntityClass = entity;
   }
 
   deserialize(data: any) {
-    if (!data || typeof data === 'string' || data instanceof AbstractEntity) {
+    if (!data || typeof data === 'string' || data instanceof BaseEntity) {
       return data;
     }
 
@@ -20,7 +20,7 @@ export class EntityMapper extends Mapper {
   }
 
   serialize(entity: any) {
-    if (!entity || !(entity instanceof AbstractEntity)) {
+    if (!entity || !(entity instanceof BaseEntity)) {
       return entity;
     }
 

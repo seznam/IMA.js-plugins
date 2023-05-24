@@ -2,7 +2,7 @@ import { GenericError, Dependencies } from '@ima/core';
 
 declare module '@ima/core' {
   interface OCAliasMap {
-    REST_CLIENT_BASE_API_URL: string;
+    '$Settings.plugin.httpClient.rest': any;
   }
 }
 
@@ -12,12 +12,12 @@ import {
   HttpClientRequestOptions,
 } from '../HttpClient';
 
-export class AbstractResource {
+export abstract class AbstractResource {
   #httpClient: HttpClient;
   #baseApiUrl: string;
 
   static get $dependencies(): Dependencies {
-    return [HttpClient, '?REST_CLIENT_BASE_API_URL'];
+    return [HttpClient, '$Settings.plugin.httpClient.rest'];
   }
 
   static get PathType() {
@@ -40,56 +40,56 @@ export class AbstractResource {
     return null;
   }
 
-  constructor(httpClient: HttpClient, baseApiUrl: string) {
+  constructor(httpClient: HttpClient, settings: any) {
     this.#httpClient = httpClient;
 
-    if (!baseApiUrl) {
+    if (!settings.baseApiUrl) {
       throw new GenericError(`REST_CLIENT_BASE_API_URL is not set.`);
     }
-    this.#baseApiUrl = baseApiUrl;
+    this.#baseApiUrl = settings.baseApiUrl;
   }
 
-  update(
+  update<B = any>(
     data: object,
     options: HttpClientRequestOptions,
     pathType = (this.constructor as typeof AbstractResource).PathType.UPDATE
   ) {
-    return this._restClientRequest('patch', pathType, data, options);
+    return this.#restClientRequest<B>('patch', pathType, data, options);
   }
 
-  create(
+  create<B = any>(
     data: object,
     options: HttpClientRequestOptions,
     pathType = (this.constructor as typeof AbstractResource).PathType.CREATE
   ) {
-    return this._restClientRequest('post', pathType, data, options);
+    return this.#restClientRequest<B>('post', pathType, data, options);
   }
 
-  delete(
+  delete<B = any>(
     data: object,
     options: HttpClientRequestOptions,
     pathType = (this.constructor as typeof AbstractResource).PathType.DELETE
   ) {
-    return this._restClientRequest('delete', pathType, data, options);
+    return this.#restClientRequest<B>('delete', pathType, data, options);
   }
 
-  get(
+  get<B = any>(
     data: object,
     options: HttpClientRequestOptions,
     pathType = (this.constructor as typeof AbstractResource).PathType.GET
   ) {
-    return this._restClientRequest('get', pathType, data, options);
+    return this.#restClientRequest<B>('get', pathType, data, options);
   }
 
-  replace(
+  replace<B = any>(
     data: object,
     options: HttpClientRequestOptions,
     pathType = (this.constructor as typeof AbstractResource).PathType.REPLACE
   ) {
-    return this._restClientRequest('put', pathType, data, options);
+    return this.#restClientRequest<B>('put', pathType, data, options);
   }
 
-  _getPathTemplate(pathType: string): string {
+  #getPathTemplate(pathType: string): string {
     const pathTemplate = this.path[pathType];
 
     if (!pathTemplate) {
@@ -101,10 +101,10 @@ export class AbstractResource {
     return pathTemplate;
   }
 
-  _getUrl(pathType: string, data: object) {
-    const pathTemplate = this._getPathTemplate(pathType);
+  getUrl(pathType: string, data: object) {
+    const pathTemplate = this.#getPathTemplate(pathType);
 
-    const path = this._processPathTemplate(pathTemplate, data);
+    const path = this.#processPathTemplate(pathTemplate, data);
 
     return this.#baseApiUrl + path;
   }
@@ -117,7 +117,7 @@ export class AbstractResource {
     return { ...options };
   }
 
-  _processPathTemplate(pathTemplate: string, data: { [key: string]: any }) {
+  #processPathTemplate(pathTemplate: string, data: { [key: string]: any }) {
     let path = pathTemplate;
 
     const regexFindVariables = new RegExp('{(.*?)}', 'g');
@@ -143,28 +143,28 @@ export class AbstractResource {
     return path;
   }
 
-  async _restClientRequest(
+  async #restClientRequest<B>(
     method: HttpClientRequestMethod,
     pathType: string,
     data: object,
     options: HttpClientRequestOptions
   ) {
-    const url = this._getUrl(pathType, data);
+    const url = this.getUrl(pathType, data);
 
-    const { response } = await this.#httpClient.request(
+    const { response } = await this.#httpClient.request<B>(
       {
         method,
         url,
         data: this.prepareData(data),
         options: this.prepareOptions(options),
       },
-      this._getResourceInfo(pathType)
+      this.getResourceInfo(pathType)
     );
 
     return response;
   }
 
-  _getResourceInfo(pathType: string): object {
+  getResourceInfo(pathType: string): object {
     return { resource: this, pathType };
   }
 }
