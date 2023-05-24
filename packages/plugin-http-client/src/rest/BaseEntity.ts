@@ -1,11 +1,10 @@
 import { clone } from '@ima/helpers';
 
-import { BaseMapper, Mapper } from './mapper/BaseMapper';
+import { BaseMapper, DataFieldValue, MapperItem } from './mapper/BaseMapper';
 
-export type MapperItem = {
-  mapper: Mapper;
-  newKey: string;
-};
+export interface EntityConstructor {
+  new (data: object): Entity;
+}
 
 export interface Entity {
   serialize(data: object): any;
@@ -46,7 +45,7 @@ export class BaseEntity {
    *         mapped to the entity properties and vice versa.
    */
   get dataFieldMapping(): {
-    [key: string]: MapperItem | Mapper | string;
+    [key: string]: DataFieldValue;
   } {
     return {};
   }
@@ -113,18 +112,7 @@ export class BaseEntity {
 
     const processedDataFieldMapping: { [key: string]: MapperItem } = {};
     Object.entries(dataFieldMapping).forEach(([key, value]) => {
-      let mapperItem: MapperItem;
-
-      if (value instanceof BaseMapper) {
-        mapperItem = { mapper: value, newKey: key };
-      } else if (typeof value === 'string') {
-        mapperItem = { mapper: new BaseMapper(), newKey: value };
-      } else {
-        // @ts-ignore
-        mapperItem = value;
-      }
-
-      processedDataFieldMapping[key] = mapperItem;
+      processedDataFieldMapping[key] = BaseMapper.createMapperItem(value, key);
     });
 
     return processedDataFieldMapping;

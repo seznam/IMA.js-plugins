@@ -1,10 +1,10 @@
 import { BaseMapper } from './BaseMapper';
-import { BaseEntity, Entity } from '../BaseEntity';
+import { BaseEntity, EntityConstructor } from '../BaseEntity';
 
 export class EntityMapper extends BaseMapper {
-  #EntityClass: Entity;
+  #EntityClass: EntityConstructor;
 
-  constructor(entity: Entity) {
+  constructor(entity: EntityConstructor) {
     super();
 
     this.#EntityClass = entity;
@@ -15,7 +15,6 @@ export class EntityMapper extends BaseMapper {
       return data;
     }
 
-    // @ts-ignore
     return Reflect.construct(this.#EntityClass, [data]);
   }
 

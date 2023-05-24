@@ -1,11 +1,11 @@
 import { BaseMapper } from './BaseMapper';
 import { EntityMapper } from './EntityMapper';
-import { Entity } from '../BaseEntity';
+import { EntityConstructor } from '../BaseEntity';
 
 export class EntityListMapper extends BaseMapper {
   #entityMapper: EntityMapper;
 
-  constructor(entity: Entity) {
+  constructor(entity: EntityConstructor) {
     super();
 
     this.#entityMapper = new EntityMapper(entity);

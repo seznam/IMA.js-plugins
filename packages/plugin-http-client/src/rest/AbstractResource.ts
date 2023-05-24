@@ -6,6 +6,7 @@ declare module '@ima/core' {
   }
 }
 
+import { EntityConstructor } from './BaseEntity';
 import {
   HttpClient,
   HttpClientRequestMethod,
@@ -36,7 +37,7 @@ export abstract class AbstractResource {
     );
   }
 
-  get entityClass() {
+  get entityClass(): EntityConstructor | null {
     return null;
   }
 
