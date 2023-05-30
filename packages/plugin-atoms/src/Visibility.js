@@ -6,7 +6,7 @@ import { Circle } from 'infinite-circle';
   @type {object}
   @property {string} type - event type
  /
-
+ 
 /**
  * @callback notifyCallback
  * @param {notifyPayload} payload

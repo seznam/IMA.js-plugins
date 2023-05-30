@@ -1,5 +1,21 @@
 # Change Log
 
+## 3.0.3
+
+### Patch Changes
+
+- 110c2af: Removed invalid RC version ranges in package.json files
+
+## 3.0.2
+
+### Patch Changes
+
+- 37c3f2f: Udpated dependencies to support RC ima versions
+- 2e61a48: Built using new version of @ima/plugin-cli, js sources now include source maps
+- d08218b: Added type declarations generated from JSdoc
+- 6d47aaa: Side effects notation from package.json
+- 5717869: Added $dependencies typing comments for TS apps
+
 ## 3.0.2-rc.4
 
 ### Patch Changes

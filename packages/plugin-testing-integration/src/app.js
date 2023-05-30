@@ -1,3 +1,5 @@
+import { strict as assert } from 'node:assert';
+
 import { resolveImaConfig } from '@ima/cli';
 import {
   createImaApp,
@@ -6,7 +8,7 @@ import {
   bootClientApp,
 } from '@ima/core';
 import { assignRecursively } from '@ima/helpers';
-import createIMAServer from '@ima/server';
+import { createIMAServer } from '@ima/server';
 import { JSDOM } from 'jsdom';
 
 import { unAopAll } from './aop';
@@ -44,6 +46,7 @@ function clearImaApp(app) {
  */
 async function initImaApp(bootConfigMethods = {}) {
   const config = getConfig();
+
   const bootConfigExtensions = getBootConfigExtensions();
   const imaConfig = await resolveImaConfig({ rootDir: config.rootDir });
 
@@ -75,6 +78,7 @@ async function initImaApp(bootConfigMethods = {}) {
 
     global.window = window;
     global.jsdom = jsdom;
+    global.document = window.document;
 
     // Extend node global with created window vars
     Object.defineProperties(global, {
@@ -82,11 +86,20 @@ async function initImaApp(bootConfigMethods = {}) {
       ...Object.getOwnPropertyDescriptors(global),
     });
 
+    // set debug before IMA env debug
+    global.$Debug = true;
+
     // Mock dictionary
     global.$IMA.i18n = generateDictionary(imaConfig.languages, config.locale);
 
-    // Mock scroll for ClientWindow.scrollTo
+    // Mock scroll for ClientWindow.scrollTo for ima/core page routing scroll
     global.window.scrollTo = () => {};
+
+    // Replace window fetch by node fetch
+    global.window.fetch = global.fetch;
+
+    // Required for JSDOM XPath selectors
+    global.console.assert = assert; // eslint-disable-line no-console
 
     // Call all page scripts (jsdom build-in runScript creates new V8 context, unable to mix with node context)
     const pageScripts = jsdom.window.document.getElementsByTagName('script');
@@ -155,12 +168,31 @@ async function initImaApp(bootConfigMethods = {}) {
       manifestRequire: () => ({}),
     };
 
-    // Generate request output
-    const { content } = await createIMAServer({
+    // Prepare serverApp with environment override
+    const { serverApp } = await createIMAServer({
       devUtils,
-    }).serverApp.requestHandler(
+      applicationFolder: config.applicationFolder,
+      processEnvironment: currentEnvironment =>
+        config.processEnvironment({
+          ...currentEnvironment,
+          $Server: {
+            ...currentEnvironment.$Server,
+            concurrency: 0,
+            serveSPA: {
+              allow: true,
+            },
+          },
+          $Debug: true,
+        }),
+    });
+
+    // Generate request response
+    const response = await serverApp.requestHandler(
       {
+        get: () => '',
         headers: () => '',
+        originalUrl: config.host,
+        protocol: config.protocol.replace(':', ''),
       },
       {
         status: () => 200,
@@ -170,14 +202,14 @@ async function initImaApp(bootConfigMethods = {}) {
           language: config.locale,
           host: config.host,
           protocol: config.protocol,
-          path: '',
-          root: '',
-          languagePartPath: '',
+          path: config.path || '',
+          root: config.root || '',
+          languagePartPath: config.languagePartPath || '',
         },
       }
     );
 
-    return content;
+    return response.content;
   }
 
   const app = createImaApp();

@@ -23,6 +23,7 @@ module.exports = {
     'jsdoc/require-returns-description': 'off',
     'jsdoc/require-returns-check': 'off',
     'jsdoc/require-jsdoc': 'off',
+    'jsdoc/tag-lines': 'off',
 
     'no-console': [
       'error',

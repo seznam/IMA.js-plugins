@@ -1,5 +1,95 @@
 # Change Log
 
+## 5.1.0
+
+### Minor Changes
+
+- d5911e5: Add applicationFolder overide feature for createImaServer by config
+
+## 5.0.1
+
+### Patch Changes
+
+- 815a18f: Force re-release
+
+## 5.0.0
+
+### Major Changes
+
+- 7532677: @ima/helpers moved to peer dependencies
+
+## 4.1.1
+
+### Patch Changes
+
+- 110c2af: Removed invalid RC version ranges in package.json files
+
+## 4.1.0
+
+### Minor Changes
+
+- 0490a80: use overrides for createIMAServer, set test environment defaults, allow service to process currently resolved environment
+- 6f950a1: Add configuration features object with default popupWindow flag
+  Add window.opener setup after DOM init
+
+### Patch Changes
+
+- 8261ccd: Override node fetch on window, node assert on console
+- e00897a: Fixed named exports for plugin integration testing
+- 37c3f2f: Udpated dependencies to support RC ima versions
+- 6514f0b: Remove added configuration features object with default popupWindow flag
+  Remove added window.opener setup after DOM init
+- 2e61a48: Built using new version of @ima/plugin-cli, js sources now include source maps
+- d08218b: Added type declarations generated from JSdoc
+- 6d47aaa: Side effects notation from package.json
+- 201225d: revert testing integration features
+- 5717869: Added $dependencies typing comments for TS apps
+- 5c7dba5: bump version with changes from master
+
+## 4.1.0-rc.9
+
+### Patch Changes
+
+- 201225d: revert testing integration features
+
+## 4.1.0-rc.8
+
+### Patch Changes
+
+- 5c7dba5: bump version with changes from master
+
+## 4.1.0-rc.7
+
+### Patch Changes
+
+- 6514f0b: Remove added configuration features object with default popupWindow flag
+  Remove added window.opener setup after DOM init
+
+## 4.1.0-rc.6
+
+### Minor Changes
+
+- 6f950a1: Add configuration features object with default popupWindow flag
+  Add window.opener setup after DOM init
+
+## 4.1.0-rc.5
+
+### Patch Changes
+
+- 8261ccd: Override node fetch on window, node assert on console
+
+## 4.1.0-rc.4
+
+### Patch Changes
+
+- e00897a: Fixed named exports for plugin integration testing
+
+## 4.1.0-rc.3
+
+### Minor Changes
+
+- 0490a80: use overrides for createIMAServer, set test environment defaults, allow service to process currently resolved environment
+
 ## 4.0.2-rc.2
 
 ### Patch Changes

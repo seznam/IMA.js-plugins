@@ -166,7 +166,7 @@ By defining this method, you can extend default bootConfigMethod `initServicesAp
 By defining this method, you can extend default bootConfigMethod `initRoutes`. This method recieves namespace, Object Container and application config as arguments.
 
 ### extendAppObject
-`Function`
+`<Function>`
 
 `Default: () => {}`
 
@@ -187,6 +187,21 @@ This script is executed right before the IMA.js boot config is initialized, but 
 `Default: script => script && script.text && script.id !== 'ima-runner' && window.eval(script.text)`
 
 Function to run on each HTML script element of generated JSDOM page. By default the runner script is not evaluated.
+
+### processEnvironment
+`<Function>`
+
+`Default: env => env`
+
+Function to modify currently resolved environment.
+
+### applicationFolder
+`<string>`
+
+`Default:undefined`
+
+Config applicationFolder as root to resolve environment file (used for genereate spa resonse content).
+
 
 ## Usage
 

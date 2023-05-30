@@ -333,8 +333,8 @@ export default class AbstractRestClient extends RestClient {
     rawOptions
   ) {
     let options = Object.assign({}, rawOptions);
-    let headers = options.headers || {};
-    delete options.headers;
+    let headers = options?.fetchOptions?.headers || {};
+    delete options?.fetchOptions?.headers;
 
     return new Request({
       parentEntity,
@@ -475,11 +475,13 @@ export default class AbstractRestClient extends RestClient {
         throw new Error(`Unsupported HTTP method ${request.method}`);
     }
 
-    return this._httpAgent[methodName](
-      request.url,
-      request.data || {},
-      Object.assign({}, request.options, { headers: request.headers })
-    ).then(agentResponse => {
+    return this._httpAgent[methodName](request.url, request.data || {}, {
+      ...request.options,
+      fetchOptions: {
+        ...request.options?.fetchOptions,
+        headers: request.headers,
+      },
+    }).then(agentResponse => {
       return new Response({
         status: agentResponse.status,
         headers: agentResponse.headers,

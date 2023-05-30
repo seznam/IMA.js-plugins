@@ -1,10 +1,10 @@
 {
   "name": "@ima/plugin-logger",
-  "version": "5.0.2-rc.3",
+  "version": "6.0.0",
   "description": "Seznam IMA.js logger plugin",
-  "main": "./dist/cjs/main.js",
-  "module": "./dist/esm/main.js",
-  "types": "./dist/esm/main.d.ts",
+  "main": "./index.cjs",
+  "module": "./index.mjs",
+  "types": "./dist/development/esm/main.d.ts",
   "scripts": {
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "build": "ima-plugin build",

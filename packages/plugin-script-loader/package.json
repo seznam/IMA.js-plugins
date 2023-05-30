@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-script-loader",
-  "version": "3.1.1-rc.4",
+  "version": "3.1.2",
   "description": "Seznam IMA.js plugin for loading script",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
@@ -32,6 +32,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@ima/plugin-resource-loader": "^3.0.2-rc.0"
+    "@ima/plugin-resource-loader": "^3.0.2"
   }
 }
