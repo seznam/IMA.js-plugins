@@ -1,62 +1,55 @@
-# @ima/cli-plugin-analyze
+# @ima/cli-plugin-legacy-css
 
-Pre-configures [bundle-stats-webpack-plugin](https://npmjs.com/package/bundle-stats-webpack-plugin) and [webpack-bundle-analyzer](https://npmjs.com/package/webpack-bundle-analyzer) webpack plugins for fast and easy bundle analyzing.
+Adds ability to built another CSS bundle with `client` bundle with different `postcss-present-env` configuration. This allows you to build 2 bundles with different amount of CSS polyfillying (which results in larger file size) and serve the best version to targetted browser.
 
 ## Installation
 
-```bash npm2yarn
-npm install @ima/cli-plugin-analyze -D
+```bash
+npm install @ima/cli-plugin-legacy-css -D
 ```
 
 ## Usage
 
 ```js title=./ima.config.js
-const { AnalyzePlugin } = require('@ima/cli-plugin-analyze');
+const { LegacyCSSPlugin } = require('@ima/cli-plugin-legacy-css');
 
 /**
  * @type import('@ima/cli').ImaConfig
  */
 module.exports = {
-  plugins: [new AnalyzePlugin()],
+  plugins: [new LegacyCSSPlugin({
+    /**
+     * Browserslist configuration string for postcss-preset-env for legacy CSS.
+     */
+    cssBrowsersTarget: '>0.3%, not dead, not op_mini all',
+
+    /**
+     * Equivalent to postcss function but for legacy css,
+     * when enabled with enableLegacyCss option. [optional]
+     */
+    postcss: (config) => config,
+  })],
 };
 ```
 
-## CLI Arguments
+### Server hook
 
-### --analyze
+You need to define your own detector for the server hook. It accepts callback function which should return true for legacy CSS to be served.
 
-> `client | client.es | server`
+```js title=./server/app.js
+const { createIMAServer } = require('@ima/server');
+const { createLegacyCssHook } = require('@ima/cli-plugin-legacy-css/server');
 
-Run the ima build command with `--analyze` argument and pick one of the three produced bundles you want to analyze. For example: `npx ima build --analyze=client`.
-
-## Options
-
-```ts
-new AnalyzePlugin(options: {
-  open?: boolean;
-  bundleStatsOptions?: BundleStatsWebpackPlugin.Options;
-  bundleAnalyzerOptions?: BundleAnalyzerPlugin.Options;
-});
+const imaServer = createIMAServer();
+createLegacyCssHook((event) => {
+  /**
+   * You have access to server event object here, so you can do detection based
+   * on multiple things. We recommend using new `Sec-CH-UA` headers. Return true
+   * to server legacy CSS, otherwise return false.
+   */
+  return true;
+}, imaServer);
 ```
 
-### open
-
-> `boolean = true`
-
-Set to false if you don't want to automatically open the browser window with the html reports when the build finishes.
-
-### bundleStatsOptions
-
-> `object`
-
-Pass any option that the `BundleStatsWebpackPlugin` accepts. These are then merged with some of our custom defaults.
-
-### bundleAnalyzerOptions
-
-> `object`
-
-Pass any option that the `BundleAnalyzerPlugin` accepts. These are then merged with some of our custom defaults.
-
----
-
-For more information, take a look at the [IMA.js documentation](https://imajs.io/cli/plugins/analyze-plugin).
+### Dev testing
+When running the application in development don't forget to run it with `--writeToDisk` and `--legacy` options.

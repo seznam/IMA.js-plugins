@@ -62,6 +62,8 @@ class LegacyCSSPlugin implements ImaCliPlugin {
     const postcssRules = [
       ...findRules(config, 'test.less', 'postcss'),
       ...findRules(config, 'test.module.less', 'postcss'),
+      ...findRules(config, 'test.css', 'postcss'),
+      ...findRules(config, 'test.module.css', 'postcss'),
     ] as any[];
 
     for (const rule of postcssRules) {
