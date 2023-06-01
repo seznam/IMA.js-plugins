@@ -38,6 +38,9 @@ export type HttpClientRequest = {
   options?: HttpClientRequestOptions;
 };
 
+/**
+ * HttpClient use ima HttpAgent and adds support for processors.
+ */
 export class HttpClient {
   #http: HttpAgent;
   #defaultProcessors: Processor[];
@@ -54,10 +57,22 @@ export class HttpClient {
     );
   }
 
+  /**
+   * Method registerProcessor added to defaultProcessors new processor
+   * @param processor
+   */
   registerProcessor(processor: Processor) {
     this.#defaultProcessors.push(processor);
   }
 
+  /**
+   * You can call request with additionalParams for processors. The request is processed by preRequest processors method.
+   * If preRequests not return response ima HttpAgent request is called.
+   * In the end the request is processed by postRequest processors method.
+   *
+   * @param request
+   * @param additionalParams
+   */
   async request<B = any>(
     request: HttpClientRequest,
     additionalParams?: object
@@ -91,6 +106,14 @@ export class HttpClient {
     });
   }
 
+  /**
+   * RunProcessors runs every registred processor and patch the response.
+   *
+   * @param processors
+   * @param operation
+   * @param processorParams
+   * @private
+   */
   async #runProcessors<B>(
     processors: Processor[],
     operation: Operation,
@@ -104,10 +127,23 @@ export class HttpClient {
     return processorParams;
   }
 
+  /**
+   * Method for default transforming registered processors
+   * @param processors
+   * @returns Processor[]
+   */
   defaultTransformProcessors(processors: Processor[]): Processor[] {
     return processors;
   }
 
+  /**
+   * getProcessors returns processors transformed by defaultTransformProcessors method or by method from request options.
+   *
+   * @param request
+   * @private
+   *
+   * @returns Processor[]
+   */
   #getProcessors(request: HttpClientRequest): Processor[] {
     const defaultProcessors = this.#defaultProcessors;
 

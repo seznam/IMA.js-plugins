@@ -1,5 +1,8 @@
 import { AbstractProcessor, ProcessorParams } from '../../AbstractProcessor';
 
+/**
+ * The EntityProcessor transforms the response from the API into entities.
+ */
 export class EntityProcessor extends AbstractProcessor {
   postRequest<B>(params: ProcessorParams<B>) {
     const { response, additionalParams } = params;

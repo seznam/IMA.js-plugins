@@ -13,6 +13,9 @@ import {
   HttpClientRequestOptions,
 } from '../HttpClient';
 
+/**
+ * AbstractResource will help with creating paths to the API as well as working with entities.
+ */
 export abstract class AbstractResource {
   #httpClient: HttpClient;
   #baseApiUrl: string;
@@ -21,6 +24,10 @@ export abstract class AbstractResource {
     return [HttpClient, '$Settings.plugin.httpClient.rest'];
   }
 
+  /**
+   * PathType is set of constant for use in getter path
+   * @class
+   */
   static get PathType() {
     return {
       GET: 'get',
@@ -31,12 +38,18 @@ export abstract class AbstractResource {
     };
   }
 
+  /**
+   * This getter should return paths to API for concrete PathType
+   */
   get path(): { [pathType: string]: string } {
     throw new GenericError(
-      `AbstractResource: Static getter "path" must be overriden.`
+      `AbstractResource: getter "path" must be overriden.`
     );
   }
 
+  /**
+   * Optionally getter for EntityProcessor
+   */
   get entityClass(): EntityConstructor | null {
     return null;
   }
@@ -90,18 +103,30 @@ export abstract class AbstractResource {
     return this.#restClientRequest<B>('put', pathType, data, options);
   }
 
+  /**
+   * Return pathTemplate by pathType
+   *
+   * @param pathType
+   * @private
+   */
   #getPathTemplate(pathType: string): string {
     const pathTemplate = this.path[pathType];
 
     if (!pathTemplate) {
       throw new GenericError(
-        `AbstractResource: getter "path" does not contain ${pathType} in ${this.constructor.name}`
+        `AbstractResource: getter "path" does not contain '${pathType}' pathType in ${this.constructor.name}`
       );
     }
 
     return pathTemplate;
   }
 
+  /**
+   * Create URL to API by baseApiUrl settings and processed path
+   *
+   * @param pathType
+   * @param data
+   */
   getUrl(pathType: string, data: object) {
     const pathTemplate = this.#getPathTemplate(pathType);
 
@@ -110,14 +135,29 @@ export abstract class AbstractResource {
     return this.#baseApiUrl + path;
   }
 
+  /**
+   * Prepare data for request
+   * @param data
+   */
   prepareData(data: object) {
     return { ...data };
   }
 
+  /**
+   * Prepare options for request
+   * @param options
+   */
   prepareOptions(options: HttpClientRequestOptions) {
     return { ...options };
   }
 
+  /**
+   * Process path - replace variables by values from data.
+   *
+   * @param pathTemplate
+   * @param data
+   * @private
+   */
   #processPathTemplate(pathTemplate: string, data: { [key: string]: any }) {
     let path = pathTemplate;
 
@@ -165,6 +205,10 @@ export abstract class AbstractResource {
     return response;
   }
 
+  /**
+   * Returns additionalParams for processors
+   * @param pathType
+   */
   getResourceInfo(pathType: string): object {
     return { resource: this, pathType };
   }

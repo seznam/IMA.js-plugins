@@ -13,6 +13,9 @@ export type ProcessorParams<B> = {
   additionalParams?: any;
 };
 
+/**
+ * The processor serves to transform the request/response before and after the API call.
+ */
 export interface Processor {
   preRequest<B = any>(params: ProcessorParams<B>): ProcessorParams<B>;
   postRequest<B = any>(params: ProcessorParams<B>): ProcessorParams<B>;

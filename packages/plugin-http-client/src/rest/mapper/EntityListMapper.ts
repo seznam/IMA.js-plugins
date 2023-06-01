@@ -2,9 +2,16 @@ import { BaseMapper } from './BaseMapper';
 import { EntityMapper } from './EntityMapper';
 import { EntityConstructor } from '../BaseEntity';
 
+/**
+ * EntityListMapper transform array of object into entity property with array of entities.
+ */
 export class EntityListMapper extends BaseMapper {
   #entityMapper: EntityMapper;
 
+  /**
+   * Creates a mapper with the specified entity that is used for the transformation field contains array of object.
+   * @param entity
+   */
   constructor(entity: EntityConstructor) {
     super();
 

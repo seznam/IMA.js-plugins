@@ -19,27 +19,27 @@ export interface Entity {
 export class BaseEntity {
   /**
    * Returns the description of automatic mapping of the raw data exchanged
-   * between the REST API and the REST API client, and the properties of this
+   * between the REST API, and the properties of this
    * entity.
    *
-   * The keys of the returned object are the names of the properties of this
-   * entity. The value associated with key is one of the following:
+   * The keys of the returned object are the names of the API properties.
    *
-   * - The name of the property in the raw data. This is useful when the
+   * The value associated with key is one of the following:
+   *
+   * - The new name of the property in this entity. This is useful when the
    *   property only needs to be renamed.
    *
-   * - A property name and value mapping object, providing the name of the
-   *   property in the raw data (for renaming), a callback for deserializing
-   *   the value from raw data and a callback for serializing the entity's
-   *   property value to raw data. The {@code dataFieldName} property may
-   *   return {@code null} if the property does not need to be renamed.
+   * - The mapper instance of BaseMapper. This is useful when the property only needs to changed format but not renamed.
+   *
+   * - The MapperItem object eg.: { mapper: new EntityListMapper(BaseEntity), newKey: 'authors' }.
+   *  This is useful when the property needs changed format and renamed too.
    *
    * @returns {Object<string, (
-   *           string|
+   *          string |
+   *          Mappper |
    *           {
-   *             dataFieldName: ?string,
-   *             deserialize: function(*, AbstractEntity): *,
-   *             serialize: function(*, AbstractEntity): *
+   *             newKey: string,
+   *             mapper: instance of BaseMapper,
    *           }
    *         )>} The description of how the raw data properties should be
    *         mapped to the entity properties and vice versa.
@@ -68,12 +68,12 @@ export class BaseEntity {
    * resource.
    *
    * Note that this method may not receive a representation of the entity's
-   * complete state if invoked by the {@linkcode patch()} method.
+   * complete state if invoked by the {@linkcode cloneAndPatch()} method.
    *
    * The default implementation of this method implements a mapping based on
    * the {@linkcode dataFieldMapping} property's value.
    *
-   * @param {AbstractEntity} data
+   * @param {BaseEntity} data
    * @returns {Object<string, *>} Data object representing this entity in a
    *         way that is compatible with the REST API.
    */
@@ -105,6 +105,16 @@ export class BaseEntity {
     return serializedData;
   }
 
+  /**
+   * Transform dataFieldMapping result to MapperItems.
+   *
+   * @returns {Object<string, (
+   *           {
+   *             newKey: string,
+   *             mapper: instance of BaseMapper,
+   *           }
+   *         )>}
+   */
   #getDataFieldMapping(): {
     [key: string]: MapperItem;
   } {
@@ -157,7 +167,7 @@ export class BaseEntity {
   /**
    * Creates a clone of this entity.
    *
-   * @returns {AbstractEntity} A clone of this entity.
+   * @returns {BaseEntity} A clone of this entity.
    */
   clone() {
     const data = clone(this.serialize());
@@ -169,10 +179,9 @@ export class BaseEntity {
    * Creates a clone of this entity with its state patched using the provided
    * state patch object.
    *
-   *
-   * @param {Object<string, *> | AbstractEntity} statePatch The patch of this entity's state
+   * @param {Object<string, *> | BaseEntity} statePatch The patch of this entity's state
    *        that should be applied to the clone.
-   * @returns {AbstractEntity} The created patched clone.
+   * @returns {BaseEntity} The created patched clone.
    */
   cloneAndPatch(statePatch: any) {
     const data = this.serialize();
