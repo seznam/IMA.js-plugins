@@ -39,7 +39,7 @@ export class BaseEntity {
    *          Mappper |
    *           {
    *             newKey: string,
-   *             mapper: instance of BaseMapper,
+   *             mapper: BaseMapper,
    *           }
    *         )>} The description of how the raw data properties should be
    *         mapped to the entity properties and vice versa.

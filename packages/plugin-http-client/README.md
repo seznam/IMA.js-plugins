@@ -8,12 +8,76 @@ Generic http client for the [IMA](https://imajs.io) application framework.
 npm install @ima/plugin-http-client --save
 ```
 
+## Usage
+
+You can add HttpClient alias.
+
+```
+//bind.js
+
+import { HttpClient } from '@ima/plugin-http-client';
+oc.bind('$HttpClient', HttpClient);
+```
+
+You can register some processors.
+```
+//services.js
+
+import { EntityProcessor } from '@ima/plugin-http-client/rest';
+
+const httpClient = oc.get('$HttpClient');
+httpClient.registerProcessor(oc.get(EntityProcessor));
+```
+
+Then you can use HttpClient
+```
+class ExamleHttpCall {
+  #httpClient: HttpClient;
+
+  static get $dependencies(): Dependencies {
+    return [HttpClient];
+  }
+  
+  constructor(httpClient: HttpClient) {
+    this.#httpClient = httpClient;
+  }
+  
+  async callAPI() {
+    const url = 'https://example.com/api/author';
+
+    const { response } = await this.#httpClient.request(
+      {
+        method: 'get',
+        url
+      }
+    );
+
+    return response;
+  }
+```
+
+
+
 ## HttpClient
 HttpClient use ima HttpAgent and adds support for processors.
+It supports the OPTION_TRANSFORM_PROCESSORS option, which enables processor transformation.
+You can also define transformation by HttpClient method defaultTransformProcessors.
+
+Examples of request options:
+```
+  {
+    [OPTION_TRANSFORM_PROCESSORS]: processors => ([...processors, newProcessor])  
+  }
+  
+  {
+    [OPTION_TRANSFORM_PROCESSORS]: processors => processors.filter(item=>!(item instanceof NewProcessor))
+  }
+```
+
 
 ### Processor
 The processor serves to transform the request/response before and after the API call.
-So it has two methods preRequest and postRequest.
+So it supports two methods preRequest and postRequest.
 
 Example:
 ```
@@ -45,11 +109,16 @@ export class EntityProcessor extends AbstractProcessor {
 }
 ```
 
+The result of each processor is patched in HttpClient, so it is sufficient to return the modified value as a result of the processor's action.
+
+If the preRequest action returns a response object, the HttpAgent is no longer called, but comes straight to the postRequest action.
+
 ## REST 
-This plugin supports REST api using AbstractResource and optional BaseEntity with helper Mappers and EntityProcessor.
+This plugin supports REST API using AbstractResource and optional BaseEntity with helper Mappers and EntityProcessor.
 
 ### AbstractResource
 AbstractResource will help with creating paths to the API as well as working with entities.
+You can also change processors in prepareOptions with option OPTION_TRANSFORM_PROCESSORS.
 
 #### Paths
 You have to specify getter `path` to determine API path. 
