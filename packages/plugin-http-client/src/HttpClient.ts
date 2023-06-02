@@ -34,7 +34,7 @@ export type HttpClientRequestMethod =
 export type HttpClientRequest = {
   method: HttpClientRequestMethod;
   url: string;
-  data?: UnknownParameters;
+  data?: Record<string, any>;
   options?: HttpClientRequestOptions;
 };
 

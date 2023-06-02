@@ -34,15 +34,6 @@ export class BaseEntity {
    * - The MapperItem object eg.: { mapper: new EntityListMapper(BaseEntity), newKey: 'authors' }.
    *  This is useful when the property needs changed format and renamed too.
    *
-   * @returns {Object<string, (
-   *          string |
-   *          Mappper |
-   *           {
-   *             newKey: string,
-   *             mapper: BaseMapper,
-   *           }
-   *         )>} The description of how the raw data properties should be
-   *         mapped to the entity properties and vice versa.
    */
   get dataFieldMapping(): {
     [key: string]: DataFieldValue;
@@ -53,7 +44,7 @@ export class BaseEntity {
   /**
    * Initializes the entity.
    *
-   * @param {Object<string, *>} data Entity data, which will be directly
+   * @param data, which will be directly
    *        assigned to the entity's fields.
    */
   constructor(data: object) {
@@ -73,9 +64,6 @@ export class BaseEntity {
    * The default implementation of this method implements a mapping based on
    * the {@linkcode dataFieldMapping} property's value.
    *
-   * @param {BaseEntity} data
-   * @returns {Object<string, *>} Data object representing this entity in a
-   *         way that is compatible with the REST API.
    */
   serialize(data: any = this): any {
     const mapping = this.#getDataFieldMapping();
@@ -107,13 +95,6 @@ export class BaseEntity {
 
   /**
    * Transform dataFieldMapping result to MapperItems.
-   *
-   * @returns {Object<string, (
-   *           {
-   *             newKey: string,
-   *             mapper: instance of BaseMapper,
-   *           }
-   *         )>}
    */
   #getDataFieldMapping(): {
     [key: string]: MapperItem;
@@ -141,9 +122,6 @@ export class BaseEntity {
    * The default implementation of this method implements a mapping based on
    * the {@linkcode dataFieldMapping} property's value.
    *
-   * @param {Object<string, *>} data The data retrieved from the REST API.
-   * @returns {Object<string, *>} The data ready to be assigned to this
-   *         entity.
    */
   deserialize(data: object): any {
     const mapping = this.#getDataFieldMapping();
@@ -166,8 +144,6 @@ export class BaseEntity {
 
   /**
    * Creates a clone of this entity.
-   *
-   * @returns {BaseEntity} A clone of this entity.
    */
   clone() {
     const data = clone(this.serialize());
@@ -178,10 +154,6 @@ export class BaseEntity {
   /**
    * Creates a clone of this entity with its state patched using the provided
    * state patch object.
-   *
-   * @param {Object<string, *> | BaseEntity} statePatch The patch of this entity's state
-   *        that should be applied to the clone.
-   * @returns {BaseEntity} The created patched clone.
    */
   cloneAndPatch(statePatch: any) {
     const data = this.serialize();

@@ -12,7 +12,7 @@ npm install @ima/plugin-http-client --save
 
 You can add HttpClient alias.
 
-```
+```js
 //bind.js
 
 import { HttpClient } from '@ima/plugin-http-client';
@@ -20,7 +20,7 @@ oc.bind('$HttpClient', HttpClient);
 ```
 
 You can register some processors.
-```
+```js
 //services.js
 
 import { EntityProcessor } from '@ima/plugin-http-client/rest';
@@ -30,30 +30,31 @@ httpClient.registerProcessor(oc.get(EntityProcessor));
 ```
 
 Then you can use HttpClient
-```
+```js
 class ExamleHttpCall {
-  #httpClient: HttpClient;
+    #httpClient: HttpClient;
 
-  static get $dependencies(): Dependencies {
-    return [HttpClient];
-  }
-  
-  constructor(httpClient: HttpClient) {
-    this.#httpClient = httpClient;
-  }
-  
-  async callAPI() {
-    const url = 'https://example.com/api/author';
+    static get $dependencies(): Dependencies {
+        return [HttpClient];
+    }
 
-    const { response } = await this.#httpClient.request(
-      {
-        method: 'get',
-        url
-      }
-    );
+    constructor(httpClient: HttpClient) {
+        this.#httpClient = httpClient;
+    }
 
-    return response;
-  }
+    async callAPI() {
+        const url = 'https://example.com/api/author';
+
+        const {response} = await this.#httpClient.request(
+            {
+                method: 'get',
+                url
+            }
+        );
+
+        return response;
+    }
+}
 ```
 
 
@@ -64,7 +65,7 @@ It supports the OPTION_TRANSFORM_PROCESSORS option, which enables processor tran
 You can also define transformation by HttpClient method defaultTransformProcessors.
 
 Examples of request options:
-```
+```js
   {
     [OPTION_TRANSFORM_PROCESSORS]: processors => ([...processors, newProcessor])  
   }
@@ -80,19 +81,19 @@ The processor serves to transform the request/response before and after the API 
 So it supports two methods preRequest and postRequest.
 
 Example:
-```
+```js
 export class EntityProcessor extends AbstractProcessor {
     postRequest<B>(params: ProcessorParams<B>) {
         const { response, additionalParams } = params;
         
         if (response) {
-          const { body } = response;
-    
-          const entityClass = additionalParams?.resource?.entityClass;
-    
-          if (body && entityClass) {
+            const { body } = response;
+            
+            const entityClass = additionalParams?.resource?.entityClass;
+            
+            if (body && entityClass) {
             let newBody: object | object[];
-    
+            
             if (body instanceof Array) {
               newBody = body.map(entityData =>
                 Reflect.construct(entityClass, [entityData])
@@ -101,9 +102,9 @@ export class EntityProcessor extends AbstractProcessor {
               newBody = Reflect.construct(entityClass, [body]);
             }
             params.response = Object.assign({}, response, { body: newBody });
-          }
+            }
         }
-    
+        
         return params;
     }
 }
@@ -126,7 +127,7 @@ There are some build-in PathType like CREATE, GET, UPDATE, REPLACE, DELETE, but 
 You can use in brackets some variables in paths.
 
 Example:
-```
+```js
 class AuthorResource extends AbstractResource {
         static get PathType() {
             return {
@@ -134,7 +135,7 @@ class AuthorResource extends AbstractResource {
                 LIST: 'list'
             };
         }
-   
+        
         get path() {
             return {
                 [this.constructor.PathType.LIST]: `/authors`,
@@ -166,15 +167,17 @@ You can use predefined mappers or create new ones to deserialize single value fr
 and to serialize property from an entity to a plain value. You can also use only string value for rename key of value.
 
 Example:
-```
-	get dataFieldMapping() {
-		return {
-			_id: 'id', // rename API value _id to id (_id is not exists in new entity)
-			metaKeywords: new DefaultToArray(), //if metaKeywords is not defined then the entity will contain an empty array for this field.
-			layout: new EntityMapper(BaseEntity), //transform layout object to BaseEntity
-			listOfAuthors: { mapper: new EntityListMapper(BaseEntity), newKey: 'authors' } //rename to authors and tranform to array of BaseEntities
-		};
-	}
+```js
+    ...
+    get dataFieldMapping() {
+        return {
+            _id: 'id', // rename API value _id to id (_id is not exists in new entity)
+            metaKeywords: new DefaultToArray(), //if metaKeywords is not defined then the entity will contain an empty array for this field.
+            layout: new EntityMapper(BaseEntity), //transform layout object to BaseEntity
+            listOfAuthors: { mapper: new EntityListMapper(BaseEntity), newKey: 'authors' } //rename to authors and tranform to array of BaseEntities
+        };
+    }
+    ...
 ```
 
 
@@ -187,49 +190,49 @@ There are some predefined mappers:
 You can also create new one:
 
 Example:
-```
-class Datemapper extends BaseMapper {
+```js
+class DateMapper extends BaseMapper {
     deserialize(serializedDate) {
-		if (!serializedDate) {
-			return serializedDate;
-		}
-		
-		const dateAndTime = serializedDate.split(' ');
-		const dateParts = dateAndTime[0].split('-');
-		const timeParts = dateAndTime[1].split(':');
-
-		return new Date(
-			dateParts[0],
-			dateParts[1] - 1,
-			dateParts[2],
-			timeParts[0],
-			timeParts[1],
-			timeParts[2],
-			0
-		);
+        if (!serializedDate) {
+            return serializedDate;
+        }
+        
+        const dateAndTime = serializedDate.split(' ');
+        const dateParts = dateAndTime[0].split('-');
+        const timeParts = dateAndTime[1].split(':');
+        
+        return new Date(
+            dateParts[0],
+            dateParts[1] - 1,
+            dateParts[2],
+            timeParts[0],
+            timeParts[1],
+            timeParts[2],
+            0
+        );
     }
 
     serialize(date) {
-		if (!date) {
-			return date;
-		}
-
-		const hours = formatNumber(date.getHours());
-		const minutes = formatNumber(date.getMinutes());
-		const seconds = formatNumber(date.getSeconds());
-
-		return `${date.getFullYear()}-${formatNumber(date.getMonth() + 1)}-${formatNumber(
-			date.getDate()
-		)} ${hours}:${minutes}:${seconds}`;
-
-		function formatNumber(number, digits = 2) {
-			let string = `${number}`;
-			while (string.length < digits) {
-				string = `0${string}`;
-			}
-
-			return string;
-		}
+        if (!date) {
+            return date;
+        }
+        
+        const hours = formatNumber(date.getHours());
+        const minutes = formatNumber(date.getMinutes());
+        const seconds = formatNumber(date.getSeconds());
+        
+        return `${date.getFullYear()}-${formatNumber(date.getMonth() + 1)}-${formatNumber(
+            date.getDate()
+        )} ${hours}:${minutes}:${seconds}`;
+        
+        function formatNumber(number, digits = 2) {
+            let string = `${number}`;
+            while (string.length < digits) {
+                string = `0${string}`;
+            }
+        
+            return string;
+        }
     }
 }
 ```
