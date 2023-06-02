@@ -66,9 +66,9 @@ export class HttpClient {
   }
 
   /**
-   * You can call request with additionalParams for processors. The request is processed by preRequest processors method.
-   * If preRequests not return response ima HttpAgent request is called.
-   * In the end the request is processed by postRequest processors method.
+   * You can call request with additionalParams for processors. The request is processed by pre request processors method.
+   * If pre requests not return response ima HttpAgent request is called.
+   * In the end the request is processed by post request processors method.
    *
    * @param request
    * @param additionalParams
