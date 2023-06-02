@@ -138,7 +138,6 @@ plugin: {
 },
 ...
 ```
-$Settings.plugin.httpClient.rest
 
 #### Paths
 You have to specify getter `path` to determine API path. 
