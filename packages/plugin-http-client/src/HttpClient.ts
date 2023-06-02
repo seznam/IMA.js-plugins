@@ -2,8 +2,8 @@ import type {
   Dependencies,
   HttpAgent,
   HttpAgentRequestOptions,
-  UnknownParameters,
 } from '@ima/core';
+import { GenericError } from '@ima/core';
 
 declare module '@ima/core' {
   interface OCAliasMap {
@@ -52,9 +52,8 @@ export class HttpClient {
   constructor(http: HttpAgent, ...defaultProcessors: Processor[]) {
     this.#http = http;
 
-    this.#defaultProcessors = defaultProcessors.filter(
-      item => item instanceof AbstractProcessor
-    );
+    //ima returns undefined for empty optional spread dependency - which result in [undefined] so we filter it
+    this.#defaultProcessors = defaultProcessors.filter(Boolean);
   }
 
   /**
@@ -67,7 +66,7 @@ export class HttpClient {
 
   /**
    * You can call request with additionalParams for processors. The request is processed by pre request processors method.
-   * If pre requests not return response ima HttpAgent request is called.
+   * If pre request processors don't return response, ima HttpAgent request is called.
    * In the end the request is processed by post request processors method.
    *
    * @param request
@@ -120,6 +119,11 @@ export class HttpClient {
     processorParams: ProcessorParams<B>
   ) {
     for (const processor of processors) {
+      if (!(processor instanceof AbstractProcessor)) {
+        throw new GenericError(
+          `HttpClient: The processor  ${processor?.constructor?.name} must extend AbstractProcessor class.`
+        );
+      }
       const processorResult = await processor[operation](processorParams);
       processorParams = { ...processorParams, ...processorResult };
     }

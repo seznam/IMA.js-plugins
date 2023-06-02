@@ -17,6 +17,9 @@ You can add HttpClient alias.
 
 import { HttpClient } from '@ima/plugin-http-client';
 oc.bind('$HttpClient', HttpClient);
+
+//optionally you can add default processors to httpClient
+oc.constant('HttpClientDefaultProcessors', [AdditionalPostProcessor, SuperProcessor]);
 ```
 
 You can register some processors.
@@ -120,6 +123,22 @@ This plugin supports REST API using AbstractResource and optional BaseEntity wit
 ### AbstractResource
 AbstractResource will help with creating paths to the API as well as working with entities.
 You can also change processors in prepareOptions with option OPTION_TRANSFORM_PROCESSORS.
+
+You have to set setting baseApiUrl for REST resources:
+```js
+//settings.js
+
+...
+plugin: {
+    httpClient: {
+        rest: {
+            baseApiUrl: 'YOUR BASE API URL'
+        }
+    }
+},
+...
+```
+$Settings.plugin.httpClient.rest
 
 #### Paths
 You have to specify getter `path` to determine API path. 
