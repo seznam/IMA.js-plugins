@@ -31,7 +31,7 @@ httpClient.registerProcessor(oc.get(EntityProcessor));
 
 Then you can use HttpClient
 ```js
-class ExamleHttpCall {
+class ExampleHttpCall {
     #httpClient: HttpClient;
 
     static get $dependencies(): Dependencies {
@@ -148,7 +148,7 @@ class AuthorResource extends AbstractResource {
             return super.get(data, options, pathType);
         }
         
-        //optionally you can specify entityClass and you it with EntityProcessor
+        //optionally you can specify entityClass and use it with EntityProcessor
         get entityClass() {
             return AuthorEntity;
         }
@@ -156,22 +156,22 @@ class AuthorResource extends AbstractResource {
 ```
 
 ### Entity
-This plugin provides a `BaseEtity` that can be directly used or extended. 
+This plugin provides a `BaseEntity` that can be directly used or extended. 
 The entity takes care of deserializing the data coming into the constructor 
-and also has a method for serialization.
+and also provides method for serialization.
 
 #### Data field mapping
 
-There is a `dataFieldMapping` getter in the entity, which is used to deserialize/serialize the data.
+BaseEntity defines `dataFieldMapping` getter, which is used to deserialize/serialize the data.
 You can use predefined mappers or create new ones to deserialize single value from an API to an entity value
-and to serialize property from an entity to a plain value. You can also use only string value for rename key of value.
+and to serialize property from an entity to a plain value. You can also use string value to rename key.
 
 Example:
 ```js
     ...
     get dataFieldMapping() {
         return {
-            _id: 'id', // rename API value _id to id (_id is not exists in new entity)
+            _id: 'id', // rename API value _id to id (_id doesn't exist in new entity)
             metaKeywords: new DefaultToArray(), //if metaKeywords is not defined then the entity will contain an empty array for this field.
             layout: new EntityMapper(BaseEntity), //transform layout object to BaseEntity
             listOfAuthors: { mapper: new EntityListMapper(BaseEntity), newKey: 'authors' } //rename to authors and tranform to array of BaseEntities
@@ -183,9 +183,9 @@ Example:
 
 ### Mapper
 There are some predefined mappers:
-* DefaultToArray - define for entity property default value as empty array
-* EntityMapper - transform object into entity property which is instance of BaseEntity.
-* EntityListMapper - transform array of object into entity property with array of entities
+* DefaultToArray - for given property defines empty array as default value
+* EntityMapper - transforms value of property to given entity (given entity has to be instance of BaseEntity)
+* EntityListMapper - transforms array of objects to array of given entities
 
 You can also create new one:
 
