@@ -9,8 +9,8 @@ describe('BaseMapper createMapperItem', () => {
   });
 
   it('should return MapperItem for string as value', () => {
-    const key = 'fieldKey';
-    const value = 'newKey';
+    const key = 'new_author';
+    const value = 'author';
 
     expect(BaseMapper.createMapperItem(value, key)).toStrictEqual({
       mapper: new BaseMapper(),
@@ -19,7 +19,7 @@ describe('BaseMapper createMapperItem', () => {
   });
 
   it('should return MapperItem for Mapper as value', () => {
-    const key = 'fieldKey';
+    const key = 'article';
     const value = new BaseMapper();
 
     expect(BaseMapper.createMapperItem(value, key)).toStrictEqual({

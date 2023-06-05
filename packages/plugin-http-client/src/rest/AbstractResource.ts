@@ -1,8 +1,12 @@
 import { GenericError, Dependencies } from '@ima/core';
 
+export type RestResourceSettings = {
+  baseApiUrl: string | null;
+};
+
 declare module '@ima/core' {
   interface OCAliasMap {
-    '$Settings.plugin.httpClient.rest': any;
+    '$Settings.plugin.httpClient.rest'?: RestResourceSettings;
   }
 }
 
@@ -54,11 +58,13 @@ export abstract class AbstractResource {
     return null;
   }
 
-  constructor(httpClient: HttpClient, settings: any) {
+  constructor(httpClient: HttpClient, settings?: RestResourceSettings) {
     this.#httpClient = httpClient;
 
-    if (!settings.baseApiUrl) {
-      throw new GenericError(`REST_CLIENT_BASE_API_URL is not set.`);
+    if (!settings?.baseApiUrl) {
+      throw new GenericError(
+        `$Settings.plugin.httpClient.rest.baseApiUrl is not set.`
+      );
     }
     this.#baseApiUrl = settings.baseApiUrl;
   }

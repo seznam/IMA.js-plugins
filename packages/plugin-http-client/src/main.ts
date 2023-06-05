@@ -15,10 +15,10 @@ export type {
 export { AbstractProcessor } from './AbstractProcessor';
 export { HttpClient, OPTION_TRANSFORM_PROCESSORS } from './HttpClient';
 
+import { RestResourceSettings } from './rest/AbstractResource';
+
 export interface PluginHttpClientSettings {
-  rest?: {
-    baseApiUrl: string | null;
-  };
+  rest?: RestResourceSettings;
 }
 
 declare module '@ima/core' {

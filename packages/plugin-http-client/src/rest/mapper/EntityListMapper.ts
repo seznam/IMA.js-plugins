@@ -9,7 +9,7 @@ export class EntityListMapper extends BaseMapper {
   #entityMapper: EntityMapper;
 
   /**
-   * Creates a mapper with the specified entity that is used for the transformation field contains array of object.
+   * Creates a mapper with the specified entity that is used for the transformation of a field containing array of objects.
    * @param entity
    */
   constructor(entity: EntityConstructor) {

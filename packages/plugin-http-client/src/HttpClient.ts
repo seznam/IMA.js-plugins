@@ -53,7 +53,10 @@ export class HttpClient {
     this.#http = http;
 
     //ima returns undefined for empty optional spread dependency - which result in [undefined] so we filter it
-    this.#defaultProcessors = defaultProcessors.filter(Boolean);
+    const processors = defaultProcessors.filter(Boolean);
+
+    this.#checkProcessorsType(processors);
+    this.#defaultProcessors = processors;
   }
 
   /**
@@ -61,6 +64,7 @@ export class HttpClient {
    * @param processor
    */
   registerProcessor(processor: Processor) {
+    this.#checkProcessorsType([processor]);
     this.#defaultProcessors.push(processor);
   }
 
@@ -77,6 +81,7 @@ export class HttpClient {
     additionalParams?: object
   ) {
     const processors = this.#getProcessors(request);
+    this.#checkProcessorsType(processors);
 
     const processorResult = await this.#runProcessors<B>(
       processors,
@@ -119,16 +124,21 @@ export class HttpClient {
     processorParams: ProcessorParams<B>
   ) {
     for (const processor of processors) {
-      if (!(processor instanceof AbstractProcessor)) {
-        throw new GenericError(
-          `HttpClient: The processor  ${processor?.constructor?.name} must extend AbstractProcessor class.`
-        );
-      }
       const processorResult = await processor[operation](processorParams);
       processorParams = { ...processorParams, ...processorResult };
     }
 
     return processorParams;
+  }
+
+  #checkProcessorsType(processors: Processor[]) {
+    processors.forEach(processor => {
+      if (!(processor instanceof AbstractProcessor)) {
+        throw new GenericError(
+          `HttpClient: The processor  ${processor?.constructor?.name} must extend AbstractProcessor class.`
+        );
+      }
+    });
   }
 
   /**
