@@ -35,7 +35,9 @@ describe('AbstractResource', () => {
       // Fail test if above expression doesn't throw anything.
       expect(true).toBe(false);
     } catch (e) {
-      expect(e.message).toBe('REST_CLIENT_BASE_API_URL is not set.');
+      expect(e.message).toBe(
+        '$Settings.plugin.httpClient.rest.baseApiUrl is not set.'
+      );
     }
   });
 
