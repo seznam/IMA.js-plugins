@@ -110,6 +110,10 @@ export class HttpClient {
     });
   }
 
+  invalidateCache(method: string, url: string, data: any) {
+    this.#http.invalidateCache(method, url, data);
+  }
+
   /**
    * RunProcessors runs every registred processor and patch the response.
    *

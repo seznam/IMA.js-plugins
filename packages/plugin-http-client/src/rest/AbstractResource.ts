@@ -110,6 +110,15 @@ export abstract class AbstractResource {
   }
 
   /**
+   * Method invalidate cache for given params
+   */
+  invalidateCache(method: string,   data: object, pathType: string) {
+    const url = this.getUrl(pathType, data);
+
+    this.#httpClient.invalidateCache(method, url, this.prepareData(data));
+  }
+
+  /**
    * Return pathTemplate by pathType
    *
    * @param pathType
