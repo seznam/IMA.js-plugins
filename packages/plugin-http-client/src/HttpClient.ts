@@ -110,8 +110,8 @@ export class HttpClient {
     });
   }
 
-  invalidateCache(method: string, url: string, data: any) {
-    this.#http.invalidateCache(method, url, data);
+  invalidateCache(...args: Parameters<HttpAgent['invalidateCache']>) {
+    this.#http.invalidateCache(...args);
   }
 
   /**
