@@ -46,6 +46,6 @@
   "license": "MIT",
   "peerDependencies": {
     "@ima/helpers": ">=19.0.1",
-    "@ima/core": ">=18.0.0"
+    "@ima/core": ">=19.0.11"
   }
 }
