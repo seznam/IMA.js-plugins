@@ -1,5 +1,11 @@
 # @ima/plugin-http-client
 
+## 2.1.0
+
+### Minor Changes
+
+- 3194515: Make some method public for better overriding
+
 ## 2.0.1
 
 ### Patch Changes
