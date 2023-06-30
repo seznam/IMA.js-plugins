@@ -69,6 +69,10 @@ export abstract class AbstractResource {
     this.#baseApiUrl = settings.baseApiUrl;
   }
 
+  getBaseApiUrl() {
+    return this.#baseApiUrl;
+  }
+
   update<B = any>(
     data: object,
     options: HttpClientRequestOptions,
@@ -148,9 +152,9 @@ export abstract class AbstractResource {
   getUrl(pathType: string, data: object) {
     const pathTemplate = this.#getPathTemplate(pathType);
 
-    const path = this.#processPathTemplate(pathTemplate, data);
+    const path = this.processPathTemplate(pathTemplate, data);
 
-    return this.#baseApiUrl + path;
+    return this.getBaseApiUrl() + path;
   }
 
   /**
@@ -176,7 +180,7 @@ export abstract class AbstractResource {
    * @param data
    * @private
    */
-  #processPathTemplate(pathTemplate: string, data: { [key: string]: any }) {
+  processPathTemplate(pathTemplate: string, data: { [key: string]: any }) {
     let path = pathTemplate;
 
     const regexFindVariables = new RegExp('{(.*?)}', 'g');
