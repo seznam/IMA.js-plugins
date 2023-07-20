@@ -66,9 +66,9 @@ if ($window.isClient()) {
 	googleAnalytics4.init(purposeConsents);
 
 
-    // Since version 1.0 you need to additionally call a `load()` method. The later you call this method the better.
-    // If you don't have a specific point in your app where you know that the page has finished loading you can call the `load()` method immediatelly after `init()` method
-    googleAnalytics4.load();
+	// Since version 1.0 you need to additionally call a `load()` method. The later you call this method the better.
+	// If you don't have a specific point in your app where you know that the page has finished loading you can call the `load()` method immediatelly after `init()` method
+	googleAnalytics4.load();
 
 	//set hit page view to analytic
 	$dispatcher.listen(RouterEvents.AFTER_HANDLE_ROUTE, (pageData) => {
