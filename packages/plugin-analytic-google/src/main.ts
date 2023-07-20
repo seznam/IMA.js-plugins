@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import { pluginLoader } from '@ima/core';
-// @ts-expect-error missing types
-import uid from 'easy-uid';
 
 import GoogleAnalytics4 from './GoogleAnalytics4.js';
 
