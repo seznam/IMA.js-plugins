@@ -1,0 +1,40 @@
+{
+  "name": "@ima/plugin-asset-loader",
+  "version": "1.0.0",
+  "description": "Seznam IMA.js plugin for loading web assets and resources",
+  "main": "./dist/cjs/main.js",
+  "module": "./dist/esm/main.js",
+  "types": "./dist/esm/main.d.ts",
+  "scripts": {
+    "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
+    "build": "ima-plugin build",
+    "dev": "ima-plugin dev",
+    "link": "ima-plugin link",
+    "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
+  },
+  "keywords": [
+    "IMA.js",
+    "Web resource loader",
+    "Module",
+    "Javascript"
+  ],
+  "author": "Jan Šimeček <jan.simecek@firma.seznam.cz>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seznam/IMA.js-plugins.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/seznam/IMA.js-plugins/issues"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@ima/core": ">=18.0.0 || >=19.0.0-rc.0"
+  },
+  "dependencies": {
+    "easy-uid": "^2.0.2"
+  }
+}
