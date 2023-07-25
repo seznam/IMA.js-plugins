@@ -1,5 +1,11 @@
 # Change Log
 
+## 7.0.0
+
+### Major Changes
+
+- 418df00: **BREAKING CHANGE** Support for Google Analytics UA was dropped, use GA4 instead.
+
 ## 6.0.3
 
 ### Patch Changes
