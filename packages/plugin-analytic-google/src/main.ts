@@ -1,27 +1,11 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import { pluginLoader } from '@ima/core';
-// @ts-expect-error missing types
-import uid from 'easy-uid';
 
-import GoogleAnalytic from './GoogleAnalytic.js';
 import GoogleAnalytics4 from './GoogleAnalytics4.js';
 
-const defaultDependencies = GoogleAnalytic.$dependencies;
 const googleAnalytics4DefaultDependencies = GoogleAnalytics4.$dependencies;
 
 export interface PluginAnalyticGoogleSettings {
-  google?: {
-    service: string | null;
-    settings?: {
-      clientId?: string;
-      storage?: 'none';
-    };
-    settingsSetter?: {
-      allowAdFeatures?: boolean;
-      anonymizeIp?: boolean;
-      allowAdPersonalizationSignals?: boolean;
-    };
-  };
   google4: {
     consentSettings?: {
       ad_storage?: 'denied' | 'granted';
@@ -50,18 +34,6 @@ pluginLoader.register('@ima/plugin-analytic-google', () => ({
     prod: {
       plugin: {
         analytic: {
-          google: {
-            service: 'UA-XXXXXXX-X',
-            settings: {
-              clientId: uid(),
-              storage: 'none',
-            },
-            settingsSetter: {
-              allowAdFeatures: false,
-              anonymizeIp: true,
-              allowAdPersonalizationSignals: false,
-            },
-          },
           google4: {
             consentSettings: {
               ad_storage: 'denied',
@@ -77,9 +49,4 @@ pluginLoader.register('@ima/plugin-analytic-google', () => ({
   }),
 }));
 
-export {
-  GoogleAnalytic,
-  GoogleAnalytics4,
-  defaultDependencies,
-  googleAnalytics4DefaultDependencies,
-};
+export { GoogleAnalytics4, googleAnalytics4DefaultDependencies };

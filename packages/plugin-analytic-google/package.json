@@ -34,8 +34,7 @@
   "license": "MIT",
   "dependencies": {
     "@ima/plugin-analytic": "^5.0.2",
-    "@ima/plugin-script-loader": "^3.1.1",
-    "easy-uid": "^1.0.2"
+    "@ima/plugin-script-loader": "^3.1.1"
   },
   "peerDependencies": {
     "@ima/core": ">=18.0.0",
