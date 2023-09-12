@@ -1,50 +1,26 @@
-import { PageContext } from '@ima/react-page-renderer';
-import { PureComponent } from 'react';
+import { useComponentUtils } from '@ima/react-page-renderer';
+import { memo } from 'react';
 
-/**
- * Common list
- *
- * @namespace ima.ui.atom.list
- * @module ima.ui.atom
- */
+export function listFactory(Type) {
+  return memo(function ListComponent({ children, className, ...rest }) {
+    const { $CssClasses } = useComponentUtils();
 
-export default class List extends PureComponent {
-  static get contextType() {
-    return PageContext;
-  }
-
-  static get defaultProps() {
-    return {
-      className: '',
-      mode: '',
-      type: 'ul',
-      style: null,
-      'data-e2e': null,
-    };
-  }
-
-  render() {
-    let helper = this.context.$Utils.$UIComponentHelper;
-    let { type: Type, mode, id, className, children, style } = this.props;
+    const listClassName = $CssClasses(
+      {
+        'atm-list': true,
+        ['atm-list-' + Type]: true,
+      },
+      className
+    );
 
     return (
-      <Type
-        style={style}
-        className={helper.cssClasses(
-          {
-            'atm-list': true,
-            ['atm-list-' + mode]: mode,
-            ['atm-list-' + Type]: Type,
-          },
-          className
-        )}
-        id={id}
-        {...helper.getEventProps(this.props)}
-        {...helper.getDataProps(this.props)}
-        {...helper.getAriaProps(this.props)}
-      >
+      <Type {...rest} className={listClassName}>
         {children}
       </Type>
     );
-  }
+  });
 }
+
+export const List = listFactory('ul');
+export const OrderedList = listFactory('ol');
+export const UnorderedList = List;

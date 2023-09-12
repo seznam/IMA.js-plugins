@@ -1,65 +1,28 @@
-import { PageContext } from '@ima/react-page-renderer';
-import { PureComponent } from 'react';
+import { useComponentUtils } from '@ima/react-page-renderer';
+import { memo } from 'react';
 
-/**
- * Common link
- *
- * @namespace ima.ui.atom.link
- * @module ima.ui.atom
- */
+export const Link = memo(function LinkComponent({
+  href,
+  children,
+  text,
+  className,
+  ...rest
+}) {
+  const { $CssClasses, $UIComponentHelper } = useComponentUtils();
+  const linkClassName = $CssClasses(
+    {
+      'atm-link': true,
+    },
+    className
+  );
 
-export default class Link extends PureComponent {
-  static get contextType() {
-    return PageContext;
-  }
-
-  static get defaultProps() {
-    return {
-      text: null,
-      mode: '',
-      style: null,
-      rel: null,
-      className: '',
-      'data-e2e': null,
-    };
-  }
-
-  render() {
-    let helper = this.context.$Utils.$UIComponentHelper;
-    let {
-      href,
-      title,
-      target,
-      mode,
-      className,
-      id,
-      children,
-      text,
-      style,
-      rel,
-    } = this.props;
-
-    return (
-      <a
-        href={helper.sanitizeUrl(href)}
-        title={title}
-        target={target}
-        style={style}
-        rel={rel}
-        id={id}
-        className={helper.cssClasses(
-          {
-            'atm-link': true,
-            ['atm-link-' + mode]: mode,
-          },
-          className
-        )}
-        {...helper.getEventProps(this.props)}
-        {...helper.getDataProps(this.props)}
-        {...helper.getAriaProps(this.props)}
-      >
-        {children || text}
-      </a>
-    );
-  }
-}
+  return (
+    <a
+      {...rest}
+      href={$UIComponentHelper.sanitizeUrl(href)}
+      className={linkClassName}
+    >
+      {children || text}
+    </a>
+  );
+});

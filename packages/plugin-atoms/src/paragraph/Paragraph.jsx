@@ -1,66 +1,33 @@
-import { PageContext } from '@ima/react-page-renderer';
-import { PureComponent } from 'react';
+import { useComponentUtils } from '@ima/react-page-renderer';
+import { memo } from 'react';
 
-/**
- * Common paragraph
- *
- * @namespace ima.ui.atom.paragraph
- * @module ima.ui.atom
- */
+export const Paragraph = memo(function ParagraphComponent({
+  className,
+  children,
+  html,
+  ...rest
+}) {
+  const { $CssClasses } = useComponentUtils();
+  let paragraphClassName = $CssClasses(
+    {
+      'atm-paragraph': true,
+    },
+    className
+  );
 
-export default class Paragraph extends PureComponent {
-  static get contextType() {
-    return PageContext;
-  }
-
-  static get defaultProps() {
-    return {
-      className: '',
-      html: null,
-      mode: '',
-      style: null,
-      'data-e2e': null,
-    };
-  }
-
-  render() {
-    let helper = this.context.$Utils.$UIComponentHelper;
-    let { mode, align, className, children, html, style } = this.props;
-    let paragraph = null;
-    let componentClassName = helper.cssClasses(
-      {
-        'atm-paragraph': true,
-        ['atm-paragraph-' + mode]: mode,
-        ['atm-paragraph-align-' + align]: align,
-      },
-      className
+  if (children) {
+    return (
+      <p {...rest} className={paragraphClassName}>
+        {children}
+      </p>
     );
-
-    if (children) {
-      paragraph = (
-        <p
-          style={style}
-          className={componentClassName}
-          {...helper.getEventProps(this.props)}
-          {...helper.getDataProps(this.props)}
-          {...helper.getAriaProps(this.props)}
-        >
-          {children}
-        </p>
-      );
-    } else {
-      paragraph = (
-        <p
-          style={style}
-          className={componentClassName}
-          {...helper.getEventProps(this.props)}
-          {...helper.getDataProps(this.props)}
-          {...helper.getAriaProps(this.props)}
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-      );
-    }
-
-    return paragraph;
+  } else {
+    return (
+      <p
+        {...rest}
+        className={paragraphClassName}
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    );
   }
-}
+});

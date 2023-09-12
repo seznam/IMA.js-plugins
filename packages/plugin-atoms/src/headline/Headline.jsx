@@ -1,69 +1,47 @@
-import { PageContext } from '@ima/react-page-renderer';
-import { PureComponent } from 'react';
+import { useComponentUtils } from '@ima/react-page-renderer';
+import { memo } from 'react';
 
-/**
- * Base headline
- *
- * @namespace ima.ui.atom.headline
- * @module ima.ui.atom
- */
-export default class Headline extends PureComponent {
-  static get contextType() {
-    return PageContext;
-  }
+export function headlineFactory(factoryType) {
+  return memo(function HeadlineComponent({
+    children,
+    html,
+    className,
+    type,
+    ...rest
+  }) {
+    const { $CssClasses } = useComponentUtils();
+    const Type = factoryType ?? type;
 
-  static get defaultProps() {
-    return {
-      id: null,
-      className: '',
-      html: null,
-      mode: null,
-      type: 'h1',
-      style: null,
-      'data-e2e': null,
-    };
-  }
-
-  render() {
-    let headline = null;
-    let { type: Type, id, mode, html, className, children, style } = this.props;
-    let helper = this.context.$Utils.$UIComponentHelper;
-    let computedClassName = helper.cssClasses(
+    const headlineClassName = $CssClasses(
       {
-        ['atm-headline']: true,
-        ['atm-' + mode]: mode,
-        ['atm-' + Type]: Type,
+        'atm-headline': true,
+        ['atm-headline-' + Type]: true,
       },
       className
     );
 
     if (children) {
-      headline = (
-        <Type
-          id={id}
-          style={style}
-          className={computedClassName}
-          {...helper.getEventProps(this.props)}
-          {...helper.getDataProps(this.props)}
-          {...helper.getAriaProps(this.props)}
-        >
+      return (
+        <Type {...rest} className={headlineClassName}>
           {children}
         </Type>
       );
     } else {
-      headline = (
+      return (
         <Type
-          id={id}
-          style={style}
-          className={computedClassName}
-          {...helper.getEventProps(this.props)}
-          {...helper.getDataProps(this.props)}
-          {...helper.getAriaProps(this.props)}
+          {...rest}
+          className={headlineClassName}
           dangerouslySetInnerHTML={{ __html: html }}
         />
       );
     }
-
-    return headline;
-  }
+  });
 }
+
+export const Headline = headlineFactory();
+export const Headline1 = headlineFactory('h1');
+export const Headline2 = headlineFactory('h2');
+export const Headline3 = headlineFactory('h3');
+export const Headline4 = headlineFactory('h4');
+export const Headline5 = headlineFactory('h5');
+export const Headline6 = headlineFactory('h6');

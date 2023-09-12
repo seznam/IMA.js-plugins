@@ -67,6 +67,6 @@
     "stylelint-declaration-block-no-ignored-properties": "^2.7.0",
     "stylelint-order": "^6.0.3",
     "to-mock": "^1.6.2",
-    "typescript": "^5.0.4"
+    "typescript": "^5.2.2"
   }
 }

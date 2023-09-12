@@ -1,43 +1,70 @@
-import { PageContext } from '@ima/react-page-renderer';
-import { PureComponent } from 'react';
+import { useComponentUtils } from '@ima/react-page-renderer';
+import { memo } from 'react';
 
-import AmpImage from './AmpImage';
-import HtmlImage from './HtmlImage';
+const IMAGE_LAYOUT = {
+  RESPONSIVE: 'responsive',
+  FILL: 'fill',
+};
 
-/**
- * Common image
- *
- * @namespace ima.ui.atom.image
- * @module ima.ui.atom
- */
+export const Image = memo(function ImageComponent({
+  src,
+  layout, // keep for compatability
+  className,
+  width,
+  height,
+  loading,
+  decoding,
+  style,
+  placeholder,
+  ...rest
+}) {
+  const { $CssClasses, $UIComponentHelper } = useComponentUtils();
+  style = style ?? {};
 
-export default class Image extends PureComponent {
-  static get contextType() {
-    return PageContext;
+  if (layout === IMAGE_LAYOUT.RESPONSIVE) {
+    style = Object.assign(
+      style,
+      {
+        width: '100%',
+        height: 'auto',
+      },
+      style
+    );
   }
 
-  static get defaultProps() {
-    return {
-      src: null,
-      srcSet: null,
-      sizes: null,
-      width: null,
-      height: null,
-      alt: null,
-      className: '',
-      'data-e2e': null,
-      layout: null,
-      noloading: false,
-      extendedPadding: 0,
-      cover: false,
-    };
+  // TODO DOC parent element must set at least position: relative;
+  if (layout === IMAGE_LAYOUT.FILL) {
+    style = Object.assign(
+      style,
+      {
+        position: 'absolute',
+        height: '100%',
+        width: '100%',
+        inset: '0',
+        objectFit: 'cover',
+      },
+      style
+    );
   }
 
-  render() {
-    if (this.context.$Utils.$UIComponentHelper.isAmp()) {
-      return <AmpImage {...this.props} />;
-    } else {
-      return <HtmlImage {...this.props} />;
-    }
-  }
-}
+  return (
+    <>
+      <img
+        {...rest}
+        src={$UIComponentHelper.sanitizeUrl(src)}
+        width={width}
+        height={height}
+        loading={loading ?? 'lazy'}
+        decoding={decoding ?? 'async'}
+        style={style}
+        className={$CssClasses(
+          {
+            'atm-image': true,
+            'atm-placeholder': placeholder !== false,
+          },
+          className
+        )}
+      />
+    </>
+  );
+});
