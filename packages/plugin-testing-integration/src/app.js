@@ -153,7 +153,11 @@ async function initImaApp(bootConfigMethods = {}) {
         results.push(bootConfigMethods[method](...args) || {});
       }
 
-      return assignRecursively({}, ...results);
+      if (method === 'initSettings') {
+        return assignRecursively({}, ...results);
+      }
+
+      return null;
     };
   }
 
