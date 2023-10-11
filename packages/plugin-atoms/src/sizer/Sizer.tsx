@@ -1,13 +1,18 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
-import { memo } from 'react';
+import { ComponentPropsWithoutRef, memo } from 'react';
 
 export const Sizer = memo(function SizerComponent({
   className,
   height,
   width,
-  placeholder,
+  placeholder = false,
   ...rest
-}) {
+}: {
+  className?: string;
+  height: number;
+  width: number;
+  placeholder?: boolean;
+} & Omit<ComponentPropsWithoutRef<'div'>, 'placeholder'>) {
   const { $CssClasses } = useComponentUtils();
   const sizerClassName = $CssClasses(
     {

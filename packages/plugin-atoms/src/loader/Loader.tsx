@@ -1,5 +1,11 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
-import { useEffect, useRef, useState, memo } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  memo,
+  ComponentPropsWithoutRef,
+} from 'react';
 
 export const Loader = memo(function LoaderComponent({
   timeout,
@@ -8,11 +14,17 @@ export const Loader = memo(function LoaderComponent({
   color,
   className,
   ...rest
-}) {
+}: {
+  timeout?: number;
+  layout?: 'fill' | 'center';
+  mode?: string;
+  color?: string;
+  className?: string;
+} & ComponentPropsWithoutRef<'div'>) {
   const { $CssClasses } = useComponentUtils();
 
   const [showLoader, setShowLoader] = useState(false);
-  const timer = useRef();
+  const timer = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     if (!timeout) {
@@ -55,3 +67,8 @@ export const Loader = memo(function LoaderComponent({
     </>
   );
 });
+
+type Compo = React.FunctionComponent<any> | React.ComponentClass<any>;
+const X: Compo = ({ Wtf }: { Wtf: Compo }) => <div>asdasd</div>;
+
+<X />;

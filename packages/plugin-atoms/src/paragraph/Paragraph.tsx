@@ -1,14 +1,18 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
-import { memo } from 'react';
+import { ComponentPropsWithoutRef, ReactNode, memo } from 'react';
 
 export const Paragraph = memo(function ParagraphComponent({
   className,
   children,
-  html,
+  html = '',
   ...rest
-}) {
+}: {
+  children?: ReactNode;
+  html?: string | TrustedHTML;
+  className?: string;
+} & ComponentPropsWithoutRef<'p'>) {
   const { $CssClasses } = useComponentUtils();
-  let paragraphClassName = $CssClasses(
+  const paragraphClassName = $CssClasses(
     {
       'atm-paragraph': true,
     },

@@ -1,5 +1,5 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
-import { memo } from 'react';
+import { ComponentPropsWithoutRef, ReactNode, memo } from 'react';
 
 export const Link = memo(function LinkComponent({
   href,
@@ -7,7 +7,12 @@ export const Link = memo(function LinkComponent({
   text,
   className,
   ...rest
-}) {
+}: {
+  href: string;
+  children?: ReactNode;
+  text?: string;
+  className?: string;
+} & ComponentPropsWithoutRef<'a'>) {
   const { $CssClasses, $UIComponentHelper } = useComponentUtils();
   const linkClassName = $CssClasses(
     {
