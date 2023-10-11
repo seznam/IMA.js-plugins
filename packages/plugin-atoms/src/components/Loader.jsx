@@ -3,8 +3,7 @@ import { useEffect, useRef, useState, memo } from 'react';
 
 export const Loader = memo(function LoaderComponent({
   timeout,
-  layout,
-  mode,
+  center,
   color,
   className,
   ...rest
@@ -38,8 +37,7 @@ export const Loader = memo(function LoaderComponent({
           className={$CssClasses(
             {
               'atm-loader': true,
-              ['atm-loader-' + mode]: mode,
-              ['atm-loader-' + layout]: layout,
+              ['atm-loader-center']: center,
             },
             className
           )}

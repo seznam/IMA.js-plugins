@@ -1,3 +1,4 @@
+import * as hooks from '@ima/react-page-renderer';
 import classnames from 'classnames';
 import { shallow } from 'enzyme';
 import { Infinite } from 'infinite-circle';
@@ -9,7 +10,14 @@ import dummyWindow from '../../__tests__/mocks/window';
 import ComponentPositions from '../../ComponentPositions';
 import UIComponentHelper from '../../UIComponentHelper';
 import Visibility from '../../Visibility';
-import Sizer from '../Sizer';
+import { Sizer } from '../Sizer';
+
+jest.mock('@ima/react-page-renderer', () => {
+  return {
+    __esModule: true,
+    ...jest.requireActual('@ima/react-page-renderer'),
+  };
+});
 
 describe('Sizer component', () => {
   let wrapper = null;
@@ -27,11 +35,14 @@ describe('Sizer component', () => {
   let context = {
     $Utils: {
       $UIComponentHelper: uiComponentHelper,
+      $CssClasses: classnames,
     },
   };
 
   beforeEach(() => {
     const Component = withContext(Sizer, context);
+
+    jest.spyOn(hooks, 'useComponentUtils').mockReturnValue(context.$Utils);
 
     wrapper = shallow(<Component />, { context });
   });

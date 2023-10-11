@@ -1,14 +1,11 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
 import { memo } from 'react';
 
-const IMAGE_LAYOUT = {
-  RESPONSIVE: 'responsive',
-  FILL: 'fill',
-};
+import { LAYOUT } from './layout';
 
 export const Image = memo(function ImageComponent({
   src,
-  layout, // keep for compatability
+  layout,
   className,
   width,
   height,
@@ -21,7 +18,7 @@ export const Image = memo(function ImageComponent({
   const { $CssClasses, $UIComponentHelper } = useComponentUtils();
   style = style ?? {};
 
-  if (layout === IMAGE_LAYOUT.RESPONSIVE) {
+  if (layout === LAYOUT.RESPONSIVE) {
     style = Object.assign(
       style,
       {
@@ -32,8 +29,7 @@ export const Image = memo(function ImageComponent({
     );
   }
 
-  // TODO DOC parent element must set at least position: relative;
-  if (layout === IMAGE_LAYOUT.FILL) {
+  if (layout === LAYOUT.FILL) {
     style = Object.assign(
       style,
       {
@@ -60,6 +56,8 @@ export const Image = memo(function ImageComponent({
         className={$CssClasses(
           {
             'atm-image': true,
+            // 'atm-layout-fill': layout === LAYOUT.FILL,
+            // 'atm-layout-responsive': layout === LAYOUT.RESPONSIVE,
             'atm-placeholder': placeholder !== false,
           },
           className

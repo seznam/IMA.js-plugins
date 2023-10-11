@@ -4,21 +4,24 @@ import { Infinite, Circle, uuid } from 'infinite-circle';
 
 import ComponentPositions from './ComponentPositions';
 import {
+  Headline,
   Headline1,
   Headline2,
   Headline3,
   Headline4,
   Headline5,
   Headline6,
-} from './headline/Headline';
-import { Iframe } from './iframe/Iframe';
-import { Image } from './image/Image';
-import { Link } from './link/Link';
-import { List, OrderedList, UnorderedList } from './list/List';
-import { ListItem } from './list/ListItem';
-import { Loader } from './loader/Loader';
-import { Paragraph } from './paragraph/Paragraph';
-import { Sizer } from './sizer/Sizer';
+} from './components/Headline';
+import { Iframe } from './components/Iframe';
+//import { IframeDeprectecated } from './components/IframeDeprectecated';
+import { Image } from './components/Image';
+import { LAYOUT } from './components/layout';
+import { Link } from './components/Link';
+import { List, OrderedList, UnorderedList } from './components/List';
+import { ListItem } from './components/ListItem';
+import { Loader } from './components/Loader';
+import { Paragraph } from './components/Paragraph';
+import { Sizer } from './components/Sizer';
 import UIComponentHelper from './UIComponentHelper';
 import Visibility from './Visibility';
 
@@ -53,10 +56,6 @@ declare module '@ima/core' {
 const defaultDependencies = ['$Router', ComponentPositions, Visibility];
 
 pluginLoader.register('@ima/plugin-atoms', ns => {
-  // TODO DOC removed ns.namespace(ima.ui.atom);
-  // TODO DOC removed mode, layout, atd props in component (except Loader)
-  // TODO DOC removed Headline generic component (only h1, h2, etc are exported)
-  // TODO DOC css class atm-h1 => atm-headline-h1, etc
   return {
     initBind: (ns, oc) => {
       oc.inject(Infinite, []);
@@ -97,6 +96,7 @@ export {
   Visibility,
   ComponentPositions,
   defaultDependencies,
+  Headline,
   Headline1,
   Headline2,
   Headline3,
@@ -110,6 +110,7 @@ export {
   Headline5 as H5,
   Headline6 as H6,
   Iframe,
+  //IframeDeprectecated,
   Image,
   Image as Img,
   Link,
@@ -125,6 +126,7 @@ export {
   Paragraph,
   Paragraph as P,
   Sizer,
+  LAYOUT,
   Circle,
   Infinite,
   uuid,
