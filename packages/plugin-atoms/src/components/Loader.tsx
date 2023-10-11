@@ -1,5 +1,5 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
-import React, {
+import {
   useEffect,
   useRef,
   useState,
@@ -9,15 +9,13 @@ import React, {
 
 export const Loader = memo(function LoaderComponent({
   timeout,
-  layout,
-  mode,
+  center,
   color,
   className,
   ...rest
 }: {
   timeout?: number;
-  layout?: 'fill' | 'center';
-  mode?: string;
+  center?: boolean;
   color?: string;
   className?: string;
 } & ComponentPropsWithoutRef<'div'>) {
@@ -50,8 +48,7 @@ export const Loader = memo(function LoaderComponent({
           className={$CssClasses(
             {
               'atm-loader': true,
-              ['atm-loader-' + mode]: mode,
-              ['atm-loader-' + layout]: layout,
+              ['atm-loader-center']: center,
             },
             className
           )}
@@ -67,8 +64,3 @@ export const Loader = memo(function LoaderComponent({
     </>
   );
 });
-
-type Compo = React.FunctionComponent<any> | React.ComponentClass<any>;
-const X: Compo = ({ Wtf }: { Wtf: Compo }) => <div>asdasd</div>;
-
-<X />;

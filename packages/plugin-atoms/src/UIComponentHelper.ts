@@ -12,7 +12,7 @@ export type VisibilityOptions = {
   height?: number;
   extendedPadding?: number;
   useIntersectionObserver: boolean;
-  threshold: number[];
+  threshold?: number[];
 };
 
 /**

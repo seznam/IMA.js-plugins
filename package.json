@@ -60,7 +60,7 @@
     "prettier": "^2.8.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "shallow-with-context": "^0.5.1",
+    "shallow-with-context": "^0.6.0",
     "stylelint": "^15.6.2",
     "stylelint-config-css-modules": "^4.2.0",
     "stylelint-config-standard": "^33.0.0",

@@ -1,6 +1,8 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
 import { CSSProperties, ComponentPropsWithoutRef, memo } from 'react';
 
+import { LAYOUT } from './layout';
+
 export const Image = memo(function ImageComponent({
   src,
   layout, // keep for compatability
@@ -15,7 +17,7 @@ export const Image = memo(function ImageComponent({
 }: {
   src: string;
   /** Responsive image layout requires parent element to be atleast position: relative */
-  layout?: 'responsive' | 'fill';
+  layout?: LAYOUT;
   className?: string;
   width?: string | number;
   height?: string | number;
@@ -27,7 +29,7 @@ export const Image = memo(function ImageComponent({
   const { $CssClasses, $UIComponentHelper } = useComponentUtils();
   let imgStyle: CSSProperties = { ...style };
 
-  if (layout === 'responsive') {
+  if (layout === LAYOUT.RESPONSIVE) {
     imgStyle = Object.assign(
       imgStyle,
       {
@@ -38,8 +40,7 @@ export const Image = memo(function ImageComponent({
     );
   }
 
-  // TODO DOC parent element must set at least position: relative;
-  if (layout === 'fill') {
+  if (layout === LAYOUT.FILL) {
     imgStyle = Object.assign(
       imgStyle,
       {
