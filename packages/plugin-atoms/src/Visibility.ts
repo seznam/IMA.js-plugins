@@ -21,24 +21,24 @@ type NotifyCallback = (payload: NotifyPayload) => void;
 export default class Visibility {
   static $dependencies: Dependencies = ['$Window', '$Dispatcher'];
 
-  private window: ClientWindow;
-  private dispatcher: Dispatcher;
-  private afterHandleRouteCalled = false;
+  private _window: ClientWindow;
+  private _dispatcher: Dispatcher;
+  private _afterHandleRouteCalled = false;
   circle: Circle;
 
   constructor(window: ClientWindow, dispatcher: Dispatcher) {
-    this.window = window;
-    this.dispatcher = dispatcher;
-    this.circle = this.createVisibilityCircle();
+    this._window = window;
+    this._dispatcher = dispatcher;
+    this.circle = this._createVisibilityCircle();
   }
 
   /**
    * Create visibility circle.
    */
-  private createVisibilityCircle() {
+  private _createVisibilityCircle() {
     return new Circle({
-      listen: (notify: any) => this.listenOnEvents(notify),
-      unlisten: (notify: any) => this.unlistenOnEvents(notify),
+      listen: (notify: any) => this._listenOnEvents(notify),
+      unlisten: (notify: any) => this._unlistenOnEvents(notify),
     });
   }
 
@@ -56,7 +56,7 @@ export default class Visibility {
       meta: { interval: meta.visibilityInterval },
     });
 
-    if (this.afterHandleRouteCalled) {
+    if (this._afterHandleRouteCalled) {
       this.notify({ id });
     }
 
@@ -80,7 +80,7 @@ export default class Visibility {
     interval: number,
     context: any
   ) {
-    const window = this.window.getWindow();
+    const window = this._window.getWindow();
     interval = interval || 0;
     let callTime = 0;
     let lastArguments: any = null;
@@ -89,7 +89,7 @@ export default class Visibility {
       eventHandler = eventHandler.bind(context);
     }
 
-    if (!this.window.isClient()) {
+    if (!this._window.isClient()) {
       return eventHandler;
     }
 
@@ -122,51 +122,59 @@ export default class Visibility {
   /**
    * The visibility helper start checking visibility of registered entries.
    */
-  private listenOnEvents(notify: NotifyCallback) {
-    this.dispatcher.listen(
+  private _listenOnEvents(notify: NotifyCallback) {
+    this._dispatcher.listen(
       RouterEvents.BEFORE_HANDLE_ROUTE,
-      this.beforeHandleRoute,
+      this._beforeHandleRoute,
       this
     );
-    this.dispatcher.listen(
+    this._dispatcher.listen(
       RouterEvents.AFTER_HANDLE_ROUTE,
-      this.afterHandleRoute,
+      this._afterHandleRoute,
       this
     );
-    this.window.bindEventListener(this.window.getWindow(), 'resize', notify);
-    this.window.bindEventListener(this.window.getWindow(), 'scroll', notify);
+    this._window.bindEventListener(this._window.getWindow(), 'resize', notify);
+    this._window.bindEventListener(this._window.getWindow(), 'scroll', notify);
   }
 
   /**
    * The visibility helper stop checking visibility of registered entries.
    */
-  private unlistenOnEvents(notify: NotifyCallback) {
-    this.dispatcher.unlisten(
+  private _unlistenOnEvents(notify: NotifyCallback) {
+    this._dispatcher.unlisten(
       RouterEvents.BEFORE_HANDLE_ROUTE,
-      this.beforeHandleRoute,
+      this._beforeHandleRoute,
       this
     );
-    this.dispatcher.unlisten(
+    this._dispatcher.unlisten(
       RouterEvents.AFTER_HANDLE_ROUTE,
-      this.afterHandleRoute,
+      this._afterHandleRoute,
       this
     );
-    this.window.unbindEventListener(this.window.getWindow(), 'resize', notify);
-    this.window.unbindEventListener(this.window.getWindow(), 'scroll', notify);
+    this._window.unbindEventListener(
+      this._window.getWindow(),
+      'resize',
+      notify
+    );
+    this._window.unbindEventListener(
+      this._window.getWindow(),
+      'scroll',
+      notify
+    );
   }
 
   /**
    * The method resets `afterHandleRoute` marker.
    */
-  private beforeHandleRoute() {
-    this.afterHandleRouteCalled = false;
+  private _beforeHandleRoute() {
+    this._afterHandleRouteCalled = false;
   }
 
   /**
    * The method normalize routeInfo to {@notifyPayload}.
    */
-  private afterHandleRoute(routeInfo: any) {
-    this.afterHandleRouteCalled = true;
+  private _afterHandleRoute(routeInfo: any) {
+    this._afterHandleRouteCalled = true;
 
     const payload = Object.assign(
       { type: RouterEvents.AFTER_HANDLE_ROUTE },

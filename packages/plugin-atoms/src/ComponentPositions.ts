@@ -1,7 +1,6 @@
 /* eslint-disable jsdoc/require-returns */
 /* eslint-disable jsdoc/require-param */
 import { ClientWindow, Dependencies } from '@ima/core';
-import { UserAgent } from '@ima/plugin-useragent';
 
 export type VisibilityRect = {
   top: number;
@@ -14,18 +13,15 @@ export type VisibilityRect = {
  * Component positions helper.
  */
 export default class ComponentPositions {
-  static $dependencies: Dependencies = ['$Window', UserAgent];
+  static $dependencies: Dependencies = ['$Window'];
 
-  private window: ClientWindow;
-
-  private userAgent: UserAgent;
+  private _window: ClientWindow;
 
   /**
    * Initializes the helper.
    */
-  constructor(window: ClientWindow, userAgent: UserAgent) {
-    this.window = window;
-    this.userAgent = userAgent;
+  constructor(window: ClientWindow) {
+    this._window = window;
   }
 
   /**
@@ -53,7 +49,7 @@ export default class ComponentPositions {
       );
     }
 
-    if (!this.window.isClient()) {
+    if (!this._window.isClient()) {
       return 0;
     }
 
@@ -106,13 +102,13 @@ export default class ComponentPositions {
    * Returns window viewport rect.
    */
   getWindowViewportRect(): VisibilityRect {
-    const win = this.window.getWindow();
+    const win = this._window.getWindow();
     const top = 0;
     const left = 0;
     let width = 0;
     let height = 0;
 
-    if (this.window.isClient()) {
+    if (this._window.isClient()) {
       width = win.innerWidth;
       height = win.innerHeight;
     }

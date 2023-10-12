@@ -28,12 +28,12 @@ export default class UIComponentHelper {
     '$CssClasses'
   ];
 
-  private router: Router;
-  private window: Window;
+  private _router: Router;
+  private _window: Window;
   readonly componentPositions: ComponentPositions;
   readonly visibility: Visibility;
   readonly infinite: Infinite;
-  private cssClassNameProcessor: (...args: any[]) => string; // TODO
+  private _cssClassNameProcessor: (...args: any[]) => string; // TODO
 
   /**
    * Initializes the helper.
@@ -46,12 +46,12 @@ export default class UIComponentHelper {
     infinite: Infinite,
     cssClassNameProcessor: (...args: any[]) => string // TODO
   ) {
-    this.router = router;
-    this.window = window;
+    this._router = router;
+    this._window = window;
     this.componentPositions = componentPositions;
     this.visibility = visibility;
     this.infinite = infinite;
-    this.cssClassNameProcessor = cssClassNameProcessor;
+    this._cssClassNameProcessor = cssClassNameProcessor;
   }
 
   /**
@@ -88,22 +88,22 @@ export default class UIComponentHelper {
    * object that resolve to true.
    */
   cssClasses(...classRuleGroups: (string | Record<string, boolean>)[]) {
-    return this.cssClassNameProcessor(...classRuleGroups);
+    return this._cssClassNameProcessor(...classRuleGroups);
   }
 
   getVisibilityReader(element: HTMLElement, options: VisibilityOptions) {
     if (
       options.useIntersectionObserver &&
       // @ts-expect-error
-      this.window.getWindow()?.IntersectionObserver
+      this._window.getWindow()?.IntersectionObserver
     ) {
-      return this.getObserableReader(element, options);
+      return this._getObserableReader(element, options);
     } else {
-      return this.getReader(element, options);
+      return this._getReader(element, options);
     }
   }
 
-  private getReader(element: HTMLElement, options: VisibilityOptions) {
+  private _getReader(element: HTMLElement, options: VisibilityOptions) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
 
@@ -118,7 +118,10 @@ export default class UIComponentHelper {
     };
   }
 
-  private getObserableReader(element: HTMLElement, options: VisibilityOptions) {
+  private _getObserableReader(
+    element: HTMLElement,
+    options: VisibilityOptions
+  ) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const self = this;
     const observerConfig = {
@@ -137,7 +140,7 @@ export default class UIComponentHelper {
     return function readVisibility() {
       if (!isFirstPositionCalculated) {
         isFirstPositionCalculated = true;
-        return { visibility: self.getReader(element, options)(), observer };
+        return { visibility: self._getReader(element, options)(), observer };
       }
 
       return { intersectionObserverEntry, observer };
