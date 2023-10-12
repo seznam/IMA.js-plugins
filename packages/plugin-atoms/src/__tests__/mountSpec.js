@@ -3,6 +3,8 @@ import classnames from 'classnames';
 import { mount } from 'enzyme';
 import { Infinite } from 'infinite-circle';
 import { JSDOM } from 'jsdom';
+// eslint-disable-next-line no-unused-vars
+import { useState } from 'react';
 import { toMockedInstance } from 'to-mock';
 
 import _router from './mocks/router';
@@ -13,6 +15,11 @@ import * as UIAtoms from '../main';
 import UIComponentHelper from '../UIComponentHelper';
 // eslint-disable-next-line import/order
 import Visibility from '../Visibility';
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: () => [true, () => {}],
+}));
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
 const { window } = jsdom;

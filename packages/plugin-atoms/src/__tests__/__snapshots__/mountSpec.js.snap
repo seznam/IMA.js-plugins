@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UIAtoms mount rendering should render atoms without noscript tag:  should render Iframe without noscript tag 1`] = `"<iframe src="example.html" name="example.html" loading="lazy" class="atm-iframe atm-placeholder"></iframe>"`;
+exports[`UIAtoms mount rendering should render atoms without noscript tag:  should render Iframe without noscript tag 1`] = `"<div class="atm-iframe atm-overflow" style="width: auto; height: auto;"><iframe src="example.html" name="example.html" loading="lazy" class="atm-fill"></iframe></div>"`;
 
 exports[`UIAtoms mount rendering should render atoms without noscript tag:  should render Image without noscript tag 1`] = `"<img src="example.jpg" loading="lazy" decoding="async" class="atm-image atm-placeholder">"`;
