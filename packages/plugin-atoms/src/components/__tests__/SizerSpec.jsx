@@ -40,7 +40,6 @@ describe('Sizer component', () => {
   };
 
   beforeEach(() => {
-    Sizer.WrappedComponent = true;
     const Component = withContext(Sizer, context);
 
     jest.spyOn(hooks, 'useComponentUtils').mockReturnValue(context.$Utils);
