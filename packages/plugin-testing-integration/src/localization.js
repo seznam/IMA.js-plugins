@@ -1,5 +1,6 @@
 import path from 'path';
 
+import { assignRecursively } from '@ima/helpers';
 import MessageFormat from '@messageformat/core';
 import globby from 'globby';
 
@@ -19,6 +20,7 @@ function generateDictionary(languages, locale = 'en') {
   const mf = new MessageFormat(locale);
   const dictionaries = {};
   const langFileGlobs = languages[locale];
+
   globby.sync(langFileGlobs).forEach(file => {
     try {
       const filename = path
@@ -27,7 +29,10 @@ function generateDictionary(languages, locale = 'en') {
 
       const dictJson = requireFromProject(file);
 
-      dictionaries[filename] = _deepMapValues(dictJson, mf.compile.bind(mf));
+      dictionaries[filename] = assignRecursively(
+        dictionaries[filename] ?? {},
+        _deepMapValues(dictJson, mf.compile.bind(mf))
+      );
     } catch (e) {
       console.error(
         `Tried to load dictionary JSON at path "${file}", but recieved following error.`
@@ -35,6 +40,7 @@ function generateDictionary(languages, locale = 'en') {
       console.error(e);
     }
   });
+
   return dictionaries;
 }
 
@@ -48,6 +54,9 @@ function generateDictionary(languages, locale = 'en') {
 function _deepMapValues(obj, fn) {
   if (Array.isArray(obj)) {
     return obj.map(val => _deepMapValues(val, fn));
+  } else if (typeof obj === 'function') {
+    // Skip already mapped values
+    return obj;
   } else if (typeof obj === 'object' && obj !== null) {
     return Object.keys(obj).reduce((acc, current) => {
       acc[current] = _deepMapValues(obj[current], fn);
