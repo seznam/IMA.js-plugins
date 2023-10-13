@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.1.2
+
+### Patch Changes
+
+- 245018b: Adds support for deep merging of locale files which was recently introduced in @ima/cli
+
 ## 5.1.1
 
 ### Patch Changes
