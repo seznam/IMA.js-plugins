@@ -12,6 +12,9 @@ const mockDictFiles = {
     keyA: 'baz',
     keyB: 'quux',
   },
+  'thisComponentCS.JSON': {
+    keyA: 'overwritten',
+  },
 };
 
 jest.mock('globby', () => ({
@@ -28,6 +31,7 @@ const expectedDictionary = {
   thisComponent: {
     keyOne: expect.anything(),
     keyTwo: expect.anything(),
+    keyA: expect.anything(),
   },
   that_component: {
     keyA: expect.anything(),
@@ -46,7 +50,7 @@ describe('Localization', () => {
       const dict = generateDictionary(languages, locale);
 
       expect(mockGlobby.sync).toHaveBeenCalledWith(['./some/path/*CS.JSON']);
-      expect(mockRequireFromProject).toHaveBeenCalledTimes(2);
+      expect(mockRequireFromProject).toHaveBeenCalledTimes(3);
       expect(mockRequireFromProject).toHaveBeenNthCalledWith(
         1,
         'thisComponentCS.json'
