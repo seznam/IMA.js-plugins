@@ -6,9 +6,12 @@ import {
   useState,
   ComponentPropsWithoutRef,
 } from 'react';
+import type { ValueOf } from 'type-fest';
 
-import { LAYOUT } from './layout';
+import { LAYOUT, LOADING } from './constants';
 import { Sizer } from './Sizer';
+
+const MIN_EXTENDED_PADDING = 500;
 
 export const Iframe = memo(function IframeComponent({
   name,
@@ -17,20 +20,22 @@ export const Iframe = memo(function IframeComponent({
   className,
   width,
   height,
-  loading = 'lazy',
+  loading = LOADING.LAZY,
   placeholder,
   ...rest
 }: {
   name?: string;
   src: string;
-  layout?: LAYOUT;
+  layout?: ValueOf<typeof LAYOUT>;
   className?: string;
   width: number;
   height: number;
-  loading?: 'eager' | 'lazy';
+  loading?: ValueOf<typeof LOADING>;
   placeholder?: boolean;
-} & Omit<ComponentPropsWithoutRef<'iframe'>, 'placeholder'>) {
-  const [visibleInViewport, setVisibleInViewport] = useState(false);
+} & ComponentPropsWithoutRef<'iframe'>) {
+  const [visibleInViewport, setVisibleInViewport] = useState(
+    loading === LOADING.EAGER
+  );
   const rootElement = useRef<HTMLDivElement>(null);
   const { $CssClasses, $UIComponentHelper } = useComponentUtils();
 
@@ -41,7 +46,7 @@ export const Iframe = memo(function IframeComponent({
 
     const extendedPadding = Math.max(
       $UIComponentHelper.componentPositions.getWindowViewportRect().height / 2,
-      500
+      MIN_EXTENDED_PADDING
     );
 
     const registeredVisibilityId = $UIComponentHelper.visibility.register(
@@ -77,7 +82,7 @@ export const Iframe = memo(function IframeComponent({
           'atm-overflow': true,
           'atm-responsive': layout === LAYOUT.RESPONSIVE,
           'atm-fill': layout === LAYOUT.FILL,
-          'atm-placeholder': !visibleInViewport,
+          'atm-placeholder': !visibleInViewport && placeholder,
         },
         className
       )}
@@ -100,11 +105,24 @@ export const Iframe = memo(function IframeComponent({
           name={name ?? src}
           width={width}
           height={height}
-          loading={loading}
           className={$CssClasses({
             'atm-fill': true,
-            //'atm-placeholder': placeholder !== false,
           })}
+        />
+      )}
+      {!visibleInViewport && (
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html: `<iframe src="${$UIComponentHelper.sanitizeUrl(
+              src
+            )}" name="${name ?? src}" width="${width || 'auto'}" height="${
+              height || 'auto'
+            }" class="${$CssClasses(
+              'atm-fill'
+            )}" ${$UIComponentHelper.serializeObjectToNoScript(
+              rest
+            )}></iframe>`,
+          }}
         />
       )}
     </div>

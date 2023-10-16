@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-returns */
 /* eslint-disable jsdoc/require-param */
-import { Router, Window } from '@ima/core';
+import { Router, Window, Dependencies } from '@ima/core';
 // @ts-expect-error
 import { Infinite } from 'infinite-circle';
 
@@ -19,13 +19,13 @@ export type VisibilityOptions = {
  * UI component helper.
  */
 export default class UIComponentHelper {
-  static $dependencies: [
+  static $dependencies: Dependencies = [
     '$Router',
     '$Window',
     ComponentPositions,
     Visibility,
     Infinite,
-    '$CssClasses'
+    '$CssClasses',
   ];
 
   private _router: Router;
@@ -79,7 +79,7 @@ export default class UIComponentHelper {
    */
   serializeObjectToNoScript(object: Record<string, any>) {
     return Object.keys(object).reduce((string, key) => {
-      return string + ` ${key}="${object[key]}"`;
+      return string + ` ${key?.toLowerCase?.()}="${object[key]}"`;
     }, '');
   }
 

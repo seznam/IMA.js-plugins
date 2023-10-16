@@ -132,7 +132,7 @@ export default class ComponentPositions {
    */
   getBoundingClientRect(
     element: HTMLElement,
-    { width = 0, height = 0 }: { width?: number; height?: number },
+    { width = 0, height = 0 }: { width?: number; height?: number } = {},
     extended = 0
   ): VisibilityRect {
     if (!element || typeof element.getBoundingClientRect !== 'function') {

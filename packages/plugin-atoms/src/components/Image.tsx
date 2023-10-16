@@ -1,72 +1,77 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
-import { CSSProperties, ComponentPropsWithoutRef, memo } from 'react';
+import { ComponentPropsWithoutRef, memo } from 'react';
+import type { ValueOf } from 'type-fest';
 
-import { LAYOUT } from './layout';
+import { DECODING, LAYOUT, LOADING } from './constants';
 
 export const Image = memo(function ImageComponent({
   src,
-  layout, // keep for compatability
+  layout,
   className,
-  width,
-  height,
-  loading = 'lazy',
-  decoding = 'async',
-  style = {},
+  //width,
+  //height,
+  loading = LOADING.LAZY,
+  decoding = DECODING.ASYNC,
+  //style = {},
   placeholder = true,
   ...rest
 }: {
   src: string;
-  /** Responsive image layout requires parent element to be atleast position: relative */
-  layout?: LAYOUT;
+  /** Responsive image layout requires parent element to be at least position: relative */
+  layout?: ValueOf<typeof LAYOUT>;
   className?: string;
-  width?: string | number;
-  height?: string | number;
-  loading?: 'eager' | 'lazy';
-  decoding?: 'sync' | 'async' | 'auto';
-  style?: CSSProperties;
+  //width?: string | number;
+  //height?: string | number;
+  //loading?: ValueOf<typeof LOADING>;
+  //decoding?: ValueOf<typeof DECODING>;
+  //style?: CSSProperties;
   placeholder?: boolean;
 } & Omit<ComponentPropsWithoutRef<'img'>, 'placeholder'>) {
   const { $CssClasses, $UIComponentHelper } = useComponentUtils();
-  let imgStyle: CSSProperties = { ...style };
+  // let imgStyle: CSSProperties = { ...style };
 
-  if (layout === LAYOUT.RESPONSIVE) {
-    imgStyle = Object.assign(
-      imgStyle,
-      {
-        width: '100%',
-        height: 'auto',
-      },
-      imgStyle
-    );
-  }
+  // if (layout === LAYOUT.RESPONSIVE) {
+  //   imgStyle = Object.assign(
+  //     imgStyle,
+  //     {
+  //       color: 'transparent',
+  //       width: '100%',
+  //       height: 'auto',
+  //     },
+  //     imgStyle
+  //   );
+  // }
 
-  if (layout === LAYOUT.FILL) {
-    imgStyle = Object.assign(
-      imgStyle,
-      {
-        position: 'absolute',
-        height: '100%',
-        width: '100%',
-        inset: '0',
-        objectFit: 'cover',
-      },
-      imgStyle
-    );
-  }
+  // if (layout === LAYOUT.FILL) {
+  //   imgStyle = Object.assign(
+  //     imgStyle,
+  //     {
+  //       color: 'transparent',
+  //       position: 'absolute',
+  //       height: '100%',
+  //       width: '100%',
+  //       inset: '0',
+  //       objectFit: 'cover',
+  //     },
+  //     imgStyle
+  //   );
+  // }
 
   return (
     <img
       {...rest}
       src={$UIComponentHelper.sanitizeUrl(src)}
-      width={width}
-      height={height}
+      // width={width}
+      // height={height}
       loading={loading}
       decoding={decoding}
-      style={imgStyle}
+      // style={imgStyle}
       className={$CssClasses(
         {
           'atm-image': true,
-          'atm-placeholder': placeholder,
+          'atm-layout-responsive': layout === LAYOUT.RESPONSIVE,
+          'atm-layout-fill': layout === LAYOUT.FILL,
+          'atm-placeholder': placeholder, // @TODO
         },
         className
       )}
