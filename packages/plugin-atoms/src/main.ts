@@ -3,7 +3,7 @@ import { ComponentUtils, pluginLoader } from '@ima/core';
 import { Infinite, Circle, uuid } from 'infinite-circle';
 
 import ComponentPositions from './ComponentPositions';
-import { LAYOUT, DECODING, LOADING } from './components/constants';
+import { LAYOUT, LOADING } from './components/constants';
 import {
   Headline,
   Headline1,
@@ -83,7 +83,6 @@ export {
   Paragraph as P,
   Sizer,
   LAYOUT,
-  DECODING,
   LOADING,
   Circle,
   Infinite,

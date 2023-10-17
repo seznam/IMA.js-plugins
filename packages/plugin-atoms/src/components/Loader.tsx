@@ -16,7 +16,7 @@ export const Loader = memo(function LoaderComponent({
 }: {
   timeout?: number;
   center?: boolean;
-  color?: string;
+  color?: 'black' | 'white';
   className?: string;
 } & ComponentPropsWithoutRef<'div'>) {
   const { $CssClasses } = useComponentUtils();

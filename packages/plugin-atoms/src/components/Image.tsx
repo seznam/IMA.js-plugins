@@ -2,14 +2,14 @@ import { useComponentUtils } from '@ima/react-page-renderer';
 import { ComponentPropsWithoutRef, memo } from 'react';
 import type { ValueOf } from 'type-fest';
 
-import { DECODING, LAYOUT, LOADING } from './constants';
+import { LAYOUT, LOADING } from './constants';
 
 export const Image = memo(function ImageComponent({
   src,
   layout,
   className,
   loading = LOADING.LAZY,
-  decoding = DECODING.ASYNC,
+  decoding = 'async',
   placeholder = true,
   ...rest
 }: {
@@ -18,7 +18,6 @@ export const Image = memo(function ImageComponent({
   layout?: ValueOf<typeof LAYOUT>;
   className?: string;
   loading?: ValueOf<typeof LOADING>;
-  decoding?: ValueOf<typeof DECODING>;
   placeholder?: boolean;
 } & Omit<ComponentPropsWithoutRef<'img'>, 'placeholder'>) {
   const { $CssClasses, $UIComponentHelper } = useComponentUtils();

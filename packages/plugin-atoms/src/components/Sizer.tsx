@@ -14,18 +14,17 @@ export const Sizer = memo(function SizerComponent({
   placeholder?: boolean;
 } & Omit<ComponentPropsWithoutRef<'div'>, 'placeholder'>) {
   const { $CssClasses } = useComponentUtils();
-  const sizerClassName = $CssClasses(
-    {
-      'atm-sizer': true,
-      'atm-placeholder': placeholder,
-    },
-    className
-  );
 
   return (
     <div
       {...rest}
-      className={sizerClassName}
+      className={$CssClasses(
+        {
+          'atm-sizer': true,
+          'atm-placeholder': placeholder,
+        },
+        className
+      )}
       style={{
         paddingTop: (height / width) * 100 + '%',
       }}
