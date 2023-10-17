@@ -7,9 +7,3 @@ export const LOADING = {
   LAZY: 'lazy',
   EAGER: 'eager',
 } as const;
-
-export const DECODING = {
-  SYNC: 'sync',
-  ASYNC: 'async',
-  AUTO: 'auto',
-} as const;
