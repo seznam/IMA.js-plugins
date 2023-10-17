@@ -21,7 +21,7 @@ export const Iframe = memo(function IframeComponent({
   width,
   height,
   loading = LOADING.LAZY,
-  placeholder,
+  placeholder = true,
   ...rest
 }: {
   name?: string;
@@ -32,7 +32,7 @@ export const Iframe = memo(function IframeComponent({
   height: number;
   loading?: ValueOf<typeof LOADING>;
   placeholder?: boolean;
-} & ComponentPropsWithoutRef<'iframe'>) {
+} & Omit<ComponentPropsWithoutRef<'iframe'>, 'placeholder'>) {
   const [visibleInViewport, setVisibleInViewport] = useState(
     loading === LOADING.EAGER
   );
