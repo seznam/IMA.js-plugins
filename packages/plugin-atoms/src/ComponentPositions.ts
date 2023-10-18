@@ -118,7 +118,7 @@ export default class ComponentPositions {
   getWindowScrollPosition() {
     const win = this._window.getWindow();
 
-    return { top: win?.scrollX || 0, left: win?.scrollY || 0 };
+    return { top: win?.scrollY || 0, left: win?.scrollX || 0 };
   }
 
   /**
