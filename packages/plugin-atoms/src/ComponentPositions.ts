@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-returns */
 /* eslint-disable jsdoc/require-param */
-import { ClientWindow, Dependencies } from '@ima/core';
+import { Window, Dependencies } from '@ima/core';
 
 export type VisibilityRect = {
   top: number;
@@ -15,12 +15,12 @@ export type VisibilityRect = {
 export default class ComponentPositions {
   static $dependencies: Dependencies = ['$Window'];
 
-  private _window: ClientWindow;
+  private _window: Window;
 
   /**
    * Initializes the helper.
    */
-  constructor(window: ClientWindow) {
+  constructor(window: Window) {
     this._window = window;
   }
 
@@ -103,27 +103,22 @@ export default class ComponentPositions {
    */
   getWindowViewportRect(): VisibilityRect {
     const win = this._window.getWindow();
-    const top = 0;
-    const left = 0;
-    let width = 0;
-    let height = 0;
 
-    if (this._window.isClient()) {
-      width = win.innerWidth;
-      height = win.innerHeight;
-    }
-
-    return { top, left, width, height };
+    return {
+      top: 0,
+      left: 0,
+      width: win?.innerWidth || 0,
+      height: win?.innerHeight || 0,
+    };
   }
 
   /**
    * Returns window scroll position.
    */
   getWindowScrollPosition() {
-    const left = window.scrollX || 0;
-    const top = window.scrollX || 0;
+    const win = this._window.getWindow();
 
-    return { top, left };
+    return { top: win?.scrollX || 0, left: win?.scrollY || 0 };
   }
 
   /**

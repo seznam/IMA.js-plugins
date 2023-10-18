@@ -1,11 +1,6 @@
 /* eslint-disable jsdoc/require-param */
 /* eslint-disable jsdoc/require-returns */
-import {
-  ClientWindow,
-  Dependencies,
-  Dispatcher,
-  RouterEvents,
-} from '@ima/core';
+import { Window, Dependencies, Dispatcher, RouterEvents } from '@ima/core';
 // @ts-expect-error
 import { Circle } from 'infinite-circle';
 
@@ -21,12 +16,12 @@ type NotifyCallback = (payload: NotifyPayload) => void;
 export default class Visibility {
   static $dependencies: Dependencies = ['$Window', '$Dispatcher'];
 
-  private _window: ClientWindow;
+  private _window: Window;
   private _dispatcher: Dispatcher;
   private _afterHandleRouteCalled = false;
   circle: Circle;
 
-  constructor(window: ClientWindow, dispatcher: Dispatcher) {
+  constructor(window: Window, dispatcher: Dispatcher) {
     this._window = window;
     this._dispatcher = dispatcher;
     this.circle = this._createVisibilityCircle();
@@ -94,7 +89,7 @@ export default class Visibility {
     }
 
     function suspendAction() {
-      if (callTime <= Date.now() || !window.requestAnimationFrame) {
+      if (callTime <= Date.now() || !window?.requestAnimationFrame) {
         callTime = 0;
         eventHandler(...lastArguments);
       } else {
@@ -133,8 +128,8 @@ export default class Visibility {
       this._afterHandleRoute,
       this
     );
-    this._window.bindEventListener(this._window.getWindow(), 'resize', notify);
-    this._window.bindEventListener(this._window.getWindow(), 'scroll', notify);
+    this._window.bindEventListener(this._window.getWindow()!, 'resize', notify);
+    this._window.bindEventListener(this._window.getWindow()!, 'scroll', notify);
   }
 
   /**
@@ -152,12 +147,12 @@ export default class Visibility {
       this
     );
     this._window.unbindEventListener(
-      this._window.getWindow(),
+      this._window.getWindow()!,
       'resize',
       notify
     );
     this._window.unbindEventListener(
-      this._window.getWindow(),
+      this._window.getWindow()!,
       'scroll',
       notify
     );
