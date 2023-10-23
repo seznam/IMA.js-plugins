@@ -16,7 +16,7 @@ The Link, List, ListItem and Paragraph components have removed `mode` property.
 
 The Loader component has removed `mode` and `layout` property. If you need define `small` or other size of Loader use `fontSize` directly in `style` property. For centering Loader in parent element use new `center` prop set to true instead of `layout='center'`.
 
-All components are memoized. So if you pass function as prop use `useCallback` or something similar to pass same reference.
+All components are memoized. So if you pass function as prop use `useCallback` or something similar to pass same reference. All valid props are passed directly to native element as attributes.
 
 All components are not registered to `ima.ui.atom.*` namespace. If you need it in your project you can still do it with `ns.namespace` and `ns.set` methods directly in your project.
 

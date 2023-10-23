@@ -2,7 +2,8 @@ import { useComponentUtils } from '@ima/react-page-renderer';
 import { ComponentPropsWithoutRef, memo } from 'react';
 import type { ValueOf } from 'type-fest';
 
-import { LAYOUT, LOADING } from './constants';
+import { LAYOUT, LOADING, IMAGE_ATTRIBUTES } from './constants';
+import { filterProps } from './filterProps';
 
 export const Image = memo(function ImageComponent({
   src,
@@ -21,10 +22,11 @@ export const Image = memo(function ImageComponent({
   placeholder?: boolean;
 } & Omit<ComponentPropsWithoutRef<'img'>, 'placeholder'>) {
   const { $CssClasses, $UIComponentHelper } = useComponentUtils();
+  const attributes = filterProps(rest, IMAGE_ATTRIBUTES);
 
   return (
     <img
-      {...rest}
+      {...attributes}
       src={$UIComponentHelper.sanitizeUrl(src)}
       loading={loading}
       decoding={decoding}

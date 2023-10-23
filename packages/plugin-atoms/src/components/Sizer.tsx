@@ -1,6 +1,9 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
 import { ComponentPropsWithoutRef, memo } from 'react';
 
+import { DIV_ATTRIBUTES } from './constants';
+import { filterProps } from './filterProps';
+
 export const Sizer = memo(function SizerComponent({
   className,
   height,
@@ -14,10 +17,11 @@ export const Sizer = memo(function SizerComponent({
   placeholder?: boolean;
 } & Omit<ComponentPropsWithoutRef<'div'>, 'placeholder'>) {
   const { $CssClasses } = useComponentUtils();
+  const attributes = filterProps(rest, DIV_ATTRIBUTES);
 
   return (
     <div
-      {...rest}
+      {...attributes}
       className={$CssClasses(
         {
           'atm-sizer': true,

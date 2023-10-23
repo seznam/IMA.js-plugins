@@ -7,6 +7,9 @@ import {
   ComponentPropsWithoutRef,
 } from 'react';
 
+import { DIV_ATTRIBUTES } from './constants';
+import { filterProps } from './filterProps';
+
 export const Loader = memo(function LoaderComponent({
   timeout,
   center,
@@ -23,6 +26,7 @@ export const Loader = memo(function LoaderComponent({
 
   const [showLoader, setShowLoader] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>();
+  const attributes = filterProps(rest, DIV_ATTRIBUTES);
 
   useEffect(() => {
     if (!timeout) {
@@ -44,7 +48,7 @@ export const Loader = memo(function LoaderComponent({
     <>
       {showLoader && (
         <div
-          {...rest}
+          {...attributes}
           className={$CssClasses(
             {
               'atm-loader': true,

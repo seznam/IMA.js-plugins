@@ -1,6 +1,9 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
 import { ComponentPropsWithoutRef, ReactNode, memo } from 'react';
 
+import { LIST_ATTRIBUTES } from './constants';
+import { filterProps } from './filterProps';
+
 export enum ListType {
   UL = 'ul',
   OL = 'ol',
@@ -17,7 +20,6 @@ export function listFactory(Type: ListType = ListType.UL) {
     className?: string;
   } & ComponentPropsWithoutRef<'ul'>) {
     const { $CssClasses } = useComponentUtils();
-
     const listClassName = $CssClasses(
       {
         'atm-list': true,
@@ -25,9 +27,10 @@ export function listFactory(Type: ListType = ListType.UL) {
       },
       className
     );
+    const attributes = filterProps(rest, LIST_ATTRIBUTES);
 
     return (
-      <Type {...rest} className={listClassName}>
+      <Type {...attributes} className={listClassName}>
         {children}
       </Type>
     );

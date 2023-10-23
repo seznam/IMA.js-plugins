@@ -1,6 +1,9 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
 import { ComponentPropsWithoutRef, ReactNode, memo } from 'react';
 
+import { PARAGRAPH_ATTRIBUTES } from './constants';
+import { filterProps } from './filterProps';
+
 export const Paragraph = memo(function ParagraphComponent({
   className,
   children,
@@ -18,17 +21,18 @@ export const Paragraph = memo(function ParagraphComponent({
     },
     className
   );
+  const attributes = filterProps(rest, PARAGRAPH_ATTRIBUTES);
 
   if (children) {
     return (
-      <p {...rest} className={paragraphClassName}>
+      <p {...attributes} className={paragraphClassName}>
         {children}
       </p>
     );
   } else {
     return (
       <p
-        {...rest}
+        {...attributes}
         className={paragraphClassName}
         dangerouslySetInnerHTML={{ __html: html }}
       />

@@ -1,6 +1,9 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
 import { ComponentPropsWithoutRef, ReactNode, memo } from 'react';
 
+import { LINK_ATTRIBUTES } from './constants';
+import { filterProps } from './filterProps';
+
 export const Link = memo(function LinkComponent({
   href,
   children,
@@ -20,10 +23,11 @@ export const Link = memo(function LinkComponent({
     },
     className
   );
+  const attributes = filterProps(rest, LINK_ATTRIBUTES);
 
   return (
     <a
-      {...rest}
+      {...attributes}
       href={$UIComponentHelper.sanitizeUrl(href)}
       className={linkClassName}
     >

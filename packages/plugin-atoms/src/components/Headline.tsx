@@ -1,6 +1,9 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
 import { ComponentPropsWithoutRef, ReactNode, memo } from 'react';
 
+import { HEADLINE_ATTRIBUTES } from './constants';
+import { filterProps } from './filterProps';
+
 export enum HeadlineType {
   H1 = 'h1',
   H2 = 'h2',
@@ -25,6 +28,7 @@ export function headlineFactory(factoryType: HeadlineType | null = null) {
   } & ComponentPropsWithoutRef<'h1'>) {
     const { $CssClasses } = useComponentUtils();
     const Type = factoryType ?? type;
+    const attributes = filterProps(rest, HEADLINE_ATTRIBUTES);
 
     const headlineClassName = $CssClasses(
       {
@@ -36,14 +40,14 @@ export function headlineFactory(factoryType: HeadlineType | null = null) {
 
     if (children) {
       return (
-        <Type {...rest} className={headlineClassName}>
+        <Type {...attributes} className={headlineClassName}>
           {children}
         </Type>
       );
     } else {
       return (
         <Type
-          {...rest}
+          {...attributes}
           className={headlineClassName}
           dangerouslySetInnerHTML={{ __html: html }}
         />

@@ -8,7 +8,8 @@ import {
 } from 'react';
 import type { ValueOf } from 'type-fest';
 
-import { LAYOUT, LOADING } from './constants';
+import { LAYOUT, LOADING, IFRAME_ATTRIBUTES } from './constants';
+import { filterProps } from './filterProps';
 import { Sizer } from './Sizer';
 
 const MIN_EXTENDED_PADDING = 500;
@@ -38,6 +39,7 @@ export const Iframe = memo(function IframeComponent({
   );
   const rootElement = useRef<HTMLDivElement>(null);
   const { $CssClasses, $UIComponentHelper } = useComponentUtils();
+  const attributes = filterProps(rest, IFRAME_ATTRIBUTES);
 
   useEffect(() => {
     if (rootElement.current === null) {
@@ -100,7 +102,7 @@ export const Iframe = memo(function IframeComponent({
       ) : null}
       {visibleInViewport && (
         <iframe
-          {...rest}
+          {...attributes}
           src={$UIComponentHelper.sanitizeUrl(src)}
           name={name ?? src}
           width={width}
@@ -120,7 +122,7 @@ export const Iframe = memo(function IframeComponent({
             }" class="${$CssClasses(
               'atm-fill'
             )}" ${$UIComponentHelper.serializeObjectToNoScript(
-              rest
+              attributes
             )}></iframe>`,
           }}
         />

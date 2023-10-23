@@ -1,6 +1,9 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
 import { ComponentPropsWithoutRef, ReactNode, memo } from 'react';
 
+import { LIST_ITEM_ATTRIBUTES } from './constants';
+import { filterProps } from './filterProps';
+
 export const ListItem = memo(function ListItemComponent({
   children,
   html = '',
@@ -18,17 +21,18 @@ export const ListItem = memo(function ListItemComponent({
     },
     className
   );
+  const attributes = filterProps(rest, LIST_ITEM_ATTRIBUTES);
 
   if (children) {
     return (
-      <li {...rest} className={listItemClassName}>
+      <li {...attributes} className={listItemClassName}>
         {children}
       </li>
     );
   } else {
     return (
       <li
-        {...rest}
+        {...attributes}
         className={listItemClassName}
         dangerouslySetInnerHTML={{ __html: html }}
       />
