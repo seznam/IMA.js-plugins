@@ -1,13 +1,13 @@
 function isListenerAttributes(key: string) {
-  return key.startsWith('on');
+  return key.startsWith('on') && key.length > 2;
 }
 
 function isDataAttributes(key: string) {
-  return key.startsWith('data-');
+  return key.startsWith('data-') && key.length > 5;
 }
 
 function isAriaAttributes(key: string) {
-  return key.startsWith('aria-');
+  return key.startsWith('aria-') && key.length > 5;
 }
 
 export function filterProps(
@@ -17,10 +17,11 @@ export function filterProps(
   return Object.keys(props).reduce((result, key) => {
     const keyLowerCased = key?.toLocaleLowerCase();
     if (
-      attributes.includes(keyLowerCased) ||
-      isListenerAttributes(keyLowerCased) ||
-      isDataAttributes(keyLowerCased) ||
-      isAriaAttributes(keyLowerCased)
+      keyLowerCased &&
+      (attributes.includes(keyLowerCased) ||
+        isListenerAttributes(keyLowerCased) ||
+        isDataAttributes(keyLowerCased) ||
+        isAriaAttributes(keyLowerCased))
     ) {
       result[key] = props[key];
     }
