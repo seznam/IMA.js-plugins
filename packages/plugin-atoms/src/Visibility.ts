@@ -1,76 +1,51 @@
-import { RouterEvents } from '@ima/core';
+/* eslint-disable jsdoc/require-param */
+/* eslint-disable jsdoc/require-returns */
+import { Window, Dependencies, Dispatcher, RouterEvents } from '@ima/core';
+// @ts-expect-error
 import { Circle } from 'infinite-circle';
 
-/**
-  @typedef notifyPayload
-  @type {object}
-  @property {string} type - event type
- /
- 
-/**
- * @callback notifyCallback
- * @param {notifyPayload} payload
- */
+type NotifyPayload = {
+  type: string;
+};
+
+type NotifyCallback = (payload: NotifyPayload) => void;
 
 /**
  * Visibility helper.
  */
 export default class Visibility {
-  /** @type {import('@ima/core').Dependencies} */
-  static get $dependencies() {
-    return ['$Window', '$Dispatcher'];
-  }
+  static $dependencies: Dependencies = ['$Window', '$Dispatcher'];
 
-  constructor(window, dispatcher) {
-    /**
-     * @property _window
-     * @type {import('@ima/core').Window}
-     */
+  private _window: Window;
+  private _dispatcher: Dispatcher;
+  private _afterHandleRouteCalled = false;
+  circle: Circle;
+
+  constructor(window: Window, dispatcher: Dispatcher) {
     this._window = window;
-
-    /**
-     * @property _dispatcher
-     * @type {import('@ima/core').Dispatcher}
-     */
     this._dispatcher = dispatcher;
-
-    /**
-     * @property _afterHandleRouteCalled
-     * @type {boolean}
-     */
-    this._afterHandleRouteCalled = false;
-
-    /**
-     * @property circle
-     * @type {Circle}
-     */
     this.circle = this._createVisibilityCircle();
   }
 
   /**
    * Create visibility circle.
-   *
-   * @returns {Circle} The circle instance
    */
-  _createVisibilityCircle() {
+  private _createVisibilityCircle() {
     return new Circle({
-      listen: notify => this._listenOnEvents(notify),
-      unlisten: notify => this._unlistenOnEvents(notify),
+      listen: (notify: any) => this._listenOnEvents(notify),
+      unlisten: (notify: any) => this._unlistenOnEvents(notify),
     });
   }
 
   /**
    * Register handlers to visibility loop
-   *
-   * @param {Function} reader
-   * @param {Function} writer
-   * @param read
-   * @param write
-   * @param {{ visibilityInterval: number }} meta
-   * @returns {number} The registered id
    */
-  register(read, write, meta = { visibilityInterval: 180 }) {
-    let id = this.circle.register({
+  register(
+    read: (...args: any[]) => any,
+    write: (...args: any[]) => any,
+    meta = { visibilityInterval: 180 }
+  ): number {
+    const id = this.circle.register({
       read,
       write,
       meta: { interval: meta.visibilityInterval },
@@ -85,11 +60,8 @@ export default class Visibility {
 
   /**
    * Unregister handlers from visibility loop
-   *
-   * @param {number} The registered id
-   * @param id
    */
-  unregister(id) {
+  unregister(id: number) {
     this.circle.unregister(id);
   }
 
@@ -97,18 +69,16 @@ export default class Visibility {
    * It cut down calling the event handler for defined interval. The throttle
    * method use requestAnimationFrame function which is called during page
    * scrolling.
-   *
-   * @function throttle
-   * @param {function(...)} eventHandler
-   * @param {number?} interval
-   * @param {object?} context
-   * @returns {function(...)} The throttled event
    */
-  throttle(eventHandler, interval, context) {
-    let win = this._window.getWindow();
+  throttle(
+    eventHandler: (...args: any[]) => any,
+    interval: number,
+    context: any
+  ) {
+    const window = this._window.getWindow();
     interval = interval || 0;
     let callTime = 0;
-    let lastArguments = null;
+    let lastArguments: any = null;
 
     if (context) {
       eventHandler = eventHandler.bind(context);
@@ -119,15 +89,15 @@ export default class Visibility {
     }
 
     function suspendAction() {
-      if (callTime <= Date.now() || !win.requestAnimationFrame) {
+      if (callTime <= Date.now() || !window?.requestAnimationFrame) {
         callTime = 0;
         eventHandler(...lastArguments);
       } else {
-        win.requestAnimationFrame(suspendAction);
+        window.requestAnimationFrame(suspendAction);
       }
     }
 
-    return function throttle(...rest) {
+    return function throttle(...rest: any[]) {
       lastArguments = rest;
 
       if (!callTime) {
@@ -139,21 +109,15 @@ export default class Visibility {
 
   /**
    * The method add circle instance to be running in the next infinite loop.
-   *
-   * @param {notifyPayload}
-   * @param {...any} rest
    */
-  notify(...rest) {
+  notify(...rest: any[]) {
     this.circle.notify(...rest);
   }
 
   /**
    * The visibility helper start checking visibility of registered entries.
-   *
-   * @param {notifyCallback}
-   * @param notify
    */
-  _listenOnEvents(notify) {
+  private _listenOnEvents(notify: NotifyCallback) {
     this._dispatcher.listen(
       RouterEvents.BEFORE_HANDLE_ROUTE,
       this._beforeHandleRoute,
@@ -164,17 +128,14 @@ export default class Visibility {
       this._afterHandleRoute,
       this
     );
-    this._window.bindEventListener(this._window.getWindow(), 'resize', notify);
-    this._window.bindEventListener(this._window.getWindow(), 'scroll', notify);
+    this._window.bindEventListener(this._window.getWindow()!, 'resize', notify);
+    this._window.bindEventListener(this._window.getWindow()!, 'scroll', notify);
   }
 
   /**
    * The visibility helper stop checking visibility of registered entries.
-   *
-   * @param {notifyCallback}
-   * @param notify
    */
-  _unlistenOnEvents(notify) {
+  private _unlistenOnEvents(notify: NotifyCallback) {
     this._dispatcher.unlisten(
       RouterEvents.BEFORE_HANDLE_ROUTE,
       this._beforeHandleRoute,
@@ -186,30 +147,28 @@ export default class Visibility {
       this
     );
     this._window.unbindEventListener(
-      this._window.getWindow(),
+      this._window.getWindow()!,
       'resize',
       notify
     );
     this._window.unbindEventListener(
-      this._window.getWindow(),
+      this._window.getWindow()!,
       'scroll',
       notify
     );
   }
 
   /**
-   * The method resets `_afterHandleRoute` marker.
+   * The method resets `afterHandleRoute` marker.
    */
-  _beforeHandleRoute() {
+  private _beforeHandleRoute() {
     this._afterHandleRouteCalled = false;
   }
 
   /**
    * The method normalize routeInfo to {@notifyPayload}.
-   *
-   * @param {object} routeInfo
    */
-  _afterHandleRoute(routeInfo) {
+  private _afterHandleRoute(routeInfo: any) {
     this._afterHandleRouteCalled = true;
 
     const payload = Object.assign(

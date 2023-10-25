@@ -1,3 +1,4 @@
+/* stylelint-disable function-no-unknown */
 .atm- {
   @keyframes resource-fade-in_opacity-scale {
     from {
@@ -24,27 +25,17 @@
       filter: saturate(100%);
     }
   }
-
+ 
   &overflow {
     position: relative;
 
     overflow: hidden;
   }
-
+  // @keep old iframe 
   &loaded {
     animation: 0.375s cubic-bezier(0.15, 0.555, 0.695, 0.675) resource-fade-in_opacity-scale;
   }
-
-  &blur {
-    filter: blur(20px);
-    transition: visibility 0ms ease 400ms;
-    visibility: hidden;
-  }
-
-  &visibility {
-    visibility: visible;
-  }
-
+ 
   &responsive {
     display: block;
 
@@ -72,8 +63,169 @@
     min-height: 100%;
     max-height: 100%;
   }
+}
 
-  &cover {
-    object-fit: cover;
+.atm-loader {
+  position: relative;
+
+  margin: 0 auto;
+  width: 6.2em;
+  height: 6.2em;
+
+  font-size: 16px;
+  text-align: center;
+
+  transform: translateZ(0);
+}
+
+.atm-loader-animation {
+  position: absolute;
+  left: ~"calc(50% - .5em)";
+  top: ~"calc(50% - .5em)";
+
+  border-radius: 50%;
+  width: 1em;
+  height: 1em;
+
+  animation: 1.1s infinite ease;
+}
+
+.atm-loader-animation-black {
+  animation-name: atmLoader-black;
+}
+
+.atm-loader-animation-white {
+  animation-name: atmLoader-white;
+}
+
+.atm-layout-responsive {
+  width: 100%;
+  height: auto;
+}
+
+.atm-layout-fill {
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  inset: 0;
+}
+
+.atm-image {
+  color: transparent; // not show alt text during lazy loading FF
+}
+
+.loaderAnimation(@loader-color-name, @loader-color) {
+  /* stylelint-disable-next-line string-quotes */
+  @keyframesName: ~'atmLoader-@{loader-color-name}';
+
+  @keyframes @keyframesName {
+    0%,
+    100% {
+      box-shadow:
+        0 -2.6em 0 0 @loader-color,
+        1.8em -1.8em 0 0 fade(@loader-color, 20%),
+        2.5em 0 0 0 fade(@loader-color, 20%),
+        1.75em 1.75em 0 0 fade(@loader-color, 20%),
+        0 2.5em 0 0 fade(@loader-color, 20%),
+        -1.8em 1.8em 0 0 fade(@loader-color, 20%),
+        -2.6em 0 0 0 fade(@loader-color, 50%),
+        -1.8em -1.8em 0 0 fade(@loader-color, 70%);
+    }
+
+    12.5% {
+      box-shadow:
+        0 -2.6em 0 0 fade(@loader-color, 70%),
+        1.8em -1.8em 0 0 @loader-color,
+        2.5em 0 0 0 fade(@loader-color, 20%),
+        1.75em 1.75em 0 0 fade(@loader-color, 20%),
+        0 2.5em 0 0 fade(@loader-color, 20%),
+        -1.8em 1.8em 0 0 fade(@loader-color, 20%),
+        -2.6em 0 0 0 fade(@loader-color, 20%),
+        -1.8em -1.8em 0 0 fade(@loader-color, 50%);
+    }
+
+    25% {
+      box-shadow:
+        0 -2.6em 0 0 fade(@loader-color, 50%),
+        1.8em -1.8em 0 0 fade(@loader-color, 70%),
+        2.5em 0 0 0 @loader-color,
+        1.75em 1.75em 0 0 fade(@loader-color, 20%),
+        0 2.5em 0 0 fade(@loader-color, 20%),
+        -1.8em 1.8em 0 0 fade(@loader-color, 20%),
+        -2.6em 0 0 0 fade(@loader-color, 20%),
+        -1.8em -1.8em 0 0 fade(@loader-color, 20%);
+    }
+
+    37.5% {
+      box-shadow:
+        0 -2.6em 0 0 fade(@loader-color, 20%),
+        1.8em -1.8em 0 0 fade(@loader-color, 50%),
+        2.5em 0 0 0 fade(@loader-color, 70%),
+        1.75em 1.75em 0 0 @loader-color,
+        0 2.5em 0 0 fade(@loader-color, 20%),
+        -1.8em 1.8em 0 0 fade(@loader-color, 20%),
+        -2.6em 0 0 0 fade(@loader-color, 20%),
+        -1.8em -1.8em 0 0 fade(@loader-color, 20%);
+    }
+
+    50% {
+      box-shadow:
+        0 -2.6em 0 0 fade(@loader-color, 20%),
+        1.8em -1.8em 0 0 fade(@loader-color, 20%),
+        2.5em 0 0 0 fade(@loader-color, 50%),
+        1.75em 1.75em 0 0 fade(@loader-color, 70%),
+        0 2.5em 0 0 @loader-color,
+        -1.8em 1.8em 0 0 fade(@loader-color, 20%),
+        -2.6em 0 0 0 fade(@loader-color, 20%),
+        -1.8em -1.8em 0 0 fade(@loader-color, 20%);
+    }
+
+    62.5% {
+      box-shadow:
+        0 -2.6em 0 0 fade(@loader-color, 20%),
+        1.8em -1.8em 0 0 fade(@loader-color, 20%),
+        2.5em 0 0 0 fade(@loader-color, 20%),
+        1.75em 1.75em 0 0 fade(@loader-color, 50%),
+        0 2.5em 0 0 fade(@loader-color, 70%),
+        -1.8em 1.8em 0 0 @loader-color,
+        -2.6em 0 0 0 fade(@loader-color, 20%),
+        -1.8em -1.8em 0 0 fade(@loader-color, 20%);
+    }
+
+    75% {
+      box-shadow:
+        0 -2.6em 0 0 fade(@loader-color, 20%),
+        1.8em -1.8em 0 0 fade(@loader-color, 20%),
+        2.5em 0 0 0 fade(@loader-color, 20%),
+        1.75em 1.75em 0 0 fade(@loader-color, 20%),
+        0 2.5em 0 0 fade(@loader-color, 50%),
+        -1.8em 1.8em 0 0 fade(@loader-color, 70%),
+        -2.6em 0 0 0 @loader-color,
+        -1.8em -1.8em 0 0 fade(@loader-color, 20%);
+    }
+
+    87.5% {
+      box-shadow:
+        0 -2.6em 0 0 fade(@loader-color, 20%),
+        1.8em -1.8em 0 0 fade(@loader-color, 20%),
+        2.5em 0 0 0 fade(@loader-color, 20%),
+        1.75em 1.75em 0 0 fade(@loader-color, 20%),
+        0 2.5em 0 0 fade(@loader-color, 20%),
+        -1.8em 1.8em 0 0 fade(@loader-color, 50%),
+        -2.6em 0 0 0 fade(@loader-color, 70%),
+        -1.8em -1.8em 0 0 @loader-color;
+    }
   }
+}
+
+.loaderAnimation("black", #222);
+.loaderAnimation("white", #f9f9f9);
+
+.atm-loader-center {
+  position: absolute;
+  left: ~"calc(50% - 3.1em)";
+  top: ~"calc(50% - 3.1em)";
 }

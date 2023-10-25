@@ -60,13 +60,14 @@
     "prettier": "^2.8.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "shallow-with-context": "^0.5.1",
+    "shallow-with-context": "^0.6.0",
     "stylelint": "^15.6.2",
     "stylelint-config-css-modules": "^4.2.0",
     "stylelint-config-standard": "^33.0.0",
     "stylelint-declaration-block-no-ignored-properties": "^2.7.0",
     "stylelint-order": "^6.0.3",
     "to-mock": "^1.6.2",
-    "typescript": "^5.0.4"
+    "type-fest": "^4.4.0",
+    "typescript": "^5.2.2"
   }
 }

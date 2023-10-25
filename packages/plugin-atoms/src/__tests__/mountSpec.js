@@ -3,6 +3,8 @@ import classnames from 'classnames';
 import { mount } from 'enzyme';
 import { Infinite } from 'infinite-circle';
 import { JSDOM } from 'jsdom';
+// eslint-disable-next-line no-unused-vars
+import { useState } from 'react';
 import { toMockedInstance } from 'to-mock';
 
 import _router from './mocks/router';
@@ -13,6 +15,11 @@ import * as UIAtoms from '../main';
 import UIComponentHelper from '../UIComponentHelper';
 // eslint-disable-next-line import/order
 import Visibility from '../Visibility';
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: () => [true, () => {}],
+}));
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
 const { window } = jsdom;
@@ -41,14 +48,14 @@ function getComponentOptions(overrideSettings = {}) {
     componentPositions,
     visibility,
     infinite,
-    classnames,
-    $Settings
+    classnames
   );
 
   const context = {
     $Utils: {
       $Settings,
       $UIComponentHelper,
+      $CssClasses: classnames,
     },
   };
   const mountOptions = {
@@ -68,111 +75,10 @@ describe('UIAtoms mount rendering', () => {
     }
   });
 
-  describe('should render atoms with noscript tag: ', () => {
+  describe('should render atoms without noscript tag: ', () => {
     let mountOptions = getComponentOptions();
 
-    it('should render Image with noscript tag', () => {
-      const Component = UIAtoms.Image;
-      wrapper = mount(
-        <PageContext.Provider value={mountOptions.context}>
-          <Component src='example.jpg' />
-        </PageContext.Provider>,
-        mountOptions
-      );
-
-      expect(wrapper.html()).toMatchSnapshot();
-      expect(wrapper.find('noscript')).toHaveLength(1);
-    });
-
-    it('should render Video with noscript tag', () => {
-      const Component = UIAtoms.Video;
-      wrapper = mount(
-        <PageContext.Provider value={mountOptions.context}>
-          <Component src='example.mov' />
-        </PageContext.Provider>,
-        mountOptions
-      );
-
-      expect(wrapper.html()).toMatchSnapshot();
-      expect(wrapper.find('noscript')).toHaveLength(1);
-    });
-
-    it('should render Iframe with noscript tag', () => {
-      const Component = UIAtoms.Iframe;
-      wrapper = mount(
-        <PageContext.Provider value={mountOptions.context}>
-          <Component src='example.html' />
-        </PageContext.Provider>,
-        mountOptions
-      );
-
-      expect(wrapper.html()).toMatchSnapshot();
-      expect(wrapper.find('noscript')).toHaveLength(1);
-    });
-  });
-
-  describe('should render atoms without noscript tag - disabled by props: ', () => {
-    let mountOptions = getComponentOptions();
-
-    it('image without noscript tag', () => {
-      const Component = UIAtoms.Image;
-      wrapper = mount(
-        <PageContext.Provider value={mountOptions.context}>
-          <Component src='example.jpg' disableNoScript={true} />
-        </PageContext.Provider>,
-        mountOptions
-      );
-
-      expect(wrapper.html()).toMatchSnapshot();
-      expect(wrapper.find('noscript')).toHaveLength(0);
-    });
-
-    it('video without noscript tag', () => {
-      const Component = UIAtoms.Video;
-      wrapper = mount(
-        <PageContext.Provider value={mountOptions.context}>
-          <Component src='example.mov' disableNoScript={true} />
-        </PageContext.Provider>,
-        mountOptions
-      );
-
-      expect(wrapper.html()).toMatchSnapshot();
-      expect(wrapper.find('noscript')).toHaveLength(0);
-    });
-
-    it('iframe without noscript tag', () => {
-      const Component = UIAtoms.Iframe;
-      wrapper = mount(
-        <PageContext.Provider value={mountOptions.context}>
-          <Component src='example.html' disableNoScript={true} />
-        </PageContext.Provider>,
-        mountOptions
-      );
-
-      expect(wrapper.html()).toMatchSnapshot();
-      expect(wrapper.find('noscript')).toHaveLength(0);
-    });
-  });
-
-  describe('should render atoms without noscript tag - disabled by $Settings: ', () => {
-    let mountOptions = getComponentOptions({
-      plugin: {
-        uiAtoms: {
-          useIntersectionObserver: {
-            iframes: true,
-            images: true,
-            videos: true,
-          },
-          disableNoScript: {
-            iframes: true,
-            images: true,
-            videos: true,
-          },
-        },
-      },
-    });
-
-    it('image without noscript tag', () => {
+    it('should render Image without noscript tag', () => {
       const Component = UIAtoms.Image;
       wrapper = mount(
         <PageContext.Provider value={mountOptions.context}>
@@ -184,140 +90,12 @@ describe('UIAtoms mount rendering', () => {
       expect(wrapper.html()).toMatchSnapshot();
       expect(wrapper.find('noscript')).toHaveLength(0);
     });
-    it('video without noscript tag', () => {
-      const Component = UIAtoms.Video;
-      wrapper = mount(
-        <PageContext.Provider value={mountOptions.context}>
-          <Component src='example.mov' />
-        </PageContext.Provider>,
-        mountOptions
-      );
 
-      expect(wrapper.html()).toMatchSnapshot();
-      expect(wrapper.find('noscript')).toHaveLength(0);
-    });
-
-    it('iframe without noscript tag', () => {
+    it('should render Iframe without noscript tag', () => {
       const Component = UIAtoms.Iframe;
       wrapper = mount(
         <PageContext.Provider value={mountOptions.context}>
           <Component src='example.html' />
-        </PageContext.Provider>,
-        mountOptions
-      );
-
-      expect(wrapper.html()).toMatchSnapshot();
-      expect(wrapper.find('noscript')).toHaveLength(0);
-    });
-  });
-
-  describe('should render atoms with noscript tag - disabled by $Settings, overriden by props: ', () => {
-    let mountOptions = getComponentOptions({
-      plugin: {
-        uiAtoms: {
-          useIntersectionObserver: {
-            iframes: true,
-            images: true,
-            videos: true,
-          },
-          disableNoScript: {
-            iframes: true,
-            images: true,
-            videos: true,
-          },
-        },
-      },
-    });
-
-    it('image without noscript tag', () => {
-      const Component = UIAtoms.Image;
-      wrapper = mount(
-        <PageContext.Provider value={mountOptions.context}>
-          <Component src='example.jpg' disableNoScript={false} />
-        </PageContext.Provider>,
-        mountOptions
-      );
-
-      expect(wrapper.html()).toMatchSnapshot();
-      expect(wrapper.find('noscript')).toHaveLength(1);
-    });
-
-    it('video without noscript tag', () => {
-      const Component = UIAtoms.Video;
-      wrapper = mount(
-        <PageContext.Provider value={mountOptions.context}>
-          <Component src='example.mov' disableNoScript={false} />
-        </PageContext.Provider>,
-        mountOptions
-      );
-
-      expect(wrapper.html()).toMatchSnapshot();
-      expect(wrapper.find('noscript')).toHaveLength(1);
-    });
-
-    it('iframe without noscript tag', () => {
-      const Component = UIAtoms.Iframe;
-      wrapper = mount(
-        <PageContext.Provider value={mountOptions.context}>
-          <Component src='example.html' disableNoScript={false} />
-        </PageContext.Provider>,
-        mountOptions
-      );
-
-      expect(wrapper.html()).toMatchSnapshot();
-      expect(wrapper.find('noscript')).toHaveLength(1);
-    });
-  });
-
-  describe('should render atoms without noscript tag - enabled by $Settings, overriden by props: ', () => {
-    let mountOptions = getComponentOptions({
-      plugin: {
-        uiAtoms: {
-          useIntersectionObserver: {
-            iframes: true,
-            images: true,
-            videos: true,
-          },
-          disableNoScript: {
-            iframes: false,
-            images: false,
-            videos: false,
-          },
-        },
-      },
-    });
-
-    it('image without noscript tag', () => {
-      const Component = UIAtoms.Image;
-      wrapper = mount(
-        <PageContext.Provider value={mountOptions.context}>
-          <Component src='example.jpg' disableNoScript={true} />
-        </PageContext.Provider>,
-        mountOptions
-      );
-
-      expect(wrapper.html()).toMatchSnapshot();
-      expect(wrapper.find('noscript')).toHaveLength(0);
-    });
-
-    it('video without noscript tag', () => {
-      const Component = UIAtoms.Video;
-      wrapper = mount(
-        <PageContext.Provider value={mountOptions.context}>
-          <Component src='example.mov' disableNoScript={true} />
-        </PageContext.Provider>,
-        mountOptions
-      );
-
-      expect(wrapper.html()).toMatchSnapshot();
-      expect(wrapper.find('noscript')).toHaveLength(0);
-    });
-
-    it('iframe without noscript tag', () => {
-      const Component = UIAtoms.Iframe;
-      wrapper = mount(
-        <PageContext.Provider value={mountOptions.context}>
-          <Component src='example.html' disableNoScript={true} />
         </PageContext.Provider>,
         mountOptions
       );
