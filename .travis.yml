@@ -11,7 +11,7 @@ jobs:
   include:
     - name: "CI"
       script:
-      - npx run turbo build lint test
+      - npx turbo run build lint test
     - if: branch =~ /^(master|next)$/
       stage: "deploy"
       script:
