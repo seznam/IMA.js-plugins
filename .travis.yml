@@ -11,9 +11,7 @@ jobs:
   include:
     - name: "CI"
       script:
-      - npm run test:all
-      - npm run stylelint
-      - npm run lint
+      - npx run turbo build lint test
     - if: branch =~ /^(master|next)$/
       stage: "deploy"
       script:
