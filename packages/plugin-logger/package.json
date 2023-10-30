@@ -6,7 +6,6 @@
   "module": "./index.mjs",
   "types": "./dist/development/esm/main.d.ts",
   "scripts": {
-    "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "build": "ima-plugin build",
     "dev": "ima-plugin dev",
     "link": "ima-plugin link",
