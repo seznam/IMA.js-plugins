@@ -2,4 +2,4 @@
 
 exports[`UIAtoms mount rendering should render atoms without noscript tag:  should render Iframe without noscript tag 1`] = `"<div class="atm-iframe atm-overflow" style="width: auto; height: auto;"><iframe src="example.html" name="example.html" class="atm-fill"></iframe></div>"`;
 
-exports[`UIAtoms mount rendering should render atoms without noscript tag:  should render Image without noscript tag 1`] = `"<img src="example.jpg" loading="lazy" decoding="async" class="atm-image atm-placeholder">"`;
+exports[`UIAtoms mount rendering should render atoms without noscript tag:  should render Image without noscript tag 1`] = `"<img src="example.jpg" loading="lazy" decoding="async" class="atm-image">"`;
