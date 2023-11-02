@@ -6,8 +6,6 @@ import { Infinite } from 'infinite-circle';
 import { withContext } from 'shallow-with-context';
 import { toMockedInstance } from 'to-mock';
 
-import dummyRouter from '../../__tests__/mocks/router';
-import dummyWindow from '../../__tests__/mocks/window';
 import ComponentPositions from '../../ComponentPositions';
 import UIComponentHelper from '../../UIComponentHelper';
 import Visibility from '../../Visibility';

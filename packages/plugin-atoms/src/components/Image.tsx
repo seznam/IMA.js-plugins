@@ -23,20 +23,26 @@ export const Image = memo(function ImageComponent({
 } & Omit<ComponentPropsWithoutRef<'img'>, 'placeholder'>) {
   const { $CssClasses, $UIComponentHelper } = useComponentUtils();
   const attributes = filterProps(rest, IMAGE_ATTRIBUTES);
-  
+
   const [loaded, setLoaded] = useState(loading === LOADING.EAGER);
-  const loadCallback = useCallback((...params: any[]) => {
-    if (typeof attributes?.onLoad === 'function') {
-      attributes?.onLoad(...params);
-    }
-    setLoaded(true);
-  }, [attributes.onLoad]);
-  const errorCallback = useCallback((...params: any[]) => {
-    if (typeof attributes?.onError === 'function') {
-      attributes?.onError(...params);
-    }
-    setLoaded(true);
-  }, [attributes.onError]);
+  const loadCallback = useCallback(
+    (...params: any[]) => {
+      if (typeof attributes?.onLoad === 'function') {
+        attributes?.onLoad(...params);
+      }
+      setLoaded(true);
+    },
+    [attributes.onLoad]
+  );
+  const errorCallback = useCallback(
+    (...params: any[]) => {
+      if (typeof attributes?.onError === 'function') {
+        attributes?.onError(...params);
+      }
+      setLoaded(true);
+    },
+    [attributes.onError]
+  );
 
   return (
     <img
