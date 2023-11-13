@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 10.0.1
+
+### Patch Changes
+
+- 5946f0d: Image `atom-placeholder` CSS class is set only for lazy loading image. CSS class is removed after image was loaded. It is useful for PNG image with alpha and keep similar logic with previous major version.
+
 ## 10.0.0
 
 ### Major Changes
