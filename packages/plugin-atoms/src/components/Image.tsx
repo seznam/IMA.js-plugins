@@ -1,5 +1,12 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
-import { ComponentPropsWithoutRef, memo, useCallback, useState } from 'react';
+import {
+  ComponentPropsWithoutRef,
+  memo,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import type { ValueOf } from 'type-fest';
 
 import { LAYOUT, LOADING, IMAGE_ATTRIBUTES } from './constants';
@@ -44,9 +51,15 @@ export const Image = memo(function ImageComponent({
     [attributes.onError]
   );
 
+  const imageRef = useRef<HTMLImageElement>(null);
+  useEffect(() => {
+    if (imageRef.current?.complete) setLoaded(true);
+  }, []);
+
   return (
     <img
       {...attributes}
+      ref={imageRef}
       onLoad={loadCallback}
       onError={errorCallback}
       src={$UIComponentHelper.sanitizeUrl(src)}
