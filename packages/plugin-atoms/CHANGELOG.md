@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 10.0.2
+
+### Patch Changes
+
+- 740924a: Fix loading state for cached images where onLoad is not called
+
 ## 10.0.1
 
 ### Patch Changes
