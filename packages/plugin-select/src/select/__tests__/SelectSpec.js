@@ -141,6 +141,10 @@ describe('plugin-select:', () => {
         return defaultProps;
       }
 
+      static myCustom() {
+        return 1;
+      }
+
       render() {
         return <h1>text</h1>;
       }
@@ -276,6 +280,7 @@ describe('plugin-select:', () => {
         wrappingComponent: MockContextProvider,
       });
 
+      expect(typeof EnhancedComponent.myCustom === 'function').toBeTruthy();
       expect(typeof EnhancedComponent.defaultProps === 'function').toBeTruthy();
       expect(wrapper).toMatchSnapshot();
     });
@@ -293,6 +298,33 @@ describe('plugin-select:', () => {
         }
       );
 
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render component with extraProps and own static methods for forwardedSelect', () => {
+      setHoistStaticMethod((TargetComponent, Original) => {
+        const keys = Object.getOwnPropertyNames(Original);
+
+        keys.forEach(key => {
+          if (key === 'defaultProps') {
+            const descriptor = Object.getOwnPropertyDescriptor(Original, key);
+            try {
+              Object.defineProperty(TargetComponent, key, descriptor);
+            } catch (e) { } // eslint-disable-line no-empty
+          }
+        });
+
+        return hoistNonReactStatic(TargetComponent, Original);
+      });
+      let EnhancedComponent = forwardedSelect(...selectorMethods)(Component);
+
+      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
+        context: componentContext,
+        wrappingComponent: MockContextProvider,
+      });
+
+      expect(typeof EnhancedComponent.myCustom === 'function').toBeTruthy();
+      expect(typeof EnhancedComponent.defaultProps === 'function').toBeTruthy();
       expect(wrapper).toMatchSnapshot();
     });
   });

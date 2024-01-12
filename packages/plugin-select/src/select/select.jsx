@@ -123,7 +123,7 @@ export default function forwardedSelect(...selectors) {
     const name = Component.displayName || Component.name;
     forwardRef.displayName = `select(${name})`;
 
-    return reactForwardRef(forwardRef);
+    return hoistStaticMethod(reactForwardRef(forwardRef), Component);
   };
 }
 

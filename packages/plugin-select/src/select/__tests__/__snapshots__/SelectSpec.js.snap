@@ -172,6 +172,46 @@ exports[`plugin-select: select should render component with extraProps and own s
 </withContext(Component)>
 `;
 
+exports[`plugin-select: select should render component with extraProps and own static methods for forwardedSelect 1`] = `
+<ForwardRef(select(Component))
+  multiplier={0.5}
+  props="props"
+  settings={
+    {
+      "color": "red",
+    }
+  }
+>
+  <withContext(Component)
+    forwardedRef={null}
+    multiplier={0.5}
+    props="props"
+    settings={
+      {
+        "color": "red",
+      }
+    }
+  >
+    <Component
+      forwardedRef={null}
+      height={60}
+      multiplier={0.5}
+      props="props"
+      settings={
+        {
+          "color": "red",
+        }
+      }
+      width={90}
+    >
+      <h1>
+        text
+      </h1>
+    </Component>
+  </withContext(Component)>
+</ForwardRef(select(Component))>
+`;
+
 exports[`plugin-select: select should render component with extraProps modifies by ownProps 1`] = `
 <withContext(Component)
   multiplier={0.5}
