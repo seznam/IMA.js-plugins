@@ -310,7 +310,7 @@ describe('plugin-select:', () => {
             const descriptor = Object.getOwnPropertyDescriptor(Original, key);
             try {
               Object.defineProperty(TargetComponent, key, descriptor);
-            } catch (e) { } // eslint-disable-line no-empty
+            } catch (e) {} // eslint-disable-line no-empty
           }
         });
 
