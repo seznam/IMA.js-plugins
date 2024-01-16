@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.4
+
+### Patch Changes
+
+- 9bb70b3: New component created from forwardedSelect or default import hoist non react static methods from original component.
+
 ## 4.0.3
 
 ### Patch Changes
