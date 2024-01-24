@@ -21,7 +21,7 @@ import { ListItem } from './components/ListItem';
 import { Loader } from './components/Loader';
 import { Paragraph } from './components/Paragraph';
 import { Sizer } from './components/Sizer';
-import UIComponentHelper from './UIComponentHelper';
+import UIComponentHelper, { VisibilityOptions } from './UIComponentHelper';
 import Visibility from './Visibility';
 
 declare module '@ima/core' {
@@ -50,6 +50,7 @@ pluginLoader.register('@ima/plugin-atoms', ns => {
 
 export {
   UIComponentHelper,
+  VisibilityOptions,
   Visibility,
   ComponentPositions,
   defaultDependencies,
