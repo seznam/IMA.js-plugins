@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 10.1.0
+
+### Minor Changes
+
+- fc4cfa6: Added export for type VisibilityOptions
+
 ## 10.0.2
 
 ### Patch Changes
