@@ -7,10 +7,15 @@ import chalk from 'chalk';
 import webpack from 'webpack';
 
 import { generateLessVariables, UnitValue } from './generator';
+import { createLessConstantsRegExp, getUsedLessConstants } from './verify';
 
 export interface LessConstantsPluginOptions {
   entry: string;
   output?: string;
+  /**
+   * List of directories that contain Less files to verify that all constants are used.
+   */
+  verify?: string[];
 }
 
 /**
@@ -65,6 +70,63 @@ class LessConstantsPlugin implements ImaCliPlugin {
       const lessConstants = generateLessVariables(
         await this._compileEntry(entryPath, args, imaConfig)
       );
+
+      if (this._options.verify) {
+        /**
+         * Create regular expressions for each constant in advance to speed up the process.
+         */
+        const lessConstantsRegex = createLessConstantsRegExp(lessConstants);
+
+        /**
+         * Get all Less files in the specified directories to verify.
+         */
+        const lessFilesToVerify = this._options.verify.reduce((acc, curr) => {
+          acc.push(
+            ...fs
+              .readdirSync(curr, { recursive: true })
+              .filter(file => (file as string).endsWith('.less'))
+              .map(file => path.join(curr, file as string))
+          );
+
+          return acc;
+        }, [] as string[]);
+
+        /**
+         * Get all used constants in the specified Less files.
+         */
+        let usedConstants: string[] = [];
+        for (const lessFile of lessFilesToVerify) {
+          usedConstants.push(
+            ...(await getUsedLessConstants(lessFile, lessConstantsRegex))
+          );
+        }
+
+        /**
+         * Filter out unused constants.
+         */
+        usedConstants = [...new Set(usedConstants)];
+        const unusedConstants: string[] = [];
+        for (const constant of Object.keys(lessConstantsRegex)) {
+          if (usedConstants.indexOf(constant) === -1) {
+            unusedConstants.push(constant);
+          }
+        }
+
+        if (unusedConstants.length) {
+          this._logger.plugin(
+            'The following constants are not used in any less file:'
+          );
+          for (const unusedConstant of unusedConstants) {
+            this._logger.plugin(unusedConstant);
+          }
+        } else {
+          this._logger.plugin(
+            `All constants are used in less files in ${chalk.magenta(
+              this._options.verify
+            )}`
+          );
+        }
+      }
 
       // Write generated less file to filesystem
       outputPath =
