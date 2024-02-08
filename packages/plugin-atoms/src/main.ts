@@ -21,7 +21,7 @@ import { ListItem } from './components/ListItem';
 import { Loader } from './components/Loader';
 import { Paragraph } from './components/Paragraph';
 import { Sizer } from './components/Sizer';
-import UIComponentHelper, { VisibilityOptions } from './UIComponentHelper';
+import UIComponentHelper, { type VisibilityOptions } from './UIComponentHelper';
 import Visibility from './Visibility';
 
 declare module '@ima/core' {
