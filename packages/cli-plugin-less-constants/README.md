@@ -73,6 +73,25 @@ Finally don't forget to import the generated `./build/less-constants/constants.l
 @import "../../build/less-constants/constants.less";
 ```
 
+You can verify that your constants are actually used in your `Less` files. The `verify` option should include all directories that contain your Less files.
+
+```js
+// ./ima.config.js
+const { LessConstantsPlugin } = require('@ima/cli-plugin-less-constants');
+
+/**
+ * @type import('@ima/cli').ImaConfig
+ */
+module.exports = {
+  plugins: [
+    new LessConstantsPlugin({
+      entry: './app/config/theme.js'
+      verify: ['./app']
+    })
+  ],
+};
+```
+
 ### Usage in JavaScript
 
 Since every unit returns [`Unit`](#units) object, you can always access it's value through the `.valueOf()` method or use the CSS interpreted value by calling `.toString()`.
