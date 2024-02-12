@@ -38,7 +38,10 @@ pluginLoader.register('@ima/plugin-analytic-google', () => ({
             consentSettings: {
               ad_storage: 'denied',
               analytics_storage: 'denied',
+              functionality_storage: 'denied',
               personalization_storage: 'denied',
+              security_storage: 'denied',
+              ad_user_data: 'denied',
             },
             service: 'G-XXXXXXXXXX',
             waitForUpdateTimeout: 5000,
