@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.1.0
+
+### Minor Changes
+
+- 42e2a0d: New verify option to detect unused Less variables.
+
 ## 2.0.0
 
 ### Major Changes

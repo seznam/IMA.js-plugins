@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 10.1.1
+
+### Patch Changes
+
+- e4c3321: Fixed export of VisibilityOptions type.
+
 ## 10.1.0
 
 ### Minor Changes
