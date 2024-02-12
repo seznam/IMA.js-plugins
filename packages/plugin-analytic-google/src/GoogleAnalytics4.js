@@ -8,7 +8,11 @@ const GTAG_ROOT_VARIABLE = 'gtag';
 export default class GoogleAnalytics4 extends AbstractAnalytic {
   /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
-    return [...defaultDependencies, '$Settings.plugin.analytic.google4'];
+    return [
+      ...defaultDependencies,
+      '$Settings.plugin.analytic.google4',
+      '$Router',
+    ];
   }
 
   set _ga4Script(value) {
@@ -29,9 +33,10 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
    * @param {import('@ima/plugin-script-loader').ScriptLoaderPlugin} scriptLoader
    * @param {import('@ima/core').Window} window
    * @param {import('@ima/core').Dispatcher} dispatcher
-   * @param {Object<string, *>} config
+   * @param {{[key: string]: *}} config
+   * @param {import('@ima/core').Router} router
    */
-  constructor(scriptLoader, window, dispatcher, config) {
+  constructor(scriptLoader, window, dispatcher, config, router) {
     super(scriptLoader, window, dispatcher, config);
 
     this._analyticScriptName = 'google_analytics_4';
@@ -39,12 +44,20 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
     this._analyticScriptUrl = `https://www.googletagmanager.com/gtag/js?id=${this._config.service}`;
 
     this._consentSettings = this._config.consentSettings;
+
+    this._router = router;
+
+    /**
+     * Stores page location to serve as next page hit's referrer
+     * to compensate for SPA browsing.
+     */
+    this._referrer = '';
   }
   /**
    * Hits custom event of given with given data
    *
    * @param {string} eventName custom event name
-   * @param {Object<string, *>} eventData custom event data
+   * @param {{[key: string]: *}} eventData custom event data
    */
   hit(eventName, eventData) {
     if (!this.isEnabled()) {
@@ -58,8 +71,7 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
    * Hit page view event to analytic with defined data.
    *
    * @override
-   * @param {Object<string, *>} pageData
-   * @param {Object<string, string>} customDimensions
+   * @param {{[key: string]: *}} pageData
    */
   hitPageView(pageData) {
     if (!this.isEnabled()) {
@@ -72,7 +84,7 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
   /**
    * Updates user consents in Google Analytics script
    *
-   * @param {Object<string, *>} purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
+   * @param {{[key: string]: *}} purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
    */
   updateConsent(purposeConsents) {
     this._applyPurposeConsents(purposeConsents);
@@ -126,14 +138,21 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
   /**
    * Returns page view data derived from pageData param.
    *
-   * @param {Object<string, *>} pageData
-   * @returns {Object<string, *>} pageViewData
+   * @param {{[key: string]: *}} pageData
+   * @returns {{[key: string]: *}} pageViewData
    */
   _getPageViewData(pageData) {
+    const page_location = this._window.getUrl();
+    const page_referrer = this._referrer || this._window.getDocument().referrer;
+    this._referrer = page_location;
+
     return {
-      page: pageData.path,
-      location: this._window.getUrl(),
-      title: document.title || '',
+      page_path: pageData.path,
+      page_location,
+      page_referrer,
+      page_route: this?._router?.getCurrentRouteInfo()?.route?.getName() || '',
+      page_status: '', // WIP
+      page_title: document.title || '',
     };
   }
 
