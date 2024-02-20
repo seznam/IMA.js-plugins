@@ -70,8 +70,9 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
     if (!this.isEnabled()) {
       return;
     }
-
-    this._ga4Script('event', 'page_view', this._getPageViewData(pageData));
+    const pageViewData = this._getPageViewData(pageData);
+    this._ga4Script('event', 'page_view', pageViewData);
+    this._referrer = pageViewData.page_location;
   }
 
   /**
@@ -137,7 +138,6 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
   _getPageViewData(pageData) {
     const page_location = this._window.getUrl();
     const page_referrer = this._referrer || this._window.getDocument().referrer;
-    this._referrer = page_location;
 
     return {
       page_path: pageData.path,
