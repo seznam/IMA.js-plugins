@@ -11,23 +11,17 @@ export interface AbstractAnalyticSettings {}
  * Abstract analytic class
  */
 export default abstract class AbstractAnalytic {
-  #scriptLoader: ScriptLoaderPlugin;
-  #window: Window;
-  #dispatcher: Dispatcher;
-  #config: AbstractAnalyticSettings;
-  #analyticScriptName: string | null = null;
-  /**
-   * Analytic script url.
-   */
-  #analyticScriptUrl: string | null = null;
-  /**
-   * If flag has value true then analytic is enabled to hit events.
-   */
-  #enable = false;
-  /**
-   * If flag has value true then analytic script was loaded.
-   */
-  #loaded = false;
+  _scriptLoader: ScriptLoaderPlugin;
+  _window: Window;
+  _dispatcher: Dispatcher;
+  _config: AbstractAnalyticSettings;
+  _analyticScriptName: string | null = null;
+  //Analytic script url.
+  _analyticScriptUrl: string | null = null;
+  //If flag has value true then analytic is enabled to hit events.
+  _enable = false;
+  //If flag has value true then analytic script was loaded.
+  _loaded = false;
 
   static get $dependencies(): Dependencies {
     return [ScriptLoaderPlugin, '$Window', '$Dispatcher'];
@@ -39,13 +33,13 @@ export default abstract class AbstractAnalytic {
     dispatcher: Dispatcher,
     config: AbstractAnalyticSettings
   ) {
-    this.#scriptLoader = scriptLoader;
+    this._scriptLoader = scriptLoader;
 
-    this.#window = window;
+    this._window = window;
 
-    this.#dispatcher = dispatcher;
+    this._dispatcher = dispatcher;
 
-    this.#config = config;
+    this._config = config;
   }
 
   /**
@@ -56,8 +50,8 @@ export default abstract class AbstractAnalytic {
    * @param {Object<string, *>} initConfig.purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
    */
   init(initConfig: Record<string, any>) {
-    if (!this.isEnabled() && this.#window.isClient()) {
-      const window = this.#window.getWindow() as globalThis.Window;
+    if (!this.isEnabled() && this._window.isClient()) {
+      const window = this._window.getWindow() as globalThis.Window;
 
       if (initConfig && initConfig.purposeConsents) {
         this._applyPurposeConsents(initConfig.purposeConsents);
@@ -73,19 +67,19 @@ export default abstract class AbstractAnalytic {
    * @returns {Promise}
    */
   load() {
-    if (this.#window.isClient()) {
-      if (this.#loaded) {
+    if (this._window.isClient()) {
+      if (this._loaded) {
         return Promise.resolve(true);
       }
 
-      if (!this.#analyticScriptUrl) {
+      if (!this._analyticScriptUrl) {
         this._afterLoadCallback();
 
         return Promise.resolve(true);
       }
 
-      return this.#scriptLoader
-        .load(this.#analyticScriptUrl)
+      return this._scriptLoader
+        .load(this._analyticScriptUrl)
         .then(() => {
           this._afterLoadCallback();
 
@@ -103,7 +97,7 @@ export default abstract class AbstractAnalytic {
    * Applies Purpose Consents to respect GDPR, see https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework
    *
    * @abstract
-   * @param {Object<string, *>} purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
+   * @param purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
    */
   _applyPurposeConsents(_purposeConsents: Record<string, any>) {
     throw new Error(
@@ -113,11 +107,9 @@ export default abstract class AbstractAnalytic {
 
   /**
    * Returns true if analytic is enabled.
-   *
-   * @returns {boolean}
    */
   isEnabled() {
-    return this.#enable;
+    return this._enable;
   }
 
   /**
@@ -125,9 +117,9 @@ export default abstract class AbstractAnalytic {
    * defer hit to storage.
    *
    * @abstract
-   * @param {Object<string, *>} data
+   * @param data
    */
-  hit() {
+  hit(_data: Record<string, any>) {
     throw new Error('The hit() method is abstract and must be overridden.');
   }
 
@@ -135,16 +127,16 @@ export default abstract class AbstractAnalytic {
    * Hit page view event to analytic for defined page data.
    *
    * @abstract
-   * @param {Object<string, *>} pageData
+   * @param pageData
    */
-  hitPageView() {
+  hitPageView(_pageData: Record<string, any>) {
     throw new Error(
       'The hitPageView() method is abstract and must be overridden.'
     );
   }
 
   /**
-   * Configuration analytic. The anayltic must be enabled after configuration.
+   * Configuration analytic. The analytic must be enabled after configuration.
    *
    * @abstract
    * @protected
@@ -171,16 +163,16 @@ export default abstract class AbstractAnalytic {
    * @protected
    */
   _afterLoadCallback() {
-    this.#loaded = true;
+    this._loaded = true;
     this._configuration();
     this._fireLifecycleEvent(AnalyticEvents.LOADED);
   }
 
   /**
    * @protected
-   * @param {AnalyticEvents.INITIALIZED|AnalyticEvents.LOADED} eventType
+   * @param eventType
    */
   _fireLifecycleEvent(eventType: AnalyticEvents) {
-    this.#dispatcher.fire(eventType, { type: this.#analyticScriptName }, true);
+    this._dispatcher.fire(eventType, { type: this._analyticScriptName }, true);
   }
 }

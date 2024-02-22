@@ -14,7 +14,7 @@ export default class ScriptLoaderPlugin {
   // General-purpose utility for loading resources.
   _resourceLoader: ResourceLoader;
   // Object of loaded scripts.
-  _loadedScripts: Record<string, Promise<void | { url: string }>>;
+  _loadedScripts: Record<string, Promise<void | { url: string }>> = {};
 
   static get $dependencies(): Dependencies {
     return ['$Window', '$Dispatcher', ResourceLoader];
@@ -30,8 +30,6 @@ export default class ScriptLoaderPlugin {
     this._dispatcher = dispatcher;
 
     this._resourceLoader = resourceLoader;
-
-    this._loadedScripts = {};
   }
 
   /**
