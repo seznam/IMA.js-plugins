@@ -7,10 +7,14 @@ import { Events } from './Events';
  * Script loader plugin class.
  */
 export default class ScriptLoaderPlugin {
-  #window: Window;
-  #dispatcher: Dispatcher;
-  #resourceLoader: ResourceLoader;
-  #loadedScripts: any;
+  // IMA.js Window
+  _window: Window;
+  // IMA.js Dispatcher
+  _dispatcher: Dispatcher;
+  // General-purpose utility for loading resources.
+  _resourceLoader: ResourceLoader;
+  // Object of loaded scripts.
+  _loadedScripts: Record<string, Promise<void | { url: string }>>;
 
   static get $dependencies(): Dependencies {
     return ['$Window', '$Dispatcher', ResourceLoader];
@@ -21,33 +25,13 @@ export default class ScriptLoaderPlugin {
     dispatcher: Dispatcher,
     resourceLoader: ResourceLoader
   ) {
-    /**
-     * IMA.js Window
-     *
-     * @type {import('@ima/core').Window}
-     */
-    this.#window = window;
+    this._window = window;
 
-    /**
-     * IMA.js Dispatcher
-     *
-     * @type {import('@ima/core').Dispatcher}
-     */
-    this.#dispatcher = dispatcher;
+    this._dispatcher = dispatcher;
 
-    /**
-     * General-purpose utility for loading resources.
-     *
-     * @type {ResourceLoader}
-     */
-    this.#resourceLoader = resourceLoader;
+    this._resourceLoader = resourceLoader;
 
-    /**
-     * Object of loaded scripts.
-     *
-     * @type {Object<string, Promise<{url: string}>>}
-     */
-    this.#loadedScripts = {};
+    this._loadedScripts = {};
   }
 
   /**
@@ -58,9 +42,9 @@ export default class ScriptLoaderPlugin {
    * @param force
    * @returns {Promise<{url: string}>}
    */
-  load(url: string, template: string, force = false) {
+  load(url: string, template?: string, force = false) {
     if ($Debug) {
-      if (!this.#window.isClient()) {
+      if (!this._window.isClient()) {
         throw new Error(
           `The script loader cannot be used at the server side. ` +
             `Attempted to load the ${url} script.`
@@ -68,12 +52,13 @@ export default class ScriptLoaderPlugin {
       }
     }
 
-    if (this.#loadedScripts[url] && !force) {
-      return this.#loadedScripts[url];
+    if (url in this._loadedScripts && !force) {
+      return this._loadedScripts[url];
     }
 
     const script = this._createScriptElement();
-    this.#loadedScripts[url] = this.#resourceLoader
+
+    this._loadedScripts[url] = this._resourceLoader
       .promisify(script, template || url)
       .then(() => this._handleOnLoad(url))
       .catch(() => this._handleOnError(url));
@@ -85,12 +70,13 @@ export default class ScriptLoaderPlugin {
       script.src = url;
     }
 
-    this.#resourceLoader.injectToPage(script);
+    this._resourceLoader.injectToPage(script);
     if (template) {
-      setTimeout(() => script.onload(), 0);
+      // @ts-expect-error onload is overrided by ResourceLoader promisify, which is kinda weird (TODO rewrite?)
+      setTimeout(() => script.onload!(), 0);
     }
 
-    return this.#loadedScripts[url];
+    return this._loadedScripts[url];
   }
 
   /**
@@ -105,10 +91,11 @@ export default class ScriptLoaderPlugin {
   /**
    * Handle on load event for script. Resolve load promise and fire LOADED
    * events.
+   * @param url
    */
   _handleOnLoad(url: string) {
     const data = { url };
-    this.#dispatcher.fire(Events.LOADED, data, true);
+    this._dispatcher.fire(Events.LOADED, data, true);
 
     return data;
   }
@@ -127,7 +114,7 @@ export default class ScriptLoaderPlugin {
       error,
     };
 
-    this.#dispatcher.fire(Events.LOADED, data, true);
+    this._dispatcher.fire(Events.LOADED, data, true);
     throw error;
   }
 }
