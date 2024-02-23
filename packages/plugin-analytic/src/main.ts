@@ -1,4 +1,6 @@
-import AbstractAnalytic from './AbstractAnalytic';
+import AbstractAnalytic, {
+  InitConfig as AbstractAnalyticInitConfig,
+} from './AbstractAnalytic';
 import { Events } from './Events';
 
 const defaultDependencies = AbstractAnalytic.$dependencies;
@@ -22,4 +24,9 @@ declare module '@ima/core' {
   }
 }
 
-export { Events, AbstractAnalytic, defaultDependencies };
+export {
+  Events,
+  AbstractAnalytic,
+  AbstractAnalyticInitConfig,
+  defaultDependencies,
+};

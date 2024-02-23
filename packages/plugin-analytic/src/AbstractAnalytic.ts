@@ -7,6 +7,11 @@ import { Events as AnalyticEvents } from './Events';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface AbstractAnalyticSettings {}
 
+// @property purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
+export type InitConfig = Record<string, any> & {
+  purposeConsents: Record<string, any>;
+};
+
 /**
  * Abstract analytic class
  */
@@ -46,10 +51,10 @@ export default abstract class AbstractAnalytic {
    * Initialization analytic.
    *
    * @function init
-   * @param {Object<string, *>} initConfig
-   * @param {Object<string, *>} initConfig.purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
+   * @param initConfig
+   * @param initConfig.purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
    */
-  init(initConfig: Record<string, any>) {
+  init(initConfig: InitConfig) {
     if (!this.isEnabled() && this._window.isClient()) {
       const window = this._window.getWindow() as globalThis.Window;
 
@@ -97,7 +102,7 @@ export default abstract class AbstractAnalytic {
    * Applies Purpose Consents to respect GDPR, see https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework
    *
    * @abstract
-   * @param purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
+   * @param _purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
    */
   _applyPurposeConsents(_purposeConsents: Record<string, any>) {
     throw new Error(
@@ -117,6 +122,7 @@ export default abstract class AbstractAnalytic {
    * defer hit to storage.
    *
    * @abstract
+   * @param _data
    * @param data
    */
   hit(_data: Record<string, any>) {
@@ -127,6 +133,7 @@ export default abstract class AbstractAnalytic {
    * Hit page view event to analytic for defined page data.
    *
    * @abstract
+   * @param _pageData
    * @param pageData
    */
   hitPageView(_pageData: Record<string, any>) {
@@ -150,6 +157,7 @@ export default abstract class AbstractAnalytic {
   /**
    * Creates global definition for analytics script.
    *
+   * @param _window
    * @abstract
    * @protected
    */
