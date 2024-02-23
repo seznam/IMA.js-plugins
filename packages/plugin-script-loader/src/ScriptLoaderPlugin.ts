@@ -1,3 +1,4 @@
+import { Window, Dependencies, Dispatcher } from '@ima/core';
 import { ResourceLoader } from '@ima/plugin-resource-loader';
 
 import { Events } from './Events';
@@ -6,57 +7,40 @@ import { Events } from './Events';
  * Script loader plugin class.
  */
 export default class ScriptLoaderPlugin {
-  /** @type {import('@ima/core').Dependencies} */
-  static get $dependencies() {
+  // IMA.js Window
+  _window: Window;
+  // IMA.js Dispatcher
+  _dispatcher: Dispatcher;
+  // General-purpose utility for loading resources.
+  _resourceLoader: ResourceLoader;
+  // Object of loaded scripts.
+  _loadedScripts: Record<string, Promise<void | { url: string }>> = {};
+
+  static get $dependencies(): Dependencies {
     return ['$Window', '$Dispatcher', ResourceLoader];
   }
 
-  /**
-   * Initializes the script loader.
-   *
-   * @param {import('@ima/core').Window} window
-   * @param {import('@ima/core').Dispatcher} dispatcher
-   * @param {ResourceLoader} resourceLoader
-   */
-  constructor(window, dispatcher, resourceLoader) {
-    /**
-     * IMA.js Window
-     *
-     * @type {import('@ima/core').Window}
-     */
+  constructor(
+    window: Window,
+    dispatcher: Dispatcher,
+    resourceLoader: ResourceLoader
+  ) {
     this._window = window;
 
-    /**
-     * IMA.js Dispatcher
-     *
-     * @type {import('@ima/core').Dispatcher}
-     */
     this._dispatcher = dispatcher;
 
-    /**
-     * General-purpose utility for loading resources.
-     *
-     * @type {ResourceLoader}
-     */
     this._resourceLoader = resourceLoader;
-
-    /**
-     * Object of loaded scripts.
-     *
-     * @type {Object<string, Promise<{url: string}>>}
-     */
-    this._loadedScripts = {};
   }
 
   /**
    * Load third party script to page.
    *
-   * @param {string} url
-   * @param {string=} [template]
-   * @param {boolean} force
+   * @param url
+   * @param template
+   * @param force
    * @returns {Promise<{url: string}>}
    */
-  load(url, template, force = false) {
+  load(url: string, template?: string, force = false) {
     if ($Debug) {
       if (!this._window.isClient()) {
         throw new Error(
@@ -66,11 +50,12 @@ export default class ScriptLoaderPlugin {
       }
     }
 
-    if (this._loadedScripts[url] && !force) {
+    if (url in this._loadedScripts && !force) {
       return this._loadedScripts[url];
     }
 
-    let script = this._createScriptElement();
+    const script = this._createScriptElement();
+
     this._loadedScripts[url] = this._resourceLoader
       .promisify(script, template || url)
       .then(() => this._handleOnLoad(url))
@@ -85,7 +70,8 @@ export default class ScriptLoaderPlugin {
 
     this._resourceLoader.injectToPage(script);
     if (template) {
-      setTimeout(() => script.onload(), 0);
+      // @ts-expect-error onload is overrided by ResourceLoader promisify, which is kinda weird (TODO rewrite?)
+      setTimeout(() => script.onload!(), 0);
     }
 
     return this._loadedScripts[url];
@@ -94,7 +80,7 @@ export default class ScriptLoaderPlugin {
   /**
    * Creates a new script element and returns it.
    *
-   * @returns {HTMLScriptElement} The created script element.
+   * @returns The created script element.
    */
   _createScriptElement() {
     return document.createElement('script');
@@ -103,12 +89,10 @@ export default class ScriptLoaderPlugin {
   /**
    * Handle on load event for script. Resolve load promise and fire LOADED
    * events.
-   *
-   * @param {string} url
-   * @returns {{url: string}}
+   * @param url
    */
-  _handleOnLoad(url) {
-    let data = { url };
+  _handleOnLoad(url: string) {
+    const data = { url };
     this._dispatcher.fire(Events.LOADED, data, true);
 
     return data;
@@ -118,12 +102,12 @@ export default class ScriptLoaderPlugin {
    * Handle on error event for script. Reject load promise and fire LOADED
    * events.
    *
-   * @param {string} url
+   * @param url
    * @throws Error
    */
-  _handleOnError(url) {
-    let error = new Error(`The ${url} script failed to load.`);
-    let data = {
+  _handleOnError(url: string) {
+    const error = new Error(`The ${url} script failed to load.`);
+    const data = {
       url,
       error,
     };

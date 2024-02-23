@@ -1,98 +1,62 @@
 /* eslint-disable jsdoc/check-param-names */
-
+import { Dependencies, Dispatcher, Window } from '@ima/core';
 import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
 
 import { Events as AnalyticEvents } from './Events';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface AbstractAnalyticSettings {}
+
+// @property purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
+export type InitConfig = Record<string, any> & {
+  purposeConsents: Record<string, any>;
+};
+
 /**
  * Abstract analytic class
  */
-export default class AbstractAnalytic {
-  /** @type {import('@ima/core').Dependencies} */
-  static get $dependencies() {
+export default abstract class AbstractAnalytic {
+  _scriptLoader: ScriptLoaderPlugin;
+  _window: Window;
+  _dispatcher: Dispatcher;
+  _config: AbstractAnalyticSettings;
+  _analyticScriptName: string | null = null;
+  //Analytic script url.
+  _analyticScriptUrl: string | null = null;
+  //If flag has value true then analytic is enabled to hit events.
+  _enable = false;
+  //If flag has value true then analytic script was loaded.
+  _loaded = false;
+
+  static get $dependencies(): Dependencies {
     return [ScriptLoaderPlugin, '$Window', '$Dispatcher'];
   }
 
-  /**
-   * @param {ima.plugin.script.loader.ScriptLoaderPlugin} scriptLoader
-   * @param {import('@ima/core').Window} window
-   * @param {import('@ima/core').Dispatcher} dispatcher
-   * @param {Object<string, *>} config
-   */
-  constructor(scriptLoader, window, dispatcher, config) {
-    /**
-     * Handler from @ima/plugin-script-loader.
-     *
-     * @protected
-     * @type {ima.plugin.script.loader.ScriptLoaderPlugin}
-     */
+  constructor(
+    scriptLoader: ScriptLoaderPlugin,
+    window: Window,
+    dispatcher: Dispatcher,
+    config: AbstractAnalyticSettings
+  ) {
     this._scriptLoader = scriptLoader;
 
-    /**
-     * IMA.js Window
-     *
-     * @protected
-     * @type {import('@ima/core').Window}
-     */
     this._window = window;
 
-    /**
-     * IMA.js Dispatcher
-     *
-     * @protected
-     * @type {import('@ima/core').Dispatcher}
-     */
     this._dispatcher = dispatcher;
 
-    /**
-     * Analytic config
-     *
-     * @protected
-     * @type {(Object<string, *>)}
-     */
     this._config = config;
-
-    /**
-     * @protected
-     * @type {string}
-     */
-    this._analyticScriptName = null;
-
-    /**
-     * Analytic script url.
-     *
-     * @protected
-     * @type {?string}
-     */
-    this._analyticScriptUrl = null;
-
-    /**
-     * If flag has value true then analytic is enable for hit events.
-     *
-     * @protected
-     * @type {boolean}
-     */
-    this._enable = false;
-
-    /**
-     * If flag has value true then analytic script was loaded.
-     *
-     * @protected
-     * @type {boolean}
-     */
-    this._loaded = false;
   }
 
   /**
    * Initialization analytic.
    *
    * @function init
-   * @param {Object<string, *>} initConfig
-   * @param {Object<string, *>} initConfig.purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
+   * @param initConfig
+   * @param initConfig.purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
    */
-  init(initConfig) {
+  init(initConfig: InitConfig) {
     if (!this.isEnabled() && this._window.isClient()) {
-      const window = this._window.getWindow();
+      const window = this._window.getWindow() as globalThis.Window;
 
       if (initConfig && initConfig.purposeConsents) {
         this._applyPurposeConsents(initConfig.purposeConsents);
@@ -126,7 +90,7 @@ export default class AbstractAnalytic {
 
           return true;
         })
-        .catch(error => {
+        .catch((error: Error) => {
           console.error(error);
         });
     }
@@ -138,9 +102,9 @@ export default class AbstractAnalytic {
    * Applies Purpose Consents to respect GDPR, see https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework
    *
    * @abstract
-   * @param {Object<string, *>} purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
+   * @param _purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
    */
-  _applyPurposeConsents() {
+  _applyPurposeConsents(_purposeConsents: Record<string, any>) {
     throw new Error(
       'The applyPurposeConsents() method is abstract and must be overridden.'
     );
@@ -148,8 +112,6 @@ export default class AbstractAnalytic {
 
   /**
    * Returns true if analytic is enabled.
-   *
-   * @returns {boolean}
    */
   isEnabled() {
     return this._enable;
@@ -160,9 +122,9 @@ export default class AbstractAnalytic {
    * defer hit to storage.
    *
    * @abstract
-   * @param {Object<string, *>} data
+   * @param _data
    */
-  hit() {
+  hit(_data: Record<string, any>) {
     throw new Error('The hit() method is abstract and must be overridden.');
   }
 
@@ -170,16 +132,16 @@ export default class AbstractAnalytic {
    * Hit page view event to analytic for defined page data.
    *
    * @abstract
-   * @param {Object<string, *>} pageData
+   * @param _pageData
    */
-  hitPageView() {
+  hitPageView(_pageData: Record<string, any>) {
     throw new Error(
       'The hitPageView() method is abstract and must be overridden.'
     );
   }
 
   /**
-   * Configuration analytic. The anayltic must be enabled after configuration.
+   * Configuration analytic. The analytic must be enabled after configuration.
    *
    * @abstract
    * @protected
@@ -195,9 +157,9 @@ export default class AbstractAnalytic {
    *
    * @abstract
    * @protected
-   * @param {Window} window
+   * @param _window
    */
-  _createGlobalDefinition() {
+  _createGlobalDefinition(_window: globalThis.Window) {
     throw new Error(
       'The _createGlobalDefinition() method is abstract and must be overridden.'
     );
@@ -214,9 +176,9 @@ export default class AbstractAnalytic {
 
   /**
    * @protected
-   * @param {AnalyticEvents.INITIALIZED|AnalyticEvents.LOADED} eventType
+   * @param eventType
    */
-  _fireLifecycleEvent(eventType) {
+  _fireLifecycleEvent(eventType: AnalyticEvents) {
     this._dispatcher.fire(eventType, { type: this._analyticScriptName }, true);
   }
 }
