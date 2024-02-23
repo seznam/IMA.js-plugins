@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.1.3
+
+### Patch Changes
+
+- 038a8ea: Typescriptization (from .js to .ts)
+
 ## 3.1.2
 
 ### Patch Changes
