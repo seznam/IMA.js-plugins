@@ -123,7 +123,6 @@ export default abstract class AbstractAnalytic {
    *
    * @abstract
    * @param _data
-   * @param data
    */
   hit(_data: Record<string, any>) {
     throw new Error('The hit() method is abstract and must be overridden.');
@@ -134,7 +133,6 @@ export default abstract class AbstractAnalytic {
    *
    * @abstract
    * @param _pageData
-   * @param pageData
    */
   hitPageView(_pageData: Record<string, any>) {
     throw new Error(
@@ -157,9 +155,9 @@ export default abstract class AbstractAnalytic {
   /**
    * Creates global definition for analytics script.
    *
-   * @param _window
    * @abstract
    * @protected
+   * @param _window
    */
   _createGlobalDefinition(_window: globalThis.Window) {
     throw new Error(
