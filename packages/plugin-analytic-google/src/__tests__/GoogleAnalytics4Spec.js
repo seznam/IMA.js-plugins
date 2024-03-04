@@ -29,10 +29,10 @@ describe('GoogleAnalytics4', () => {
 
   beforeEach(() => {
     googleAnalytics4 = new GoogleAnalytics4(
+      settings,
       scriptLoader,
       window,
-      dispatcher,
-      settings
+      dispatcher
     );
   });
 
