@@ -1,4 +1,4 @@
-import { AbstractAnalytic, defaultDependencies } from '@ima/plugin-analytic';
+import { AbstractAnalytic } from '@ima/plugin-analytic';
 
 const FB_ROOT_VARIABLE = 'fbq';
 
@@ -10,23 +10,25 @@ const FB_ROOT_VARIABLE = 'fbq';
 export default class FacebookPixelAnalytic extends AbstractAnalytic {
   /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
-    return [...defaultDependencies, '$Settings.plugin.analytic.fbPixel'];
+    return [
+      '$Settings.plugin.analytic.fbPixel',
+      ...AbstractAnalytic.$dependencies,
+    ];
   }
 
   /**
    * Creates a Facebook Pixel Helper instance.
    *
    * @function Object() { [native code] }
-   * @param {import('@ima/plugin-script-loader').ScriptLoaderPlugin} scriptLoader
-   * @param {import('@ima/core').Window} window
-   * @param {import('@ima/core').Dispatcher} dispatcher
    * @param {object} config
    */
-  constructor(scriptLoader, window, dispatcher, config) {
-    super(scriptLoader, window, dispatcher, config);
+  constructor(config, ...rest) {
+    super(...rest);
 
     this._analyticScriptName = 'fb_pixel';
     this._analyticScriptUrl = '//connect.facebook.net/en_US/fbevents.js';
+
+    this._config = config;
 
     /**
      * An identifier for Facebook Pixel.
@@ -66,7 +68,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
    *
    * @override
    * @param {string} eventName Name of the event.
-   * @param {object} [eventData=null] Data attached to the event.
+   * @param {object} [eventData] Data attached to the event.
    * @returns {boolean} TRUE when event has been hit; otherwise FALSE.
    */
   hit(eventName, eventData = null) {
@@ -103,7 +105,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
    * Hits a page view event (optionally with page view data).
    *
    * @override
-   * @param {object} [viewContentData = null] Page view data (containing path etc.).
+   * @param {object} [viewContentData] Page view data (containing path etc.).
    * @returns {boolean} TRUE when event has been hit; otherwise FALSE.
    */
   hitPageView(viewContentData = null) {
@@ -137,7 +139,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
   /**
    * Hits a search event (optionally with page name or other event data).
    *
-   * @param {string|object} [queryOrData=null] Search query / event data.
+   * @param {string|object} [queryOrData] Search query / event data.
    * @returns {boolean} TRUE when event has been hit; otherwise FALSE.
    */
   hitSearch(queryOrData = null) {

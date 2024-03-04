@@ -1,4 +1,4 @@
-import { AbstractAnalytic, defaultDependencies } from '@ima/plugin-analytic';
+import { AbstractAnalytic } from '@ima/plugin-analytic';
 
 const GTAG_ROOT_VARIABLE = 'gtag';
 
@@ -8,7 +8,10 @@ const GTAG_ROOT_VARIABLE = 'gtag';
 export default class GoogleAnalytics4 extends AbstractAnalytic {
   /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
-    return [...defaultDependencies, '$Settings.plugin.analytic.google4'];
+    return [
+      '$Settings.plugin.analytic.google4',
+      ...AbstractAnalytic.$dependencies,
+    ];
   }
 
   set _ga4Script(value) {
@@ -26,13 +29,12 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
   /**
    * Initializes the Google Analytics 4 plugin.
    *
-   * @param {import('@ima/plugin-script-loader').ScriptLoaderPlugin} scriptLoader
-   * @param {import('@ima/core').Window} window
-   * @param {import('@ima/core').Dispatcher} dispatcher
    * @param {Object<string, *>} config
    */
-  constructor(scriptLoader, window, dispatcher, config) {
-    super(scriptLoader, window, dispatcher, config);
+  constructor(config, ...rest) {
+    super(...rest);
+
+    this._config = config;
 
     this._analyticScriptName = 'google_analytics_4';
 
