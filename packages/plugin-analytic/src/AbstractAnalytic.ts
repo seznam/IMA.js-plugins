@@ -4,9 +4,6 @@ import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
 
 import { Events as AnalyticEvents } from './Events';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface AbstractAnalyticSettings {}
-
 // @property purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
 export type InitConfig = Record<string, any> & {
   purposeConsents: Record<string, any>;
@@ -19,7 +16,6 @@ export default abstract class AbstractAnalytic {
   _scriptLoader: ScriptLoaderPlugin;
   _window: Window;
   _dispatcher: Dispatcher;
-  _config: AbstractAnalyticSettings;
   _analyticScriptName: string | null = null;
   //Analytic script url.
   _analyticScriptUrl: string | null = null;
@@ -35,16 +31,13 @@ export default abstract class AbstractAnalytic {
   constructor(
     scriptLoader: ScriptLoaderPlugin,
     window: Window,
-    dispatcher: Dispatcher,
-    config: AbstractAnalyticSettings
+    dispatcher: Dispatcher
   ) {
     this._scriptLoader = scriptLoader;
 
     this._window = window;
 
     this._dispatcher = dispatcher;
-
-    this._config = config;
   }
 
   /**
