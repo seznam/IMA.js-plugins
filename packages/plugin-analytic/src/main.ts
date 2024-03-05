@@ -3,8 +3,6 @@ import AbstractAnalytic, {
 } from './AbstractAnalytic';
 import { Events } from './Events';
 
-const defaultDependencies = AbstractAnalytic.$dependencies;
-
 declare module '@ima/core' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface PluginAnalyticSettings {}
@@ -24,9 +22,4 @@ declare module '@ima/core' {
   }
 }
 
-export {
-  Events,
-  AbstractAnalytic,
-  AbstractAnalyticInitConfig,
-  defaultDependencies,
-};
+export { Events, AbstractAnalytic, AbstractAnalyticInitConfig };
