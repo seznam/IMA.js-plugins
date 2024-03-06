@@ -8,12 +8,18 @@ const FB_ROOT_VARIABLE = 'fbq';
  * @class
  */
 export default class FacebookPixelAnalytic extends AbstractAnalytic {
+  #config;
+
   /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return [
       '$Settings.plugin.analytic.fbPixel',
       ...AbstractAnalytic.$dependencies,
     ];
+  }
+
+  get config() {
+    return this.#config;
   }
 
   /**
@@ -28,7 +34,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
     this._analyticScriptName = 'fb_pixel';
     this._analyticScriptUrl = '//connect.facebook.net/en_US/fbevents.js';
 
-    this._config = config;
+    this.#config = config;
 
     /**
      * An identifier for Facebook Pixel.
@@ -51,11 +57,11 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
    * @returns {string} The identifier for Facebook Pixel.
    */
   getId() {
-    switch (typeof this._config.id) {
+    switch (typeof this.config.id) {
       case 'number':
-        return String(this._config.id);
+        return String(this.config.id);
       case 'string':
-        return this._config.id;
+        return this.config.id;
       default:
         throw new TypeError(
           'A Facebook Pixel identifier should be a number/string.'

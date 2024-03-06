@@ -6,6 +6,8 @@ const GTAG_ROOT_VARIABLE = 'gtag';
  * Google analytic 4 class
  */
 export default class GoogleAnalytics4 extends AbstractAnalytic {
+  #config;
+
   /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return [
@@ -26,6 +28,10 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
     return clientWindow[GTAG_ROOT_VARIABLE];
   }
 
+  get config() {
+    return this.#config;
+  }
+
   /**
    * Initializes the Google Analytics 4 plugin.
    *
@@ -34,13 +40,13 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
   constructor(config, ...rest) {
     super(...rest);
 
-    this._config = config;
+    this.#config = config;
 
     this._analyticScriptName = 'google_analytics_4';
 
-    this._analyticScriptUrl = `https://www.googletagmanager.com/gtag/js?id=${this._config.service}`;
+    this._analyticScriptUrl = `https://www.googletagmanager.com/gtag/js?id=${this.config.service}`;
 
-    this._consentSettings = this._config.consentSettings;
+    this._consentSettings = this.config.consentSettings;
   }
   /**
    * Hits custom event of given with given data
@@ -115,12 +121,12 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
 
     this._ga4Script('consent', 'default', {
       ...this._consentSettings,
-      wait_for_update: this._config.waitForUpdateTimeout,
+      wait_for_update: this.config.waitForUpdateTimeout,
     });
 
     this._ga4Script('js', new Date());
 
-    this._ga4Script('config', this._config.service, {
+    this._ga4Script('config', this.config.service, {
       send_page_view: false,
     });
   }
