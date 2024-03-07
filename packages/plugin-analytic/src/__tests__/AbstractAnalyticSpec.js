@@ -2,7 +2,7 @@ import { Window, Dispatcher } from '@ima/core';
 import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
 import { toMockedInstance } from 'to-mock';
 
-import AbstractAnalytic from '../AbstractAnalytic';
+import { AbstractAnalytic } from '../AbstractAnalytic';
 import { Events as AnalyticEvents } from '../Events';
 
 describe('AbstractAnalytic', () => {

@@ -219,6 +219,10 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
       return;
     }
 
+    /*
+     * Whole code of this method is implementation of initialization code of Facebook Pixel from their documentation.
+     * Not everything used here is typed on the internet (at least I do not find it), therefore it is typed by us here.
+     */
     interface FbAnalytic {
       callMethod: (...params: unknown[]) => void;
       queue: any[];
