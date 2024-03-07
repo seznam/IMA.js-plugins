@@ -1,5 +1,6 @@
-import AbstractAnalytic, {
-  InitConfig as AbstractAnalyticInitConfig,
+import {
+  AbstractAnalytic,
+  type InitConfig as AbstractAnalyticInitConfig,
 } from './AbstractAnalytic';
 import { Events } from './Events';
 
@@ -22,4 +23,6 @@ declare module '@ima/core' {
   }
 }
 
-export { Events, AbstractAnalytic, AbstractAnalyticInitConfig };
+export { Events, AbstractAnalytic };
+
+export type { AbstractAnalyticInitConfig };

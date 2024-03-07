@@ -12,16 +12,16 @@ export type InitConfig = Record<string, any> & {
 /**
  * Abstract analytic class
  */
-export default abstract class AbstractAnalytic {
+export abstract class AbstractAnalytic {
   _scriptLoader: ScriptLoaderPlugin;
   _window: Window;
   _dispatcher: Dispatcher;
   _analyticScriptName: string | null = null;
-  //Analytic script url.
+  // Analytic script url.
   _analyticScriptUrl: string | null = null;
-  //If flag has value true then analytic is enabled to hit events.
+  // If flag has value true then analytic is enabled to hit events.
   _enable = false;
-  //If flag has value true then analytic script was loaded.
+  // If flag has value true then analytic script was loaded.
   _loaded = false;
 
   static get $dependencies(): Dependencies {
@@ -49,7 +49,8 @@ export default abstract class AbstractAnalytic {
    */
   init(initConfig: InitConfig) {
     if (!this.isEnabled() && this._window.isClient()) {
-      const window = this._window.getWindow() as globalThis.Window;
+      // we are on client, therefore window is defined
+      const window = this._window.getWindow()!;
 
       if (initConfig && initConfig.purposeConsents) {
         this._applyPurposeConsents(initConfig.purposeConsents);
@@ -115,23 +116,15 @@ export default abstract class AbstractAnalytic {
    * defer hit to storage.
    *
    * @abstract
-   * @param _data
    */
-  hit(_data: Record<string, any>) {
-    throw new Error('The hit() method is abstract and must be overridden.');
-  }
+  abstract hit(...args: unknown[]): void;
 
   /**
    * Hit page view event to analytic for defined page data.
    *
    * @abstract
-   * @param _pageData
    */
-  hitPageView(_pageData: Record<string, any>) {
-    throw new Error(
-      'The hitPageView() method is abstract and must be overridden.'
-    );
-  }
+  abstract hitPageView(...args: unknown[]): void;
 
   /**
    * Configuration analytic. The analytic must be enabled after configuration.

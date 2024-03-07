@@ -1,11 +1,20 @@
 import { pluginLoader } from '@ima/core';
 
-import FacebookPixelAnalytic from './FacebookPixelAnalytic';
+import FacebookPixelAnalytic, {
+  type AnalyticFBPixelSettings,
+} from './FacebookPixelAnalytic';
 
 export interface PluginAnalyticFBPixelSettings {
   fbPixel: {
     id: string | null;
   };
+}
+
+declare global {
+  interface Window {
+    fbq: facebook.Pixel.Event;
+    _fbq: facebook.Pixel.Event;
+  }
 }
 
 declare module '@ima/core' {
@@ -18,6 +27,10 @@ declare module '@ima/core' {
 
   interface Settings {
     plugin: PluginSettings;
+  }
+
+  interface OCAliasMap {
+    '$Settings.plugin.analytic.fbPixel': AnalyticFBPixelSettings;
   }
 }
 
@@ -36,3 +49,5 @@ pluginLoader.register('@ima/plugin-analytic-google', () => ({
 }));
 
 export { FacebookPixelAnalytic };
+
+export type { AnalyticFBPixelSettings };

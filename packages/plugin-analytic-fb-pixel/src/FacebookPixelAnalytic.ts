@@ -1,6 +1,11 @@
+import { Dependencies } from '@ima/core';
 import { AbstractAnalytic } from '@ima/plugin-analytic';
 
 const FB_ROOT_VARIABLE = 'fbq';
+
+export type AnalyticFBPixelSettings = {
+  id: string | null;
+};
 
 /**
  * Facebook Pixel Helper.
@@ -8,10 +13,13 @@ const FB_ROOT_VARIABLE = 'fbq';
  * @class
  */
 export default class FacebookPixelAnalytic extends AbstractAnalytic {
-  #config;
+  #config: AnalyticFBPixelSettings;
+  // An identifier for Facebook Pixel.
+  _id: string | null;
+  // A main function of Facebook Pixel.
+  _fbq: facebook.Pixel.Event | null;
 
-  /** @type {import('@ima/core').Dependencies} */
-  static get $dependencies() {
+  static get $dependencies(): Dependencies {
     return [
       '$Settings.plugin.analytic.fbPixel',
       ...AbstractAnalytic.$dependencies,
@@ -26,9 +34,13 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
    * Creates a Facebook Pixel Helper instance.
    *
    * @function Object() { [native code] }
+   * @param {...any} rest
    * @param {object} config
    */
-  constructor(config, ...rest) {
+  constructor(
+    config: AnalyticFBPixelSettings,
+    ...rest: ConstructorParameters<typeof AbstractAnalytic>
+  ) {
     super(...rest);
 
     this._analyticScriptName = 'fb_pixel';
@@ -36,18 +48,8 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
 
     this.#config = config;
 
-    /**
-     * An identifier for Facebook Pixel.
-     *
-     * @type {string}
-     */
     this._id = null;
 
-    /**
-     * A main function of Facebook Pixel.
-     *
-     * @type {Function}
-     */
     this._fbq = null;
   }
 
@@ -73,11 +75,11 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
    * Hits an event.
    *
    * @override
-   * @param {string} eventName Name of the event.
-   * @param {object} [eventData] Data attached to the event.
-   * @returns {boolean} TRUE when event has been hit; otherwise FALSE.
+   * @param eventName Name of the event.
+   * @param eventData Data attached to the event.
+   * @returns TRUE when event has been hit; otherwise FALSE.
    */
-  hit(eventName, eventData = null) {
+  hit(eventName: string, eventData: object | null = null) {
     try {
       if (!this._fbq) {
         throw new Error(
@@ -93,7 +95,9 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
         );
       }
     } catch (error) {
-      this._processError(error);
+      this._processError(
+        error as Parameters<FacebookPixelAnalytic['_processError']>[0]
+      );
 
       return false;
     }
@@ -126,12 +130,14 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
         );
       }
     } catch (error) {
-      this._processError(error);
+      this._processError(
+        error as Parameters<FacebookPixelAnalytic['_processError']>[0]
+      );
 
       return false;
     }
 
-    let hitResult = this.hit('PageView');
+    const hitResult = this.hit('PageView');
 
     if (!hitResult) {
       return false;
@@ -160,7 +166,9 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
         );
       }
     } catch (error) {
-      this._processError(error);
+      this._processError(
+        error as Parameters<FacebookPixelAnalytic['_processError']>[0]
+      );
 
       return false;
     }
@@ -185,7 +193,8 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
    * @inheritdoc
    */
   _configuration() {
-    const clientWindow = this._window.getWindow();
+    // _configuration is only called on client, therefore window is defined
+    const clientWindow = this._window.getWindow()!;
 
     if (
       this.isEnabled() ||
@@ -197,27 +206,39 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
 
     this._enable = true;
 
-    this._fbq = window[FB_ROOT_VARIABLE];
-    this._fbq('init', this.getId());
+    this._fbq = clientWindow[FB_ROOT_VARIABLE];
+    this._fbq!('init', this.getId());
   }
 
   /**
    * @override
    * @inheritdoc
    */
-  _createGlobalDefinition(window) {
+  _createGlobalDefinition(window: globalThis.Window) {
     if (window[FB_ROOT_VARIABLE]) {
       return;
     }
 
-    const fbAnalytic = (window[FB_ROOT_VARIABLE] = function () {
-      fbAnalytic.callMethod
-        ? fbAnalytic.callMethod.apply(fbAnalytic, arguments)
-        : fbAnalytic.queue.push(arguments);
-    });
+    interface FbAnalytic {
+      callMethod: (...params: unknown[]) => void;
+      queue: any[];
+      push: FbAnalytic;
+      loaded: boolean;
+      version: string;
+    }
 
-    if (!window['_' + FB_ROOT_VARIABLE]) {
-      window['_' + FB_ROOT_VARIABLE] = fbAnalytic;
+    type FbAnalyiticExtended = facebook.Pixel.Event & FbAnalytic;
+
+    const fbAnalytic = (window[FB_ROOT_VARIABLE] = function (
+      ...rest: unknown[]
+    ) {
+      fbAnalytic.callMethod
+        ? fbAnalytic.callMethod(...rest)
+        : fbAnalytic.queue.push(...rest);
+    }) as FbAnalyiticExtended;
+
+    if (!window[`_${FB_ROOT_VARIABLE}`]) {
+      window[`_${FB_ROOT_VARIABLE}`] = fbAnalytic;
     }
 
     fbAnalytic.push = fbAnalytic;
@@ -233,9 +254,9 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
   /**
    * Processes an error.
    *
-   * @param {Error|TypeError|string} error An error to be processed.
+   * @param error An error to be processed.
    */
-  _processError(error) {
+  _processError(error: Error | TypeError | string) {
     if ($Debug && error) {
       console.error(error);
     }
