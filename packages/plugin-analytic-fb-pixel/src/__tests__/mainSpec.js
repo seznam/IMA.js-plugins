@@ -1,7 +1,7 @@
-import * as Main from '../main';
+import { FacebookPixelAnalytic } from '../main';
 
 describe('Main', () => {
   it('should export FacebookPixelAnalytic', () => {
-    expect(typeof Main.FacebookPixelAnalytic).toBe('function');
+    expect(typeof FacebookPixelAnalytic).toBe('function');
   });
 });

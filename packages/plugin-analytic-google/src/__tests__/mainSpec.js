@@ -1,7 +1,7 @@
-import * as Main from '../main';
+import { GoogleAnalytics4 } from '../main';
 
 describe('Main', () => {
   it('should export GoogleAnalytics4', () => {
-    expect(typeof Main.GoogleAnalytics4).toBe('function');
+    expect(typeof GoogleAnalytics4).toBe('function');
   });
 });

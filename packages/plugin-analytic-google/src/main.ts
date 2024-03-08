@@ -8,7 +8,7 @@ import {
 
 declare global {
   interface Window {
-    gtag: any; // TODO
+    gtag: Gtag.Gtag;
     dataLayer: unknown[];
   }
 }
