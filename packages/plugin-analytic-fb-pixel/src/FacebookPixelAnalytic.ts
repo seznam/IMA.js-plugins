@@ -12,7 +12,7 @@ export type AnalyticFBPixelSettings = {
  *
  * @class
  */
-export default class FacebookPixelAnalytic extends AbstractAnalytic {
+export class FacebookPixelAnalytic extends AbstractAnalytic {
   #config: AnalyticFBPixelSettings;
   // An identifier for Facebook Pixel.
   _id: string | null;
@@ -32,10 +32,8 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
 
   /**
    * Creates a Facebook Pixel Helper instance.
-   *
-   * @function Object() { [native code] }
+   * @param config
    * @param {...any} rest
-   * @param {object} config
    */
   constructor(
     config: AnalyticFBPixelSettings,
@@ -56,7 +54,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
   /**
    * Gets the identifier for Facebook Pixel.
    *
-   * @returns {string} The identifier for Facebook Pixel.
+   * @returns The identifier for Facebook Pixel.
    */
   getId() {
     switch (typeof this.config.id) {
@@ -79,7 +77,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
    * @param eventData Data attached to the event.
    * @returns TRUE when event has been hit; otherwise FALSE.
    */
-  hit(eventName: string, eventData: object | null = null) {
+  hit(eventName: string, eventData: Record<string, any> | null = null) {
     try {
       if (!this._fbq) {
         throw new Error(
@@ -115,10 +113,10 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
    * Hits a page view event (optionally with page view data).
    *
    * @override
-   * @param {object} [viewContentData] Page view data (containing path etc.).
-   * @returns {boolean} TRUE when event has been hit; otherwise FALSE.
+   * @param Page view data (containing path etc.).
+   * @returns TRUE when event has been hit; otherwise FALSE.
    */
-  hitPageView(viewContentData = null) {
+  hitPageView(viewContentData: Record<string, any> | null = null) {
     try {
       if (!this._fbq) {
         throw new Error(
@@ -151,10 +149,11 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
   /**
    * Hits a search event (optionally with page name or other event data).
    *
-   * @param {string|object} [queryOrData] Search query / event data.
-   * @returns {boolean} TRUE when event has been hit; otherwise FALSE.
+   * @param Search query / event data.
+   * @param queryOrData
+   * @returns TRUE when event has been hit; otherwise FALSE.
    */
-  hitSearch(queryOrData = null) {
+  hitSearch(queryOrData: Record<string, any> | string | null = null) {
     try {
       if (!this._fbq) {
         throw new Error(
@@ -173,19 +172,15 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
       return false;
     }
 
-    let eventData;
+    let eventData: Record<string, any> | null;
 
     if (typeof queryOrData === 'string' && queryOrData) {
       eventData = { search_string: queryOrData };
     } else {
-      eventData = queryOrData;
+      return this.hit('Search');
     }
 
-    if (!eventData) {
-      return this.hit('Search');
-    } else {
-      return this.hit('Search', eventData);
-    }
+    return this.hit('Search', eventData);
   }
 
   /**

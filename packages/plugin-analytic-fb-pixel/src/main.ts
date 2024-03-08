@@ -1,20 +1,21 @@
 import { pluginLoader } from '@ima/core';
 
-import FacebookPixelAnalytic, {
+import {
+  FacebookPixelAnalytic,
   type AnalyticFBPixelSettings,
 } from './FacebookPixelAnalytic';
-
-export interface PluginAnalyticFBPixelSettings {
-  fbPixel: {
-    id: string | null;
-  };
-}
 
 declare global {
   interface Window {
     fbq: facebook.Pixel.Event;
     _fbq: facebook.Pixel.Event;
   }
+}
+
+export interface PluginAnalyticFBPixelSettings {
+  fbPixel: {
+    id: string | null;
+  };
 }
 
 declare module '@ima/core' {

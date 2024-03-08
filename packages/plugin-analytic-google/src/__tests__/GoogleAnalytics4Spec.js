@@ -2,7 +2,7 @@ import { Dispatcher, Window } from '@ima/core';
 import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
 import { toMockedInstance } from 'to-mock';
 
-import GoogleAnalytics4 from '../GoogleAnalytics4';
+import { GoogleAnalytics4 } from '../GoogleAnalytics4';
 
 describe('GoogleAnalytics4', () => {
   const settings = {

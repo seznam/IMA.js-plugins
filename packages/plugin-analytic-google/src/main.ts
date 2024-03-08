@@ -1,18 +1,20 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
 import { pluginLoader } from '@ima/core';
 
-import GoogleAnalytics4 from './GoogleAnalytics4.js';
+import {
+  GoogleAnalytics4,
+  type AnalyticGoogleSettings,
+} from './GoogleAnalytics4.js';
+
+declare global {
+  interface Window {
+    gtag: any; // TODO
+    dataLayer: unknown[];
+  }
+}
 
 export interface PluginAnalyticGoogleSettings {
-  google4: {
-    consentSettings?: {
-      ad_storage?: 'denied' | 'granted';
-      analytics_storage?: 'denied' | 'granted';
-      personalization_storage?: 'denied' | 'granted';
-    };
-    service: string;
-    waitForUpdateTimeout?: number;
-  };
+  google4: AnalyticGoogleSettings;
 }
 
 declare module '@ima/core' {
@@ -24,6 +26,10 @@ declare module '@ima/core' {
 
   interface Settings {
     plugin: PluginSettings;
+  }
+
+  interface OCAliasMap {
+    '$Settings.plugin.analytic.google4': AnalyticGoogleSettings;
   }
 }
 
@@ -48,3 +54,5 @@ pluginLoader.register('@ima/plugin-analytic-google', () => ({
 }));
 
 export { GoogleAnalytics4 };
+
+export type { AnalyticGoogleSettings };

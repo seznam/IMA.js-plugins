@@ -1,15 +1,28 @@
+import { Dependencies } from '@ima/core';
 import { AbstractAnalytic } from '@ima/plugin-analytic';
 
 const GTAG_ROOT_VARIABLE = 'gtag';
 
+type ConsentSettings = {
+  ad_storage?: 'denied' | 'granted';
+  analytics_storage?: 'denied' | 'granted';
+  personalization_storage?: 'denied' | 'granted';
+};
+
+export type AnalyticGoogleSettings = {
+  consentSettings?: ConsentSettings;
+  service: string;
+  waitForUpdateTimeout?: number;
+};
+
 /**
  * Google analytic 4 class
  */
-export default class GoogleAnalytics4 extends AbstractAnalytic {
-  #config;
+export class GoogleAnalytics4 extends AbstractAnalytic {
+  #config: AnalyticGoogleSettings;
+  #consentSettings?: ConsentSettings;
 
-  /** @type {import('@ima/core').Dependencies} */
-  static get $dependencies() {
+  static get $dependencies(): Dependencies {
     return [
       '$Settings.plugin.analytic.google4',
       ...AbstractAnalytic.$dependencies,
@@ -17,13 +30,13 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
   }
 
   set _ga4Script(value) {
-    const clientWindow = this._window.getWindow();
+    const clientWindow = this._window.getWindow()!;
 
     clientWindow[GTAG_ROOT_VARIABLE] = value;
   }
 
   get _ga4Script() {
-    const clientWindow = this._window.getWindow();
+    const clientWindow = this._window.getWindow()!;
 
     return clientWindow[GTAG_ROOT_VARIABLE];
   }
@@ -34,10 +47,11 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
 
   /**
    * Initializes the Google Analytics 4 plugin.
-   *
-   * @param {Object<string, *>} config
    */
-  constructor(config, ...rest) {
+  constructor(
+    config: AnalyticGoogleSettings,
+    ...rest: ConstructorParameters<typeof AbstractAnalytic>
+  ) {
     super(...rest);
 
     this.#config = config;
@@ -46,15 +60,15 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
 
     this._analyticScriptUrl = `https://www.googletagmanager.com/gtag/js?id=${this.config.service}`;
 
-    this._consentSettings = this.config.consentSettings;
+    this.#consentSettings = this.config.consentSettings;
   }
   /**
    * Hits custom event of given with given data
    *
-   * @param {string} eventName custom event name
-   * @param {Object<string, *>} eventData custom event data
+   * @param eventName custom event name
+   * @param eventData custom event data
    */
-  hit(eventName, eventData) {
+  hit(eventName: string, eventData: Record<string, any>) {
     if (!this.isEnabled()) {
       return;
     }
@@ -64,12 +78,9 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
 
   /**
    * Hit page view event to analytic with defined data.
-   *
-   * @override
-   * @param {Object<string, *>} pageData
-   * @param {Object<string, string>} customDimensions
+   * @param pageData
    */
-  hitPageView(pageData) {
+  hitPageView(pageData: Record<string, any>) {
     if (!this.isEnabled()) {
       return;
     }
@@ -80,13 +91,13 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
   /**
    * Updates user consents in Google Analytics script
    *
-   * @param {Object<string, *>} purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
+   * @param purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
    */
-  updateConsent(purposeConsents) {
+  updateConsent(purposeConsents: Record<string, any>) {
     this._applyPurposeConsents(purposeConsents);
 
     this._ga4Script('consent', 'update', {
-      ...this._consentSettings,
+      ...this.#consentSettings,
     });
   }
 
@@ -94,12 +105,16 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
    * @override
    * @inheritdoc
    */
-  _applyPurposeConsents(purposeConsents) {
-    if (purposeConsents && typeof purposeConsents === 'object') {
+  _applyPurposeConsents(purposeConsents: Record<string, any>) {
+    if (
+      purposeConsents &&
+      typeof purposeConsents === 'object' &&
+      this.#consentSettings
+    ) {
       if (purposeConsents['1']) {
-        this._consentSettings.analytics_storage = 'granted';
+        this.#consentSettings.analytics_storage = 'granted';
       } else {
-        this._consentSettings.analytics_storage = 'denied';
+        this.#consentSettings.analytics_storage = 'denied';
       }
     }
   }
@@ -120,7 +135,7 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
     this._enable = true;
 
     this._ga4Script('consent', 'default', {
-      ...this._consentSettings,
+      ...this.#consentSettings,
       wait_for_update: this.config.waitForUpdateTimeout,
     });
 
@@ -133,11 +148,8 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
 
   /**
    * Returns page view data derived from pageData param.
-   *
-   * @param {Object<string, *>} pageData
-   * @returns {Object<string, *>} pageViewData
    */
-  _getPageViewData(pageData) {
+  _getPageViewData(pageData: Record<string, any>) {
     return {
       page: pageData.path,
       location: this._window.getUrl(),
@@ -150,12 +162,13 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
    * @inheritdoc
    */
   _createGlobalDefinition() {
-    const window = this._window.getWindow();
+    // _createGlobalDefinition is called only on client, therefore window is defined
+    const window = this._window.getWindow()!;
 
     window.dataLayer = window.dataLayer || [];
 
-    this._ga4Script = function () {
-      window.dataLayer.push(arguments);
+    this._ga4Script = function (...rest: unknown[]) {
+      window.dataLayer.push(...rest);
     };
 
     this._configuration();
