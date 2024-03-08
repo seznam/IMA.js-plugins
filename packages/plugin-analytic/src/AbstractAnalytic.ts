@@ -96,13 +96,9 @@ export abstract class AbstractAnalytic {
    * Applies Purpose Consents to respect GDPR, see https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework
    *
    * @abstract
-   * @param _purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
+   * @param purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
    */
-  _applyPurposeConsents(_purposeConsents: Record<string, any>) {
-    throw new Error(
-      'The applyPurposeConsents() method is abstract and must be overridden.'
-    );
-  }
+  abstract _applyPurposeConsents(purposeConsents: Record<string, any>): void;
 
   /**
    * Returns true if analytic is enabled.
@@ -132,24 +128,15 @@ export abstract class AbstractAnalytic {
    * @abstract
    * @protected
    */
-  _configuration() {
-    throw new Error(
-      'The _configuration() method is abstract and must be overridden.'
-    );
-  }
+  abstract _configuration(): void;
 
   /**
    * Creates global definition for analytics script.
    *
    * @abstract
    * @protected
-   * @param _window
    */
-  _createGlobalDefinition(_window: globalThis.Window) {
-    throw new Error(
-      'The _createGlobalDefinition() method is abstract and must be overridden.'
-    );
-  }
+  abstract _createGlobalDefinition(window: globalThis.Window): void;
 
   /**
    * @protected

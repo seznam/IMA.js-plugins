@@ -4,7 +4,7 @@ import { pluginLoader } from '@ima/core';
 import {
   GoogleAnalytics4,
   type AnalyticGoogleSettings,
-} from './GoogleAnalytics4.js';
+} from './GoogleAnalytics4';
 
 declare global {
   interface Window {

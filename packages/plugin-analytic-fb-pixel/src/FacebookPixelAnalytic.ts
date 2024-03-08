@@ -51,6 +51,10 @@ export class FacebookPixelAnalytic extends AbstractAnalytic {
     this._fbq = null;
   }
 
+  _applyPurposeConsents() {
+    /* this implementation doesn't work with consents */
+  }
+
   /**
    * Gets the identifier for Facebook Pixel.
    *

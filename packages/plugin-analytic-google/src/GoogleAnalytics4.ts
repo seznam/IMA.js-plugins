@@ -20,7 +20,7 @@ export type AnalyticGoogleSettings = {
  */
 export class GoogleAnalytics4 extends AbstractAnalytic {
   #config: AnalyticGoogleSettings;
-  #consentSettings?: ConsentSettings;
+  _consentSettings?: ConsentSettings;
 
   static get $dependencies(): Dependencies {
     return [
@@ -60,7 +60,7 @@ export class GoogleAnalytics4 extends AbstractAnalytic {
 
     this._analyticScriptUrl = `https://www.googletagmanager.com/gtag/js?id=${this.config.service}`;
 
-    this.#consentSettings = this.config.consentSettings;
+    this._consentSettings = this.config.consentSettings;
   }
   /**
    * Hits custom event of given with given data
@@ -97,7 +97,7 @@ export class GoogleAnalytics4 extends AbstractAnalytic {
     this._applyPurposeConsents(purposeConsents);
 
     this._ga4Script('consent', 'update', {
-      ...this.#consentSettings,
+      ...this._consentSettings,
     });
   }
 
@@ -109,12 +109,12 @@ export class GoogleAnalytics4 extends AbstractAnalytic {
     if (
       purposeConsents &&
       typeof purposeConsents === 'object' &&
-      this.#consentSettings
+      this._consentSettings
     ) {
       if (purposeConsents['1']) {
-        this.#consentSettings.analytics_storage = 'granted';
+        this._consentSettings.analytics_storage = 'granted';
       } else {
-        this.#consentSettings.analytics_storage = 'denied';
+        this._consentSettings.analytics_storage = 'denied';
       }
     }
   }
@@ -135,7 +135,7 @@ export class GoogleAnalytics4 extends AbstractAnalytic {
     this._enable = true;
 
     this._ga4Script('consent', 'default', {
-      ...this.#consentSettings,
+      ...this._consentSettings,
       wait_for_update: this.config.waitForUpdateTimeout,
     });
 
@@ -161,10 +161,7 @@ export class GoogleAnalytics4 extends AbstractAnalytic {
    * @override
    * @inheritdoc
    */
-  _createGlobalDefinition() {
-    // _createGlobalDefinition is called only on client, therefore window is defined
-    const window = this._window.getWindow()!;
-
+  _createGlobalDefinition(window: globalThis.Window) {
     window.dataLayer = window.dataLayer || [];
 
     this._ga4Script = function (...rest: unknown[]) {
