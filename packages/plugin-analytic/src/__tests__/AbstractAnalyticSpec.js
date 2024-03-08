@@ -6,6 +6,15 @@ import { AbstractAnalytic } from '../AbstractAnalytic';
 import { Events as AnalyticEvents } from '../Events';
 
 describe('AbstractAnalytic', () => {
+  // abstract method needs to be implemented to be able to test them or to use jest.spyOn them
+  class DummyAnalytic extends AbstractAnalytic {
+    _applyPurposeConsents() {}
+    hit() {}
+    hitPageView() {}
+    _configuration() {}
+    _createGlobalDefinition() {}
+  }
+
   let abstractAnalytic = null;
 
   const _windowMock = toMockedInstance(Window, {
@@ -21,11 +30,7 @@ describe('AbstractAnalytic', () => {
   });
 
   beforeEach(() => {
-    abstractAnalytic = new AbstractAnalytic(
-      scriptLoader,
-      _windowMock,
-      dispatcher
-    );
+    abstractAnalytic = new DummyAnalytic(scriptLoader, _windowMock, dispatcher);
 
     abstractAnalytic._analyticScriptName = 'dummy';
     abstractAnalytic._analyticScriptUrl = 'http://example.net/script.js';
