@@ -11,6 +11,8 @@ declare module '@ima/core' {
 
   interface Utils {
     StyleLoader: StyleLoader;
+    // @deprecated - backwards compatibility
+    ScriptLoaderPlugin: StyleLoader;
   }
 }
 

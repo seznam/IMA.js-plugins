@@ -11,6 +11,8 @@ declare module '@ima/core' {
 
   interface Utils {
     ScriptLoader: ScriptLoader;
+    // @deprecated - backwards compatibility
+    ScriptLoaderPlugin: ScriptLoader;
   }
 }
 
