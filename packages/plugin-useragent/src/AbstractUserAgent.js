@@ -4,21 +4,16 @@
 export default class AbstractUserAgent {
   /**
    * Initializes the user agent analyzer plugin.
-   *
-   * @param {import('platform').default} platformParser
+   * @param platformParser
    */
   constructor(platformParser) {
     /**
      * UserAgent parser.
-     *
-     * @type {import('platform').default}
      */
     this._platformParser = platformParser;
 
     /**
      * UserAgent object.
-     *
-     * @type {Object<string, *>}
      */
     this._uaObject = {};
   }
@@ -147,7 +142,7 @@ export default class AbstractUserAgent {
   /**
    * Fix type for user-agent object from platform.js.
    *
-   * @param {Object<string, *>} uaObject structure
+   * @param {Record<string, any>} uaObject structure
    *        https://github.com/bestiejs/platform.js/blob/master/doc/README.md#readme
    */
   _fixTypes(uaObject) {

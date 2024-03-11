@@ -1,3 +1,4 @@
+import './types';
 import { ComponentUtils, pluginLoader } from '@ima/core';
 // @ts-expect-error
 import { Infinite, Circle, uuid } from 'infinite-circle';
@@ -23,12 +24,6 @@ import { Paragraph } from './components/Paragraph';
 import { Sizer } from './components/Sizer';
 import UIComponentHelper, { type VisibilityOptions } from './UIComponentHelper';
 import Visibility from './Visibility';
-
-declare module '@ima/core' {
-  interface Utils {
-    $UIComponentHelper: UIComponentHelper;
-  }
-}
 
 const defaultDependencies = ['$Router', ComponentPositions, Visibility];
 
