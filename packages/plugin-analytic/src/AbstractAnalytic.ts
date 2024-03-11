@@ -47,12 +47,12 @@ export abstract class AbstractAnalytic {
    * @param initConfig
    * @param initConfig.purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
    */
-  init(initConfig: InitConfig) {
+  init(initConfig?: InitConfig) {
     if (!this.isEnabled() && this._window.isClient()) {
       // we are on client, therefore window is defined
       const window = this._window.getWindow()!;
 
-      if (initConfig && initConfig.purposeConsents) {
+      if (initConfig?.purposeConsents) {
         this._applyPurposeConsents(initConfig.purposeConsents);
       }
       this._createGlobalDefinition(window);
