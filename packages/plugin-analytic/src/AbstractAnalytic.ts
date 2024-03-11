@@ -6,7 +6,7 @@ import { Events as AnalyticEvents } from './Events';
 
 // @property purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
 export type InitConfig = Record<string, any> & {
-  purposeConsents: Record<string, any>;
+  purposeConsents?: Record<string, any>;
 };
 
 /**
@@ -62,8 +62,6 @@ export abstract class AbstractAnalytic {
 
   /**
    * Load analytic script, configure analytic and execute deferred hits.
-   *
-   * @returns {Promise}
    */
   load() {
     if (this._window.isClient()) {
