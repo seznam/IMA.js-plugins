@@ -6,7 +6,7 @@ import { Events } from './Events';
 /**
  * Script loader plugin class.
  */
-export default class ScriptLoaderPlugin {
+export default class ScriptLoader {
   // IMA.js Window
   _window: Window;
   // IMA.js Dispatcher

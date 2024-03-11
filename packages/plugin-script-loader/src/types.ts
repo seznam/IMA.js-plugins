@@ -1,4 +1,5 @@
 import { Events } from './Events';
+import ScriptLoader from './ScriptLoader';
 
 declare module '@ima/core' {
   interface DispatcherEventsMap {
@@ -7,4 +8,10 @@ declare module '@ima/core' {
       error?: Error;
     };
   }
+
+  interface Utils {
+    ScriptLoader: ScriptLoader;
+  }
 }
+
+export {};

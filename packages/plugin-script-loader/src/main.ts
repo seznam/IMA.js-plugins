@@ -1,7 +1,25 @@
 import './types';
+import { pluginLoader, ComponentUtils } from '@ima/core';
+
 import { Events } from './Events';
-import ScriptLoaderPlugin from './ScriptLoaderPlugin';
+import ScriptLoader from './ScriptLoader';
 
-const defaultDependencies = ScriptLoaderPlugin.$dependencies;
+const defaultDependencies = ScriptLoader.$dependencies;
 
-export { Events, ScriptLoaderPlugin, defaultDependencies };
+pluginLoader.register('@ima/plugin-script-loader', () => ({
+  initBind: (ns, oc) => {
+    oc.get(ComponentUtils).register(
+      ScriptLoader,
+      undefined,
+      '@ima/plugin-script-loader'
+    );
+  },
+}));
+
+export {
+  Events,
+  ScriptLoader,
+  // @deprecated, don't use this alias
+  ScriptLoader as ScriptLoaderPlugin,
+  defaultDependencies,
+};
