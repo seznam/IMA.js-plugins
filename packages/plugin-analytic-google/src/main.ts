@@ -24,5 +24,5 @@ pluginLoader.register('@ima/plugin-analytic-google', () => ({
   }),
 }));
 
-export { PluginAnalyticGoogleSettings } from './types';
+export type { PluginAnalyticGoogleSettings } from './types';
 export { GoogleAnalytics4, googleAnalytics4DefaultDependencies };

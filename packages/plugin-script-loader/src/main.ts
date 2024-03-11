@@ -2,7 +2,7 @@ import './types';
 import { pluginLoader, ComponentUtils } from '@ima/core';
 
 import { Events } from './Events';
-import ScriptLoader from './ScriptLoader';
+import { ScriptLoader } from './ScriptLoader';
 
 const defaultDependencies = ScriptLoader.$dependencies;
 

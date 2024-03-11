@@ -18,5 +18,5 @@ pluginLoader.register('@ima/plugin-analytic-google', () => ({
   }),
 }));
 
-export { PluginAnalyticFBPixelSettings } from './types';
+export type { PluginAnalyticFBPixelSettings } from './types';
 export { FacebookPixelAnalytic, defaultDependencies };

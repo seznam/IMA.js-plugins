@@ -3,7 +3,7 @@ import { ResourceLoader } from '@ima/plugin-resource-loader';
 import { toMockedInstance } from 'to-mock';
 
 import { Events } from '../Events';
-import StyleLoader from '../StyleLoader';
+import { StyleLoader } from '../StyleLoader';
 
 describe('StyleLoader', () => {
   let styleLoaderPlugin = null;

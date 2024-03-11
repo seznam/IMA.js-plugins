@@ -3,7 +3,7 @@ import { ResourceLoader } from '@ima/plugin-resource-loader';
 import { toMockedInstance } from 'to-mock';
 
 import { Events } from '../Events';
-import ScriptLoader from '../ScriptLoader';
+import { ScriptLoader } from '../ScriptLoader';
 
 describe('ScriptLoader', () => {
   let scriptLoaderPlugin = null;

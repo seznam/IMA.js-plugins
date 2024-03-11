@@ -2,7 +2,7 @@ import './types';
 import { pluginLoader, ComponentUtils } from '@ima/core';
 
 import { Events } from './Events';
-import StyleLoader from './StyleLoader';
+import { StyleLoader } from './StyleLoader';
 
 const defaultDependencies = StyleLoader.$dependencies;
 
