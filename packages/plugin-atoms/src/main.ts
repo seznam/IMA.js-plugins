@@ -1,7 +1,6 @@
 import './types';
 import { ComponentUtils, pluginLoader } from '@ima/core';
-// @ts-expect-error
-import { Infinite, Circle, uuid } from 'infinite-circle';
+import { Infinite } from 'infinite-circle';
 
 import ComponentPositions from './ComponentPositions';
 import { LAYOUT, LOADING } from './components/constants';
