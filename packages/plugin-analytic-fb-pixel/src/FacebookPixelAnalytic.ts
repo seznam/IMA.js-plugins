@@ -3,6 +3,20 @@ import { AbstractAnalytic } from '@ima/plugin-analytic';
 
 const FB_ROOT_VARIABLE = 'fbq';
 
+/*
+ * Whole code of method _createGlobalDefinition is implementation of initialization code of Facebook Pixel from their documentation.
+ * Not everything used there is typed on the internet (at least I didn't find it), therefore it is typed by us here.
+ */
+interface FbAnalytic {
+  callMethod: (...params: unknown[]) => void;
+  queue: any[];
+  push: FbAnalytic;
+  loaded: boolean;
+  version: string;
+}
+
+type FbAnalyiticExtended = facebook.Pixel.Event & FbAnalytic;
+
 export type AnalyticFBPixelSettings = {
   id: string | null;
 };
@@ -32,8 +46,6 @@ export class FacebookPixelAnalytic extends AbstractAnalytic {
 
   /**
    * Creates a Facebook Pixel Helper instance.
-   * @param config
-   * @param {...any} rest
    */
   constructor(
     config: AnalyticFBPixelSettings,
@@ -176,7 +188,7 @@ export class FacebookPixelAnalytic extends AbstractAnalytic {
       return false;
     }
 
-    let eventData: Record<string, any> | null;
+    let eventData: Record<string, unknown> | null;
 
     if (typeof queryOrData === 'string' && queryOrData) {
       eventData = { search_string: queryOrData };
@@ -217,20 +229,6 @@ export class FacebookPixelAnalytic extends AbstractAnalytic {
     if (window[FB_ROOT_VARIABLE]) {
       return;
     }
-
-    /*
-     * Whole code of this method is implementation of initialization code of Facebook Pixel from their documentation.
-     * Not everything used here is typed on the internet (at least I do not find it), therefore it is typed by us here.
-     */
-    interface FbAnalytic {
-      callMethod: (...params: unknown[]) => void;
-      queue: any[];
-      push: FbAnalytic;
-      loaded: boolean;
-      version: string;
-    }
-
-    type FbAnalyiticExtended = facebook.Pixel.Event & FbAnalytic;
 
     const fbAnalytic = (window[FB_ROOT_VARIABLE] = function (
       ...rest: unknown[]

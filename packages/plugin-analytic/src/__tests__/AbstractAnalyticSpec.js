@@ -6,7 +6,7 @@ import { AbstractAnalytic } from '../AbstractAnalytic';
 import { Events as AnalyticEvents } from '../Events';
 
 describe('AbstractAnalytic', () => {
-  // abstract method needs to be implemented to be able to test them or to use jest.spyOn them
+  // Abstract methods must be implemented to be testable and monitored by jest.spyOn
   class DummyAnalytic extends AbstractAnalytic {
     _applyPurposeConsents() {}
     hit() {}
