@@ -1,5 +1,4 @@
 import type { Router, Window, Dependencies } from '@ima/core';
-// @ts-expect-error
 import { Infinite } from 'infinite-circle';
 
 import ComponentPositions from './ComponentPositions';
@@ -23,6 +22,7 @@ export default class UIComponentHelper {
     ComponentPositions,
     Visibility,
     Infinite,
+    // @ts-expect-error
     '$CssClasses',
   ];
 
