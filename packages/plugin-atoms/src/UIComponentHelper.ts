@@ -1,6 +1,4 @@
-/* eslint-disable jsdoc/require-returns */
-/* eslint-disable jsdoc/require-param */
-import { Router, Window, Dependencies } from '@ima/core';
+import type { Router, Window, Dependencies } from '@ima/core';
 // @ts-expect-error
 import { Infinite } from 'infinite-circle';
 
@@ -132,7 +130,7 @@ export default class UIComponentHelper {
     let isFirstPositionCalculated = false;
 
     const observer = new IntersectionObserver(entries => {
-      intersectionObserverEntry = entries[0];
+      intersectionObserverEntry = entries[0]!;
       this.visibility.circle.notify({ type: 'intersectionobserver', entries });
     }, observerConfig);
     observer.observe(element);

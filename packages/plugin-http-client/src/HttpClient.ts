@@ -11,12 +11,8 @@ declare module '@ima/core' {
   }
 }
 
-import {
-  AbstractProcessor,
-  Processor,
-  Operation,
-  ProcessorParams,
-} from './AbstractProcessor';
+import type { Processor, ProcessorParams } from './AbstractProcessor';
+import { AbstractProcessor, Operation } from './AbstractProcessor';
 
 export const OPTION_TRANSFORM_PROCESSORS = 'transformProcessors';
 

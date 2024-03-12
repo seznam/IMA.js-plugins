@@ -1,6 +1,6 @@
 import path from 'path';
 
-import {
+import type {
   ImaConfigurationContext,
   ImaCliCommand,
   ImaCliPlugin,
@@ -11,9 +11,9 @@ import StatoscopeWebpackPlugin from '@statoscope/webpack-plugin';
 import open from 'better-opn';
 import { BundleStatsWebpackPlugin } from 'bundle-stats-webpack-plugin';
 import chalk from 'chalk';
-import { Configuration, WebpackPluginInstance } from 'webpack';
+import type { Configuration, WebpackPluginInstance } from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import { CommandBuilder } from 'yargs';
+import type { CommandBuilder } from 'yargs';
 
 // Extend existing cli args interface with new values
 declare module '@ima/cli' {

@@ -1,4 +1,4 @@
-import LocalStorage from './LocalStorage';
+import type LocalStorage from './LocalStorage';
 
 declare module '@ima/core' {
   interface Utils {

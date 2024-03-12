@@ -1,12 +1,13 @@
 import fs from 'fs';
 import path from 'path';
 
-import { ImaCliPlugin, ImaCliArgs, ImaConfig } from '@ima/cli';
+import type { ImaCliPlugin, ImaCliArgs, ImaConfig } from '@ima/cli';
 import { createLogger } from '@ima/dev-utils/logger';
 import chalk from 'chalk';
 import webpack from 'webpack';
 
-import { generateLessVariables, UnitValue } from './generator';
+import type { UnitValue } from './generator';
+import { generateLessVariables } from './generator';
 import { createLessConstantsRegExp, getUsedLessConstants } from './verify';
 
 export interface LessConstantsPluginOptions {

@@ -1,6 +1,4 @@
-/* eslint-disable jsdoc/require-returns */
-/* eslint-disable jsdoc/require-param */
-import { Window, Dependencies } from '@ima/core';
+import type { Window, Dependencies } from '@ima/core';
 
 export type VisibilityRect = {
   top: number;

@@ -1,4 +1,5 @@
-import { AbstractProcessor, ProcessorParams } from '../../AbstractProcessor';
+import type { ProcessorParams } from '../../AbstractProcessor';
+import { AbstractProcessor } from '../../AbstractProcessor';
 
 /**
  * The EntityProcessor transforms the response from the API into entities.

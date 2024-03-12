@@ -43,9 +43,9 @@ pluginLoader.register('@ima/plugin-atoms', ns => {
   };
 });
 
+export type { VisibilityOptions };
 export {
   UIComponentHelper,
-  VisibilityOptions,
   Visibility,
   ComponentPositions,
   defaultDependencies,
@@ -80,7 +80,4 @@ export {
   Sizer,
   LAYOUT,
   LOADING,
-  Circle,
-  Infinite,
-  uuid,
 };

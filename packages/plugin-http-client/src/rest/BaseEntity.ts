@@ -1,14 +1,15 @@
 import { clone } from '@ima/helpers';
 
-import { BaseMapper, DataFieldValue, MapperItem } from './mapper/BaseMapper';
+import type { DataFieldValue, MapperItem } from './mapper/BaseMapper';
+import { BaseMapper } from './mapper/BaseMapper';
 
 export interface EntityConstructor {
   new (data: object): Entity;
 }
 
 export interface Entity {
-  serialize(data: object): any;
-  deserialize(data: object): any;
+  serialize: (data: object) => any;
+  deserialize: (data: object) => any;
 }
 
 /**
@@ -82,7 +83,7 @@ export class BaseEntity {
       let newValue = value;
       let newKey = key;
       if (reverseMapping[key]) {
-        const mapperItem = reverseMapping[key];
+        const mapperItem = reverseMapping[key]!;
         newKey = mapperItem.newKey;
         newValue = mapperItem.mapper.serialize(value);
       }
@@ -131,7 +132,7 @@ export class BaseEntity {
       let newValue = value;
       let newKey = key;
       if (mapping[key]) {
-        const mapperItem = mapping[key];
+        const mapperItem = mapping[key]!;
         newKey = mapperItem.newKey;
         newValue = mapperItem.mapper.deserialize(value);
       }

@@ -1,1 +1,2 @@
-export { LegacyCSSPlugin, LegacyCSSPluginOptions } from './LegacyCSSPlugin';
+export type { LegacyCSSPluginOptions } from './LegacyCSSPlugin';
+export { LegacyCSSPlugin } from './LegacyCSSPlugin';

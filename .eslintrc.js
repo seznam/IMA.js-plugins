@@ -8,22 +8,22 @@ module.exports = {
   ],
   extends: [
     'eslint:recommended',
-    'plugin:jsdoc/recommended',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:jest/recommended',
     'plugin:jest/style',
     'plugin:import/recommended',
     'plugin:prettier/recommended',
+    // 'plugin:jsdoc/recommended-typescript',
   ],
   rules: {
     // JSDoc plugin
-    'jsdoc/no-undefined-types': 'off',
-    'jsdoc/require-param-description': 'off',
-    'jsdoc/require-returns-description': 'off',
-    'jsdoc/require-returns-check': 'off',
-    'jsdoc/require-jsdoc': 'off',
-    'jsdoc/tag-lines': 'off',
+    // 'jsdoc/no-undefined-types': 'off',
+    // 'jsdoc/require-param-description': 'off',
+    // 'jsdoc/require-returns-description': 'off',
+    // 'jsdoc/require-returns-check': 'off',
+    // 'jsdoc/require-jsdoc': 'off',
+    // 'jsdoc/tag-lines': 'off',
 
     'no-console': [
       'error',
@@ -144,11 +144,33 @@ module.exports = {
     {
       files: ['**/*.{ts,tsx}'],
       parserOptions: {
-        tsconfigRootDir: __dirname,
-        project: './tsconfig.json',
+        project: [
+          './tsconfig.json',
+          './apps/*/tsconfig.json',
+          './packages/*/tsconfig.json',
+        ],
       },
       extends: ['plugin:@typescript-eslint/recommended'],
       rules: {
+        '@typescript-eslint/prefer-nullish-coalescing': 'off',
+        '@typescript-eslint/prefer-optional-chain': 'error',
+        '@typescript-eslint/prefer-string-starts-ends-with': 'error',
+        'default-param-last': 'off',
+        '@typescript-eslint/default-param-last': 'error',
+        '@typescript-eslint/method-signature-style': ['error', 'property'],
+        'dot-notation': 'off',
+        '@typescript-eslint/no-require-imports': 'error',
+        '@typescript-eslint/dot-notation': 'error',
+        '@typescript-eslint/consistent-type-definitions': 'off',
+        '@typescript-eslint/no-import-type-side-effects': 'error',
+        '@typescript-eslint/consistent-type-imports': 'error',
+        '@typescript-eslint/consistent-type-exports': 'error',
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        '@typescript-eslint/no-explicit-any': 'warn',
+        '@typescript-eslint/ban-ts-comment': [
+          'error',
+          { 'ts-expect-error': 'off' },
+        ],
         '@typescript-eslint/no-unused-vars': [
           'error',
           {
@@ -158,10 +180,6 @@ module.exports = {
             ignoreRestSiblings: true,
             args: 'none',
           },
-        ],
-        '@typescript-eslint/ban-ts-comment': [
-          'error',
-          { 'ts-expect-error': 'off' },
         ],
         '@typescript-eslint/no-namespace': [
           'error',

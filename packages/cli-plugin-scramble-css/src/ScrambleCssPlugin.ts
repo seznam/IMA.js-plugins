@@ -1,16 +1,18 @@
 import fs from 'fs';
 import path from 'path';
 
-import { ImaCliPlugin, ImaConfig, ImaConfigurationContext } from '@ima/cli';
+import type {
+  ImaCliPlugin,
+  ImaConfig,
+  ImaConfigurationContext,
+} from '@ima/cli';
 // eslint-disable-next-line import/default
 import CopyPlugin from 'copy-webpack-plugin';
-import { Configuration } from 'webpack';
-import { CommandBuilder } from 'yargs';
+import type { Configuration } from 'webpack';
+import type { CommandBuilder } from 'yargs';
 
-import {
-  ScrambleCssMinimizerOptions,
-  ScrambleCssMinimizer,
-} from './minimizer/ScrambleCssMinimizer';
+import type { ScrambleCssMinimizerOptions } from './minimizer/ScrambleCssMinimizer';
+import { ScrambleCssMinimizer } from './minimizer/ScrambleCssMinimizer';
 
 // Extend existing cli args interface with new values
 declare module '@ima/cli' {

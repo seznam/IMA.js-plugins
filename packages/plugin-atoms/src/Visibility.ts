@@ -1,6 +1,5 @@
-/* eslint-disable jsdoc/require-param */
-/* eslint-disable jsdoc/require-returns */
-import { Window, Dependencies, Dispatcher, RouterEvents } from '@ima/core';
+import type { Window, Dependencies, Dispatcher } from '@ima/core';
+import { RouterEvents } from '@ima/core';
 // @ts-expect-error
 import { Circle } from 'infinite-circle';
 

@@ -1,4 +1,5 @@
-import { asUnit, Unit } from './utils';
+import type { Unit } from './utils';
+import { asUnit } from './utils';
 
 export type MediaType = 'all' | 'print' | 'screen' | 'speach';
 

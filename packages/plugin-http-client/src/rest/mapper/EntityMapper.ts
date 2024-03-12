@@ -1,5 +1,6 @@
 import { BaseMapper } from './BaseMapper';
-import { BaseEntity, EntityConstructor } from '../BaseEntity';
+import type { EntityConstructor } from '../BaseEntity';
+import { BaseEntity } from '../BaseEntity';
 
 /**
  * EntityMapper transform object into entity property which is instance of BaseEntity.

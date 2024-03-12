@@ -1,5 +1,4 @@
-/* eslint-disable jsdoc/check-param-names */
-import { Dependencies, Dispatcher, Window } from '@ima/core';
+import type { Dependencies, Dispatcher, Window } from '@ima/core';
 import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
 
 import { Events as AnalyticEvents } from './Events';
@@ -58,7 +57,7 @@ export default abstract class AbstractAnalytic {
     if (!this.isEnabled() && this._window.isClient()) {
       const window = this._window.getWindow() as globalThis.Window;
 
-      if (initConfig && initConfig.purposeConsents) {
+      if (initConfig?.purposeConsents) {
         this._applyPurposeConsents(initConfig.purposeConsents);
       }
       this._createGlobalDefinition(window);
@@ -84,7 +83,7 @@ export default abstract class AbstractAnalytic {
       }
 
       return this._scriptLoader
-        .load(this._analyticScriptUrl)
+        .load(this._analyticScriptUrl)!
         .then(() => {
           this._afterLoadCallback();
 

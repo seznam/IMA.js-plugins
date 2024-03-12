@@ -1,4 +1,4 @@
-import { Events } from './Events';
+import type { Events } from './Events';
 
 declare module '@ima/core' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface

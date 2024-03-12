@@ -1,4 +1,4 @@
-import { Window, Dependencies, Dispatcher } from '@ima/core';
+import type { Window, Dependencies, Dispatcher } from '@ima/core';
 import { ResourceLoader } from '@ima/plugin-resource-loader';
 
 import { Events } from './Events';

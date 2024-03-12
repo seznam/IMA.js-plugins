@@ -1,4 +1,8 @@
-const { defaultConfig, preprocessTransformer } = require('@ima/plugin-cli');
+const {
+  defaultConfig,
+  preprocessTransformer,
+  typescriptDeclarationsPlugin,
+} = require('@ima/plugin-cli');
 
 /**
  * @type import('@ima/plugin-cli').ImaPluginConfig
@@ -51,5 +55,11 @@ module.exports = [
       },
     ],
     additionalWatchPaths: ['./index.cjs', './index.mjs'],
+    plugins: [
+      typescriptDeclarationsPlugin({
+        allowFailure: false,
+        additionalArgs: ['--skipLibCheck'],
+      }),
+    ],
   },
 ];
