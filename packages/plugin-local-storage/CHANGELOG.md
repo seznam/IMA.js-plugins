@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.0
+
+### Major Changes
+
+- 535f56e: `LocalStorage` is now registered in ComponentUtils by default, remove your own registration from bind.js
+
 ## 3.0.3
 
 ### Patch Changes

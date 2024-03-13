@@ -1,5 +1,15 @@
 # Change Log
 
+## 4.0.0
+
+### Major Changes
+
+- 535f56e: `StyleLoader` is now registered in ComponentUtils by default, remove your own registration from bind.js
+
+### Patch Changes
+
+- 6d92917: Code refactorings, moved type extensions to separate file to cleanup main.ts
+
 ## 3.0.3
 
 ### Patch Changes

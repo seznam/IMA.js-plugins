@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 10.1.2
+
+### Patch Changes
+
+- 6d92917: Code refactorings, moved type extensions to separate file to cleanup main.ts
+
 ## 10.1.1
 
 ### Patch Changes

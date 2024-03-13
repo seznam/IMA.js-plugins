@@ -1,5 +1,11 @@
 # @ima/plugin-http-client
 
+## 2.1.1
+
+### Patch Changes
+
+- 6d92917: Code refactorings, moved type extensions to separate file to cleanup main.ts
+
 ## 2.1.0
 
 ### Minor Changes

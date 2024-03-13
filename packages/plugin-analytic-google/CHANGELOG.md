@@ -1,5 +1,14 @@
 # Change Log
 
+## 7.0.1
+
+### Patch Changes
+
+- 6d92917: Code refactorings, moved type extensions to separate file to cleanup main.ts
+- Updated dependencies [535f56e]
+- Updated dependencies [6d92917]
+  - @ima/plugin-script-loader@4.0.0
+
 ## 7.0.0
 
 ### Major Changes
