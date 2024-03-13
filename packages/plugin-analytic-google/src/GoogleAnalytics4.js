@@ -137,7 +137,8 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
    */
   _getPageViewData(pageData) {
     const page_location = this._window.getUrl();
-    const page_referrer = this._referrer || this._window.getDocument().referrer;
+    const page_referrer =
+      this._referrer || this._window?.getDocument()?.referrer;
 
     return {
       page_path: pageData.path,
