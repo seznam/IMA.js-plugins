@@ -1,5 +1,11 @@
 # Change Log
 
+## 6.0.0
+
+### Major Changes
+
+- 6d92917: Added `UserAgent` registration to `ComponentUtils`, you can remove this registration in your bind.js
+
 ## 5.0.1
 
 ### Patch Changes
