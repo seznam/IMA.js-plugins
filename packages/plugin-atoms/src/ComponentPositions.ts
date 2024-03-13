@@ -17,6 +17,7 @@ export default class ComponentPositions {
 
   /**
    * Initializes the helper.
+   * @param window
    */
   constructor(window: Window) {
     this._window = window;
@@ -24,6 +25,7 @@ export default class ComponentPositions {
 
   /**
    * Convert string to number.
+   * @param string
    */
   convertToNumber(string: string) {
     try {
@@ -37,6 +39,7 @@ export default class ComponentPositions {
 
   /**
    * Returns percent of visibility defined area in window viewport.
+   * @param elmRect
    */
   getPercentOfVisibility(elmRect: VisibilityRect) {
     if (!elmRect) {
@@ -65,6 +68,8 @@ export default class ComponentPositions {
 
   /**
    * Returns an intersection rectangle of two defined reactangles.
+   * @param rect1
+   * @param rect2
    */
   getRectsIntersection(
     rect1: VisibilityRect,
@@ -91,6 +96,9 @@ export default class ComponentPositions {
   /**
    * Returns number from defined range, if number is not in defined range return
    * min or max depends on number.
+   * @param number
+   * @param min
+   * @param max
    */
   getNumberFromRange(number: number, min: number, max: number) {
     return Math.min(Math.max(number, min), max);
@@ -122,6 +130,11 @@ export default class ComponentPositions {
   /**
    * Returns the size of an element and its position relative to the viewport
    * and add extended value to returned rect.
+   * @param element
+   * @param root0
+   * @param root0.width
+   * @param root0.height
+   * @param extended
    */
   getBoundingClientRect(
     element: HTMLElement,

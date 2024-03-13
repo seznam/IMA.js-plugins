@@ -47,6 +47,7 @@ export class BaseEntity {
    *
    * @param data, which will be directly
    *        assigned to the entity's fields.
+   * @param data
    */
   constructor(data: object) {
     const entityData = this.deserialize(data);
@@ -65,6 +66,7 @@ export class BaseEntity {
    * The default implementation of this method implements a mapping based on
    * the {@linkcode dataFieldMapping} property's value.
    *
+   * @param data
    */
   serialize(data: any = this): any {
     const mapping = this.#getDataFieldMapping();
@@ -123,6 +125,7 @@ export class BaseEntity {
    * The default implementation of this method implements a mapping based on
    * the {@linkcode dataFieldMapping} property's value.
    *
+   * @param data
    */
   deserialize(data: object): any {
     const mapping = this.#getDataFieldMapping();
@@ -155,6 +158,7 @@ export class BaseEntity {
   /**
    * Creates a clone of this entity with its state patched using the provided
    * state patch object.
+   * @param statePatch
    */
   cloneAndPatch(statePatch: any) {
     const data = this.serialize();

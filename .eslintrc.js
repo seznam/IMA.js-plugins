@@ -14,16 +14,16 @@ module.exports = {
     'plugin:jest/style',
     'plugin:import/recommended',
     'plugin:prettier/recommended',
-    // 'plugin:jsdoc/recommended-typescript',
+    'plugin:jsdoc/recommended-typescript-flavor',
   ],
   rules: {
     // JSDoc plugin
-    // 'jsdoc/no-undefined-types': 'off',
-    // 'jsdoc/require-param-description': 'off',
-    // 'jsdoc/require-returns-description': 'off',
-    // 'jsdoc/require-returns-check': 'off',
-    // 'jsdoc/require-jsdoc': 'off',
-    // 'jsdoc/tag-lines': 'off',
+    'jsdoc/no-undefined-types': 'off',
+    'jsdoc/require-param-description': 'off',
+    'jsdoc/require-returns-description': 'off',
+    'jsdoc/require-returns-check': 'off',
+    'jsdoc/require-jsdoc': 'off',
+    'jsdoc/tag-lines': 'off',
 
     'no-console': [
       'error',
