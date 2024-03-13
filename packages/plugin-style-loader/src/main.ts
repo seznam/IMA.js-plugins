@@ -1,15 +1,25 @@
+import './types';
+import { pluginLoader, ComponentUtils } from '@ima/core';
+
 import { Events } from './Events';
-import StyleLoaderPlugin from './StyleLoaderPlugin';
+import { StyleLoader } from './StyleLoader';
 
-declare module '@ima/core' {
-  interface DispatcherEventsMap {
-    [Events.LOADED]: {
-      url: string;
-      error?: Error;
-    };
-  }
-}
+const defaultDependencies = StyleLoader.$dependencies;
 
-const defaultDependencies = StyleLoaderPlugin.$dependencies;
+pluginLoader.register('@ima/plugin-style-loader', () => ({
+  initBind: (ns, oc) => {
+    oc.get(ComponentUtils).register(
+      StyleLoader,
+      undefined,
+      '@ima/plugin-style-loader'
+    );
+  },
+}));
 
-export { StyleLoaderPlugin, Events, defaultDependencies };
+export {
+  // @deprecated alias don't use
+  StyleLoader as StyleLoaderPlugin,
+  StyleLoader,
+  Events,
+  defaultDependencies,
+};

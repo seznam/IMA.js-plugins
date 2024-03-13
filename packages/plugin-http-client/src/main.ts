@@ -14,22 +14,8 @@ export type {
 
 export { AbstractProcessor } from './AbstractProcessor';
 export { HttpClient, OPTION_TRANSFORM_PROCESSORS } from './HttpClient';
-
-import { RestResourceSettings } from './rest/AbstractResource';
-
-export interface PluginHttpClientSettings {
-  rest?: RestResourceSettings;
-}
-
-declare module '@ima/core' {
-  interface PluginSettings {
-    httpClient: PluginHttpClientSettings;
-  }
-
-  interface Settings {
-    plugin: PluginSettings;
-  }
-}
+export type { PluginHttpClientSettings } from './types';
+export type { RestResourceSettings } from './rest/AbstractResource';
 
 pluginLoader.register('@ima/plugin-http-client', () => ({
   initSettings: () => ({

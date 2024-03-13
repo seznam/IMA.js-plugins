@@ -3,9 +3,9 @@ import { ResourceLoader } from '@ima/plugin-resource-loader';
 import { toMockedInstance } from 'to-mock';
 
 import { Events } from '../Events';
-import StyleLoaderPlugin from '../StyleLoaderPlugin';
+import { StyleLoader } from '../StyleLoader';
 
-describe('StyleLoaderPlugin', () => {
+describe('StyleLoader', () => {
   let styleLoaderPlugin = null;
   let url = '//example.com/some.css';
   let template = 'some css code';
@@ -21,11 +21,7 @@ describe('StyleLoaderPlugin', () => {
   const resourceLoader = toMockedInstance(ResourceLoader);
 
   beforeEach(() => {
-    styleLoaderPlugin = new StyleLoaderPlugin(
-      window,
-      dispatcher,
-      resourceLoader
-    );
+    styleLoaderPlugin = new StyleLoader(window, dispatcher, resourceLoader);
     element = {
       onload() {},
       onerror() {},
