@@ -9,8 +9,15 @@ const defaultDependencies = StyleLoader.$dependencies;
 pluginLoader.register('@ima/plugin-style-loader', () => ({
   initBind: (ns, oc) => {
     oc.get(ComponentUtils).register(
+      'StyleLoader',
       StyleLoader,
-      undefined,
+      '@ima/plugin-style-loader'
+    );
+
+    // Deprecated use without Suffix
+    oc.get(ComponentUtils).register(
+      'StyleLoaderPlugin',
+      StyleLoader,
       '@ima/plugin-style-loader'
     );
   },

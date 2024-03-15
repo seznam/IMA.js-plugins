@@ -6,8 +6,8 @@ import LocalStorage from './LocalStorage';
 pluginLoader.register('@ima/plugin-local-storage', () => ({
   initBind: (ns, oc) => {
     oc.get(ComponentUtils).register(
+      'LocalStorage',
       LocalStorage,
-      undefined,
       '@ima/plugin-local-storage'
     );
   },

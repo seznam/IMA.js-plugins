@@ -16,8 +16,8 @@ pluginLoader.register('@ima/plugin-useragent', () => {
       }
 
       oc.get(ComponentUtils).register(
+        'UserAgent',
         UserAgent,
-        undefined,
         '@ima/plugin-useragent'
       );
     },
