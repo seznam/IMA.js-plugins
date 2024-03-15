@@ -1,11 +1,6 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
-import {
-  memo,
-  useEffect,
-  useRef,
-  useState,
-  ComponentPropsWithoutRef,
-} from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import type { ValueOf } from 'type-fest';
 
 import { LAYOUT, LOADING, IFRAME_ATTRIBUTES } from './constants';
@@ -60,7 +55,7 @@ export const Iframe = memo(function IframeComponent({
       }),
       $UIComponentHelper.wrapVisibilityWriter((visibility, observer) => {
         if (visibility > 0) {
-          observer && observer.disconnect();
+          observer?.disconnect();
           $UIComponentHelper.visibility.unregister(registeredVisibilityId);
 
           if (visibleInViewport === false) {

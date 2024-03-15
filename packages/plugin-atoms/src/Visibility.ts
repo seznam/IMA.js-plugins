@@ -1,6 +1,5 @@
-/* eslint-disable jsdoc/require-param */
-/* eslint-disable jsdoc/require-returns */
-import { Window, Dependencies, Dispatcher, RouterEvents } from '@ima/core';
+import type { Window, Dependencies, Dispatcher } from '@ima/core';
+import { RouterEvents } from '@ima/core';
 // @ts-expect-error
 import { Circle } from 'infinite-circle';
 
@@ -39,6 +38,9 @@ export default class Visibility {
 
   /**
    * Register handlers to visibility loop
+   * @param read
+   * @param write
+   * @param meta
    */
   register(
     read: (...args: any[]) => any,
@@ -60,6 +62,7 @@ export default class Visibility {
 
   /**
    * Unregister handlers from visibility loop
+   * @param id
    */
   unregister(id: number) {
     this.circle.unregister(id);
@@ -69,6 +72,9 @@ export default class Visibility {
    * It cut down calling the event handler for defined interval. The throttle
    * method use requestAnimationFrame function which is called during page
    * scrolling.
+   * @param eventHandler
+   * @param interval
+   * @param context
    */
   throttle(
     eventHandler: (...args: any[]) => any,
@@ -109,6 +115,7 @@ export default class Visibility {
 
   /**
    * The method add circle instance to be running in the next infinite loop.
+   * @param {...any} rest
    */
   notify(...rest: any[]) {
     this.circle.notify(...rest);
@@ -116,6 +123,7 @@ export default class Visibility {
 
   /**
    * The visibility helper start checking visibility of registered entries.
+   * @param notify
    */
   private _listenOnEvents(notify: NotifyCallback) {
     this._dispatcher.listen(
@@ -134,6 +142,7 @@ export default class Visibility {
 
   /**
    * The visibility helper stop checking visibility of registered entries.
+   * @param notify
    */
   private _unlistenOnEvents(notify: NotifyCallback) {
     this._dispatcher.unlisten(
@@ -167,6 +176,7 @@ export default class Visibility {
 
   /**
    * The method normalize routeInfo to {@notifyPayload}.
+   * @param routeInfo
    */
   private _afterHandleRoute(routeInfo: any) {
     this._afterHandleRouteCalled = true;

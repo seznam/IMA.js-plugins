@@ -66,7 +66,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
    *
    * @override
    * @param {string} eventName Name of the event.
-   * @param {object} [eventData=null] Data attached to the event.
+   * @param {object} [eventData] Data attached to the event.
    * @returns {boolean} TRUE when event has been hit; otherwise FALSE.
    */
   hit(eventName, eventData = null) {
@@ -103,7 +103,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
    * Hits a page view event (optionally with page view data).
    *
    * @override
-   * @param {object} [viewContentData = null] Page view data (containing path etc.).
+   * @param {object} [viewContentData] Page view data (containing path etc.).
    * @returns {boolean} TRUE when event has been hit; otherwise FALSE.
    */
   hitPageView(viewContentData = null) {
@@ -137,7 +137,7 @@ export default class FacebookPixelAnalytic extends AbstractAnalytic {
   /**
    * Hits a search event (optionally with page name or other event data).
    *
-   * @param {string|object} [queryOrData=null] Search query / event data.
+   * @param {string|object} [queryOrData] Search query / event data.
    * @returns {boolean} TRUE when event has been hit; otherwise FALSE.
    */
   hitSearch(queryOrData = null) {

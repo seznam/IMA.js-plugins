@@ -1,11 +1,6 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
-import {
-  useEffect,
-  useRef,
-  useState,
-  memo,
-  ComponentPropsWithoutRef,
-} from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
+import { useEffect, useRef, useState, memo } from 'react';
 
 import { DIV_ATTRIBUTES } from './constants';
 import { filterProps } from './filterProps';

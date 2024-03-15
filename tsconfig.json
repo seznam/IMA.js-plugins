@@ -1,19 +1,32 @@
 {
   "compilerOptions": {
+    /* Base Options: */
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "target": "ES2022",
     "lib": [
-      "ES2022"
+      "ES2022",
     ],
-    "emitDeclarationOnly": true,
-    "outDir": "./dist",
-    "module": "ES2022",
-    "moduleResolution": "bundler",
-    "declaration": true,
-    "allowJs": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
     "jsx": "react-jsx",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    "isolatedModules": true,
+
+    /* Strictness */
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Resolution and transpile options */
+    // "verbatimModuleSyntax": true, // Force the use of type
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+    "outDir": "dist",
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": true,
     "typeRoots": [
       "types",
       "node_modules/@types"

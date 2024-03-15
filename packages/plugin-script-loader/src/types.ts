@@ -1,5 +1,5 @@
-import { Events } from './Events';
-import { ScriptLoader } from './ScriptLoader';
+import type { Events } from './Events';
+import type { ScriptLoader } from './ScriptLoader';
 
 declare module '@ima/core' {
   interface DispatcherEventsMap {

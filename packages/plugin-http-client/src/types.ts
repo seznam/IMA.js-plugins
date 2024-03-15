@@ -1,4 +1,4 @@
-import { RestResourceSettings } from './rest/AbstractResource';
+import type { RestResourceSettings } from './rest/AbstractResource';
 
 export interface PluginHttpClientSettings {
   rest?: RestResourceSettings;

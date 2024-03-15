@@ -1,4 +1,5 @@
-import { asUnit, MapUnit, Unit } from './utils';
+import type { MapUnit, Unit } from './utils';
+import { asUnit } from './utils';
 
 function sizeUnitFactory(unit: string) {
   return (size: number): Unit => asUnit(unit, [size]);
@@ -78,7 +79,7 @@ export function lessMap(object: Record<string, number>): MapUnit {
         return object;
       }
 
-      return object[key];
+      return object[key]!;
     },
 
     toString() {

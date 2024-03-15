@@ -10,7 +10,7 @@ export function createLessConstantsRegExp(lessConstants: string) {
         constant && !constant.startsWith('//') && !constant.endsWith('}')
     )
     .forEach(constant => {
-      const trimmedConstant = constant.split(':')[0].trim();
+      const trimmedConstant = constant.split(':')[0]!.trim();
 
       if (trimmedConstant.startsWith('@')) {
         lessConstantsRegExp[trimmedConstant] = new RegExp(
@@ -36,7 +36,7 @@ export async function getUsedLessConstants(
   const contents = await fs.promises.readFile(filename, 'utf-8');
 
   for (const constant in lessConstantsRegex) {
-    if (contents.search(lessConstantsRegex[constant]) === -1) {
+    if (contents.search(lessConstantsRegex[constant]!) === -1) {
       continue;
     }
 

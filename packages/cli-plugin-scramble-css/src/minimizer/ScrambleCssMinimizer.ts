@@ -3,8 +3,9 @@ import path from 'path';
 
 import postcss from 'postcss';
 import { validate } from 'schema-utils';
-import { Schema } from 'schema-utils/declarations/validate';
-import { Compilation, Compiler, sources } from 'webpack';
+import type { Schema } from 'schema-utils/declarations/validate';
+import type { Compilation, Compiler } from 'webpack';
+import { sources } from 'webpack';
 
 import PostCssScrambler from '../postCssPlugin';
 
@@ -230,7 +231,7 @@ class ScrambleCssMinimizer {
       1
     );
 
-    return [mainAsset, cssAssets];
+    return [mainAsset!, cssAssets];
   }
 }
 

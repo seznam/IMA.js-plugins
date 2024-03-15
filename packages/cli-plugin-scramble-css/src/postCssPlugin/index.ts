@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import * as postcss from 'postcss';
+import type * as postcss from 'postcss';
 import selectorParser from 'postcss-selector-parser';
 
 import { numberToCssClass } from './numberToCssClass';
@@ -32,7 +32,7 @@ function createHashTable(root: postcss.Root): [string[], string[]] {
       }
 
       const parts = className.split('-');
-      const prefix = parts[0];
+      const prefix = parts[0]!;
       const mainPart = parts.slice(1).join('-');
 
       prefixes.add(prefix);
@@ -95,7 +95,7 @@ const PostCssScrambler: postcss.PluginCreator<
           }
 
           const parts = className.split('-');
-          const prefix = parts[0];
+          const prefix = parts[0]!;
           const mainPart = parts.slice(1).join('-');
           const prefixIndex = prefixesTable.indexOf(prefix);
           const mainPartIndex = mainPartsTable.indexOf(mainPart);

@@ -1,12 +1,6 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
-import {
-  ComponentPropsWithoutRef,
-  memo,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import type { ValueOf } from 'type-fest';
 
 import { LAYOUT, LOADING, IMAGE_ATTRIBUTES } from './constants';

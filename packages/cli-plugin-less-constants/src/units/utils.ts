@@ -23,7 +23,7 @@ export function asUnit(
         return this.toString();
       }
 
-      return parts[0];
+      return parts[0]!;
     },
 
     toString(): string {
