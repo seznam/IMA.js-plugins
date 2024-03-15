@@ -15,7 +15,7 @@ pluginLoader.register('@ima/plugin-script-loader', () => ({
     );
 
     /**
-     * Deprecated use 'ScriptLoader' instead, this is here
+     * Deprecated, use 'ScriptLoader' instead, this is here
      * for backwards compatibility.
      */
     oc.get(ComponentUtils).register(

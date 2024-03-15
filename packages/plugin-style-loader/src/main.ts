@@ -14,7 +14,10 @@ pluginLoader.register('@ima/plugin-style-loader', () => ({
       '@ima/plugin-style-loader'
     );
 
-    // Deprecated use without Suffix
+    /**
+     * Deprecated, use 'StyleLoader' instead, this is here
+     * for backwards compatibility.
+     */
     oc.get(ComponentUtils).register(
       'StyleLoaderPlugin',
       StyleLoader,
