@@ -1,5 +1,11 @@
 # Change Log
 
+## 7.0.2
+
+### Patch Changes
+
+- e2eeb2b: Turbo, eslint update, types exports, new tsconfig
+
 ## 7.0.1
 
 ### Patch Changes

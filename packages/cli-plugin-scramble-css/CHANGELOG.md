@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.6
+
+### Patch Changes
+
+- e2eeb2b: Turbo, eslint update, types exports, new tsconfig
+
 ## 1.2.5
 
 ### Patch Changes
