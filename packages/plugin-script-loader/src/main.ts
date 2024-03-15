@@ -14,7 +14,10 @@ pluginLoader.register('@ima/plugin-script-loader', () => ({
       '@ima/plugin-script-loader'
     );
 
-    // Deprecated use without Suffix
+    /**
+     * Deprecated use 'ScriptLoader' instead, this is here
+     * for backwards compatibility.
+     */
     oc.get(ComponentUtils).register(
       'ScriptLoaderPlugin',
       ScriptLoader,
