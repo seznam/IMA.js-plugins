@@ -1,5 +1,11 @@
 # Change Log
 
+## 6.0.1
+
+### Patch Changes
+
+- 5f0ed6d: Fixed invalid component utils registration that was implemented in previous major version.
+
 ## 6.0.0
 
 ### Major Changes
