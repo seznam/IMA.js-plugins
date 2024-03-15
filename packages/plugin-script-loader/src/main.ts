@@ -9,8 +9,18 @@ const defaultDependencies = ScriptLoader.$dependencies;
 pluginLoader.register('@ima/plugin-script-loader', () => ({
   initBind: (ns, oc) => {
     oc.get(ComponentUtils).register(
+      'ScriptLoader',
       ScriptLoader,
-      undefined,
+      '@ima/plugin-script-loader'
+    );
+
+    /**
+     * Deprecated, use 'ScriptLoader' instead, this is here
+     * for backwards compatibility.
+     */
+    oc.get(ComponentUtils).register(
+      'ScriptLoaderPlugin',
+      ScriptLoader,
       '@ima/plugin-script-loader'
     );
   },
