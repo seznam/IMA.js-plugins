@@ -137,8 +137,8 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
    */
   _getPageViewData(pageData) {
     const page_location = this._window.getUrl();
-    const page_referrer =
-      this._referrer || this._window?.getDocument()?.referrer;
+    const clientDocument = this._window?.getDocument();
+    const page_referrer = this._referrer || clientDocument?.referrer;
 
     return {
       page_path: pageData.path,
@@ -146,7 +146,7 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
       page_referrer,
       page_route: pageData?.route?.getName() || '',
       page_status: pageData?.response?.status,
-      page_title: document.title || '',
+      page_title: clientDocument.title || '',
     };
   }
 
@@ -155,12 +155,12 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
    * @inheritdoc
    */
   _createGlobalDefinition() {
-    const window = this._window.getWindow();
+    const clientWindow = this._window.getWindow();
 
-    window.dataLayer = window.dataLayer || [];
+    clientWindow.dataLayer = clientWindow.dataLayer || [];
 
     this._ga4Script = function () {
-      window.dataLayer.push(arguments);
+      clientWindow.dataLayer.push(arguments);
     };
 
     this._configuration();
