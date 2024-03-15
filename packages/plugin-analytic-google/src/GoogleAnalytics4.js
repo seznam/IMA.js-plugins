@@ -39,6 +39,12 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
     this._analyticScriptUrl = `https://www.googletagmanager.com/gtag/js?id=${this._config.service}`;
 
     this._consentSettings = this._config.consentSettings;
+
+    /**
+     * Stores page location to serve as next page hit's referrer
+     * to compensate for SPA browsing.
+     */
+    this._referrer = '';
   }
   /**
    * Hits custom event of given with given data
@@ -59,14 +65,14 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
    *
    * @override
    * @param {Object<string, *>} pageData
-   * @param {Object<string, string>} customDimensions
    */
   hitPageView(pageData) {
     if (!this.isEnabled()) {
       return;
     }
-
-    this._ga4Script('event', 'page_view', this._getPageViewData(pageData));
+    const pageViewData = this._getPageViewData(pageData);
+    this._ga4Script('event', 'page_view', pageViewData);
+    this._referrer = pageViewData.page_location;
   }
 
   /**
@@ -130,10 +136,17 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
    * @returns {Object<string, *>} pageViewData
    */
   _getPageViewData(pageData) {
+    const page_location = this._window.getUrl();
+    const clientDocument = this._window?.getDocument();
+    const page_referrer = this._referrer || clientDocument?.referrer;
+
     return {
-      page: pageData.path,
-      location: this._window.getUrl(),
-      title: document.title || '',
+      page_path: pageData.path,
+      page_location,
+      page_referrer,
+      page_route: pageData?.route?.getName() || '',
+      page_status: pageData?.response?.status,
+      page_title: clientDocument.title || '',
     };
   }
 
@@ -142,12 +155,12 @@ export default class GoogleAnalytics4 extends AbstractAnalytic {
    * @inheritdoc
    */
   _createGlobalDefinition() {
-    const window = this._window.getWindow();
+    const clientWindow = this._window.getWindow();
 
-    window.dataLayer = window.dataLayer || [];
+    clientWindow.dataLayer = clientWindow.dataLayer || [];
 
     this._ga4Script = function () {
-      window.dataLayer.push(arguments);
+      clientWindow.dataLayer.push(arguments);
     };
 
     this._configuration();
