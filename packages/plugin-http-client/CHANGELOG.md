@@ -1,5 +1,11 @@
 # @ima/plugin-http-client
 
+## 2.1.3
+
+### Patch Changes
+
+- 8f5d01a: Fixed build issues with client server config
+
 ## 2.1.2
 
 ### Patch Changes

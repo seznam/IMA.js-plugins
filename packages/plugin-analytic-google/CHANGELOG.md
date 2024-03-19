@@ -1,5 +1,11 @@
 # Change Log
 
+## 7.0.3
+
+### Patch Changes
+
+- 8f5d01a: Fixed build issues with client server config
+
 ## 7.0.2
 
 ### Patch Changes

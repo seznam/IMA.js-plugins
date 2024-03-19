@@ -1,5 +1,11 @@
 # Change Log
 
+## 6.0.6
+
+### Patch Changes
+
+- 8f5d01a: Fixed build issues with client server config
+
 ## 6.0.5
 
 ### Patch Changes

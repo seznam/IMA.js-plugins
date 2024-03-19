@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.0.7
+
+### Patch Changes
+
+- 8f5d01a: Fixed build issues with client server config
+
 ## 5.0.6
 
 ### Patch Changes

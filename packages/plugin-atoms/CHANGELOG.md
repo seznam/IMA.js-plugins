@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 10.1.4
+
+### Patch Changes
+
+- 8f5d01a: Fixed build issues with client server config
+
 ## 10.1.3
 
 ### Patch Changes

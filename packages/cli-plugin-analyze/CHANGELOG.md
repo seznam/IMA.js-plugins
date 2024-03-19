@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.0.2
+
+### Patch Changes
+
+- 8f5d01a: Fixed build issues with client server config
+
 ## 2.0.1
 
 ### Patch Changes
