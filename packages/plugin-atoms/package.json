@@ -8,9 +8,9 @@
   "types": "./dist/esm/client/main.d.ts",
   "scripts": {
     "test": "../../node_modules/.bin/jest --config=jest.config.js",
-    "build": "ima-plugin build --clientServerConfig",
-    "dev": "ima-plugin dev --clientServerConfig",
-    "link": "ima-plugin link --clientServerConfig",
+    "build": "ima-plugin build",
+    "dev": "ima-plugin dev",
+    "link": "ima-plugin link",
     "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
   },
   "keywords": [
