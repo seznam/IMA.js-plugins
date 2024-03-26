@@ -7,11 +7,15 @@ Removed config from constructor of `AbstractAnalytic`
 - **What?**
   - Removed `defaultDependencies` from plugin.
   - Removed config from constructor of `AbstractAnalytic`
+  - Properties `_loaded`, `_scriptLoader`, `_dispatcher` and method `_afterLoadCallback` are now protected.
+    (`#loaded`, `#scriptLoader`, `#dispatcher`, `#afterLoadCallback`)
+    - New method `_isLoaded`.
 - **Why?**
   - `defaultDependencies` was weird pattern, and we want to get rid of it
   - To be able to use spread operator for dependencies in constructor of classes which extends `AbstractAnalytic`.
   Until now, we had to repeat all arguments from `AbstractAnalytic` constructor if we wanted to access `config` parameter, which is very common use-case.
   Also, now we can work with types in TypeScript more easily.
+  - To clear the interface of `AbstractAnalytic`.
 - **How?**
   - Replace use of `defaultDependencies` by `AbstractAnalytic.$dependencies`
   - Classes, which extends `AbstractAnalytic` needs to save given config argument on their own.
@@ -67,3 +71,5 @@ Removed config from constructor of `AbstractAnalytic`
           }
       }
       ```
+    - Replace use of `_scriptLoader`, `_dispatcher` and `_afterLoadCallback` to `#scriptLoader`, `#dispatcher` and `#afterLoadCallback`.
+    Check if script is loaded by calling new method `_isLoaded()`. 

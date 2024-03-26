@@ -13,16 +13,16 @@ export type InitConfig = Record<string, any> & {
  * Abstract analytic class
  */
 export abstract class AbstractAnalytic {
-  _scriptLoader: ScriptLoaderPlugin;
+  #scriptLoader: ScriptLoaderPlugin;
+  #dispatcher: Dispatcher;
+  // If flag has value true then analytic script was loaded.
+  #loaded = false;
   _window: Window;
-  _dispatcher: Dispatcher;
   _analyticScriptName: string | null = null;
   // Analytic script url.
   _analyticScriptUrl: string | null = null;
   // If flag has value true then analytic is enabled to hit events.
   _enable = false;
-  // If flag has value true then analytic script was loaded.
-  _loaded = false;
 
   static get $dependencies(): Dependencies {
     return [ScriptLoaderPlugin, '$Window', '$Dispatcher'];
@@ -33,11 +33,11 @@ export abstract class AbstractAnalytic {
     window: Window,
     dispatcher: Dispatcher
   ) {
-    this._scriptLoader = scriptLoader;
+    this.#scriptLoader = scriptLoader;
 
     this._window = window;
 
-    this._dispatcher = dispatcher;
+    this.#dispatcher = dispatcher;
   }
 
   /**
@@ -65,20 +65,20 @@ export abstract class AbstractAnalytic {
    */
   load() {
     if (this._window.isClient()) {
-      if (this._loaded) {
+      if (this._isLoaded()) {
         return Promise.resolve(true);
       }
 
       if (!this._analyticScriptUrl) {
-        this._afterLoadCallback();
+        this.#afterLoadCallback();
 
         return Promise.resolve(true);
       }
 
-      return this._scriptLoader
+      return this.#scriptLoader
         .load(this._analyticScriptUrl)
         .then(() => {
-          this._afterLoadCallback();
+          this.#afterLoadCallback();
 
           return true;
         })
@@ -103,6 +103,14 @@ export abstract class AbstractAnalytic {
    */
   isEnabled() {
     return this._enable;
+  }
+
+  /**
+   * Returns true if analytic is loaded.
+   * @protected
+   */
+  _isLoaded() {
+    return this.#loaded;
   }
 
   /**
@@ -136,11 +144,8 @@ export abstract class AbstractAnalytic {
    */
   abstract _createGlobalDefinition(window: globalThis.Window): void;
 
-  /**
-   * @protected
-   */
-  _afterLoadCallback() {
-    this._loaded = true;
+  #afterLoadCallback() {
+    this.#loaded = true;
     this._configuration();
     this._fireLifecycleEvent(AnalyticEvents.LOADED);
   }
@@ -150,6 +155,6 @@ export abstract class AbstractAnalytic {
    * @param eventType
    */
   _fireLifecycleEvent(eventType: AnalyticEvents) {
-    this._dispatcher.fire(eventType, { type: this._analyticScriptName }, true);
+    this.#dispatcher.fire(eventType, { type: this._analyticScriptName }, true);
   }
 }

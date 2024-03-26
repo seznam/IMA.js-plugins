@@ -28,10 +28,8 @@ export type AnalyticFBPixelSettings = {
  */
 export class FacebookPixelAnalytic extends AbstractAnalytic {
   #config: AnalyticFBPixelSettings;
-  // An identifier for Facebook Pixel.
-  _id: string | null;
   // A main function of Facebook Pixel.
-  _fbq: facebook.Pixel.Event | null;
+  #fbq: facebook.Pixel.Event | null;
 
   static get $dependencies(): Dependencies {
     return [
@@ -58,13 +56,11 @@ export class FacebookPixelAnalytic extends AbstractAnalytic {
 
     this.#config = config;
 
-    this._id = null;
-
-    this._fbq = null;
+    this.#fbq = null;
   }
 
   _applyPurposeConsents() {
-    /* this implementation doesn't work with consents */
+    /* this implementation of FB pixel doesn't work with consents */
   }
 
   /**
@@ -95,7 +91,7 @@ export class FacebookPixelAnalytic extends AbstractAnalytic {
    */
   hit(eventName: string, eventData: Record<string, any> | null = null) {
     try {
-      if (!this._fbq) {
+      if (!this.#fbq) {
         throw new Error(
           'Initialize the FacebookPixelHelper instance before calling hit() method.'
         );
@@ -117,9 +113,9 @@ export class FacebookPixelAnalytic extends AbstractAnalytic {
     }
 
     if (!eventData) {
-      this._fbq('track', eventName);
+      this.#fbq('track', eventName);
     } else {
-      this._fbq('track', eventName, eventData);
+      this.#fbq('track', eventName, eventData);
     }
 
     return true;
@@ -134,7 +130,7 @@ export class FacebookPixelAnalytic extends AbstractAnalytic {
    */
   hitPageView(viewContentData: Record<string, any> | null = null) {
     try {
-      if (!this._fbq) {
+      if (!this.#fbq) {
         throw new Error(
           'Initialize the FacebookPixelHelper instance before calling hitPageView() method.'
         );
@@ -171,7 +167,7 @@ export class FacebookPixelAnalytic extends AbstractAnalytic {
    */
   hitSearch(queryOrData: Record<string, any> | string | null = null) {
     try {
-      if (!this._fbq) {
+      if (!this.#fbq) {
         throw new Error(
           'Initialize the FacebookPixelHelper instance before calling hitSearch() method.'
         );
@@ -217,8 +213,8 @@ export class FacebookPixelAnalytic extends AbstractAnalytic {
 
     this._enable = true;
 
-    this._fbq = clientWindow[FB_ROOT_VARIABLE];
-    this._fbq!('init', this.getId());
+    this.#fbq = clientWindow[FB_ROOT_VARIABLE];
+    this.#fbq!('init', this.getId());
   }
 
   /**
@@ -247,7 +243,7 @@ export class FacebookPixelAnalytic extends AbstractAnalytic {
     fbAnalytic.version = '2.0';
     fbAnalytic.queue = [];
 
-    this._fbq = fbAnalytic;
+    this.#fbq = fbAnalytic;
 
     this._configuration();
   }
