@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-resource-loader",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Seznam IMA.js plugin for loading web resources",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",

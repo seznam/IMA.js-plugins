@@ -1,5 +1,26 @@
 # Change Log
 
+## 5.0.7
+
+### Patch Changes
+
+- 8f5d01a: Fixed build issues with client server config
+
+## 5.0.6
+
+### Patch Changes
+
+- e2eeb2b: Turbo, eslint update, types exports, new tsconfig
+
+## 5.0.5
+
+### Patch Changes
+
+- 6d92917: Code refactorings, moved type extensions to separate file to cleanup main.ts
+- Updated dependencies [535f56e]
+- Updated dependencies [6d92917]
+  - @ima/plugin-script-loader@4.0.0
+
 ## 5.0.4
 
 ### Patch Changes

@@ -3,8 +3,8 @@
  * and to serialize property from an entity to a plain value.
  */
 export interface Mapper {
-  deserialize(value: any): any;
-  serialize(value: any): any;
+  deserialize: (value: any) => any;
+  serialize: (value: any) => any;
 }
 
 /**

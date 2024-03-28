@@ -6,7 +6,7 @@
     "commit": "echo 'This command has been replaced with \"npm run changeset\"'",
     "changeset": "changeset add",
     "postinstall": "npm run build",
-    "build": "npm run build --workspaces",
+    "build": "turbo build",
     "test": "jest --changedSince `test -f '.changeset/pre.json' && echo 'next' || echo 'master'`",
     "test:all": "jest --colors",
     "lint:cmd": "eslint -c ./.eslintrc.js --ignore-path ./.gitignore",
@@ -34,7 +34,7 @@
     "@babel/preset-react": "^7.22.3",
     "@cfaester/enzyme-adapter-react-18": "^0.7.0",
     "@changesets/cli": "^2.26.1",
-    "@ima/plugin-cli": "^19.0.0",
+    "@ima/plugin-cli": "^19.1.1",
     "@swc/jest": "^0.2.26",
     "@types/jest": "^29.5.1",
     "@types/node": "^20.2.5",
@@ -67,7 +67,8 @@
     "stylelint-declaration-block-no-ignored-properties": "^2.7.0",
     "stylelint-order": "^6.0.3",
     "to-mock": "^1.6.2",
-    "type-fest": "^4.4.0",
-    "typescript": "^5.2.2"
+    "turbo": "^1.12.5",
+    "type-fest": "^4.12.0",
+    "typescript": "^5.4.2"
   }
 }

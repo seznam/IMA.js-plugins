@@ -1,5 +1,4 @@
-/* eslint-disable jsdoc/check-param-names */
-import { Dependencies, Dispatcher, Window } from '@ima/core';
+import type { Dependencies, Dispatcher, Window } from '@ima/core';
 import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
 
 import { Events as AnalyticEvents } from './Events';
@@ -76,7 +75,7 @@ export abstract class AbstractAnalytic {
       }
 
       return this.#scriptLoader
-        .load(this._analyticScriptUrl)
+        .load(this._analyticScriptUrl)!
         .then(() => {
           this.#afterLoadCallback();
 

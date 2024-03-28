@@ -1,4 +1,5 @@
-import { GenericError, Dependencies } from '@ima/core';
+import type { Dependencies } from '@ima/core';
+import { GenericError } from '@ima/core';
 
 export type RestResourceSettings = {
   baseApiUrl: string | null;
@@ -10,12 +11,12 @@ declare module '@ima/core' {
   }
 }
 
-import { EntityConstructor } from './BaseEntity';
-import {
-  HttpClient,
+import type { EntityConstructor } from './BaseEntity';
+import type {
   HttpClientRequestMethod,
   HttpClientRequestOptions,
 } from '../HttpClient';
+import { HttpClient } from '../HttpClient';
 
 /**
  * AbstractResource will help with creating paths to the API as well as working with entities.
@@ -193,7 +194,7 @@ export abstract class AbstractResource {
     }
 
     keys.forEach(key => {
-      if (!(key in data)) {
+      if (key === undefined || !(key in data)) {
         throw new GenericError(
           `AbstractResource: No attribute of key {${key}} found in data in ${this.constructor.name}.`
         );

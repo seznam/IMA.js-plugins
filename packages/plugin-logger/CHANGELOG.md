@@ -1,5 +1,17 @@
 # Change Log
 
+## 6.0.2
+
+### Patch Changes
+
+- 8f5d01a: Fixed build issues with client server config
+
+## 6.0.1
+
+### Patch Changes
+
+- e2eeb2b: Turbo, eslint update, types exports, new tsconfig
+
 ## 6.0.0
 
 ### Major Changes

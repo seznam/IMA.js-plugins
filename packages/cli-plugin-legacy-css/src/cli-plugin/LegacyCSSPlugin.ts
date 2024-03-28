@@ -1,11 +1,11 @@
-import {
+import type {
   ImaConfigurationContext,
   ImaCliPlugin,
   ImaConfig,
-  findRules,
 } from '@ima/cli';
+import { findRules } from '@ima/cli';
 import { createLogger } from '@ima/dev-utils/logger';
-import { Configuration } from 'webpack';
+import type { Configuration } from 'webpack';
 
 export interface LegacyCSSPluginOptions {
   /**

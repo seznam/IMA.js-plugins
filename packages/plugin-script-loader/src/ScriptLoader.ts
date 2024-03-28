@@ -1,4 +1,4 @@
-import { Window, Dependencies, Dispatcher } from '@ima/core';
+import type { Window, Dependencies, Dispatcher } from '@ima/core';
 import { ResourceLoader } from '@ima/plugin-resource-loader';
 
 import { Events } from './Events';
@@ -6,7 +6,7 @@ import { Events } from './Events';
 /**
  * Script loader plugin class.
  */
-export default class ScriptLoaderPlugin {
+export class ScriptLoader {
   // IMA.js Window
   _window: Window;
   // IMA.js Dispatcher

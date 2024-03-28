@@ -1,0 +1,29 @@
+import type { AnalyticGoogleSettings } from './GoogleAnalytics4';
+
+declare global {
+  interface Window {
+    gtag: Gtag.Gtag;
+    dataLayer: unknown[];
+  }
+}
+
+export interface PluginAnalyticGoogleSettings {
+  google4: AnalyticGoogleSettings;
+}
+
+declare module '@ima/core' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface PluginAnalyticSettings extends PluginAnalyticGoogleSettings {}
+
+  interface PluginSettings {
+    analytic: PluginAnalyticSettings;
+  }
+
+  interface Settings {
+    plugin: PluginSettings;
+  }
+
+  interface OCAliasMap {
+    '$Settings.plugin.analytic.google4': AnalyticGoogleSettings;
+  }
+}

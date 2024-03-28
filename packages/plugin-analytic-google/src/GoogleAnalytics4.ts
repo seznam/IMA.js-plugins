@@ -1,4 +1,4 @@
-import { Dependencies } from '@ima/core';
+import type { Dependencies } from '@ima/core';
 import { AbstractAnalytic } from '@ima/plugin-analytic';
 
 const GTAG_ROOT_VARIABLE = 'gtag';

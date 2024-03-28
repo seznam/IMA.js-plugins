@@ -1,5 +1,6 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
-import { ComponentPropsWithoutRef, ReactNode, memo } from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import { memo } from 'react';
 
 import { LIST_ITEM_ATTRIBUTES } from './constants';
 import { filterProps } from './filterProps';

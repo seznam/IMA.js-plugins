@@ -1,5 +1,6 @@
 import { defaultCssClasses } from '@ima/react-page-renderer';
-import classnames, { Argument } from 'classnames';
+import type { Argument } from 'classnames';
+import classnames from 'classnames';
 import { Component } from 'react';
 
 import { numberToCssClass } from './postCssPlugin/numberToCssClass';
@@ -22,17 +23,17 @@ function scramblerFactory(hashTable: HashTable) {
   const [prefixes, mainParts] = hashTable;
 
   for (let i = 0; i < prefixes.length; i++) {
-    prefixTable.set(prefixes[i], numberToCssClass(i));
+    prefixTable.set(prefixes[i]!, numberToCssClass(i));
   }
 
   for (let i = 0; i < mainParts.length; i++) {
-    mainPartTable.set(mainParts[i], numberToCssClass(i));
+    mainPartTable.set(mainParts[i]!, numberToCssClass(i));
   }
 
   return (...args: Argument[]) => {
     for (let i = 0; i < args.length; i++) {
       if (args[i] instanceof Component) {
-        args[i] = ((args[i] as ReactComponentArgument).props || {}).className;
+        args[i] = ((args[i] as ReactComponentArgument).props || {})?.className;
       }
     }
 
@@ -41,7 +42,7 @@ function scramblerFactory(hashTable: HashTable) {
       .split(/\s+/)
       .map(className => {
         const parts = className.split('-');
-        const prefix = parts[0];
+        const prefix = parts[0]!;
         const mainPart = parts.slice(1).join('-');
 
         if (!prefixTable.has(prefix) || !mainPartTable.has(mainPart)) {

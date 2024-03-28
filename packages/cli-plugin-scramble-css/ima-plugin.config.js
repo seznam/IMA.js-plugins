@@ -1,4 +1,7 @@
-const { defaultConfig } = require('@ima/plugin-cli');
+const {
+  defaultConfig,
+  typescriptDeclarationsPlugin,
+} = require('@ima/plugin-cli');
 
 /**
  * @type import('@ima/plugin-cli').ImaPluginConfig[]
@@ -12,5 +15,11 @@ module.exports = [
      * can't be easily compile to both formats.
      */
     target: 'es2018',
+    plugins: [
+      typescriptDeclarationsPlugin({
+        allowFailure: false,
+        additionalArgs: ['--skipLibCheck'],
+      }),
+    ],
   },
 ];

@@ -3,9 +3,9 @@ import { ResourceLoader } from '@ima/plugin-resource-loader';
 import { toMockedInstance } from 'to-mock';
 
 import { Events } from '../Events';
-import ScriptLoaderPlugin from '../ScriptLoaderPlugin';
+import { ScriptLoader } from '../ScriptLoader';
 
-describe('ScriptLoaderPlugin', () => {
+describe('ScriptLoader', () => {
   let scriptLoaderPlugin = null;
   let element = null;
 
@@ -21,11 +21,7 @@ describe('ScriptLoaderPlugin', () => {
   const resourceLoader = toMockedInstance(ResourceLoader);
 
   beforeEach(() => {
-    scriptLoaderPlugin = new ScriptLoaderPlugin(
-      window,
-      dispatcher,
-      resourceLoader
-    );
+    scriptLoaderPlugin = new ScriptLoader(window, dispatcher, resourceLoader);
     element = {
       onload() {},
       onerror() {},

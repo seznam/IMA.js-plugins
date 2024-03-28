@@ -1,6 +1,6 @@
-import { HttpAgentResponse, Dependencies } from '@ima/core';
+import type { HttpAgentResponse, Dependencies } from '@ima/core';
 
-import { HttpClientRequest } from './HttpClient';
+import type { HttpClientRequest } from './HttpClient';
 
 export enum Operation {
   PRE_REQUEST = 'preRequest',
@@ -17,8 +17,8 @@ export type ProcessorParams<B> = {
  * The processor serves to transform the request/response before and after the API call.
  */
 export interface Processor {
-  preRequest<B = any>(params: ProcessorParams<B>): ProcessorParams<B>;
-  postRequest<B = any>(params: ProcessorParams<B>): ProcessorParams<B>;
+  preRequest: <B = any>(params: ProcessorParams<B>) => ProcessorParams<B>;
+  postRequest: <B = any>(params: ProcessorParams<B>) => ProcessorParams<B>;
 }
 
 export abstract class AbstractProcessor implements Processor {

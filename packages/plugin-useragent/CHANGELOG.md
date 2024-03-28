@@ -1,5 +1,29 @@
 # Change Log
 
+## 6.0.3
+
+### Patch Changes
+
+- 8f5d01a: Fixed build issues with client server config
+
+## 6.0.2
+
+### Patch Changes
+
+- e2eeb2b: Turbo, eslint update, types exports, new tsconfig
+
+## 6.0.1
+
+### Patch Changes
+
+- 5f0ed6d: Fixed invalid component utils registration that was implemented in previous major version.
+
+## 6.0.0
+
+### Major Changes
+
+- 6d92917: Added `UserAgent` registration to `ComponentUtils`, you can remove this registration in your bind.js
+
 ## 5.0.1
 
 ### Patch Changes
