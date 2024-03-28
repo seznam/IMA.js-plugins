@@ -2,10 +2,19 @@ import { Window, Dispatcher } from '@ima/core';
 import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
 import { toMockedInstance } from 'to-mock';
 
-import AbstractAnalytic from '../AbstractAnalytic';
+import { AbstractAnalytic } from '../AbstractAnalytic';
 import { Events as AnalyticEvents } from '../Events';
 
 describe('AbstractAnalytic', () => {
+  // Abstract methods must be implemented to be testable and monitored by jest.spyOn
+  class DummyAnalytic extends AbstractAnalytic {
+    _applyPurposeConsents() {}
+    hit() {}
+    hitPageView() {}
+    _configuration() {}
+    _createGlobalDefinition() {}
+  }
+
   let abstractAnalytic = null;
 
   const _windowMock = toMockedInstance(Window, {
@@ -21,11 +30,7 @@ describe('AbstractAnalytic', () => {
   });
 
   beforeEach(() => {
-    abstractAnalytic = new AbstractAnalytic(
-      scriptLoader,
-      _windowMock,
-      dispatcher
-    );
+    abstractAnalytic = new DummyAnalytic(scriptLoader, _windowMock, dispatcher);
 
     abstractAnalytic._analyticScriptName = 'dummy';
     abstractAnalytic._analyticScriptUrl = 'http://example.net/script.js';

@@ -39,5 +39,8 @@
   "peerDependencies": {
     "@ima/core": ">=18.0.0",
     "@ima/plugin-script-loader": ">=3.1.1"
+  },
+  "devDependencies": {
+    "@types/facebook-pixel": "^0.0.30"
   }
 }
