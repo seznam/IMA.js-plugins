@@ -1,6 +1,9 @@
 import { pluginLoader } from '@ima/core';
 
-import { GoogleAnalytics4, type AnalyticGoogleSettings } from './GoogleAnalytics4.js';
+import {
+  GoogleAnalytics4,
+  type AnalyticGoogleSettings,
+} from './GoogleAnalytics4.js';
 
 pluginLoader.register('@ima/plugin-analytic-google', () => ({
   initSettings: () => ({

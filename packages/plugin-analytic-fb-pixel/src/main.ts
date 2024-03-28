@@ -1,6 +1,9 @@
 import { pluginLoader } from '@ima/core';
 
-import { FacebookPixelAnalytic, type AnalyticFBPixelSettings } from './FacebookPixelAnalytic';
+import {
+  FacebookPixelAnalytic,
+  type AnalyticFBPixelSettings,
+} from './FacebookPixelAnalytic';
 
 pluginLoader.register('@ima/plugin-analytic-google', () => ({
   initSettings: () => ({
