@@ -64,7 +64,7 @@ export abstract class AbstractAnalytic {
    */
   load() {
     if (this._window.isClient()) {
-      if (this._isLoaded()) {
+      if (this.isLoaded()) {
         return Promise.resolve(true);
       }
 
@@ -108,7 +108,7 @@ export abstract class AbstractAnalytic {
    * Returns true if analytic is loaded.
    * @protected
    */
-  _isLoaded() {
+  isLoaded() {
     return this.#loaded;
   }
 

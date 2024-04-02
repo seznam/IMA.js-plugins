@@ -22,8 +22,4 @@ declare module '@ima/core' {
   interface Settings {
     plugin: PluginSettings;
   }
-
-  interface OCAliasMap {
-    '$Settings.plugin.analytic.google4': AnalyticGoogleSettings;
-  }
 }
