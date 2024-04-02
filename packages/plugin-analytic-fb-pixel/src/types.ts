@@ -8,9 +8,7 @@ declare global {
 }
 
 export interface PluginAnalyticFBPixelSettings {
-  fbPixel: {
-    id: string | null;
-  };
+  fbPixel: AnalyticFBPixelSettings;
 }
 
 declare module '@ima/core' {
