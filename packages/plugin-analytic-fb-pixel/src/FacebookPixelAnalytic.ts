@@ -38,10 +38,6 @@ export class FacebookPixelAnalytic extends AbstractAnalytic {
     ];
   }
 
-  get config() {
-    return this.#config;
-  }
-
   /**
    * Creates a Facebook Pixel Helper instance.
    */
@@ -69,11 +65,11 @@ export class FacebookPixelAnalytic extends AbstractAnalytic {
    * @returns The identifier for Facebook Pixel.
    */
   getId() {
-    switch (typeof this.config.id) {
+    switch (typeof this.#config.id) {
       case 'number':
-        return String(this.config.id);
+        return String(this.#config.id);
       case 'string':
-        return this.config.id;
+        return this.#config.id;
       default:
         throw new TypeError(
           'A Facebook Pixel identifier should be a number/string.'
