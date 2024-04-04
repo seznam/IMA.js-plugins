@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-analytic",
-  "version": "5.0.7",
+  "version": "6.0.0",
   "description": "Seznam IMA.js abstract analytic plugin",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
