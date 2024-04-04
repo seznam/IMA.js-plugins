@@ -3,29 +3,25 @@ import { ScriptLoaderPlugin } from '@ima/plugin-script-loader';
 
 import { Events as AnalyticEvents } from './Events';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface AbstractAnalyticSettings {}
-
 // @property purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
 export type InitConfig = Record<string, any> & {
-  purposeConsents: Record<string, any>;
+  purposeConsents?: Record<string, unknown>;
 };
 
 /**
  * Abstract analytic class
  */
-export default abstract class AbstractAnalytic {
-  _scriptLoader: ScriptLoaderPlugin;
+export abstract class AbstractAnalytic {
+  #scriptLoader: ScriptLoaderPlugin;
+  #dispatcher: Dispatcher;
+  // If flag has value true then analytic script was loaded.
+  #loaded = false;
   _window: Window;
-  _dispatcher: Dispatcher;
-  _config: AbstractAnalyticSettings;
   _analyticScriptName: string | null = null;
-  //Analytic script url.
+  // Analytic script url.
   _analyticScriptUrl: string | null = null;
-  //If flag has value true then analytic is enabled to hit events.
+  // If flag has value true then analytic is enabled to hit events.
   _enable = false;
-  //If flag has value true then analytic script was loaded.
-  _loaded = false;
 
   static get $dependencies(): Dependencies {
     return [ScriptLoaderPlugin, '$Window', '$Dispatcher'];
@@ -34,16 +30,13 @@ export default abstract class AbstractAnalytic {
   constructor(
     scriptLoader: ScriptLoaderPlugin,
     window: Window,
-    dispatcher: Dispatcher,
-    config: AbstractAnalyticSettings
+    dispatcher: Dispatcher
   ) {
-    this._scriptLoader = scriptLoader;
+    this.#scriptLoader = scriptLoader;
 
     this._window = window;
 
-    this._dispatcher = dispatcher;
-
-    this._config = config;
+    this.#dispatcher = dispatcher;
   }
 
   /**
@@ -53,9 +46,10 @@ export default abstract class AbstractAnalytic {
    * @param initConfig
    * @param initConfig.purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
    */
-  init(initConfig: InitConfig) {
+  init(initConfig?: InitConfig) {
     if (!this.isEnabled() && this._window.isClient()) {
-      const window = this._window.getWindow() as globalThis.Window;
+      // we are on client, therefore window is defined
+      const window = this._window.getWindow()!;
 
       if (initConfig?.purposeConsents) {
         this._applyPurposeConsents(initConfig.purposeConsents);
@@ -67,25 +61,23 @@ export default abstract class AbstractAnalytic {
 
   /**
    * Load analytic script, configure analytic and execute deferred hits.
-   *
-   * @returns {Promise}
    */
   load() {
     if (this._window.isClient()) {
-      if (this._loaded) {
+      if (this.isLoaded()) {
         return Promise.resolve(true);
       }
 
       if (!this._analyticScriptUrl) {
-        this._afterLoadCallback();
+        this.#afterLoadCallback();
 
         return Promise.resolve(true);
       }
 
-      return this._scriptLoader
+      return this.#scriptLoader
         .load(this._analyticScriptUrl)!
         .then(() => {
-          this._afterLoadCallback();
+          this.#afterLoadCallback();
 
           return true;
         })
@@ -101,13 +93,9 @@ export default abstract class AbstractAnalytic {
    * Applies Purpose Consents to respect GDPR, see https://github.com/InteractiveAdvertisingBureau/GDPR-Transparency-and-Consent-Framework
    *
    * @abstract
-   * @param _purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
+   * @param purposeConsents Purpose Consents of TCModel, see: https://www.npmjs.com/package/@iabtcf/core#tcmodel
    */
-  _applyPurposeConsents(_purposeConsents: Record<string, any>) {
-    throw new Error(
-      'The applyPurposeConsents() method is abstract and must be overridden.'
-    );
-  }
+  abstract _applyPurposeConsents(purposeConsents: Record<string, any>): void;
 
   /**
    * Returns true if analytic is enabled.
@@ -117,27 +105,27 @@ export default abstract class AbstractAnalytic {
   }
 
   /**
+   * Returns true if analytic is loaded.
+   * @protected
+   */
+  isLoaded() {
+    return this.#loaded;
+  }
+
+  /**
    * Hit event to analytic with defined data. If analytic is not configured then
    * defer hit to storage.
    *
    * @abstract
-   * @param _data
    */
-  hit(_data: Record<string, any>) {
-    throw new Error('The hit() method is abstract and must be overridden.');
-  }
+  abstract hit(...args: unknown[]): void;
 
   /**
    * Hit page view event to analytic for defined page data.
    *
    * @abstract
-   * @param _pageData
    */
-  hitPageView(_pageData: Record<string, any>) {
-    throw new Error(
-      'The hitPageView() method is abstract and must be overridden.'
-    );
-  }
+  abstract hitPageView(...args: unknown[]): void;
 
   /**
    * Configuration analytic. The analytic must be enabled after configuration.
@@ -145,30 +133,18 @@ export default abstract class AbstractAnalytic {
    * @abstract
    * @protected
    */
-  _configuration() {
-    throw new Error(
-      'The _configuration() method is abstract and must be overridden.'
-    );
-  }
+  abstract _configuration(): void;
 
   /**
    * Creates global definition for analytics script.
    *
    * @abstract
    * @protected
-   * @param _window
    */
-  _createGlobalDefinition(_window: globalThis.Window) {
-    throw new Error(
-      'The _createGlobalDefinition() method is abstract and must be overridden.'
-    );
-  }
+  abstract _createGlobalDefinition(window: globalThis.Window): void;
 
-  /**
-   * @protected
-   */
-  _afterLoadCallback() {
-    this._loaded = true;
+  #afterLoadCallback() {
+    this.#loaded = true;
     this._configuration();
     this._fireLifecycleEvent(AnalyticEvents.LOADED);
   }
@@ -178,6 +154,6 @@ export default abstract class AbstractAnalytic {
    * @param eventType
    */
   _fireLifecycleEvent(eventType: AnalyticEvents) {
-    this._dispatcher.fire(eventType, { type: this._analyticScriptName }, true);
+    this.#dispatcher.fire(eventType, { type: this._analyticScriptName }, true);
   }
 }

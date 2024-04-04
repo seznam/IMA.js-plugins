@@ -1,7 +1,14 @@
+import type { AnalyticFBPixelSettings } from './FacebookPixelAnalytic';
+
+declare global {
+  interface Window {
+    fbq: facebook.Pixel.Event;
+    _fbq: facebook.Pixel.Event;
+  }
+}
+
 export interface PluginAnalyticFBPixelSettings {
-  fbPixel: {
-    id: string | null;
-  };
+  fbPixel: AnalyticFBPixelSettings;
 }
 
 declare module '@ima/core' {
