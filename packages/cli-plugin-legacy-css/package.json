@@ -1,6 +1,6 @@
 {
   "name": "@ima/cli-plugin-legacy-css",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Plugin for @ima/cli adding additional legacy CSS bundle output.",
   "main": "./dist/cjs/cli-plugin/main.js",
   "module": "./dist/esm/cli-plugin/main.js",

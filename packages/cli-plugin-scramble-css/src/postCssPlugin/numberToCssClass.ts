@@ -22,7 +22,7 @@ let maxProcessedNumber = -1;
  */
 function numberToCssClassIgnoringForbidden(number: number): string {
   if (number < CLASSNAME_CHARS.length) {
-    return CLASSNAME_CHARS[number];
+    return CLASSNAME_CHARS[number]!;
   }
 
   // we have to "shift" the number to adjust for the gap between base53 and
@@ -87,7 +87,7 @@ function countForbiddenNumbersNotGreaterThan(number: number): number {
   let index: number;
 
   for (index = 0; index < forbiddenNumbersCache.length; index++) {
-    if (number >= forbiddenNumbersCache[index]) {
+    if (number >= forbiddenNumbersCache[index]!) {
       break;
     }
   }

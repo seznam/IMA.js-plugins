@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-atoms",
-  "version": "10.1.1",
+  "version": "10.1.4",
   "description": "IMA.js UI React atoms",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/server/main.js",
@@ -8,9 +8,9 @@
   "types": "./dist/esm/client/main.d.ts",
   "scripts": {
     "test": "../../node_modules/.bin/jest --config=jest.config.js",
-    "build": "ima-plugin build --clientServerConfig",
-    "dev": "ima-plugin dev --clientServerConfig",
-    "link": "ima-plugin link --clientServerConfig",
+    "build": "ima-plugin build",
+    "dev": "ima-plugin dev",
+    "link": "ima-plugin link",
     "lint": "eslint './**/*.{js,jsx,ts,tsx,mjs}'"
   },
   "keywords": [

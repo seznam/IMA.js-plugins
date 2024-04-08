@@ -1,4 +1,5 @@
-import { pluginLoader } from '@ima/core';
+import './types';
+import { pluginLoader, ComponentUtils } from '@ima/core';
 import PlatformJS from 'platform';
 
 import UserAgent from './AbstractUserAgent';
@@ -13,6 +14,12 @@ pluginLoader.register('@ima/plugin-useragent', () => {
       } else {
         oc.provide(UserAgent, ServerUserAgent, [PlatformJS, '$Request']);
       }
+
+      oc.get(ComponentUtils).register(
+        'UserAgent',
+        UserAgent,
+        '@ima/plugin-useragent'
+      );
     },
     initServices: (ns, oc) => {
       oc.get(UserAgent).init();

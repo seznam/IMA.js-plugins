@@ -1,6 +1,4 @@
-/* eslint-disable jsdoc/require-returns */
-/* eslint-disable jsdoc/require-param */
-import { Router, Window, Dependencies } from '@ima/core';
+import type { Router, Window, Dependencies } from '@ima/core';
 // @ts-expect-error
 import { Infinite } from 'infinite-circle';
 
@@ -37,6 +35,12 @@ export default class UIComponentHelper {
 
   /**
    * Initializes the helper.
+   * @param router
+   * @param window
+   * @param componentPositions
+   * @param visibility
+   * @param infinite
+   * @param cssClassNameProcessor
    */
   constructor(
     router: Router,
@@ -63,6 +67,7 @@ export default class UIComponentHelper {
 
   /**
    * The regular expression was taken from the Closure sanitization library.
+   * @param url
    */
   sanitizeUrl(url: string) {
     const SAFE_URL_PATTERN =
@@ -76,6 +81,7 @@ export default class UIComponentHelper {
 
   /**
    * Serialize object as key and value pairs for using in noscript tag.
+   * @param object
    */
   serializeObjectToNoScript(object: Record<string, any>) {
     return Object.keys(object).reduce((string, key) => {
@@ -86,6 +92,7 @@ export default class UIComponentHelper {
   /**
    * Generate a string of CSS classes from the properties of the passed-in
    * object that resolve to true.
+   * @param {...any} classRuleGroups
    */
   cssClasses(...classRuleGroups: (string | Record<string, boolean>)[]) {
     return this._cssClassNameProcessor(...classRuleGroups);
@@ -132,7 +139,7 @@ export default class UIComponentHelper {
     let isFirstPositionCalculated = false;
 
     const observer = new IntersectionObserver(entries => {
-      intersectionObserverEntry = entries[0];
+      intersectionObserverEntry = entries[0]!;
       this.visibility.circle.notify({ type: 'intersectionobserver', entries });
     }, observerConfig);
     observer.observe(element);

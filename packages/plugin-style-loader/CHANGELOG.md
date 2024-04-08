@@ -1,5 +1,33 @@
 # Change Log
 
+## 4.0.3
+
+### Patch Changes
+
+- 8f5d01a: Fixed build issues with client server config
+
+## 4.0.2
+
+### Patch Changes
+
+- e2eeb2b: Turbo, eslint update, types exports, new tsconfig
+
+## 4.0.1
+
+### Patch Changes
+
+- 5f0ed6d: Fixed invalid component utils registration that was implemented in previous major version.
+
+## 4.0.0
+
+### Major Changes
+
+- 535f56e: `StyleLoader` is now registered in ComponentUtils by default, remove your own registration from bind.js
+
+### Patch Changes
+
+- 6d92917: Code refactorings, moved type extensions to separate file to cleanup main.ts
+
 ## 3.0.3
 
 ### Patch Changes

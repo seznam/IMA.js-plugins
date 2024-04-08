@@ -3,16 +3,16 @@ import { ResourceLoader } from '@ima/plugin-resource-loader';
 import { Events } from './Events';
 
 /**
- * Script loader plugin class.
+ * Style loader plugin class.
  */
-export default class ScriptLoaderPlugin {
+export class StyleLoader {
   /** @type {import('@ima/core').Dependencies} */
   static get $dependencies() {
     return ['$Window', '$Dispatcher', ResourceLoader];
   }
 
   /**
-   * Initializes the script loader.
+   * Initializes the style loader.
    *
    * @param {import('@ima/core').Window} window
    * @param {import('@ima/core').Dispatcher} dispatcher
@@ -41,67 +41,78 @@ export default class ScriptLoaderPlugin {
     this._resourceLoader = resourceLoader;
 
     /**
-     * Object of loaded scripts.
+     * Object of loaded styles.
      *
      * @type {Object<string, Promise<{url: string}>>}
      */
-    this._loadedScripts = {};
+    this._loadedStyles = {};
   }
 
   /**
-   * Load third party script to page.
+   * Load third party style to page.
    *
    * @param {string} url
    * @param {string=} [template]
-   * @param {boolean} force
+   * @param {Object<string, Function | string | number>} [attributes]
    * @returns {Promise<{url: string}>}
    */
-  load(url, template, force = false) {
+  load(url, template, attributes) {
     if ($Debug) {
       if (!this._window.isClient()) {
         throw new Error(
-          `The script loader cannot be used at the server side. ` +
-            `Attempted to load the ${url} script.`
+          `The style loader cannot be used at the server side. ` +
+            `Attempted to load the ${url} style.`
         );
       }
     }
 
-    if (this._loadedScripts[url] && !force) {
-      return this._loadedScripts[url];
+    if (this._loadedStyles[url]) {
+      return this._loadedStyles[url];
+    } else if (!template && this._window.querySelector(`link[href="${url}"]`)) {
+      return Promise.resolve({ url });
     }
 
-    let script = this._createScriptElement();
-    this._loadedScripts[url] = this._resourceLoader
-      .promisify(script, template || url)
+    let style = this._createStyleElement(!!template);
+    this._loadedStyles[url] = this._resourceLoader
+      .promisify(style, template || url)
       .then(() => this._handleOnLoad(url))
       .catch(() => this._handleOnError(url));
 
     if (template) {
-      script.innerHTML = template;
+      style.innerHTML = template;
     } else {
-      script.async = true;
-      script.src = url;
+      style.rel = 'stylesheet';
+      style.href = url;
     }
 
-    this._resourceLoader.injectToPage(script);
+    if (attributes && Object.keys(attributes).length > 0) {
+      for (let attribute in attributes) {
+        style[attribute] = attributes[attribute];
+      }
+    }
+
+    this._resourceLoader.injectToPage(style);
     if (template) {
-      setTimeout(() => script.onload(), 0);
+      setTimeout(() => style.onload(), 0);
     }
 
-    return this._loadedScripts[url];
+    return this._loadedStyles[url];
   }
 
   /**
-   * Creates a new script element and returns it.
+   * Creates a new style element and returns it.
    *
-   * @returns {HTMLScriptElement} The created script element.
+   * @param {boolean} isInlineStyle
+   * @returns {HTMLLinkElement} The created style element.
    */
-  _createScriptElement() {
-    return document.createElement('script');
+  _createStyleElement(isInlineStyle) {
+    let element = isInlineStyle ? 'style' : 'link';
+
+    return document.createElement(element);
   }
 
   /**
-   * Handle on load event for script. Resolve load promise and fire LOADED
+   * Handle on load event for style. Resolve load promise and fire LOADED
    * events.
    *
    * @param {string} url
@@ -115,14 +126,14 @@ export default class ScriptLoaderPlugin {
   }
 
   /**
-   * Handle on error event for script. Reject load promise and fire LOADED
+   * Handle on error event for style. Reject load promise and fire LOADED
    * events.
    *
    * @param {string} url
    * @throws Error
    */
   _handleOnError(url) {
-    let error = new Error(`The ${url} script failed to load.`);
+    let error = new Error(`The ${url} style failed to load.`);
     let data = {
       url,
       error,

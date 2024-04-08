@@ -1,14 +1,15 @@
 import { clone } from '@ima/helpers';
 
-import { BaseMapper, DataFieldValue, MapperItem } from './mapper/BaseMapper';
+import type { DataFieldValue, MapperItem } from './mapper/BaseMapper';
+import { BaseMapper } from './mapper/BaseMapper';
 
 export interface EntityConstructor {
   new (data: object): Entity;
 }
 
 export interface Entity {
-  serialize(data: object): any;
-  deserialize(data: object): any;
+  serialize: (data: object) => any;
+  deserialize: (data: object) => any;
 }
 
 /**
@@ -46,6 +47,7 @@ export class BaseEntity {
    *
    * @param data, which will be directly
    *        assigned to the entity's fields.
+   * @param data
    */
   constructor(data: object) {
     const entityData = this.deserialize(data);
@@ -64,6 +66,7 @@ export class BaseEntity {
    * The default implementation of this method implements a mapping based on
    * the {@linkcode dataFieldMapping} property's value.
    *
+   * @param data
    */
   serialize(data: any = this): any {
     const mapping = this.#getDataFieldMapping();
@@ -82,7 +85,7 @@ export class BaseEntity {
       let newValue = value;
       let newKey = key;
       if (reverseMapping[key]) {
-        const mapperItem = reverseMapping[key];
+        const mapperItem = reverseMapping[key]!;
         newKey = mapperItem.newKey;
         newValue = mapperItem.mapper.serialize(value);
       }
@@ -122,6 +125,7 @@ export class BaseEntity {
    * The default implementation of this method implements a mapping based on
    * the {@linkcode dataFieldMapping} property's value.
    *
+   * @param data
    */
   deserialize(data: object): any {
     const mapping = this.#getDataFieldMapping();
@@ -131,7 +135,7 @@ export class BaseEntity {
       let newValue = value;
       let newKey = key;
       if (mapping[key]) {
-        const mapperItem = mapping[key];
+        const mapperItem = mapping[key]!;
         newKey = mapperItem.newKey;
         newValue = mapperItem.mapper.deserialize(value);
       }
@@ -154,6 +158,7 @@ export class BaseEntity {
   /**
    * Creates a clone of this entity with its state patched using the provided
    * state patch object.
+   * @param statePatch
    */
   cloneAndPatch(statePatch: any) {
     const data = this.serialize();

@@ -18,7 +18,7 @@ export type UnitValue =
 function generateLessVariables(values: Record<string, UnitValue>): string {
   const lessConstants = Object.keys(values)
     .map(key => {
-      const value = processValue(key, values[key]);
+      const value = processValue(key, values[key]!);
 
       return value;
     })
@@ -54,7 +54,7 @@ function processValue(
       .map((subProperty: string) =>
         processValue(
           subProperty,
-          (value as Record<string, UnitValue>)[subProperty],
+          (value as Record<string, UnitValue>)[subProperty]!,
           subPrefix
         )
       )

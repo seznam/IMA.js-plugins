@@ -1,5 +1,17 @@
 # Change Log
 
+## 2.1.2
+
+### Patch Changes
+
+- 8f5d01a: Fixed build issues with client server config
+
+## 2.1.1
+
+### Patch Changes
+
+- e2eeb2b: Turbo, eslint update, types exports, new tsconfig
+
 ## 2.1.0
 
 ### Minor Changes

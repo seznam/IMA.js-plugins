@@ -1,5 +1,55 @@
 # Change Log
 
+## 8.0.0
+
+### Major Changes
+
+- ba15bd3: Update to new version of @ima/plugin-analytic
+
+  - **What?**
+    - Update to new version of [@ima/plugin-analytic](https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-analytic), which doesn't save `config` argument to class variable anymore.
+    - Config was moved to first position in dependencies list
+    - Removed `defaultDependencies` export.
+    - Typescriptization
+    - Property `_fbq` is now protected (`#fbq`).
+    - Removed property `_id` as it was not used anywhere.
+  - **Why?**
+    - Adding dependencies to subclasses is easier (no need to copy all dependencies, more info in @ima/plugin-analytic [CHANGELOG](https://github.com/seznam/IMA.js-plugins/blob/master/packages/plugin-analytic/CHANGELOG.md#600))
+    - `defaultDependencies` was weird pattern, and we want to get rid of it
+  - **How?**
+
+    - If you extend `FacebookPixelAnalytic` or `GoogleAnalytics4` you need to move `config` parameter to the first position, when calling its `constructor`.
+    - Replace use of `defaultDependencies` by `$dependencies` property of given class plugin class.
+    - Replace `_fbq` by `#fbq`.
+
+    **!!** Use only with **@ima/plugin-analytic@6.0.0** or newer. **!!**
+
+### Patch Changes
+
+- Updated dependencies [8908212]
+  - @ima/plugin-analytic@6.0.0
+
+## 7.0.3
+
+### Patch Changes
+
+- 8f5d01a: Fixed build issues with client server config
+
+## 7.0.2
+
+### Patch Changes
+
+- e2eeb2b: Turbo, eslint update, types exports, new tsconfig
+
+## 7.0.1
+
+### Patch Changes
+
+- 6d92917: Code refactorings, moved type extensions to separate file to cleanup main.ts
+- Updated dependencies [535f56e]
+- Updated dependencies [6d92917]
+  - @ima/plugin-script-loader@4.0.0
+
 ## 7.0.0
 
 ### Major Changes

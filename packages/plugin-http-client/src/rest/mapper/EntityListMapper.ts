@@ -1,6 +1,6 @@
 import { BaseMapper } from './BaseMapper';
 import { EntityMapper } from './EntityMapper';
-import { EntityConstructor } from '../BaseEntity';
+import type { EntityConstructor } from '../BaseEntity';
 
 /**
  * EntityListMapper transform array of object into entity property with array of entities.

@@ -30,7 +30,7 @@ module.exports = {
 
 ```js
 // ./app/config/services.js
-import SelfXSS from '@ima/plugin-self-xss';
+import { SelfXSS } from '@ima/plugin-self-xss';
 
 export default (ns, oc, config) => {
 	// ...

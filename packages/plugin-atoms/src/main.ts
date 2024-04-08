@@ -1,6 +1,7 @@
+import './types';
 import { ComponentUtils, pluginLoader } from '@ima/core';
 // @ts-expect-error
-import { Infinite, Circle, uuid } from 'infinite-circle';
+import { Infinite } from 'infinite-circle';
 
 import ComponentPositions from './ComponentPositions';
 import { LAYOUT, LOADING } from './components/constants';
@@ -24,12 +25,6 @@ import { Sizer } from './components/Sizer';
 import UIComponentHelper, { type VisibilityOptions } from './UIComponentHelper';
 import Visibility from './Visibility';
 
-declare module '@ima/core' {
-  interface Utils {
-    $UIComponentHelper: UIComponentHelper;
-  }
-}
-
 const defaultDependencies = ['$Router', ComponentPositions, Visibility];
 
 pluginLoader.register('@ima/plugin-atoms', ns => {
@@ -48,9 +43,9 @@ pluginLoader.register('@ima/plugin-atoms', ns => {
   };
 });
 
+export type { VisibilityOptions };
 export {
   UIComponentHelper,
-  VisibilityOptions,
   Visibility,
   ComponentPositions,
   defaultDependencies,
@@ -85,7 +80,4 @@ export {
   Sizer,
   LAYOUT,
   LOADING,
-  Circle,
-  Infinite,
-  uuid,
 };

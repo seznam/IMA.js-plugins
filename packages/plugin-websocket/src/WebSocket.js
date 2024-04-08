@@ -46,14 +46,14 @@ export default class WebSocket {
   }
 
   /**
-   * @param  {Function} [observer=() => {}]
+   * @param  {Function} [observer]
    */
   subscribe(observer = () => {}) {
     this._observers.push(observer);
   }
 
   /**
-   * @param  {Function} [observer=() => {}]
+   * @param  {Function} [observer]
    */
   unsubscribe(observer = () => {}) {
     const index = this._observers.indexOf(observer);
