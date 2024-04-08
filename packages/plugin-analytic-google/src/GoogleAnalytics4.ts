@@ -20,6 +20,7 @@ export type AnalyticGoogleSettings = {
  */
 export class GoogleAnalytics4 extends AbstractAnalytic {
   #config: AnalyticGoogleSettings;
+  #referrer: string;
   _consentSettings?: ConsentSettings;
 
   static get $dependencies(): Dependencies {
@@ -47,6 +48,8 @@ export class GoogleAnalytics4 extends AbstractAnalytic {
 
   /**
    * Initializes the Google Analytics 4 plugin.
+   * @param config
+   * @param {...any} rest
    */
   constructor(
     config: AnalyticGoogleSettings,
@@ -55,6 +58,7 @@ export class GoogleAnalytics4 extends AbstractAnalytic {
     super(...rest);
 
     this.#config = config;
+    this.#referrer = '';
 
     this._analyticScriptName = 'google_analytics_4';
 
@@ -85,7 +89,9 @@ export class GoogleAnalytics4 extends AbstractAnalytic {
       return;
     }
 
-    this._ga4Script('event', 'page_view', this._getPageViewData(pageData));
+    const pageViewData = this._getPageViewData(pageData);
+    this._ga4Script('event', 'page_view', pageViewData);
+    this.#referrer = pageViewData.page_location;
   }
 
   /**
@@ -150,10 +156,17 @@ export class GoogleAnalytics4 extends AbstractAnalytic {
    * Returns page view data derived from pageData param.
    */
   _getPageViewData(pageData: Record<string, any>) {
+    const page_location = this._window.getUrl();
+    const clientDocument = this._window?.getDocument();
+    const page_referrer = this.#referrer || clientDocument?.referrer;
+
     return {
-      page: pageData.path,
-      location: this._window.getUrl(),
-      title: document.title || '',
+      page_path: pageData.path,
+      page_location,
+      page_referrer,
+      page_route: pageData?.route?.getName() || '',
+      page_status: pageData?.response?.status,
+      page_title: clientDocument?.title || '',
     };
   }
 
