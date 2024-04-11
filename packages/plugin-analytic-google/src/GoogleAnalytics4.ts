@@ -156,7 +156,7 @@ export class GoogleAnalytics4 extends AbstractAnalytic {
    * Returns page view data derived from pageData param.
    */
   _getPageViewData(pageData: Record<string, any>) {
-    const page_location = this._window.getUrl();
+    const page_location = this._window?.getUrl();
     const clientDocument = this._window?.getDocument();
     const page_referrer = this.#referrer || clientDocument?.referrer;
 
