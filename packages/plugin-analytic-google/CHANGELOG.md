@@ -1,5 +1,15 @@
 # Change Log
 
+## 9.0.0
+
+### Major Changes
+
+- 4d3a579: Update data sent in a GA4 page view hit
+
+  **What:** Add the prefix `page_` to the existing params (these are the correct default names for GA4) and add new parameters. Save `referrer` to correspond to the actual referrer in SPA browsing. Add missing consent settings.
+  **Why:** We were hitting page view incorrectly.
+  **How:** Nothing.
+
 ## 8.0.0
 
 ### Major Changes
