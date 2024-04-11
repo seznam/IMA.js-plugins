@@ -10,24 +10,37 @@ describe('GoogleAnalytics4', () => {
     consentSettings: {},
   };
 
-  const mockGtag = {
+  let mockDocument;
+
+  function setMockDocument(document = {}) {
+    mockDocument = { ...document };
+    global.document = mockDocument;
+  }
+
+  const mockWindow = {
     gtag: jest.fn(),
   };
   const mockUrl = 'mockUrl';
 
   const scriptLoader = toMockedInstance(ScriptLoaderPlugin);
   const dispatcher = toMockedInstance(Dispatcher);
-  const window = toMockedInstance(Window, {
-    getWindow() {
-      return mockGtag;
-    },
-    getUrl() {
-      return mockUrl;
-    },
-  });
+
   let googleAnalytics4 = null;
 
   beforeEach(() => {
+    setMockDocument();
+    const window = toMockedInstance(Window, {
+      getDocument() {
+        return mockDocument;
+      },
+      getWindow() {
+        return mockWindow;
+      },
+      getUrl() {
+        return mockUrl;
+      },
+    });
+
     googleAnalytics4 = new GoogleAnalytics4(
       settings,
       scriptLoader,
@@ -47,17 +60,26 @@ describe('GoogleAnalytics4', () => {
 
         const pageTitle = 'Page title';
         const mockPath = 'somePath';
+        const mockReferrer = 'https://google.com';
 
-        global.document = {
+        setMockDocument({
           title: pageTitle,
-        };
+          referrer: mockReferrer,
+        });
 
-        googleAnalytics4.hitPageView({ path: mockPath });
+        googleAnalytics4.hitPageView({
+          path: mockPath,
+          response: { status: 200 },
+          route: { getName: () => 'someRoute' },
+        });
 
-        expect(mockGtag.gtag).toHaveBeenCalledWith('event', 'page_view', {
-          location: mockUrl,
-          page: mockPath,
-          title: pageTitle,
+        expect(mockWindow.gtag).toHaveBeenCalledWith('event', 'page_view', {
+          page_location: mockUrl,
+          page_path: mockPath,
+          page_title: pageTitle,
+          page_referrer: mockReferrer,
+          page_route: 'someRoute',
+          page_status: 200,
         });
       });
     });
@@ -74,7 +96,7 @@ describe('GoogleAnalytics4', () => {
 
         googleAnalytics4.hit(customEventName, customEventData);
 
-        expect(mockGtag.gtag).toHaveBeenCalledWith(
+        expect(mockWindow.gtag).toHaveBeenCalledWith(
           'event',
           customEventName,
           customEventData
@@ -116,7 +138,7 @@ describe('GoogleAnalytics4', () => {
 
         googleAnalytics4.updateConsent(purposeConsents);
 
-        expect(mockGtag.gtag).toHaveBeenCalledWith(
+        expect(mockWindow.gtag).toHaveBeenCalledWith(
           'consent',
           'update',
           expect.any(Object)

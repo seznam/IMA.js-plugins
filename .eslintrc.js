@@ -24,7 +24,9 @@ module.exports = {
     'jsdoc/require-returns-check': 'off',
     'jsdoc/require-jsdoc': 'off',
     'jsdoc/tag-lines': 'off',
-
+    'jsdoc/require-param': 'off',
+    'jsdoc/require-returns': 'off',
+    'jsdoc/require-param-type': 'off',
     'no-console': [
       'error',
       {
