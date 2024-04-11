@@ -48,8 +48,6 @@ export class GoogleAnalytics4 extends AbstractAnalytic {
 
   /**
    * Initializes the Google Analytics 4 plugin.
-   * @param config
-   * @param {...any} rest
    */
   constructor(
     config: AnalyticGoogleSettings,
@@ -68,9 +66,6 @@ export class GoogleAnalytics4 extends AbstractAnalytic {
   }
   /**
    * Hits custom event of given with given data
-   *
-   * @param eventName custom event name
-   * @param eventData custom event data
    */
   hit(eventName: string, eventData: Record<string, any>) {
     if (!this.isEnabled()) {
@@ -82,7 +77,6 @@ export class GoogleAnalytics4 extends AbstractAnalytic {
 
   /**
    * Hit page view event to analytic with defined data.
-   * @param pageData
    */
   hitPageView(pageData: Record<string, any>) {
     if (!this.isEnabled()) {
