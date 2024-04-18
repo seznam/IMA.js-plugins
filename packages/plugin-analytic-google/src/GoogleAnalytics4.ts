@@ -171,8 +171,9 @@ export class GoogleAnalytics4 extends AbstractAnalytic {
   _createGlobalDefinition(window: globalThis.Window) {
     window.dataLayer = window.dataLayer || [];
 
-    this._ga4Script = function (...rest: unknown[]) {
-      window.dataLayer.push(...rest);
+    this._ga4Script = function (...data: unknown[]) {
+      // we're pushing a new object to the GoogleTagManager dataLayer
+      window.dataLayer.push(data);
     };
 
     this._configuration();
