@@ -171,9 +171,9 @@ export class GoogleAnalytics4 extends AbstractAnalytic {
   _createGlobalDefinition(window: globalThis.Window) {
     window.dataLayer = window.dataLayer || [];
 
-    this._ga4Script = function (...data: unknown[]) {
-      // we're pushing a new object to the GoogleTagManager dataLayer
-      window.dataLayer.push(data);
+    this._ga4Script = function () {
+      // We are passing a set of arguments to the gtag function of GTM. This MUST be an `arguments` object, not an array.
+      window.dataLayer.push(arguments); // eslint-disable-line prefer-rest-params
     };
 
     this._configuration();
