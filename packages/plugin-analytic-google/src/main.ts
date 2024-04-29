@@ -12,12 +12,13 @@ pluginLoader.register('@ima/plugin-analytic-google', () => ({
         analytic: {
           google4: {
             consentSettings: {
+              ad_personalization: 'denied',
               ad_storage: 'denied',
+              ad_user_data: 'denied',
               analytics_storage: 'denied',
               functionality_storage: 'denied',
               personalization_storage: 'denied',
               security_storage: 'denied',
-              ad_user_data: 'denied',
             },
             service: 'G-XXXXXXXXXX',
             waitForUpdateTimeout: 5000,
