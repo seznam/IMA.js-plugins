@@ -14,7 +14,7 @@
 
 ### Major Changes
 
-- 4d3a579: Update data sent in a GA4 page view hit. Version not hit events, update to 9.0.1.
+- 4d3a579: Update data sent in a GA4 page view hit. **Version not hit events, update to 9.0.1.**
 
   - **What:** Add the prefix `page_` to the existing params (these are the correct default names for GA4) and add new parameters. Save `referrer` to correspond to the actual referrer in SPA browsing. Add missing consent settings.
   - **Why:** We were hitting page view incorrectly.
@@ -24,7 +24,7 @@
 
 ### Major Changes
 
-- ba15bd3: Update to new version of @ima/plugin-analytic. Version not hit events, update to 9.0.1.
+- ba15bd3: Update to new version of @ima/plugin-analytic. **Version not hit events, update to 9.0.1.**
 
   - **What?**
     - Update to new version of [@ima/plugin-analytic](https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-analytic), which doesn't save `config` argument to class variable anymore.
