@@ -1,5 +1,15 @@
 # Change Log
 
+## 9.0.2
+
+### Patch Changes
+
+- 849d862: Missing consent setting
+
+  - **What?** Adds a missing consent setting.
+  - **Why?** We need to deny it.
+  - **How?** Nothing.
+
 ## 9.0.1
 
 ### Patch Changes
