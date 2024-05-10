@@ -86,6 +86,11 @@ async function initImaApp(bootConfigMethods = {}) {
       ...Object.getOwnPropertyDescriptors(global),
     });
 
+    // @TODO: The way we copy `window` properties to `global` is not correct,
+    // we should switch to `global-jsdom`, or take its implementation
+    // as an inspiration for our own implementation
+    global.CustomEvent = window.CustomEvent; // Hotfix for Node 19+, we can remove this once we switch to `global-jsdom`
+
     // set debug before IMA env debug
     global.$Debug = true;
 
