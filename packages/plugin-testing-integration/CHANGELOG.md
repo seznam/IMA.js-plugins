@@ -1,5 +1,15 @@
 # Change Log
 
+## 5.1.5
+
+### Patch Changes
+
+- 5583e1f: Fix File class override in jsdom tests
+
+  - **What?** Fix File class override in jsdom tests
+  - **Why?** Use correct global File class in jsdom
+  - **How?** Nothing.
+
 ## 5.1.4
 
 ### Patch Changes
