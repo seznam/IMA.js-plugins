@@ -90,6 +90,7 @@ async function initImaApp(bootConfigMethods = {}) {
     // we should switch to `global-jsdom`, or take its implementation
     // as an inspiration for our own implementation
     global.CustomEvent = window.CustomEvent; // Hotfix for Node 19+, we can remove this once we switch to `global-jsdom`
+    global.File = window.File; // Hotfix for Node 19+, we can remove this once we switch to `global-jsdom`
 
     // set debug before IMA env debug
     global.$Debug = true;
