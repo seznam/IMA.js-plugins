@@ -43,27 +43,30 @@ Maintener can close pre-release stage by `npm run release:graduate` command , wh
 ## Packages:
 The IMA.js plugins is multi-package repository containing most commonly used plugins on IMA.js application development stack.
 
+- [**cli-plugin-analyze**](packages/cli-plugin-analyze)
+- [**cli-plugin-legacy-css**](packages/cli-plugin-legacy-css)
+- [**cli-plugin-less-constants**](packages/cli-plugin-less-constants)
+- [**cli-plugin-scramble-css**](packages/cli-plugin-scramble-css)
 - [**plugin-analytic**](packages/plugin-analytic)
 - [**plugin-analytic-fb-pixel**](packages/plugin-analytic-fb-pixel)
 - [**plugin-analytic-google**](packages/plugin-analytic-google)
+- [**plugin-atoms**](packages/plugin-atoms)
 - [**plugin-halson-rest-client**](packages/plugin-halson-rest-client)
-- [**plugin-less-constants**](packages/plugin-less-constants)
+- [**plugin-http-client**](packages/plugin-http-client)
+- [**plugin-local-storage**](packages/plugin-local-storage)
 - [**plugin-logger**](packages/plugin-logger)
+- [**plugin-managed-component**](packages/plugin-managed-component)
+- [**plugin-merkur**](packages/plugin-merkur)
 - [**plugin-resource-loader**](packages/plugin-resource-loader)
 - [**plugin-rest-client**](packages/plugin-rest-client)
 - [**plugin-script-loader**](packages/plugin-script-loader)
-- [**plugin-shared-cache**](packages/plugin-shared-cache)
-- [**plugin-managed-component**](packages/plugin-managed-component)
 - [**plugin-select**](packages/plugin-select)
 - [**plugin-self-xss**](packages/plugin-self-xss)
+- [**plugin-shared-cache**](packages/plugin-shared-cache)
 - [**plugin-style-loader**](packages/plugin-style-loader)
-- [**plugin-useragent**](packages/plugin-useragent)
-- [**plugin-local-storage**](packages/plugin-local-storage)
 - [**plugin-testing-integration**](packages/plugin-testing-integration)
+- [**plugin-useragent**](packages/plugin-useragent)
 - [**plugin-websocket**](packages/plugin-websocket)
-- [**plugin-hot-reload**](packages/plugin-hot-reload)
-- [**plugin-merkur**](packages/plugin-merkur)
-- [**react-hooks**](packages/react-hooks)
 
 follow the prompt and fill proper data to setup plugin properties.
 
