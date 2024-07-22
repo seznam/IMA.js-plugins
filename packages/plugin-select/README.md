@@ -140,11 +140,13 @@ const context = {
     },
 };
 
+//..
+
 const wrapper = mount(
             React.createElement(
                 PageContext.Provider,
                 { value: context },
-                React.createElement(MyComponent, { permissions })
+                React.createElement(MyComponent, props)
             )
         );
 
