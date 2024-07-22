@@ -120,16 +120,17 @@ The second one is setHoistStaticMethod where you can override [hoist-non-react-s
 
 ## How to mock in tests
 
-To test a component wrapped in `select`, mock `context.$Utils.$PermissionValidator.getState()` and `context.$Utils.$Dispatcher.listen()`. 
+To test a component wrapped in `select`, mock `context.$Utils.$PageStateManager.getState()` and `context.$Utils.$Dispatcher.listen()`. 
 
 Example:
 
 ```js
+
+import { mount } from 'enzyme';
+import { PageContext } from '@ima/react-page-renderer';
+
 const context = {
     $Utils: {
-        $PermissionValidator: {
-            hasPermission: hasPermissionMock,
-        },
         $PageStateManager: {
             getState: jest.fn(),
         },
@@ -139,8 +140,13 @@ const context = {
     },
 };
 
-const setup = setupMountFactory(AuthedComponent, context);
-const wrapper = setup(props);
+const wrapper = mount(
+            React.createElement(
+                PageContext.Provider,
+                { value: context },
+                React.createElement(MyComponent, { permissions })
+            )
+        );
 
 context.$Utils.$PageStateManager.getState.mockReturnValue({foo: 'bar'})
 
