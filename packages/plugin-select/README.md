@@ -118,6 +118,43 @@ The first one is setCreatorOfStateSelector where you can redefine your own selec
 
 The second one is setHoistStaticMethod where you can override [hoist-non-react-statics](https://www.npmjs.com/package/hoist-non-react-statics) module like [example](https://github.com/seznam/IMA.js-plugins/blob/master/packages/plugin-select/src/select/__tests__/SelectSpec.js#L155).
 
+## How to mock in tests
+
+To test a component wrapped in `select`, mock `context.$Utils.$PageStateManager.getState()` and `context.$Utils.$Dispatcher.listen()`. 
+
+Example:
+
+```js
+
+import { mount } from 'enzyme';
+import { PageContext } from '@ima/react-page-renderer';
+
+const context = {
+    $Utils: {
+        $PageStateManager: {
+            getState: jest.fn(),
+        },
+        $Dispatcher: {
+			listen: () => {}
+		},
+    },
+};
+
+//..
+
+const wrapper = mount(
+            React.createElement(
+                PageContext.Provider,
+                { value: context },
+                React.createElement(MyComponent, props)
+            )
+        );
+
+context.$Utils.$PageStateManager.getState.mockReturnValue({foo: 'bar'})
+
+```
+
+
 ## IMA.js
 
 The [IMA.js](https://imajs.io) is an application development stack for developing
