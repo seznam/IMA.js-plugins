@@ -1,4 +1,8 @@
-import Adapter from '@cfaester/enzyme-adapter-react-18';
-import Enzyme from 'enzyme';
+import {
+  FALLBACK_APP_MAIN_PATH,
+  setImaTestingLibraryClientConfig,
+} from '@ima/testing-library';
 
-Enzyme.configure({ adapter: new Adapter() });
+setImaTestingLibraryClientConfig({
+  appMainPath: FALLBACK_APP_MAIN_PATH,
+});
