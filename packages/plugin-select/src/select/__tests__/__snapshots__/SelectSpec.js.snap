@@ -48,8 +48,6 @@ exports[`plugin-select: select should forward ref 1`] = `
   "width": 90,
   "height": 60
 }
-  ref?: 
-  false
 </div>
 `;
 
@@ -62,8 +60,6 @@ exports[`plugin-select: select should render component 1`] = `
     "color": "red"
   }
 }
-  ref?: 
-  false
 </div>
 `;
 
@@ -78,8 +74,6 @@ exports[`plugin-select: select should render component with changed props 1`] = 
   "width": 270,
   "height": 180
 }
-  ref?: 
-  false
 </div>
 `;
 
@@ -94,8 +88,6 @@ exports[`plugin-select: select should render component with extraProps 1`] = `
   "width": 90,
   "height": 60
 }
-  ref?: 
-  false
 </div>
 `;
 
@@ -110,8 +102,6 @@ exports[`plugin-select: select should render component with extraProps and own c
   "width": 90,
   "height": 60
 }
-  ref?: 
-  false
 </div>
 `;
 
@@ -126,8 +116,6 @@ exports[`plugin-select: select should render component with extraProps and own s
   "width": 90,
   "height": 60
 }
-  ref?: 
-  false
 </div>
 `;
 
@@ -143,8 +131,6 @@ exports[`plugin-select: select should render component with extraProps and own s
   "width": 90,
   "height": 60
 }
-  ref?: 
-  false
 </div>
 `;
 
@@ -159,8 +145,6 @@ exports[`plugin-select: select should render component with extraProps modifies 
   "width": 45,
   "height": 30
 }
-  ref?: 
-  false
 </div>
 `;
 
@@ -176,7 +160,5 @@ exports[`plugin-select: select should render component with extraProps replaced 
   "width": 90,
   "height": 60
 }
-  ref?: 
-  false
 </div>
 `;

@@ -1,7 +1,4 @@
-import {
-  getContextValue,
-  renderWithContext,
-} from '@ima/testing-library';
+import { getContextValue, renderWithContext } from '@ima/testing-library';
 import { PureComponent, createRef } from 'react';
 
 import forwardedSelect, {
@@ -139,12 +136,7 @@ describe('plugin-select:', () => {
       }
 
       render() {
-        return (
-          <div>
-            {JSON.stringify(this.props, null, 2)}
-            ref?: {this.props.forwardedRef ? 'true' : 'false'}
-          </div>
-        );
+        return <div>{JSON.stringify(this.props, null, 2)}</div>;
       }
     }
 
