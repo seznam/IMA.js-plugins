@@ -9,4 +9,5 @@
 .eslintcache
 *.tgz
 **/.turbo
+.swc/
 !itl.tgz
