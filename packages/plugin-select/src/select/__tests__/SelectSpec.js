@@ -51,7 +51,6 @@ describe('plugin-select:', () => {
   });
 
   beforeEach(async () => {
-    global.$Debug = true;
     componentContext = await getContextValue();
 
     jest
@@ -59,10 +58,6 @@ describe('plugin-select:', () => {
       .mockReturnValue(appState);
 
     setCreatorOfStateSelector(createStateSelector);
-  });
-
-  afterEach(() => {
-    delete global.$Debug;
   });
 
   describe('createStateSelector', () => {
