@@ -1,6 +1,7 @@
 import { renderWithContext, waitFor } from '@ima/testing-library';
 
-import { Iframe, Visibility } from '../../main';
+import Visibility from '../../Visibility';
+import { Iframe } from '../Iframe';
 
 describe('Iframe', () => {
   it('should render with noscript tag by default', async () => {

@@ -16,4 +16,5 @@ module.exports = {
   moduleNameMapper: {
     'app/main': FALLBACK_APP_MAIN_PATH,
   },
+  setupFiles: ['<rootDir>/src/main.ts'], // To ensure that pluginLoader is called
 };

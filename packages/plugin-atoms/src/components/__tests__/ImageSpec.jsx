@@ -1,5 +1,3 @@
-import '../../main'; // To ensure that pluginLoader is called
-
 import { renderWithContext } from '@ima/testing-library';
 
 import { Image } from '../Image';
