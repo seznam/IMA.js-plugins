@@ -16,5 +16,4 @@ module.exports = {
   moduleNameMapper: {
     'app/main': FALLBACK_APP_MAIN_PATH,
   },
-  setupFiles: ['<rootDir>/../../jestSetup.itl.js'],
 };
