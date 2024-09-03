@@ -5,9 +5,7 @@ module.exports = {
   rootDir: '.',
   testRegex: '(/__tests__/).*Spec\\.jsx?$',
   modulePaths: ['<rootDir>/'],
-  transformIgnorePatterns: [
-    'node_modules/(?!(@ima/core|@ima/react-page-renderer)/)',
-  ],
+  setupFilesAfterEnv: ['<rootDir>/../../jest.setup.js'],
   transform: {
     '^.+\\.(js|jsx)$': [
       '@swc/jest',
