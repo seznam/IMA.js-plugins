@@ -5,5 +5,5 @@ module.exports = {
   preset: '@ima/testing-library',
   moduleNameMapper: {
     '^app/main$': '<rootDir>/../../utils/integration/main.js',
-  }
+  },
 };
