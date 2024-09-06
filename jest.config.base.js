@@ -5,7 +5,6 @@ module.exports = {
   rootDir: '.',
   testRegex: '(/__tests__/).*Spec\\.jsx?$',
   modulePaths: ['<rootDir>/'],
-  setupFilesAfterEnv: ['<rootDir>/../../jest.setup.js'],
   transform: {
     '^.+\\.(js|jsx)$': [
       '@swc/jest',
