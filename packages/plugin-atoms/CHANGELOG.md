@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 10.2.0
+
+### Minor Changes
+
+- f39ffd9: Add default oc binding of `$UIComponentHelper`. If you are calling `oc.bind('$UIComponentHelper', UIComponentHelper);` in your project, you can remove it.
+
 ## 10.1.4
 
 ### Patch Changes
