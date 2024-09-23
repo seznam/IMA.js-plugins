@@ -34,7 +34,7 @@
     "@babel/preset-react": "^7.22.3",
     "@changesets/cli": "^2.26.1",
     "@ima/plugin-cli": "^19.1.2",
-    "@ima/testing-library": "^19.8.0",
+    "@ima/testing-library": "^19.9.0",
     "@swc/jest": "^0.2.26",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.4.8",
