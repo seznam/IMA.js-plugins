@@ -1,8 +1,5 @@
-import { PageStateManager, Dispatcher } from '@ima/core';
-import { PageContext } from '@ima/react-page-renderer';
-import { shallow, mount } from 'enzyme';
-import { PureComponent, createElement, createRef } from 'react';
-import { toMockedInstance, setGlobalMockMethod } from 'to-mock';
+import { getContextValue, renderWithContext } from '@ima/testing-library';
+import { PureComponent, createRef } from 'react';
 
 import forwardedSelect, {
   createStateSelector,
@@ -12,8 +9,6 @@ import forwardedSelect, {
   hoistNonReactStatic,
 } from '../select';
 
-setGlobalMockMethod(jest.fn);
-
 describe('plugin-select:', () => {
   const appState = {
     media: {
@@ -22,16 +17,7 @@ describe('plugin-select:', () => {
     },
     title: 'title',
   };
-  const componentContext = {
-    $Utils: {
-      $PageStateManager: toMockedInstance(PageStateManager, {
-        getState: () => {
-          return appState;
-        },
-      }),
-      $Dispatcher: toMockedInstance(Dispatcher),
-    },
-  };
+  let componentContext;
   const selectorMethods = [
     state => {
       return {
@@ -64,14 +50,14 @@ describe('plugin-select:', () => {
     settings: Object.assign({}, props.settings, { newSettingsProp: true }),
   });
 
-  beforeEach(() => {
-    global.$Debug = true;
+  beforeEach(async () => {
+    componentContext = await getContextValue();
+
+    jest
+      .spyOn(componentContext.$Utils.$PageStateManager, 'getState')
+      .mockReturnValue(appState);
 
     setCreatorOfStateSelector(createStateSelector);
-  });
-
-  afterEach(() => {
-    delete global.$Debug;
   });
 
   describe('createStateSelector', () => {
@@ -127,7 +113,6 @@ describe('plugin-select:', () => {
   });
 
   describe('select', () => {
-    let wrapper = null;
     const defaultProps = {
       props: 'props',
       multiplier: 0.5,
@@ -146,88 +131,96 @@ describe('plugin-select:', () => {
       }
 
       render() {
-        return <h1>text</h1>;
+        return <div>{JSON.stringify(this.props, null, 2)}</div>;
       }
     }
 
-    const MockContextProvider = ({ children }) => (
-      <PageContext.Provider value={componentContext}>
-        {children}
-      </PageContext.Provider>
-    );
+    it('should render component', async () => {
+      const { container } = await renderWithContext(
+        <Component {...defaultProps} />,
+        {
+          contextValue: componentContext,
+        }
+      );
 
-    it('should render component', () => {
-      wrapper = shallow(createElement(Component, defaultProps), {
-        context: componentContext,
-      });
-
-      expect(wrapper).toMatchSnapshot();
+      expect(container.firstChild).toMatchSnapshot();
     });
 
-    it('should render component with extraProps', () => {
+    it('should render component with extraProps', async () => {
       let EnhancedComponent = select(...selectorMethods)(Component);
 
-      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
-        context: componentContext,
-        wrappingComponent: MockContextProvider,
-      });
+      const { container } = await renderWithContext(
+        <EnhancedComponent {...defaultProps} />,
+        {
+          contextValue: componentContext,
+        }
+      );
 
-      expect(wrapper).toMatchSnapshot();
+      expect(container.firstChild).toMatchSnapshot();
     });
 
-    it('should render component with extraProps modifies by ownProps', () => {
+    it('should render component with extraProps modifies by ownProps', async () => {
       let EnhancedComponent = select(
         ...selectorMethods,
         selectorUsingProps
       )(Component);
 
-      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
-        context: componentContext,
-        wrappingComponent: MockContextProvider,
-      });
+      const { container } = await renderWithContext(
+        <EnhancedComponent {...defaultProps} />,
+        {
+          contextValue: componentContext,
+        }
+      );
 
-      expect(wrapper).toMatchSnapshot();
+      expect(container.firstChild).toMatchSnapshot();
     });
 
-    it('should render component with extraProps replaced by ownProps', () => {
+    it('should render component with extraProps replaced by ownProps', async () => {
       let EnhancedComponent = select(
         ...selectorMethods,
         selectorReplaceProps
       )(Component);
 
-      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
-        context: componentContext,
-        wrappingComponent: MockContextProvider,
-      });
+      const { container } = await renderWithContext(
+        <EnhancedComponent {...defaultProps} />,
+        {
+          contextValue: componentContext,
+        }
+      );
 
-      expect(wrapper).toMatchSnapshot();
+      expect(container.firstChild).toMatchSnapshot();
     });
 
-    it('should add listener to dispatcher after mounting to DOM', () => {
+    it('should add listener to dispatcher after mounting to DOM', async () => {
       let EnhancedComponent = select(...selectorMethods)(Component);
 
-      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
-        context: componentContext,
-        wrappingComponent: MockContextProvider,
+      jest.spyOn(componentContext.$Utils.$Dispatcher, 'listen');
+
+      await renderWithContext(<EnhancedComponent {...defaultProps} />, {
+        contextValue: componentContext,
       });
 
       expect(componentContext.$Utils.$Dispatcher.listen).toHaveBeenCalled();
     });
 
-    it('should remove listener to dispatcher before unmounting from DOM', () => {
+    it('should remove listener to dispatcher before unmounting from DOM', async () => {
       let EnhancedComponent = select(...selectorMethods)(Component);
 
-      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
-        context: componentContext,
-        wrappingComponent: MockContextProvider,
-      });
+      jest.spyOn(componentContext.$Utils.$Dispatcher, 'unlisten');
 
-      wrapper.unmount();
+      const { unmount } = await renderWithContext(
+        <EnhancedComponent {...defaultProps} />,
+        {
+          contextValue: componentContext,
+        }
+      );
+
+      unmount();
 
       expect(componentContext.$Utils.$Dispatcher.unlisten).toHaveBeenCalled();
     });
 
-    it('should render component with extraProps and own createStateSelector', () => {
+    it('should render component with extraProps and own createStateSelector', async () => {
       setCreatorOfStateSelector((...selectors) => {
         return (state, context) => {
           return selectors.reduce((result, selector) => {
@@ -237,28 +230,32 @@ describe('plugin-select:', () => {
       });
       let EnhancedComponent = select(...selectorMethods)(Component);
 
-      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
-        context: componentContext,
-        wrappingComponent: MockContextProvider,
-      });
+      const { container } = await renderWithContext(
+        <EnhancedComponent {...defaultProps} />,
+        {
+          contextValue: componentContext,
+        }
+      );
 
-      expect(wrapper).toMatchSnapshot();
+      expect(container.firstChild).toMatchSnapshot();
     });
 
-    it('should render component with changed props', () => {
+    it('should render component with changed props', async () => {
       let EnhancedComponent = select(selectorUsingProps)(Component);
 
-      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
-        context: componentContext,
-        wrappingComponent: MockContextProvider,
-      });
+      const { container, rerender } = await renderWithContext(
+        <EnhancedComponent {...defaultProps} />,
+        {
+          contextValue: componentContext,
+        }
+      );
 
-      wrapper.setProps({ multiplier: 3 });
+      rerender(<EnhancedComponent {...defaultProps} multiplier={3} />);
 
-      expect(wrapper).toMatchSnapshot();
+      expect(container.firstChild).toMatchSnapshot();
     });
 
-    it('should render component with extraProps and own static methods', () => {
+    it('should render component with extraProps and own static methods', async () => {
       setHoistStaticMethod((TargetComponent, Original) => {
         const keys = Object.getOwnPropertyNames(Original);
 
@@ -275,33 +272,34 @@ describe('plugin-select:', () => {
       });
       let EnhancedComponent = select(...selectorMethods)(Component);
 
-      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
-        context: componentContext,
-        wrappingComponent: MockContextProvider,
-      });
-
-      expect(typeof EnhancedComponent.myCustom === 'function').toBeTruthy();
-      expect(typeof EnhancedComponent.defaultProps === 'function').toBeTruthy();
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should forward ref', () => {
-      let EnhancedComponent = forwardedSelect(...selectorMethods)(Component);
-
-      wrapper = shallow(
-        createElement(EnhancedComponent, {
-          ...defaultProps,
-          ref: createRef(),
-        }),
+      const { container } = await renderWithContext(
+        <EnhancedComponent {...defaultProps} />,
         {
-          context: componentContext,
+          contextValue: componentContext,
         }
       );
 
-      expect(wrapper).toMatchSnapshot();
+      expect(typeof EnhancedComponent.myCustom === 'function').toBeTruthy();
+      expect(typeof EnhancedComponent.defaultProps === 'function').toBeTruthy();
+      expect(container.firstChild).toMatchSnapshot();
     });
 
-    it('should render component with extraProps and own static methods for forwardedSelect', () => {
+    it('should forward ref', async () => {
+      let EnhancedComponent = forwardedSelect(...selectorMethods)(Component);
+      const componentRef = createRef();
+
+      const { container } = await renderWithContext(
+        <EnhancedComponent {...defaultProps} ref={componentRef} />,
+        {
+          contextValue: componentContext,
+        }
+      );
+
+      expect(componentRef.current).toBeInstanceOf(Component);
+      expect(container.firstChild).toMatchSnapshot();
+    });
+
+    it('should render component with extraProps and own static methods for forwardedSelect', async () => {
       setHoistStaticMethod((TargetComponent, Original) => {
         const keys = Object.getOwnPropertyNames(Original);
 
@@ -318,14 +316,16 @@ describe('plugin-select:', () => {
       });
       let EnhancedComponent = forwardedSelect(...selectorMethods)(Component);
 
-      wrapper = mount(createElement(EnhancedComponent, defaultProps), {
-        context: componentContext,
-        wrappingComponent: MockContextProvider,
-      });
+      const { container } = await renderWithContext(
+        <EnhancedComponent {...defaultProps} />,
+        {
+          contextValue: componentContext,
+        }
+      );
 
       expect(typeof EnhancedComponent.myCustom === 'function').toBeTruthy();
       expect(typeof EnhancedComponent.defaultProps === 'function').toBeTruthy();
-      expect(wrapper).toMatchSnapshot();
+      expect(container.firstChild).toMatchSnapshot();
     });
   });
 });

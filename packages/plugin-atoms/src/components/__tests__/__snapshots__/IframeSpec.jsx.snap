@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Iframe should render with noscript tag by default 1`] = `
+<div
+  class="atm-iframe atm-overflow atm-placeholder"
+  style="width: auto; height: auto;"
+>
+  <noscript>
+    &lt;iframe src="example.html" name="example.html" width="auto" height="auto" class="atm-fill" &gt;&lt;/iframe&gt;
+  </noscript>
+</div>
+`;
+
+exports[`Iframe should render without noscript tag if visible 1`] = `
+<div
+  class="atm-iframe atm-overflow"
+  style="width: auto; height: auto;"
+>
+  <iframe
+    class="atm-fill"
+    name="example.html"
+    src="example.html"
+  />
+</div>
+`;

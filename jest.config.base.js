@@ -3,17 +3,16 @@
  */
 module.exports = {
   rootDir: '.',
-  testEnvironment: 'node',
   testRegex: '(/__tests__/).*Spec\\.jsx?$',
   modulePaths: ['<rootDir>/'],
-  transformIgnorePatterns: [
-    'node_modules/(?!(@ima/core|@ima/react-page-renderer)/)',
-  ],
   transform: {
     '^.+\\.(js|jsx)$': [
       '@swc/jest',
       {
         jsc: {
+          experimental: {
+            plugins: [['swc_mut_cjs_exports', {}]],
+          },
           target: 'es2022',
           parser: {
             syntax: 'ecmascript',
@@ -31,6 +30,9 @@ module.exports = {
       '@swc/jest',
       {
         jsc: {
+          experimental: {
+            plugins: [['swc_mut_cjs_exports', {}]],
+          },
           target: 'es2022',
           parser: {
             syntax: 'typescript',

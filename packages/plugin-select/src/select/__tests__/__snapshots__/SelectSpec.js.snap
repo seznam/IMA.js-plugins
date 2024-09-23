@@ -38,233 +38,127 @@ exports[`plugin-select: createStateSelector should select extra properties from 
 `;
 
 exports[`plugin-select: select should forward ref 1`] = `
-<withContext(Component)
-  forwardedRef={
-    {
-      "current": null,
-    }
-  }
-  multiplier={0.5}
-  props="props"
-  settings={
-    {
-      "color": "red",
-    }
-  }
-/>
+<div>
+  {
+  "props": "props",
+  "multiplier": 0.5,
+  "settings": {
+    "color": "red"
+  },
+  "width": 90,
+  "height": 60
+}
+</div>
 `;
 
 exports[`plugin-select: select should render component 1`] = `
-<h1>
-  text
-</h1>
+<div>
+  {
+  "props": "props",
+  "multiplier": 0.5,
+  "settings": {
+    "color": "red"
+  }
+}
+</div>
 `;
 
 exports[`plugin-select: select should render component with changed props 1`] = `
-<withContext(Component)
-  multiplier={3}
-  props="props"
-  settings={
-    {
-      "color": "red",
-    }
-  }
->
-  <Component
-    height={180}
-    multiplier={3}
-    props="props"
-    settings={
-      {
-        "color": "red",
-      }
-    }
-    width={270}
-  >
-    <h1>
-      text
-    </h1>
-  </Component>
-</withContext(Component)>
+<div>
+  {
+  "props": "props",
+  "multiplier": 3,
+  "settings": {
+    "color": "red"
+  },
+  "width": 270,
+  "height": 180
+}
+</div>
 `;
 
 exports[`plugin-select: select should render component with extraProps 1`] = `
-<withContext(Component)
-  multiplier={0.5}
-  props="props"
-  settings={
-    {
-      "color": "red",
-    }
-  }
->
-  <Component
-    height={60}
-    multiplier={0.5}
-    props="props"
-    settings={
-      {
-        "color": "red",
-      }
-    }
-    width={90}
-  >
-    <h1>
-      text
-    </h1>
-  </Component>
-</withContext(Component)>
+<div>
+  {
+  "props": "props",
+  "multiplier": 0.5,
+  "settings": {
+    "color": "red"
+  },
+  "width": 90,
+  "height": 60
+}
+</div>
 `;
 
 exports[`plugin-select: select should render component with extraProps and own createStateSelector 1`] = `
-<withContext(Component)
-  multiplier={0.5}
-  props="props"
-  settings={
-    {
-      "color": "red",
-    }
-  }
->
-  <Component
-    height={60}
-    multiplier={0.5}
-    props="props"
-    settings={
-      {
-        "color": "red",
-      }
-    }
-    width={90}
-  >
-    <h1>
-      text
-    </h1>
-  </Component>
-</withContext(Component)>
+<div>
+  {
+  "props": "props",
+  "multiplier": 0.5,
+  "settings": {
+    "color": "red"
+  },
+  "width": 90,
+  "height": 60
+}
+</div>
 `;
 
 exports[`plugin-select: select should render component with extraProps and own static methods 1`] = `
-<withContext(Component)
-  multiplier={0.5}
-  props="props"
-  settings={
-    {
-      "color": "red",
-    }
-  }
->
-  <Component
-    height={60}
-    multiplier={0.5}
-    props="props"
-    settings={
-      {
-        "color": "red",
-      }
-    }
-    width={90}
-  >
-    <h1>
-      text
-    </h1>
-  </Component>
-</withContext(Component)>
+<div>
+  {
+  "props": "props",
+  "multiplier": 0.5,
+  "settings": {
+    "color": "red"
+  },
+  "width": 90,
+  "height": 60
+}
+</div>
 `;
 
 exports[`plugin-select: select should render component with extraProps and own static methods for forwardedSelect 1`] = `
-<ForwardRef(select(Component))
-  multiplier={0.5}
-  props="props"
-  settings={
-    {
-      "color": "red",
-    }
-  }
->
-  <withContext(Component)
-    forwardedRef={null}
-    multiplier={0.5}
-    props="props"
-    settings={
-      {
-        "color": "red",
-      }
-    }
-  >
-    <Component
-      forwardedRef={null}
-      height={60}
-      multiplier={0.5}
-      props="props"
-      settings={
-        {
-          "color": "red",
-        }
-      }
-      width={90}
-    >
-      <h1>
-        text
-      </h1>
-    </Component>
-  </withContext(Component)>
-</ForwardRef(select(Component))>
+<div>
+  {
+  "props": "props",
+  "multiplier": 0.5,
+  "settings": {
+    "color": "red"
+  },
+  "forwardedRef": null,
+  "width": 90,
+  "height": 60
+}
+</div>
 `;
 
 exports[`plugin-select: select should render component with extraProps modifies by ownProps 1`] = `
-<withContext(Component)
-  multiplier={0.5}
-  props="props"
-  settings={
-    {
-      "color": "red",
-    }
-  }
->
-  <Component
-    height={30}
-    multiplier={0.5}
-    props="props"
-    settings={
-      {
-        "color": "red",
-      }
-    }
-    width={45}
-  >
-    <h1>
-      text
-    </h1>
-  </Component>
-</withContext(Component)>
+<div>
+  {
+  "props": "props",
+  "multiplier": 0.5,
+  "settings": {
+    "color": "red"
+  },
+  "width": 45,
+  "height": 30
+}
+</div>
 `;
 
 exports[`plugin-select: select should render component with extraProps replaced by ownProps 1`] = `
-<withContext(Component)
-  multiplier={0.5}
-  props="props"
-  settings={
-    {
-      "color": "red",
-    }
-  }
->
-  <Component
-    height={60}
-    multiplier={0.25}
-    props="props"
-    settings={
-      {
-        "color": "red",
-        "newSettingsProp": true,
-      }
-    }
-    width={90}
-  >
-    <h1>
-      text
-    </h1>
-  </Component>
-</withContext(Component)>
+<div>
+  {
+  "props": "props",
+  "multiplier": 0.25,
+  "settings": {
+    "color": "red",
+    "newSettingsProp": true
+  },
+  "width": 90,
+  "height": 60
+}
+</div>
 `;

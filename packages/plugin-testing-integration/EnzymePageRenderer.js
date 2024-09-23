@@ -7,6 +7,8 @@ const {
 const { mount } = require('enzyme');
 const ReactDOM = require('react-dom');
 
+// @TODO: Delete this file with next major version as we are moving away from Enzyme and
+// this file is not being used in any known projects.
 class EnzymeReactDOM {
   constructor() {
     this._instances = [];
