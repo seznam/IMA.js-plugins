@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 10.2.1
+
+### Patch Changes
+
+- 61f6742: Fix missing typing in Utils
+
 ## 10.2.0
 
 ### Minor Changes
