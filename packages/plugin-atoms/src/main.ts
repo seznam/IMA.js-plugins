@@ -27,12 +27,6 @@ import Visibility from './Visibility';
 
 const defaultDependencies = ['$Router', ComponentPositions, Visibility];
 
-declare module '@ima/core' {
-  interface OCAliasMap {
-    $UIComponentHelper: UIComponentHelper;
-  }
-}
-
 pluginLoader.register('@ima/plugin-atoms', ns => {
   return {
     initBind: (ns, oc) => {
