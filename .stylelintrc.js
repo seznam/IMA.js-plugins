@@ -6,11 +6,12 @@ module.exports = {
     '**/build/**',
     '**/docs/**',
     '**/.docusaurus/**',
-    '**/coverage/**', '**/*.js',
+    '**/coverage/**',
+    '**/*.js',
     '**/*.ts',
     '**/*.jsx',
     '**/*.tsx',
-    '**/*.json'
+    '**/*.json',
   ],
   extends: ['stylelint-config-standard', 'stylelint-config-css-modules'],
   plugins: [

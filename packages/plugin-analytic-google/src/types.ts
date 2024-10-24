@@ -12,7 +12,6 @@ export interface PluginAnalyticGoogleSettings {
 }
 
 declare module '@ima/core' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface PluginAnalyticSettings extends PluginAnalyticGoogleSettings {}
 
   interface PluginSettings {
