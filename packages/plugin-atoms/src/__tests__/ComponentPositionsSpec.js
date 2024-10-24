@@ -1,3 +1,4 @@
+//
 import { UserAgent } from '@ima/plugin-useragent';
 import { toMockedInstance } from 'to-mock';
 

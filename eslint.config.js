@@ -184,7 +184,6 @@ module.exports = typescriptEslint.config(
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-empty-object-type': 'off',
-      '@typescript-eslint/no-unused-expressions': 'off',
       '@typescript-eslint/ban-ts-comment': [
         'error',
         { 'ts-expect-error': false },
