@@ -105,7 +105,7 @@ async function initImaApp(bootConfigMethods = {}) {
     global.window.fetch = global.fetch;
 
     // Required for JSDOM XPath selectors
-    global.console.assert = assert; // eslint-disable-line no-console
+    global.console.assert = assert;
 
     // Call all page scripts (jsdom build-in runScript creates new V8 context, unable to mix with node context)
     const pageScripts = jsdom.window.document.getElementsByTagName('script');

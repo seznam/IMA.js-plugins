@@ -41,6 +41,6 @@
     "@ima/plugin-script-loader": ">=3.1.1"
   },
   "devDependencies": {
-    "@types/facebook-pixel": "^0.0.30"
+    "@types/facebook-pixel": "^0.0.31"
   }
 }

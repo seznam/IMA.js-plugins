@@ -225,7 +225,7 @@ export class FacebookPixelAnalytic extends AbstractAnalytic {
     const fbAnalytic = (window[FB_ROOT_VARIABLE] = function (
       ...rest: unknown[]
     ) {
-      fbAnalytic.callMethod
+      fbAnalytic.callMethod // eslint-disable-line @typescript-eslint/no-unused-expressions
         ? fbAnalytic.callMethod(...rest)
         : fbAnalytic.queue.push(...rest);
     }) as FbAnalyiticExtended;

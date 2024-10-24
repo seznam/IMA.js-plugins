@@ -95,13 +95,13 @@ export default class WebSocket {
         this._notify(data);
       } catch (error) {
         if (this._config.debug) {
-          console.error(error); // eslint-disable-line no-console
+          console.error(error);
         }
       }
     };
 
     this._socket.onerror = error => {
-      console.error(error); // eslint-disable-line no-console
+      console.error(error);
     };
   }
 }
