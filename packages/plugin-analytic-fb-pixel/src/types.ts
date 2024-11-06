@@ -12,7 +12,7 @@ export interface PluginAnalyticFBPixelSettings {
 }
 
 declare module '@ima/core' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface PluginAnalyticSettings extends PluginAnalyticFBPixelSettings {}
 
   interface PluginSettings {

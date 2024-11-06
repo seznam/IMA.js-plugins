@@ -10,7 +10,7 @@ export interface PluginWebsocketSettings {
 }
 
 declare module '@ima/core' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface PluginSettings extends PluginWebsocketSettings {}
   interface Settings {
     plugin: PluginSettings;

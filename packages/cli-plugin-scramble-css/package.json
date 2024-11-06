@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@types/copy-webpack-plugin": "^10.1.0",
-    "@types/react": "^18.0.17"
+    "@types/react": "^18.3.12"
   },
   "dependencies": {
     "postcss-selector-parser": "^6.0.10",

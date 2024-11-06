@@ -1,7 +1,7 @@
 import type { Events } from './Events';
 
 declare module '@ima/core' {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface PluginAnalyticSettings {}
 
   interface PluginSettings {

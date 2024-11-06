@@ -25,7 +25,7 @@ export interface LegacyCSSPluginOptions {
  */
 class LegacyCSSPlugin implements ImaCliPlugin {
   #options: Required<LegacyCSSPluginOptions>;
-  #logger: ReturnType<typeof createLogger>;
+  #logger: ReturnType<typeof createLogger>; // eslint-disable-line no-unused-private-class-members
 
   readonly name = 'LegacyCSSPlugin';
 

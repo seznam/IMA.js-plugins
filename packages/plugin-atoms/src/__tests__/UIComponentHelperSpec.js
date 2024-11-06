@@ -2,11 +2,11 @@ import classnames from 'classnames';
 import { Infinite } from 'infinite-circle';
 import { toMockedInstance } from 'to-mock';
 
-import _router from './mocks/router';
-import _window from './mocks/window';
 import ComponentPositions from '../ComponentPositions';
 import UIComponentHelper from '../UIComponentHelper';
 import Visibility from '../Visibility';
+import _router from './mocks/router';
+import _window from './mocks/window';
 
 describe('UIComponentHelper', () => {
   let uiComponentHelper = null;
