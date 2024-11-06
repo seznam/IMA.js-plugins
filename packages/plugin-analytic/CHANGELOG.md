@@ -1,5 +1,11 @@
 # Change Log
 
+## 6.0.1
+
+### Patch Changes
+
+- 2492fab: Smaller style changes in files because of update of prettier/eslint build dependency.
+
 ## 6.0.0
 
 ### Major Changes

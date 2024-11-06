@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 10.2.2
+
+### Patch Changes
+
+- 2492fab: Smaller style changes in files because of update of prettier/eslint build dependency.
+
 ## 10.2.1
 
 ### Patch Changes
