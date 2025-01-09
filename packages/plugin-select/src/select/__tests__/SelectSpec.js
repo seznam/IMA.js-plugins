@@ -1,5 +1,5 @@
 import { getContextValue, renderWithContext } from '@ima/testing-library';
-import { PureComponent, createRef } from 'react';
+import { PureComponent, createRef, memo, forwardRef } from 'react';
 
 import forwardedSelect, {
   createStateSelector,
@@ -157,6 +157,37 @@ describe('plugin-select:', () => {
       );
 
       expect(container.firstChild).toMatchSnapshot();
+    });
+
+    it('should set displayName for class component', async () => {
+      const EnhancedComponent = select(...selectorMethods)(Component);
+
+      expect(EnhancedComponent.displayName).toBe('withContext(Component)');
+    });
+
+    it('should set displayName for functional component', async () => {
+      const FunctionalComponent = () => {
+        return <div />;
+      };
+      const EnhancedComponent = select(...selectorMethods)(FunctionalComponent);
+
+      expect(EnhancedComponent.displayName).toBe(
+        'withContext(FunctionalComponent)'
+      );
+    });
+
+    it('should set displayName for memoized component', async () => {
+      const MemoComponent = memo(Component);
+      const EnhancedComponent = select(...selectorMethods)(MemoComponent);
+
+      expect(EnhancedComponent.displayName).toBe('withContext(Component)');
+    });
+
+    it('should set displayName for forwarded component', async () => {
+      const ForwardedComponent = forwardRef(Component);
+      const EnhancedComponent = select(...selectorMethods)(ForwardedComponent);
+
+      expect(EnhancedComponent.displayName).toBe('withContext(Component)');
     });
 
     it('should render component with extraProps modifies by ownProps', async () => {

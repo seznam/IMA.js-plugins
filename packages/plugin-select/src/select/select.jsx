@@ -51,7 +51,7 @@ export function select(...selectors) {
       return <Component {...restProps} {...state} ref={forwardedRef} />;
     };
 
-    const componentName = Component.displayName || Component.name;
+    const componentName = getReactComponentName(Component);
     WithContext.displayName = `withContext(${componentName})`;
     hoistStaticMethod(WithContext, Component);
 
@@ -120,7 +120,7 @@ export default function forwardedSelect(...selectors) {
       return <SelectState {...props} forwardedRef={ref} />;
     };
 
-    const name = Component.displayName || Component.name;
+    const name = getReactComponentName(Component);
     forwardRef.displayName = `select(${name})`;
 
     return hoistStaticMethod(reactForwardRef(forwardRef), Component);
@@ -178,4 +178,19 @@ export function createStateSelector(...selectors) {
   })();
 
   return createSelector(derivedState, passStateOnChange);
+}
+
+/**
+ * Finds display name from the provided component.
+ * @param {Function|Object} Component
+ * @returns {string}
+ */
+function getReactComponentName(Component) {
+  return Component.displayName ||
+    Component.name ||
+    Component.type?.displayName || // React.memo
+    Component.type?.name ||
+    Component.render?.displayName || // React.forwardRef
+    Component.render?.name ||
+    'Component';
 }
