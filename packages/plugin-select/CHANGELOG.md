@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.6
+
+### Patch Changes
+
+- 7e0c93b: Fix displayName value for components wrapped with `select` HOC. This should resolve the issue with `Component.displayName` being `withContext(undefined)`.
+
 ## 4.0.5
 
 ### Patch Changes
