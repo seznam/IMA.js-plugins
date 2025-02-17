@@ -137,7 +137,12 @@ export default class Visibility {
       this
     );
     this._window.bindEventListener(this._window.getWindow()!, 'resize', notify);
-    this._window.bindEventListener(this._window.getWindow()!, 'scroll', notify);
+    this._window.bindEventListener(
+      this._window.getWindow()!,
+      'scroll',
+      notify,
+      { passive: true }
+    );
   }
 
   /**
