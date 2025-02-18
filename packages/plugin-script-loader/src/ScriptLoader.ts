@@ -93,7 +93,7 @@ export class ScriptLoader {
    */
   _handleOnLoad(url: string) {
     const data = { url };
-    this._dispatcher.fire(Events.LOADED, data, true);
+    this._dispatcher.fire(Events.LOADED, data);
 
     return data;
   }
@@ -112,7 +112,7 @@ export class ScriptLoader {
       error,
     };
 
-    this._dispatcher.fire(Events.LOADED, data, true);
+    this._dispatcher.fire(Events.LOADED, data);
     throw error;
   }
 }
