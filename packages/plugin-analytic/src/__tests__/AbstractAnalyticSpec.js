@@ -76,8 +76,7 @@ describe('AbstractAnalytic', () => {
       abstractAnalytic.init();
       expect(dispatcher.fire).toHaveBeenCalledWith(
         AnalyticEvents.INITIALIZED,
-        { type: 'dummy' },
-        true
+        { type: 'dummy' }
       );
     });
   });
@@ -106,8 +105,7 @@ describe('AbstractAnalytic', () => {
       expect(abstractAnalytic._configuration).toHaveBeenCalled();
       expect(dispatcher.fire).toHaveBeenCalledWith(
         AnalyticEvents.LOADED,
-        { type: 'dummy' },
-        true
+        { type: 'dummy' }
       );
     });
 
@@ -119,8 +117,7 @@ describe('AbstractAnalytic', () => {
       expect(abstractAnalytic._configuration.mock.calls).toHaveLength(1);
       expect(dispatcher.fire).toHaveBeenCalledWith(
         AnalyticEvents.LOADED,
-        { type: 'dummy' },
-        true
+        { type: 'dummy' }
       );
       expect(dispatcher.fire.mock.calls).toHaveLength(1);
     });
