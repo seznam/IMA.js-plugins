@@ -74,10 +74,9 @@ describe('AbstractAnalytic', () => {
       jest.spyOn(dispatcher, 'fire');
 
       abstractAnalytic.init();
-      expect(dispatcher.fire).toHaveBeenCalledWith(
-        AnalyticEvents.INITIALIZED,
-        { type: 'dummy' }
-      );
+      expect(dispatcher.fire).toHaveBeenCalledWith(AnalyticEvents.INITIALIZED, {
+        type: 'dummy',
+      });
     });
   });
 
@@ -103,10 +102,9 @@ describe('AbstractAnalytic', () => {
 
       expect(scriptLoader.load).toHaveBeenCalled();
       expect(abstractAnalytic._configuration).toHaveBeenCalled();
-      expect(dispatcher.fire).toHaveBeenCalledWith(
-        AnalyticEvents.LOADED,
-        { type: 'dummy' }
-      );
+      expect(dispatcher.fire).toHaveBeenCalledWith(AnalyticEvents.LOADED, {
+        type: 'dummy',
+      });
     });
 
     it('should load analytic script, call configuration method and fire loaded event only once.', async () => {
@@ -115,10 +113,9 @@ describe('AbstractAnalytic', () => {
 
       expect(scriptLoader.load.mock.calls).toHaveLength(1);
       expect(abstractAnalytic._configuration.mock.calls).toHaveLength(1);
-      expect(dispatcher.fire).toHaveBeenCalledWith(
-        AnalyticEvents.LOADED,
-        { type: 'dummy' }
-      );
+      expect(dispatcher.fire).toHaveBeenCalledWith(AnalyticEvents.LOADED, {
+        type: 'dummy',
+      });
       expect(dispatcher.fire.mock.calls).toHaveLength(1);
     });
   });

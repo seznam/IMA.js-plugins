@@ -34,7 +34,7 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@ima/core": "^19.6.3",
+    "@ima/core": ">=19.6.3",
     "@ima/plugin-useragent": ">=5.0.0",
     "@ima/react-page-renderer": ">=18.0.0"
   },
