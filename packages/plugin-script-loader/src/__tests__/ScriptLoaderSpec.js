@@ -66,11 +66,7 @@ describe('ScriptLoader', () => {
 
       await scriptLoaderPlugin.load(url, template);
 
-      expect(dispatcher.fire).toHaveBeenCalledWith(
-        Events.LOADED,
-        { url },
-        true
-      );
+      expect(dispatcher.fire).toHaveBeenCalledWith(Events.LOADED, { url });
     });
 
     it('the dispatcher fire loaded event for scripts loaded by url', async () => {
@@ -81,11 +77,7 @@ describe('ScriptLoader', () => {
 
       await scriptLoaderPlugin.load(url);
 
-      expect(dispatcher.fire).toHaveBeenCalledWith(
-        Events.LOADED,
-        { url },
-        true
-      );
+      expect(dispatcher.fire).toHaveBeenCalledWith(Events.LOADED, { url });
     });
 
     it('the dispatcher fire loaded event with errors', async () => {
@@ -97,11 +89,10 @@ describe('ScriptLoader', () => {
       try {
         await scriptLoaderPlugin.load(url);
       } catch (error) {
-        expect(dispatcher.fire).toHaveBeenCalledWith(
-          Events.LOADED,
-          { url, error },
-          true
-        );
+        expect(dispatcher.fire).toHaveBeenCalledWith(Events.LOADED, {
+          url,
+          error,
+        });
       }
     });
 
@@ -113,11 +104,7 @@ describe('ScriptLoader', () => {
 
       await scriptLoaderPlugin.load(url);
 
-      expect(dispatcher.fire).toHaveBeenCalledWith(
-        Events.LOADED,
-        { url },
-        true
-      );
+      expect(dispatcher.fire).toHaveBeenCalledWith(Events.LOADED, { url });
 
       jest.clearAllMocks();
       await scriptLoaderPlugin.load(url);
@@ -126,11 +113,7 @@ describe('ScriptLoader', () => {
 
       await scriptLoaderPlugin.load(url, null, true);
 
-      expect(dispatcher.fire).toHaveBeenCalledWith(
-        Events.LOADED,
-        { url },
-        true
-      );
+      expect(dispatcher.fire).toHaveBeenCalledWith(Events.LOADED, { url });
     });
   });
 });

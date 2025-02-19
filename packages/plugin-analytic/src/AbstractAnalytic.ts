@@ -154,6 +154,6 @@ export abstract class AbstractAnalytic {
    * @param eventType
    */
   _fireLifecycleEvent(eventType: AnalyticEvents) {
-    this.#dispatcher.fire(eventType, { type: this._analyticScriptName }, true);
+    this.#dispatcher.fire(eventType, { type: this._analyticScriptName });
   }
 }
