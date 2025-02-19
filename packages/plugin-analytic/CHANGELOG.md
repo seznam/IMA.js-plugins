@@ -1,5 +1,11 @@
 # Change Log
 
+## 6.0.2
+
+### Patch Changes
+
+- 5be91a5: Updated to latest @ima/core
+
 ## 6.0.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 10.3.0
+
+### Minor Changes
+
+- 0a401e8: Improved visibility scroll listener performance by making it passive
+
 ## 10.2.2
 
 ### Patch Changes
