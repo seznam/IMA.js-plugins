@@ -13,6 +13,7 @@ import {
   Headline4,
   Headline5,
   Headline6,
+  HeadlineType,
 } from './components/Headline';
 import { Iframe } from './components/Iframe';
 import { Image } from './components/Image';
@@ -64,6 +65,7 @@ export {
   Headline4 as H4,
   Headline5 as H5,
   Headline6 as H6,
+  HeadlineType,
   Iframe,
   Image,
   Image as Img,

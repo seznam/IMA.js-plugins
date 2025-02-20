@@ -5,14 +5,14 @@ import { memo } from 'react';
 import { HEADLINE_ATTRIBUTES } from './constants';
 import { filterProps } from './filterProps';
 
-export enum HeadlineType {
-  H1 = 'h1',
-  H2 = 'h2',
-  H3 = 'h3',
-  H4 = 'h4',
-  H5 = 'h5',
-  H6 = 'h6',
-}
+export const HeadlineType = Object.freeze({
+  H1: 'h1',
+  H2: 'h2',
+  H3: 'h3',
+  H4: 'h4',
+  H5: 'h5',
+  H6: 'h6',
+});
 
 export function headlineFactory(factoryType: HeadlineType | null = null) {
   return memo(function HeadlineComponent({
@@ -57,6 +57,7 @@ export function headlineFactory(factoryType: HeadlineType | null = null) {
   });
 }
 
+export type HeadlineType = (typeof HeadlineType)[keyof typeof HeadlineType]; // Type alias for constants
 export const Headline = headlineFactory();
 export const Headline1 = headlineFactory(HeadlineType.H1);
 export const Headline2 = headlineFactory(HeadlineType.H2);
