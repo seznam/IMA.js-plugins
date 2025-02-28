@@ -1,5 +1,15 @@
 <a name="5.0.1"></a>
 
+## 10.3.1
+
+### Patch Changes
+
+- 93f1cae: Enum unification
+
+  - **What:** replaced enum HeadlineType for plain object
+  - **Why:** enum is not supported type (TypeScript enums are not part of the TC39 proposal)
+  - **How:** nothing
+
 ## 10.3.0
 
 ### Minor Changes
