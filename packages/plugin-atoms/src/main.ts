@@ -5,7 +5,9 @@ import { Infinite } from 'infinite-circle';
 
 import ComponentPositions from './ComponentPositions';
 import { LAYOUT, LOADING } from './components/constants';
+import type { HeadlineTypesType } from './components/Headline';
 import {
+  HeadlineTypes,
   Headline,
   Headline1,
   Headline2,
@@ -45,12 +47,13 @@ pluginLoader.register('@ima/plugin-atoms', ns => {
   };
 });
 
-export type { VisibilityOptions };
+export type { VisibilityOptions, HeadlineTypesType };
 export {
   UIComponentHelper,
   Visibility,
   ComponentPositions,
   defaultDependencies,
+  HeadlineTypes,
   Headline,
   Headline1,
   Headline2,
