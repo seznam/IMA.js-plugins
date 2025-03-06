@@ -7,7 +7,7 @@ import ComponentPositions from './ComponentPositions';
 import { LAYOUT, LOADING } from './components/constants';
 import type { HeadlineTypesType } from './components/Headline';
 import {
-  HeadlineTypes,
+  HeadlineType,
   Headline,
   Headline1,
   Headline2,
@@ -53,7 +53,7 @@ export {
   Visibility,
   ComponentPositions,
   defaultDependencies,
-  HeadlineTypes,
+  HeadlineType,
   Headline,
   Headline1,
   Headline2,
