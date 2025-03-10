@@ -1,11 +1,12 @@
 import { useComponentUtils } from '@ima/react-page-renderer';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 import { memo } from 'react';
+import type { ValueOf } from 'type-fest';
 
 import { HEADLINE_ATTRIBUTES } from './constants';
 import { filterProps } from './filterProps';
 
-export const HeadlineTypes = Object.freeze({
+export const HeadlineType = Object.freeze({
   H1: 'h1',
   H2: 'h2',
   H3: 'h3',
@@ -19,7 +20,7 @@ export function headlineFactory(factoryType: HeadlineTypesType | null = null) {
     children,
     html = '',
     className,
-    type = HeadlineTypes.H1,
+    type = HeadlineType.H1,
     ...rest
   }: {
     children?: ReactNode;
@@ -57,12 +58,11 @@ export function headlineFactory(factoryType: HeadlineTypesType | null = null) {
   });
 }
 
-export type HeadlineTypesType =
-  (typeof HeadlineTypes)[keyof typeof HeadlineTypes]; // Type alias for constants
+export type HeadlineTypesType = ValueOf<typeof HeadlineType>;
 export const Headline = headlineFactory();
-export const Headline1 = headlineFactory(HeadlineTypes.H1);
-export const Headline2 = headlineFactory(HeadlineTypes.H2);
-export const Headline3 = headlineFactory(HeadlineTypes.H3);
-export const Headline4 = headlineFactory(HeadlineTypes.H4);
-export const Headline5 = headlineFactory(HeadlineTypes.H5);
-export const Headline6 = headlineFactory(HeadlineTypes.H6);
+export const Headline1 = headlineFactory(HeadlineType.H1);
+export const Headline2 = headlineFactory(HeadlineType.H2);
+export const Headline3 = headlineFactory(HeadlineType.H3);
+export const Headline4 = headlineFactory(HeadlineType.H4);
+export const Headline5 = headlineFactory(HeadlineType.H5);
+export const Headline6 = headlineFactory(HeadlineType.H6);
