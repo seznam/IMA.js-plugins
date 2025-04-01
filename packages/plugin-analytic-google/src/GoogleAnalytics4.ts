@@ -9,11 +9,20 @@ type ConsentSettings = {
   personalization_storage?: 'denied' | 'granted';
 };
 
-export type AnalyticGoogleSettings = {
+export interface AnalyticGoogleSettings {
   consentSettings?: ConsentSettings;
   service: string;
   waitForUpdateTimeout?: number;
-};
+}
+
+export interface PageViewData {
+  page_location: string;
+  page_path: string;
+  page_referrer: string;
+  page_route: string;
+  page_status?: string;
+  page_title: string;
+}
 
 /**
  * Google analytic 4 class
@@ -149,10 +158,10 @@ export class GoogleAnalytics4 extends AbstractAnalytic {
   /**
    * Returns page view data derived from pageData param.
    */
-  _getPageViewData(pageData: Record<string, any>) {
+  _getPageViewData(pageData: Record<string, any>): PageViewData {
     const page_location = this._window?.getUrl();
     const clientDocument = this._window?.getDocument();
-    const page_referrer = this.#referrer || clientDocument?.referrer;
+    const page_referrer = this.#referrer || clientDocument?.referrer || '';
 
     return {
       page_path: pageData.path,
