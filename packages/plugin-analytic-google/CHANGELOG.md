@@ -1,5 +1,15 @@
 # Change Log
 
+## 9.1.0
+
+### Minor Changes
+
+- 2e5fda1: Refactor types
+
+  - **What?** Export new `PageViewData` type, change `AnalyticGoogleSettings` to an interface.
+  - **Why?** To enable overloading in child classes.
+  - **How?** Nothing.
+
 ## 9.0.3
 
 ### Patch Changes
