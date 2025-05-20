@@ -18,7 +18,7 @@ export const OPTION_TRANSFORM_PROCESSORS = 'transformProcessors';
 
 export type HttpClientRequestOptions = {
   [OPTION_TRANSFORM_PROCESSORS]?: (processor: Processor[]) => Processor[];
-} & HttpAgentRequestOptions;
+} & Partial<HttpAgentRequestOptions>;
 
 export type HttpClientRequestMethod =
   | 'get'
