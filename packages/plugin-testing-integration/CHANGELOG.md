@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.2.0
+
+### Minor Changes
+
+- 7df50ee: await `bootClientApp` in `initImaApp` as preparation for async boot in ima@20
+
 ## 5.1.6
 
 ### Patch Changes
