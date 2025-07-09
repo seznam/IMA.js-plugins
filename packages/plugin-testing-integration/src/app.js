@@ -230,7 +230,7 @@ async function initImaApp(bootConfigMethods = {}) {
     initRoutes: _getBootConfigForMethod('initRoutes'),
   });
   await onLoad();
-  bootClientApp(app, bootConfig);
+  await bootClientApp(app, bootConfig);
 
   // To use ima route handler in jsdom
   app.oc.get('$Router').listen();
