@@ -42,3 +42,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm run release:publish
+
+      - name: Create GitHub Releases
+        uses: seznam/changeset-create-release@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
