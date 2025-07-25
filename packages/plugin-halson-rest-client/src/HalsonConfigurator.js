@@ -53,9 +53,10 @@ export default class HalsonConfigurator extends Configurator {
   getConfiguration() {
     let { url, data, options } = this._prepareResourceLinksRequest();
     return this._httpAgent.get(url, data, options).then(response => {
-      let config = response.body;
+      const parsedBody = JSON.parse(response.body);
+      let config = parsedBody;
       config._apiRoot = this._apiRoot;
-      return this._processResourceLinksMapResponse(response.body);
+      return this._processResourceLinksMapResponse(parsedBody);
     });
   }
 
