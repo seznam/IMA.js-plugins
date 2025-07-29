@@ -10,7 +10,7 @@ describe('HalsonConfigurator', () => {
         expect(url).toBe(API_ROOT + '/');
         return Promise.resolve({
           status: 200,
-          body: { _links: { stuff: 'stuff too' } },
+          body: JSON.stringify({ _links: { stuff: 'stuff too' } }),
           params: {
             method: 'GET',
             url,
