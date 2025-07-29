@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.0.5
+
+### Patch Changes
+
+- db0afb9: parse response.body from httpAgent
+
 ## 2.0.4
 
 ### Patch Changes
