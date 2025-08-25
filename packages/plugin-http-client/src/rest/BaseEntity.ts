@@ -106,7 +106,12 @@ export class BaseEntity {
 
     const processedDataFieldMapping: { [key: string]: MapperItem } = {};
     Object.entries(dataFieldMapping).forEach(([key, value]) => {
-      processedDataFieldMapping[key] = BaseMapper.createMapperItem(value, key);
+      if (value) {
+        processedDataFieldMapping[key] = BaseMapper.createMapperItem(
+          value,
+          key
+        );
+      }
     });
 
     return processedDataFieldMapping;
