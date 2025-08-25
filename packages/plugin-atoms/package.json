@@ -39,6 +39,6 @@
     "@ima/react-page-renderer": ">=18.0.0"
   },
   "dependencies": {
-    "infinite-circle": "^0.3.0"
+    "infinite-circle": "^0.4.0"
   }
 }
