@@ -95,7 +95,7 @@ export class ScriptLoader {
     const script = document.createElement('script');
 
     // Set default async behavior (maintains backward compatibility)
-    script.async = options?.async !== false;
+    script.async = options?.async ?? true;
 
     // Set module type if specified
     if (options?.module) {
