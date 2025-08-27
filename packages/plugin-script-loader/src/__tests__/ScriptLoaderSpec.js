@@ -26,6 +26,9 @@ describe('ScriptLoader', () => {
       onload() {},
       onerror() {},
       onabort() {},
+      async: undefined,
+      type: undefined,
+      setAttribute: jest.fn(),
     };
 
     global.$Debug = true;
@@ -38,9 +41,17 @@ describe('ScriptLoader', () => {
   describe('load method', () => {
     beforeEach(() => {
       jest.spyOn(window, 'isClient').mockReturnValue(true);
-      jest
-        .spyOn(scriptLoaderPlugin, '_createScriptElement')
-        .mockReturnValue(element);
+
+      // Mock document.createElement instead of _createScriptElement
+      // so that our implementation actually runs
+      global.document = {
+        createElement: jest.fn().mockReturnValue(element),
+      };
+
+      // Reset mock properties for each test
+      element.async = undefined;
+      element.type = undefined;
+      element.setAttribute.mockReset();
     });
 
     it('should throw an error at server side', () => {
@@ -86,14 +97,15 @@ describe('ScriptLoader', () => {
         .spyOn(resourceLoader, 'promisify')
         .mockReturnValue(Promise.reject(new Error('message')));
 
-      try {
-        await scriptLoaderPlugin.load(url);
-      } catch (error) {
-        expect(dispatcher.fire).toHaveBeenCalledWith(Events.LOADED, {
+      await expect(scriptLoaderPlugin.load(url)).rejects.toThrow();
+
+      expect(dispatcher.fire).toHaveBeenCalledWith(
+        Events.LOADED,
+        expect.objectContaining({
           url,
-          error,
-        });
-      }
+          error: expect.any(Error),
+        })
+      );
     });
 
     it('should load script multiple times with force option', async () => {
@@ -114,6 +126,64 @@ describe('ScriptLoader', () => {
       await scriptLoaderPlugin.load(url, null, true);
 
       expect(dispatcher.fire).toHaveBeenCalledWith(Events.LOADED, { url });
+    });
+
+    it('should set type="module" for ESM scripts', async () => {
+      jest.spyOn(dispatcher, 'fire').mockImplementation(() => {});
+      jest
+        .spyOn(resourceLoader, 'promisify')
+        .mockReturnValue(Promise.resolve());
+
+      await scriptLoaderPlugin.load(url, null, false, { module: true });
+
+      expect(element.type).toBe('module');
+      expect(element.async).toBe(true);
+    });
+
+    it('should set custom attributes when provided', async () => {
+      jest.spyOn(dispatcher, 'fire').mockImplementation(() => {});
+      jest
+        .spyOn(resourceLoader, 'promisify')
+        .mockReturnValue(Promise.resolve());
+
+      const attributes = {
+        'data-test': 'value',
+        crossorigin: 'anonymous',
+      };
+
+      await scriptLoaderPlugin.load(url, null, false, { attributes });
+
+      expect(element.setAttribute).toHaveBeenCalledWith('data-test', 'value');
+      expect(element.setAttribute).toHaveBeenCalledWith(
+        'crossorigin',
+        'anonymous'
+      );
+    });
+
+    it('should respect async=false option', async () => {
+      jest.spyOn(dispatcher, 'fire').mockImplementation(() => {});
+      jest
+        .spyOn(resourceLoader, 'promisify')
+        .mockReturnValue(Promise.resolve());
+
+      await scriptLoaderPlugin.load(url, null, false, { async: false });
+
+      expect(element.async).toBe(false);
+    });
+
+    it('should combine module and custom attributes', async () => {
+      jest.spyOn(dispatcher, 'fire').mockImplementation(() => {});
+      jest
+        .spyOn(resourceLoader, 'promisify')
+        .mockReturnValue(Promise.resolve());
+
+      await scriptLoaderPlugin.load(url, null, false, {
+        module: true,
+        attributes: { defer: 'true' },
+      });
+
+      expect(element.type).toBe('module');
+      expect(element.setAttribute).toHaveBeenCalledWith('defer', 'true');
     });
   });
 });
