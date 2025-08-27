@@ -30,12 +30,14 @@ import { ScriptLoaderPlugin, Events, defaultDependencies } from '@ima/plugin-scr
 
 ## Usage
 
+### Basic Usage
+
 ```javascript
 import Dispatcher from 'ima/event/Dispatcher';
-import { ScriptLoaderPlugin, Events as ScriptLoaderEvents } from '@ima/plugin-script-loader';
+import { ScriptLoader, Events as ScriptLoaderEvents, ScriptLoaderOptions } from '@ima/plugin-script-loader';
 
 oc
-	.get(ScriptLoaderPlugin)
+	.get(ScriptLoader)
 	.load('//www.example.com/script.js')
 	.then((result) => {
 		console.log('Script is loaded.', result.url);
@@ -55,3 +57,43 @@ oc
 	});
 
 ```
+
+### Loading ES Modules
+
+```javascript
+import { ScriptLoader } from '@ima/plugin-script-loader';
+
+// Load ES module with type="module"
+oc
+	.get(ScriptLoader)
+	.load('//www.example.com/module.js', null, false, { module: true })
+	.then((result) => {
+		console.log('ES module is loaded.', result.url);
+	});
+```
+
+### Advanced Configuration
+
+```javascript
+import { ScriptLoader } from '@ima/plugin-script-loader';
+
+// Load script with custom attributes
+oc
+	.get(ScriptLoader)
+	.load('//www.example.com/script.js', null, false, {
+		module: true,  // Load as ES module
+		async: false,  // Disable async loading
+		attributes: {
+			'crossorigin': 'anonymous',
+			'data-version': '1.0.0'
+		}
+	});
+```
+
+### Configuration Options
+
+The `load` method accepts an optional `options` parameter of type `ScriptLoaderOptions`:
+
+- `module?: boolean` - Set to `true` to load the script as an ES module with `type="module"`
+- `async?: boolean` - Set to `false` to disable async loading (default: `true`)
+- `attributes?: Record<string, string>` - Custom attributes to set on the script element

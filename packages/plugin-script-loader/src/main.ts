@@ -2,7 +2,7 @@ import './types';
 import { pluginLoader, ComponentUtils } from '@ima/core';
 
 import { Events } from './Events';
-import { ScriptLoader } from './ScriptLoader';
+import { ScriptLoader, type ScriptLoaderOptions } from './ScriptLoader';
 
 const defaultDependencies = ScriptLoader.$dependencies;
 
@@ -32,4 +32,5 @@ export {
   // @deprecated, don't use this alias
   ScriptLoader as ScriptLoaderPlugin,
   defaultDependencies,
+  type ScriptLoaderOptions,
 };
