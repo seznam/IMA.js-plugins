@@ -1,5 +1,5 @@
 import Visibility from '../Visibility';
-import _dispatcher from './mocks/dispatcher';
+import _observable from './mocks/observable';
 import _window from './mocks/window';
 
 describe('Visibility', () => {
@@ -10,7 +10,7 @@ describe('Visibility', () => {
   let visibility = null;
 
   beforeEach(() => {
-    visibility = new Visibility(_window, _dispatcher);
+    visibility = new Visibility(_window, _observable);
   });
 
   describe('register method', () => {
