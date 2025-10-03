@@ -1,4 +1,4 @@
-import type { Window, Dependencies, Dispatcher } from '@ima/core';
+import type { Window, Dependencies, Observable } from '@ima/core';
 import { RouterEvents } from '@ima/core';
 // @ts-expect-error
 import { Circle } from 'infinite-circle';
@@ -13,16 +13,16 @@ type NotifyCallback = (payload: NotifyPayload) => void;
  * Visibility helper.
  */
 export default class Visibility {
-  static $dependencies: Dependencies = ['$Window', '$Dispatcher'];
+  static $dependencies: Dependencies = ['$Window', '$Observable'];
 
   private _window: Window;
-  private _dispatcher: Dispatcher;
+  private _observable: Observable;
   private _afterHandleRouteCalled = false;
   circle: Circle;
 
-  constructor(window: Window, dispatcher: Dispatcher) {
+  constructor(window: Window, observable: Observable) {
     this._window = window;
-    this._dispatcher = dispatcher;
+    this._observable = observable;
     this.circle = this._createVisibilityCircle();
   }
 
@@ -126,12 +126,12 @@ export default class Visibility {
    * @param notify
    */
   private _listenOnEvents(notify: NotifyCallback) {
-    this._dispatcher.listen(
+    this._observable.subscribe(
       RouterEvents.BEFORE_HANDLE_ROUTE,
       this._beforeHandleRoute,
       this
     );
-    this._dispatcher.listen(
+    this._observable.subscribe(
       RouterEvents.AFTER_HANDLE_ROUTE,
       this._afterHandleRoute,
       this
@@ -150,12 +150,12 @@ export default class Visibility {
    * @param notify
    */
   private _unlistenOnEvents(notify: NotifyCallback) {
-    this._dispatcher.unlisten(
+    this._observable.unsubscribe(
       RouterEvents.BEFORE_HANDLE_ROUTE,
       this._beforeHandleRoute,
       this
     );
-    this._dispatcher.unlisten(
+    this._observable.unsubscribe(
       RouterEvents.AFTER_HANDLE_ROUTE,
       this._afterHandleRoute,
       this
