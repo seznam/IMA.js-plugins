@@ -1,5 +1,15 @@
 <a name="5.0.1"></a>
 
+## 10.4.0
+
+### Minor Changes
+
+- a20a3a9: Use observable instead of Dispatcher to listen on route change events.
+
+  - **What?** Use observable instead of Dispatcher to listen on route change events.
+  - **Why?** There was a bug that AFTER_HANDLE_ROUTE was triggered before there were any registered items in Circle. So the listener was not listening.
+  - **How?** Nothing.
+
 ## 10.3.3
 
 ### Patch Changes
