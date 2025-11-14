@@ -4,6 +4,18 @@ import { ResourceLoader } from '@ima/plugin-resource-loader';
 import { Events } from './Events';
 
 /**
+ * Configuration options for loading scripts
+ */
+export interface ScriptLoaderOptions {
+  /** Set to true to load script as ES module with type="module" */
+  module?: boolean;
+  /** Set to true to load script asynchronously */
+  async?: boolean;
+  /** Custom attributes to set on the script element */
+  attributes?: Record<string, string>;
+}
+
+/**
  * Script loader plugin class.
  */
 export class ScriptLoader {
@@ -34,13 +46,13 @@ export class ScriptLoader {
 
   /**
    * Load third party script to page.
-   *
-   * @param url
-   * @param template
-   * @param force
-   * @returns {Promise<{url: string}>}
    */
-  load(url: string, template?: string, force = false) {
+  load(
+    url: string,
+    template?: string,
+    force = false,
+    options?: ScriptLoaderOptions
+  ) {
     if ($Debug) {
       if (!this._window.isClient()) {
         throw new Error(
@@ -54,7 +66,7 @@ export class ScriptLoader {
       return this._loadedScripts[url];
     }
 
-    const script = this._createScriptElement();
+    const script = this._createScriptElement(options);
 
     this._loadedScripts[url] = this._resourceLoader
       .promisify(script, template || url)
@@ -64,7 +76,6 @@ export class ScriptLoader {
     if (template) {
       script.innerHTML = template;
     } else {
-      script.async = true;
       script.src = url;
     }
 
@@ -79,11 +90,26 @@ export class ScriptLoader {
 
   /**
    * Creates a new script element and returns it.
-   *
-   * @returns The created script element.
    */
-  _createScriptElement() {
-    return document.createElement('script');
+  _createScriptElement(options?: ScriptLoaderOptions) {
+    const script = document.createElement('script');
+
+    // Set default async behavior (maintains backward compatibility)
+    script.async = options?.async ?? true;
+
+    // Set module type if specified
+    if (options?.module) {
+      script.type = 'module';
+    }
+
+    // Apply custom attributes
+    if (options?.attributes) {
+      Object.entries(options.attributes).forEach(([key, value]) => {
+        script.setAttribute(key, value);
+      });
+    }
+
+    return script;
   }
 
   /**
