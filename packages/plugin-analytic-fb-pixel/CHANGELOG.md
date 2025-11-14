@@ -1,5 +1,11 @@
 # Change Log
 
+## 7.0.1
+
+### Patch Changes
+
+- 384a32d: Added compatibility with ima@20 rc versions
+
 ## 7.0.0
 
 ### Major Changes

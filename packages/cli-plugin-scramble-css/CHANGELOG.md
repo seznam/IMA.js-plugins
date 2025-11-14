@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.8
+
+### Patch Changes
+
+- 384a32d: Added compatibility with ima@20 rc versions
+
 ## 1.2.7
 
 ### Patch Changes

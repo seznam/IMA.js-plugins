@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-analytic-google",
-  "version": "9.1.0",
+  "version": "9.1.1",
   "description": "Seznam IMA.js google analytic plugin",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
@@ -34,7 +34,7 @@
   "license": "MIT",
   "dependencies": {
     "@ima/plugin-analytic": "^6.0.0",
-    "@ima/plugin-script-loader": "^4.0.0",
+    "@ima/plugin-script-loader": "^4.1.0",
     "@types/gtag.js": "^0.0.19"
   },
   "peerDependencies": {

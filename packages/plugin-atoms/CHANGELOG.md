@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 10.4.1
+
+### Patch Changes
+
+- 384a32d: Added compatibility with ima@20 rc versions
+
 ## 10.4.0
 
 ### Minor Changes

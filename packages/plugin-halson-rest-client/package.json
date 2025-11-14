@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-halson-rest-client",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "HAL+JSON REST API client for IMA applications.",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",

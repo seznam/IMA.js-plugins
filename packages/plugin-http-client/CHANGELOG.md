@@ -1,5 +1,11 @@
 # @ima/plugin-http-client
 
+## 2.1.5
+
+### Patch Changes
+
+- 384a32d: Added compatibility with ima@20 rc versions
+
 ## 2.1.4
 
 ### Patch Changes

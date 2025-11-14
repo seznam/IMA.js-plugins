@@ -1,5 +1,13 @@
 # Change Log
 
+## 9.1.1
+
+### Patch Changes
+
+- 384a32d: Added compatibility with ima@20 rc versions
+- Updated dependencies [edf7008]
+  - @ima/plugin-script-loader@4.1.0
+
 ## 9.1.0
 
 ### Minor Changes

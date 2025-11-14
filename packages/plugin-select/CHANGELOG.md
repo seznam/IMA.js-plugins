@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.7
+
+### Patch Changes
+
+- 384a32d: Added compatibility with ima@20 rc versions
+
 ## 4.0.6
 
 ### Patch Changes
