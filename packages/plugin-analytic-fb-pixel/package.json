@@ -37,7 +37,7 @@
     "@ima/plugin-analytic": "^6.0.0"
   },
   "peerDependencies": {
-    "@ima/core": ">=18.0.0",
+    "@ima/core": ">=18.0.0 || >=20.0.0-rc.0",
     "@ima/plugin-script-loader": ">=3.1.1"
   },
   "devDependencies": {
