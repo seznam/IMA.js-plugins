@@ -191,6 +191,9 @@ async function initImaApp(bootConfigMethods = {}) {
             serveSPA: {
               allow: true,
             },
+            degradation: {
+              isSPA: () => true,
+            },
           },
           $Debug: true,
         }),
