@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.3.0
+
+### Minor Changes
+
+- 2242620: Add support for new IMA degradation methods, which are required for proper start in SPA mode while using IMA@20
+
 ## 5.2.1
 
 ### Patch Changes
