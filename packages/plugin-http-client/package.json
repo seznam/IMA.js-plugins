@@ -45,7 +45,7 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@ima/helpers": ">=19.0.1 || >=20.0.0-rc.0",
-    "@ima/core": ">=19.0.11 || >=20.0.0-rc.0"
+    "@ima/helpers": ">=19.0.1",
+    "@ima/core": ">=19.0.11"
   }
 }

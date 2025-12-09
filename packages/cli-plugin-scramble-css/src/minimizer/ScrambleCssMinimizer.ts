@@ -171,7 +171,7 @@ class ScrambleCssMinimizer {
 
     // Create new source
     const newSource = map
-      ? new sources.SourceMapSource(css, filename, map.toJSON())
+      ? new sources.SourceMapSource(css, filename, map.toJSON() as never) // postcss map is not fully compliant with SourceMapSource arg type
       : new sources.RawSource(css);
 
     // Store cache

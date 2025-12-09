@@ -11,7 +11,7 @@ jest.mock('../configuration.js');
 jest.mock('../bootConfigExtensions.js');
 
 // @FIXME Update import from @ima/cli once it exports resolveImaConfig function
-import * as imaCliUtils from '@ima/cli/dist/webpack/utils';
+import * as imaCliUtils from '@ima/cli/dist/webpack/utils/utils';
 import * as ima from '@ima/core';
 
 import { initImaApp, clearImaApp } from '../app';

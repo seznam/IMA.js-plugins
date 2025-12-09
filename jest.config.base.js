@@ -11,9 +11,9 @@ module.exports = {
       {
         jsc: {
           experimental: {
-            plugins: [['swc_mut_cjs_exports', {}]],
+            plugins: [['@swc-contrib/mut-cjs-exports', {}]],
           },
-          target: 'es2022',
+          target: 'es2024',
           parser: {
             syntax: 'ecmascript',
             jsx: true,
@@ -31,9 +31,9 @@ module.exports = {
       {
         jsc: {
           experimental: {
-            plugins: [['swc_mut_cjs_exports', {}]],
+            plugins: [['@swc-contrib/mut-cjs-exports', {}]],
           },
-          target: 'es2022',
+          target: 'es2024',
           parser: {
             syntax: 'typescript',
             tsx: true,

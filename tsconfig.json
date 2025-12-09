@@ -3,21 +3,19 @@
     /* Base Options: */
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "target": "ES2022",
+    "target": "ES2024",
     "lib": [
-      "ES2022",
+      "ES2024",
     ],
     "jsx": "react-jsx",
     "allowJs": true,
     "resolveJsonModule": true,
     "moduleDetection": "force",
     "isolatedModules": true,
-
     /* Strictness */
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true,
-
     /* Resolution and transpile options */
     // "verbatimModuleSyntax": true, // Force the use of type
     "moduleResolution": "NodeNext",
@@ -30,6 +28,9 @@
     "typeRoots": [
       "types",
       "node_modules/@types"
+    ],
+    "types": [
+      "node"
     ],
   },
   "exclude": [

@@ -34,9 +34,9 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@ima/core": ">=19.6.3 || >=20.0.0-rc.0",
+    "@ima/core": ">=19.6.3",
     "@ima/plugin-useragent": ">=5.0.0",
-    "@ima/react-page-renderer": ">=18.0.0 || >=20.0.0-rc.0"
+    "@ima/react-page-renderer": ">=18.0.0"
   },
   "dependencies": {
     "infinite-circle": "^0.4.0"
