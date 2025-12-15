@@ -8,6 +8,7 @@ import type {
 } from '@ima/cli';
 import { createLogger } from '@ima/dev-utils/logger';
 import StatoscopeWebpackPlugin from '@statoscope/webpack-plugin';
+// @ts-expect-error Missing types
 import open from 'better-opn';
 import { BundleStatsWebpackPlugin } from 'bundle-stats-webpack-plugin';
 import chalk from 'chalk';

@@ -4,6 +4,10 @@
     "lib": [
       "DOM"
     ],
+    "types": [
+      "node",
+      "facebook-pixel"
+    ]
   },
   "include": [
     "src"

@@ -45,11 +45,9 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "@ima/cli": ">=19.0.0 || >=20.0.0-rc.0",
-    "@ima/server": ">=19.0.0 || >=20.0.0-rc.0",
+    "@ima/dev-utils": ">=19.0.0",
+    "@ima/cli": ">=19.0.0",
+    "@ima/server": ">=19.0.0",
     "webpack": ">=5"
-  },
-  "dependencies": {
-    "@ima/dev-utils": "^19.0.0 || >=20.0.0-rc.0"
   }
 }

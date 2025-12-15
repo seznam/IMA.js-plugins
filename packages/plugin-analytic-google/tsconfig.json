@@ -4,6 +4,10 @@
     "lib": [
       "DOM"
     ],
+    "types": [
+      "node",
+      "gtag.js"
+    ],
   },
   "include": [
     "src"
