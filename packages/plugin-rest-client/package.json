@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-rest-client",
-  "version": "5.0.3",
+  "version": "6.0.0",
   "description": "Generic REST API client plugin for the IMA application framework.",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",

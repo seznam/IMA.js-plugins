@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.0.0
+
+### Major Changes
+
+- 4851e46: Bump to ima@20, set TS target to 2024, drop support for ima@20-rc versions
+
 ## 1.2.8
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @ima/plugin-http-client
 
+## 3.0.0
+
+### Major Changes
+
+- 4851e46: Bump to ima@20, set TS target to 2024, drop support for ima@20-rc versions
+
 ## 2.1.5
 
 ### Patch Changes
@@ -11,7 +17,6 @@
 ### Patch Changes
 
 - 8e6bba3: Fixed types
-
   - **What?** Allowed partial use of HttpAgentRequestOptions in HttpClientRequestOptions
   - **Why?** The create() method (and another in AbstractRecource) expected a parameter of type HttpClientRequestOptions, but passing only fetchOptions caused an error - TypeScript required all mandatory fields from HttpAgentRequestOptions (timeout, ttl atd.).
   - **How?** Nothing.

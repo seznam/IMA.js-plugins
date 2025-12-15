@@ -1,5 +1,16 @@
 # Change Log
 
+## 5.0.0
+
+### Major Changes
+
+- 4851e46: Bump to ima@20, set TS target to 2024, drop support for ima@20-rc versions
+
+### Patch Changes
+
+- Updated dependencies [4851e46]
+  - @ima/plugin-resource-loader@4.0.0
+
 ## 4.0.3
 
 ### Patch Changes

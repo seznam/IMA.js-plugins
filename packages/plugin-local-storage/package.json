@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-local-storage",
-  "version": "4.0.4",
+  "version": "5.0.0",
   "description": "Seznam IMA.js local-storage plugin",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",

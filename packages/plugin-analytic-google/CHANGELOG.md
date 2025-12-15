@@ -1,5 +1,17 @@
 # Change Log
 
+## 10.0.0
+
+### Major Changes
+
+- 4851e46: Bump to ima@20, set TS target to 2024, drop support for ima@20-rc versions
+
+### Patch Changes
+
+- Updated dependencies [4851e46]
+  - @ima/plugin-analytic@7.0.0
+  - @ima/plugin-script-loader@5.0.0
+
 ## 9.1.1
 
 ### Patch Changes
@@ -13,7 +25,6 @@
 ### Minor Changes
 
 - 2e5fda1: Refactor types
-
   - **What?** Export new `PageViewData` type, change `AnalyticGoogleSettings` to an interface.
   - **Why?** To enable overloading in child classes.
   - **How?** Nothing.
@@ -29,7 +40,6 @@
 ### Patch Changes
 
 - 849d862: Missing consent setting
-
   - **What?** Adds a missing consent setting.
   - **Why?** We need to deny it.
   - **How?** Nothing.
@@ -39,7 +49,6 @@
 ### Patch Changes
 
 - 7830f4b: Correct GTM params
-
   - **What?** Push correct data format to Google Tag Manager `dataLayer`.
   - **Why?** Otherwise the GA4 events are not hit. GTM needs the params in the `Arguments` array-like object - not object, not array.
   - **How?** Nothing.
@@ -49,7 +58,6 @@
 ### Major Changes
 
 - 4d3a579: Update data sent in a GA4 page view hit. **Version not hit events, update to 9.0.1.**
-
   - **What:** Add the prefix `page_` to the existing params (these are the correct default names for GA4) and add new parameters. Save `referrer` to correspond to the actual referrer in SPA browsing. Add missing consent settings.
   - **Why:** We were hitting page view incorrectly.
   - **How:** Nothing.
@@ -59,7 +67,6 @@
 ### Major Changes
 
 - ba15bd3: Update to new version of @ima/plugin-analytic. **Version not hit events, update to 9.0.1.**
-
   - **What?**
     - Update to new version of [@ima/plugin-analytic](https://github.com/seznam/IMA.js-plugins/tree/master/packages/plugin-analytic), which doesn't save `config` argument to class variable anymore.
     - Config was moved to first position in dependencies list
@@ -71,7 +78,6 @@
     - Adding dependencies to subclasses is easier (no need to copy all dependencies, more info in @ima/plugin-analytic [CHANGELOG](https://github.com/seznam/IMA.js-plugins/blob/master/packages/plugin-analytic/CHANGELOG.md#600))
     - `defaultDependencies` was weird pattern, and we want to get rid of it
   - **How?**
-
     - If you extend `FacebookPixelAnalytic` or `GoogleAnalytics4` you need to move `config` parameter to the first position, when calling its `constructor`.
     - Replace use of `defaultDependencies` by `$dependencies` property of given class plugin class.
     - Replace `_fbq` by `#fbq`.

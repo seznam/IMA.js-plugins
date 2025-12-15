@@ -1,5 +1,11 @@
 <a name="5.0.1"></a>
 
+## 11.0.0
+
+### Major Changes
+
+- 4851e46: Bump to ima@20, set TS target to 2024, drop support for ima@20-rc versions
+
 ## 10.4.1
 
 ### Patch Changes
@@ -11,7 +17,6 @@
 ### Minor Changes
 
 - a20a3a9: Use observable instead of Dispatcher to listen on route change events.
-
   - **What?** Use observable instead of Dispatcher to listen on route change events.
   - **Why?** There was a bug that AFTER_HANDLE_ROUTE was triggered before there were any registered items in Circle. So the listener was not listening.
   - **How?** Nothing.
@@ -21,7 +26,6 @@
 ### Patch Changes
 
 - 57c8ef4: Updated infinite-circle
-
   - **What?** Updated infinite-circle to 0.4.0
   - **Why?** To use its new default interval of 120ms
   - **How?** Nothing.
@@ -31,7 +35,6 @@
 ### Patch Changes
 
 - f7f170a: Update HeadlineTypes to HeadlineType
-
   - **What?** Update HeadlineTypes to HeadlineType for better backward compatibility (Is not breaking change, because i recently added those exports in previous changeset and i don't suppose anyone has had time to use them in the meantime.)
   - **Why?** Unification of naming.
   - **How?** Nothing.
@@ -41,7 +44,6 @@
 ### Patch Changes
 
 - 93f1cae: Enum unification
-
   - **What:** replaced enum HeadlineType for plain object
   - **Why:** enum is not supported type (TypeScript enums are not part of the TC39 proposal)
   - **How:** nothing

@@ -1,5 +1,16 @@
 # Change Log
 
+## 3.0.0
+
+### Major Changes
+
+- 4851e46: Bump to ima@20, set TS target to 2024, drop support for ima@20-rc versions
+
+### Patch Changes
+
+- Updated dependencies [4851e46]
+  - @ima/plugin-rest-client@6.0.0
+
 ## 2.0.6
 
 ### Patch Changes

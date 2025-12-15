@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-analytic-fb-pixel",
-  "version": "7.0.1",
+  "version": "8.0.0",
   "description": "Seznam IMA.js analytic plugin for Facebook Pixel",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
@@ -34,7 +34,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@ima/plugin-analytic": "^6.0.0"
+    "@ima/plugin-analytic": "^7.0.0"
   },
   "peerDependencies": {
     "@ima/core": ">=18.0.0",

@@ -1,11 +1,21 @@
 # Change Log
 
+## 5.0.0
+
+### Major Changes
+
+- 4851e46: Bump to ima@20, set TS target to 2024, drop support for ima@20-rc versions
+
+### Patch Changes
+
+- Updated dependencies [4851e46]
+  - @ima/plugin-resource-loader@4.0.0
+
 ## 4.1.0
 
 ### Minor Changes
 
 - edf7008: Added ESM script loading support with new configuration options:
-
   - `module: true` - Load scripts as ES modules with `type="module"`
   - `async: boolean` - Control async loading behavior
   - `attributes` - Set custom attributes on script elements

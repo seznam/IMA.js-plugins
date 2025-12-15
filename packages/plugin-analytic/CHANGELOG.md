@@ -1,5 +1,16 @@
 # Change Log
 
+## 7.0.0
+
+### Major Changes
+
+- 4851e46: Bump to ima@20, set TS target to 2024, drop support for ima@20-rc versions
+
+### Patch Changes
+
+- Updated dependencies [4851e46]
+  - @ima/plugin-script-loader@5.0.0
+
 ## 6.0.3
 
 ### Patch Changes
@@ -25,7 +36,6 @@
 ### Major Changes
 
 - 8908212: Removed config from constructor of `AbstractAnalytic`
-
   - **What?**
     - Removed `defaultDependencies` from plugin.
     - Removed config from constructor of `AbstractAnalytic`
@@ -39,7 +49,6 @@
       Also, now we can work with types in TypeScript more easily.
     - To clear the interface of `AbstractAnalytic`.
   - **How?**
-
     - Replace use of `defaultDependencies` by `AbstractAnalytic.$dependencies`
     - Classes, which extends `AbstractAnalytic` needs to save given config argument on their own.
       But you can use rest operator now.

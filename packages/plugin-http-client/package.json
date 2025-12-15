@@ -1,6 +1,6 @@
 {
   "name": "@ima/plugin-http-client",
-  "version": "2.1.5",
+  "version": "3.0.0",
   "description": "Generic http client for the IMA application framework.",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",

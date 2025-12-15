@@ -1,5 +1,11 @@
 # Change Log
 
+## 6.0.0
+
+### Major Changes
+
+- 4851e46: Bump to ima@20, set TS target to 2024, drop support for ima@20-rc versions
+
 ## 5.3.0
 
 ### Minor Changes
@@ -29,7 +35,6 @@
 ### Patch Changes
 
 - 5583e1f: Fix File class override in jsdom tests
-
   - **What?** Fix File class override in jsdom tests
   - **Why?** Use correct global File class in jsdom
   - **How?** Nothing.
