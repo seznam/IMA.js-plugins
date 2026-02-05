@@ -165,6 +165,20 @@ By defining this method, you can extend default bootConfigMethod `initServicesAp
 
 By defining this method, you can extend default bootConfigMethod `initRoutes`. This method recieves namespace, Object Container and application config as arguments.
 
+### beforeCreateIMAServer
+`<Function>`
+
+`Default: () => {}`
+
+This hook is executed before the IMA server is created. You can use this to setup any global state needed before the server creation.
+
+### afterCreateIMAServer
+`<Function>`
+
+`Default: () => {}`
+
+This hook is executed after the IMA server is created. You can use this to attach any server hooks needed for your tests. It receives the created imaServer as an argument.
+
 ### extendAppObject
 `<Function>`
 

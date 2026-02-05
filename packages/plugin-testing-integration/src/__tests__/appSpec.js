@@ -42,6 +42,8 @@ describe('Integration', () => {
       environment: 'environment',
       locale: 'fr',
       prebootScript: jest.fn().mockReturnValue(Promise.resolve()),
+      beforeCreateIMAServer: jest.fn(),
+      afterCreateIMAServer: jest.fn(),
     };
     let configExtensions = {
       initSettings: jest.fn(),
@@ -128,6 +130,8 @@ describe('Integration', () => {
       'config'
     );
     expect(configExtensions.getAppExtension).toHaveBeenCalledWith(app);
+    expect(config.beforeCreateIMAServer).toHaveBeenCalled();
+    expect(config.afterCreateIMAServer).toHaveBeenCalled();
     expect(ima.onLoad).toHaveBeenCalled();
     expect(ima.bootClientApp).toHaveBeenCalledWith(app, 'bootConfig');
     expect(app.oc.get).toHaveBeenCalledWith('$Router');

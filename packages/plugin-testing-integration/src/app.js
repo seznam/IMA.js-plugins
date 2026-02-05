@@ -178,8 +178,10 @@ async function initImaApp(bootConfigMethods = {}) {
       manifestRequire: () => ({}),
     };
 
+    await config.beforeCreateIMAServer();
+
     // Prepare serverApp with environment override
-    const { serverApp } = await createIMAServer({
+    const imaServer = await createIMAServer({
       devUtils,
       applicationFolder: config.applicationFolder,
       processEnvironment: currentEnvironment =>
@@ -199,8 +201,10 @@ async function initImaApp(bootConfigMethods = {}) {
         }),
     });
 
+    await config.afterCreateIMAServer(imaServer);
+
     // Generate request response
-    const response = await serverApp.requestHandler(
+    const response = await imaServer.serverApp.requestHandler(
       {
         get: () => '',
         headers: () => '',
