@@ -2,21 +2,68 @@
 
 This is a plugin for integration testing of any IMA.js based application.
 
+**Note:** This plugin now relies on [@ima/testing-library](https://github.com/seznam/ima/tree/master/packages/testing-library) for JSDOM initialization and test infrastructure. Make sure to use `@ima/testing-library` jest preset in your tests.
+
 ## Installation
 
+```bash
+npm install @ima/plugin-testing-integration @ima/testing-library @testing-library/react --save-dev
+```
+
+## Setup
+
+### Jest Configuration
+
+First, configure your jest to use `@ima/testing-library` preset which handles JSDOM initialization:
+
 ```javascript
+// jest.config.js
+module.exports = {
+  preset: '@ima/testing-library/jest-preset',
+  // ... your other jest config
+};
+```
 
-npm install @ima/plugin-testing-integration --save-dev
+### Environment Configuration
 
+To ensure tests always use the 'test' environment (instead of deriving from NODE_ENV), call `setupImaTestingIntegration()` in your jest setup file:
+
+```javascript
+// setupTests.js
+import { setupImaTestingIntegration } from '@ima/plugin-testing-integration';
+
+setupImaTestingIntegration();
+```
+
+Then reference this file in your jest config:
+
+```javascript
+// jest.config.js
+module.exports = {
+  preset: '@ima/testing-library/jest-preset',
+  setupFiles: ['<rootDir>/setupTests.js'],
+  // ... your other jest config
+};
+```
+
+### Configuration Override
+
+You can override default configuration values using `setConfig`:
+
+```javascript
+import { setConfig } from '@ima/plugin-testing-integration';
+
+setConfig({
+  appMainPath: 'app/main.js',
+  rootDir: process.cwd()
+});
 ```
 
 ## API
 
-Following methods are exposed by this plugin.
-
 ### initImaApp
 Params:
-- `object` bootConfigMethods
+- `object` bootConfigMethods (optional)
   - `Function` initSettings
   - `Function` initBindApp
   - `Function` initServicesApp
@@ -29,9 +76,12 @@ Initializes IMA.js application into JSDOM. You can extend default boot config me
 
 ### clearImaApp
 Params:
-- `object` app IMA.js application instance
+- `object` app - IMA.js application instance
 
 Clears IMA.js application from JSDOM with all unfinished timer functions.
+
+### setupImaTestingIntegration
+Configures `@ima/testing-library` to use plugin-testing-integration configuration. This should be called in jest setupFiles before any tests run to ensure the environment is always set to 'test'.
 
 ### setConfig
 Params:
@@ -43,39 +93,21 @@ Overrides default configuration. See [config section](#config) for more info.
 Returns:
 - `object` Plugin configuration object
 
-This method can be used to extend `prebootScript`, instead of just overriding it.
+Returns the current plugin configuration.
 
-## Setup
+### React Testing Library Exports
 
-Before the test run, you need to load `@ima/core/setupFile.js` file from IMA.js-core. You can simply import it 
-at the beginning of the test file.
+The plugin re-exports utilities from `@ima/testing-library` for convenience:
 
-```javascript
-require('@ima/core/setupFile.js');
-
-describe('Integration', () => {
-	// your tests ...
-});
-```
-
-Most test runners have option to load the `@ima/core/setupFile.js` file as part of their setup. For example jest allows you to specify `setupFiles`.
-
-```json
-{
-	"testEnvironment": "node",
-	"setupFiles": ["@ima/core/setupFile.js"]
-}
-```
-
-Depending on your application setup, you may need to update some default configuration values. You can do that by running following code before the tests run or add it as part of your test runner setup as mentioned above.
-
-```javascript
-import { setConfig } from '@ima/plugin-testing-integration';
-
-setConfig({
-  host: 'imajs.io'
-});
-```
+- `renderWithContext` - Render a component with IMA context
+- `renderHookWithContext` - Render a hook with IMA context  
+- `getContextValue` - Get IMA context value
+- `screen` - RTL screen queries
+- `waitFor` - Wait for async operations
+- `waitForElementToBeRemoved` - Wait for element removal
+- `within` - Scoped queries
+- `fireEvent` - Fire DOM events
+- `act` - Batch updates
 
 ## Config
 
@@ -86,7 +118,7 @@ Following configuration options are available.
 
 `Default: 'app/main.js'`
 
-Path to your main.js file exporting `getInitialAppConfigFunctions` method. You can override this option with path to a testing main.js file containing some boot config overrides if you are not able to use your production configuration.
+Path to your main.js file exporting `getInitialAppConfigFunctions` method.
 
 ### rootDir
 `<string>`
@@ -95,40 +127,12 @@ Path to your main.js file exporting `getInitialAppConfigFunctions` method. You c
 
 Root directory of your IMA.js application.
 
-### masterElementId
-`<string>`
-
-`Default: 'page'`
-
-Master element id used by IMA to render a page view.
-
-### protocol
-`<string>`
-
-`Default: 'https:'`
-
-Protocol used for the jsdom navigation and IMA application.
-
-### host
-`<string>`
-
-`Default: 'imajs.io'`
-
-Host used for the jsdom navigation and IMA application. If you do some service matching in your environment.js, there is a good chance, that you will need to update this to the expected host of your application.
-
 ### environment
 `<string>`
 
 `Default: 'test'`
 
-IMA.js environment, that should be used.
-
-### locale
-`<string>`
-
-`Default: 'en'`
-
-What locale to use when generating the localization dictionary.
+IMA.js environment that should be used. This is always set to 'test' and takes precedence over NODE_ENV.
 
 ### TestPageRenderer
 `<Class>`
@@ -142,84 +146,46 @@ This allows you to use custom PageRenderer. The TestPageRenderer has to define s
 
 `Default: () => {}`
 
-By defining this method, you can extend default bootConfigMethod `initSettings`. This method recieves namespace, Object Container and application config as arguments.
+By defining this method, you can extend default bootConfigMethod `initSettings`. This method receives namespace, Object Container and application config as arguments.
 
 ### initBindApp
 `<Function>`
 
 `Default: () => {}`
 
-By defining this method, you can extend default bootConfigMethod `initBindApp`. This method recieves namespace, Object Container and application config as arguments.
+By defining this method, you can extend default bootConfigMethod `initBindApp`. This method receives namespace, Object Container and application config as arguments.
 
 ### initServicesApp
 `<Function>`
 
 `Default: () => {}`
 
-By defining this method, you can extend default bootConfigMethod `initServicesApp`. This method recieves namespace, Object Container and application config as arguments.
+By defining this method, you can extend default bootConfigMethod `initServicesApp`. This method receives namespace, Object Container and application config as arguments.
 
 ### initRoutes
 `<Function>`
 
 `Default: () => {}`
 
-By defining this method, you can extend default bootConfigMethod `initRoutes`. This method recieves namespace, Object Container and application config as arguments.
-
-### beforeCreateIMAServer
-`<Function>`
-
-`Default: () => {}`
-
-This hook is executed before the IMA server is created. You can use this to setup any global state needed before the server creation.
-
-### afterCreateIMAServer
-`<Function>`
-
-`Default: () => {}`
-
-This hook is executed after the IMA server is created. You can use this to attach any server hooks needed for your tests. It receives the created imaServer as an argument.
+By defining this method, you can extend default bootConfigMethod `initRoutes`. This method receives namespace, Object Container and application config as arguments.
 
 ### extendAppObject
 `<Function>`
 
 `Default: () => {}`
 
-By defining this method, you can extend the app object (return value of initImaApp) with some custom values. This method recieves the app object as an argument and should return an object with new values. These values will be available as part of app object returned from `initImaApp` calls in your tests.
-
-This can be useful to make frequently used functions available directly from the app object.
+By defining this method, you can extend the app object (return value of initImaApp) with some custom values. This method receives the app object as an argument and should return an object with new values.
 
 ### prebootScript
 `<Function>`
 
 `Default: () => Promise.resolve()`
 
-This script is executed right before the IMA.js boot config is initialized, but jsdom and vendor linker is already loaded. You can make any kind of modifications, that are needed to boot the ima application into the jsdom.
-
-### pageScriptEvalFn
-`<Function>`
-
-`Default: script => script && script.text && script.id !== 'ima-runner' && window.eval(script.text)`
-
-Function to run on each HTML script element of generated JSDOM page. By default the runner script is not evaluated.
-
-### processEnvironment
-`<Function>`
-
-`Default: env => env`
-
-Function to modify currently resolved environment.
-
-### applicationFolder
-`<string>`
-
-`Default:undefined`
-
-Config applicationFolder as root to resolve environment file (used for genereate spa resonse content).
-
+This script is executed right before the IMA.js boot config is initialized. You can make any modifications needed to boot the ima application.
 
 ## Usage
 
-This is Jest example of simple integration test, that loads the IMA.js app homepage and mocks all http get requests.
+This is Jest example of simple integration test that loads the IMA.js app homepage and mocks all http get requests.
 
 ```javascript
 import { initImaApp, clearImaApp } from '@ima/plugin-testing-integration';
@@ -237,7 +203,7 @@ describe('Integration tests', () => {
 				http = oc.get('$Http');
 
 				// Mock http.get method so the application
-				// wont make any external requests
+				// won't make any external requests
 				// and return mocked response
 				http.get = jest.fn().mockReturnValue(
 					Promise.resolve(response)
@@ -258,26 +224,64 @@ describe('Integration tests', () => {
 		expect(http.get).toHaveBeenCalled();
 		// You can use document, or window to
 		// make some validation of dom content
-		expect(document.title).toEqual('IMA.js-core');
+		expect(document.title).toEqual('IMA.js');
 	});
 });
 ```
 
-## Usage with Enzyme
+### Using React Testing Library
+
+You can use React Testing Library to render and test components in the context of your IMA.js application:
+
+```javascript
+import { initImaApp, clearImaApp, renderWithContext, screen, waitFor } from '@ima/plugin-testing-integration';
+import MyComponent from './MyComponent';
+
+describe('Component tests', () => {
+	let app;
+
+	beforeEach(async () => {
+		app = await initImaApp();
+	});
+
+	afterEach(() => {
+		clearImaApp(app);
+	});
+
+	it('can render component with IMA context', async () => {
+		const { container } = await renderWithContext(
+			<MyComponent />,
+			{ app }
+		);
+
+		// Use RTL queries
+		expect(screen.getByText('Hello World')).toBeInTheDocument();
+		
+		// Wait for async operations
+		await waitFor(() => {
+			expect(screen.getByRole('button')).toBeEnabled();
+		});
+	});
+});
+```
+
+## Usage with Enzyme (Legacy)
+
+**Note:** Enzyme support is maintained for backward compatibility but using React Testing Library (see above) is recommended for new tests.
 
 You can boost the integration tests by using [Enzyme mount](https://enzymejs.github.io/enzyme/docs/api/mount.html) method to render the IMA.js application.
 
-*Note, that Enzyme PageRenderer extends default IMA PageRenderer. If you choose to override PageRenderer in your tests, it may cause some unexpected behavior.*
+*Note that Enzyme PageRenderer extends default IMA PageRenderer. If you choose to override PageRenderer in your tests, it may cause some unexpected behavior.*
 
-## API
+### API
 
 EnzymePageRenderer extends the app object returned by initImaApp method with following values.
 
-### wrapper
+#### wrapper
 Returns:
 - `enzyme.ReactWrapper|enzyme.ReactWrapper[]` Return value of enzyme.mount()
 
-Function returning Enzyme ReactWrapper, or array of Enzyme ReactWrappers (in case, that there are multiple ReactDOM.render and ReactDOM.hydrate calls inside PageRenderer, but this should not happen in current setup).
+Function returning Enzyme ReactWrapper, or array of Enzyme ReactWrappers (in case that there are multiple ReactDOM.render and ReactDOM.hydrate calls inside PageRenderer, but this should not happen in current setup).
 
 ### Setup
 
@@ -322,49 +326,97 @@ describe('Home page', () => {
 		// Simulate value change using Enzyme simulate method
 		input.simulate('change', { target: { value } });
 
-		// Check, that component props are updated
+		// Check that component props are updated
 		expect(input.props.value).toEqual(value);
 	});
 });
 ```
 
-## Integration tests described
+## Migration from older versions
 
-Integration test needs to run IMA application to test complex logic across app components in real applicattion runtime. For example [Create IMA.js App](https://github.com/seznam/ima/tree/master/packages/create-ima-app)
+### Breaking Changes in v7.0.0
 
-This plugin contains all necesary functionality to run IMA app:
+- **Removed JSDOM initialization logic** - The plugin now relies on `@ima/testing-library` for JSDOM setup. You must use `@ima/testing-library/jest-preset` in your jest configuration.
+- **Removed dependencies**: `jsdom`, `@messageformat/core`, `globby` - These are now handled by `@ima/testing-library`.
+- **Environment configuration** - The environment is now always set from the plugin's configuration (`environment: 'test'`) instead of being derived from `NODE_ENV`. Use `setupImaTestingIntegration()` in your jest setup to configure this.
+- **Removed configuration options**: 
+  - `masterElementId` - Use `@ima/testing-library` configuration instead
+  - `protocol` / `host` - Use `@ima/testing-library` server configuration instead
+  - `locale` - Dictionary generation is handled by `@ima/testing-library`
+  - `beforeCreateIMAServer` / `afterCreateIMAServer` - Use `@ima/testing-library` server configuration hooks
+  - `pageScriptEvalFn` - No longer needed with `@ima/testing-library`
+  - `processEnvironment` - Use `setupImaTestingIntegration()` or configure `@ima/testing-library` directly
+  - `applicationFolder` - Use `@ima/testing-library` server configuration instead
+
+### Migration steps
+
+1. Install required dependencies:
+   ```bash
+   npm install @ima/testing-library @testing-library/react --save-dev
+   ```
+
+2. Update jest configuration to use `@ima/testing-library/jest-preset`:
+   ```javascript
+   // jest.config.js
+   module.exports = {
+     preset: '@ima/testing-library/jest-preset',
+     // ... rest of config
+   };
+   ```
+
+3. Create a setup file and call `setupImaTestingIntegration()`:
+   ```javascript
+   // setupTests.js
+   import { setupImaTestingIntegration } from '@ima/plugin-testing-integration';
+   setupImaTestingIntegration();
+   ```
+
+4. Update your jest config to use the setup file:
+   ```javascript
+   module.exports = {
+     preset: '@ima/testing-library/jest-preset',
+     setupFiles: ['<rootDir>/setupTests.js'],
+   };
+   ```
+
+5. Remove any manual JSDOM initialization from your tests - it's now handled automatically.
+
+6. Update configuration calls - remove unsupported options listed above.
+
+## How it works
+
+## How it works
+
+The plugin leverages `@ima/testing-library` for most of the heavy lifting including JSDOM setup, dictionary generation, and server configuration. The main responsibilities of this plugin are:
 
 ### [configuration.js](https://github.com/seznam/IMA.js-plugins/blob/master/packages/plugin-testing-integration/src/configuration.js)
 
-Contains basic IMA config, which can be overriden by argument of `setConfig` function mentioned above
-
+Contains basic IMA config which can be overridden by the argument of `setConfig` function.
 
 ### [bootConfigExtensions.js](https://github.com/seznam/IMA.js-plugins/blob/master/packages/plugin-testing-integration/src/bootConfigExtensions.js)
 
-Resolves boot components to extend native [init methods](https://imajs.io/docs/configuration) `initSettings`, `initBindApp`, `initServicesApp`, `initRoutes`, `getAppExtension`. These overrides can be defined in `configuration.js`
+Resolves boot components to extend native [init methods](https://imajs.io/docs/configuration) `initSettings`, `initBindApp`, `initServicesApp`, `initRoutes`, `getAppExtension`. These overrides can be defined in `configuration.js`.
 
-## [app.js](https://github.com/seznam/IMA.js-plugins/blob/master/packages/plugin-testing-integration/src/app.js)
+### [app.js](https://github.com/seznam/IMA.js-plugins/blob/master/packages/plugin-testing-integration/src/app.js)
 
-There are two main methods described in [api](#api) section
+There are two main methods:
 
-### initImaApp
+#### initImaApp
 
-This main method performs following steps to initializes app to be as close as possibe to real IMA app inside real browser:
-  - resolves final [app config](https://imajs.io/docs/configuration)
-  - prepare JSDom environment to run IMA app and sets all necessary global variables
-  - overrides all native timer functions to save timers into internal storage (so these can be cleared on app exit)
-  - runs `prebootScript` from config if defined and awaits its completion
-  - creates [IMA app object](https://github.com/seznam/ima/blob/master/packages/core/src/main.js#L119)
-  - resolves [IMA app boot config](https://github.com/seznam/ima/blob/master/packages/core/src/main.js#L126)
-  - awaits for [load state of client app](https://github.com/seznam/ima/blob/master/packages/core/src/main.js#L230)
-  - [boots IMA client app](https://github.com/seznam/ima/blob/master/packages/core/src/main.js#L186)
-  - initializes IMA router inside JSDom environment
+This main method performs the following steps to initialize the app:
+- Validates that JSDOM environment is available (set up by `@ima/testing-library`)
+- Configures `@ima/testing-library` with plugin settings
+- Generates dictionary using `@ima/testing-library`
+- Overrides native timer functions to save timers into internal storage
+- Runs `prebootScript` from config if defined
+- Creates IMA app object using extended boot config methods
+- Boots IMA client app
+- Initializes IMA router inside JSDOM environment
 
+#### clearImaApp
 
-### clearImaApp
+This method sets back all native timer functions, clears all pending timers used in integration test run, calls `unAop` on all `aop` components, and clears the IMA Object Container.
 
-This method sets back all native timer functions, clears all pending timers used in integration test run, also calls `unAop` on all `aop` components and clears [IMA Object container](https://imajs.io/docs/object-container)
+### [setup.js](https://github.com/seznam/IMA.js-plugins/blob/master/packages/plugin-testing-integration/src/setup.js)
 
-
-
-
+Provides `setupImaTestingIntegration()` helper that configures `@ima/testing-library` to use the plugin's environment configuration, ensuring consistent test behavior regardless of NODE_ENV.
