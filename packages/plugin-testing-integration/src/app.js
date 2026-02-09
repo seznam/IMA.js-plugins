@@ -1,21 +1,16 @@
 import { strict as assert } from 'node:assert';
+import path from 'node:path';
 
-import { resolveImaConfig } from '@ima/cli';
-import {
-  createImaApp,
-  getClientBootConfig,
-  onLoad,
-  bootClientApp,
-} from '@ima/core';
+import * as ima from '@ima/core';
 import { assignRecursively } from '@ima/helpers';
-import { createIMAServer } from '@ima/server';
-import { JSDOM } from 'jsdom';
+import {
+  setImaTestingLibraryClientConfig,
+  generateDictionary,
+} from '@ima/testing-library';
 
 import { unAopAll } from './aop';
 import { getBootConfigExtensions } from './bootConfigExtensions';
 import { getConfig } from './configuration';
-import { requireFromProject } from './helpers';
-import { generateDictionary } from './localization';
 
 const setIntervalNative = global.setInterval;
 const setTimeoutNative = global.setTimeout;
@@ -26,7 +21,8 @@ let timers = [];
 /**
  * Clears IMA Application instance from environment
  *
- * @param {object} app Object from initImaApp method
+ * @param {import('@ima/core').ImaApp & Record<string, any>} app - IMA.js application instance returned from initImaApp method
+ * @returns {void}
  */
 function clearImaApp(app) {
   global.setInterval = setIntervalNative;
@@ -38,83 +34,55 @@ function clearImaApp(app) {
 }
 
 /**
- * Initializes IMA application with our production-like configuration
- * Reinitializes jsdom with configuration, that will work with our application
+ * Initializes IMA application with production-like configuration.
+ * Uses @ima/testing-library for JSDOM and dictionary setup.
  *
- * @param {import('@ima/core').AppConfigFunctions} [bootConfigMethods] Object, that can contain methods for ima boot configuration
- * @returns {Promise<object>}
+ * @param {Partial<import('@ima/core').AppConfigFunctions>} [bootConfigMethods] - Optional boot config methods to extend default configuration
+ * @returns {Promise<import('@ima/core').ImaApp & Record<string, any>>} IMA.js application instance with extensions
+ * @throws {Error} When document or window is not available (JSDOM not initialized)
+ * @throws {Error} When getInitialAppConfigFunctions is not found in app main file
  */
 async function initImaApp(bootConfigMethods = {}) {
+  if (!document || !window) {
+    throw new Error(
+      'Missing document, or window. Are you running the test in the jsdom environment? Use @ima/testing-library jest-preset.'
+    );
+  }
+
   const config = getConfig();
-
   const bootConfigExtensions = getBootConfigExtensions();
-  const imaConfig = await resolveImaConfig({ rootDir: config.rootDir });
 
-  // JSDom needs to be initialized before we start importing project files,
-  // since some packages can do some client/server detection at this point
-  await _initJSDom();
+  // Setup global assert for XPath selectors
+  global.console.assert = assert;
+
   _installTimerWrappers();
 
   await config.prebootScript();
 
-  const defaultBootConfigMethods = requireFromProject(
-    config.appMainPath
-  ).getInitialAppConfigFunctions();
+  // Configure @ima/testing-library for dictionary generation
+  setImaTestingLibraryClientConfig({
+    rootDir: config.rootDir,
+  });
 
-  /**
-   * Initializes JSDOM environment for the application run
-   */
-  async function _initJSDom() {
-    const content = await _getIMAResponseContent();
+  // Init language files using @ima/testing-library
+  await generateDictionary();
 
-    // SPA jsdom interpreter
-    const jsdom = new JSDOM(content, {
-      pretendToBeVisual: true,
-      url: `${config.protocol}//${config.host}/`,
-    });
+  const mainModule = await import(path.resolve(config.appMainPath));
+  const getInitialAppConfigFunctions =
+    mainModule.getInitialAppConfigFunctions ||
+    mainModule.default?.getInitialAppConfigFunctions;
 
-    // Setup node environment to work with jsdom window
-    const { window } = jsdom;
-
-    global.window = window;
-    global.jsdom = jsdom;
-    global.document = window.document;
-
-    // Extend node global with created window vars
-    Object.defineProperties(global, {
-      ...Object.getOwnPropertyDescriptors(window),
-      ...Object.getOwnPropertyDescriptors(global),
-    });
-
-    // @TODO: The way we copy `window` properties to `global` is not correct,
-    // we should switch to `global-jsdom`, or take its implementation
-    // as an inspiration for our own implementation
-    global.CustomEvent = window.CustomEvent; // Hotfix for Node 19+, we can remove this once we switch to `global-jsdom`
-    global.File = window.File; // Hotfix for Node 19+, we can remove this once we switch to `global-jsdom`
-
-    // set debug before IMA env debug
-    global.$Debug = true;
-
-    // Mock dictionary
-    global.$IMA.i18n = generateDictionary(imaConfig.languages, config.locale);
-
-    // Mock scroll for ClientWindow.scrollTo for ima/core page routing scroll
-    global.window.scrollTo = () => {};
-
-    // Replace window fetch by node fetch
-    global.window.fetch = global.fetch;
-
-    // Required for JSDOM XPath selectors
-    global.console.assert = assert;
-
-    // Call all page scripts (jsdom build-in runScript creates new V8 context, unable to mix with node context)
-    const pageScripts = jsdom.window.document.getElementsByTagName('script');
-    if (typeof config.pageScriptEvalFn === 'function') {
-      for (const script of pageScripts) {
-        config.pageScriptEvalFn(script);
-      }
-    }
+  if (!getInitialAppConfigFunctions) {
+    throw new Error(
+      `Cannot find getInitialAppConfigFunctions in ${config.appMainPath}. ` +
+        `Make sure the file exports getInitialAppConfigFunctions function.`
+    );
   }
+
+  const defaultBootConfigMethods =
+    typeof getInitialAppConfigFunctions === 'function'
+      ? await getInitialAppConfigFunctions()
+      : getInitialAppConfigFunctions;
 
   /**
    * Wraps the global timer methods to collect their return values,
@@ -145,14 +113,17 @@ async function initImaApp(bootConfigMethods = {}) {
   }
 
   /**
-   * @param {string} method
-   * @returns {Function} Function merging bootConfigMethods from param
-   * and web default boot config methods
+   * Creates a boot config method that merges default, extension, and custom boot config methods.
+   *
+   * @param {string} method - The name of the boot config method (e.g., 'initSettings', 'initBindApp')
+   * @returns {(...args: any[]) => any} Function that merges all boot config methods for the given method name
    */
   function _getBootConfigForMethod(method) {
     return (...args) => {
       const results = [];
-      results.push(defaultBootConfigMethods[method](...args) || {});
+      if (typeof defaultBootConfigMethods[method] === 'function') {
+        results.push(defaultBootConfigMethods[method](...args) || {});
+      }
       results.push(bootConfigExtensions[method](...args) || {});
 
       if (typeof bootConfigMethods[method] === 'function') {
@@ -167,77 +138,17 @@ async function initImaApp(bootConfigMethods = {}) {
     };
   }
 
-  /**
-   * Get response content for the application run
-   *
-   * @returns {string} html content
-   */
-  async function _getIMAResponseContent() {
-    // Mock devUtils to override manifest loading
-    const devUtils = {
-      manifestRequire: () => ({}),
-    };
-
-    await config.beforeCreateIMAServer();
-
-    // Prepare serverApp with environment override
-    const imaServer = await createIMAServer({
-      devUtils,
-      applicationFolder: config.applicationFolder,
-      processEnvironment: currentEnvironment =>
-        config.processEnvironment({
-          ...currentEnvironment,
-          $Server: {
-            ...currentEnvironment.$Server,
-            concurrency: 0,
-            serveSPA: {
-              allow: true,
-            },
-            degradation: {
-              isSPA: () => true,
-            },
-          },
-          $Debug: true,
-        }),
-    });
-
-    await config.afterCreateIMAServer(imaServer);
-
-    // Generate request response
-    const response = await imaServer.serverApp.requestHandler(
-      {
-        get: () => '',
-        headers: () => '',
-        originalUrl: config.host,
-        protocol: config.protocol.replace(':', ''),
-      },
-      {
-        status: () => 200,
-        send: () => {},
-        set: () => {},
-        locals: {
-          language: config.locale,
-          host: config.host,
-          protocol: config.protocol,
-          path: config.path || '',
-          root: config.root || '',
-          languagePartPath: config.languagePartPath || '',
-        },
-      }
-    );
-
-    return response.content;
-  }
-
-  const app = createImaApp();
-  const bootConfig = getClientBootConfig({
+  // Create and boot IMA app with our custom boot config
+  const app = await ima.createImaApp();
+  const bootConfig = await ima.getClientBootConfig({
     initSettings: _getBootConfigForMethod('initSettings'),
     initBindApp: _getBootConfigForMethod('initBindApp'),
     initServicesApp: _getBootConfigForMethod('initServicesApp'),
     initRoutes: _getBootConfigForMethod('initRoutes'),
   });
-  await onLoad();
-  await bootClientApp(app, bootConfig);
+
+  await ima.onLoad();
+  await ima.bootClientApp(app, bootConfig);
 
   // To use ima route handler in jsdom
   app.oc.get('$Router').listen();

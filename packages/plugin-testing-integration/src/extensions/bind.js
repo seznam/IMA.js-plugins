@@ -1,5 +1,13 @@
 import { aop, hookName, createHook } from '../aop';
 
+/**
+ * Initializes AOP hook for Router to update JSDOM URL on first navigation.
+ * This simulates browser behavior where the URL is already set in the address bar.
+ *
+ * @param {import('@ima/core').Namespace} ns - IMA.js namespace
+ * @param {import('@ima/core').ObjectContainer} oc - IMA.js object container
+ * @returns {void}
+ */
 export default (ns, oc) => {
   const Router = oc.get('$Router').constructor;
   const routeHook = createHook(
