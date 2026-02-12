@@ -13,8 +13,10 @@ declare module '@ima/core' {
 
 import type { Processor, ProcessorParams } from './AbstractProcessor';
 import { AbstractProcessor, Operation } from './AbstractProcessor';
-
-export const OPTION_TRANSFORM_PROCESSORS = 'transformProcessors';
+import {
+  OPTION_TRANSFORM_PROCESSORS,
+  RemoveTransformOptionRequestProcessor,
+} from './processor/RemoveTransformOptionRequestProcessor';
 
 export type HttpClientRequestOptions = {
   [OPTION_TRANSFORM_PROCESSORS]?: (processor: Processor[]) => Processor[];
@@ -40,6 +42,8 @@ export type HttpClientRequest = {
 export class HttpClient {
   #http: HttpAgent;
   #defaultProcessors: Processor[];
+  #removeTransformOptionRequestProcessor =
+    new RemoveTransformOptionRequestProcessor();
 
   static get $dependencies(): Dependencies {
     return ['$Http', '...?HttpClientDefaultProcessors'];
@@ -162,11 +166,14 @@ export class HttpClient {
     const defaultProcessors = this.#defaultProcessors;
 
     let transformProcessors = this.defaultTransformProcessors;
-    if (
-      request?.options?.[OPTION_TRANSFORM_PROCESSORS] &&
-      typeof request.options[OPTION_TRANSFORM_PROCESSORS] === 'function'
-    ) {
-      transformProcessors = request.options[OPTION_TRANSFORM_PROCESSORS];
+
+    const transformProcessorOption =
+      request?.options?.[OPTION_TRANSFORM_PROCESSORS];
+    if (typeof transformProcessorOption === 'function') {
+      transformProcessors = (processors: Processor[]) => [
+        this.#removeTransformOptionRequestProcessor,
+        ...transformProcessorOption(processors),
+      ];
     }
 
     return transformProcessors(defaultProcessors);
