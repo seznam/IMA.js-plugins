@@ -13,7 +13,8 @@ export type {
 } from './HttpClient';
 
 export { AbstractProcessor } from './AbstractProcessor';
-export { HttpClient, OPTION_TRANSFORM_PROCESSORS } from './HttpClient';
+export { OPTION_TRANSFORM_PROCESSORS } from './processor/RemoveTransformOptionRequestProcessor';
+export { HttpClient } from './HttpClient';
 export type { PluginHttpClientSettings } from './types';
 export type { RestResourceSettings } from './rest/AbstractResource';
 
