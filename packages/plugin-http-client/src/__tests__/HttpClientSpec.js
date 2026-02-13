@@ -1,7 +1,8 @@
 import { HttpAgent } from '@ima/core';
 
 import { AbstractProcessor } from '../AbstractProcessor';
-import { HttpClient, OPTION_TRANSFORM_PROCESSORS } from '../HttpClient';
+import { HttpClient } from '../HttpClient';
+import { OPTION_TRANSFORM_PROCESSORS } from '../processor/RemoveTransformOptionRequestProcessor';
 
 describe('HttpClient', () => {
   let httpAgent = null;
@@ -90,7 +91,7 @@ describe('HttpClient', () => {
       });
     });
 
-    it('should remove processors by option OPTION_TRANSFORM_PROCESSORS', async () => {
+    it('should remove processors by option OPTION_TRANSFORM_PROCESSORS and remove this option', async () => {
       jest
         .spyOn(httpAgent, 'put')
         .mockReturnValue(Promise.resolve(resultResponse));
@@ -99,6 +100,7 @@ describe('HttpClient', () => {
         method: 'put',
         url: 'some_url',
         options: {
+          nextOption: 'nextOption',
           [OPTION_TRANSFORM_PROCESSORS]: processors =>
             processors.filter(item => !(item instanceof AdditionalProcessor)),
         },
@@ -112,6 +114,10 @@ describe('HttpClient', () => {
         additionalParams,
         request,
         response: 'httpAgentResponsePost',
+      });
+
+      expect(response.request.options).toStrictEqual({
+        nextOption: 'nextOption',
       });
     });
 
