@@ -33,6 +33,9 @@ export const px = sizeUnitFactory('px');
 export const percent = sizeUnitFactory('%');
 
 export function hex(hex: string): Unit {
+  if (hex.startsWith('#')) {
+    hex = hex.slice(1);
+  }
   return asUnit('#', [hex], '${unit}${parts}');
 }
 

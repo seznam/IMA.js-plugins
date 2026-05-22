@@ -40,6 +40,9 @@ export default {
   bodyfontSize: units.rem(1),
   headerHeight: units.px(120),
   bodyWidth: units.vw(100),
+  colorText: units.hex('000000'), // works also with '#000000'
+  colorLink: 'blue',
+  colorShade: rgba(0, 0, 0, 0.2),
   greaterThanMobile: media.maxWidthMedia(360, 'screen'),
   zIndexes: units.lessMap({
     header: 100,
@@ -56,6 +59,9 @@ This produces the following output:
 @bodyfont-size: 1rem;
 @header-height: 120px;
 @body-width: 100vw;
+@color-text: #000000;
+@color-link: blue;
+@color-shade: rgba(0,0,0,0.2);
 @greater-than-mobile: ~"screen and (max-width: 360)";
 @z-indexes: {
   header: 100;
