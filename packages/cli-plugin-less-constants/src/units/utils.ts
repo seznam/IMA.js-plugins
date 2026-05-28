@@ -1,13 +1,30 @@
+type cssValue = string | number;
+
 export interface Unit {
   __propertyDeclaration: boolean;
-  valueOf: () => string | number;
+  valueOf: () => cssValue;
   toString: () => string;
 }
 
+export interface MediaUnit {
+  __mediaQuery: boolean;
+  valueOf: () => string;
+  toString: () => string;
+}
 export interface MapUnit {
   __lessMap: boolean;
-  valueOf: (key?: string) => Record<string, number> | number;
+  valueOf: (key?: string) => Record<string, cssValue> | cssValue;
   toString: () => string;
+}
+
+export interface ThemeUnit {
+  __theme: boolean;
+  valueOf: (key?: string) => Record<string, cssValue> | cssValue;
+  toString: () => string;
+}
+
+export function sizeUnitFactory(unit: string) {
+  return (size: number): Unit => asUnit(unit, [size]);
 }
 
 export function asUnit(
@@ -30,6 +47,20 @@ export function asUnit(
       return template
         .replace('${parts}', parts.join(','))
         .replace('${unit}', unit);
+    },
+  };
+}
+
+export function asMedia(query: string): MediaUnit {
+  return {
+    __mediaQuery: true,
+
+    valueOf(): string {
+      return query;
+    },
+
+    toString(): string {
+      return query;
     },
   };
 }

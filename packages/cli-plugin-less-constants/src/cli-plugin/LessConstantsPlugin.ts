@@ -6,13 +6,17 @@ import { createLogger } from '@ima/dev-utils/logger';
 import chalk from 'chalk';
 import webpack from 'webpack';
 
-import type { UnitValue } from './generator';
 import { generateLessVariables } from './generator';
+import { generateCssVariables } from './generatorCssVariables';
+import type { DefaultTheme, Themes, UnitValue } from './types';
 import { createLessConstantsRegExp, getUsedLessConstants } from './verify';
 
 export interface LessConstantsPluginOptions {
   entry: string;
   output?: string;
+  outputCssVariables?: string;
+  defaultTheme?: DefaultTheme;
+  themes?: Themes;
   /**
    * List of directories that contain Less files to verify that all constants are used.
    */
@@ -50,6 +54,8 @@ class LessConstantsPlugin implements ImaCliPlugin {
     }
 
     let outputPath = '';
+    let outputCssVariablesPath = '';
+
     const { entry } = this._options;
     const entryPath = path.isAbsolute(entry)
       ? entry
@@ -61,17 +67,33 @@ class LessConstantsPlugin implements ImaCliPlugin {
       process.exit(1);
     }
 
+    const { defaultTheme, themes } = this._processThemeOptions();
+
     // Print output info
     this._logger.plugin(`Processing ${chalk.magenta(entry)} file..`, {
       trackTime: true,
     });
+    this._logger.plugin(
+      `Themes: ${chalk.green(themes.join(', '))}; default theme: ${chalk.green(defaultTheme)}`
+    );
 
     try {
-      // Generate less variables from entry module
-      const lessConstants = generateLessVariables(
-        await this._compileEntry(entryPath, args, imaConfig)
+      const compiledEntry = await this._compileEntry(
+        entryPath,
+        args,
+        imaConfig
       );
 
+      // Generate less variables from entry module
+      const lessConstants = generateLessVariables(compiledEntry);
+      // Generate CSS variables from entry module
+      const cssVariables = generateCssVariables(
+        compiledEntry,
+        defaultTheme,
+        themes
+      );
+
+      // todo - ??
       if (this._options.verify) {
         /**
          * Create regular expressions for each constant in advance to speed up the process.
@@ -129,13 +151,25 @@ class LessConstantsPlugin implements ImaCliPlugin {
         }
       }
 
-      // Write generated less file to filesystem
+      // Write generated less file with less vars to filesystem
       outputPath =
         this._options.output ??
         path.join(args.rootDir, 'build/less-constants/constants.less');
 
       await fs.promises.mkdir(path.dirname(outputPath), { recursive: true });
       await fs.promises.writeFile(outputPath, lessConstants, {
+        encoding: 'utf8',
+      });
+
+      // Write generated less file with CSS vars to filesystem
+      outputCssVariablesPath =
+        this._options.outputCssVariables ??
+        path.join(args.rootDir, 'build/less-constants/cssVariables.less');
+
+      await fs.promises.mkdir(path.dirname(outputCssVariablesPath), {
+        recursive: true,
+      });
+      await fs.promises.writeFile(outputCssVariablesPath, cssVariables, {
         encoding: 'utf8',
       });
     } catch (error) {
@@ -147,6 +181,59 @@ class LessConstantsPlugin implements ImaCliPlugin {
     this._logger.plugin(
       `generated: ${chalk.magenta(outputPath.replace(args.rootDir, '.'))}`
     );
+    this._logger.plugin(
+      `generated: ${chalk.magenta(outputCssVariablesPath.replace(args.rootDir, '.'))}`
+    );
+  }
+
+  private _processThemeOptions(): {
+    defaultTheme: DefaultTheme;
+    themes: Themes;
+  } {
+    if (this._options.themes && !Array.isArray(this._options.themes)) {
+      this._logger.error(`Invalid themes option. Expected an array of themes.`);
+      process.exit(1);
+    }
+
+    const defaultTheme =
+      this._options.defaultTheme ??
+      (this._options.themes?.length === 1 ? this._options.themes[0] : 'light');
+
+    const validDefaultThemes = ['light', 'dark'];
+
+    if (!validDefaultThemes.includes(defaultTheme)) {
+      this._logger.error(
+        `Invalid default theme '${chalk.redBright(defaultTheme)}'. Valid options are: ${chalk.green(validDefaultThemes.join(', '))}.`
+      );
+      process.exit(1);
+    }
+
+    const themes =
+      !this._options.themes || this._options.themes.length === 0
+        ? ([defaultTheme] as Themes)
+        : this._options.themes;
+
+    if (!themes.includes(defaultTheme)) {
+      this._logger.error(
+        `Default theme '${chalk.redBright(defaultTheme)}' must be included in themes list..`
+      );
+      process.exit(1);
+    }
+
+    if (
+      themes.length > 1 &&
+      (!themes.includes('light') || !themes.includes('dark'))
+    ) {
+      this._logger.error(
+        `Themes list must include both '${chalk.green('light')}' and '${chalk.green('dark')}' when multiple themes are specified.`
+      );
+      process.exit(1);
+    }
+
+    return {
+      defaultTheme,
+      themes,
+    };
   }
 
   /**

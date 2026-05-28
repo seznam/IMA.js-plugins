@@ -1,19 +1,12 @@
-import type { MapUnit, Unit } from '../units/utils';
-
-export type UnitValue =
-  | Record<string, unknown>
-  | string
-  | number
-  | boolean
-  | Unit
-  | MapUnit;
+import type { UnitValue } from './types';
+import { slugify } from './utils';
+import type { MapUnit, MediaUnit, ThemeUnit, Unit } from '../units';
 
 /**
  * Generates less variables from given object of values.
  *
- * @param value
  * @param values
- * @returns string
+ * @returns { string }
  */
 function generateLessVariables(values: Record<string, UnitValue>): string {
   const lessConstants = Object.keys(values)
@@ -33,7 +26,7 @@ function generateLessVariables(values: Record<string, UnitValue>): string {
  * @param property
  * @param value
  * @param prefix
- * @returns string
+ * @returns { string }
  */
 function processValue(
   property: string,
@@ -48,8 +41,17 @@ function processValue(
     return `${subPrefix}: {\n${value.toString()}}\n`;
   }
 
-  // Process other property declarations
-  if (value instanceof Object && !(value as Unit).__propertyDeclaration) {
+  // Process themes
+  if (value instanceof Object && (value as ThemeUnit).__theme) {
+    return `${subPrefix}: {\n${value.toString()}}\n`;
+  }
+
+  // Process objects that are not property declarations or mediaQueries
+  if (
+    value instanceof Object &&
+    !(value as Unit).__propertyDeclaration &&
+    !(value as MediaUnit).__mediaQuery
+  ) {
     return Object.keys(value)
       .map((subProperty: string) =>
         processValue(
@@ -61,28 +63,8 @@ function processValue(
       .join('');
   }
 
+  // Process property declarations, mediaQueries and simple values
   return `${subPrefix}: ${value.toString()};\n`;
 }
 
-/**
- * Slugify provided value label (camelCase into dash-case)
- *
- * @param label
- * @returns string
- */
-function slugify(label: string): string {
-  let result = '';
-
-  for (let i = 0; i < label.length; i++) {
-    const char = label.substring(i, i + 1);
-    if (i && !/-|\d/.test(char) && char.toUpperCase() === char) {
-      result += `-${char.toLowerCase()}`;
-    } else {
-      result += char;
-    }
-  }
-
-  return result;
-}
-
-export { generateLessVariables, processValue, slugify };
+export { generateLessVariables, processValue };
