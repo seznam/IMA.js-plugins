@@ -38,12 +38,12 @@ function processValue(
 
   // Process less maps
   if (value instanceof Object && (value as MapUnit).__lessMap) {
-    return `${subPrefix}: {\n${value.toString()}}\n`;
+    return `${subPrefix}: {\t//lessMap\n${value.toString()}}\n`; //comment is needed to distinguish maps from themes in verification process
   }
 
   // Process themes
   if (value instanceof Object && (value as ThemeUnit).__theme) {
-    return `${subPrefix}: {\n${value.toString()}}\n`;
+    return `${subPrefix}: {\t//theme\n${value.toString()}}\n`; //comment is needed to distinguish themes from less maps in verification process
   }
 
   // Process objects that are not property declarations or mediaQueries

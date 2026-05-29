@@ -126,8 +126,16 @@ function processValue({
   }
 
   // Process less maps
+  // example: zIndex: lessMap({ key1: val1, key2: val2 }) => --z-index-key1: val1; --z-index-key2: val2;
   if (value instanceof Object && (value as MapUnit).__lessMap) {
-    groups.all!.push(`${subPrefix}: {\n${value.toString()}}`);
+    const lessMapValue = value.valueOf() as Record<string, UnitValue>;
+    const lessMapKeys = Object.keys(lessMapValue);
+
+    lessMapKeys.forEach(key => {
+      groups.all!.push(
+        `${subPrefix}-${slugify(key)}: ${lessMapValue[key]!.toString()};`
+      );
+    });
     return;
   }
 
@@ -163,7 +171,7 @@ function processValue({
     return;
   }
 
-  // Process objects that are not property declarations
+  // Process objects that are not property declarations - recursion
   if (value instanceof Object && !(value as Unit).__propertyDeclaration) {
     Object.keys(value).forEach((subProperty: string) =>
       processValue({

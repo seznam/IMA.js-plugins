@@ -3,6 +3,8 @@ import fs from 'fs';
 export function createLessConstantsRegExp(lessConstants: string) {
   const lessConstantsRegExp: Record<string, RegExp> = {};
 
+  let lastLessMapKey = '';
+
   lessConstants
     .split('\n')
     .filter(
@@ -10,6 +12,11 @@ export function createLessConstantsRegExp(lessConstants: string) {
         constant && !constant.startsWith('//') && !constant.endsWith('}')
     )
     .forEach(constant => {
+      if (constant.endsWith('{')) {
+        lastLessMapKey = constant.split(':')[0]!.trim();
+        return;
+      }
+
       const trimmedConstant = constant.split(':')[0]!.trim();
 
       if (trimmedConstant.startsWith('@')) {
@@ -18,10 +25,8 @@ export function createLessConstantsRegExp(lessConstants: string) {
           'gm'
         );
       } else {
-        lessConstantsRegExp[trimmedConstant] = new RegExp(
-          `\\[(${trimmedConstant})\\]`,
-          'gm'
-        );
+        lessConstantsRegExp[`${lastLessMapKey}[${trimmedConstant}]`] =
+          new RegExp(`${lastLessMapKey}\\[(${trimmedConstant})\\]`, 'gm');
       }
     });
 
