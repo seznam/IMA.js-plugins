@@ -6,15 +6,15 @@ import { createLogger } from '@ima/dev-utils/logger';
 import chalk from 'chalk';
 import webpack from 'webpack';
 
-import { generateLessVariables } from './generator';
-import { generateCssVariables } from './generatorCssVariables';
+import { generateCssConstants } from './generatorCssConstants';
+import { generateLessConstants } from './generatorLessConstants';
 import type { DefaultTheme, Themes, UnitValue } from './types';
 import { createLessConstantsRegExp, getUsedLessConstants } from './verify';
 
 export interface LessConstantsPluginOptions {
   entry: string;
   output?: string;
-  outputCssVariables?: string;
+  outputCssConstants?: string;
   defaultTheme?: DefaultTheme;
   themes?: Themes;
   /**
@@ -24,9 +24,11 @@ export interface LessConstantsPluginOptions {
 }
 
 /**
- * Generates .less file with less variables created from JS entry point.
- * The entry point should consist of default export of an object
- * with key values composed of LessConstantsPlugin helper functions.
+ * Generates two .less files with less variables created from JS entry point - one file contains
+ * less variables and the second file contains CSS variables, with support for light, dark and custom themes.
+ *
+ * The entry point file should contain a default export of an object
+ * with values composed of LessConstantsPlugin helper functions.
  */
 class LessConstantsPlugin implements ImaCliPlugin {
   private _options: LessConstantsPluginOptions;
@@ -53,9 +55,7 @@ class LessConstantsPlugin implements ImaCliPlugin {
       process.exit(1);
     }
 
-    let outputPath = '';
-    let outputCssVariablesPath = '';
-
+    // Resolve entry path
     const { entry } = this._options;
     const entryPath = path.isAbsolute(entry)
       ? entry
@@ -67,16 +67,26 @@ class LessConstantsPlugin implements ImaCliPlugin {
       process.exit(1);
     }
 
-    const { defaultTheme, themes } = this._processThemeOptions();
-
-    // Print output info
     this._logger.plugin(`Processing ${chalk.magenta(entry)} file..`, {
       trackTime: true,
     });
+
+    // Resolve themes options
+    const { defaultTheme, themes } = this._processThemeOptions();
+
     this._logger.plugin(
       `Themes: ${chalk.green(themes.join(', '))}; default theme: ${chalk.green(defaultTheme)}`
     );
 
+    // Resolve output paths
+    const outputPathLessConstants =
+      this._options.output ??
+      path.join(args.rootDir, 'build/less-constants/constants.less');
+    const outputPathCssConstants =
+      this._options.outputCssConstants ??
+      path.join(args.rootDir, 'build/less-constants/cssConstants.less');
+
+    // Let's do this
     try {
       const compiledEntry = await this._compileEntry(
         entryPath,
@@ -84,94 +94,32 @@ class LessConstantsPlugin implements ImaCliPlugin {
         imaConfig
       );
 
-      // Generate less variables from entry module
-      const lessConstants = generateLessVariables(compiledEntry);
-      // Generate CSS variables from entry module
-      const cssVariables = generateCssVariables(
+      // Generate less variables from entry module and write them to output file
+      const lessConstants = generateLessConstants(compiledEntry);
+      await fs.promises.mkdir(path.dirname(outputPathLessConstants), {
+        recursive: true,
+      });
+      await fs.promises.writeFile(outputPathLessConstants, lessConstants, {
+        encoding: 'utf8',
+      });
+
+      // Generate CSS variables from entry module and write them to output file
+      const cssConstants = generateCssConstants(
         compiledEntry,
         defaultTheme,
         themes
       );
-
-      // todo - ??
-      if (this._options.verify) {
-        /**
-         * Create regular expressions for each constant in advance to speed up the process.
-         */
-        const lessConstantsRegex = createLessConstantsRegExp(lessConstants);
-
-        /**
-         * Get all Less files in the specified directories to verify.
-         */
-        const lessFilesToVerify = this._options.verify.reduce((acc, curr) => {
-          acc.push(
-            ...fs
-              .readdirSync(curr, { recursive: true })
-              .filter(file => (file as string).endsWith('.less'))
-              .map(file => path.join(curr, file as string))
-          );
-
-          return acc;
-        }, [] as string[]);
-
-        /**
-         * Get all used constants in the specified Less files.
-         */
-        let usedConstants: string[] = [];
-        for (const lessFile of lessFilesToVerify) {
-          usedConstants.push(
-            ...(await getUsedLessConstants(lessFile, lessConstantsRegex))
-          );
-        }
-
-        /**
-         * Filter out unused constants.
-         */
-        usedConstants = [...new Set(usedConstants)];
-        const unusedConstants: string[] = [];
-        for (const constant of Object.keys(lessConstantsRegex)) {
-          if (usedConstants.indexOf(constant) === -1) {
-            unusedConstants.push(constant);
-          }
-        }
-
-        if (unusedConstants.length) {
-          this._logger.plugin(
-            'The following constants are not used in any less file:'
-          );
-          for (const unusedConstant of unusedConstants) {
-            this._logger.plugin(unusedConstant);
-          }
-        } else {
-          this._logger.plugin(
-            `All constants are used in less files in ${chalk.magenta(
-              this._options.verify
-            )}`
-          );
-        }
-      }
-
-      // Write generated less file with less vars to filesystem
-      outputPath =
-        this._options.output ??
-        path.join(args.rootDir, 'build/less-constants/constants.less');
-
-      await fs.promises.mkdir(path.dirname(outputPath), { recursive: true });
-      await fs.promises.writeFile(outputPath, lessConstants, {
-        encoding: 'utf8',
-      });
-
-      // Write generated less file with CSS vars to filesystem
-      outputCssVariablesPath =
-        this._options.outputCssVariables ??
-        path.join(args.rootDir, 'build/less-constants/cssVariables.less');
-
-      await fs.promises.mkdir(path.dirname(outputCssVariablesPath), {
+      await fs.promises.mkdir(path.dirname(outputPathCssConstants), {
         recursive: true,
       });
-      await fs.promises.writeFile(outputCssVariablesPath, cssVariables, {
+      await fs.promises.writeFile(outputPathCssConstants, cssConstants, {
         encoding: 'utf8',
       });
+
+      // Verify that all constants are used in less files in specified directories
+      if (this._options.verify) {
+        await this._verifyConstantsUsed(lessConstants, cssConstants);
+      }
     } catch (error) {
       this._logger.error(error instanceof Error ? error : 'unknown error');
       process.exit(1);
@@ -179,61 +127,11 @@ class LessConstantsPlugin implements ImaCliPlugin {
 
     // Print output info
     this._logger.plugin(
-      `generated: ${chalk.magenta(outputPath.replace(args.rootDir, '.'))}`
+      `generated: ${chalk.magenta(outputPathLessConstants.replace(args.rootDir, '.'))}`
     );
     this._logger.plugin(
-      `generated: ${chalk.magenta(outputCssVariablesPath.replace(args.rootDir, '.'))}`
+      `generated: ${chalk.magenta(outputPathCssConstants.replace(args.rootDir, '.'))}`
     );
-  }
-
-  private _processThemeOptions(): {
-    defaultTheme: DefaultTheme;
-    themes: Themes;
-  } {
-    if (this._options.themes && !Array.isArray(this._options.themes)) {
-      this._logger.error(`Invalid themes option. Expected an array of themes.`);
-      process.exit(1);
-    }
-
-    const defaultTheme =
-      this._options.defaultTheme ??
-      (this._options.themes?.length === 1 ? this._options.themes[0] : 'light');
-
-    const validDefaultThemes = ['light', 'dark'];
-
-    if (!validDefaultThemes.includes(defaultTheme)) {
-      this._logger.error(
-        `Invalid default theme '${chalk.redBright(defaultTheme)}'. Valid options are: ${chalk.green(validDefaultThemes.join(', '))}.`
-      );
-      process.exit(1);
-    }
-
-    const themes =
-      !this._options.themes || this._options.themes.length === 0
-        ? ([defaultTheme] as Themes)
-        : this._options.themes;
-
-    if (!themes.includes(defaultTheme)) {
-      this._logger.error(
-        `Default theme '${chalk.redBright(defaultTheme)}' must be included in themes list..`
-      );
-      process.exit(1);
-    }
-
-    if (
-      themes.length > 1 &&
-      (!themes.includes('light') || !themes.includes('dark'))
-    ) {
-      this._logger.error(
-        `Themes list must include both '${chalk.green('light')}' and '${chalk.green('dark')}' when multiple themes are specified.`
-      );
-      process.exit(1);
-    }
-
-    return {
-      defaultTheme,
-      themes,
-    };
   }
 
   /**
@@ -323,6 +221,120 @@ class LessConstantsPlugin implements ImaCliPlugin {
         }
       );
     });
+  }
+
+  private _processThemeOptions(): {
+    defaultTheme: DefaultTheme;
+    themes: Themes;
+  } {
+    if (this._options.themes && !Array.isArray(this._options.themes)) {
+      this._logger.error(`Invalid themes option. Expected an array of themes.`);
+      process.exit(1);
+    }
+
+    const defaultTheme =
+      this._options.defaultTheme ??
+      (this._options.themes?.length === 1 ? this._options.themes[0] : 'light');
+
+    const validDefaultThemes = ['light', 'dark'];
+
+    if (!validDefaultThemes.includes(defaultTheme)) {
+      this._logger.error(
+        `Invalid default theme '${chalk.redBright(defaultTheme)}'. Valid options are: ${chalk.green(validDefaultThemes.join(', '))}.`
+      );
+      process.exit(1);
+    }
+
+    const themes =
+      !this._options.themes || this._options.themes.length === 0
+        ? ([defaultTheme] as Themes)
+        : this._options.themes;
+
+    if (!themes.includes(defaultTheme)) {
+      this._logger.error(
+        `Default theme '${chalk.redBright(defaultTheme)}' must be included in themes list..`
+      );
+      process.exit(1);
+    }
+
+    if (
+      themes.length > 1 &&
+      (!themes.includes('light') || !themes.includes('dark'))
+    ) {
+      this._logger.error(
+        `Themes list must include both '${chalk.green('light')}' and '${chalk.green('dark')}' when multiple themes are specified.`
+      );
+      process.exit(1);
+    }
+
+    return {
+      defaultTheme,
+      themes,
+    };
+  }
+
+  private async _verifyConstantsUsed(
+    lessConstants: string,
+    cssConstants: string
+  ): Promise<void> {
+    if (!Array.isArray(this._options.verify) || !this._options.verify.length) {
+      return;
+    }
+
+    /**
+     * Create regular expressions for each constant in advance to speed up the process.
+     */
+    const lessConstantsRegex = createLessConstantsRegExp(lessConstants);
+
+    /**
+     * Get all Less files in the specified directories to verify.
+     */
+    const lessFilesToVerify = this._options.verify.reduce((acc, curr) => {
+      acc.push(
+        ...fs
+          .readdirSync(curr, { recursive: true })
+          .filter(file => (file as string).endsWith('.less'))
+          .map(file => path.join(curr, file as string))
+      );
+
+      return acc;
+    }, [] as string[]);
+
+    /**
+     * Get all used constants in the specified Less files.
+     */
+    let usedConstants: string[] = [];
+    for (const lessFile of lessFilesToVerify) {
+      usedConstants.push(
+        ...(await getUsedLessConstants(lessFile, lessConstantsRegex))
+      );
+    }
+
+    /**
+     * Filter out unused constants.
+     */
+    usedConstants = [...new Set(usedConstants)];
+    const unusedConstants: string[] = [];
+    for (const constant of Object.keys(lessConstantsRegex)) {
+      if (usedConstants.indexOf(constant) === -1) {
+        unusedConstants.push(constant);
+      }
+    }
+
+    if (unusedConstants.length) {
+      this._logger.plugin(
+        'The following constants are not used in any less file:'
+      );
+      for (const unusedConstant of unusedConstants) {
+        this._logger.plugin(unusedConstant);
+      }
+    } else {
+      this._logger.plugin(
+        `All constants are used in less files in ${chalk.magenta(
+          this._options.verify
+        )}`
+      );
+    }
   }
 }
 
