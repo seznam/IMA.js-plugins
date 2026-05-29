@@ -9,7 +9,7 @@ import webpack from 'webpack';
 import { generateCssConstants } from './generatorCssConstants';
 import { generateLessConstants } from './generatorLessConstants';
 import type { DefaultTheme, Themes, UnitValue } from './types';
-import { createLessConstantsRegExp, getUsedLessConstants } from './verify';
+import { createVerifyRegExps, getUsedConstants } from './verify';
 
 export interface LessConstantsPluginOptions {
   entry: string;
@@ -284,7 +284,7 @@ class LessConstantsPlugin implements ImaCliPlugin {
     /**
      * Create regular expressions for each constant in advance to speed up the process.
      */
-    const lessConstantsRegex = createLessConstantsRegExp(lessConstants);
+    const verifyRegExps = createVerifyRegExps(lessConstants);
 
     /**
      * Get all Less files in the specified directories to verify.
@@ -305,9 +305,7 @@ class LessConstantsPlugin implements ImaCliPlugin {
      */
     let usedConstants: string[] = [];
     for (const lessFile of lessFilesToVerify) {
-      usedConstants.push(
-        ...(await getUsedLessConstants(lessFile, lessConstantsRegex))
-      );
+      usedConstants.push(...(await getUsedConstants(lessFile, verifyRegExps)));
     }
 
     /**
@@ -315,7 +313,7 @@ class LessConstantsPlugin implements ImaCliPlugin {
      */
     usedConstants = [...new Set(usedConstants)];
     const unusedConstants: string[] = [];
-    for (const constant of Object.keys(lessConstantsRegex)) {
+    for (const constant of Object.keys(verifyRegExps)) {
       if (usedConstants.indexOf(constant) === -1) {
         unusedConstants.push(constant);
       }
@@ -323,7 +321,7 @@ class LessConstantsPlugin implements ImaCliPlugin {
 
     if (unusedConstants.length) {
       this._logger.plugin(
-        'The following constants are not used in any less file:'
+        'The following constants are not used in any less file (as less variables or CSS variables):'
       );
       for (const unusedConstant of unusedConstants) {
         this._logger.plugin(unusedConstant);
