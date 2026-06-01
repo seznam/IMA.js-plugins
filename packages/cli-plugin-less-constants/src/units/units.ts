@@ -1,4 +1,4 @@
-import type { MapUnit, ThemeUnit, Unit } from './utils';
+import type { CssValue, MapUnit, ThemeUnit, Unit } from './utils';
 import { asUnit, sizeUnitFactory } from './utils';
 
 export const em = sizeUnitFactory('em');
@@ -69,7 +69,7 @@ export function hsla(
   );
 }
 
-export function lessMap(object: Record<string, number>): MapUnit {
+export function lessMap(object: Record<string, CssValue | Unit>): MapUnit {
   return {
     __lessMap: true,
 
@@ -78,18 +78,18 @@ export function lessMap(object: Record<string, number>): MapUnit {
         return object;
       }
 
-      return object[key]!;
+      return object[key]!.valueOf();
     },
 
     toString() {
       return Object.keys(object)
-        .map(key => `\t${key}: ${object[key]};\n`)
+        .map(key => `\t${key}: ${object[key]?.toString()};\n`)
         .join('');
     },
   };
 }
 
-export function theme(object: Record<string, number>): ThemeUnit {
+export function theme(object: Record<string, CssValue | Unit>): ThemeUnit {
   return {
     __theme: true,
 
@@ -98,12 +98,12 @@ export function theme(object: Record<string, number>): ThemeUnit {
         return object;
       }
 
-      return object[key]!;
+      return object[key]!.valueOf();
     },
 
     toString() {
       return Object.keys(object)
-        .map(key => `\t${key}: ${object[key]};\n`)
+        .map(key => `\t${key}: ${object[key]?.toString()};\n`)
         .join('');
     },
   };

@@ -1,8 +1,8 @@
-type cssValue = string | number;
+export type CssValue = string | number;
 
 export interface Unit {
   __propertyDeclaration: boolean;
-  valueOf: () => cssValue;
+  valueOf: () => CssValue;
   toString: () => string;
 }
 
@@ -13,13 +13,13 @@ export interface MediaUnit {
 }
 export interface MapUnit {
   __lessMap: boolean;
-  valueOf: (key?: string) => Record<string, cssValue> | cssValue;
+  valueOf: (key?: string) => Record<string, CssValue | Unit> | CssValue;
   toString: () => string;
 }
 
 export interface ThemeUnit {
   __theme: boolean;
-  valueOf: (key?: string) => Record<string, cssValue> | cssValue;
+  valueOf: (key?: string) => Record<string, CssValue | Unit> | CssValue;
   toString: () => string;
 }
 
