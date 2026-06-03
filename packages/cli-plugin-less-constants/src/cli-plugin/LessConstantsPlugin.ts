@@ -13,7 +13,7 @@ import { createVerifyRegExps, getUsedConstants } from './verify';
 
 export interface LessConstantsPluginOptions {
   entry: string;
-  output?: string;
+  outputLessConstants?: string;
   outputCssConstants?: string;
   defaultTheme?: DefaultTheme;
   themes?: Themes;
@@ -80,7 +80,7 @@ class LessConstantsPlugin implements ImaCliPlugin {
 
     // Resolve output paths
     const outputPathLessConstants =
-      this._options.output ??
+      this._options.outputLessConstants ??
       path.join(args.rootDir, 'build/less-constants/constants.less');
     const outputPathCssConstants =
       this._options.outputCssConstants ??
