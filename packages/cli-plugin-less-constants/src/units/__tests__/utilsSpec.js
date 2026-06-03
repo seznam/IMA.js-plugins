@@ -1,6 +1,6 @@
 import { asMedia, asUnit, sizeUnitFactory } from '../utils';
 
-describe('utils', () => {
+describe('units utils', () => {
   it('sizeUnitFactory - creates size unit function', () => {
     const px = sizeUnitFactory('px');
     const unit = px(16);

@@ -24,11 +24,11 @@ export interface LessConstantsPluginOptions {
 }
 
 /**
- * Generates two .less files with less variables created from JS entry point - one file contains
- * less variables and the second file contains CSS variables, with support for light, dark and custom themes.
+ * Generates two .less files created from JS entry point - one file contains less variables
+ * and the second file contains CSS variables, with support for light, dark and custom themes.
  *
  * The entry point file should contain a default export of an object
- * with values composed of LessConstantsPlugin helper functions.
+ * with values composed of LessConstantsPlugin unit functions.
  */
 class LessConstantsPlugin implements ImaCliPlugin {
   private _options: LessConstantsPluginOptions;
@@ -118,7 +118,7 @@ class LessConstantsPlugin implements ImaCliPlugin {
 
       // Verify that all constants are used in less files in specified directories
       if (this._options.verify) {
-        await this._verifyConstantsUsed(lessConstants, cssConstants);
+        await this._verifyConstantsUsed(lessConstants);
       }
     } catch (error) {
       this._logger.error(error instanceof Error ? error : 'unknown error');
@@ -232,9 +232,7 @@ class LessConstantsPlugin implements ImaCliPlugin {
       process.exit(1);
     }
 
-    const defaultTheme =
-      this._options.defaultTheme ??
-      (this._options.themes?.length === 1 ? this._options.themes[0] : 'light');
+    const defaultTheme = this._options.defaultTheme ?? 'light';
 
     const validDefaultThemes = ['light', 'dark'];
 
@@ -245,14 +243,13 @@ class LessConstantsPlugin implements ImaCliPlugin {
       process.exit(1);
     }
 
-    const themes =
-      !this._options.themes || this._options.themes.length === 0
-        ? ([defaultTheme] as Themes)
-        : this._options.themes;
+    const themes = !this._options.themes
+      ? (['light'] as Themes)
+      : this._options.themes;
 
     if (!themes.includes(defaultTheme)) {
       this._logger.error(
-        `Default theme '${chalk.redBright(defaultTheme)}' must be included in themes list..`
+        `Default theme '${chalk.redBright(defaultTheme)}' must be included in themes list.`
       );
       process.exit(1);
     }
@@ -273,10 +270,7 @@ class LessConstantsPlugin implements ImaCliPlugin {
     };
   }
 
-  private async _verifyConstantsUsed(
-    lessConstants: string,
-    cssConstants: string
-  ): Promise<void> {
+  private async _verifyConstantsUsed(lessConstants: string): Promise<void> {
     if (!Array.isArray(this._options.verify) || !this._options.verify.length) {
       return;
     }

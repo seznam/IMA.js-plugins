@@ -81,13 +81,12 @@ function generateGroups(
 
 ${customThemes
   .map(
-    theme => `
-[data-theme="${theme}"] {
+    theme => `[data-theme="${theme}"] {
   ${groups[theme]!.join('\n  ')}
-}`
+}
+`
   )
-  .join('\n\n')}
-`;
+  .join('\n\n')}`;
 }
 
 /**

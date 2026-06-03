@@ -7,7 +7,7 @@ import {
 } from '../media';
 import { px } from '../units';
 
-describe('media', () => {
+describe('units media', () => {
   it.each([
     [
       'maxWidthMedia',

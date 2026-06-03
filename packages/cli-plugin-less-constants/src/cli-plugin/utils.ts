@@ -1,22 +1,14 @@
 /**
- * Slugify provided value label (camelCase into dash-case)
+ * Slugify provided value label (camelCase or PascalCase into kebab-case)
  *
- * @param label
+ * @param value
  * @returns { string }
  */
-function slugify(label: string): string {
-  let result = '';
-
-  for (let i = 0; i < label.length; i++) {
-    const char = label.substring(i, i + 1);
-    if (i && !/-|\d/.test(char) && char.toUpperCase() === char) {
-      result += `-${char.toLowerCase()}`;
-    } else {
-      result += char;
-    }
-  }
-
-  return result;
+function slugify(value: string): string {
+  return value
+    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1-$2')
+    .toLowerCase();
 }
 
 export { slugify };
