@@ -2,4 +2,3 @@
 !dist/**/*
 !lib/**/*
 !package.json
-!EnzymePageRenderer.js

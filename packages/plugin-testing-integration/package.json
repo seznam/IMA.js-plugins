@@ -5,6 +5,14 @@
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
   "types": "./dist/esm/main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/esm/main.d.ts",
+      "import": "./dist/esm/main.js",
+      "require": "./dist/cjs/main.js"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "test": "../../node_modules/.bin/jest --coverage --no-watchman --config=jest.config.js",
     "build": "ima-plugin build",
@@ -39,15 +47,15 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@messageformat/core": "^3.0.1",
-    "globby": "11.1.0",
-    "jsdom": "^19.0.0",
     "to-aop": "^0.5.4"
   },
   "peerDependencies": {
     "@ima/helpers": ">=18.0.0",
-    "@ima/cli": ">=18.1.0",
     "@ima/core": ">=18.0.0",
-    "@ima/server": ">=18.3.2"
+    "@ima/server": ">=18.3.2",
+    "@ima/testing-library": ">=20.0.0",
+    "@testing-library/react": ">=12.0.0",
+    "enzyme": "*",
+    "react-dom": "*"
   }
 }
