@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.0.1
+
+### Patch Changes
+
+- 4027d56: Unit function hex accepts also strings beginning with '#'
+  - **What?** Unit function hex accepts also strings beginning with '#'
+  - **Why?** It feels more natural to write hex values with #. Also editor can do better color previews with this format.
+  - **How?** Nothing.
+
 ## 3.0.0
 
 ### Major Changes
