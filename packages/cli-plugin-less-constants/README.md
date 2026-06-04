@@ -55,7 +55,7 @@ import { units, media } from '@ima/cli-plugin-less-constants/units';
 const { hex, lessMap, px, rgba, rem, vw } = units;
 
 export default {
-  bodyfontSize: rem(1),
+  bodyFontSize: rem(1),
   headerHeight: px(120),
   bodyWidth: vw(100),
   color: {
@@ -76,7 +76,7 @@ This produces the following two output files:
 
 ```less
 // ./build/less-constants/constants.less
-@bodyfont-size: 1rem;
+@body-font-size: 1rem;
 @header-height: 120px;
 @body-width: 100vw;
 @color-text: #000000;
@@ -94,7 +94,7 @@ This produces the following two output files:
 // ./build/less-constants/cssConstants.less
 // note: --greater-than-mobile is not generated - CSS variables cannot be used in media query declarations
 :root {
-  --bodyfont-size: 1rem;
+  --body-font-size: 1rem;
   --header-height: 120px;
   --body-width: 100vw;
   --color-text: #000000;
@@ -106,14 +106,16 @@ This produces the following two output files:
 }
 ```
 
+> **CAVEAT:** The constants are generated in the `preProcess` method which **runs just ONCE, before the compilation**. So make sure to restart the build manually when you add new constants, to trigger the re-generation of the `less` files.
+
 ### Import generated files in globals
 
-Finally, don't forget to import the generated `./build/less-constants/constants.less` file in your `./app/less/globals.less` to have the variables available in all LESS files automatically without explicit import. If you want to use the CSS variables form of your theme constants, import also file `./build/less-constants/cssConstants.less`. This is optional when you have only one theme but necessary with multiple [themes](#themes-1).
+Finally, don't forget to import the generated `./build/less-constants/constants.less` file in your `./app/less/globals.less` to have the variables available in all LESS files automatically without explicit import. If you want to use the CSS variables form of your theme constants, import also file `./build/less-constants/cssConstants.less`.
 
 ```js
 // ./app/less/globals.less
 @import "../../build/less-constants/constants.less";
-@import "../../build/less-constants/cssConstants.less"; // optional with 1 theme
+@import "../../build/less-constants/cssConstants.less";
 ```
 
 You can verify that your constants are actually used in your `less` files. The `verify` option should include all directories that contain your `less` files.
@@ -151,8 +153,6 @@ export default function ThemeComponent({ children, title, href }) {
   );
 }
 ```
-
-> **CAVEAT:** The constants are generated in the `preProcess` method which **runs just ONCE, before the compilation**. So make sure to restart the build manually when you add new constants, to trigger the re-generation of the `less` files.
 
 ## Options
 
@@ -248,7 +248,7 @@ interface ThemeUnit {
 
 ### Custom units
 
-If you're missing any helpers, you can always define your own, either custom ones (as long as they adhere to the `Unit` or `MediaUnit` interface) or you can use helpers `asUnit` and `asMedia`:
+If you're missing a helper, you can always define your own, either from scratch (as long as it adheres to the `Unit` or `MediaUnit` interface) or you can use helpers `asUnit` and `asMedia`:
 
 ```typescript
 import { asUnit, asMedia } from '@ima/cli-plugin-less-constants/units';
@@ -313,7 +313,7 @@ The plugin adds support for themes implemented with CSS variables. This solution
 
 **All values that depend on theme should be used as CSS variables, not LESS variables.**
 
-1\. First specify your themes in the plugin options:
+1\. Specify your themes in plugin options:
 
 ```js
 // ./ima.config.js
@@ -374,7 +374,7 @@ This produces the following two output files:
 @desktop-media: ~"all and (min-width: 1100px)";
 @line-height: 1.2;
 @page-padding-desktop: 20px;
-@color-scheme: {
+@color-scheme: {  // theme
   light: light;
   dark: dark;
   fruit: light;
@@ -463,10 +463,11 @@ export default function ThemeComponent({ children, title, href }) {
   return (
     <div>
       Text color has different values for different themes:
-      {`${color.text.valueOf('light')}, ${color.text.valueOf('dark')}, ${color.text.valueOf('fruit')}`} {/* 000000, ffffff, 811c1c */}
+      {`${color.text.valueOf('light')}, ${color.text.valueOf('dark')}, ${color.text.valueOf('fruit')}`}
+      {/* 000000, ffffff, 811c1c */}
       I do not know the current theme, but I can safely style text with CSS variable, like this:
       <span style={{ color: 'var(--color-text)' }}>I am colored with the text color of the current theme!</span>
-      And I can still safely read and use values that do not depend on theme:<br />
+      And I can still safely read and use values that do not depend on theme:
       Page padding for desktop is: {pagePaddingDesktop.valueOf()} {/* 20 */}
     </div>
   );
