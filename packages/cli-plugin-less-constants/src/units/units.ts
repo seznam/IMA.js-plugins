@@ -1,4 +1,4 @@
-import type { CssValue, MapUnit, ThemeUnit, Unit } from './utils';
+import type { MapUnit, PropertyValue, ThemeUnit, Unit } from './utils';
 import { asUnit, sizeUnitFactory } from './utils';
 
 export const em = sizeUnitFactory('em');
@@ -69,7 +69,7 @@ export function hsla(
   );
 }
 
-export function lessMap(object: Record<string, CssValue | Unit>): MapUnit {
+export function lessMap(object: Record<string, PropertyValue>): MapUnit {
   return {
     __lessMap: true,
 
@@ -89,7 +89,7 @@ export function lessMap(object: Record<string, CssValue | Unit>): MapUnit {
   };
 }
 
-export function theme(object: Record<string, CssValue | Unit>): ThemeUnit {
+export function theme(object: Record<string, PropertyValue>): ThemeUnit {
   return {
     __theme: true,
 

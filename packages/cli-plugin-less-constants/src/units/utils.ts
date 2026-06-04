@@ -1,25 +1,25 @@
-export type CssValue = string | number;
+export type PropertyValue = string | number | Unit;
 
 export interface Unit {
-  __propertyDeclaration: boolean;
-  valueOf: () => CssValue;
+  __propertyDeclaration: true;
+  valueOf: () => string | number;
   toString: () => string;
 }
 
 export interface MediaUnit {
-  __mediaQuery: boolean;
+  __mediaQuery: true;
   valueOf: () => string;
   toString: () => string;
 }
 export interface MapUnit {
-  __lessMap: boolean;
-  valueOf: (key?: string) => Record<string, CssValue | Unit> | CssValue;
+  __lessMap: true;
+  valueOf: (key?: string) => Record<string, PropertyValue> | PropertyValue;
   toString: () => string;
 }
 
 export interface ThemeUnit {
-  __theme: boolean;
-  valueOf: (key?: string) => Record<string, CssValue | Unit> | CssValue;
+  __theme: true;
+  valueOf: (key?: string) => Record<string, PropertyValue> | PropertyValue;
   toString: () => string;
 }
 
