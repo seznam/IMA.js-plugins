@@ -108,13 +108,17 @@ This produces the following two output files:
 
 > **CAVEAT:** The constants are generated in the `preProcess` method which **runs just ONCE, before the compilation**. So make sure to restart the build manually when you add new constants, to trigger the re-generation of the `less` files.
 
-### Import generated files in globals
+### Import generated files
 
-Finally, don't forget to import the generated `./build/less-constants/constants.less` file in your `./app/less/globals.less` to have the variables available in all LESS files automatically without explicit import. If you want to use the CSS variables form of your theme constants, import also file `./build/less-constants/cssConstants.less`.
+Import the generated file with less constants `./build/less-constants/constants.less` in your `./app/less/globals.less` to have the variables available in all LESS files automatically without explicit import.
 
-```js
+If you want to use the CSS variables form of your theme constants, import file `./build/less-constants/cssConstants.less` to your main `less` file, for example `./app/less/app.less`. **DO NOT** import `cssConstants.less` in `globals.less`, beacuse it is imported in every `less` file, and you would end up with possibly very big CSS file with a lot of duplicated CSS variable declarations.
+
+```less
 // ./app/less/globals.less
 @import "../../build/less-constants/constants.less";
+
+// ./app/less/app.less
 @import "../../build/less-constants/cssConstants.less";
 ```
 
@@ -514,7 +518,7 @@ This produces the following two output files:
 }
 ```
 
-You can specify also `dark` is a single theme, in which case `dark` values will be used as CSS variables:
+You can specify also `dark` as a single theme, in which case `dark` values will be picked as CSS variables:
 
 ```js
 // ./ima.config.js
