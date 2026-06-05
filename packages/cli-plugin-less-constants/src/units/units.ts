@@ -1,9 +1,5 @@
-import type { MapUnit, Unit } from './utils';
-import { asUnit } from './utils';
-
-function sizeUnitFactory(unit: string) {
-  return (size: number): Unit => asUnit(unit, [size]);
-}
+import type { MapUnit, PropertyValue, ThemeUnit, Unit } from './utils';
+import { asUnit, sizeUnitFactory } from './utils';
 
 export const em = sizeUnitFactory('em');
 export const ex = sizeUnitFactory('ex');
@@ -73,7 +69,7 @@ export function hsla(
   );
 }
 
-export function lessMap(object: Record<string, number>): MapUnit {
+export function lessMap(object: Record<string, PropertyValue>): MapUnit {
   return {
     __lessMap: true,
 
@@ -82,12 +78,32 @@ export function lessMap(object: Record<string, number>): MapUnit {
         return object;
       }
 
-      return object[key]!;
+      return object[key]!.valueOf();
     },
 
     toString() {
       return Object.keys(object)
-        .map(key => `\t${key}: ${object[key]};\n`)
+        .map(key => `\t${key}: ${object[key]?.toString()};\n`)
+        .join('');
+    },
+  };
+}
+
+export function theme(object: Record<string, PropertyValue>): ThemeUnit {
+  return {
+    __theme: true,
+
+    valueOf(key) {
+      if (!key) {
+        return object;
+      }
+
+      return object[key]!.valueOf();
+    },
+
+    toString() {
+      return Object.keys(object)
+        .map(key => `\t${key}: ${object[key]?.toString()};\n`)
         .join('');
     },
   };
