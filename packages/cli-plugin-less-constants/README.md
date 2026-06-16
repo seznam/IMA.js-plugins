@@ -211,36 +211,7 @@ Optional list of directories which are searched for `.less` files to verify whet
 
 ## Units
 
-The plugin provides unit functions for almost every unit available + some other helpers. Helpers returns `Unit` object with following interfaces:
-
-```typescript
-type PropertyValue = string | number | Unit;
-
-// size and color helpers
-interface Unit {
-  __propertyDeclaration: true;
-  valueOf: () => string | number;
-  toString: () => string;
-}
-// media query helpers
-interface MediaUnit {
-  __mediaQuery: true;
-  valueOf: () => string;
-  toString: () => string;
-}
-// lessMap helper
-interface MapUnit {
-  __lessMap: true;
-  valueOf: (key?: string) => Record<string, PropertyValue> | PropertyValue;
-  toString: () => string;
-}
-// theme helper
-interface ThemeUnit {
-  __theme: true;
-  valueOf: (key?: string) => Record<string, PropertyValue> | PropertyValue;
-  toString: () => string;
-}
-```
+The plugin provides unit functions for almost every unit available + some other helpers. Helpers returns `Unit` object with [these interfaces](src/units/utils.ts#L1).
 
 ### Available helpers
 
@@ -252,7 +223,7 @@ interface ThemeUnit {
 
 ### Custom units
 
-If you're missing a helper, you can always define your own, either from scratch (as long as it adheres to the `Unit` or `MediaUnit` interface) or you can use helpers `asUnit` and `asMedia`:
+If you're missing a helper, you can always define your own, either from scratch (as long as it adheres to the `Unit` or `MediaUnit` interface) or you can use helpers [`asUnit`](src/units/utils.ts#L30) and [`asMedia`](src/units/utils.ts#L54):
 
 ```typescript
 import { asUnit, asMedia } from '@ima/cli-plugin-less-constants/units';
@@ -267,46 +238,6 @@ function exactWidthMedia(value: string | Unit): MediaUnit {
   return asMedia(`~"all and (width: ${value.toString()})"`);
 }
 exactWidthMedia(px(1000)).toString(); // '~"all and (width: 1000px)"'
-```
-
-```typescript
-function asUnit(
-  unit: string,
-  parts: (string | number)[],
-  template = '${parts}${unit}'
-): Unit {
-  return {
-    __propertyDeclaration: true,
-
-    valueOf(): number | string {
-      if (parts.length !== 1) {
-        return this.toString();
-      }
-
-      return parts[0]!;
-    },
-
-    toString(): string {
-      return template
-        .replace('${parts}', parts.join(','))
-        .replace('${unit}', unit);
-    },
-  };
-}
-
-function asMedia(query: string): MediaUnit {
-  return {
-    __mediaQuery: true,
-
-    valueOf(): string {
-      return query;
-    },
-
-    toString(): string {
-      return query;
-    },
-  };
-}
 ```
 
 ## Themes
