@@ -44,9 +44,6 @@ class LessConstantsPlugin implements ImaCliPlugin {
   /**
    * We'll generate less variables files in the preProcess hook, in order
    * for it to be usable as an import in globals.less file.
-   *
-   * @param args
-   * @param imaConfig
    */
   async preProcess(args: ImaCliArgs, imaConfig: ImaConfig): Promise<void> {
     if (!this._options.entry) {
@@ -138,10 +135,6 @@ class LessConstantsPlugin implements ImaCliPlugin {
    * Runs entry file through webpack to bypass esm/cjs compatibility issues
    * and generate one nodeJS compatible file, which can be imported and further procesed.
    * Additionally this works with custom defined webpack aliases in ima config.
-   *
-   * @param modulePath
-   * @param args
-   * @param imaConfig
    */
   private async _compileEntry(
     modulePath: string,

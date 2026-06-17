@@ -2,10 +2,7 @@ import type { UnitValue } from './types';
 import { slugify, isProperty, isMediaQuery, isLessMap, isTheme } from './utils';
 
 /**
- * Generates less constants from given object of values.
- *
- * @param values
- * @returns { string }
+ * Generates content of less constants file from given object of values.
  */
 function generateLessConstants(values: Record<string, UnitValue>): string {
   const lessConstants = Object.keys(values)
@@ -21,11 +18,6 @@ function generateLessConstants(values: Record<string, UnitValue>): string {
 
 /**
  * Processes provided value which can be either object or constant value recursively.
- *
- * @param property
- * @param value
- * @param prefix
- * @returns { string }
  */
 function processValue(
   property: string,

@@ -2,9 +2,6 @@ import type { MapUnit, MediaUnit, ThemeUnit, Unit } from '../units';
 
 /**
  * Slugify provided value label (camelCase or PascalCase into kebab-case)
- *
- * @param value
- * @returns { string }
  */
 function slugify(value: string): string {
   return value
