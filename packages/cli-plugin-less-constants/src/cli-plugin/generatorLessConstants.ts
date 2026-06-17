@@ -1,6 +1,5 @@
 import type { UnitValue } from './types';
-import { slugify } from './utils';
-import type { MapUnit, MediaUnit, ThemeUnit, Unit } from '../units';
+import { slugify, isProperty, isMediaQuery, isLessMap, isTheme } from './utils';
 
 /**
  * Generates less constants from given object of values.
@@ -37,21 +36,17 @@ function processValue(
   const subPrefix = prefix + (prefix.length > 1 ? '-' : '') + slugify(property);
 
   // Process less maps
-  if (value instanceof Object && (value as MapUnit).__lessMap) {
+  if (isLessMap(value)) {
     return `${subPrefix}: {\t//lessMap\n${value.toString()}}\n`; //comment is needed to distinguish maps from themes in verification process
   }
 
   // Process themes
-  if (value instanceof Object && (value as ThemeUnit).__theme) {
+  if (isTheme(value)) {
     return `${subPrefix}: {\t//theme\n${value.toString()}}\n`; //comment is needed to distinguish themes from less maps in verification process
   }
 
   // Process objects that are not property declarations or mediaQueries
-  if (
-    value instanceof Object &&
-    !(value as Unit).__propertyDeclaration &&
-    !(value as MediaUnit).__mediaQuery
-  ) {
+  if (value instanceof Object && !isProperty(value) && !isMediaQuery(value)) {
     return Object.keys(value)
       .map((subProperty: string) =>
         processValue(

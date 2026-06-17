@@ -1,6 +1,5 @@
 import type { DefaultTheme, Themes, UnitValue } from './types';
-import { slugify } from './utils';
-import type { MapUnit, MediaUnit, ThemeUnit, Unit } from '../units';
+import { slugify, isProperty, isMediaQuery, isLessMap, isTheme } from './utils';
 
 /**
  * Generates CSS constants from given object of values.
@@ -120,13 +119,13 @@ function processValue({
   const subPrefix = prefix + (prefix.length > 2 ? '-' : '') + slugify(property);
 
   // Process media queries - skip them, they are not supported as CSS variables
-  if (value instanceof Object && (value as MediaUnit).__mediaQuery) {
+  if (isMediaQuery(value)) {
     return;
   }
 
   // Process less maps
   // example: zIndex: lessMap({ key1: val1, key2: val2 }) => --z-index-key1: val1; --z-index-key2: val2;
-  if (value instanceof Object && (value as MapUnit).__lessMap) {
+  if (isLessMap(value)) {
     const lessMapValue = value.valueOf() as Record<string, UnitValue>;
     const lessMapKeys = Object.keys(lessMapValue);
 
@@ -139,26 +138,26 @@ function processValue({
   }
 
   // Process themes
-  if (value instanceof Object && (value as ThemeUnit).__theme) {
+  if (isTheme(value)) {
     const themeValue = value.valueOf() as Record<string, UnitValue>;
     const themeKeys = Object.keys(themeValue);
 
+    //check if there are all required themes in the value
+    const missingThemes = themes.filter(theme => !themeKeys.includes(theme));
+
+    if (missingThemes.length) {
+      throw new Error(
+        `Missing themes in value for ${subPrefix}: ${missingThemes.join(', ')}`
+      );
+    }
+
     // if we have only 1 theme, everything goes to "all" group
-    // we pick the desired value by default theme
+    // and we pick the desired value by default theme
     if (themes.length === 1) {
       groups.all!.push(
         `${subPrefix}: ${themeValue[defaultTheme]!.toString()};`
       );
     } else {
-      //check if there are all themes in the value
-      const missingThemes = themes.filter(theme => !themeKeys.includes(theme));
-
-      if (missingThemes.length) {
-        throw new Error(
-          `Missing themes in value for ${subPrefix}: ${missingThemes.join(', ')}`
-        );
-      }
-
       themeKeys.forEach(themeKey => {
         if (themeKey in groups) {
           groups[themeKey]!.push(
@@ -171,7 +170,7 @@ function processValue({
   }
 
   // Process objects that are not property declarations - recursion
-  if (value instanceof Object && !(value as Unit).__propertyDeclaration) {
+  if (value instanceof Object && !isProperty(value)) {
     Object.keys(value).forEach((subProperty: string) =>
       processValue({
         property: subProperty,

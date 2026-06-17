@@ -130,7 +130,7 @@ ${'  '}
 `);
   });
 
-  it('throws error for missing theme value', () => {
+  it('throws error for missing theme value - multiple themes', () => {
     expect(() =>
       generateCssConstants(
         {
@@ -142,6 +142,20 @@ ${'  '}
         ['light', 'dark', 'contrast']
       )
     ).toThrow('Missing themes in value for --color-text: dark, contrast');
+  });
+
+  it('throws error for missing theme value - single theme', () => {
+    expect(() =>
+      generateCssConstants(
+        {
+          colorText: theme({
+            light: hex('#ffffff'),
+          }),
+        },
+        'dark',
+        ['dark']
+      )
+    ).toThrow('Missing themes in value for --color-text: dark');
   });
 
   it('processes value with custom prefix', () => {

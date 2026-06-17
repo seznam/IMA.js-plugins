@@ -243,9 +243,7 @@ class LessConstantsPlugin implements ImaCliPlugin {
       process.exit(1);
     }
 
-    const themes = !this._options.themes
-      ? (['light'] as Themes)
-      : this._options.themes;
+    const themes = this._options.themes ?? (['light'] as Themes);
 
     if (!themes.includes(defaultTheme)) {
       this._logger.error(
